@@ -10,12 +10,64 @@
     margin-bottom: 20px;
     min-height: 300px;
     cursor: pointer;
+    background-color: rgb(44, 45, 44);
 }
 
 .ugc-tile img {
     width: 100%;
     height: auto;
 }
+
+.tile-message-wrapper {
+    padding: 20px;
+}
+.tile-message-wrapper > * {
+    margin-top: 10px;
+}
+.tile-message-wrapper > :first-child {
+    margin-top: 0;
+}
+.tile-avatar-wrapper {
+    display: flex;
+    align-items: center;
+}
+.tile-avatar-wrapper > * {
+    margin-left: 10px;
+}
+.tile-avatar-wrapper > :first-child {
+margin-left: 0;
+}
+.tile-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+.tile-name-wrapper {
+    flex-grow: 1;
+}
+.tile-name {
+    font-size: 14px;
+    font-weight: 700;
+    word-break: break-all;
+}
+.tile-timephrase {
+    font-size: 12px;
+    color: #b9bab9;
+}
+.tile-network {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    /* background: #fff; */
+    color: #2c2d2c;
+}
+
 .widget-icon {
     display: block;
 }

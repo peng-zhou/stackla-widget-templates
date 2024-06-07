@@ -1,2 +1,54 @@
-<img src="{{image_thumbnail_url}}" width="120"/>
-<p>{{{message}}}</p>
+{{#ifEquals media "image"}}
+<div class="tile-{{media}}">
+    <img src="{{image_thumbnail_url}}" width="120"/>
+    <shopspot-flyout tile-id="{{id}}"></shopspot-flyout>
+    <shopspot-icon tile-id="{{id}}"></shopspot-icon>
+    <div class="tile-message-wrapper">
+        <div class="tile-avatar-wrapper">
+            {{#avatar}}
+            <img class="tile-avatar" src="{{avatar}}"/>
+            {{/avatar}}
+            <div class="tile-name-wrapper">
+                {{#name}}
+                <div class="tile-name">
+                    {{name}}
+                </div>
+                {{/name}}
+                <div class="tile-timephrase">
+                    {{timephrase}}
+                </div>
+            </div>
+            <div class="tile-network">
+                <div class="network-icon icon-{{source}}"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{{/ifEquals}}
+{{#ifEquals media "video"}}
+<div class="tile-{{media}}">
+    <img src="{{image_thumbnail_url}}" width="120"/>
+    <shopspot-flyout tile-id="{{id}}"></shopspot-flyout>
+    <shopspot-icon tile-id="{{id}}"></shopspot-icon>
+    <div class="tile-message-wrapper">
+        <div class="tile-avatar-wrapper">
+            {{#avatar}}
+            <img class="tile-avatar" src="{{avatar}}"/>
+            {{/avatar}}
+            <div class="tile-name-wrapper">
+                {{#name}}
+                <div class="tile-name">
+                    {{name}}
+                </div>
+                {{/name}}
+                <div class="tile-timephrase">
+                    {{timephrase}}
+                </div>
+            </div>
+            <div class="tile-network">
+                <div class="network-icon icon-{{source}}"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{{/ifEquals}}

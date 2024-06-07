@@ -23,6 +23,7 @@ const widgetSettings = {
   auto_refresh: widgetStyle.auto_refresh, // to-do
   unavailable_products_behaviour: widgetStyle.unavailable_products_behaviour, // done
   enable_custom_tiles_per_page: widgetStyle.enable_custom_tiles_per_page, // screen size to show 
+  rows_per_page: widgetStyle.rows_per_page,
   tiles_per_page: widgetStyle.tiles_per_page,
 
   // Color Settings
@@ -72,6 +73,8 @@ console.log("sdk", sdk);
 console.log("sdk widgetSettings", widgetSettings);
 window.sdk = sdk;
 const ugcTiles = sdk.tiles.tiles;
+const ugcTilesLength = Object.keys(ugcTiles).length;
+const showWidget = ugcTiles && ugcTilesLength > widgetSettings.minimal_tiles;
 const urlPattern = /^https?:\/\/.+/;
 sdk.addLoadedComponents([
   "https://unpkg.com/masonry-layout@4.2.2/dist/masonry.pkgd.min.js",
@@ -80,6 +83,11 @@ sdk.addLoadedComponents([
   'https://static.addtoany.com/menu/page.js'
 ]);
 
+if (widgetSettings.inline_tile_show_shopspots || widgetSettings.expanded_tile_show_shopspots) {
+  sdk.addLoadedComponents([
+    "shopspots",
+  ]);
+}
 if (widgetSettings.auto_refresh === true) {
   sdk.tiles.setAutoAddNewTiles(true);
 }
@@ -87,7 +95,6 @@ if (widgetSettings.auto_refresh === true) {
 
 // TODO: add inline shopspots on inline Tiles
 if (widgetSettings.click_through_url === '[EXPAND]') {
-  console.log('widgetSettings widgetSettings.click_through_url', widgetSettings.click_through_url);
   // Components
   sdk.addLoadedComponents([
     "expanded-tile",
@@ -96,11 +103,6 @@ if (widgetSettings.click_through_url === '[EXPAND]') {
   if (widgetSettings.expanded_tile_show_products) {
     sdk.addLoadedComponents([
       "products",
-    ]);
-  }
-  if (widgetSettings.expanded_tile_show_shopspots) {
-    sdk.addLoadedComponents([
-      "shopspots",
     ]);
   }
   if (widgetSettings.expanded_tile_show_add_to_cart) {
@@ -185,10 +187,13 @@ if (widgetSettings.click_through_url === '[EXPAND]') {
       handleShowTileEvents(currentTile, enabledTiles, type);
     });
   });
+
+  sdk.addEventListener("expandedTileClose", () => {
+    tilesWrapper.style.display = "block";
+  });
 } else if (widgetSettings.click_through_url === '[ORIGINAL_URL]' || urlPattern.test(widgetSettings.click_through_url)) {
   initializeTileClickEventListeners(widgetSettings);
 }
-
 
 // Function to handle tile click events
 function handleTileClick(e, widgetUrl) {
@@ -230,12 +235,11 @@ const preLoad = sdk.querySelector("#preload");
 const buttons = sdk.querySelector("#buttons");
 const widget = sdk.placement.getShadowRoot();
 
-
 if (widgetSettings.enable_custom_tiles_per_page) {
-  sdk.tiles.setVisibleTilesCount(3 * widgetSettings.tiles_per_page);
+  sdk.tiles.setVisibleTilesCount(Number.parseInt(widgetSettings.tiles_per_page));
   loadMoreButton.style.display = "none";
 } else {
-  sdk.tiles.setVisibleTilesCount(3 * widgetSettings.rows_per_page);
+  sdk.tiles.setVisibleTilesCount(3 * Number.parseInt(widgetSettings.rows_per_page));
 }
 sdk.tiles.setLoadMode("all");
 sdk.tiles.hideBrokenTiles = true;
@@ -262,30 +266,28 @@ if (widgetSettings.load_more_type === 'button') {
   });
 }
 
-sdk.tiles.setVisibleTilesCount(6);
 sdk.addEventListener("load", () => {
   sdk.masonry = new Masonry(sdk.querySelector(".ugc-tiles"), {
     itemSelector: ".ugc-tile",
     gutter: 20,
   });
   // sdk.masonry.layout();
-  setInterval(sdk.masonry.layout, autoRefreshTime);
+  if (showWidget) {
+    setInterval(sdk.masonry.layout, autoRefreshTime);
+  }
 });
 
 sdk.addEventListener("tilesUpdated", () => {
   if (!sdk.masonry) {
     return;
   }
-
-  sdk.masonry.layout();
+  if (showWidget) {
+    sdk.masonry.layout();
+  }
 });
 
 sdk.addEventListener("moreLoad", () => {
   sdk.masonry.reloadItems();
-});
-
-sdk.addEventListener("expandedTileClose", () => {
-  tilesWrapper.style.display = "block";
 });
 
 // Style
@@ -416,6 +418,7 @@ sdk.addCSSToComponent(
     background: #${widgetSettings.widget_background};
   }
   .ugc-tile {
+    width: ${widgetSettings.max_tile_width ? widgetSettings.max_tile_width : '300' }px;
     background: #${widgetSettings.text_tile_background};
     margin-left: ${widgetSettings.margin}px !important;
     margin-right: ${widgetSettings.margin}px !important;
@@ -484,13 +487,12 @@ sdk.addCSSToComponent(
 
 // Template
 const customExpandedTileTemplate = (sdk) => {
-  console.log("customExpandedTileTemplate sdk", sdk);
   const tile = sdk.tiles.getTile();
 
-  console.log("customExpandedTileTemplate tile", tile);
   const shopspotEnabled = sdk.isComponentLoaded("shopspots") && widgetSettings.expanded_tile_show_shopspots;
   const productsEnabled = sdk.isComponentLoaded("products") && widgetSettings.expanded_tile_show_products;
   const parent = sdk.getNodeId();
+  console.log('customExpandedTileTemplate parent', parent);
   return `<div class="panel">
         <a class="exit" href="#">
             <span class="widget-icon close"></span>

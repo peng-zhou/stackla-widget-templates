@@ -2,6 +2,15 @@
 <div class="tile-{{media}}">
     <div class="network-icon icon-{{source}}"></div>
     <img src="{{image_thumbnail_url}}" width="120"/>
+    <shopspot-flyout tile-id="{{id}}"></shopspot-flyout>
+	<shopspot-icon tile-id="{{id}}"></shopspot-icon>
 </div>
-{{else}}
+{{/ifEquals}}
+{{#ifEquals media "video"}}
+<div class="tile-{{media}}">
+    <div class="network-icon icon-{{source}}"></div>
+    <img src="{{image_thumbnail_url}}" width="120"/>
+    <shopspot-flyout tile-id="{{id}}"></shopspot-flyout>
+	<shopspot-icon tile-id="{{id}}"></shopspot-icon>
+</div>
 {{/ifEquals}}

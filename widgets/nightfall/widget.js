@@ -1,65 +1,230 @@
-const settings = {
-  minimal_tiles: 5,
-  auto_refresh: true, // to-do
-  unavailable_products_behaviour: 5, // to-do: php legacy template
-  enable_custom_tiles_per_page: true, // to-do: php legacy template
-  tiles_per_page: 5,
+const widgetContainer = sdk.placement.getWidgetContainer();
+
+const {
+  title,
+  enabled,
+  widgetOptions
+} = widgetContainer;
+
+const {
+  widgetStyle,
+  widgetConfig
+} = widgetOptions;
+let widgetTitle = document.createElement('p');
+widgetTitle.innerHTML = title;
+sdk.querySelector('.container').prepend(widgetTitle);
+const widgetSettings = {
+  // Widget Status
+  enabled: enabled, // to do: enabled
+  name: widgetStyle.name, 
+
+  // Content Rules
+  minimal_tiles: widgetStyle.minimal_tiles,
+  auto_refresh: widgetStyle.auto_refresh, // to-do
+  unavailable_products_behaviour: widgetStyle.unavailable_products_behaviour, // done
+  enable_custom_tiles_per_page: widgetStyle.enable_custom_tiles_per_page, // screen size to show 
+  rows_per_page: widgetStyle.rows_per_page,
+  tiles_per_page: widgetStyle.tiles_per_page,
 
   // Color Settings
-  widget_background: "FF0000",
-  text_tile_background: "2BFF00",
+  widget_background: widgetStyle.widget_background,
+  text_tile_background: widgetStyle.text_tile_background,
 
   // Font Settings
-  text_tile_font_size: "24px",
-  text_tile_font_color: "000",
-  text_tile_link_color: "000",
-  text_tile_user_name_font_size: "16px",
-  text_tile_user_name_font_color: "000",
-  text_tile_user_handle_font_size: "16px",
-  text_tile_user_handle_font_color: "000",
-  enable_typekit: "", // to-do
+  text_tile_font_size: widgetStyle.text_tile_font_size,
+  text_tile_font_color: widgetStyle.text_tile_font_color,
+  text_tile_link_color: widgetStyle.text_tile_link_color,
+  text_tile_user_name_font_size: widgetStyle.text_tile_user_name_font_size,
+  text_tile_user_name_font_color: widgetStyle.text_tile_user_name_font_color,
+  text_tile_user_handle_font_size: widgetStyle.text_tile_user_handle_font_size,
+  text_tile_user_handle_font_color: widgetStyle.text_tile_user_handle_font_color,
+  enable_typekit: widgetStyle.enable_typekit, // to-do: we can remove this.
 
   // Other Settings
-  max_tile_width: '365',
-  margin: "10", // 10px
-  click_through_url_select: "[EXPAND]", // [EXPAND] || [ORIGINAL_URL] || [NONE] || [CUSTOM]
-  click_through_url: "",
-  load_more_type: "", // button || scroll
-  external_js: "", // to-do: php legacy template
-  show_claim_button: "", // to-do: php legacy template
-  enable_doublecolumnspan: "", // 
+  max_tile_width: widgetStyle.max_tile_width,
+  margin: widgetStyle.margin, // 10px
+  // click_through_url_select: widgetStyle.click_through_url, // done: [EXPAND] || [ORIGINAL_URL] || [NONE] || [CUSTOM]
+  click_through_url: widgetStyle.click_through_url,
+  load_more_type: widgetStyle.load_more_type, // button || scroll
+  enable_doublecolumnspan: widgetStyle.enable_doublecolumnspan, // 
 
   // CTA Settings
-  shopspot_btn_background: "0198CF",
-  shopspot_btn_font_color: "fff",
-  shopspot_icon: "", // to-do: not working on PROD
-  shopspot_icon_width: "", // to-do: not working on PROD
-  shopspot_icon_height: "", // to-do: not working on PROD
-  shopspot_icon_size: "", // to-do: not working on PROD
+  shopspot_btn_background: widgetStyle.shopspot_btn_background,
+  shopspot_btn_font_color: widgetStyle.shopspot_btn_font_color,
+  shopspot_icon: widgetStyle.shopspot_icon, // to-do: not working on PROD
+  // shopspot_icon_width: widgetStyle.shopspot_icon_width, // to-do: not working on PROD
+  // shopspot_icon_height: widgetStyle.shopspot_icon_height, // to-do: not working on PROD
+  // shopspot_icon_size: widgetStyle.shopspot_icon_size, // to-do: not working on PROD
 
   // Inline Tile Settings
-  show_caption: true, // config[tile_options][show_caption]
-  inline_tile_show_shopspots: true, // to-do: config[tile_options][show_shopspots]
+  show_caption: widgetConfig.tile_options.show_caption, // config[tile_options][show_caption]
+  inline_tile_show_shopspots: widgetConfig.tile_options.show_shopspots, // to-do: config[tile_options][show_shopspots]
   
   // Expand Tile Settings
-  expanded_tile_show_sharing: "", // to-do: config[lightbox][show_sharing]
-  expanded_tile_show_products: true, // config[lightbox][show_products]
-  expanded_tile_show_caption: true, // config[lightbox][show_caption]
-  expanded_tile_show_shopspots: true, // config[lightbox][show_shopspots]
-  expanded_tile_show_timestamp: true, // config[lightbox][show_timestamp]
-  expanded_tile_show_add_to_cart: "", // to-do: config[lightbox][show_add_to_cart] 
+  expanded_tile_show_sharing: widgetConfig.lightbox.show_sharing, // to-do: config[lightbox][show_sharing]
+  expanded_tile_show_products: widgetConfig.lightbox.show_products, // config[lightbox][show_products]
+  expanded_tile_show_caption: widgetConfig.lightbox.show_caption, // config[lightbox][show_caption]
+  expanded_tile_show_shopspots: widgetConfig.lightbox.show_shopspots, // config[lightbox][show_shopspots]
+  expanded_tile_show_timestamp: widgetConfig.lightbox.show_timestamp, // config[lightbox][show_timestamp]
+  expanded_tile_show_add_to_cart: widgetConfig.lightbox.show_add_to_cart, // to-do: config[lightbox][show_add_to_cart] 
 };
 console.log("sdk", sdk);
+console.log("sdk widgetSettings", widgetSettings);
 window.sdk = sdk;
+const ugcTiles = sdk.tiles.tiles;
+const ugcTilesLength = Object.keys(ugcTiles).length;
+const showWidget = ugcTiles && ugcTilesLength > widgetSettings.minimal_tiles;
+const urlPattern = /^https?:\/\/.+/;
 sdk.addLoadedComponents([
-  "expanded-tile",
-  "products",
-  "shopspots",
-  "add-to-cart",
-  "cross-sellers",
   "https://unpkg.com/masonry-layout@4.2.2/dist/masonry.pkgd.min.js",
   "https://assetscdn.stackla.com/media/js/common/stackla_tile_decorator.js",
+  'https://platform-api.sharethis.com/js/sharethis.js#property=66503b7a2b0bca00199fbe95&product=inline-share-buttons&source=platform',
+  'https://static.addtoany.com/menu/page.js'
 ]);
+if (widgetSettings.expanded_tile_show_shopspots) {
+  sdk.addLoadedComponents([
+    "shopspots",
+  ]);
+}
+
+if (widgetSettings.auto_refresh === true) {
+  sdk.tiles.setAutoAddNewTiles(true);
+}
+
+
+// TODO: add inline shopspots on inline Tiles
+if (widgetSettings.click_through_url === '[EXPAND]') {
+  // Components
+  sdk.addLoadedComponents([
+    "expanded-tile",
+    "cross-sellers",
+  ]);
+  if (widgetSettings.expanded_tile_show_products) {
+    sdk.addLoadedComponents([
+      "products",
+    ]);
+  }
+  if (widgetSettings.expanded_tile_show_add_to_cart) {
+    sdk.addLoadedComponents([
+      "add-to-cart",
+    ]);
+  }
+  // Click Event
+  sdk.addEventListener("tileExpand", () => {
+    tilesWrapper.style.display = "none";
+    // Define a function to get tile data by tile ID.
+    const getTileDataById = (tiles, tileId) => {
+      return tiles.find((tile) => tile.id === tileId);
+    };
+  
+    // Retrieve the current tile and enabled tiles only once
+    const currentTile = sdk.tiles.getTile();
+    const enabledTiles = sdk.tiles.getEnabledTiles();
+  
+    // This function finds the previous tile ID based on the current tile
+    function getCurrentTileId(currentTile, enabledTiles) {
+      const currentIndex = enabledTiles.findIndex(
+        (tile) => tile.id === currentTile.id
+      );
+      // If current tile is the first tile or no previous tile found, return null or an appropriate value
+      return currentIndex > 0 ? enabledTiles[currentIndex].id : null;
+    }
+    // This function finds the previous tile ID based on the current tile
+    function getPreviousTileId(currentTile, enabledTiles) {
+      const currentIndex = enabledTiles.findIndex(
+        (tile) => tile.id === currentTile.id
+      );
+      // If current tile is the first tile or no previous tile found, return null or an appropriate value
+      return currentIndex > 0 ? enabledTiles[currentIndex - 1].id : null;
+    }
+  
+    // This function finds the next tile ID based on the current tile
+    function getNextTileId(currentTile, enabledTiles) {
+      const currentIndex = enabledTiles.findIndex(
+        (tile) => tile.id === currentTile.id
+      );
+      // If current tile is the last tile or no next tile found, return null or an appropriate value
+      return currentIndex >= 0 && currentIndex < enabledTiles.length - 1
+        ? enabledTiles[currentIndex + 1].id
+        : null;
+    }
+  
+    // This function sets up click event listeners on your page for the previous and next tiles
+    function handleShowTileEvents(currentTile, enabledTiles, type) {
+      // Obtain prevTileData and nextTileData using our previously defined functions
+      const prevTileId = getPreviousTileId(currentTile, enabledTiles);
+      const nextTileId = getNextTileId(currentTile, enabledTiles);
+      const tileId = type === 'previous' ? prevTileId : nextTileId;
+      const tileData = {
+        tileData: enabledTiles.find((tile) => tile.id === tileId),
+        widgetId: sdk.placement.getWidgetId(),
+        filterId: sdk.placement.getWidgetContainer().widgetOptions?.filterId,
+      };
+  
+      sdk.triggerEvent('tileExpandClose');
+      sdk.triggerEvent('tileExpand', tileData);
+    }
+    // Example of how you might call this function:
+    // Assuming currentTile and enabledTiles are defined and contain the correct information
+    const expandedTile = sdk.querySelector('expanded-tile');
+    const expandedTileShadowRoot = expandedTile.shadowRoot;
+    const prevButtonSelector =
+      expandedTileShadowRoot.querySelector('.tile-arrows-left');
+    const nextButtonSelector =
+      expandedTileShadowRoot.querySelector('.tile-arrows-right');
+  
+    prevButtonSelector.addEventListener('click', (e) => {
+      const type = e.target.classList.contains('tile-arrows-left')
+        ? 'previous'
+        : 'next';
+      handleShowTileEvents(currentTile, enabledTiles, type);
+    });
+    nextButtonSelector.addEventListener('click', (e) => {
+      const type = e.target.classList.contains('tile-arrows-left')
+        ? 'previous'
+        : 'next';
+      handleShowTileEvents(currentTile, enabledTiles, type);
+    });
+  });
+
+  sdk.addEventListener("expandedTileClose", () => {
+    tilesWrapper.style.display = "block";
+  });
+} else if (widgetSettings.click_through_url === '[ORIGINAL_URL]' || urlPattern.test(widgetSettings.click_through_url)) {
+  initializeTileClickEventListeners(widgetSettings);
+}
+
+// Function to handle tile click events
+function handleTileClick(e, widgetUrl) {
+  const clickedTile = e.target.closest('.ugc-tile');
+  
+  // Check if we found a parent tile element
+  if (clickedTile) {
+    const tileId = clickedTile.getAttribute('data-id');
+    const tileData = ugcTiles[tileId];
+    
+    // Check if we have data for this tile
+    if (tileData) {
+      // Determine which link to open based on widget URL or tile specific data
+      const tileLink = widgetUrl || tileData.original_url || tileData.original_link;
+      
+      // Open the link in a new tab
+      window.open(tileLink, '_blank');
+    }
+  }
+}
+
+// Initialize the click event listeners once
+function initializeTileClickEventListeners(widgetSettings) {
+  sdk.querySelectorAll('.ugc-tile').forEach(tile => {
+    tile.onclick = (e) => {
+      
+      // `widgetSettings.click_through_url` determines whether to use the widget-specific URL or tile data
+      handleTileClick(e, urlPattern.test(widgetSettings.click_through_url) ? widgetSettings.click_through_url : null);
+    };
+  });
+}
+
 const tilesWrapper = sdk.querySelector(".track");
 const EVENT_LOAD_MORE = "moreLoad";
 const EVENT_LOAD_LESS = "lessLoad";
@@ -69,7 +234,12 @@ const preLoad = sdk.querySelector("#preload");
 const buttons = sdk.querySelector("#buttons");
 const widget = sdk.placement.getShadowRoot();
 
-sdk.tiles.setVisibleTilesCount(10);
+if (widgetSettings.enable_custom_tiles_per_page) {
+  sdk.tiles.setVisibleTilesCount(Number.parseInt(widgetSettings.tiles_per_page));
+  loadMoreButton.style.display = "none";
+} else {
+  sdk.tiles.setVisibleTilesCount(3 * Number.parseInt(widgetSettings.rows_per_page));
+}
 sdk.tiles.setLoadMode("all");
 sdk.tiles.hideBrokenTiles = true;
 sdk.tiles.preloadImages = true;
@@ -83,11 +253,72 @@ function loadMore() {
 }
 
 loadMoreButton.onclick = loadMore;
+const _getTimephrase = (timestamp) => {
+  var now, then, diff, timeNumber, timeWord;
 
+  if (!timestamp) {
+    return 'just now';
+  }
+  now = Math.round(new Date().getTime() / 1000);
+  then = Math.round(timestamp);
+  if (isNaN(then)) {
+    return 'a while ago';
+  }
+  diff = now - then;
+  timeNumber = diff;
+  timeWord = '';
+
+  if (diff >= 2592000) {
+    // = 30 days, an estimate
+    timeNumber = Math.round(diff / 2592000);
+    timeWord = 'month';
+  } else if (diff >= 604800) {
+    timeNumber = Math.round(diff / 604800);
+    timeWord = 'week';
+  } else if (diff >= 86400) {
+    timeNumber = Math.round(diff / 86400);
+    timeWord = 'day';
+  } else if (diff >= 3600) {
+    timeNumber = Math.round(diff / 3600);
+    timeWord = 'hour';
+  } else if (diff >= 60) {
+    timeNumber = Math.round(diff / 60);
+    timeWord = 'minute';
+  } else if (diff > 0) {
+    timeNumber = diff;
+    timeWord = 'second';
+  } else {
+    return 'just now';
+  }
+
+  if (timeNumber !== 1) {
+    timeWord += 's'; // add an 's' if not just one. 2second -> 2seconds.
+  }
+  return timeNumber + ' ' + timeWord + ' ago';
+}
 sdk.addEventListener("load", () => {
   sdk.masonry = new Masonry(sdk.querySelector(".ugc-tiles"), {
     itemSelector: ".ugc-tile",
     gutter: 20,
+  });
+  if (showWidget) {
+    setInterval(sdk.masonry.layout, autoRefreshTime);
+  }
+  console.log('ugc sdk.querySelectorAll');
+  sdk.querySelectorAll('.ugc-tile').forEach(tile => {
+    const $el = $(this);
+
+    console.log('ugc tile', tile);
+    console.log('ugc el', $el);
+    const timestamp = $el.data('source-created-at');
+    let timephrase;
+
+    if (!timestamp) {
+      return;
+    }
+
+    timephrase = _getTimephrase(timestamp);
+    $el.html(timephrase);
   });
 });
 
@@ -96,20 +327,22 @@ sdk.addEventListener("tilesUpdated", () => {
     return;
   }
 
-  sdk.masonry.layout();
+  if (showWidget) {
+    sdk.masonry.layout();
+  }
 });
 
 sdk.addEventListener("moreLoad", () => {
   sdk.masonry.reloadItems();
 });
 
-// Click Event
-sdk.addEventListener("tileExpand", () => {
-  tilesWrapper.style.display = "none";
-});
-
-sdk.addEventListener("expandedTileClose", () => {
-  tilesWrapper.style.display = "block";
+sdk.addEventListener("tilesUpdated", () => {
+  if (!sdk.masonry) {
+    return;
+  }
+  if (showWidget) {
+    sdk.masonry.layout();
+  }
 });
 
 // Style
@@ -237,27 +470,28 @@ sdk.addCSSToComponent(
     word-break: break-word;
   }
   html {
-    background: #${settings.widget_background};
+    background: #${widgetSettings.widget_background};
   }
   .ugc-tile {
-    background: #${settings.text_tile_background};
-    margin-left: ${settings.margin}px !important;
-    margin-right: ${settings.margin}px !important;
+    width: ${widgetSettings.max_tile_width ? widgetSettings.max_tile_width : '300' }px;
+    background: #${widgetSettings.text_tile_background};
+    margin-left: ${widgetSettings.margin}px !important;
+    margin-right: ${widgetSettings.margin}px !important;
   }
   .caption {
-    font-size: ${settings.text_tile_font_size};
-    color: #${settings.text_tile_font_color};
+    font-size: ${widgetSettings.text_tile_font_size};
+    color: #${widgetSettings.text_tile_font_color};
   }
   .content-inner-wrapper a {
-    color: #${settings.text_tile_link_color};
+    color: #${widgetSettings.text_tile_link_color};
   }
   .user-name {
-    font-size: ${settings.text_tile_user_name_font_size};
-    color: #${settings.text_tile_user_name_font_color};
+    font-size: ${widgetSettings.text_tile_user_name_font_size};
+    color: #${widgetSettings.text_tile_user_name_font_color};
   }
   .user-handle {
-    font-size: ${settings.text_tile_user_handle_font_size};
-    color: #${settings.text_tile_user_handle_font_color};
+    font-size: ${widgetSettings.text_tile_user_handle_font_size};
+    color: #${widgetSettings.text_tile_user_handle_font_color};
   }
   .widget-icon {
     display: block;
@@ -285,8 +519,8 @@ sdk.addCSSToComponent(
   }
   .stacklapopup-shopspot-cart,
   .stacklapopup-products-item-button {
-    color: #${settings.shopspot_btn_font_color};
-    background-color: #${settings.shopspot_btn_background};
+    color: #${widgetSettings.shopspot_btn_font_color};
+    background-color: #${widgetSettings.shopspot_btn_background};
     border-radius: 4px;
     display: inline-block;
     font-size: 14px;
@@ -308,8 +542,8 @@ const customExpandedTileTemplate = (sdk) => {
   const tile = sdk.tiles.getTile();
 
   console.log("customExpandedTileTemplate tile", tile);
-  const shopspotEnabled = sdk.isComponentLoaded("shopspots") && settings.expanded_tile_show_shopspots;
-  const productsEnabled = sdk.isComponentLoaded("products") && settings.expanded_tile_show_products;
+  const shopspotEnabled = sdk.isComponentLoaded("shopspots") && widgetSettings.expanded_tile_show_shopspots;
+  const productsEnabled = sdk.isComponentLoaded("products") && widgetSettings.expanded_tile_show_products;
   const parent = sdk.getNodeId();
   return `<div class="panel">
         <a class="exit" href="#">
@@ -376,10 +610,10 @@ const customExpandedTileTemplate = (sdk) => {
                                 }
                             </div>
                         </div>
-                        <div class="tile-timestamp">${tile.source_created_at && settings.expanded_tile_show_timestamp ? window.StacklaTileDecorator._getTimephrase(tile.source_created_at) : ""}</div>
+                        <div class="tile-timestamp">${tile.source_created_at && widgetSettings.expanded_tile_show_timestamp ? _getTimephrase(tile.source_created_at) : ""}</div>
                         <div class="caption">
                             <p class="caption-paragraph">${
-                              (tile.message && settings.expanded_tile_show_caption) ? tile.message : ""
+                              (tile.message && widgetSettings.expanded_tile_show_caption) ? tile.message : ""
                             }</p>
                             ${
                               productsEnabled
