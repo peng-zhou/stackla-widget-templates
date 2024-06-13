@@ -13,6 +13,10 @@
     background-color: rgb(44, 45, 44);
 }
 
+.ugc-tile:not([data-media="image"], [data-media="video"]) {
+    display: none
+}
+
 .ugc-tile img {
     width: 100%;
     height: auto;
@@ -34,8 +38,11 @@
 .tile-avatar-wrapper > * {
     margin-left: 10px;
 }
+.tile-avatar-wrapper img {
+    width: 40px;
+}
 .tile-avatar-wrapper > :first-child {
-margin-left: 0;
+    margin-left: 0;
 }
 .tile-avatar {
     width: 40px;
@@ -45,11 +52,14 @@ margin-left: 0;
 }
 .tile-name-wrapper {
     flex-grow: 1;
+    text-align: left;
 }
 .tile-name {
     font-size: 14px;
     font-weight: 700;
+    line-height: 1.5;
     word-break: break-all;
+    color: rgb(254, 255, 254);
 }
 .tile-timephrase {
     font-size: 12px;

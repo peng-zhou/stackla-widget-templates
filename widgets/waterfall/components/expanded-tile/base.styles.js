@@ -14,6 +14,7 @@ export default `
         position: absolute;
         top: 20px;
         right: 0;
+        z-index: 1;
       }
       .panel {
         display: flex;

@@ -167,25 +167,28 @@ if (widgetSettings.click_through_url === '[EXPAND]') {
     }
     // Example of how you might call this function:
     // Assuming currentTile and enabledTiles are defined and contain the correct information
-    const expandedTile = sdk.querySelector('expanded-tile');
-    const expandedTileShadowRoot = expandedTile.shadowRoot;
-    const prevButtonSelector =
-      expandedTileShadowRoot.querySelector('.tile-arrows-left');
-    const nextButtonSelector =
-      expandedTileShadowRoot.querySelector('.tile-arrows-right');
-  
-    prevButtonSelector.addEventListener('click', (e) => {
-      const type = e.target.classList.contains('tile-arrows-left')
-        ? 'previous'
-        : 'next';
-      handleShowTileEvents(currentTile, enabledTiles, type);
-    });
-    nextButtonSelector.addEventListener('click', (e) => {
-      const type = e.target.classList.contains('tile-arrows-left')
-        ? 'previous'
-        : 'next';
-      handleShowTileEvents(currentTile, enabledTiles, type);
-    });
+    setTimeout(() => {
+      const expandedTile = sdk.querySelector('expanded-tile');
+      const expandedTileShadowRoot = expandedTile.shadowRoot;
+      const prevButtonSelector =
+        expandedTileShadowRoot.querySelector('.tile-arrows-left');
+      const nextButtonSelector =
+        expandedTileShadowRoot.querySelector('.tile-arrows-right');
+    
+      prevButtonSelector.addEventListener('click', (e) => {
+        const type = e.target.classList.contains('tile-arrows-left')
+          ? 'previous'
+          : 'next';
+        handleShowTileEvents(currentTile, enabledTiles, type);
+      });
+      nextButtonSelector.addEventListener('click', (e) => {
+        const type = e.target.classList.contains('tile-arrows-left')
+          ? 'previous'
+          : 'next';
+        handleShowTileEvents(currentTile, enabledTiles, type);
+      });
+    }, 500)
+    
   });
 
   sdk.addEventListener("expandedTileClose", () => {
@@ -267,6 +270,7 @@ if (widgetSettings.load_more_type === 'button') {
 }
 
 sdk.addEventListener("load", () => {
+  const autoRefreshTime = 60000;
   sdk.masonry = new Masonry(sdk.querySelector(".ugc-tiles"), {
     itemSelector: ".ugc-tile",
     gutter: 20,
@@ -415,28 +419,28 @@ sdk.addCSSToComponent(
     word-break: break-word;
   }
   html {
-    background: #${widgetSettings.widget_background};
+    background: ${widgetSettings.widget_background};
   }
   .ugc-tile {
     width: ${widgetSettings.max_tile_width ? widgetSettings.max_tile_width : '300' }px;
-    background: #${widgetSettings.text_tile_background};
+    background: ${widgetSettings.text_tile_background};
     margin-left: ${widgetSettings.margin}px !important;
     margin-right: ${widgetSettings.margin}px !important;
   }
   .caption {
-    font-size: ${widgetSettings.text_tile_font_size};
-    color: #${widgetSettings.text_tile_font_color};
+    font-size: ${widgetSettings.text_tile_font_size}px;
+    color: ${widgetSettings.text_tile_font_color};
   }
   .content-inner-wrapper a {
-    color: #${widgetSettings.text_tile_link_color};
+    color: ${widgetSettings.text_tile_link_color};
   }
   .user-name {
-    font-size: ${widgetSettings.text_tile_user_name_font_size};
-    color: #${widgetSettings.text_tile_user_name_font_color};
+    font-size: ${widgetSettings.text_tile_user_name_font_size}px;
+    color: ${widgetSettings.text_tile_user_name_font_color};
   }
   .user-handle {
-    font-size: ${widgetSettings.text_tile_user_handle_font_size};
-    color: #${widgetSettings.text_tile_user_handle_font_color};
+    font-size: ${widgetSettings.text_tile_user_handle_font_size}px;
+    color: ${widgetSettings.text_tile_user_handle_font_color};
   }
   .widget-icon {
     display: block;
@@ -468,8 +472,8 @@ sdk.addCSSToComponent(
   }
   .stacklapopup-shopspot-cart,
   .stacklapopup-products-item-button {
-    color: #${widgetSettings.shopspot_btn_font_color};
-    background-color: #${widgetSettings.shopspot_btn_background};
+    color: ${widgetSettings.shopspot_btn_font_color};
+    background-color: ${widgetSettings.shopspot_btn_background};
     border-radius: 4px;
     display: inline-block;
     font-size: 14px;
@@ -492,7 +496,6 @@ const customExpandedTileTemplate = (sdk) => {
   const shopspotEnabled = sdk.isComponentLoaded("shopspots") && widgetSettings.expanded_tile_show_shopspots;
   const productsEnabled = sdk.isComponentLoaded("products") && widgetSettings.expanded_tile_show_products;
   const parent = sdk.getNodeId();
-  console.log('customExpandedTileTemplate parent', parent);
   return `<div class="panel">
         <a class="exit" href="#">
             <span class="widget-icon close"></span>

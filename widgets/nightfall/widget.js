@@ -297,6 +297,7 @@ const _getTimephrase = (timestamp) => {
   return timeNumber + ' ' + timeWord + ' ago';
 }
 sdk.addEventListener("load", () => {
+  const autoRefreshTime = 60000;
   sdk.masonry = new Masonry(sdk.querySelector(".ugc-tiles"), {
     itemSelector: ".ugc-tile",
     gutter: 20,
@@ -304,12 +305,9 @@ sdk.addEventListener("load", () => {
   if (showWidget) {
     setInterval(sdk.masonry.layout, autoRefreshTime);
   }
-  console.log('ugc sdk.querySelectorAll');
   sdk.querySelectorAll('.ugc-tile').forEach(tile => {
     const $el = $(this);
 
-    console.log('ugc tile', tile);
-    console.log('ugc el', $el);
     const timestamp = $el.data('source-created-at');
     let timephrase;
 
@@ -364,28 +362,39 @@ sdk.addCSSToComponent(
     position: absolute;
     top: 20px;
     right: 20px;
+    z-index: 1;
+    background: #fff;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
   }
   .panel {
-    display: flex;
     position: relative;
     background: #f4f4f4;
-    width: 100%;
+    width: 600px;
     height: 100%;
+    margin: 30px auto;
   }
   .panel-left {
-    min-width: 40%;
-    max-width: 40%;
     background: #fff;
     display: flex;
     align-content: center;
     justify-content: center;
     align-items: center;
+    width: 100%;
   }
   .panel-left img {
     width: 100%;
+    display: block;
   }
   .panel-right {
-    padding: 26px 40px;
+    padding: 24px 44px;
+    background: #2c2d2c;
   }
   .tile-arrows-left {
     position: absolute;
@@ -421,7 +430,6 @@ sdk.addCSSToComponent(
     align-items: center;
     justify-content: center;
     width: 100%;
-    margin-bottom: 16px;
   }
   .image-wrapper-inner {
     display: flex;
@@ -429,6 +437,11 @@ sdk.addCSSToComponent(
     align-items: center;
     justify-content: center;
     width: 100%;
+  }
+
+  .image-wrapper-inner .image {
+    width: 100%;
+    display: block;
   }
 
   .user-info {
@@ -464,34 +477,33 @@ sdk.addCSSToComponent(
     display: inline-block;
     font-size: 12px;
     line-height: 2;
-    min-height: 300px;
     text-align: left;
     width: 100%;
     word-break: break-word;
   }
   html {
-    background: #${widgetSettings.widget_background};
+    background: ${widgetSettings.widget_background};
   }
   .ugc-tile {
     width: ${widgetSettings.max_tile_width ? widgetSettings.max_tile_width : '300' }px;
-    background: #${widgetSettings.text_tile_background};
+    background: ${widgetSettings.text_tile_background};
     margin-left: ${widgetSettings.margin}px !important;
     margin-right: ${widgetSettings.margin}px !important;
   }
   .caption {
-    font-size: ${widgetSettings.text_tile_font_size};
-    color: #${widgetSettings.text_tile_font_color};
+    font-size: ${widgetSettings.text_tile_font_size}px;
+    color: ${widgetSettings.text_tile_font_color};
   }
   .content-inner-wrapper a {
-    color: #${widgetSettings.text_tile_link_color};
+    color: ${widgetSettings.text_tile_link_color};
   }
   .user-name {
-    font-size: ${widgetSettings.text_tile_user_name_font_size};
-    color: #${widgetSettings.text_tile_user_name_font_color};
+    font-size: ${widgetSettings.text_tile_user_name_font_size}px;
+    color: ${widgetSettings.text_tile_user_name_font_color};
   }
   .user-handle {
     font-size: ${widgetSettings.text_tile_user_handle_font_size};
-    color: #${widgetSettings.text_tile_user_handle_font_color};
+    color: ${widgetSettings.text_tile_user_handle_font_color};
   }
   .widget-icon {
     display: block;
@@ -514,13 +526,14 @@ sdk.addCSSToComponent(
     text-decoration: none;
   }
   .stacklapopup-products-item-title {
-    color: #000;
+    color: #fff;
     text-transform: uppercase;
+    margin-bottom: 10px;
   }
   .stacklapopup-shopspot-cart,
   .stacklapopup-products-item-button {
-    color: #${widgetSettings.shopspot_btn_font_color};
-    background-color: #${widgetSettings.shopspot_btn_background};
+    color: ${widgetSettings.shopspot_btn_font_color};
+    background-color: ${widgetSettings.shopspot_btn_background};
     border-radius: 4px;
     display: inline-block;
     font-size: 14px;
@@ -538,10 +551,8 @@ sdk.addCSSToComponent(
 
 // Template
 const customExpandedTileTemplate = (sdk) => {
-  console.log("customExpandedTileTemplate sdk", sdk);
   const tile = sdk.tiles.getTile();
 
-  console.log("customExpandedTileTemplate tile", tile);
   const shopspotEnabled = sdk.isComponentLoaded("shopspots") && widgetSettings.expanded_tile_show_shopspots;
   const productsEnabled = sdk.isComponentLoaded("products") && widgetSettings.expanded_tile_show_products;
   const parent = sdk.getNodeId();

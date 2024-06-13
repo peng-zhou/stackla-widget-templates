@@ -325,6 +325,7 @@ sdk.addCSSToComponent(
     position: absolute;
     top: 20px;
     right: 20px;
+    z-index: 1;
   }
   .panel {
     display: flex;
@@ -431,28 +432,28 @@ sdk.addCSSToComponent(
     word-break: break-word;
   }
   html {
-    background: #${widgetSettings.widget_background};
+    background: ${widgetSettings.widget_background};
   }
   .ugc-tile {
     width: ${widgetSettings.max_tile_width ? widgetSettings.max_tile_width : '300' }px;
-    background: #${widgetSettings.text_tile_background};
+    background: ${widgetSettings.text_tile_background};
     margin-left: ${widgetSettings.margin}px !important;
     margin-right: ${widgetSettings.margin}px !important;
   }
   .caption {
-    font-size: ${widgetSettings.text_tile_font_size};
-    color: #${widgetSettings.text_tile_font_color};
+    font-size: ${widgetSettings.text_tile_font_size}px;
+    color: ${widgetSettings.text_tile_font_color};
   }
   .content-inner-wrapper a {
-    color: #${widgetSettings.text_tile_link_color};
+    color: ${widgetSettings.text_tile_link_color};
   }
   .user-name {
-    font-size: ${widgetSettings.text_tile_user_name_font_size};
-    color: #${widgetSettings.text_tile_user_name_font_color};
+    font-size: ${widgetSettings.text_tile_user_name_font_size}px;
+    color: ${widgetSettings.text_tile_user_name_font_color};
   }
   .user-handle {
-    font-size: ${widgetSettings.text_tile_user_handle_font_size};
-    color: #${widgetSettings.text_tile_user_handle_font_color};
+    font-size: ${widgetSettings.text_tile_user_handle_font_size}px;
+    color: ${widgetSettings.text_tile_user_handle_font_color};
   }
   .widget-icon {
     display: block;
@@ -480,8 +481,8 @@ sdk.addCSSToComponent(
     }
     .stacklapopup-shopspot-cart,
     .stacklapopup-products-item-button {
-      color: #${widgetSettings.shopspot_btn_font_color};
-      background-color: #${widgetSettings.shopspot_btn_background};
+      color: ${widgetSettings.shopspot_btn_font_color};
+      background-color: ${widgetSettings.shopspot_btn_background};
       border-radius: 4px;
       display: inline-block;
       font-size: 14px;
