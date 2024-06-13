@@ -379,6 +379,7 @@ sdk.addCSSToComponent(
     width: 600px;
     height: 100%;
     margin: 30px auto;
+    display: block;
   }
   .panel-left {
     background: #fff;
@@ -387,6 +388,9 @@ sdk.addCSSToComponent(
     justify-content: center;
     align-items: center;
     width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+
   }
   .panel-left img {
     width: 100%;
@@ -410,7 +414,7 @@ sdk.addCSSToComponent(
     width: 50px;
     height: 50px;
     top: 50%;
-    right: -60px;
+    right: -50px;
     border: 0;
     background: none;
   }
@@ -430,6 +434,7 @@ sdk.addCSSToComponent(
     align-items: center;
     justify-content: center;
     width: 100%;
+    margin-bottom: 0;
   }
   .image-wrapper-inner {
     display: flex;
@@ -529,6 +534,12 @@ sdk.addCSSToComponent(
     color: #fff;
     text-transform: uppercase;
     margin-bottom: 10px;
+  }
+  .stacklapopup-products-item-price {
+    color: #fff;
+  }
+  .stacklapopup-product-images-wrapper {
+    max-width: 100%;
   }
   .stacklapopup-shopspot-cart,
   .stacklapopup-products-item-button {
