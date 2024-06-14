@@ -491,28 +491,28 @@ sdk.addCSSToComponent(
     word-break: break-word;
   }
   html {
-    background: ${widgetSettings.widget_background};
+    background: #${widgetSettings.widget_background};
   }
   .ugc-tile {
     width: ${widgetSettings.max_tile_width ? widgetSettings.max_tile_width : '300' }px;
-    background: ${widgetSettings.text_tile_background};
+    background: #${widgetSettings.text_tile_background};
     margin-left: ${widgetSettings.margin}px !important;
     margin-right: ${widgetSettings.margin}px !important;
   }
   .caption {
     font-size: ${widgetSettings.text_tile_font_size}px;
-    color: ${widgetSettings.text_tile_font_color};
+    color: #${widgetSettings.text_tile_font_color};
   }
   .content-inner-wrapper a {
-    color: ${widgetSettings.text_tile_link_color};
+    color: #${widgetSettings.text_tile_link_color};
   }
   .user-name {
     font-size: ${widgetSettings.text_tile_user_name_font_size}px;
-    color: ${widgetSettings.text_tile_user_name_font_color};
+    color: #${widgetSettings.text_tile_user_name_font_color};
   }
   .user-handle {
     font-size: ${widgetSettings.text_tile_user_handle_font_size};
-    color: ${widgetSettings.text_tile_user_handle_font_color};
+    color: #${widgetSettings.text_tile_user_handle_font_color};
   }
   .widget-icon {
     display: block;
@@ -537,18 +537,29 @@ sdk.addCSSToComponent(
   .stacklapopup-products-item-title {
     color: #fff;
     text-transform: uppercase;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.2;
     margin-bottom: 10px;
   }
   .stacklapopup-products-item-price {
     color: #fff;
+    font-size: 14px;
+    font-weight: normal;
+    margin-bottom: 5px;
   }
   .stacklapopup-product-images-wrapper {
     max-width: 100%;
   }
+  .stacklapopup-products-item-description {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 400;
+  }
   .stacklapopup-shopspot-cart,
   .stacklapopup-products-item-button {
-    color: ${widgetSettings.shopspot_btn_font_color};
-    background-color: ${widgetSettings.shopspot_btn_background};
+    color: #${widgetSettings.shopspot_btn_font_color};
+    background-color: #${widgetSettings.shopspot_btn_background};
     border-radius: 4px;
     display: inline-block;
     font-size: 14px;

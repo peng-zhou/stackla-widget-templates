@@ -20,6 +20,8 @@
 .ugc-tile img {
     width: 100%;
     height: auto;
+    margin-top: 0;
+    margin-bottom: 15px;
 }
 
 .tile-message-wrapper {

@@ -7,6 +7,7 @@ const {
 } = widgetContainer;
 
 const {
+  guid,
   widgetStyle,
   widgetConfig
 } = widgetOptions;
@@ -278,6 +279,17 @@ sdk.addEventListener("load", () => {
   if (showWidget) {
     setInterval(sdk.masonry.layout, autoRefreshTime);
   }
+  sdk.querySelectorAll('.ugc-tile').forEach(tile => {
+    if (!widgetSettings.show_caption) {
+      tile.querySelector(".tile-caption").display = "none";
+    }
+    if (widgetSettings.text_tile_background) {
+      tile.style.backgroundColor = widgetSettings.text_tile_background;
+    }
+  });
+  if (widgetSettings.widget_background) {
+    sdk.querySelector('#nosto-ugc-container').style.backgroundColor = widgetSettings.widget_background;
+  }
 });
 
 sdk.addEventListener("tilesUpdated", () => {
@@ -294,6 +306,33 @@ sdk.addEventListener("moreLoad", () => {
 });
 
 // Style
+sdk.addCSSToComponent(
+  `
+  .tile-caption {
+    margin-top: 15px;
+    display: ${widgetSettings.show_caption ? 'block' : 'none' };
+  }
+  `,
+  "ugc-widget-" + guid + "-style-preview"
+);
+sdk.addCSSToComponent(
+  `
+  .tile-caption {
+    margin-top: 15px;
+    display: ${widgetSettings.show_caption ? 'block' : 'none' };
+  }
+  `,
+  "ugc-widget-" + guid + "-code-editor"
+);
+sdk.addCSSToComponent(
+  `
+  .tile-caption {
+    margin-top: 15px;
+    display: ${widgetSettings.show_caption ? 'block' : 'none' };
+  }
+  `,
+  "ugc-widget-" + guid
+);
 sdk.addCSSToComponent(
   `:host {
     padding: 0;
@@ -316,7 +355,7 @@ sdk.addCSSToComponent(
   .panel {
     display: flex;
     position: relative;
-    background: #f4f4f4;
+    background: #fff;
     width: 100%;
     height: 100%;
   }
@@ -412,34 +451,33 @@ sdk.addCSSToComponent(
     display: inline-block;
     font-size: 12px;
     line-height: 2;
-    min-height: 300px;
     text-align: left;
     width: 100%;
     word-break: break-word;
   }
   html {
-    background: ${widgetSettings.widget_background};
+    background: #${widgetSettings.widget_background};
   }
   .ugc-tile {
     width: ${widgetSettings.max_tile_width ? widgetSettings.max_tile_width : '300' }px;
-    background: ${widgetSettings.text_tile_background};
+    background: #${widgetSettings.text_tile_background};
     margin-left: ${widgetSettings.margin}px !important;
     margin-right: ${widgetSettings.margin}px !important;
   }
   .caption {
     font-size: ${widgetSettings.text_tile_font_size}px;
-    color: ${widgetSettings.text_tile_font_color};
+    color: #${widgetSettings.text_tile_font_color};
   }
   .content-inner-wrapper a {
-    color: ${widgetSettings.text_tile_link_color};
+    color: #${widgetSettings.text_tile_link_color};
   }
   .user-name {
     font-size: ${widgetSettings.text_tile_user_name_font_size}px;
-    color: ${widgetSettings.text_tile_user_name_font_color};
+    color: #${widgetSettings.text_tile_user_name_font_color};
   }
   .user-handle {
     font-size: ${widgetSettings.text_tile_user_handle_font_size}px;
-    color: ${widgetSettings.text_tile_user_handle_font_color};
+    color: #${widgetSettings.text_tile_user_handle_font_color};
   }
   .widget-icon {
     display: block;
@@ -456,6 +494,10 @@ sdk.addCSSToComponent(
     margin: 16px;
     text-align: right;
   }
+  .tile-caption {
+    margin-top: 15px;
+    display: ${widgetSettings.show_caption ? 'block' : 'none' };
+  }
   `,
   "expanded-tile"
 );
@@ -468,11 +510,26 @@ sdk.addCSSToComponent(
   .stacklapopup-products-item-title {
     color: #000;
     text-transform: uppercase;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+  .stacklapopup-products-item-price {
+    font-size: 14px;
+    font-weight: normal;
+    color: #000;
+    margin-bottom: 5px;
+  }
+  .stacklapopup-products-item-description {
+    color: #282828;
+    font-size: 14px;
+    font-weight: 400;
   }
   .stacklapopup-shopspot-cart,
   .stacklapopup-products-item-button {
-    color: ${widgetSettings.shopspot_btn_font_color};
-    background-color: ${widgetSettings.shopspot_btn_background};
+    color: #${widgetSettings.shopspot_btn_font_color};
+    background-color: #${widgetSettings.shopspot_btn_background};
     border-radius: 4px;
     display: inline-block;
     font-size: 14px;
