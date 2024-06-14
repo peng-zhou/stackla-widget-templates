@@ -187,8 +187,7 @@ if (widgetSettings.click_through_url === '[EXPAND]') {
           : 'next';
         handleShowTileEvents(currentTile, enabledTiles, type);
       });
-    }, 500)
-    
+    }, 500);
   });
 
   sdk.addEventListener("expandedTileClose", () => {

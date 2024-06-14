@@ -166,25 +166,29 @@ if (widgetSettings.click_through_url === '[EXPAND]') {
     }
     // Example of how you might call this function:
     // Assuming currentTile and enabledTiles are defined and contain the correct information
-    const expandedTile = sdk.querySelector('expanded-tile');
-    const expandedTileShadowRoot = expandedTile.shadowRoot;
-    const prevButtonSelector =
-      expandedTileShadowRoot.querySelector('.tile-arrows-left');
-    const nextButtonSelector =
-      expandedTileShadowRoot.querySelector('.tile-arrows-right');
-  
-    prevButtonSelector.addEventListener('click', (e) => {
-      const type = e.target.classList.contains('tile-arrows-left')
-        ? 'previous'
-        : 'next';
-      handleShowTileEvents(currentTile, enabledTiles, type);
-    });
-    nextButtonSelector.addEventListener('click', (e) => {
-      const type = e.target.classList.contains('tile-arrows-left')
-        ? 'previous'
-        : 'next';
-      handleShowTileEvents(currentTile, enabledTiles, type);
-    });
+    setTimeout(() => {
+      const expandedTile = sdk.querySelector('expanded-tile');
+      const expandedTileShadowRoot = expandedTile.shadowRoot;
+      const prevButtonSelector =
+        expandedTileShadowRoot.querySelector('.tile-arrows-left');
+      const nextButtonSelector =
+        expandedTileShadowRoot.querySelector('.tile-arrows-right');
+    
+      prevButtonSelector.addEventListener('click', (e) => {
+        console.log('handleShowTileEvents prevButtonSelector e', e);
+        const type = e.target.classList.contains('tile-arrows-left')
+          ? 'previous'
+          : 'next';
+        handleShowTileEvents(currentTile, enabledTiles, type);
+      });
+      nextButtonSelector.addEventListener('click', (e) => {
+        console.log('handleShowTileEvents nextButtonSelector e', e);
+        const type = e.target.classList.contains('tile-arrows-left')
+          ? 'previous'
+          : 'next';
+        handleShowTileEvents(currentTile, enabledTiles, type);
+      });
+    }, 500);
   });
 
   sdk.addEventListener("expandedTileClose", () => {
