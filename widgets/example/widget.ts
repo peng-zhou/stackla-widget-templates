@@ -1,3 +1,7 @@
+import { Sdk } from "@stackla/types";
+
+declare const sdk: Sdk;
+
 sdk.addLoadedComponents([
   "expanded-tile",
   "products",
