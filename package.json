@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Widget Templates",
   "scripts": {
-    "lint": "stylelint '**/*.css'",
+    "lint": "eslint . --fix && stylelint '**/*.css'",
     "test": "jest --color --passWithNoTests",
     "build": "tsc -p tsconfig.json"
   },

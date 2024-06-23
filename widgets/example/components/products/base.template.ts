@@ -1,4 +1,4 @@
-import type { Sdk, TagExtended } from '@stackla/types';
+import type { Sdk, TagExtended } from "@stackla/types";
 
 export function getProductHeaderDiv(product: TagExtended): string {
   const { id, tag, custom_url, target, price } = product;
@@ -25,7 +25,7 @@ export function getProductDetailsDiv(sdk: Sdk): string {
   const products = sdk.tiles.getProductsFromTile();
 
   return products
-    .map((product : TagExtended) => renderProductDetailsDiv(sdk, product))
+    .map((product: TagExtended) => renderProductDetailsDiv(sdk, product))
     .join("");
 }
 
