@@ -6,7 +6,7 @@ export default function shopspotFlyoutTemplate(sdk: Sdk): string {
     return "";
   }
 
-  const shopspotsContainer = shopspots.map((shopspot: Hotspot, index) => {
+  const shopspotsContainer = shopspots.map((shopspot: Hotspot, index : number) => {
     const x = shopspot.coords[0];
     const y = shopspot.coords[1];
     const tagId = shopspot.tag.id;

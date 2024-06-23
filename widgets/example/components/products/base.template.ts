@@ -25,7 +25,7 @@ export function getProductDetailsDiv(sdk: Sdk): string {
   const products = sdk.tiles.getProductsFromTile();
 
   return products
-    .map((product) => renderProductDetailsDiv(sdk, product))
+    .map((product : TagExtended) => renderProductDetailsDiv(sdk, product))
     .join("");
 }
 
@@ -129,7 +129,7 @@ export default function productsTemplate(sdk: Sdk): string {
   }
 
   const products: TagExtended[] = (tile.tags_extended || []).filter(
-    ({ type }) => type === "product",
+    (tag: TagExtended) => tag.type === "product",
   );
 
   if (!products) {

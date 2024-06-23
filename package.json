@@ -5,13 +5,13 @@
   "scripts": {
     "lint": "stylelint '**/*.css'",
     "test": "jest --color --passWithNoTests",
-    "build": "tsc -p tsconfig.build.json"
+    "build": "tsc -p tsconfig.json"
   },
   "license": "MIT",
   "devDependencies": {
     "@stackla/eslint-config": "^1.0.0",
     "@stackla/jest-config": "^1.0.6",
-    "@stackla/types": "^0.0.6",
+    "@stackla/types": "^0.0.7",
     "@typescript-eslint/eslint-plugin": "^7.13.1",
     "eslint": "^8.56.0",
     "eslint-config-stylelint": "^21.0.0",

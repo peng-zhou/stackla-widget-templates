@@ -57,7 +57,7 @@ function loadLess() {
 loadMoreButton.onclick = loadMore;
 loadLessButton.onclick = loadLess;
 
-sdk.addEventListener("tilesUpdated", (e) => {
+sdk.addEventListener("tilesUpdated", () => {
   if (sdk.tiles.hasMorePages()) {
     loadMoreButton.style.display = "";
   }
@@ -67,13 +67,13 @@ sdk.addEventListener("tilesUpdated", (e) => {
   }
 });
 
-sdk.addEventListener("tileExpand", (e) => {
+sdk.addEventListener("tileExpand", () => {
   buttons.style.display = "none";
 });
-sdk.addEventListener("expandedTileClose", (e) => {
+sdk.addEventListener("expandedTileClose", () => {
   buttons.style.display = "";
 });
-sdk.addEventListener("tilesUpdated", (e) => {
+sdk.addEventListener("tilesUpdated", () => {
   postLoad.style.display = "";
   preLoad.style.display = "none";
 });
