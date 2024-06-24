@@ -1,0 +1,69 @@
+:host {
+  position: absolute;
+  display: block;
+  inset: 0;
+}
+
+.shopspots {
+  position: relative;
+  height: 100%;
+}
+
+.stacklapopup-shopspot {
+  border-radius: 50%;
+  box-sizing: border-box;
+  cursor: default;
+  overflow: visible;
+  transition-property: top, left, opacity;
+  transition-duration: 0.5s;
+  width: 32px;
+  z-index: 2;
+  position: relative;
+}
+
+.stacklapopup-shopspot span {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.stacklapopup-shopspot-icon {
+  background: rgb(255 255 255 / 80%);
+  border-radius: 50%;
+  cursor: pointer;
+  font-weight: bold;
+  position: absolute;
+  text-align: center;
+  width: 32px;
+  height: 32px;
+  top: -10px;
+}
+
+.stacklapopup-shopspot-flyout-title {
+  overflow: visible;
+  background: rgb(0 0 0 / 80%);
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  margin: 10px 0;
+  padding: 10px 15px;
+  position: absolute;
+  text-overflow: ellipsis;
+  top: 34px;
+  white-space: nowrap;
+}
+
+.stacklapopup-shopspot-flyout-title::after {
+  border: 8px solid rgb(0 0 0 / 0%);
+  border-top: none;
+  border-bottom: 8px solid rgb(0 0 0 / 80%);
+  content: " ";
+  height: 0;
+  left: 9px;
+  position: absolute;
+  top: -8px;
+  width: 0;
+}
