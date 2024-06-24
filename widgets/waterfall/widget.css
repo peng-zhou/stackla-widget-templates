@@ -8,8 +8,12 @@
     flex: 0 0 calc(33.333% - 20px);
     max-width: calc(33.333% - 20px);
     margin-bottom: 20px;
-    min-height: 300px;
     cursor: pointer;
+}
+
+.tile-image,
+.tile-video {
+    position: relative;
 }
 
 .ugc-tile:not([data-media="image"], [data-media="video"]) {
@@ -19,8 +23,6 @@
 .ugc-tile img {
     width: 100%;
     height: auto;
-    margin-top: 0;
-    margin-bottom: 15px;
 }
 .network-icon {
     position: absolute;

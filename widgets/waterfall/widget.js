@@ -7,7 +7,6 @@ const {
 } = widgetContainer;
 
 const {
-  guid,
   widgetStyle,
   widgetConfig
 } = widgetOptions;
@@ -70,6 +69,9 @@ const widgetSettings = {
   expanded_tile_show_timestamp: widgetConfig.lightbox.show_timestamp, // config[lightbox][show_timestamp]
   expanded_tile_show_add_to_cart: widgetConfig.lightbox.show_add_to_cart, // to-do: config[lightbox][show_add_to_cart] 
 };
+if (!widgetSettings.enabled) {
+  return;
+}
 console.log("sdk", sdk);
 console.log("sdk widgetSettings", widgetSettings);
 window.sdk = sdk;
@@ -80,8 +82,8 @@ const urlPattern = /^https?:\/\/.+/;
 sdk.addLoadedComponents([
   "https://unpkg.com/masonry-layout@4.2.2/dist/masonry.pkgd.min.js",
   "https://assetscdn.stackla.com/media/js/common/stackla_tile_decorator.js",
+  'https://static.addtoany.com/menu/page.js',
   'https://platform-api.sharethis.com/js/sharethis.js#property=66503b7a2b0bca00199fbe95&product=inline-share-buttons&source=platform',
-  'https://static.addtoany.com/menu/page.js'
 ]);
 
 if (widgetSettings.inline_tile_show_shopspots || widgetSettings.expanded_tile_show_shopspots) {
@@ -119,10 +121,6 @@ if (widgetSettings.click_through_url === '[EXPAND]') {
       return tiles.find((tile) => tile.id === tileId);
     };
   
-    // Retrieve the current tile and enabled tiles only once
-    const currentTile = sdk.tiles.getTile();
-    const enabledTiles = sdk.tiles.getEnabledTiles();
-  
     // This function finds the previous tile ID based on the current tile
     function getCurrentTileId(currentTile, enabledTiles) {
       const currentIndex = enabledTiles.findIndex(
@@ -132,7 +130,7 @@ if (widgetSettings.click_through_url === '[EXPAND]') {
       return currentIndex > 0 ? enabledTiles[currentIndex].id : null;
     }
     // This function finds the previous tile ID based on the current tile
-    function getPreviousTileId(currentTile, enabledTiles) {
+    function getNextTileId(currentTile, enabledTiles) {
       const currentIndex = enabledTiles.findIndex(
         (tile) => tile.id === currentTile.id
       );
@@ -141,7 +139,7 @@ if (widgetSettings.click_through_url === '[EXPAND]') {
     }
   
     // This function finds the next tile ID based on the current tile
-    function getNextTileId(currentTile, enabledTiles) {
+    function getPreviousTileId(currentTile, enabledTiles) {
       const currentIndex = enabledTiles.findIndex(
         (tile) => tile.id === currentTile.id
       );
@@ -151,24 +149,32 @@ if (widgetSettings.click_through_url === '[EXPAND]') {
         : null;
     }
   
-    // This function sets up click event listeners on your page for the previous and next tiles
-    function handleShowTileEvents(currentTile, enabledTiles, type) {
-      // Obtain prevTileData and nextTileData using our previously defined functions
+    function triggerArrowClick(currentTile, enabledTiles, type) {
       const prevTileId = getPreviousTileId(currentTile, enabledTiles);
       const nextTileId = getNextTileId(currentTile, enabledTiles);
       const tileId = type === 'previous' ? prevTileId : nextTileId;
+      const tileToGoTo = enabledTiles.find((tile) => tile.id === tileId);
+
       const tileData = {
-        tileData: enabledTiles.find((tile) => tile.id === tileId),
+        tileData: tileToGoTo,
         widgetId: sdk.placement.getWidgetId(),
         filterId: sdk.placement.getWidgetContainer().widgetOptions?.filterId,
+        tileId: tileId,
       };
   
-      sdk.triggerEvent('tileExpandClose');
-      sdk.triggerEvent('tileExpand', tileData);
+      sdk.triggerEvent('expandedTileClose');
+
+      // setTimeout(() => {
+        sdk.triggerEvent('tileExpand', tileData);
+      // }, 5000);
     }
     // Example of how you might call this function:
     // Assuming currentTile and enabledTiles are defined and contain the correct information
     setTimeout(() => {
+      // Retrieve the current tile and enabled tiles only once
+      const currentTile = sdk.tiles.getTile();
+      const enabledTiles = sdk.tiles.getEnabledTiles().filter(item => item.media === 'video' || item.media === 'image');
+
       const expandedTile = sdk.querySelector('expanded-tile');
       const expandedTileShadowRoot = expandedTile.shadowRoot;
       const prevButtonSelector =
@@ -177,16 +183,12 @@ if (widgetSettings.click_through_url === '[EXPAND]') {
         expandedTileShadowRoot.querySelector('.tile-arrows-right');
     
       prevButtonSelector.addEventListener('click', (e) => {
-        const type = e.target.classList.contains('tile-arrows-left')
-          ? 'previous'
-          : 'next';
-        handleShowTileEvents(currentTile, enabledTiles, type);
+        const type = 'previous';
+        triggerArrowClick(currentTile, enabledTiles, type);
       });
       nextButtonSelector.addEventListener('click', (e) => {
-        const type = e.target.classList.contains('tile-arrows-left')
-          ? 'previous'
-          : 'next';
-        handleShowTileEvents(currentTile, enabledTiles, type);
+        const type = 'next';
+        triggerArrowClick(currentTile, enabledTiles, type);
       });
     }, 500);
   });
@@ -275,21 +277,14 @@ sdk.addEventListener("load", () => {
     itemSelector: ".ugc-tile",
     gutter: 20,
   });
-  // sdk.masonry.layout();
+  
   if (showWidget) {
-    setInterval(sdk.masonry.layout, autoRefreshTime);
+    sdk.masonry.layout();
   }
-  sdk.querySelectorAll('.ugc-tile').forEach(tile => {
-    if (!widgetSettings.show_caption) {
-      tile.querySelector(".tile-caption").display = "none";
-    }
-    if (widgetSettings.text_tile_background) {
-      tile.style.backgroundColor = widgetSettings.text_tile_background;
-    }
-  });
-  if (widgetSettings.widget_background) {
-    sdk.querySelector('#nosto-ugc-container').style.backgroundColor = widgetSettings.widget_background;
-  }
+});
+
+sdk.addEventListener("moreLoad", () => {
+  sdk.masonry.reloadItems();
 });
 
 sdk.addEventListener("tilesUpdated", () => {
@@ -301,38 +296,17 @@ sdk.addEventListener("tilesUpdated", () => {
   }
 });
 
-sdk.addEventListener("moreLoad", () => {
-  sdk.masonry.reloadItems();
-});
-
 // Style
-sdk.addCSSToComponent(
-  `
-  .tile-caption {
-    margin-top: 15px;
-    display: ${widgetSettings.show_caption ? 'block' : 'none' };
-  }
-  `,
-  "ugc-widget-" + guid + "-style-preview"
-);
-sdk.addCSSToComponent(
-  `
-  .tile-caption {
-    margin-top: 15px;
-    display: ${widgetSettings.show_caption ? 'block' : 'none' };
-  }
-  `,
-  "ugc-widget-" + guid + "-code-editor"
-);
-sdk.addCSSToComponent(
-  `
-  .tile-caption {
-    margin-top: 15px;
-    display: ${widgetSettings.show_caption ? 'block' : 'none' };
-  }
-  `,
-  "ugc-widget-" + guid
-);
+const customStyle = document.createElement("style");
+customStyle.innerHTML = `
+.tile-caption {
+  margin-top: 15px;
+  display: ${widgetSettings.show_caption ? 'block' : 'none' };
+  text-align: left;
+}`;
+
+sdk.placement.getShadowRoot().appendChild(customStyle);
+
 sdk.addCSSToComponent(
   `:host {
     padding: 0;
@@ -356,7 +330,7 @@ sdk.addCSSToComponent(
     display: flex;
     position: relative;
     background: #fff;
-    width: 100%;
+    width: 85%;
     height: 100%;
   }
   .panel-left {
@@ -382,6 +356,7 @@ sdk.addCSSToComponent(
     left: -60px;
     border: 0;
     background: none;
+    z-index: 2;
   }
   .tile-arrows-right {
     position: absolute;
@@ -391,6 +366,7 @@ sdk.addCSSToComponent(
     right: -60px;
     border: 0;
     background: none;
+    z-index: 2;
   }
 
   .tile-arrows .widget-icon {
@@ -497,6 +473,7 @@ sdk.addCSSToComponent(
   .tile-caption {
     margin-top: 15px;
     display: ${widgetSettings.show_caption ? 'block' : 'none' };
+    text-align: left;
   }
   `,
   "expanded-tile"

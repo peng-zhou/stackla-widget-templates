@@ -68,6 +68,9 @@ const widgetSettings = {
   expanded_tile_show_timestamp: widgetConfig.lightbox.show_timestamp, // config[lightbox][show_timestamp]
   expanded_tile_show_add_to_cart: widgetConfig.lightbox.show_add_to_cart, // to-do: config[lightbox][show_add_to_cart] 
 };
+if (!widgetSettings.enabled) {
+  return;
+}
 console.log("sdk", sdk);
 console.log("sdk widgetSettings", widgetSettings);
 window.sdk = sdk;
@@ -117,10 +120,6 @@ if (widgetSettings.click_through_url === '[EXPAND]') {
       return tiles.find((tile) => tile.id === tileId);
     };
   
-    // Retrieve the current tile and enabled tiles only once
-    const currentTile = sdk.tiles.getTile();
-    const enabledTiles = sdk.tiles.getEnabledTiles();
-  
     // This function finds the previous tile ID based on the current tile
     function getCurrentTileId(currentTile, enabledTiles) {
       const currentIndex = enabledTiles.findIndex(
@@ -167,6 +166,9 @@ if (widgetSettings.click_through_url === '[EXPAND]') {
     // Example of how you might call this function:
     // Assuming currentTile and enabledTiles are defined and contain the correct information
     setTimeout(() => {
+      // Retrieve the current tile and enabled tiles only once
+      const currentTile = sdk.tiles.getTile();
+      const enabledTiles = sdk.tiles.getEnabledTiles();
       const expandedTile = sdk.querySelector('expanded-tile');
       const expandedTileShadowRoot = expandedTile.shadowRoot;
       const prevButtonSelector =
@@ -175,14 +177,12 @@ if (widgetSettings.click_through_url === '[EXPAND]') {
         expandedTileShadowRoot.querySelector('.tile-arrows-right');
     
       prevButtonSelector.addEventListener('click', (e) => {
-        console.log('handleShowTileEvents prevButtonSelector e', e);
         const type = e.target.classList.contains('tile-arrows-left')
           ? 'previous'
           : 'next';
         handleShowTileEvents(currentTile, enabledTiles, type);
       });
       nextButtonSelector.addEventListener('click', (e) => {
-        console.log('handleShowTileEvents nextButtonSelector e', e);
         const type = e.target.classList.contains('tile-arrows-left')
           ? 'previous'
           : 'next';
@@ -301,14 +301,11 @@ const _getTimephrase = (timestamp) => {
   return timeNumber + ' ' + timeWord + ' ago';
 }
 sdk.addEventListener("load", () => {
-  const autoRefreshTime = 60000;
   sdk.masonry = new Masonry(sdk.querySelector(".ugc-tiles"), {
     itemSelector: ".ugc-tile",
     gutter: 20,
   });
-  if (showWidget) {
-    setInterval(sdk.masonry.layout, autoRefreshTime);
-  }
+  sdk.masonry.layout();
   sdk.querySelectorAll('.ugc-tile').forEach(tile => {
     const $el = $(this);
 
@@ -322,16 +319,6 @@ sdk.addEventListener("load", () => {
     timephrase = _getTimephrase(timestamp);
     $el.html(timephrase);
   });
-});
-
-sdk.addEventListener("tilesUpdated", () => {
-  if (!sdk.masonry) {
-    return;
-  }
-
-  if (showWidget) {
-    sdk.masonry.layout();
-  }
 });
 
 sdk.addEventListener("moreLoad", () => {
@@ -348,6 +335,16 @@ sdk.addEventListener("tilesUpdated", () => {
 });
 
 // Style
+const customStyle = document.createElement("style");
+customStyle.innerHTML = `
+.tile-caption {
+  margin-top: 15px;
+  display: ${widgetSettings.show_caption ? 'block' : 'none' };
+  text-align: left;
+}`;
+
+sdk.placement.getShadowRoot().appendChild(customStyle);
+
 sdk.addCSSToComponent(
   `:host {
     padding: 0;
@@ -524,6 +521,11 @@ sdk.addCSSToComponent(
     padding-right: 20px;
     text-align: left;
     width: 100%;
+  }
+  .tile-caption {
+    margin-top: 15px;
+    display: ${widgetSettings.show_caption ? 'block' : 'none' };
+    text-align: left;
   }
   `,
   "expanded-tile"

@@ -12,15 +12,15 @@ const {
 } = widgetOptions;
 let widgetTitle = document.createElement('p');
 widgetTitle.innerHTML = title;
-sdk.querySelector('.container').prepend(widgetTitle);
+// sdk.querySelector('.container').prepend(widgetTitle);
 const widgetSettings = {
   // Widget Status
   enabled: enabled, // to do: enabled
-  name: widgetStyle.name, 
+  name: widgetStyle.name,
 
   // Content Rules
   minimal_tiles: widgetStyle.minimal_tiles,
-  auto_refresh: widgetStyle.auto_refresh, // to-do
+  auto_refresh: widgetStyle.auto_refresh,
   unavailable_products_behaviour: widgetStyle.unavailable_products_behaviour, // done
   enable_custom_tiles_per_page: widgetStyle.enable_custom_tiles_per_page, // screen size to show 
   rows_per_page: widgetStyle.rows_per_page,
@@ -47,7 +47,7 @@ const widgetSettings = {
   click_through_url: widgetStyle.click_through_url,
   load_more_type: widgetStyle.load_more_type, // button || scroll
   show_claim_button: widgetConfig.claim_config.show_claim_button, // to-do: php legacy template
-  enable_doublecolumnspan: widgetStyle.enable_doublecolumnspan, // 
+  enable_doublecolumnspan: widgetStyle.enable_doublecolumnspan,
 
   // CTA Settings
   shopspot_btn_background: widgetStyle.shopspot_btn_background,
@@ -69,7 +69,11 @@ const widgetSettings = {
   expanded_tile_show_timestamp: widgetConfig.lightbox.show_timestamp, // config[lightbox][show_timestamp]
   expanded_tile_show_add_to_cart: widgetConfig.lightbox.show_add_to_cart, // to-do: config[lightbox][show_add_to_cart] 
 };
+if (!widgetSettings.enabled) {
+  return;
+}
 console.log("sdk", sdk);
+window.widgetSettings = widgetSettings;
 console.log("sdk widgetSettings", widgetSettings);
 window.sdk = sdk;
 const ugcTiles = sdk.tiles.tiles;
@@ -77,7 +81,7 @@ const urlPattern = /^https?:\/\/.+/;
 sdk.addLoadedComponents([
   'https://cdn.jsdelivr.net/npm/@glidejs/glide',
   'https://assetscdn.stackla.com/media/js/common/stackla_tile_decorator.js',
-  'https://platform-api.sharethis.com/js/sharethis.js#property=66503b7a2b0bca00199fbe95&product=inline-share-buttons&source=platform',
+  'https://static.addtoany.com/menu/page.js'
 ]);
 
 if (widgetSettings.expanded_tile_show_shopspots) {
@@ -104,7 +108,7 @@ const tileWidth = 240;
 // Function to initialize Glide with a dynamic perView based on screen size
 function initializeGlide() {
   const screenSize = window.innerWidth;
-  const perView = widgetSettings.enable_custom_tiles_per_page
+  const perView = !widgetSettings.enable_custom_tiles_per_page
     ? Math.floor(screenSize / tileWidth)
     : widgetSettings.tiles_per_page;
 
@@ -153,17 +157,18 @@ sdk.tiles.setLoadMode('page');
 
 // Action
 sdk.addEventListener('load', () => {
-  const autoRefreshTime = 60000;
+  // const autoRefreshTime = 60000;
   sdk.querySelector('.ugc-tiles').classList.add('glide__slides');
   sdk.querySelector('#tiles').style.display = '';
 
   // Glide Initial setup
   const tilesObjects = sdk?.tiles?.tiles || {};
   const tilesLength = Object.keys(tilesObjects).length;
-  const showWidget = tilesObjects && tilesLength > widgetSettings.minimal_tiles;
+  const showWidget = true; // tilesObjects && tilesLength > widgetSettings.minimal_tiles;
+  console.log('Widget showWidget', showWidget, tilesLength);
   if (showWidget) {
       initializeGlide();
-      setInterval(initializeGlide, autoRefreshTime);
+      // setInterval(initializeGlide, autoRefreshTime);
   }
 
   // Update Glide on window resize
@@ -198,10 +203,6 @@ if (widgetSettings.click_through_url === '[EXPAND]') {
     const getTileDataById = (tiles, tileId) => {
       return tiles.find((tile) => tile.id === tileId);
     };
-
-    // Retrieve the current tile and enabled tiles only once
-    const currentTile = sdk.tiles.getTile();
-    const enabledTiles = sdk.tiles.getEnabledTiles();
 
     // This function finds the previous tile ID based on the current tile
     function getCurrentTileId(currentTile, enabledTiles) {
@@ -242,13 +243,18 @@ if (widgetSettings.click_through_url === '[EXPAND]') {
         widgetId: sdk.placement.getWidgetId(),
         filterId: sdk.placement.getWidgetContainer().widgetOptions?.filterId,
       };
-
       sdk.triggerEvent('tileExpandClose');
       sdk.triggerEvent('tileExpand', tileData);
     }
     // Example of how you might call this function:
     // Assuming currentTile and enabledTiles are defined and contain the correct information
     setTimeout(() => {
+      // Retrieve the current tile and enabled tiles only once
+      const currentTile = sdk.tiles.getTile();
+      const enabledTiles = sdk.tiles.getEnabledTiles().filter(item => item.media === 'video' || item.media === 'image');
+      const currentIndex = enabledTiles.findIndex(
+        (tile) => tile.id === currentTile.id
+      );
       const expandedTile = sdk.querySelector('expanded-tile');
       const expandedTileShadowRoot = expandedTile.shadowRoot;
       const prevButtonSelector =
@@ -318,10 +324,11 @@ sdk.addCSSToComponent(
     max-width: 1060px;
     position: relative;
     vertical-align: middle;
-    width: 100%;
+    width: 90%;
     display: flex;
     flex-direction: row;
     justify-content: center;
+    background-color: transparent;
   }
   .exit {
     position: absolute;
@@ -596,6 +603,19 @@ const customExpandedTileTemplate = (sdk) => {
                                 ? tile.message
                                 : ''
                             }</p>
+                            ${
+                              widgetSettings.expanded_tile_show_sharing
+                               ? `<!-- AddToAny BEGIN -->
+                               <div class="ugc-inline-share-buttons">
+                                 <a href="https://www.addtoany.com/add_to/facebook?linkurl=${tile.original_url}&amp;linkname=${tile.name}" target="_blank"><img src="https://static.addtoany.com/buttons/facebook.svg" width="32" height="32" style="background-color:#333"></a>
+                                 <a href="https://www.addtoany.com/add_to/x?linkurl=${tile.original_url}&amp;linkname=${tile.name}" target="_blank"><img src="https://static.addtoany.com/buttons/x.svg" width="32" height="32" style="background-color:#333"></a>
+                                 <a href="https://www.addtoany.com/add_to/pinterest?linkurl=${tile.original_url}&amp;linkname=${tile.name}" target="_blank"><img src="https://static.addtoany.com/buttons/pinterest.svg" width="32" height="32" style="background-color:#333"></a>
+                                 <a href="https://www.addtoany.com/add_to/linkedin?linkurl=${tile.original_url}&amp;linkname=${tile.name}" target="_blank"><img src="https://static.addtoany.com/buttons/linkedin.svg" width="32" height="32" style="background-color:#333"></a>
+                                 <a href="https://www.addtoany.com/add_to/email?linkurl=${tile.original_url}&amp;linkname=${tile.name}" target="_blank"><img src="https://static.addtoany.com/buttons/email.svg" width="32" height="32" style="background-color:#333"></a>
+                               </div>
+                               <!-- AddToAny END -->`
+                               : ""
+                            }
                             ${
                               productsEnabled
                                 ? `<ugc-products parent="${parent}">`

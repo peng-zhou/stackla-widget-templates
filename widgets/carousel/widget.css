@@ -34,9 +34,15 @@
 
 .ugc-tile {
     display: block !important;
+    opacity: 1 !important;
 }
 .ugc-tile img {
     width: 100%;
+}
+
+.tile-image,
+.tile-video {
+    position: relative;
 }
 
 .hidden {
