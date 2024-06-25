@@ -1,17 +1,13 @@
-import * as esbuild from 'esbuild'
+import * as esbuild from "esbuild";
 
-const widgets = [
-  'example'
-]
+const widgets = ["example"];
 
 await esbuild.build({
-  entryPoints: [
-    ...widgets.map(widget => `widgets/${widget}/widget.ts`)
-  ],
+  entryPoints: [...widgets.map((widget) => `widgets/${widget}/widget.ts`)],
   bundle: true,
-  outdir: 'dist',
+  outdir: "dist",
   loader: {
-    '.hbs': 'text',
-    '.css': 'text'
-  }
+    ".hbs": "text",
+    ".css": "text",
+  },
 });

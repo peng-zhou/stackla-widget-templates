@@ -1,4 +1,4 @@
-import { Sdk } from "@stackla/types";
+import type { Sdk } from "@stackla/types";
 
 const EVENT_LOAD_MORE = "moreLoad";
 const EVENT_LOAD_LESS = "lessLoad";
@@ -6,65 +6,64 @@ const EVENT_LOAD_LESS = "lessLoad";
 declare const sdk: Sdk;
 
 export function getLoadMoreButton() {
-    const button = sdk.querySelector("#load-more")<HTMLButtonElement>;
+  const button = sdk.querySelector("#load-more")<HTMLButtonElement>;
 
-    if (!button) {
-        throw new Error("Load more button not found");
-    }
+  if (!button) {
+    throw new Error("Load more button not found");
+  }
 
-    return button;
+  return button;
 }
 
 export function getLoadLessButton() {
-    const button = sdk.querySelector("#load-less")<HTMLButtonElement>;
+  const button = sdk.querySelector("#load-less")<HTMLButtonElement>;
 
-    if (!button) {
-        throw new Error("Load less button not found");
-    }
+  if (!button) {
+    throw new Error("Load less button not found");
+  }
 
-    return button;
+  return button;
 }
 
 function loadMore() {
-    const loadLessButton = getLoadLessButton();
-    const loadMoreButton = getLoadMoreButton();
-  
-    sdk.triggerEvent(EVENT_LOAD_MORE);
-  
-    if (sdk.tiles.hasLessPages()) {
-      loadLessButton.style.display = "";
-    }
-  
-    if (!sdk.tiles.hasMorePages()) {
-      loadMoreButton.style.display = "none";
-    }
-  
-    window.scrollTo(0, 0);
-  }
-  
-  function loadLess() {
-    const loadLessButton = getLoadLessButton();
-    const loadMoreButton = getLoadMoreButton();
-  
-    sdk.triggerEvent(EVENT_LOAD_LESS);
-  
-    if (sdk.tiles.hasLessPages()) {
-      loadLessButton.style.display = "";
-    }
-  
-    if (!sdk.tiles.hasLessPages()) {
-      loadLessButton.style.display = "none";
-    }
-  
-    if (sdk.tiles.hasMorePages()) {
-      loadMoreButton.style.display = "";
-    }
+  const loadLessButton = getLoadLessButton();
+  const loadMoreButton = getLoadMoreButton();
+
+  sdk.triggerEvent(EVENT_LOAD_MORE);
+
+  if (sdk.tiles.hasLessPages()) {
+    loadLessButton.style.display = "";
   }
 
+  if (!sdk.tiles.hasMorePages()) {
+    loadMoreButton.style.display = "none";
+  }
+
+  window.scrollTo(0, 0);
+}
+
+function loadLess() {
+  const loadLessButton = getLoadLessButton();
+  const loadMoreButton = getLoadMoreButton();
+
+  sdk.triggerEvent(EVENT_LOAD_LESS);
+
+  if (sdk.tiles.hasLessPages()) {
+    loadLessButton.style.display = "";
+  }
+
+  if (!sdk.tiles.hasLessPages()) {
+    loadLessButton.style.display = "none";
+  }
+
+  if (sdk.tiles.hasMorePages()) {
+    loadMoreButton.style.display = "";
+  }
+}
 
 export function initButtons() {
-    const loadLessButton = getLoadMoreButton();
-    loadLessButton.style.display = "none";
-    getLoadMoreButton().onclick = loadMore;
-    getLoadLessButton().onclick = loadLess;
+  const loadLessButton = getLoadMoreButton();
+  loadLessButton.style.display = "none";
+  getLoadMoreButton().onclick = loadMore;
+  getLoadLessButton().onclick = loadLess;
 }
