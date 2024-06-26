@@ -1,6 +1,7 @@
 import * as esbuild from "esbuild";
 
-const widgets = ["example"];
+import fs from "fs";
+const widgets = fs.readdirSync("widgets");
 
 await esbuild.build({
   entryPoints: [...widgets.map((widget) => `widgets/${widget}/widget.ts`)],
