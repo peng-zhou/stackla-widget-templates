@@ -1,5 +1,5 @@
 export default () => {
-    return `
+  return `
     <div id="stacklapopup-add-to-cart"></div>
   `;
 };

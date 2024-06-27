@@ -1,14 +1,18 @@
-import { Sdk } from '@stackla/types';
-import { getConfig } from 'widgets/carousel/widget.config';
-export const expandedTileTemplate = (sdk : Sdk) => {
-    const widgetContainer = sdk.placement.getWidgetContainer();
-    const widgetSettings = getConfig(widgetContainer);
-    const tile = sdk.tiles.getTile();
+import { Sdk } from "@stackla/types";
+import { getConfig } from "widgets/carousel/widget.config";
+
+export const expandedTileTemplate = (component: CoreComponent) => {
+  const sdk = component.getSdk(); 
+  const widgetContainer = sdk.placement.getWidgetContainer();
+  const widgetSettings = getConfig(widgetContainer);
+  const tile = sdk.tiles.getTile();
 
   const shopspotEnabled =
-    sdk.isComponentLoaded('shopspots') && widgetSettings.expanded_tile_show_shopspots;
+    sdk.isComponentLoaded("shopspots") &&
+    widgetSettings.expanded_tile_show_shopspots;
   const productsEnabled =
-    sdk.isComponentLoaded('products') && widgetSettings.expanded_tile_show_products;
+    sdk.isComponentLoaded("products") &&
+    widgetSettings.expanded_tile_show_products;
   const parent = sdk.getNodeId();
   return `<div class="panel">
         <a class="exit" href="#">
@@ -25,17 +29,17 @@ export const expandedTileTemplate = (sdk : Sdk) => {
                         ${
                           shopspotEnabled
                             ? `<shopspot-flyout parent="${parent}"></shopspot-flyout>`
-                            : ''
+                            : ""
                         }
                         ${
                           shopspotEnabled
                             ? `<shopspot-icon parent="${parent}"/></shopspot-icon>`
-                            : ''
+                            : ""
                         }
                         ${
                           tile.image
                             ? `<img class="image-element" src="${tile.image}" />`
-                            : ''
+                            : ""
                         }
                     </div>
                 </div>
@@ -59,7 +63,7 @@ export const expandedTileTemplate = (sdk : Sdk) => {
                                         <img src="${tile.avatar}">
                                     </a>
                                 </span>`
-                                    : ''
+                                    : ""
                                 }
                                 ${
                                   tile.user
@@ -71,21 +75,21 @@ export const expandedTileTemplate = (sdk : Sdk) => {
                                         <span class="user-handle">@${tile.user}</span>
                                     </div>
                                 </a>`
-                                    : ''
+                                    : ""
                                 }
                             </div>
                         </div>
-                        <div class="tile-timestamp">${tile.source_created_at && widgetSettings.expanded_tile_show_timestamp ? window.StacklaTileDecorator._getTimephrase(tile.source_created_at) : ''}</div>
+                        <div class="tile-timestamp">${tile.source_created_at && widgetSettings.expanded_tile_show_timestamp ? window.StacklaTileDecorator._getTimephrase(tile.source_created_at) : ""}</div>
                         <div class="caption">
                             <p class="caption-paragraph">${
                               tile.message &&
                               widgetSettings.expanded_tile_show_caption
                                 ? tile.message
-                                : ''
+                                : ""
                             }</p>
                             ${
                               widgetSettings.expanded_tile_show_sharing
-                               ? `<!-- AddToAny BEGIN -->
+                                ? `<!-- AddToAny BEGIN -->
                                <div class="ugc-inline-share-buttons">
                                  <a href="https://www.addtoany.com/add_to/facebook?linkurl=${tile.original_url}&amp;linkname=${tile.name}" target="_blank"><img src="https://static.addtoany.com/buttons/facebook.svg" width="32" height="32" style="background-color:#333"></a>
                                  <a href="https://www.addtoany.com/add_to/x?linkurl=${tile.original_url}&amp;linkname=${tile.name}" target="_blank"><img src="https://static.addtoany.com/buttons/x.svg" width="32" height="32" style="background-color:#333"></a>
@@ -94,12 +98,12 @@ export const expandedTileTemplate = (sdk : Sdk) => {
                                  <a href="https://www.addtoany.com/add_to/email?linkurl=${tile.original_url}&amp;linkname=${tile.name}" target="_blank"><img src="https://static.addtoany.com/buttons/email.svg" width="32" height="32" style="background-color:#333"></a>
                                </div>
                                <!-- AddToAny END -->`
-                               : ""
+                                : ""
                             }
                             ${
                               productsEnabled
                                 ? `<ugc-products parent="${parent}">`
-                                : ''
+                                : ""
                             }
                         </div>
                         <div class="sharethis-inline-share-buttons"></div>
@@ -113,4 +117,4 @@ export const expandedTileTemplate = (sdk : Sdk) => {
             </div>
         </div>
       </div>`;
-}
+};

@@ -1,49 +1,67 @@
 import { Sdk } from "@stackla/types";
+import { IWidgetSettings } from "../../types/IWidgetSettings";
+import Glide from "@glidejs/glide";
 
 declare const sdk: Sdk;
 
-// TODO - Declare type
-declare const Glide;
+export function initializeGlide(widgetSettings: IWidgetSettings) {
+  const widgetSelector = sdk.placement.querySelector(".glide");
 
-export function initializeGlide(widgetSettings) {
-    const tileWidth = 240;
-    const screenSize = window.innerWidth;
-    const perView = !widgetSettings.enable_custom_tiles_per_page
-      ? Math.floor(screenSize / tileWidth)
-      : widgetSettings.tiles_per_page;
-  
-    const glide = new Glide(sdk.placement.querySelector('.glide'), {
-      type: 'slider',
-      startAt: 0,
-      perView: perView,
-      breakpoints: {
-        768: {
-          perView: 1,
-        },
-      },
-    });
-  
-    glide.on('mount.after', function () {
-      if (glide.index === 0) {
-        sdk.placement.querySelector('.glide__arrow--left').disabled = true;
-      }
-    });
-  
-    glide.on('run', function () {
-      const prevButton = sdk.placement.querySelector('.glide__arrow--left');
-      const nextButton = sdk.placement.querySelector('.glide__arrow--right');
-  
-      prevButton.disabled = false;
-      nextButton.disabled = false;
-  
-      if (glide.index === 0) {
-        prevButton.disabled = true;
-      }
-  
-      if (glide.index === glide.length - 1) {
-        nextButton.disabled = true;
-      }
-    });
-  
-    glide.mount();
+  if (!widgetSelector) {
+    throw new Error(
+      "Failed to find widget UI element. Failed to initialise Glide",
+    );
   }
+
+  const tileWidth = 240;
+  const screenSize = window.innerWidth;
+  const perView = !widgetSettings.enable_custom_tiles_per_page
+    ? Math.floor(screenSize / tileWidth)
+    : widgetSettings.tiles_per_page;
+
+  const glide = new Glide(widgetSelector, {
+    type: "slider",
+    startAt: 0,
+    perView: perView,
+    breakpoints: {
+      768: {
+        perView: 1,
+      },
+    },
+  });
+
+  glide.on("mount.after", function () {
+    const leftArrow = sdk.placement.querySelector<HTMLButtonElement>(
+      ".glide__arrow--left",
+    );
+    if (!leftArrow) {
+      throw new Error("Failed to find left arrow UI element");
+    }
+
+    if (glide.index === 0) {
+      leftArrow.disabled = true;
+    }
+  });
+
+  glide.on("run", function () {
+    const prevButton = sdk.placement.querySelector<HTMLButtonElement>(
+      ".glide__arrow--left",
+    );
+    const nextButton = sdk.placement.querySelector<HTMLButtonElement>(
+      ".glide__arrow--right",
+    );
+
+    if (!prevButton || !nextButton) {
+      throw new Error("Failed to find arrow UI elements");
+    }
+
+    prevButton.disabled = false;
+    nextButton.disabled = false;
+
+    if (glide.index === 0) {
+      prevButton.disabled = true;
+    }
+  });
+
+  glide.mount();
+}

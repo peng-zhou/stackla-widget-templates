@@ -1,28 +1,21 @@
 const widgetContainer = sdk.placement.getWidgetContainer();
 
-const {
-  title,
-  enabled,
-  widgetOptions
-} = widgetContainer;
+const { title, enabled, widgetOptions } = widgetContainer;
 
-const {
-  widgetStyle,
-  widgetConfig
-} = widgetOptions;
-let widgetTitle = document.createElement('p');
+const { widgetStyle, widgetConfig } = widgetOptions;
+let widgetTitle = document.createElement("p");
 widgetTitle.innerHTML = title;
-sdk.querySelector('.container').prepend(widgetTitle);
+sdk.querySelector(".container").prepend(widgetTitle);
 const widgetSettings = {
   // Widget Status
   enabled: enabled, // to do: enabled
-  name: widgetStyle.name, 
+  name: widgetStyle.name,
 
   // Content Rules
   minimal_tiles: widgetStyle.minimal_tiles,
   auto_refresh: widgetStyle.auto_refresh, // to-do
   unavailable_products_behaviour: widgetStyle.unavailable_products_behaviour, // done
-  enable_custom_tiles_per_page: widgetStyle.enable_custom_tiles_per_page, // screen size to show 
+  enable_custom_tiles_per_page: widgetStyle.enable_custom_tiles_per_page, // screen size to show
   rows_per_page: widgetStyle.rows_per_page,
   tiles_per_page: widgetStyle.tiles_per_page,
 
@@ -37,7 +30,8 @@ const widgetSettings = {
   text_tile_user_name_font_size: widgetStyle.text_tile_user_name_font_size,
   text_tile_user_name_font_color: widgetStyle.text_tile_user_name_font_color,
   text_tile_user_handle_font_size: widgetStyle.text_tile_user_handle_font_size,
-  text_tile_user_handle_font_color: widgetStyle.text_tile_user_handle_font_color,
+  text_tile_user_handle_font_color:
+    widgetStyle.text_tile_user_handle_font_color,
   enable_typekit: widgetStyle.enable_typekit, // to-do: we can remove this.
 
   // Other Settings
@@ -47,7 +41,7 @@ const widgetSettings = {
   click_through_url: widgetStyle.click_through_url,
   load_more_type: widgetStyle.load_more_type, // button || scroll
   show_claim_button: widgetConfig.claim_config.show_claim_button, // to-do: php legacy template
-  enable_doublecolumnspan: widgetStyle.enable_doublecolumnspan, // 
+  enable_doublecolumnspan: widgetStyle.enable_doublecolumnspan, //
 
   // CTA Settings
   shopspot_btn_background: widgetStyle.shopspot_btn_background,
@@ -60,14 +54,14 @@ const widgetSettings = {
   // Inline Tile Settings
   show_caption: widgetConfig.tile_options.show_caption, // config[tile_options][show_caption]
   inline_tile_show_shopspots: widgetConfig.tile_options.show_shopspots, // to-do: config[tile_options][show_shopspots]
-  
+
   // Expand Tile Settings
   expanded_tile_show_sharing: widgetConfig.lightbox.show_sharing, // to-do: config[lightbox][show_sharing]
   expanded_tile_show_products: widgetConfig.lightbox.show_products, // config[lightbox][show_products]
   expanded_tile_show_caption: widgetConfig.lightbox.show_caption, // config[lightbox][show_caption]
   expanded_tile_show_shopspots: widgetConfig.lightbox.show_shopspots, // config[lightbox][show_shopspots]
   expanded_tile_show_timestamp: widgetConfig.lightbox.show_timestamp, // config[lightbox][show_timestamp]
-  expanded_tile_show_add_to_cart: widgetConfig.lightbox.show_add_to_cart, // to-do: config[lightbox][show_add_to_cart] 
+  expanded_tile_show_add_to_cart: widgetConfig.lightbox.show_add_to_cart, // to-do: config[lightbox][show_add_to_cart]
 };
 if (!widgetSettings.enabled) {
   return;
@@ -82,36 +76,29 @@ const urlPattern = /^https?:\/\/.+/;
 sdk.addLoadedComponents([
   "https://unpkg.com/masonry-layout@4.2.2/dist/masonry.pkgd.min.js",
   "https://assetscdn.stackla.com/media/js/common/stackla_tile_decorator.js",
-  'https://static.addtoany.com/menu/page.js',
-  'https://platform-api.sharethis.com/js/sharethis.js#property=66503b7a2b0bca00199fbe95&product=inline-share-buttons&source=platform',
+  "https://static.addtoany.com/menu/page.js",
+  "https://platform-api.sharethis.com/js/sharethis.js#property=66503b7a2b0bca00199fbe95&product=inline-share-buttons&source=platform",
 ]);
 
-if (widgetSettings.inline_tile_show_shopspots || widgetSettings.expanded_tile_show_shopspots) {
-  sdk.addLoadedComponents([
-    "shopspots",
-  ]);
+if (
+  widgetSettings.inline_tile_show_shopspots ||
+  widgetSettings.expanded_tile_show_shopspots
+) {
+  sdk.addLoadedComponents(["shopspots"]);
 }
 if (widgetSettings.auto_refresh === true) {
   sdk.tiles.setAutoAddNewTiles(true);
 }
 
-
 // TODO: add inline shopspots on inline Tiles
-if (widgetSettings.click_through_url === '[EXPAND]') {
+if (widgetSettings.click_through_url === "[EXPAND]") {
   // Components
-  sdk.addLoadedComponents([
-    "expanded-tile",
-    "cross-sellers",
-  ]);
+  sdk.addLoadedComponents(["expanded-tile", "cross-sellers"]);
   if (widgetSettings.expanded_tile_show_products) {
-    sdk.addLoadedComponents([
-      "products",
-    ]);
+    sdk.addLoadedComponents(["products"]);
   }
   if (widgetSettings.expanded_tile_show_add_to_cart) {
-    sdk.addLoadedComponents([
-      "add-to-cart",
-    ]);
+    sdk.addLoadedComponents(["add-to-cart"]);
   }
   // Click Event
   sdk.addEventListener("tileExpand", () => {
@@ -120,11 +107,11 @@ if (widgetSettings.click_through_url === '[EXPAND]') {
     const getTileDataById = (tiles, tileId) => {
       return tiles.find((tile) => tile.id === tileId);
     };
-  
+
     // This function finds the previous tile ID based on the current tile
     function getCurrentTileId(currentTile, enabledTiles) {
       const currentIndex = enabledTiles.findIndex(
-        (tile) => tile.id === currentTile.id
+        (tile) => tile.id === currentTile.id,
       );
       // If current tile is the first tile or no previous tile found, return null or an appropriate value
       return currentIndex > 0 ? enabledTiles[currentIndex].id : null;
@@ -132,27 +119,27 @@ if (widgetSettings.click_through_url === '[EXPAND]') {
     // This function finds the previous tile ID based on the current tile
     function getNextTileId(currentTile, enabledTiles) {
       const currentIndex = enabledTiles.findIndex(
-        (tile) => tile.id === currentTile.id
+        (tile) => tile.id === currentTile.id,
       );
       // If current tile is the first tile or no previous tile found, return null or an appropriate value
       return currentIndex > 0 ? enabledTiles[currentIndex - 1].id : null;
     }
-  
+
     // This function finds the next tile ID based on the current tile
     function getPreviousTileId(currentTile, enabledTiles) {
       const currentIndex = enabledTiles.findIndex(
-        (tile) => tile.id === currentTile.id
+        (tile) => tile.id === currentTile.id,
       );
       // If current tile is the last tile or no next tile found, return null or an appropriate value
       return currentIndex >= 0 && currentIndex < enabledTiles.length - 1
         ? enabledTiles[currentIndex + 1].id
         : null;
     }
-  
+
     function triggerArrowClick(currentTile, enabledTiles, type) {
       const prevTileId = getPreviousTileId(currentTile, enabledTiles);
       const nextTileId = getNextTileId(currentTile, enabledTiles);
-      const tileId = type === 'previous' ? prevTileId : nextTileId;
+      const tileId = type === "previous" ? prevTileId : nextTileId;
       const tileToGoTo = enabledTiles.find((tile) => tile.id === tileId);
 
       const tileData = {
@@ -161,11 +148,11 @@ if (widgetSettings.click_through_url === '[EXPAND]') {
         filterId: sdk.placement.getWidgetContainer().widgetOptions?.filterId,
         tileId: tileId,
       };
-  
-      sdk.triggerEvent('expandedTileClose');
+
+      sdk.triggerEvent("expandedTileClose");
 
       // setTimeout(() => {
-        sdk.triggerEvent('tileExpand', tileData);
+      sdk.triggerEvent("tileExpand", tileData);
       // }, 5000);
     }
     // Example of how you might call this function:
@@ -173,21 +160,23 @@ if (widgetSettings.click_through_url === '[EXPAND]') {
     setTimeout(() => {
       // Retrieve the current tile and enabled tiles only once
       const currentTile = sdk.tiles.getTile();
-      const enabledTiles = sdk.tiles.getEnabledTiles().filter(item => item.media === 'video' || item.media === 'image');
+      const enabledTiles = sdk.tiles
+        .getEnabledTiles()
+        .filter((item) => item.media === "video" || item.media === "image");
 
-      const expandedTile = sdk.querySelector('expanded-tile');
+      const expandedTile = sdk.querySelector("expanded-tile");
       const expandedTileShadowRoot = expandedTile.shadowRoot;
       const prevButtonSelector =
-        expandedTileShadowRoot.querySelector('.tile-arrows-left');
+        expandedTileShadowRoot.querySelector(".tile-arrows-left");
       const nextButtonSelector =
-        expandedTileShadowRoot.querySelector('.tile-arrows-right');
-    
-      prevButtonSelector.addEventListener('click', (e) => {
-        const type = 'previous';
+        expandedTileShadowRoot.querySelector(".tile-arrows-right");
+
+      prevButtonSelector.addEventListener("click", (e) => {
+        const type = "previous";
         triggerArrowClick(currentTile, enabledTiles, type);
       });
-      nextButtonSelector.addEventListener('click', (e) => {
-        const type = 'next';
+      nextButtonSelector.addEventListener("click", (e) => {
+        const type = "next";
         triggerArrowClick(currentTile, enabledTiles, type);
       });
     }, 500);
@@ -196,37 +185,45 @@ if (widgetSettings.click_through_url === '[EXPAND]') {
   sdk.addEventListener("expandedTileClose", () => {
     tilesWrapper.style.display = "block";
   });
-} else if (widgetSettings.click_through_url === '[ORIGINAL_URL]' || urlPattern.test(widgetSettings.click_through_url)) {
+} else if (
+  widgetSettings.click_through_url === "[ORIGINAL_URL]" ||
+  urlPattern.test(widgetSettings.click_through_url)
+) {
   initializeTileClickEventListeners(widgetSettings);
 }
 
 // Function to handle tile click events
 function handleTileClick(e, widgetUrl) {
-  const clickedTile = e.target.closest('.ugc-tile');
-  
+  const clickedTile = e.target.closest(".ugc-tile");
+
   // Check if we found a parent tile element
   if (clickedTile) {
-    const tileId = clickedTile.getAttribute('data-id');
+    const tileId = clickedTile.getAttribute("data-id");
     const tileData = ugcTiles[tileId];
-    
+
     // Check if we have data for this tile
     if (tileData) {
       // Determine which link to open based on widget URL or tile specific data
-      const tileLink = widgetUrl || tileData.original_url || tileData.original_link;
-      
+      const tileLink =
+        widgetUrl || tileData.original_url || tileData.original_link;
+
       // Open the link in a new tab
-      window.open(tileLink, '_blank');
+      window.open(tileLink, "_blank");
     }
   }
 }
 
 // Initialize the click event listeners once
 function initializeTileClickEventListeners(widgetSettings) {
-  sdk.querySelectorAll('.ugc-tile').forEach(tile => {
+  sdk.querySelectorAll(".ugc-tile").forEach((tile) => {
     tile.onclick = (e) => {
-      
       // `widgetSettings.click_through_url` determines whether to use the widget-specific URL or tile data
-      handleTileClick(e, urlPattern.test(widgetSettings.click_through_url) ? widgetSettings.click_through_url : null);
+      handleTileClick(
+        e,
+        urlPattern.test(widgetSettings.click_through_url)
+          ? widgetSettings.click_through_url
+          : null,
+      );
     };
   });
 }
@@ -241,10 +238,14 @@ const buttons = sdk.querySelector("#buttons");
 const widget = sdk.placement.getShadowRoot();
 
 if (widgetSettings.enable_custom_tiles_per_page) {
-  sdk.tiles.setVisibleTilesCount(Number.parseInt(widgetSettings.tiles_per_page));
+  sdk.tiles.setVisibleTilesCount(
+    Number.parseInt(widgetSettings.tiles_per_page),
+  );
   loadMoreButton.style.display = "none";
 } else {
-  sdk.tiles.setVisibleTilesCount(3 * Number.parseInt(widgetSettings.rows_per_page));
+  sdk.tiles.setVisibleTilesCount(
+    3 * Number.parseInt(widgetSettings.rows_per_page),
+  );
 }
 sdk.tiles.setLoadMode("all");
 sdk.tiles.hideBrokenTiles = true;
@@ -258,13 +259,13 @@ function loadMore() {
   }
 }
 
-if (widgetSettings.load_more_type === 'button') {
+if (widgetSettings.load_more_type === "button") {
   loadMoreButton.onclick = loadMore;
 } else {
   loadMoreButton.style.display = "none";
-  window.addEventListener('scroll', function() {
+  window.addEventListener("scroll", function () {
     // Checking if the page is scrolled to the bottom
-    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
       // At the bottom of the page, so let's load more content
       loadMore();
     }
@@ -277,7 +278,7 @@ sdk.addEventListener("load", () => {
     itemSelector: ".ugc-tile",
     gutter: 20,
   });
-  
+
   if (showWidget) {
     sdk.masonry.layout();
   }
@@ -301,7 +302,7 @@ const customStyle = document.createElement("style");
 customStyle.innerHTML = `
 .tile-caption {
   margin-top: 15px;
-  display: ${widgetSettings.show_caption ? 'block' : 'none' };
+  display: ${widgetSettings.show_caption ? "block" : "none"};
   text-align: left;
 }`;
 
@@ -435,7 +436,7 @@ sdk.addCSSToComponent(
     background: #${widgetSettings.widget_background};
   }
   .ugc-tile {
-    width: ${widgetSettings.max_tile_width ? widgetSettings.max_tile_width : '300' }px;
+    width: ${widgetSettings.max_tile_width ? widgetSettings.max_tile_width : "300"}px;
     background: #${widgetSettings.text_tile_background};
     margin-left: ${widgetSettings.margin}px !important;
     margin-right: ${widgetSettings.margin}px !important;
@@ -472,11 +473,11 @@ sdk.addCSSToComponent(
   }
   .tile-caption {
     margin-top: 15px;
-    display: ${widgetSettings.show_caption ? 'block' : 'none' };
+    display: ${widgetSettings.show_caption ? "block" : "none"};
     text-align: left;
   }
   `,
-  "expanded-tile"
+  "expanded-tile",
 );
 
 sdk.addCSSToComponent(
@@ -519,15 +520,19 @@ sdk.addCSSToComponent(
     min-width: 300px;
   }
   `,
-  "ugc-products"
+  "ugc-products",
 );
 
 // Template
 const customExpandedTileTemplate = (sdk) => {
   const tile = sdk.tiles.getTile();
 
-  const shopspotEnabled = sdk.isComponentLoaded("shopspots") && widgetSettings.expanded_tile_show_shopspots;
-  const productsEnabled = sdk.isComponentLoaded("products") && widgetSettings.expanded_tile_show_products;
+  const shopspotEnabled =
+    sdk.isComponentLoaded("shopspots") &&
+    widgetSettings.expanded_tile_show_shopspots;
+  const productsEnabled =
+    sdk.isComponentLoaded("products") &&
+    widgetSettings.expanded_tile_show_products;
   const parent = sdk.getNodeId();
   return `<div class="panel">
         <a class="exit" href="#">
@@ -597,11 +602,14 @@ const customExpandedTileTemplate = (sdk) => {
                         <div class="tile-timestamp">${tile.source_created_at && widgetSettings.expanded_tile_show_timestamp ? window.StacklaTileDecorator._getTimephrase(tile.source_created_at) : ""}</div>
                         <div class="caption">
                             <p class="caption-paragraph">${
-                              (tile.message && widgetSettings.expanded_tile_show_caption) ? tile.message : ""
+                              tile.message &&
+                              widgetSettings.expanded_tile_show_caption
+                                ? tile.message
+                                : ""
                             }</p>
                             ${
                               widgetSettings.expanded_tile_show_sharing
-                               ? `<!-- AddToAny BEGIN -->
+                                ? `<!-- AddToAny BEGIN -->
                                <div class="ugc-inline-share-buttons">
                                  <a href="https://www.addtoany.com/add_to/facebook?linkurl=${tile.original_url}&amp;linkname=${tile.name}" target="_blank"><img src="https://static.addtoany.com/buttons/facebook.svg" width="32" height="32" style="background-color:#333"></a>
                                  <a href="https://www.addtoany.com/add_to/x?linkurl=${tile.original_url}&amp;linkname=${tile.name}" target="_blank"><img src="https://static.addtoany.com/buttons/x.svg" width="32" height="32" style="background-color:#333"></a>
@@ -610,7 +618,7 @@ const customExpandedTileTemplate = (sdk) => {
                                  <a href="https://www.addtoany.com/add_to/email?linkurl=${tile.original_url}&amp;linkname=${tile.name}" target="_blank"><img src="https://static.addtoany.com/buttons/email.svg" width="32" height="32" style="background-color:#333"></a>
                                </div>
                                <!-- AddToAny END -->`
-                               : ""
+                                : ""
                             }
                             ${
                               productsEnabled
