@@ -1,14 +1,12 @@
-import { Sdk } from "@stackla/types";
+import type { Sdk } from "@stackla/types";
 import { IWidgetSettings } from "types/IWidgetSettings";
+import { getConfig } from "./widget.config";
 
 declare const sdk: Sdk;
 
-export function loadComponents(widgetSettings: IWidgetSettings) {
-  sdk.addLoadedComponents([
-    // TODO - Remove this legacy code
-    "https://assetscdn.stackla.com/media/js/common/stackla_tile_decorator.js",
-    "https://static.addtoany.com/menu/page.js",
-  ]);
+export function loadComponents() {
+  const widgetContainer = sdk.placement.getWidgetContainer();
+  const widgetSettings = getConfig(widgetContainer);
 
   if (widgetSettings.expanded_tile_show_shopspots) {
     sdk.addLoadedComponents(["shopspots"]);

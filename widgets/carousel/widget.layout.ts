@@ -1,12 +1,14 @@
-import { Sdk } from "@stackla/types";
-import { IWidgetSettings } from "types/IWidgetSettings";
+import type { Sdk } from "@stackla/types";
+import { getConfig } from "./widget.config";
 
 declare const sdk: Sdk;
 
-export function addCSSVariablesToPlacement(widgetSettings : IWidgetSettings) {
-    const shadowRoot = sdk.placement.getShadowRoot();
-    const style = document.createElement("style");
-    style.innerHTML = `
+export function addCSSVariablesToPlacement() {
+  const widgetContainer = sdk.placement.getWidgetContainer();
+  const widgetSettings = getConfig(widgetContainer);
+  const shadowRoot = sdk.placement.getShadowRoot();
+  const style = document.createElement("style");
+  style.innerHTML = `
     :host {
         --widget-background: #${widgetSettings.widget_background};
         --text-tile-background: #${widgetSettings.text_tile_background};
@@ -26,15 +28,15 @@ export function addCSSVariablesToPlacement(widgetSettings : IWidgetSettings) {
         --shopspot-btn_font_color: #${widgetSettings.shopspot_btn_font_color};
         --shopspot-btn_background: #${widgetSettings.shopspot_btn_background};
     }`;
-shadowRoot.appendChild(style);
+  shadowRoot.appendChild(style);
 }
 
-export function loadTitle(widgetSettings: IWidgetSettings) {
-    const widgetTitle = document.createElement("p");
-    const widgetContainer = sdk.placement.getWidgetContainer();
-    const title = widgetContainer.title;
+export function loadTitle() {
+  const widgetTitle = document.createElement("p");
+  const widgetContainer = sdk.placement.getWidgetContainer();
+  const title = widgetContainer.title;
 
-    if (title) {
-        widgetTitle.innerHTML = title;
-    }
+  if (title) {
+    widgetTitle.innerHTML = title;
+  }
 }

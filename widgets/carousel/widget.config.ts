@@ -1,4 +1,4 @@
-import { WidgetContainer } from "@stackla/types";
+import type { WidgetContainer } from "@stackla/types";
 import { IWidgetSettings } from "types/IWidgetSettings";
 
 export function getConfig(widgetContainer: WidgetContainer): IWidgetSettings {

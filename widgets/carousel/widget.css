@@ -1,6 +1,15 @@
 @import url('https://unpkg.com/@glidejs/glide@3.2.3/dist/css/glide.theme.min.css');
 @import url('https://unpkg.com/@glidejs/glide@3.2.3/dist/css/glide.core.min.css');
 
+#tiles {
+	position: relative;
+}
+
+.ugc-tiles {
+    /** Prevent GlideJS from creating large 10000px width **/
+	width: 100% !important;
+}
+
 .glide__slide {
     position: relative;
 }
@@ -33,8 +42,7 @@
 }
 
 .ugc-tile {
-    display: block !important;
-    opacity: 1 !important;
+    display: inline-block;
 }
 .ugc-tile img {
     width: 100%;

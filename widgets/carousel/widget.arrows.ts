@@ -1,4 +1,4 @@
-import { Sdk } from "@stackla/types";
+import type { Sdk, Tile } from "@stackla/types";
 
 declare const sdk: Sdk;
 
@@ -22,12 +22,20 @@ export const getTileId = (
 
 export const handleTileArrowClicked = (type: string) => {
   const currentTile = sdk.tiles.getTile();
+
+  if (!currentTile) {
+    throw new Error("Failed to find current tile");
+    return;
+  }
+
   const enabledTiles = sdk.tiles
     .getEnabledTiles()
-    .filter((item: Tile) => item.media === "video" || item.media === "image");
+    .filter(
+      (item) => item.media === "video" || item.media === "image",
+    ) as Tile[];
   const tileId = getTileId(currentTile, enabledTiles, type);
   const tileData = {
-    tileData: enabledTiles.find((tile: Tile) => tile.id === tileId),
+    tileData: enabledTiles.find((tile) => tile.id === tileId),
     widgetId: sdk.placement.getWidgetId(),
     filterId: sdk.placement.getWidgetContainer().widgetOptions?.filterId,
   };
@@ -37,6 +45,7 @@ export const handleTileArrowClicked = (type: string) => {
 
 export const arrowClickListener = (e: Event) => {
   if (!e.target) {
+    throw new Error("Failed to find target element for arrow click listener");
     return;
   }
 
@@ -45,5 +54,6 @@ export const arrowClickListener = (e: Event) => {
   const type = target.classList.contains("tile-arrows-left")
     ? "previous"
     : "next";
+
   handleTileArrowClicked(type);
 };

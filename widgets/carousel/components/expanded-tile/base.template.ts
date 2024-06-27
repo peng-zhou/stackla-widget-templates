@@ -1,11 +1,15 @@
-import { Sdk } from "@stackla/types";
+import type { Sdk } from "@stackla/types";
 import { getConfig } from "widgets/carousel/widget.config";
+import { getTimephrase } from "widgets/carousel/widget.utils";
 
-export const expandedTileTemplate = (component: CoreComponent) => {
-  const sdk = component.getSdk(); 
+export const expandedTileTemplate = (sdk: Sdk) => {
   const widgetContainer = sdk.placement.getWidgetContainer();
   const widgetSettings = getConfig(widgetContainer);
   const tile = sdk.tiles.getTile();
+
+  if (!tile) {
+    throw new Error("Failed to get tile");
+  }
 
   const shopspotEnabled =
     sdk.isComponentLoaded("shopspots") &&
@@ -79,7 +83,7 @@ export const expandedTileTemplate = (component: CoreComponent) => {
                                 }
                             </div>
                         </div>
-                        <div class="tile-timestamp">${tile.source_created_at && widgetSettings.expanded_tile_show_timestamp ? window.StacklaTileDecorator._getTimephrase(tile.source_created_at) : ""}</div>
+                        <div class="tile-timestamp">${tile.source_created_at && widgetSettings.expanded_tile_show_timestamp ? getTimephrase(tile.source_created_at) : ""}</div>
                         <div class="caption">
                             <p class="caption-paragraph">${
                               tile.message &&
@@ -89,15 +93,13 @@ export const expandedTileTemplate = (component: CoreComponent) => {
                             }</p>
                             ${
                               widgetSettings.expanded_tile_show_sharing
-                                ? `<!-- AddToAny BEGIN -->
-                               <div class="ugc-inline-share-buttons">
+                                ? `<div class="ugc-inline-share-buttons">
                                  <a href="https://www.addtoany.com/add_to/facebook?linkurl=${tile.original_url}&amp;linkname=${tile.name}" target="_blank"><img src="https://static.addtoany.com/buttons/facebook.svg" width="32" height="32" style="background-color:#333"></a>
                                  <a href="https://www.addtoany.com/add_to/x?linkurl=${tile.original_url}&amp;linkname=${tile.name}" target="_blank"><img src="https://static.addtoany.com/buttons/x.svg" width="32" height="32" style="background-color:#333"></a>
                                  <a href="https://www.addtoany.com/add_to/pinterest?linkurl=${tile.original_url}&amp;linkname=${tile.name}" target="_blank"><img src="https://static.addtoany.com/buttons/pinterest.svg" width="32" height="32" style="background-color:#333"></a>
                                  <a href="https://www.addtoany.com/add_to/linkedin?linkurl=${tile.original_url}&amp;linkname=${tile.name}" target="_blank"><img src="https://static.addtoany.com/buttons/linkedin.svg" width="32" height="32" style="background-color:#333"></a>
                                  <a href="https://www.addtoany.com/add_to/email?linkurl=${tile.original_url}&amp;linkname=${tile.name}" target="_blank"><img src="https://static.addtoany.com/buttons/email.svg" width="32" height="32" style="background-color:#333"></a>
-                               </div>
-                               <!-- AddToAny END -->`
+                               </div>`
                                 : ""
                             }
                             ${

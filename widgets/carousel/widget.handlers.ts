@@ -1,4 +1,4 @@
-import { Sdk } from "@stackla/types";
+import type { Sdk, Tile } from "@stackla/types";
 
 declare const sdk: Sdk;
 
@@ -18,9 +18,9 @@ export function handleTileClick(e: Event, widgetUrl: string) {
     throw new Error("Failed to find tile ID");
   }
 
-  const tileData = ugcTiles[tileId];
-  const tileLink: string =
-    widgetUrl || tileData.original_url || tileData.original_link;
+  const tileData: Tile = ugcTiles[tileId] as Tile;
+
+  const tileLink = widgetUrl || tileData.original_url || tileData.original_link;
 
   if (tileLink) {
     window.open(tileLink, "_blank");

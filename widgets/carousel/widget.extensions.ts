@@ -1,4 +1,4 @@
-import { Sdk } from "@stackla/types";
+import type { Sdk } from "@stackla/types";
 import { IWidgetSettings } from "../../types/IWidgetSettings";
 import Glide from "@glidejs/glide";
 
@@ -23,11 +23,11 @@ export function initializeGlide(widgetSettings: IWidgetSettings) {
     type: "slider",
     startAt: 0,
     perView: perView,
-    breakpoints: {
-      768: {
-        perView: 1,
-      },
-    },
+    // breakpoints: {
+    //   768: {
+    //     perView: 1,
+    //   },
+    // },
   });
 
   glide.on("mount.after", function () {

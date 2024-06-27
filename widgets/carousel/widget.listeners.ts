@@ -1,19 +1,21 @@
-import { Sdk } from "@stackla/types";
+import type { Sdk } from "@stackla/types";
 import { initializeGlide } from "./widget.extensions";
 import { handleTileClick } from "./widget.handlers";
 import { loadTileExpandArrows } from "./widget.features";
 import { IWidgetSettings } from "types/IWidgetSettings";
+import { getConfig } from "./widget.config";
 
 declare const sdk: Sdk;
 
-export function registerLoadListener(widgetSettings: IWidgetSettings) {
+export function registerLoadListener() {
+  const widgetContainer = sdk.placement.getWidgetContainer();
+  const widgetSettings = getConfig(widgetContainer);
   sdk.addEventListener("load", () => {
     const arrows = sdk.querySelector(".glide__arrows");
-    const tiles = sdk.querySelector(".ugc-tiles");
+    const tiles = sdk.querySelector("#tiles");
 
     if (!tiles || !arrows) {
-      console.error("Failed to find tiles or arrow UI element");
-      return;
+      throw new Error("Failed to find tiles or arrow UI element");
     }
 
     tiles.classList.add("glide__slides");
@@ -68,7 +70,7 @@ export function registerTileClosedListener() {
     if (!arrows) {
       throw new Error("Failed to find arrows UI element");
     }
-    
+
     arrows.style.display = "block";
   });
 }
