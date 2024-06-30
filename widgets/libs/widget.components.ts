@@ -3,7 +3,9 @@ import { BaseConfig } from "types/IBaseConfig";
 
 declare const sdk: Sdk;
 
-export function loadExpandSettingComponents<T extends BaseConfig>(widgetSettings: T) {
+export function loadExpandSettingComponents<T extends BaseConfig>(
+  widgetSettings: T,
+) {
   if (widgetSettings.expanded_tile_show_shopspots) {
     sdk.addLoadedComponents(["shopspots"]);
   }

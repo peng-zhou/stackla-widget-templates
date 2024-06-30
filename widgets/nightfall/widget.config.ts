@@ -7,12 +7,14 @@ export function getConfig(widgetContainer: WidgetContainer): IWidgetSettings {
   const { widgetStyle, widgetConfig } = widgetOptions;
 
   const widgetSettings = {
-    enabled: enabled, 
-    name: widgetStyle?.name ?? '',
+    enabled: enabled,
+    name: widgetStyle?.name ?? "",
     minimal_tiles: widgetStyle?.minimal_tiles ?? 0,
     auto_refresh: widgetStyle?.auto_refresh ?? true,
-    unavailable_products_behaviour: widgetStyle?.unavailable_products_behaviour ?? 'hide', 
-    enable_custom_tiles_per_page: widgetStyle?.enable_custom_tiles_per_page ?? false,
+    unavailable_products_behaviour:
+      widgetStyle?.unavailable_products_behaviour ?? "hide",
+    enable_custom_tiles_per_page:
+      widgetStyle?.enable_custom_tiles_per_page ?? false,
     rows_per_page: widgetStyle?.rows_per_page ?? 1,
     tiles_per_page: widgetStyle?.tiles_per_page ?? 4,
     widget_background: widgetStyle?.widget_background,
@@ -22,15 +24,16 @@ export function getConfig(widgetContainer: WidgetContainer): IWidgetSettings {
     text_tile_link_color: widgetStyle?.text_tile_link_color,
     text_tile_user_name_font_size: widgetStyle?.text_tile_user_name_font_size,
     text_tile_user_name_font_color: widgetStyle?.text_tile_user_name_font_color,
-    text_tile_user_handle_font_size: widgetStyle?.text_tile_user_handle_font_size,
+    text_tile_user_handle_font_size:
+      widgetStyle?.text_tile_user_handle_font_size,
     text_tile_user_handle_font_color:
       widgetStyle?.text_tile_user_handle_font_color,
     enable_typekit: widgetStyle?.enable_typekit,
     max_tile_width: widgetStyle?.max_tile_width,
     margin: widgetStyle?.margin,
     click_through_url: widgetStyle?.click_through_url,
-    load_more_type: widgetStyle?.load_more_type, 
-    enable_doublecolumnspan: widgetStyle?.enable_doublecolumnspan, 
+    load_more_type: widgetStyle?.load_more_type,
+    enable_doublecolumnspan: widgetStyle?.enable_doublecolumnspan,
     shopspot_btn_background: widgetStyle?.shopspot_btn_background,
     shopspot_btn_font_color: widgetStyle?.shopspot_btn_font_color,
     shopspot_icon: widgetStyle?.shopspot_icon,
@@ -53,4 +56,4 @@ export function getConfig(widgetContainer: WidgetContainer): IWidgetSettings {
   }
 
   return widgetSettings;
-};
+}

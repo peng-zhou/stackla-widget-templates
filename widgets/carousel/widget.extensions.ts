@@ -8,9 +8,9 @@ declare const sdk: Sdk;
 export function initializeGlideListeners() {
   const widgetContainer = sdk.placement.getWidgetContainer();
   const widgetSettings = getConfig(widgetContainer);
-  
+
   const tiles = sdk.querySelector("#tiles");
-  
+
   if (!tiles) {
     throw new Error("Failed to find tiles or arrow UI element");
   }
@@ -20,7 +20,7 @@ export function initializeGlideListeners() {
   initializeGlide(widgetSettings);
 
   window.addEventListener("resize", function () {
-      initializeGlide(widgetSettings);
+    initializeGlide(widgetSettings);
   });
   const arrows = sdk.querySelector(".glide__arrows");
   if (!arrows) {
@@ -47,7 +47,7 @@ export function initializeGlide(widgetSettings: IWidgetSettings) {
   const glide = new Glide(widgetSelector, {
     type: "slider",
     startAt: 0,
-    perView: perView
+    perView: perView,
   });
 
   glide.on("mount.after", function () {

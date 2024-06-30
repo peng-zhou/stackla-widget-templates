@@ -5,7 +5,12 @@ import expandedTileStyle from "./components/expanded-tile/base.css";
 import productsStyle from "./components/products/base.css";
 import { hideGlideArrows, initializeGlideListeners } from "./widget.extensions";
 import { registerLoadListener } from "widgets/libs/tile.listeners";
-import { addAutoAddTileFeature, addTilesPerPageFeature, loadClickThroughFeature, loadTitle } from "widgets/libs/tile.features";
+import {
+  addAutoAddTileFeature,
+  addTilesPerPageFeature,
+  loadClickThroughFeature,
+  loadTitle,
+} from "widgets/libs/tile.features";
 import getCSSVariables from "./css.variables";
 import { addCSSVariablesToPlacement } from "widgets/libs/widget.layout";
 import { IWidgetSettings } from "types/IWidgetSettings";
@@ -22,7 +27,7 @@ if (!widgetSettings.enabled) {
 }
 
 // Add CSS variables to placement
-addCSSVariablesToPlacement(getCSSVariables())
+addCSSVariablesToPlacement(getCSSVariables());
 
 // Load features
 loadTitle();
@@ -33,7 +38,9 @@ registerLoadListener(() => initializeGlideListeners());
 // Add features
 addAutoAddTileFeature<IWidgetSettings>(widgetSettings);
 addTilesPerPageFeature<IWidgetSettings>(widgetSettings);
-loadClickThroughFeature<IWidgetSettings>(widgetSettings, () => hideGlideArrows());
+loadClickThroughFeature<IWidgetSettings>(widgetSettings, () =>
+  hideGlideArrows(),
+);
 
 // Add styles and templates to components
 sdk.addCSSToComponent(expandedTileStyle, "expanded-tile");

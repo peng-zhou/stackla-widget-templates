@@ -2,18 +2,22 @@ import { Sdk } from "@stackla/types";
 import { getConfig } from "widgets/nightfall/widget.config";
 
 export default (sdk: Sdk) => {
-    const widgetContainer = sdk.placement.getWidgetContainer();
-    const widgetSettings = getConfig(widgetContainer);
-    const tile = sdk.tiles.getTile();
+  const widgetContainer = sdk.placement.getWidgetContainer();
+  const widgetSettings = getConfig(widgetContainer);
+  const tile = sdk.tiles.getTile();
 
-    if (!tile) {
-        throw new Error("Failed to find expanded tile");
-    }
+  if (!tile) {
+    throw new Error("Failed to find expanded tile");
+  }
 
-    const shopspotEnabled = sdk.isComponentLoaded("shopspots") && widgetSettings.expanded_tile_show_shopspots;
-    const productsEnabled = sdk.isComponentLoaded("products") && widgetSettings.expanded_tile_show_products;
-    const parent = sdk.getNodeId();
-    return `<div class="panel">
+  const shopspotEnabled =
+    sdk.isComponentLoaded("shopspots") &&
+    widgetSettings.expanded_tile_show_shopspots;
+  const productsEnabled =
+    sdk.isComponentLoaded("products") &&
+    widgetSettings.expanded_tile_show_products;
+  const parent = sdk.getNodeId();
+  return `<div class="panel">
           <a class="exit" href="#">
               <span class="widget-icon close"></span>
           </a>

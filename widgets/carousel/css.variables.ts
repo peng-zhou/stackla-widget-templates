@@ -4,10 +4,10 @@ import { getConfig } from "./widget.config";
 declare const sdk: Sdk;
 
 export default function getCSSVariables() {
-    const widgetContainer = sdk.placement.getWidgetContainer();
-    const widgetSettings = getConfig(widgetContainer);
+  const widgetContainer = sdk.placement.getWidgetContainer();
+  const widgetSettings = getConfig(widgetContainer);
 
-    return `
+  return `
         --widget-background: #${widgetSettings.widget_background};
         --text-tile-background: #${widgetSettings.text_tile_background};
         --text-tile-font-color: #${widgetSettings.text_tile_font_color};

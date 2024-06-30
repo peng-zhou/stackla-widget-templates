@@ -2,8 +2,18 @@ declare const sdk: Sdk;
 
 import { getConfig } from "./widget.config";
 import { Sdk } from "@stackla/types";
-import { initializeMasonry, loadMoreMasonryTiles, refreshMasonryLayout } from "./widget.extensions";
-import { addAutoAddTileFeature, addLoadMoreButtonFeature, addTilesPerPageFeature, loadClickThroughFeature, loadTitle } from "widgets/libs/tile.features";
+import {
+  initializeMasonry,
+  loadMoreMasonryTiles,
+  refreshMasonryLayout,
+} from "./widget.extensions";
+import {
+  addAutoAddTileFeature,
+  addLoadMoreButtonFeature,
+  addTilesPerPageFeature,
+  loadClickThroughFeature,
+  loadTitle,
+} from "widgets/libs/tile.features";
 import { loadExpandSettingComponents } from "widgets/libs/widget.components";
 import { IWidgetSettings } from "types/IWidgetSettings";
 import customExpandedTileTemplate from "./components/expanded-tile/base.template";
@@ -22,7 +32,10 @@ const widgetSettings = getConfig(widgetContainer);
 const ugcTiles = sdk.tiles.tiles;
 const ugcTilesLength = Object.keys(ugcTiles).length;
 
-const showWidget = ugcTiles && ugcTilesLength > widgetSettings.minimal_tiles && widgetContainer.enabled;
+const showWidget =
+  ugcTiles &&
+  ugcTilesLength > widgetSettings.minimal_tiles &&
+  widgetContainer.enabled;
 
 if (!showWidget) {
   throw new Error("Widget is not enabled");
@@ -34,13 +47,12 @@ addAutoAddTileFeature<IWidgetSettings>(widgetSettings);
 loadClickThroughFeature(widgetSettings, () => {}, onTileClose);
 addTilesPerPageFeature<IWidgetSettings>(widgetSettings);
 addLoadMoreButtonFeature();
-addCSSVariablesToPlacement(getCSSVariables())
+addCSSVariablesToPlacement(getCSSVariables());
 
 sdk.addEventListener("load", () => initializeMasonry());
 sdk.addEventListener("moreLoad", () => loadMoreMasonryTiles());
 sdk.addEventListener("tilesUpdated", () => refreshMasonryLayout());
 
-sdk.addCSSToComponent(customExpandedTileCSS, "expanded-tile",);
-sdk.addCSSToComponent(customProductsCSS, "ugc-products",);
+sdk.addCSSToComponent(customExpandedTileCSS, "expanded-tile");
+sdk.addCSSToComponent(customProductsCSS, "ugc-products");
 sdk.addTemplateToComponent(customExpandedTileTemplate, "expanded-tile");
-

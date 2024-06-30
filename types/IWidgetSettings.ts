@@ -36,4 +36,4 @@ export interface IWidgetSettings extends BaseConfig {
   expanded_tile_show_sharing: boolean;
   expanded_tile_show_caption: boolean;
   expanded_tile_show_timestamp: boolean;
-};
+}
