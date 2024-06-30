@@ -1,16 +1,14 @@
 import type { Sdk } from "@stackla/types";
 import { getConfig } from "./widget.config";
-import { loadComponents } from "./widget.components";
-import {
-  addAutoAddTileFeature,
-  addTilesPerPageFeature,
-  loadClickThroughFeature,
-} from "./widget.features";
-import { registerLoadListener } from "./widget.listeners";
 import { expandedTileTemplate } from "./components/expanded-tile/base.template";
 import expandedTileStyle from "./components/expanded-tile/base.css";
 import productsStyle from "./components/products/base.css";
-import { addCSSVariablesToPlacement, loadTitle } from "./widget.layout";
+import { hideGlideArrows, initializeGlideListeners } from "./widget.extensions";
+import { registerLoadListener } from "widgets/libs/tile.listeners";
+import { addAutoAddTileFeature, addTilesPerPageFeature, loadClickThroughFeature, loadTitle } from "widgets/libs/tile.features";
+import getCSSVariables from "./css.variables";
+import { addCSSVariablesToPlacement } from "widgets/libs/widget.layout";
+import { IWidgetSettings } from "types/IWidgetSettings";
 
 declare const sdk: Sdk;
 sdk.tiles.preloadImages = true;
@@ -23,14 +21,21 @@ if (!widgetSettings.enabled) {
   throw new Error("Widget is not enabled");
 }
 
-addCSSVariablesToPlacement();
-loadTitle();
-loadComponents();
-addAutoAddTileFeature();
-addTilesPerPageFeature();
-registerLoadListener();
-loadClickThroughFeature();
+// Add CSS variables to placement
+addCSSVariablesToPlacement(getCSSVariables())
 
+// Load features
+loadTitle();
+
+// Load listeners
+registerLoadListener(() => initializeGlideListeners());
+
+// Add features
+addAutoAddTileFeature<IWidgetSettings>(widgetSettings);
+addTilesPerPageFeature<IWidgetSettings>(widgetSettings);
+loadClickThroughFeature<IWidgetSettings>(widgetSettings, () => hideGlideArrows());
+
+// Add styles and templates to components
 sdk.addCSSToComponent(expandedTileStyle, "expanded-tile");
 sdk.addCSSToComponent(productsStyle, "ugc-products");
 sdk.addTemplateToComponent(expandedTileTemplate, "expanded-tile");

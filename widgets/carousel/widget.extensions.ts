@@ -1,8 +1,33 @@
 import type { Sdk } from "@stackla/types";
 import { IWidgetSettings } from "../../types/IWidgetSettings";
 import Glide from "@glidejs/glide";
+import { getConfig } from "./widget.config";
 
 declare const sdk: Sdk;
+
+export function initializeGlideListeners() {
+  const widgetContainer = sdk.placement.getWidgetContainer();
+  const widgetSettings = getConfig(widgetContainer);
+  
+  const tiles = sdk.querySelector("#tiles");
+  
+  if (!tiles) {
+    throw new Error("Failed to find tiles or arrow UI element");
+  }
+
+  tiles.classList.add("glide__slides");
+  tiles.style.display = "";
+  initializeGlide(widgetSettings);
+
+  window.addEventListener("resize", function () {
+      initializeGlide(widgetSettings);
+  });
+  const arrows = sdk.querySelector(".glide__arrows");
+  if (!arrows) {
+    throw new Error("Failed to find arrows UI element");
+  }
+  arrows.style.display = "inline-block";
+}
 
 export function initializeGlide(widgetSettings: IWidgetSettings) {
   const widgetSelector = sdk.placement.querySelector(".glide");
@@ -22,12 +47,7 @@ export function initializeGlide(widgetSettings: IWidgetSettings) {
   const glide = new Glide(widgetSelector, {
     type: "slider",
     startAt: 0,
-    perView: perView,
-    // breakpoints: {
-    //   768: {
-    //     perView: 1,
-    //   },
-    // },
+    perView: perView
   });
 
   glide.on("mount.after", function () {
@@ -64,4 +84,12 @@ export function initializeGlide(widgetSettings: IWidgetSettings) {
   });
 
   glide.mount();
+}
+
+export function hideGlideArrows() {
+  const arrows = sdk.querySelector(".glide__arrows");
+  if (!arrows) {
+    throw new Error("Failed to find arrows UI element");
+  }
+  arrows.style.display = "none";
 }

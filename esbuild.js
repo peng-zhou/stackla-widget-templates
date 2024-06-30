@@ -2,7 +2,7 @@ import * as esbuild from "esbuild";
 
 const widgets = [
   'carousel',
-  'example'
+  'nightfall'
 ]
 
 await esbuild.build({

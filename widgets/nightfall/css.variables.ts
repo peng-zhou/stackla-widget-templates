@@ -1,15 +1,13 @@
-import type { Sdk } from "@stackla/types";
+import { Sdk } from "@stackla/types";
 import { getConfig } from "./widget.config";
 
 declare const sdk: Sdk;
 
-export function addCSSVariablesToPlacement() {
-  const widgetContainer = sdk.placement.getWidgetContainer();
-  const widgetSettings = getConfig(widgetContainer);
-  const shadowRoot = sdk.placement.getShadowRoot();
-  const style = document.createElement("style");
-  style.innerHTML = `
-    :host {
+export default function getCSSVariables() {
+    const widgetContainer = sdk.placement.getWidgetContainer();
+    const widgetSettings = getConfig(widgetContainer);
+
+    return `
         --widget-background: #${widgetSettings.widget_background};
         --text-tile-background: #${widgetSettings.text_tile_background};
         --text-tile-font-color: #${widgetSettings.text_tile_font_color};
@@ -27,16 +25,6 @@ export function addCSSVariablesToPlacement() {
         : 12};
         --shopspot-btn_font_color: #${widgetSettings.shopspot_btn_font_color};
         --shopspot-btn_background: #${widgetSettings.shopspot_btn_background};
-    }`;
-  shadowRoot.appendChild(style);
-}
-
-export function loadTitle() {
-  const widgetTitle = document.createElement("p");
-  const widgetContainer = sdk.placement.getWidgetContainer();
-  const title = widgetContainer.title;
-
-  if (title) {
-    widgetTitle.innerHTML = title;
-  }
+        --show_caption: ${widgetSettings.show_caption ? "block" : "none"};
+    `;
 }

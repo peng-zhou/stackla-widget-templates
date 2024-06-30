@@ -1,4 +1,6 @@
-export type IWidgetSettings = {
+import { BaseConfig } from "./IBaseConfig";
+
+export interface IWidgetSettings extends BaseConfig {
   expanded_tile_show_shopspots: boolean;
   expanded_tile_show_products: boolean;
   expanded_tile_show_add_to_cart: boolean;
@@ -22,7 +24,7 @@ export type IWidgetSettings = {
   enable_typekit?: boolean;
   max_tile_width?: number;
   margin?: number;
-  click_through_url?: string;
+  click_through_url: string;
   load_more_type?: string;
   show_claim_button?: boolean;
   enable_doublecolumnspan?: boolean;
