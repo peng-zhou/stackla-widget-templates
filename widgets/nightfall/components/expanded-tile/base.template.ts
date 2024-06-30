@@ -1,4 +1,4 @@
-import { Sdk } from "@stackla/types";
+import type { Sdk } from "@stackla/types";
 import { getConfig } from "widgets/nightfall/widget.config";
 
 export default (sdk: Sdk) => {

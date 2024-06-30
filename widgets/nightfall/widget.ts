@@ -1,7 +1,7 @@
 declare const sdk: Sdk;
 
 import { getConfig } from "./widget.config";
-import { Sdk } from "@stackla/types";
+import type { Sdk } from "@stackla/types";
 import {
   initializeMasonry,
   loadMoreMasonryTiles,

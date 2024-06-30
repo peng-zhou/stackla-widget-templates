@@ -1,4 +1,4 @@
-import { Sdk } from "@stackla/types";
+import type { Sdk } from "@stackla/types";
 
 declare const sdk: Sdk;
 

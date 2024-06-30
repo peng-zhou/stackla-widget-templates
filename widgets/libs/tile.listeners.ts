@@ -1,4 +1,4 @@
-import { Sdk } from "@stackla/types";
+import type { Sdk } from "@stackla/types";
 import { handleTileClick } from "./tile.lib";
 import { loadTileExpandArrows } from "./tile.features";
 import { BaseConfig } from "../../types/IBaseConfig";
