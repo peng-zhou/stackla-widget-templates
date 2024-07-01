@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Grid with Load More</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            margin-bottom: 80px;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            width: 80%;
+            margin-bottom: 20px;
+        }
+        .group-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        .group-container.even .grid-item.large {
+            grid-column: span 2;
+        }
+        .group-container.odd .grid-item.large {
+            grid-column: span 2;
+        }
+        .grid-item {
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+        }
+        .grid-item img {
+            width: 100%;
+            height: auto;
+        }
+        .grid-item.large {
+            grid-column: span 2;
+        }
+        .load-more-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-container"></div>
+    <button class="load-more-button">Load More</button>
+
+    <script>
+        const images = [
+            'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+            'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+            'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+            'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+            'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+            // ...add more image URLs here
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+            'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+            'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+            'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+            'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+            'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+            'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+            'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+            'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+            'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+            'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+            'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+            'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+        ];
+
+        const container = document.querySelector('.grid-container');
+        let groupCount = 0;
+        const groupsToShowInitially = 6;
+        const imagesPerGroup = 5;
+
+        function loadImages() {
+            const startIndex = groupCount * imagesPerGroup; 
+            const endIndex = Math.min(startIndex + imagesPerGroup, images.length);
+
+            for (let i = startIndex; i < endIndex; i += imagesPerGroup) {
+                const groupDiv = document.createElement('div');
+                groupDiv.className = 'group-container';
+
+                if (i + 4 < endIndex) {
+                    const bigDiv = document.createElement('div');
+                    bigDiv.className = 'grid-item large';
+                    const bigImg = document.createElement('img');
+                    bigImg.src = images[i + 4];
+                    bigDiv.appendChild(bigImg);
+
+                    if (groupCount % 2 === 1) { // Odd index: Insert big image at the bottom
+                        for (let j = 0; j < 4; j++) {
+                            if (i + j < endIndex) {
+                                const smallDiv = document.createElement('div');
+                                smallDiv.className = 'grid-item';
+                                const smallImg = document.createElement('img');
+                                smallImg.src = images[i + j];
+                                smallDiv.appendChild(smallImg);
+                                groupDiv.appendChild(smallDiv);
+                            }
+                        }
+                        groupDiv.appendChild(bigDiv);
+                    } else { // Even index: Insert big image at the top
+                        groupDiv.appendChild(bigDiv);
+                        for (let j = 0; j < 4; j++) {
+                            if (i + j < endIndex) {
+                                const smallDiv = document.createElement('div');
+                                smallDiv.className = 'grid-item';
+                                const smallImg = document.createElement('img');
+                                smallImg.src = images[i + j];
+                                smallDiv.appendChild(smallImg);
+                                groupDiv.appendChild(smallDiv);
+                            }
+                        }
+                    }
+                }
+
+                container.appendChild(groupDiv);
+                groupCount++;
+                if (groupCount >= images.length / imagesPerGroup) {
+                    document.querySelector('.load-more-button').style.display = 'none';
+                    break;
+                }
+            }
+        }
+
+        document.querySelector('.load-more-button').addEventListener('click', loadImages);
+
+        // Initial load of first 6 groups
+        for (let i = 0; i < groupsToShowInitially; i++) {
+            loadImages();
+        }
+    </script>
+</body>
+</html>
