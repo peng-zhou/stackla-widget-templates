@@ -15,31 +15,51 @@
             font-family: Arial, sans-serif;
             margin-bottom: 80px;
         }
-        .grid-container {
+        .quadrant-grid-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
             width: 80%;
+            max-width: 1200px;
             margin-bottom: 20px;
         }
         .group-container {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 10px;
-        }
-        .group-container.even .grid-item.large {
-            grid-column: span 2;
-        }
-        .group-container.odd .grid-item.large {
-            grid-column: span 2;
+            margin-bottom: 30px;
         }
         .grid-item {
+            position: relative;
             background-color: #f0f0f0;
             border: 1px solid #ccc;
+            overflow: hidden;
         }
         .grid-item img {
             width: 100%;
             height: auto;
+            transition: transform 0.3s ease;
+        }
+        .grid-item:hover img {
+            transform: scale(1.1);
+        }
+        .info-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .grid-item:hover .info-overlay {
+            opacity: 1;
         }
         .grid-item.large {
             grid-column: span 2;
@@ -49,6 +69,21 @@
             font-size: 16px;
             cursor: pointer;
         }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 600px) {
+            .grid-container {
+                width: 100%;
+                padding: 0 10px;
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .group-container {
+                grid-template-columns: 1fr;
+            }
+            .grid-item.large {
+                grid-column: span 1;
+            }
+        }
     </style>
 </head>
 <body>
@@ -56,88 +91,50 @@
     <button class="load-more-button">Load More</button>
 
     <script>
-        const images = [
-            'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-            'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-            'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-            'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-            'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-            // ...add more image URLs here
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-            'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-            'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-            'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-            'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-            'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-            'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-            'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-            'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-            'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-            'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-            'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-            'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
-          'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400',
+        const ugcTiles = [
+            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e4", name: "UGC 1", source: "twitter", message: "Test message 1", created_at: 1718330967 },
+            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e5", name: "UGC 2", source: "facebook", message: "Test message 2", created_at: 1718330968 },
+            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e6", name: "UGC 3", source: "instagram", message: "Test message 3", created_at: 1718330969 },
+            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e7", name: "UGC 4", source: "twitter", message: "Test message 4", created_at: 1718330970 },
+            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e8", name: "UGC 5", source: "linkedin", message: "Test message 5", created_at: 1718330971 },
+            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e9", name: "UGC 6", source: "pinterest", message: "Test message 6", created_at: 1718330972 },
+            //...add more image objects here
+            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e4", name: "UGC 1", source: "twitter", message: "Test message 1", created_at: 1718330967 },
+            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e5", name: "UGC 2", source: "facebook", message: "Test message 2", created_at: 1718330968 },
+            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e6", name: "UGC 3", source: "instagram", message: "Test message 3", created_at: 1718330969 },
+            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e7", name: "UGC 4", source: "twitter", message: "Test message 4", created_at: 1718330970 },
+            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e8", name: "UGC 5", source: "linkedin", message: "Test message 5", created_at: 1718330971 },
+            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e9", name: "UGC 6", source: "pinterest", message: "Test message 6", created_at: 1718330972 },
+            //...add more image objects here
+            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e4", name: "UGC 1", source: "twitter", message: "Test message 1", created_at: 1718330967 },
+            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e5", name: "UGC 2", source: "facebook", message: "Test message 2", created_at: 1718330968 },
+            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e6", name: "UGC 3", source: "instagram", message: "Test message 3", created_at: 1718330969 },
+            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e7", name: "UGC 4", source: "twitter", message: "Test message 4", created_at: 1718330970 },
+            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e8", name: "UGC 5", source: "linkedin", message: "Test message 5", created_at: 1718330971 },
+            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e9", name: "UGC 6", source: "pinterest", message: "Test message 6", created_at: 1718330972 },
+            //...add more image objects here
+            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e4", name: "UGC 1", source: "twitter", message: "Test message 1", created_at: 1718330967 },
+            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e5", name: "UGC 2", source: "facebook", message: "Test message 2", created_at: 1718330968 },
+            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e6", name: "UGC 3", source: "instagram", message: "Test message 3", created_at: 1718330969 },
+            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e7", name: "UGC 4", source: "twitter", message: "Test message 4", created_at: 1718330970 },
+            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e8", name: "UGC 5", source: "linkedin", message: "Test message 5", created_at: 1718330971 },
+            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e9", name: "UGC 6", source: "pinterest", message: "Test message 6", created_at: 1718330972 },
+            //...add more image objects here
+            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e4", name: "UGC 1", source: "twitter", message: "Test message 1", created_at: 1718330967 },
+            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e5", name: "UGC 2", source: "facebook", message: "Test message 2", created_at: 1718330968 },
+            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e6", name: "UGC 3", source: "instagram", message: "Test message 3", created_at: 1718330969 },
+            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e7", name: "UGC 4", source: "twitter", message: "Test message 4", created_at: 1718330970 },
+            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e8", name: "UGC 5", source: "linkedin", message: "Test message 5", created_at: 1718330971 },
+            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e9", name: "UGC 6", source: "pinterest", message: "Test message 6", created_at: 1718330972 },
+            //...add more image objects here
+            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e4", name: "UGC 1", source: "twitter", message: "Test message 1", created_at: 1718330967 },
+            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e5", name: "UGC 2", source: "facebook", message: "Test message 2", created_at: 1718330968 },
+            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e6", name: "UGC 3", source: "instagram", message: "Test message 3", created_at: 1718330969 },
+            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e7", name: "UGC 4", source: "twitter", message: "Test message 4", created_at: 1718330970 },
+            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e8", name: "UGC 5", source: "linkedin", message: "Test message 5", created_at: 1718330971 },
+            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e9", name: "UGC 6", source: "pinterest", message: "Test message 6", created_at: 1718330972 },
+            //...add more image objects here
+
         ];
 
         const container = document.querySelector('.grid-container');
@@ -147,7 +144,7 @@
 
         function loadImages() {
             const startIndex = groupCount * imagesPerGroup; 
-            const endIndex = Math.min(startIndex + imagesPerGroup, images.length);
+            const endIndex = Math.min(startIndex + imagesPerGroup, ugcTiles.length);
 
             for (let i = startIndex; i < endIndex; i += imagesPerGroup) {
                 const groupDiv = document.createElement('div');
@@ -156,18 +153,33 @@
                 if (i + 4 < endIndex) {
                     const bigDiv = document.createElement('div');
                     bigDiv.className = 'grid-item large';
+
                     const bigImg = document.createElement('img');
-                    bigImg.src = images[i + 4];
+                    bigImg.src = ugcTiles[i + 4].image;
+                    
+                    const bigOverlay = document.createElement('div');
+                    bigOverlay.className = 'info-overlay';
+                    bigOverlay.innerHTML = `<h3>${ugcTiles[i + 4].name}</h3><p>${ugcTiles[i + 4].message}</p>`;
+                    
                     bigDiv.appendChild(bigImg);
+                    bigDiv.appendChild(bigOverlay);
 
                     if (groupCount % 2 === 1) { // Odd index: Insert big image at the bottom
                         for (let j = 0; j < 4; j++) {
                             if (i + j < endIndex) {
                                 const smallDiv = document.createElement('div');
                                 smallDiv.className = 'grid-item';
+                                
                                 const smallImg = document.createElement('img');
-                                smallImg.src = images[i + j];
+                                smallImg.src = ugcTiles[i + j].image;
+                                
+                                const smallOverlay = document.createElement('div');
+                                smallOverlay.className = 'info-overlay';
+                                smallOverlay.innerHTML = `<h3>${ugcTiles[i + j].name}</h3><p>${ugcTiles[i + j].message}</p>`;
+                                
                                 smallDiv.appendChild(smallImg);
+                                smallDiv.appendChild(smallOverlay);
+
                                 groupDiv.appendChild(smallDiv);
                             }
                         }
@@ -178,9 +190,17 @@
                             if (i + j < endIndex) {
                                 const smallDiv = document.createElement('div');
                                 smallDiv.className = 'grid-item';
+                                
                                 const smallImg = document.createElement('img');
-                                smallImg.src = images[i + j];
+                                smallImg.src = ugcTiles[i + j].image;
+                                
+                                const smallOverlay = document.createElement('div');
+                                smallOverlay.className = 'info-overlay';
+                                smallOverlay.innerHTML = `<h3>${ugcTiles[i + j].name}</h3><p>${ugcTiles[i + j].message}</p>`;
+                                
                                 smallDiv.appendChild(smallImg);
+                                smallDiv.appendChild(smallOverlay);
+
                                 groupDiv.appendChild(smallDiv);
                             }
                         }
@@ -189,7 +209,7 @@
 
                 container.appendChild(groupDiv);
                 groupCount++;
-                if (groupCount >= images.length / imagesPerGroup) {
+                if (groupCount >= ugcTiles.length / imagesPerGroup) {
                     document.querySelector('.load-more-button').style.display = 'none';
                     break;
                 }
