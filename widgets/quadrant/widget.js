@@ -109,32 +109,54 @@ const container = sdk.querySelector('.quadrant-grid-container');
 let groupCount = 0;
 const groupsToShowInitially = 6;
 const imagesPerGroup = 5;
+
+// Quadrant Widget dynamic columns
+function updateGridColumns() {
+  const container = sdk.querySelector('.quadrant-grid-container');
+  const windowWidth = window.innerWidth;
+
+  if (windowWidth >= 1600) {
+    container.style.gridTemplateColumns = 'repeat(6, 1fr)';
+  } else if (windowWidth >= 1400) {
+      container.style.gridTemplateColumns = 'repeat(5, 1fr)';
+  } else if (windowWidth >= 1200) {
+      container.style.gridTemplateColumns = 'repeat(4, 1fr)';
+  } else if (windowWidth >= 992) {
+      container.style.gridTemplateColumns = 'repeat(3, 1fr)';
+  } else if (windowWidth >= 768) {
+      container.style.gridTemplateColumns = 'repeat(2, 1fr)';
+  } else if (windowWidth >= 576) {
+      container.style.gridTemplateColumns = 'repeat(2, 1fr)';
+  } else {
+      container.style.gridTemplateColumns = 'repeat(1, 1fr)';
+  }
+}
 // Quadrant Widget Load Images
 function initializeQuadrant() {
   const ugcTiles = sdk.tiles.getEnabledTiles();
   const startIndex = groupCount * imagesPerGroup; 
   const endIndex = Math.min(startIndex + imagesPerGroup, ugcTiles.length);
-  console.log('initializeQuadrant() ugcTiles' , ugcTiles);
-
-  console.log('initializeQuadrant() Started: ' + container + ' groupCount: ' + groupCount + ' groupsToShowInitially: ' + groupsToShowInitially + ' ugcTiles.length: ' + ugcTiles.length + ' endIndex: ' + endIndex + ' imagesPerGroup: ' + imagesPerGroup);
 
   for (let i = startIndex; i < endIndex; i += imagesPerGroup) {
       const groupDiv = document.createElement('div');
       groupDiv.className = 'group-container';
-      console.log('initializeQuadrant() groupDiv: ' + groupDiv);
 
       if (i + 4 < endIndex) {
           const bigDiv = document.createElement('div');
           bigDiv.className = 'grid-item large';
 
+          const tileImageWrapper = document.createElement('div');
+          tileImageWrapper.className = 'tile-image-wrapper';
+
           const bigImg = document.createElement('img');
           bigImg.src = ugcTiles[i + 4].image;
           
           const bigOverlay = document.createElement('div');
-          bigOverlay.className = 'info-overlay';
+          bigOverlay.className = 'tile-info-overlay';
           bigOverlay.innerHTML = `<h3>${ugcTiles[i + 4].name}</h3><p>${ugcTiles[i + 4].message}</p>`;
           
-          bigDiv.appendChild(bigImg);
+          tileImageWrapper.appendChild(bigImg);
+          bigDiv.appendChild(tileImageWrapper);
           bigDiv.appendChild(bigOverlay);
 
           if (groupCount % 2 === 1) { // Odd index: Insert big image at the bottom
@@ -142,15 +164,19 @@ function initializeQuadrant() {
                   if (i + j < endIndex) {
                       const smallDiv = document.createElement('div');
                       smallDiv.className = 'grid-item';
+
+                      const tileImageWrapper = document.createElement('div');
+                      tileImageWrapper.className = 'tile-image-wrapper';
                       
                       const smallImg = document.createElement('img');
                       smallImg.src = ugcTiles[i + j].image;
                       
                       const smallOverlay = document.createElement('div');
-                      smallOverlay.className = 'info-overlay';
+                      smallOverlay.className = 'tile-info-overlay';
                       smallOverlay.innerHTML = `<h3>${ugcTiles[i + j].name}</h3><p>${ugcTiles[i + j].message}</p>`;
                       
-                      smallDiv.appendChild(smallImg);
+                      tileImageWrapper.appendChild(smallImg);
+                      smallDiv.appendChild(tileImageWrapper);
                       smallDiv.appendChild(smallOverlay);
 
                       groupDiv.appendChild(smallDiv);
@@ -163,15 +189,19 @@ function initializeQuadrant() {
                   if (i + j < endIndex) {
                       const smallDiv = document.createElement('div');
                       smallDiv.className = 'grid-item';
+
+                      const tileImageWrapper = document.createElement('div');
+                      tileImageWrapper.className = 'tile-image-wrapper';
                       
                       const smallImg = document.createElement('img');
                       smallImg.src = ugcTiles[i + j].image;
                       
                       const smallOverlay = document.createElement('div');
-                      smallOverlay.className = 'info-overlay';
+                      smallOverlay.className = 'tile-info-overlay';
                       smallOverlay.innerHTML = `<h3>${ugcTiles[i + j].name}</h3><p>${ugcTiles[i + j].message}</p>`;
                       
-                      smallDiv.appendChild(smallImg);
+                      tileImageWrapper.appendChild(smallImg);
+                      smallDiv.appendChild(tileImageWrapper);
                       smallDiv.appendChild(smallOverlay);
 
                       groupDiv.appendChild(smallDiv);
@@ -180,7 +210,6 @@ function initializeQuadrant() {
           }
       }
 
-      console.log('initializeQuadrant() groupDiv: ' + groupDiv);
       container.appendChild(groupDiv);
       groupCount++;
       if (groupCount >= ugcTiles.length / imagesPerGroup) {
@@ -197,8 +226,8 @@ sdk.addEventListener('load', () => {
   // const autoRefreshTime = 60000;
 
   // Glide Initial setup
-  const tilesObjects = sdk?.tiles?.tiles || {};
-  const tilesLength = Object.keys(tilesObjects).length;
+  const tilesObjects = sdk?.tiles?.getEnabledTiles() || {};
+  const tilesLength = tilesObjects.length;
   const showWidget = true; // tilesObjects && tilesLength > widgetSettings.minimal_tiles;
   console.log('Widget showWidget', showWidget, tilesLength);
   // if (showWidget) {
@@ -207,16 +236,24 @@ sdk.addEventListener('load', () => {
         console.log('initializeQuadrant loop start on load');
         initializeQuadrant();
       }
-    }, 1500);
+    }, 500);
   // }
 
   // Update Glide on window resize
   window.addEventListener('resize', function () {
     // if (showWidget) {
-      initializeQuadrant();
+      for (let i = 0; i < groupsToShowInitially; i++) {
+        console.log('initializeQuadrant loop start on load');
+        initializeQuadrant();
+      }
+      updateGridColumns();
     // }
   });
-  sdk.querySelector('.load-more-button').addEventListener('click', initializeQuadrant);
+  sdk.querySelector('.load-more-button').addEventListener('click', () => {
+    for (let i = 0; i < groupsToShowInitially; i++) {
+      initializeQuadrant();
+    }
+  });
 });
 
 if (widgetSettings.click_through_url === '[EXPAND]') {
@@ -511,72 +548,86 @@ sdk.addCSSToComponent(
   }
   .quadrant-grid-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 10px;
-    width: 80%;
-    max-width: 1200px;
+    width: 100%;
     margin-bottom: 20px;
   }
   .group-container {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      margin-bottom: 30px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 30px;
+    height: 800px;
   }
   .grid-item {
-      position: relative;
-      background-color: #f0f0f0;
-      border: 1px solid #ccc;
-      overflow: hidden;
+    position: relative;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    overflow: hidden;
+    height: 200px;
   }
   .grid-item img {
-      width: 100%;
-      height: auto;
-      transition: transform 0.3s ease;
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
+    bottom: 0;
+    height: 100%;
+    left: 0;
+    object-fit: cover;
+    opacity: 1;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
   }
   .grid-item:hover img {
-      transform: scale(1.1);
+    transform: scale(1.1);
   }
-  .info-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background: rgba(0, 0, 0, 0.7);
-      color: white;
-      opacity: 0;
-      transition: opacity 0.3s ease;
+  .tile-info-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
-  .grid-item:hover .info-overlay {
-      opacity: 1;
+  .grid-item:hover .tile-info-overlay {
+    opacity: 1;
+  }
+  .grid-item:hover .tile-info-overlay p {
+    padding: 0 10px;
   }
   .grid-item.large {
-      grid-column: span 2;
+    grid-column: span 2;
+    height: 400px;
   }
   .load-more-button {
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
   }
 
   /* Mobile Responsiveness */
   @media (max-width: 600px) {
-      .quadrant-grid-container {
-          width: 100%;
-          padding: 0 10px;
-          grid-template-columns: repeat(2, 1fr);
-      }
-      .group-container {
-          grid-template-columns: 1fr;
-      }
-      .grid-item.large {
-          grid-column: span 1;
-      }
+    .quadrant-grid-container {
+        width: 100%;
+        padding: 0 10px;
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .group-container {
+        grid-template-columns: 1fr;
+    }
+    .grid-item.large {
+        grid-column: span 1;
+    }
   }
   `,
   'expanded-tile'

@@ -17,11 +17,11 @@
         }
         .quadrant-grid-container {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 10px;
             width: 80%;
-            max-width: 1200px;
             margin-bottom: 20px;
+            height: 800px;
         }
         .group-container {
             display: grid;
@@ -34,16 +34,27 @@
             background-color: #f0f0f0;
             border: 1px solid #ccc;
             overflow: hidden;
+            height: 200px;
         }
         .grid-item img {
             width: 100%;
-            height: auto;
+            height: calc(25vh - 40px); /* 20px padding top + 20px padding bottom */
+            flex: 1 1 23%; /* To make four small images per row with some gap */
             transition: transform 0.3s ease;
+            bottom: 0;
+            height: 100%;
+            left: 0;
+            object-fit: cover;
+            opacity: 1;
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 100%;
         }
         .grid-item:hover img {
             transform: scale(1.1);
         }
-        .info-overlay {
+        .tile-info-overlay {
             position: absolute;
             top: 0;
             left: 0;
@@ -58,11 +69,13 @@
             opacity: 0;
             transition: opacity 0.3s ease;
         }
-        .grid-item:hover .info-overlay {
+        .grid-item:hover .tile-info-overlay {
             opacity: 1;
         }
         .grid-item.large {
             grid-column: span 2;
+            height: calc(50vh - 40px); /* 20px padding top + 20px padding bottom */
+            flex: 1 1 48%; /* To make two large images per row with some gap */
         }
         .load-more-button {
             padding: 10px 20px;
@@ -72,10 +85,10 @@
 
         /* Mobile Responsiveness */
         @media (max-width: 600px) {
-            .grid-container {
+            .quadrant-grid-container {
                 width: 100%;
                 padding: 0 10px;
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(1, 1fr);
             }
             .group-container {
                 grid-template-columns: 1fr;
@@ -87,57 +100,63 @@
     </style>
 </head>
 <body>
-    <div class="grid-container"></div>
+    <div class="quadrant-grid-container"></div>
     <button class="load-more-button">Load More</button>
 
     <script>
         const ugcTiles = [
-            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e4", name: "UGC 1", source: "twitter", message: "Test message 1", created_at: 1718330967 },
-            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e5", name: "UGC 2", source: "facebook", message: "Test message 2", created_at: 1718330968 },
-            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e6", name: "UGC 3", source: "instagram", message: "Test message 3", created_at: 1718330969 },
-            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e7", name: "UGC 4", source: "twitter", message: "Test message 4", created_at: 1718330970 },
-            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e8", name: "UGC 5", source: "linkedin", message: "Test message 5", created_at: 1718330971 },
-            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e9", name: "UGC 6", source: "pinterest", message: "Test message 6", created_at: 1718330972 },
+            { image: 'https://content-cdn.teaser.stackla.com/1451/664d38b816b47ee23a87a906/image', id: "64c85ad7868b9612793d90e4", name: "UGC 1", source: "twitter", message: "Test message 1", created_at: 1718330967 },
+            { image: 'https://media-library.stackla.com/20/fixtures/2024-06/666f85670a419d4141d93a73/e386e6a0-2c41-11ef-a777-df6639bb287a.jpg?format=webp', id: "64c85ad7868b9612793d90e5", name: "UGC 2", source: "facebook", message: "Test message 2", created_at: 1718330968 },
+            { image: 'https://media-library.stackla.com/20/fixtures/2024-06/666f85670a419d4141d93a72/e43241d0-2c41-11ef-90aa-5fef2c598b10.jpg?format=webp', id: "64c85ad7868b9612793d90e6", name: "UGC 3", source: "instagram", message: "Test message 3", created_at: 1718330969 },
+            { image: 'https://media-library.stackla.com/20/fixtures/2024-06/666f8566f7e6e366ff94950c/e0ef24c0-2c41-11ef-af7f-2b848b315e63.jpg?format=webp', id: "64c85ad7868b9612793d90e7", name: "UGC 4", source: "twitter", message: "Test message 4", created_at: 1718330970 },
+            { image: 'https://content-cdn.teaser.stackla.com/1451/664d3b886babcbcc9d1cd3c6/image', id: "64c85ad7868b9612793d90e8", name: "UGC 5", source: "linkedin", message: "Test message 5", created_at: 1718330971 },
             //...add more image objects here
-            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e4", name: "UGC 1", source: "twitter", message: "Test message 1", created_at: 1718330967 },
-            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e5", name: "UGC 2", source: "facebook", message: "Test message 2", created_at: 1718330968 },
-            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e6", name: "UGC 3", source: "instagram", message: "Test message 3", created_at: 1718330969 },
-            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e7", name: "UGC 4", source: "twitter", message: "Test message 4", created_at: 1718330970 },
-            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e8", name: "UGC 5", source: "linkedin", message: "Test message 5", created_at: 1718330971 },
-            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e9", name: "UGC 6", source: "pinterest", message: "Test message 6", created_at: 1718330972 },
+            { image: 'https://i.ytimg.com/vi/guz7-aGeAOQ/oar2.jpg?sqp=-oaymwEkCJUDENAFSFqQAgHyq4qpAxMIARUAAAAAJQAAyEI9AICiQ3gB&rs=AOn4CLCNecAp-A61lHjls0kFqrY-5brf_Q', id: "64c85ad7868b9612793d90e4", name: "UGC 1", source: "twitter", message: "Test message 1", created_at: 1718330967 },
+            { image: 'https://content-cdn.teaser.stackla.com/1451/663c5fc1fb4665d2c08fb5c6/image', id: "64c85ad7868b9612793d90e5", name: "UGC 2", source: "facebook", message: "Test message 2", created_at: 1718330968 },
+            { image: 'https://i.ytimg.com/vi/cbT84M9GQ8A/hqdefault.jpg', id: "64c85ad7868b9612793d90e6", name: "UGC 3", source: "instagram", message: "Test message 3", created_at: 1718330969 },
+            { image: 'https://uploads-cdn.stackla.com/20/fixtures/2024-05-06/ecf46a58fb74b7b8f0083ffe28cef19a/original.jpeg?format=webp', id: "64c85ad7868b9612793d90e7", name: "UGC 4", source: "twitter", message: "Test message 4", created_at: 1718330970 },
+            { image: 'https://content-cdn.teaser.stackla.com/1451/663446ee465f69fc54b9d979/image', id: "64c85ad7868b9612793d90e8", name: "UGC 5", source: "linkedin", message: "Test message 5", created_at: 1718330971 },
             //...add more image objects here
-            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e4", name: "UGC 1", source: "twitter", message: "Test message 1", created_at: 1718330967 },
-            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e5", name: "UGC 2", source: "facebook", message: "Test message 2", created_at: 1718330968 },
-            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e6", name: "UGC 3", source: "instagram", message: "Test message 3", created_at: 1718330969 },
-            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e7", name: "UGC 4", source: "twitter", message: "Test message 4", created_at: 1718330970 },
-            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e8", name: "UGC 5", source: "linkedin", message: "Test message 5", created_at: 1718330971 },
-            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e9", name: "UGC 6", source: "pinterest", message: "Test message 6", created_at: 1718330972 },
+            { image: 'https://content-cdn.teaser.stackla.com/1451/664d38b816b47ee23a87a906/image', id: "64c85ad7868b9612793d90e4", name: "UGC 1", source: "twitter", message: "Test message 1", created_at: 1718330967 },
+            { image: 'https://media-library.stackla.com/20/fixtures/2024-06/666f85670a419d4141d93a73/e386e6a0-2c41-11ef-a777-df6639bb287a.jpg?format=webp', id: "64c85ad7868b9612793d90e5", name: "UGC 2", source: "facebook", message: "Test message 2", created_at: 1718330968 },
+            { image: 'https://media-library.stackla.com/20/fixtures/2024-06/666f85670a419d4141d93a72/e43241d0-2c41-11ef-90aa-5fef2c598b10.jpg?format=webp', id: "64c85ad7868b9612793d90e6", name: "UGC 3", source: "instagram", message: "Test message 3", created_at: 1718330969 },
+            { image: 'https://media-library.stackla.com/20/fixtures/2024-06/666f8566f7e6e366ff94950c/e0ef24c0-2c41-11ef-af7f-2b848b315e63.jpg?format=webp', id: "64c85ad7868b9612793d90e7", name: "UGC 4", source: "twitter", message: "Test message 4", created_at: 1718330970 },
+            { image: 'https://content-cdn.teaser.stackla.com/1451/664d3b886babcbcc9d1cd3c6/image', id: "64c85ad7868b9612793d90e8", name: "UGC 5", source: "linkedin", message: "Test message 5", created_at: 1718330971 },
             //...add more image objects here
-            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e4", name: "UGC 1", source: "twitter", message: "Test message 1", created_at: 1718330967 },
-            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e5", name: "UGC 2", source: "facebook", message: "Test message 2", created_at: 1718330968 },
-            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e6", name: "UGC 3", source: "instagram", message: "Test message 3", created_at: 1718330969 },
-            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e7", name: "UGC 4", source: "twitter", message: "Test message 4", created_at: 1718330970 },
-            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e8", name: "UGC 5", source: "linkedin", message: "Test message 5", created_at: 1718330971 },
-            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e9", name: "UGC 6", source: "pinterest", message: "Test message 6", created_at: 1718330972 },
+            { image: 'https://i.ytimg.com/vi/guz7-aGeAOQ/oar2.jpg?sqp=-oaymwEkCJUDENAFSFqQAgHyq4qpAxMIARUAAAAAJQAAyEI9AICiQ3gB&rs=AOn4CLCNecAp-A61lHjls0kFqrY-5brf_Q', id: "64c85ad7868b9612793d90e4", name: "UGC 1", source: "twitter", message: "Test message 1", created_at: 1718330967 },
+            { image: 'https://content-cdn.teaser.stackla.com/1451/663c5fc1fb4665d2c08fb5c6/image', id: "64c85ad7868b9612793d90e5", name: "UGC 2", source: "facebook", message: "Test message 2", created_at: 1718330968 },
+            { image: 'https://i.ytimg.com/vi/cbT84M9GQ8A/hqdefault.jpg', id: "64c85ad7868b9612793d90e6", name: "UGC 3", source: "instagram", message: "Test message 3", created_at: 1718330969 },
+            { image: 'https://uploads-cdn.stackla.com/20/fixtures/2024-05-06/ecf46a58fb74b7b8f0083ffe28cef19a/original.jpeg?format=webp', id: "64c85ad7868b9612793d90e7", name: "UGC 4", source: "twitter", message: "Test message 4", created_at: 1718330970 },
+            { image: 'https://content-cdn.teaser.stackla.com/1451/663446ee465f69fc54b9d979/image', id: "64c85ad7868b9612793d90e8", name: "UGC 5", source: "linkedin", message: "Test message 5", created_at: 1718330971 },
             //...add more image objects here
-            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e4", name: "UGC 1", source: "twitter", message: "Test message 1", created_at: 1718330967 },
-            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e5", name: "UGC 2", source: "facebook", message: "Test message 2", created_at: 1718330968 },
-            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e6", name: "UGC 3", source: "instagram", message: "Test message 3", created_at: 1718330969 },
-            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e7", name: "UGC 4", source: "twitter", message: "Test message 4", created_at: 1718330970 },
-            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e8", name: "UGC 5", source: "linkedin", message: "Test message 5", created_at: 1718330971 },
-            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e9", name: "UGC 6", source: "pinterest", message: "Test message 6", created_at: 1718330972 },
+            { image: 'https://content-cdn.teaser.stackla.com/1451/664d38b816b47ee23a87a906/image', id: "64c85ad7868b9612793d90e4", name: "UGC 1", source: "twitter", message: "Test message 1", created_at: 1718330967 },
+            { image: 'https://media-library.stackla.com/20/fixtures/2024-06/666f85670a419d4141d93a73/e386e6a0-2c41-11ef-a777-df6639bb287a.jpg?format=webp', id: "64c85ad7868b9612793d90e5", name: "UGC 2", source: "facebook", message: "Test message 2", created_at: 1718330968 },
+            { image: 'https://media-library.stackla.com/20/fixtures/2024-06/666f85670a419d4141d93a72/e43241d0-2c41-11ef-90aa-5fef2c598b10.jpg?format=webp', id: "64c85ad7868b9612793d90e6", name: "UGC 3", source: "instagram", message: "Test message 3", created_at: 1718330969 },
+            { image: 'https://media-library.stackla.com/20/fixtures/2024-06/666f8566f7e6e366ff94950c/e0ef24c0-2c41-11ef-af7f-2b848b315e63.jpg?format=webp', id: "64c85ad7868b9612793d90e7", name: "UGC 4", source: "twitter", message: "Test message 4", created_at: 1718330970 },
+            { image: 'https://content-cdn.teaser.stackla.com/1451/664d3b886babcbcc9d1cd3c6/image', id: "64c85ad7868b9612793d90e8", name: "UGC 5", source: "linkedin", message: "Test message 5", created_at: 1718330971 },
             //...add more image objects here
-            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e4", name: "UGC 1", source: "twitter", message: "Test message 1", created_at: 1718330967 },
-            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e5", name: "UGC 2", source: "facebook", message: "Test message 2", created_at: 1718330968 },
-            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e6", name: "UGC 3", source: "instagram", message: "Test message 3", created_at: 1718330969 },
-            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e7", name: "UGC 4", source: "twitter", message: "Test message 4", created_at: 1718330970 },
-            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e8", name: "UGC 5", source: "linkedin", message: "Test message 5", created_at: 1718330971 },
-            { image: 'https://media-library.stackla.com/10/fixtures/2024-06/667b576a3a1392cbe97ed5e3/f81a5b70-334d-11ef-b7bf-6f2e133f3e2f.jpg?format=webp&d=400', id: "64c85ad7868b9612793d90e9", name: "UGC 6", source: "pinterest", message: "Test message 6", created_at: 1718330972 },
+            { image: 'https://i.ytimg.com/vi/guz7-aGeAOQ/oar2.jpg?sqp=-oaymwEkCJUDENAFSFqQAgHyq4qpAxMIARUAAAAAJQAAyEI9AICiQ3gB&rs=AOn4CLCNecAp-A61lHjls0kFqrY-5brf_Q', id: "64c85ad7868b9612793d90e4", name: "UGC 1", source: "twitter", message: "Test message 1", created_at: 1718330967 },
+            { image: 'https://content-cdn.teaser.stackla.com/1451/663c5fc1fb4665d2c08fb5c6/image', id: "64c85ad7868b9612793d90e5", name: "UGC 2", source: "facebook", message: "Test message 2", created_at: 1718330968 },
+            { image: 'https://i.ytimg.com/vi/cbT84M9GQ8A/hqdefault.jpg', id: "64c85ad7868b9612793d90e6", name: "UGC 3", source: "instagram", message: "Test message 3", created_at: 1718330969 },
+            { image: 'https://uploads-cdn.stackla.com/20/fixtures/2024-05-06/ecf46a58fb74b7b8f0083ffe28cef19a/original.jpeg?format=webp', id: "64c85ad7868b9612793d90e7", name: "UGC 4", source: "twitter", message: "Test message 4", created_at: 1718330970 },
+            { image: 'https://content-cdn.teaser.stackla.com/1451/663446ee465f69fc54b9d979/image', id: "64c85ad7868b9612793d90e8", name: "UGC 5", source: "linkedin", message: "Test message 5", created_at: 1718330971 },
+            //...add more image objects here
+            { image: 'https://content-cdn.teaser.stackla.com/1451/664d38b816b47ee23a87a906/image', id: "64c85ad7868b9612793d90e4", name: "UGC 1", source: "twitter", message: "Test message 1", created_at: 1718330967 },
+            { image: 'https://media-library.stackla.com/20/fixtures/2024-06/666f85670a419d4141d93a73/e386e6a0-2c41-11ef-a777-df6639bb287a.jpg?format=webp', id: "64c85ad7868b9612793d90e5", name: "UGC 2", source: "facebook", message: "Test message 2", created_at: 1718330968 },
+            { image: 'https://media-library.stackla.com/20/fixtures/2024-06/666f85670a419d4141d93a72/e43241d0-2c41-11ef-90aa-5fef2c598b10.jpg?format=webp', id: "64c85ad7868b9612793d90e6", name: "UGC 3", source: "instagram", message: "Test message 3", created_at: 1718330969 },
+            { image: 'https://media-library.stackla.com/20/fixtures/2024-06/666f8566f7e6e366ff94950c/e0ef24c0-2c41-11ef-af7f-2b848b315e63.jpg?format=webp', id: "64c85ad7868b9612793d90e7", name: "UGC 4", source: "twitter", message: "Test message 4", created_at: 1718330970 },
+            { image: 'https://content-cdn.teaser.stackla.com/1451/664d3b886babcbcc9d1cd3c6/image', id: "64c85ad7868b9612793d90e8", name: "UGC 5", source: "linkedin", message: "Test message 5", created_at: 1718330971 },
+            //...add more image objects here
+            { image: 'https://i.ytimg.com/vi/guz7-aGeAOQ/oar2.jpg?sqp=-oaymwEkCJUDENAFSFqQAgHyq4qpAxMIARUAAAAAJQAAyEI9AICiQ3gB&rs=AOn4CLCNecAp-A61lHjls0kFqrY-5brf_Q', id: "64c85ad7868b9612793d90e4", name: "UGC 1", source: "twitter", message: "Test message 1", created_at: 1718330967 },
+            { image: 'https://content-cdn.teaser.stackla.com/1451/663c5fc1fb4665d2c08fb5c6/image', id: "64c85ad7868b9612793d90e5", name: "UGC 2", source: "facebook", message: "Test message 2", created_at: 1718330968 },
+            { image: 'https://i.ytimg.com/vi/cbT84M9GQ8A/hqdefault.jpg', id: "64c85ad7868b9612793d90e6", name: "UGC 3", source: "instagram", message: "Test message 3", created_at: 1718330969 },
+            { image: 'https://uploads-cdn.stackla.com/20/fixtures/2024-05-06/ecf46a58fb74b7b8f0083ffe28cef19a/original.jpeg?format=webp', id: "64c85ad7868b9612793d90e7", name: "UGC 4", source: "twitter", message: "Test message 4", created_at: 1718330970 },
+            { image: 'https://content-cdn.teaser.stackla.com/1451/663446ee465f69fc54b9d979/image', id: "64c85ad7868b9612793d90e8", name: "UGC 5", source: "linkedin", message: "Test message 5", created_at: 1718330971 },
             //...add more image objects here
 
         ];
 
-        const container = document.querySelector('.grid-container');
+        const container = document.querySelector('.quadrant-grid-container');
         let groupCount = 0;
         const groupsToShowInitially = 6;
         const imagesPerGroup = 5;
@@ -154,14 +173,18 @@
                     const bigDiv = document.createElement('div');
                     bigDiv.className = 'grid-item large';
 
+                    const tileImageWrapper = document.createElement('div');
+                    tileImageWrapper.className = 'tile-image-wrapper';
+
                     const bigImg = document.createElement('img');
                     bigImg.src = ugcTiles[i + 4].image;
                     
                     const bigOverlay = document.createElement('div');
-                    bigOverlay.className = 'info-overlay';
+                    bigOverlay.className = 'tile-info-overlay';
                     bigOverlay.innerHTML = `<h3>${ugcTiles[i + 4].name}</h3><p>${ugcTiles[i + 4].message}</p>`;
                     
-                    bigDiv.appendChild(bigImg);
+                    tileImageWrapper.appendChild(bigImg);
+                    bigDiv.appendChild(tileImageWrapper);
                     bigDiv.appendChild(bigOverlay);
 
                     if (groupCount % 2 === 1) { // Odd index: Insert big image at the bottom
@@ -169,15 +192,20 @@
                             if (i + j < endIndex) {
                                 const smallDiv = document.createElement('div');
                                 smallDiv.className = 'grid-item';
+
+                                const tileImageWrapper = document.createElement('div');
+                                tileImageWrapper.className = 'tile-image-wrapper';
                                 
                                 const smallImg = document.createElement('img');
                                 smallImg.src = ugcTiles[i + j].image;
                                 
                                 const smallOverlay = document.createElement('div');
-                                smallOverlay.className = 'info-overlay';
+                                smallOverlay.className = 'tile-info-overlay';
                                 smallOverlay.innerHTML = `<h3>${ugcTiles[i + j].name}</h3><p>${ugcTiles[i + j].message}</p>`;
                                 
-                                smallDiv.appendChild(smallImg);
+
+                                tileImageWrapper.appendChild(smallImg);
+                                smallDiv.appendChild(tileImageWrapper);
                                 smallDiv.appendChild(smallOverlay);
 
                                 groupDiv.appendChild(smallDiv);
@@ -191,14 +219,18 @@
                                 const smallDiv = document.createElement('div');
                                 smallDiv.className = 'grid-item';
                                 
+                                const tileImageWrapper = document.createElement('div');
+                                tileImageWrapper.className = 'tile-image-wrapper';
+
                                 const smallImg = document.createElement('img');
                                 smallImg.src = ugcTiles[i + j].image;
                                 
                                 const smallOverlay = document.createElement('div');
-                                smallOverlay.className = 'info-overlay';
+                                smallOverlay.className = 'tile-info-overlay';
                                 smallOverlay.innerHTML = `<h3>${ugcTiles[i + j].name}</h3><p>${ugcTiles[i + j].message}</p>`;
                                 
-                                smallDiv.appendChild(smallImg);
+                                tileImageWrapper.appendChild(smallImg);
+                                smallDiv.appendChild(tileImageWrapper);
                                 smallDiv.appendChild(smallOverlay);
 
                                 groupDiv.appendChild(smallDiv);
