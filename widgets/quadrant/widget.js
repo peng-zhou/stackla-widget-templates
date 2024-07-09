@@ -106,6 +106,7 @@ const tileWidth = 240;
 
 
 const container = sdk.querySelector('.quadrant-grid-container');
+const tielsContainer = sdk.querySelector('#nosto-ugc-container');
 let groupCount = 0;
 const groupsToShowInitially = 6;
 const imagesPerGroup = 5;
@@ -131,6 +132,22 @@ function updateGridColumns() {
       container.style.gridTemplateColumns = 'repeat(1, 1fr)';
   }
 }
+
+// This function sets up click event listeners on your page for the clcked tiles
+function handleClickedTileEvents(tileId) {
+  const ugcTiles = sdk.tiles.getEnabledTiles();
+  const tileData = {
+    tileData: ugcTiles.find((tile) => tile.id === tileId),
+    widgetId: sdk.placement.getWidgetId(),
+    filterId: sdk.placement.getWidgetContainer().widgetOptions?.filterId,
+  };
+  const expandedTileWrapper = document.createElement('div');
+  expandedTileWrapper.className = 'expanded-tile-wrapper';
+  tielsContainer.appendChild(expandedTileWrapper);
+  sdk.triggerEvent('tileExpandClose');
+  sdk.triggerEvent('tileExpand', tileData);
+}
+
 // Quadrant Widget Load Images
 function initializeQuadrant() {
   const ugcTiles = sdk.tiles.getEnabledTiles();
@@ -142,8 +159,8 @@ function initializeQuadrant() {
       groupDiv.className = 'group-container';
 
       if (i + 4 < endIndex) {
-          const bigDiv = document.createElement('div');
-          bigDiv.className = 'grid-item large';
+          const bigTileDiv = document.createElement('div');
+          bigTileDiv.className = 'grid-item large';
 
           const tileImageWrapper = document.createElement('div');
           tileImageWrapper.className = 'tile-image-wrapper';
@@ -156,14 +173,17 @@ function initializeQuadrant() {
           bigOverlay.innerHTML = `<h3>${ugcTiles[i + 4].name}</h3><p>${ugcTiles[i + 4].message}</p>`;
           
           tileImageWrapper.appendChild(bigImg);
-          bigDiv.appendChild(tileImageWrapper);
-          bigDiv.appendChild(bigOverlay);
+          bigTileDiv.appendChild(tileImageWrapper);
+          bigTileDiv.appendChild(bigOverlay);
+          bigTileDiv.addEventListener('click', () => {
+            handleClickedTileEvents(ugcTiles[i + 4].id);
+          });
 
           if (groupCount % 2 === 1) { // Odd index: Insert big image at the bottom
               for (let j = 0; j < 4; j++) {
                   if (i + j < endIndex) {
-                      const smallDiv = document.createElement('div');
-                      smallDiv.className = 'grid-item';
+                      const smallTileDiv = document.createElement('div');
+                      smallTileDiv.className = 'grid-item';
 
                       const tileImageWrapper = document.createElement('div');
                       tileImageWrapper.className = 'tile-image-wrapper';
@@ -176,19 +196,22 @@ function initializeQuadrant() {
                       smallOverlay.innerHTML = `<h3>${ugcTiles[i + j].name}</h3><p>${ugcTiles[i + j].message}</p>`;
                       
                       tileImageWrapper.appendChild(smallImg);
-                      smallDiv.appendChild(tileImageWrapper);
-                      smallDiv.appendChild(smallOverlay);
+                      smallTileDiv.appendChild(tileImageWrapper);
+                      smallTileDiv.appendChild(smallOverlay);
 
-                      groupDiv.appendChild(smallDiv);
+                      groupDiv.appendChild(smallTileDiv);
+                      smallTileDiv.addEventListener('click', () => {
+                        handleClickedTileEvents(ugcTiles[i + j].id);
+                      });
                   }
               }
-              groupDiv.appendChild(bigDiv);
+              groupDiv.appendChild(bigTileDiv);
           } else { // Even index: Insert big image at the top
-              groupDiv.appendChild(bigDiv);
+              groupDiv.appendChild(bigTileDiv);
               for (let j = 0; j < 4; j++) {
                   if (i + j < endIndex) {
-                      const smallDiv = document.createElement('div');
-                      smallDiv.className = 'grid-item';
+                      const smallTileDiv = document.createElement('div');
+                      smallTileDiv.className = 'grid-item';
 
                       const tileImageWrapper = document.createElement('div');
                       tileImageWrapper.className = 'tile-image-wrapper';
@@ -201,10 +224,13 @@ function initializeQuadrant() {
                       smallOverlay.innerHTML = `<h3>${ugcTiles[i + j].name}</h3><p>${ugcTiles[i + j].message}</p>`;
                       
                       tileImageWrapper.appendChild(smallImg);
-                      smallDiv.appendChild(tileImageWrapper);
-                      smallDiv.appendChild(smallOverlay);
+                      smallTileDiv.appendChild(tileImageWrapper);
+                      smallTileDiv.appendChild(smallOverlay);
 
-                      groupDiv.appendChild(smallDiv);
+                      groupDiv.appendChild(smallTileDiv);
+                      smallTileDiv.addEventListener('click', () => {
+                        handleClickedTileEvents(ugcTiles[i + j].id);
+                      });
                   }
               }
           }
@@ -389,18 +415,21 @@ function initializeTileClickEventListeners(widgetSettings) {
 // Style
 sdk.addCSSToComponent(
   `:host {
-    padding: 0;
-    box-sizing: border-box;
-    display: inline-block;
-    margin: 30px auto;
-    max-width: 1060px;
-    position: relative;
-    vertical-align: middle;
-    width: 90%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
     display: flex;
-    flex-direction: row;
     justify-content: center;
-    background-color: transparent;
+    align-items: center;
+    color: #fff;
+    transition: visibility 0s, opacity 0.5s;
+    margin: auto;
+    max-width: 1060px;
+    z-index: 1;
   }
   .exit {
     position: absolute;
@@ -411,7 +440,7 @@ sdk.addCSSToComponent(
   .panel {
     display: flex;
     position: relative;
-    background: #f4f4f4;
+    background: #000;
     width: 100%;
     height: 100%;
   }
@@ -566,6 +595,7 @@ sdk.addCSSToComponent(
     border: 1px solid #ccc;
     overflow: hidden;
     height: 200px;
+    cursor: pointer;
   }
   .grid-item img {
     width: 100%;
@@ -629,6 +659,16 @@ sdk.addCSSToComponent(
         grid-column: span 1;
     }
   }
+  .expanded-tile-wrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    opacity: 0.9;
+  }
   `,
   'expanded-tile'
 );
@@ -639,7 +679,7 @@ sdk.addCSSToComponent(
       text-decoration: none;
     }
     .stacklapopup-products-item-title {
-      color: #000;
+      color: #fff;
       text-transform: uppercase;
       font-size: 18px;
       font-weight: bold;
@@ -649,7 +689,7 @@ sdk.addCSSToComponent(
     .stacklapopup-products-item-price {
       font-size: 14px;
       font-weight: normal;
-      color: #000;
+      color: #fff;
       margin-bottom: 5px;
     }
     .stacklapopup-products-item-description {

@@ -28,6 +28,7 @@
     border: 1px solid #ccc;
     overflow: hidden;
     height: 200px;
+    cursor: pointer;
 }
 .grid-item img {
     width: 100%;
@@ -76,6 +77,17 @@
     font-size: 16px;
     cursor: pointer;
 }
+
+.expanded-tile-wrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    opacity: 0.9;
+  }
 
 /* Mobile Responsiveness */
 @media (max-width: 600px) {

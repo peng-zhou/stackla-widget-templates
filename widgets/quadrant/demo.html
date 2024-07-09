@@ -35,6 +35,7 @@
             border: 1px solid #ccc;
             overflow: hidden;
             height: 200px;
+            cursor: pointer;
         }
         .grid-item img {
             width: 100%;
@@ -170,8 +171,8 @@
                 groupDiv.className = 'group-container';
 
                 if (i + 4 < endIndex) {
-                    const bigDiv = document.createElement('div');
-                    bigDiv.className = 'grid-item large';
+                    const bigTileDiv = document.createElement('div');
+                    bigTileDiv.className = 'grid-item large';
 
                     const tileImageWrapper = document.createElement('div');
                     tileImageWrapper.className = 'tile-image-wrapper';
@@ -184,14 +185,14 @@
                     bigOverlay.innerHTML = `<h3>${ugcTiles[i + 4].name}</h3><p>${ugcTiles[i + 4].message}</p>`;
                     
                     tileImageWrapper.appendChild(bigImg);
-                    bigDiv.appendChild(tileImageWrapper);
-                    bigDiv.appendChild(bigOverlay);
+                    bigTileDiv.appendChild(tileImageWrapper);
+                    bigTileDiv.appendChild(bigOverlay);
 
                     if (groupCount % 2 === 1) { // Odd index: Insert big image at the bottom
                         for (let j = 0; j < 4; j++) {
                             if (i + j < endIndex) {
-                                const smallDiv = document.createElement('div');
-                                smallDiv.className = 'grid-item';
+                                const smallTileDiv = document.createElement('div');
+                                smallTileDiv.className = 'grid-item';
 
                                 const tileImageWrapper = document.createElement('div');
                                 tileImageWrapper.className = 'tile-image-wrapper';
@@ -205,19 +206,19 @@
                                 
 
                                 tileImageWrapper.appendChild(smallImg);
-                                smallDiv.appendChild(tileImageWrapper);
-                                smallDiv.appendChild(smallOverlay);
+                                smallTileDiv.appendChild(tileImageWrapper);
+                                smallTileDiv.appendChild(smallOverlay);
 
-                                groupDiv.appendChild(smallDiv);
+                                groupDiv.appendChild(smallTileDiv);
                             }
                         }
-                        groupDiv.appendChild(bigDiv);
+                        groupDiv.appendChild(bigTileDiv);
                     } else { // Even index: Insert big image at the top
-                        groupDiv.appendChild(bigDiv);
+                        groupDiv.appendChild(bigTileDiv);
                         for (let j = 0; j < 4; j++) {
                             if (i + j < endIndex) {
-                                const smallDiv = document.createElement('div');
-                                smallDiv.className = 'grid-item';
+                                const smallTileDiv = document.createElement('div');
+                                smallTileDiv.className = 'grid-item';
                                 
                                 const tileImageWrapper = document.createElement('div');
                                 tileImageWrapper.className = 'tile-image-wrapper';
@@ -230,10 +231,10 @@
                                 smallOverlay.innerHTML = `<h3>${ugcTiles[i + j].name}</h3><p>${ugcTiles[i + j].message}</p>`;
                                 
                                 tileImageWrapper.appendChild(smallImg);
-                                smallDiv.appendChild(tileImageWrapper);
-                                smallDiv.appendChild(smallOverlay);
+                                smallTileDiv.appendChild(tileImageWrapper);
+                                smallTileDiv.appendChild(smallOverlay);
 
-                                groupDiv.appendChild(smallDiv);
+                                groupDiv.appendChild(smallTileDiv);
                             }
                         }
                     }
