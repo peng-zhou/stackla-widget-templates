@@ -4,7 +4,7 @@
   "description": "Widget Templates",
   "type": "module",
   "scripts": {
-    "lint": "eslint . --fix && stylelint '**/*.css'",
+    "lint": "eslint . --fix && stylelint '**/*.*css'",
     "test": "",
     "build": "node ./esbuild.js",
     "dev": "APP_ENV=development node ./esbuild.js --watch"
@@ -21,6 +21,7 @@
     "@types/masonry-layout": "^4.2.8",
     "@typescript-eslint/eslint-plugin": "^7.13.1",
     "esbuild": "^0.21.5",
+    "esbuild-sass-plugin": "^3.3.1",
     "eslint": "^8.56.0",
     "eslint-config-stylelint": "^21.0.0",
     "eslint-plugin-css": "^0.9.2",

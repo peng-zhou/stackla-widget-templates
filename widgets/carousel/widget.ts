@@ -1,8 +1,8 @@
 import type { Sdk } from "@stackla/types";
 import { getConfig } from "./widget.config";
 import { expandedTileTemplate } from "./components/expanded-tile/base.template";
-import expandedTileStyle from "./components/expanded-tile/base.css";
-import productsStyle from "./components/products/base.css";
+import expandedTileStyle from "./components/expanded-tile/base.scss";
+import productsStyle from "./components/products/base.scss";
 import { hideGlideArrows, initializeGlideListeners } from "./widget.extensions";
 import { registerLoadListener } from "widgets/libs/tile.listeners";
 import {

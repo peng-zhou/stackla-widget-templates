@@ -17,8 +17,8 @@ import {
 import { loadExpandSettingComponents } from "widgets/libs/widget.components";
 import { IWidgetSettings } from "types/IWidgetSettings";
 import customExpandedTileTemplate from "./components/expanded-tile/base.template";
-import customExpandedTileCSS from "./components/expanded-tile/base.css";
-import customProductsCSS from "./components/products/base.css";
+import customExpandedTileCSS from "./components/expanded-tile/base.scss";
+import customProductsCSS from "./components/products/base.scss";
 import getCSSVariables from "./css.variables";
 import { addCSSVariablesToPlacement } from "widgets/libs/widget.layout";
 import { onTileClose } from "./widget.listeners";
