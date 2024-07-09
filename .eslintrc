@@ -22,7 +22,7 @@
       "@typescript-eslint/no-explicit-any": "error",
       "@typescript-eslint/consistent-type-assertions": ["warn", { "assertionStyle": "never" }]
     },
-    "ignorePatterns": ["node_modules/", "dist/"],
+    "ignorePatterns": ["node_modules/", "dist/", "esbuild.js"],
     "overrides": [
       {
         "files": ["./widgets/**/*.ts"],

@@ -1,4 +1,6 @@
 import type { Sdk } from "@stackla/types";
+import { initButtons } from "./widget.buttons";
+import { loadListeners } from "./widget.listeners";
 
 declare const sdk: Sdk;
 
@@ -9,71 +11,11 @@ sdk.addLoadedComponents([
   "add-to-cart",
   "cross-sellers",
 ]);
-const EVENT_LOAD_MORE = "moreLoad";
-const EVENT_LOAD_LESS = "lessLoad";
-const loadMoreButton = sdk.querySelector("#load-more");
-const loadLessButton = sdk.querySelector("#load-less");
-const postLoad = sdk.querySelector("#postload");
-const preLoad = sdk.querySelector("#preload");
-const buttons = sdk.querySelector("#buttons");
 
-loadLessButton.style.display = "none";
+initButtons();
+loadListeners();
 
 sdk.tiles.setVisibleTilesCount(5);
 sdk.tiles.setLoadMode("page");
 sdk.tiles.hideBrokenTiles = true;
 sdk.tiles.preloadImages = true;
-
-function loadMore() {
-  sdk.triggerEvent(EVENT_LOAD_MORE);
-
-  if (sdk.tiles.hasLessPages()) {
-    loadLessButton.style.display = "";
-  }
-
-  if (!sdk.tiles.hasMorePages()) {
-    loadMoreButton.style.display = "none";
-  }
-
-  window.scrollTo(0, 0);
-}
-
-function loadLess() {
-  sdk.triggerEvent(EVENT_LOAD_LESS);
-
-  if (sdk.tiles.hasLessPages()) {
-    loadLessButton.style.display = "";
-  }
-
-  if (!sdk.tiles.hasLessPages()) {
-    loadLessButton.style.display = "none";
-  }
-
-  if (sdk.tiles.hasMorePages()) {
-    loadMoreButton.style.display = "";
-  }
-}
-
-loadMoreButton.onclick = loadMore;
-loadLessButton.onclick = loadLess;
-
-sdk.addEventListener("tilesUpdated", () => {
-  if (sdk.tiles.hasMorePages()) {
-    loadMoreButton.style.display = "";
-  }
-
-  if (sdk.tiles.hasLessPages()) {
-    loadLessButton.style.display = "";
-  }
-});
-
-sdk.addEventListener("tileExpand", () => {
-  buttons.style.display = "none";
-});
-sdk.addEventListener("expandedTileClose", () => {
-  buttons.style.display = "";
-});
-sdk.addEventListener("tilesUpdated", () => {
-  postLoad.style.display = "";
-  preLoad.style.display = "none";
-});
