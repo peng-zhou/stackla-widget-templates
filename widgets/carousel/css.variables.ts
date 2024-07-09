@@ -3,13 +3,11 @@ import { getConfig } from "./widget.config";
 
 declare const sdk: Sdk;
 
-export function addCSSVariablesToPlacement() {
+export default function getCSSVariables() {
   const widgetContainer = sdk.placement.getWidgetContainer();
   const widgetSettings = getConfig(widgetContainer);
-  const shadowRoot = sdk.placement.getShadowRoot();
-  const style = document.createElement("style");
-  style.innerHTML = `
-    :host {
+
+  return `
         --widget-background: #${widgetSettings.widget_background};
         --text-tile-background: #${widgetSettings.text_tile_background};
         --text-tile-font-color: #${widgetSettings.text_tile_font_color};
@@ -25,18 +23,5 @@ export function addCSSVariablesToPlacement() {
         --text-tile-user-handle-font-size: ${widgetSettings.text_tile_user_handle_font_size};
         ? widgetSettings.text_tile_user_handle_font_size
         : 12};
-        --shopspot-btn_font_color: #${widgetSettings.shopspot_btn_font_color};
-        --shopspot-btn_background: #${widgetSettings.shopspot_btn_background};
-    }`;
-  shadowRoot.appendChild(style);
-}
-
-export function loadTitle() {
-  const widgetTitle = document.createElement("p");
-  const widgetContainer = sdk.placement.getWidgetContainer();
-  const title = widgetContainer.title;
-
-  if (title) {
-    widgetTitle.innerHTML = title;
-  }
+`;
 }

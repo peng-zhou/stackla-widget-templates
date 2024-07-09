@@ -5,11 +5,10 @@
   max-width: 1060px;
   position: relative;
   vertical-align: middle;
-  width: 90%;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  background-color: transparent;
 }
 
 .exit {
@@ -17,31 +16,43 @@
   top: 20px;
   right: 20px;
   z-index: 1;
-}
-
-.panel {
-  display: flex;
-  position: relative;
-  background: #f4f4f4;
-  width: 100%;
-  height: 100%;
-}
-
-.panel-left {
-  min-width: 40%;
-  max-width: 40%;
   background: #fff;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
   display: flex;
+  flex-wrap: nowrap;
   place-content: center center;
   align-items: center;
 }
 
+.panel {
+  position: relative;
+  background: #f4f4f4;
+  width: 600px;
+  height: 100%;
+  margin: 30px auto;
+  display: block;
+}
+
+.panel-left {
+  background: #fff;
+  display: flex;
+  place-content: center center;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  min-width: 100%;
+}
+
 .panel-left img {
   width: 100%;
+  display: block;
 }
 
 .panel-right {
-  padding: 26px 40px;
+  padding: 24px 44px;
+  background: #2c2d2c;
 }
 
 .tile-arrows-left {
@@ -59,7 +70,7 @@
   width: 50px;
   height: 50px;
   top: 50%;
-  right: -60px;
+  right: -50px;
   border: 0;
   background: none;
 }
@@ -85,7 +96,7 @@ div.image {
   align-items: center;
   justify-content: center;
   width: 100%;
-  margin-bottom: 16px;
+  margin-bottom: 0;
 }
 
 .image-wrapper-inner {
@@ -94,6 +105,11 @@ div.image {
   align-items: center;
   justify-content: center;
   width: 100%;
+}
+
+.image-wrapper-inner .image {
+  width: 100%;
+  display: block;
 }
 
 .user-info {
@@ -139,13 +155,14 @@ html {
 }
 
 .ugc-tile {
-  width: var(--max-tile-width) px;
+  width: var(--max-tile-width);
   background: var(--text-tile-background);
-  margin: var(--margin) px;
+  margin-left: var(--margin);
+  margin-right: var(--margin);
 }
 
 .caption {
-  font-size: var(--text-tile-font-size) px;
+  font-size: var(--text-tile-font-size);
   color: var(--text-tile-font-color);
 }
 
@@ -154,12 +171,12 @@ html {
 }
 
 .user-name {
-  font-size: var(--text-tile-user-name-font-size) px;
+  font-size: var(--text-tile-user-name-font-size);
   color: var(--text-tile-user-name-font-color);
 }
 
 .user-handle {
-  font-size: var(--text-tile-user-handle-font-size) px;
+  font-size: var(--text-tile-user-handle-font-size);
   color: var(--text-tile-user-handle-font-color);
 }
 
@@ -170,4 +187,10 @@ html {
   padding-right: 20px;
   text-align: left;
   width: 100%;
+}
+
+.tile-caption {
+  margin-top: 15px;
+  display: --show-caption;
+  text-align: left;
 }

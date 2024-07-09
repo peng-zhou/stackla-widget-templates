@@ -3,22 +3,27 @@
 }
 
 .stacklapopup-products-item-title {
-  color: #000;
+  color: #fff;
+  text-transform: uppercase;
   font-size: 18px;
   font-weight: bold;
   line-height: 1.2;
-  text-transform: uppercase;
+  margin-bottom: 10px;
 }
 
 .stacklapopup-products-item-price {
+  color: #fff;
   font-size: 14px;
   font-weight: normal;
-  color: #000;
   margin-bottom: 5px;
 }
 
+.stacklapopup-product-images-wrapper {
+  max-width: 100%;
+}
+
 .stacklapopup-products-item-description {
-  color: #282828;
+  color: #fff;
   font-size: 14px;
   font-weight: 400;
 }

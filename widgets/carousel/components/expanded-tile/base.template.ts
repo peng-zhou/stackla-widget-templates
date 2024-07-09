@@ -1,6 +1,6 @@
 import type { Sdk } from "@stackla/types";
 import { getConfig } from "widgets/carousel/widget.config";
-import { getTimephrase } from "widgets/carousel/widget.utils";
+import { getTimephrase } from "../../../libs/tile.lib";
 
 export const expandedTileTemplate = (sdk: Sdk) => {
   const widgetContainer = sdk.placement.getWidgetContainer();

@@ -1,3 +1,32 @@
+import type { Sdk, Tile } from "@stackla/types";
+
+declare const sdk: Sdk;
+
+export function handleTileClick(e: Event, widgetUrl: string) {
+  const ugcTiles = sdk.tiles.tiles;
+
+  const clickedElement = e.target as HTMLElement;
+  const clickedTile = clickedElement.closest(".ugc-tile");
+
+  if (!clickedTile) {
+    throw new Error("Failed to find clicked tile");
+  }
+
+  const tileId = clickedTile.getAttribute("data-id");
+
+  if (!tileId) {
+    throw new Error("Failed to find tile ID");
+  }
+
+  const tileData: Tile = ugcTiles[tileId] as Tile;
+
+  const tileLink = widgetUrl || tileData.original_url || tileData.original_link;
+
+  if (tileLink) {
+    window.open(tileLink, "_blank");
+  }
+}
+
 export function getTimephrase(timestamp: number) {
   if (!timestamp) {
     return "just now";
