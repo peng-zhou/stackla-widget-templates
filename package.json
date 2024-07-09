@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "lint": "eslint . --fix && stylelint '**/*.css'",
-    "test": "jest --color --passWithNoTests",
-    "build": "node ./esbuild.js"
+    "test": "",
+    "build": "node ./esbuild.js",
+    "dev": "APP_ENV=development node ./esbuild.js --watch"
   },
   "license": "MIT",
   "optionalDependencies": {
@@ -15,7 +16,9 @@
   "devDependencies": {
     "@stackla/eslint-config": "^1.0.0",
     "@stackla/jest-config": "^1.0.6",
-    "@stackla/types": "^0.0.16",
+    "@stackla/types": "^0.0.18-alpha.6",
+    "@types/glidejs__glide": "^3.6.5",
+    "@types/masonry-layout": "^4.2.8",
     "@typescript-eslint/eslint-plugin": "^7.13.1",
     "esbuild": "^0.21.5",
     "eslint": "^8.56.0",
@@ -26,5 +29,9 @@
     "stylelint-config-standard": "^36.0.1",
     "stylelint-prettier": "^5.0.0",
     "typescript": "^5.5.0"
+  },
+  "dependencies": {
+    "@glidejs/glide": "^3.6.1",
+    "masonry-layout": "^4.2.2"
   }
 }

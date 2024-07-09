@@ -6,7 +6,7 @@ const EVENT_LOAD_LESS = "lessLoad";
 declare const sdk: Sdk;
 
 export function getLoadMoreButton() {
-  const button = sdk.querySelector("#load-more")<HTMLButtonElement>;
+  const button = sdk.querySelector<HTMLButtonElement>("#load-more");
 
   if (!button) {
     throw new Error("Load more button not found");
@@ -16,7 +16,7 @@ export function getLoadMoreButton() {
 }
 
 export function getLoadLessButton() {
-  const button = sdk.querySelector("#load-less")<HTMLButtonElement>;
+  const button = sdk.querySelector<HTMLButtonElement>("#load-less");
 
   if (!button) {
     throw new Error("Load less button not found");
