@@ -7,4 +7,5 @@ export interface BaseConfig {
   expanded_tile_show_shopspots: boolean;
   expanded_tile_show_products: boolean;
   expanded_tile_show_add_to_cart: boolean;
+  load_more_type?: string;
 }

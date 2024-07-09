@@ -6,7 +6,8 @@
   "scripts": {
     "lint": "eslint . --fix && stylelint '**/*.css'",
     "test": "jest --color --passWithNoTests",
-    "build": "node ./esbuild.js"
+    "build": "node ./esbuild.js",
+    "dev": "APP_ENV=development node ./esbuild.js --watch"
   },
   "license": "MIT",
   "optionalDependencies": {

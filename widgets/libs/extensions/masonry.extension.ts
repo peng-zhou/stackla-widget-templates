@@ -1,4 +1,4 @@
-import { ISdkMasonry } from "./types/ISdkMasonry";
+import { ISdkMasonry } from "../../../types/ISdkMasonry";
 import Masonry from "masonry-layout";
 
 declare const sdk: ISdkMasonry;

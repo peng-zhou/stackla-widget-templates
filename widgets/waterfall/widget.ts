@@ -1,12 +1,4 @@
-declare const sdk: Sdk;
-
 import { getConfig } from "./widget.config";
-import type { Sdk } from "@stackla/types";
-import {
-  initializeMasonry,
-  loadMoreMasonryTiles,
-  refreshMasonryLayout,
-} from "../libs/extensions/masonry.extension";
 import {
   addAutoAddTileFeature,
   addLoadMoreButtonFeature,
@@ -14,14 +6,20 @@ import {
   loadClickThroughFeature,
   loadTitle,
 } from "widgets/libs/tile.features";
-import { loadExpandSettingComponents } from "widgets/libs/widget.components";
 import { IWidgetSettings } from "types/IWidgetSettings";
-import customExpandedTileTemplate from "./components/expanded-tile/base.template";
-import customExpandedTileCSS from "./components/expanded-tile/base.css";
-import customProductsCSS from "./components/products/base.css";
-import getCSSVariables from "./css.variables";
+import { ISdkMasonry } from "types/ISdkMasonry";
+import {
+  initializeMasonry,
+  loadMoreMasonryTiles,
+  refreshMasonryLayout,
+} from "widgets/libs/extensions/masonry.extension";
 import { addCSSVariablesToPlacement } from "widgets/libs/widget.layout";
-import { onTileClose } from "./widget.listeners";
+import getCSSVariables from "./css.variables";
+import expandedTileCSS from "./components/expanded-tile/base.css";
+import productsCSS from "./components/products/base.css";
+import customExpandedTileTemplate from "./components/expanded-tile/base.template";
+
+declare const sdk: ISdkMasonry;
 
 sdk.tiles.setLoadMode("all");
 sdk.tiles.hideBrokenTiles = true;
@@ -42,17 +40,15 @@ if (!showWidget) {
 }
 
 loadTitle();
-loadExpandSettingComponents(widgetSettings);
+addCSSVariablesToPlacement(getCSSVariables());
 addAutoAddTileFeature<IWidgetSettings>(widgetSettings);
-loadClickThroughFeature(widgetSettings, () => {}, onTileClose);
+loadClickThroughFeature(widgetSettings);
 addTilesPerPageFeature<IWidgetSettings>(widgetSettings);
 addLoadMoreButtonFeature<IWidgetSettings>(widgetSettings);
-addCSSVariablesToPlacement(getCSSVariables());
 
 sdk.addEventListener("load", () => initializeMasonry());
 sdk.addEventListener("moreLoad", () => loadMoreMasonryTiles());
 sdk.addEventListener("tilesUpdated", () => refreshMasonryLayout());
-
-sdk.addCSSToComponent(customExpandedTileCSS, "expanded-tile");
-sdk.addCSSToComponent(customProductsCSS, "ugc-products");
+sdk.addCSSToComponent(expandedTileCSS, "expanded-tile");
+sdk.addCSSToComponent(productsCSS, "ugc-products");
 sdk.addTemplateToComponent(customExpandedTileTemplate, "expanded-tile");

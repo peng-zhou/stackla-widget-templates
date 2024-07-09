@@ -1,4 +1,4 @@
-import { Sdk } from "@stackla/types";
+import type { Sdk } from "@stackla/types";
 import { getConfig } from "./widget.config";
 
 declare const sdk: Sdk;
@@ -23,7 +23,5 @@ export default function getCSSVariables() {
         --text-tile-user-handle-font-size: ${widgetSettings.text_tile_user_handle_font_size};
         ? widgetSettings.text_tile_user_handle_font_size
         : 12};
-        --shopspot-btn_font_color: #${widgetSettings.shopspot_btn_font_color};
-        --shopspot-btn_background: #${widgetSettings.shopspot_btn_background};
 `;
 }

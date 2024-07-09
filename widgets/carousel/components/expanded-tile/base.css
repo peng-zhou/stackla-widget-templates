@@ -1,7 +1,6 @@
 :host {
   padding: 0;
   box-sizing: border-box;
-  display: inline-block;
   margin: 30px auto;
   max-width: 1060px;
   position: relative;
@@ -12,12 +11,14 @@
   justify-content: center;
   background-color: transparent;
 }
+
 .exit {
   position: absolute;
   top: 20px;
   right: 20px;
   z-index: 1;
 }
+
 .panel {
   display: flex;
   position: relative;
@@ -25,21 +26,24 @@
   width: 100%;
   height: 100%;
 }
+
 .panel-left {
   min-width: 40%;
   max-width: 40%;
   background: #fff;
   display: flex;
-  align-content: center;
-  justify-content: center;
+  place-content: center center;
   align-items: center;
 }
+
 .panel-left img {
   width: 100%;
 }
+
 .panel-right {
   padding: 26px 40px;
 }
+
 .tile-arrows-left {
   position: absolute;
   width: 50px;
@@ -49,6 +53,7 @@
   border: 0;
   background: none;
 }
+
 .tile-arrows-right {
   position: absolute;
   width: 50px;
@@ -59,14 +64,20 @@
   background: none;
 }
 
+.widget-icon {
+  display: block;
+}
+
 .tile-arrows .widget-icon {
   width: 50px;
   height: 50px;
   cursor: pointer;
 }
+
 div.image {
   position: relative;
 }
+
 .image-wrapper {
   position: relative;
   display: flex;
@@ -76,6 +87,7 @@ div.image {
   width: 100%;
   margin-bottom: 16px;
 }
+
 .image-wrapper-inner {
   display: flex;
   flex-direction: column;
@@ -91,12 +103,12 @@ div.image {
 }
 
 .user-info-wrapper {
-  text-align: left !important;
+  text-align: left;
 }
 
 .user-info-wrapper a {
   color: #666;
-  font-family: 'Roboto Condensed', sans-serif;
+  font-family: "Roboto Condensed", sans-serif;
   text-decoration: none;
   line-height: 1.4;
 }
@@ -121,32 +133,36 @@ div.image {
   width: 100%;
   word-break: break-word;
 }
+
 html {
   background: var(--widget-background);
 }
+
 .ugc-tile {
-  width: var(--max-tile-width)px;
+  width: var(--max-tile-width) px;
   background: var(--text-tile-background);
-  margin: var(--margin)px;
+  margin: var(--margin) px;
 }
+
 .caption {
-  font-size: var(--text-tile-font-size)px;
+  font-size: var(--text-tile-font-size) px;
   color: var(--text-tile-font-color);
 }
+
 .content-inner-wrapper a {
   color: var(--text-tile-link-color);
 }
+
 .user-name {
-  font-size: var(--text-tile-user-name-font-size)px;
+  font-size: var(--text-tile-user-name-font-size) px;
   color: var(--text-tile-user-name-font-color);
 }
+
 .user-handle {
-  font-size: var(--text-tile-user-handle-font-size)px;
+  font-size: var(--text-tile-user-handle-font-size) px;
   color: var(--text-tile-user-handle-font-color);
 }
-.widget-icon {
-  display: block;
-}
+
 .tile-timestamp {
   color: #ababab;
   display: inline-block;

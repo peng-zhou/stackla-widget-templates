@@ -1,4 +1,4 @@
-import { Sdk, Tile } from "@stackla/types";
+import type { Sdk, Tile } from "@stackla/types";
 import { loadExpandSettingComponents } from "./widget.components";
 import {
   registerTileClickEventListeners,
@@ -113,7 +113,9 @@ export function loadClickThroughFeature<T extends BaseConfig>(
   }
 }
 
-export function addLoadMoreButtonFeature() {
+export function addLoadMoreButtonFeature<T extends BaseConfig>(
+  widgetSettings: T,
+) {
   const EVENT_LOAD_MORE = "moreLoad";
   const loadMoreButton = sdk.querySelector("#load-more");
 
@@ -130,7 +132,16 @@ export function addLoadMoreButtonFeature() {
     }
   }
 
-  loadMoreButton.onclick = loadMore;
+  if (widgetSettings.load_more_type === "button") {
+    loadMoreButton.onclick = loadMore;
+  } else {
+    loadMoreButton.style.display = "none";
+    window.addEventListener("scroll", function () {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+        loadMore();
+      }
+    });
+  }
 }
 
 export function addTilesPerPageFeature<T extends BaseConfig>(

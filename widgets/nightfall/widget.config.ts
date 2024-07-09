@@ -31,7 +31,7 @@ export function getConfig(widgetContainer: WidgetContainer): IWidgetSettings {
     enable_typekit: widgetStyle?.enable_typekit,
     max_tile_width: widgetStyle?.max_tile_width,
     margin: widgetStyle?.margin,
-    click_through_url: widgetStyle?.click_through_url,
+    click_through_url: widgetStyle?.click_through_url ?? "",
     load_more_type: widgetStyle?.load_more_type,
     enable_doublecolumnspan: widgetStyle?.enable_doublecolumnspan,
     shopspot_btn_background: widgetStyle?.shopspot_btn_background,
