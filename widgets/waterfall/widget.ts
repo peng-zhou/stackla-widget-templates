@@ -15,8 +15,8 @@ import {
 } from "widgets/libs/extensions/masonry.extension";
 import { addCSSVariablesToPlacement } from "widgets/libs/widget.layout";
 import getCSSVariables from "./css.variables";
-import expandedTileCSS from "./components/expanded-tile/base.css";
-import productsCSS from "./components/products/base.css";
+import expandedTileCSS from "./components/expanded-tile/base.scss";
+import productsCSS from "./components/products/base.scss";
 import customExpandedTileTemplate from "./components/expanded-tile/base.template";
 
 declare const sdk: ISdkMasonry;

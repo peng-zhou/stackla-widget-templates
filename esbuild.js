@@ -1,4 +1,5 @@
 import * as esbuild from "esbuild";
+import {sassPlugin} from 'esbuild-sass-plugin'
 
 const widgets = [
   'carousel',
@@ -12,9 +13,13 @@ const config = {
   outdir: "dist",
   loader: {
     ".hbs": "text",
-    ".css": "text",
+    ".css": "text"
   },
-  minify: true
+  minify: true,
+  plugins: [sassPlugin({
+    type: "css-text",
+    minify: true
+  })],
 }
 
 if (process.env.APP_ENV == 'development') {
