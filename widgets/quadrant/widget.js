@@ -143,7 +143,7 @@ function handleClickedTileEvents(tileId) {
   };
   const expandedTileWrapper = document.createElement('div');
   expandedTileWrapper.className = 'expanded-tile-wrapper';
-  tielsContainer.appendChild(expandedTileWrapper);
+  // tielsContainer.appendChild(expandedTileWrapper);
   sdk.triggerEvent('tileExpandClose');
   sdk.triggerEvent('tileExpand', tileData);
 }
