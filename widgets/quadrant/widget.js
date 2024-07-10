@@ -148,6 +148,13 @@ function handleClickedTileEvents(tileId) {
   sdk.triggerEvent('tileExpand', tileData);
 }
 
+// Handle Expanded Tile close event
+function handleExpandedTileClose() {
+  const expandedTileWrapper = sdk.querySelector('.expanded-tile-wrapper');
+  expandedTileWrapper.remove();
+  sdk.triggerEvent('tileExpandClose');
+}
+
 // Quadrant Widget Load Images
 function initializeQuadrant() {
   const ugcTiles = sdk.tiles.getEnabledTiles();
@@ -727,7 +734,7 @@ const customExpandedTileTemplate = (sdk) => {
   const parent = sdk.getNodeId();
   return `<div class="panel">
         <a class="exit" href="#">
-            <span class="widget-icon close"></span>
+            <span class="widget-icon close-white"></span>
         </a>
         <div class="tile-arrows">
             <button class="tile-arrows-btn tile-arrows-left"><span class="widget-icon chevron-left"></span></button>
