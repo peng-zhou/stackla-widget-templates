@@ -83,6 +83,9 @@ export function loadTileExpandArrows(fn: () => void) {
     throw new Error("Failed to find expanded tile shadow root");
   }
 
+  // FIXME: This is a hack to wait for the shadow root to be ready, we should have a more accurate event
+
+  setTimeout(() => {
   const prevButton = expandedTileShadowRoot.querySelector(".tile-arrows-left");
   const nextButton = expandedTileShadowRoot.querySelector(".tile-arrows-right");
 
@@ -93,10 +96,11 @@ export function loadTileExpandArrows(fn: () => void) {
   prevButton.addEventListener("click", arrowClickListener);
   nextButton.addEventListener("click", arrowClickListener);
 
-  fn();
+  fn();   
+  }, 500);
 }
 
-export function loadClickThroughFeature<T extends BaseConfig>(
+export function loadExpandedTileFeature<T extends BaseConfig>(
   widgetSettings: T,
   onTileExpand: () => void = () => {},
   onTileClosed: () => void = () => {},

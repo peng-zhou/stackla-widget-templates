@@ -22,10 +22,12 @@ export function initializeGlideListeners() {
   window.addEventListener("resize", function () {
     initializeGlide(widgetSettings);
   });
+
   const arrows = sdk.querySelector(".glide__arrows");
   if (!arrows) {
     throw new Error("Failed to find arrows UI element");
   }
+  
   arrows.style.display = "inline-block";
 }
 
@@ -89,7 +91,7 @@ export function initializeGlide(widgetSettings: IWidgetSettings) {
 export function hideGlideArrows() {
   const arrows = sdk.querySelector(".glide__arrows");
   if (!arrows) {
-    throw new Error("Failed to find arrows UI element");
+    throw new Error("Failed to find glide arrows UI element");
   }
   arrows.style.display = "none";
 }

@@ -3,7 +3,7 @@ import {
   addAutoAddTileFeature,
   addLoadMoreButtonFeature,
   addTilesPerPageFeature,
-  loadClickThroughFeature,
+  loadExpandedTileFeature,
   loadTitle,
 } from "widgets/libs/tile.features";
 import { IWidgetSettings } from "types/IWidgetSettings";
@@ -42,7 +42,7 @@ if (!showWidget) {
 loadTitle();
 addCSSVariablesToPlacement(getCSSVariables());
 addAutoAddTileFeature<IWidgetSettings>(widgetSettings);
-loadClickThroughFeature(widgetSettings);
+loadExpandedTileFeature(widgetSettings);
 addTilesPerPageFeature<IWidgetSettings>(widgetSettings);
 addLoadMoreButtonFeature<IWidgetSettings>(widgetSettings);
 
