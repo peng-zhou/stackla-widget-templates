@@ -11,7 +11,7 @@ import {
   addAutoAddTileFeature,
   addLoadMoreButtonFeature,
   addTilesPerPageFeature,
-  loadClickThroughFeature,
+  loadExpandedTileFeature,
   loadTitle,
 } from "widgets/libs/tile.features";
 import { loadExpandSettingComponents } from "widgets/libs/widget.components";
@@ -44,7 +44,7 @@ if (!showWidget) {
 loadTitle();
 loadExpandSettingComponents(widgetSettings);
 addAutoAddTileFeature<IWidgetSettings>(widgetSettings);
-loadClickThroughFeature(widgetSettings, () => {}, onTileClose);
+loadExpandedTileFeature(widgetSettings, () => {}, onTileClose);
 addTilesPerPageFeature<IWidgetSettings>(widgetSettings);
 addLoadMoreButtonFeature<IWidgetSettings>(widgetSettings);
 addCSSVariablesToPlacement(getCSSVariables());

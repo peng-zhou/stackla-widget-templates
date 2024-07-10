@@ -7,8 +7,7 @@ import { hideGlideArrows, initializeGlideListeners } from "./widget.extensions";
 import { registerLoadListener } from "widgets/libs/tile.listeners";
 import {
   addAutoAddTileFeature,
-  addTilesPerPageFeature,
-  loadClickThroughFeature,
+  loadExpandedTileFeature,
   loadTitle,
 } from "widgets/libs/tile.features";
 import getCSSVariables from "./css.variables";
@@ -18,6 +17,7 @@ import { IWidgetSettings } from "types/IWidgetSettings";
 declare const sdk: Sdk;
 sdk.tiles.preloadImages = true;
 sdk.tiles.setLoadMode("page");
+sdk.tiles.setVisibleTilesCount(100);
 
 const widgetContainer = sdk.placement.getWidgetContainer();
 const widgetSettings = getConfig(widgetContainer);
@@ -37,8 +37,7 @@ registerLoadListener(() => initializeGlideListeners());
 
 // Add features
 addAutoAddTileFeature<IWidgetSettings>(widgetSettings);
-addTilesPerPageFeature<IWidgetSettings>(widgetSettings);
-loadClickThroughFeature<IWidgetSettings>(widgetSettings, () =>
+loadExpandedTileFeature<IWidgetSettings>(widgetSettings, () =>
   hideGlideArrows(),
 );
 

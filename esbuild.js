@@ -1,5 +1,10 @@
 import * as esbuild from "esbuild";
 import {sassPlugin} from 'esbuild-sass-plugin'
+import * as sass from 'sass';
+import * as fs from 'fs';
+
+const env = process.env.APP_ENV || 'development';
+
 
 const widgets = [
   'carousel',
@@ -22,11 +27,17 @@ const config = {
   })],
 }
 
-if (process.env.APP_ENV == 'development') {
+if (env == 'development') {
   config.minify = false;
   config.sourcemap = 'inline';
-  const context = await esbuild.context(config);
-  await context.watch();
+  esbuild.build(config);
 } else {
   await esbuild.build(config);
 }
+
+widgets.forEach((widget) => {
+  const result = sass.compile(`widgets/${widget}/widget.scss`, {
+    style: env === 'development' ? 'expanded' : 'compressed'
+  });
+  fs.writeFileSync(`dist/${widget}/widget.css`, result.css.toString());
+});

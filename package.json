@@ -6,8 +6,8 @@
   "scripts": {
     "lint": "eslint . --fix && stylelint '**/*.*css'",
     "test": "",
-    "build": "node ./esbuild.js",
-    "dev": "APP_ENV=development node ./esbuild.js --watch"
+    "build": "APP_ENV=production node ./esbuild.js",
+    "dev": "APP_ENV=development node ./esbuild.js"
   },
   "license": "MIT",
   "optionalDependencies": {
@@ -29,7 +29,8 @@
     "stylelint": "^16.6.1",
     "stylelint-config-standard": "^36.0.1",
     "stylelint-prettier": "^5.0.0",
-    "typescript": "^5.5.0"
+    "typescript": "^5.5.0",
+    "sass": "^1.77.6"
   },
   "dependencies": {
     "@glidejs/glide": "^3.6.1",
