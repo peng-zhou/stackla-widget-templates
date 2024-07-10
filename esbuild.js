@@ -9,7 +9,8 @@ const env = process.env.APP_ENV || 'development';
 const widgets = [
   'carousel',
   'nightfall',
-  'waterfall'
+  'waterfall',
+  'slider',
 ]
 
 const config = {

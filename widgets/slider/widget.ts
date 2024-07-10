@@ -31,7 +31,6 @@ const ugcTiles = sdk.tiles.tiles;
 const ugcTilesLength = Object.keys(ugcTiles).length;
 
 const showWidget = widgetContainer.enabled;
-
 if (!showWidget) {
   throw new Error("Widget is not enabled");
 }
