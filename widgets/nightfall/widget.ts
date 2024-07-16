@@ -19,6 +19,7 @@ import { IWidgetSettings } from "types/IWidgetSettings";
 import customExpandedTileTemplate from "./components/expanded-tile/base.template";
 import customExpandedTileCSS from "./components/expanded-tile/base.scss";
 import customProductsCSS from "./components/products/base.scss";
+import shopspotStyle from "./components/shopspot-icon/base.scss";
 import getCSSVariables from "./css.variables";
 import { addCSSVariablesToPlacement } from "widgets/libs/widget.layout";
 import { onTileClose } from "./widget.listeners";
@@ -50,4 +51,5 @@ sdk.addEventListener("tilesUpdated", () => refreshMasonryLayout());
 
 sdk.addCSSToComponent(customExpandedTileCSS, "expanded-tile");
 sdk.addCSSToComponent(customProductsCSS, "ugc-products");
+sdk.addCSSToComponent(shopspotStyle, "shopspot-icon");
 sdk.addTemplateToComponent(customExpandedTileTemplate, "expanded-tile");

@@ -36,15 +36,15 @@ export function registerTileExpandListener(fn: () => void = () => {}) {
 
 export function registerTileClosedListener(fn: () => void = () => {}) {
   sdk.addEventListener("expandedTileClose", () => {
-      const arrows = sdk.querySelector(".glide__arrows");
+    const arrows = sdk.querySelector(".glide__arrows");
 
-      if (!arrows) {
-        throw new Error("Failed to find arrows UI element");
-      }
+    if (!arrows) {
+      throw new Error("Failed to find arrows UI element");
+    }
 
-      arrows.style.display = "block";
+    arrows.style.display = "block";
 
-      fn();
+    fn();
   });
 }
 

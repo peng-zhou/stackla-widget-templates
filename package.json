@@ -4,7 +4,9 @@
   "description": "Widget Templates",
   "type": "module",
   "scripts": {
-    "lint": "eslint . --fix && stylelint '**/*.*css'",
+    "eslint": "eslint widgets/. --fix",
+    "stylelint": "stylelint **/*.scss --fix",
+    "lint": "npm run eslint && npm run stylelint",
     "test": "jest",
     "build": "APP_ENV=production node ./esbuild.js",
     "dev": "APP_ENV=development node ./esbuild.js"

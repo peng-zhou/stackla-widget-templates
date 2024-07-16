@@ -15,7 +15,7 @@ export const getNextNavigatedTile = (
   direction: string,
 ) => {
   const currentIndex = enabledTiles.findIndex(
-    (tile : HTMLElement) => tile.getAttribute('data-id') === currentTile.id,
+    (tile: HTMLElement) => tile.getAttribute("data-id") === currentTile.id,
   );
 
   if (direction === "previous") {
@@ -25,8 +25,7 @@ export const getNextNavigatedTile = (
       throw new Error("Failed to find previous tile");
     }
 
-    return previousTile.getAttribute('data-id');
-
+    return previousTile.getAttribute("data-id");
   } else if (direction === "next") {
     const nextTile = getNextTile(enabledTiles, currentIndex);
 
@@ -34,14 +33,20 @@ export const getNextNavigatedTile = (
       throw new Error("Failed to find next tile");
     }
 
-    return nextTile.getAttribute('data-id');
+    return nextTile.getAttribute("data-id");
   }
-  
+
   return null;
 };
 
-export const getNextTile = (enabledTiles : HTMLElement[], currentIndex : number) => enabledTiles[currentIndex + 1];
-export const getPreviousTile = (enabledTiles : HTMLElement[], currentIndex: number) => enabledTiles[currentIndex - 1];
+export const getNextTile = (
+  enabledTiles: HTMLElement[],
+  currentIndex: number,
+) => enabledTiles[currentIndex + 1];
+export const getPreviousTile = (
+  enabledTiles: HTMLElement[],
+  currentIndex: number,
+) => enabledTiles[currentIndex - 1];
 
 export const arrowClickListener = (e: Event) => {
   if (!e.target) {
@@ -70,7 +75,9 @@ export const arrowClickListener = (e: Event) => {
 
   const tileId = getNextNavigatedTile(currentTile, tilesAsHtmlArray, type);
 
-  const tilesStore : Tile[] = Object.values(sdk.tiles.tiles) as unknown as Tile[];
+  const tilesStore: Tile[] = Object.values(
+    sdk.tiles.tiles,
+  ) as unknown as Tile[];
 
   const tileData = {
     tileData: tilesStore.find((tile) => tile.id === tileId),
@@ -104,17 +111,19 @@ export function loadTileExpandArrows(fn: () => void) {
   // FIXME: This is a hack to wait for the shadow root to be ready, we should have a more accurate event
 
   setTimeout(() => {
-  const prevButton = expandedTileShadowRoot.querySelector(".tile-arrows-left");
-  const nextButton = expandedTileShadowRoot.querySelector(".tile-arrows-right");
+    const prevButton =
+      expandedTileShadowRoot.querySelector(".tile-arrows-left");
+    const nextButton =
+      expandedTileShadowRoot.querySelector(".tile-arrows-right");
 
-  if (!prevButton || !nextButton) {
-    throw new Error("Failed to find arrow UI elements");
-  }
+    if (!prevButton || !nextButton) {
+      throw new Error("Failed to find arrow UI elements");
+    }
 
-  prevButton.addEventListener("click", arrowClickListener);
-  nextButton.addEventListener("click", arrowClickListener);
+    prevButton.addEventListener("click", arrowClickListener);
+    nextButton.addEventListener("click", arrowClickListener);
 
-  fn();   
+    fn();
   }, 500);
 }
 

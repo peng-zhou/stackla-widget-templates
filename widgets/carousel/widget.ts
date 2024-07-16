@@ -3,6 +3,7 @@ import { getConfig } from "./widget.config";
 import { expandedTileTemplate } from "./components/expanded-tile/base.template";
 import expandedTileStyle from "./components/expanded-tile/base.scss";
 import productsStyle from "./components/products/base.scss";
+import shopspotStyle from "./components/shopspot-icon/base.scss";
 import { hideGlideArrows, initializeGlideListeners } from "./widget.extensions";
 import { registerLoadListener } from "widgets/libs/tile.listeners";
 import {
@@ -44,4 +45,5 @@ loadExpandedTileFeature<IWidgetSettings>(widgetSettings, () =>
 // Add styles and templates to components
 sdk.addCSSToComponent(expandedTileStyle, "expanded-tile");
 sdk.addCSSToComponent(productsStyle, "ugc-products");
+sdk.addCSSToComponent(shopspotStyle, "shopspot-icon");
 sdk.addTemplateToComponent(expandedTileTemplate, "expanded-tile");
