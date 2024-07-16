@@ -14,11 +14,11 @@ import {
   refreshMasonryLayout,
 } from "widgets/libs/extensions/masonry.extension";
 import { addCSSVariablesToPlacement } from "widgets/libs/widget.layout";
-import getCSSVariables from "./css.variables";
 import expandedTileCSS from "./components/expanded-tile/base.scss";
 import productsCSS from "./components/products/base.scss";
 import shopspotStyle from "./components/shopspot-icon/base.scss";
 import customExpandedTileTemplate from "./components/expanded-tile/base.template";
+import getCSSVariables from "widgets/libs/css-variables";
 
 declare const sdk: ISdkMasonry;
 
