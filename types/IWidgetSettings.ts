@@ -24,7 +24,6 @@ export interface IWidgetSettings extends BaseConfig {
   enable_typekit?: boolean;
   max_tile_width?: number;
   margin?: number;
-  click_through_url: string;
   load_more_type?: string;
   show_claim_button?: boolean;
   enable_doublecolumnspan?: boolean;

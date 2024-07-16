@@ -11,9 +11,9 @@ import {
   loadExpandedTileFeature,
   loadTitle,
 } from "widgets/libs/tile.features";
-import getCSSVariables from "./css.variables";
 import { addCSSVariablesToPlacement } from "widgets/libs/widget.layout";
 import { IWidgetSettings } from "types/IWidgetSettings";
+import getCSSVariables from "widgets/libs/css-variables";
 
 declare const sdk: Sdk;
 sdk.tiles.preloadImages = true;
@@ -28,7 +28,7 @@ if (!widgetSettings.enabled) {
 }
 
 // Add CSS variables to placement
-addCSSVariablesToPlacement(getCSSVariables());
+addCSSVariablesToPlacement(getCSSVariables(widgetSettings));
 
 // Load features
 loadTitle();

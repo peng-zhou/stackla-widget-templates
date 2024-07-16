@@ -36,11 +36,11 @@ if (!showWidget) {
 }
 
 loadTitle();
-addCSSVariablesToPlacement(getCSSVariables());
 addAutoAddTileFeature<IWidgetSettings>(widgetSettings);
 loadExpandedTileFeature(widgetSettings);
 addTilesPerPageFeature<IWidgetSettings>(widgetSettings);
 addLoadMoreButtonFeature<IWidgetSettings>(widgetSettings);
+addCSSVariablesToPlacement(getCSSVariables(widgetSettings));
 
 sdk.addEventListener("load", () => initializeMasonry());
 sdk.addEventListener("moreLoad", () => loadMoreMasonryTiles());
