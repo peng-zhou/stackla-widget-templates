@@ -48652,6 +48652,7 @@ const tiles : Tile[] = [
         "time_phrase": "9 Apr 21",
         "preloaded": true
     }
-];
+// Type casting as fields are missing
+] as unknown as Tile[];
 
 export default tiles;
