@@ -3,6 +3,7 @@ import { getConfig } from "./widget.config";
 import { expandedTileTemplate } from "./components/expanded-tile/base.template";
 import expandedTileStyle from "./components/expanded-tile/base.scss";
 import productsStyle from "./components/products/base.scss";
+import shopspotStyle from "./components/shopspot-icon/base.scss";
 import { hideGlideArrows, initializeGlideListeners } from "./widget.extensions";
 import { registerLoadListener } from "widgets/libs/tile.listeners";
 import {
@@ -10,9 +11,9 @@ import {
   loadExpandedTileFeature,
   loadTitle,
 } from "widgets/libs/tile.features";
-import getCSSVariables from "./css.variables";
 import { addCSSVariablesToPlacement } from "widgets/libs/widget.layout";
 import { IWidgetSettings } from "types/IWidgetSettings";
+import getCSSVariables from "widgets/libs/css-variables";
 
 declare const sdk: Sdk;
 sdk.tiles.preloadImages = true;
@@ -27,7 +28,7 @@ if (!widgetSettings.enabled) {
 }
 
 // Add CSS variables to placement
-addCSSVariablesToPlacement(getCSSVariables());
+addCSSVariablesToPlacement(getCSSVariables(widgetSettings));
 
 // Load features
 loadTitle();
@@ -44,4 +45,5 @@ loadExpandedTileFeature<IWidgetSettings>(widgetSettings, () =>
 // Add styles and templates to components
 sdk.addCSSToComponent(expandedTileStyle, "expanded-tile");
 sdk.addCSSToComponent(productsStyle, "ugc-products");
+sdk.addCSSToComponent(shopspotStyle, "shopspot-icon");
 sdk.addTemplateToComponent(expandedTileTemplate, "expanded-tile");

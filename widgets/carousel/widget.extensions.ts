@@ -27,7 +27,7 @@ export function initializeGlideListeners() {
   if (!arrows) {
     throw new Error("Failed to find arrows UI element");
   }
-  
+
   arrows.style.display = "inline-block";
 }
 

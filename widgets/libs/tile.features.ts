@@ -9,46 +9,44 @@ import { BaseConfig } from "../../types/IBaseConfig";
 
 declare const sdk: Sdk;
 
-export const getTileId = (
+export const getNextNavigatedTile = (
   currentTile: Tile,
-  enabledTiles: Tile[],
+  enabledTiles: HTMLElement[],
   direction: string,
 ) => {
   const currentIndex = enabledTiles.findIndex(
-    (tile: Tile) => tile.id === currentTile.id,
+    (tile: HTMLElement) => tile.getAttribute("data-id") === currentTile.id,
   );
+
   if (direction === "previous") {
-    return currentIndex > 0 ? enabledTiles[currentIndex - 1].id : null;
+    const previousTile = getPreviousTile(enabledTiles, currentIndex);
+
+    if (!previousTile) {
+      throw new Error("Failed to find previous tile");
+    }
+
+    return previousTile.getAttribute("data-id");
   } else if (direction === "next") {
-    return currentIndex >= 0 && currentIndex < enabledTiles.length - 1
-      ? enabledTiles[currentIndex + 1].id
-      : null;
+    const nextTile = getNextTile(enabledTiles, currentIndex);
+
+    if (!nextTile) {
+      throw new Error("Failed to find next tile");
+    }
+
+    return nextTile.getAttribute("data-id");
   }
+
   return null;
 };
 
-export const handleTileArrowClicked = (type: string) => {
-  const currentTile = sdk.tiles.getTile();
-
-  if (!currentTile) {
-    throw new Error("Failed to find current tile");
-    return;
-  }
-
-  const enabledTiles = sdk.tiles
-    .getEnabledTiles()
-    .filter(
-      (item) => item.media === "video" || item.media === "image",
-    ) as Tile[];
-  const tileId = getTileId(currentTile, enabledTiles, type);
-  const tileData = {
-    tileData: enabledTiles.find((tile) => tile.id === tileId),
-    widgetId: sdk.placement.getWidgetId(),
-    filterId: sdk.placement.getWidgetContainer().widgetOptions?.filterId,
-  };
-  sdk.triggerEvent("tileExpandClose");
-  sdk.triggerEvent("tileExpand", tileData);
-};
+export const getNextTile = (
+  enabledTiles: HTMLElement[],
+  currentIndex: number,
+) => enabledTiles[currentIndex + 1];
+export const getPreviousTile = (
+  enabledTiles: HTMLElement[],
+  currentIndex: number,
+) => enabledTiles[currentIndex - 1];
 
 export const arrowClickListener = (e: Event) => {
   if (!e.target) {
@@ -61,7 +59,34 @@ export const arrowClickListener = (e: Event) => {
     ? "previous"
     : "next";
 
-  handleTileArrowClicked(type);
+  const currentTile = sdk.tiles.getTile();
+
+  if (!currentTile) {
+    throw new Error("Failed to find current tile");
+  }
+
+  const tilesAsHtml = sdk.querySelectorAll(".ugc-tile");
+
+  if (!tilesAsHtml) {
+    throw new Error("Failed to find tiles for arrow initialisation");
+  }
+
+  const tilesAsHtmlArray = Array.from(tilesAsHtml);
+
+  const tileId = getNextNavigatedTile(currentTile, tilesAsHtmlArray, type);
+
+  const tilesStore: Tile[] = Object.values(
+    sdk.tiles.tiles,
+  );
+
+  const tileData = {
+    tileData: tilesStore.find((tile) => tile.id === tileId),
+    widgetId: sdk.placement.getWidgetId(),
+    filterId: sdk.placement.getWidgetContainer().widgetOptions?.filterId,
+  };
+
+  sdk.triggerEvent("tileExpandClose");
+  sdk.triggerEvent("tileExpand", tileData);
 };
 
 export function addAutoAddTileFeature<T extends BaseConfig>(widgetSettings: T) {
@@ -86,17 +111,19 @@ export function loadTileExpandArrows(fn: () => void) {
   // FIXME: This is a hack to wait for the shadow root to be ready, we should have a more accurate event
 
   setTimeout(() => {
-  const prevButton = expandedTileShadowRoot.querySelector(".tile-arrows-left");
-  const nextButton = expandedTileShadowRoot.querySelector(".tile-arrows-right");
+    const prevButton =
+      expandedTileShadowRoot.querySelector(".tile-arrows-left");
+    const nextButton =
+      expandedTileShadowRoot.querySelector(".tile-arrows-right");
 
-  if (!prevButton || !nextButton) {
-    throw new Error("Failed to find arrow UI elements");
-  }
+    if (!prevButton || !nextButton) {
+      throw new Error("Failed to find arrow UI elements");
+    }
 
-  prevButton.addEventListener("click", arrowClickListener);
-  nextButton.addEventListener("click", arrowClickListener);
+    prevButton.addEventListener("click", arrowClickListener);
+    nextButton.addEventListener("click", arrowClickListener);
 
-  fn();   
+    fn();
   }, 500);
 }
 
