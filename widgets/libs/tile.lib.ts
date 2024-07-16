@@ -18,7 +18,7 @@ export function handleTileClick(e: Event, widgetUrl: string) {
     throw new Error("Failed to find tile ID");
   }
 
-  const tileData: Tile = ugcTiles[tileId] as Tile;
+  const tileData: Tile = ugcTiles[tileId];
 
   const tileLink = widgetUrl || tileData.original_url || tileData.original_link;
 

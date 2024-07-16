@@ -77,7 +77,7 @@ export const arrowClickListener = (e: Event) => {
 
   const tilesStore: Tile[] = Object.values(
     sdk.tiles.tiles,
-  ) as unknown as Tile[];
+  );
 
   const tileData = {
     tileData: tilesStore.find((tile) => tile.id === tileId),

@@ -48652,6 +48652,6 @@ const tiles : Tile[] = [
         "time_phrase": "9 Apr 21",
         "preloaded": true
     }
-] as unknown as Tile[];
+];
 
 export default tiles;
