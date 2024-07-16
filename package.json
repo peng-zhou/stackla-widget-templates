@@ -4,7 +4,9 @@
   "description": "Widget Templates",
   "type": "module",
   "scripts": {
-    "lint": "eslint . --fix && stylelint '**/*.*css'",
+    "eslint": "eslint widgets/. --fix",
+    "stylelint": "stylelint **/*.scss --fix",
+    "lint": "npm run eslint && npm run stylelint",
     "test": "jest",
     "build": "APP_ENV=production node ./esbuild.js",
     "dev": "APP_ENV=development node ./esbuild.js"
@@ -17,7 +19,7 @@
     "@happy-dom/jest-environment": "^14.12.3",
     "@stackla/eslint-config": "^1.0.0",
     "@stackla/jest-config": "^1.0.6",
-    "@stackla/types": "^0.0.18-alpha.6",
+    "@stackla/types": "^0.0.19",
     "@types/glidejs__glide": "^3.6.5",
     "@types/jest": "^29.5.12",
     "@types/masonry-layout": "^4.2.8",
