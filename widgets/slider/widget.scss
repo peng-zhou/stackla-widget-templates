@@ -5,15 +5,16 @@
 }
 
 .ugc-tile {
-  flex: 0 0 calc(33.333% - 20px);
-  max-width: calc(33.333% - 20px);
-  margin-bottom: 20px;
-  cursor: pointer;
 }
 
 .tile-image,
 .tile-video {
   position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  height: 220px;
 }
 
 .ugc-tile:not([data-media="image"], [data-media="video"]) {
@@ -23,6 +24,120 @@
 .ugc-tile img {
   width: 100%;
   height: auto;
+}
+
+.ugc-tiles {
+  display: grid;
+  gap: 10px; /* Space between blocks */
+  padding: 20px;
+  width: 100%; /* Fixed Width */
+  height: 620px; /* Fixed Height */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+/* Style for individual blocks */
+.ugc-tile,
+.ugc-tile-wrapper {
+  align-items: center;
+  background-color: #000000;
+  color: #fff;
+  border: 1px solid #ccc;
+  text-align: center;
+  font-size: 1.5em;
+  transition: transform 0.5s ease-in-out; /* Apply transition to all blocks */
+  height: 220px;
+}
+
+.ugc-tile:nth-child(even) .ugc-tile-wrapper {
+  flex-direction: row-reverse; /* Swap image and text for even rows */
+}
+
+/* Apply odd/even layout rule */
+.ugc-tile img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.tile-img {
+  width: 50%;
+}
+
+.tile-caption {
+  height: 105px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 50%;
+  font-size: 15px;
+  font-family: "Oswald", sans-serif;
+  line-height: 1.4;
+}
+
+/* Small Screens: Stack all blocks vertically */
+@media (max-width: 599px) {
+  .ugc-tiles {
+      grid-template-columns: 1fr;
+  }
+  .ugc-tile {
+      flex-direction: column; /* Stack image and text vertically on small screens */
+  }
+}
+
+/* Responsive Layout with Media Queries */
+@media (min-width: 1600px) {
+  .ugc-tiles {
+      grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+@media (min-width: 1400px) and (max-width: 1599px) {
+  .ugc-tiles {
+      grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .ugc-tiles {
+      grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .ugc-tiles {
+      grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .ugc-tiles {
+      grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+  .ugc-tiles {
+      grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 575px) {
+  .ugc-tiles {
+      grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+/* Styles for Scroll Buttons */
+.tiles-scroll-button {
+  border: none;
+  background-color: #888;
+  color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 20px;
+  margin: 10px;
+}
+.tiles-scroll-button:hover {
+  background-color: #555;
 }
 
 .network-icon {

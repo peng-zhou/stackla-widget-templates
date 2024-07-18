@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixed Container with Scroll Buttons</title>
+    <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Common Styles */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Fixed-size Container */
+.ugc-tiles {
+    display: grid;
+    gap: 10px; /* Space between blocks */
+    padding: 20px;
+    width: 100%; /* Fixed Width */
+    height: 620px; /* Fixed Height */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+/* Style for individual blocks */
+.ugc-tile {
+    display: flex;
+    align-items: center;
+    background-color: #000000;
+    color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    text-align: center;
+    font-size: 1.5em;
+    transition: transform 0.5s ease-in-out; /* Apply transition to all blocks */
+}
+
+
+/* Apply odd/even layout rule */
+.ugc-tile img {
+    width: 50%; /* Adjust as needed */
+    height: auto;
+}
+
+
+/* Small Screens: Stack all blocks vertically */
+@media (max-width: 599px) {
+    .ugc-tiles {
+        grid-template-columns: 1fr;
+    }
+    .ugc-tile {
+        flex-direction: column; /* Stack image and text vertically on small screens */
+    }
+}
+
+/* Medium Screens: Show two columns */
+@media (min-width: 600px) and (max-width: 899px) {
+    .ugc-tiles {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Large Screens: Max three columns */
+@media (min-width: 900px) {
+    .ugc-tiles {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Styles for Scroll Buttons */
+.scroll-button {
+    border: none;
+    background-color: #888;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 20px;
+    margin: 10px;
+}
+.scroll-button:hover {
+    background-color: #555;
+}
+
+    </style>
+</head>
+<body>
+    <!-- Up Arrow Button -->
+    <button class="scroll-button" id="sliderScrollUp">&#9650;</button>
+
+    <div class="ugc-tiles" id="tiles">
+        <div class="ugc-tile">
+            <img src="https://content-cdn.stackla.com/1451/6684d766445fba4dc1de6d09/image/s" alt="Image A">
+            <p>Text for Block A</p>
+        </div>
+        <div class="ugc-tile">
+            <img src="https://content-cdn.stackla.com/1451/6684d766445fba4dc1de6d09/image/s" alt="Image B">
+            <p>Text for Block B</p>
+        </div>
+        <div class="ugc-tile">
+            <img src="https://content-cdn.stackla.com/1451/6684d766445fba4dc1de6d09/image/s" alt="Image C">
+            <p>Text for Block C</p>
+        </div>
+        <div class="ugc-tile">
+            <img src="https://content-cdn.stackla.com/1451/6684d766445fba4dc1de6d09/image/s" alt="Image D">
+            <p>Text for Block D</p>
+        </div>
+        <div class="ugc-tile">
+            <img src="https://content-cdn.stackla.com/1451/6684d766445fba4dc1de6d09/image/s" alt="Image E">
+            <p>Text for Block E</p>
+        </div>
+        <div class="ugc-tile">
+            <img src="https://content-cdn.stackla.com/1451/6684d766445fba4dc1de6d09/image/s" alt="Image F">
+            <p>Text for Block F</p>
+        </div>
+        <div class="ugc-tile">
+            <img src="https://content-cdn.stackla.com/1451/6684d766445fba4dc1de6d09/image/s" alt="Image G">
+            <p>Text for Block G</p>
+        </div>
+        <div class="ugc-tile">
+            <img src="https://content-cdn.stackla.com/1451/6684d766445fba4dc1de6d09/image/s" alt="Image H">
+            <p>Text for Block H</p>
+        </div>
+        <!-- Add more blocks as needed -->
+    </div>
+
+    <!-- Down Arrow Button -->
+    <button class="scroll-button" id="sliderScrollDown">&#9660;</button>
+
+    <script src="scripts.js"></script>
+  <script>
+        document.addEventListener("DOMContentLoaded", function() {
+    const scrollContainer = document.getElementById('tiles');
+    const scrollUpButton = document.getElementById('sliderScrollUp');
+    const scrollDownButton = document.getElementById('sliderScrollDown');
+    
+    // Get the height of a single block
+    const blockHeight = document.querySelector('.ugc-tile').offsetHeight;
+          console.log('dom blockHeight', blockHeight);
+  
+    scrollUpButton.addEventListener('click', () => {
+        scrollContainer.scrollBy({
+            top: -blockHeight,
+            behavior: 'smooth'
+        });
+    });
+  
+    scrollDownButton.addEventListener('click', () => {
+        scrollContainer.scrollBy({
+            top: blockHeight,
+            behavior: 'smooth'
+        });
+    });
+  });
+    </script>
+</body>
+</html>
