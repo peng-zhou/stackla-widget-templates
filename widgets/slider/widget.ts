@@ -1,18 +1,11 @@
 import { getConfig } from "./widget.config";
 import {
   addAutoAddTileFeature,
-  addLoadMoreButtonFeature,
-  addTilesPerPageFeature,
   loadExpandedTileFeature,
   loadTitle,
 } from "widgets/libs/tile.features";
 import { IWidgetSettings } from "types/IWidgetSettings";
 import { ISdkMasonry } from "types/ISdkMasonry";
-import {
-  initializeMasonry,
-  loadMoreMasonryTiles,
-  refreshMasonryLayout,
-} from "widgets/libs/extensions/masonry.extension";
 import { addCSSVariablesToPlacement } from "widgets/libs/widget.layout";
 import getCSSVariables from "./css.variables";
 import expandedTileCSS from "./components/expanded-tile/base.scss";
@@ -24,6 +17,7 @@ declare const sdk: ISdkMasonry;
 sdk.tiles.setLoadMode("all");
 sdk.tiles.hideBrokenTiles = true;
 sdk.tiles.preloadImages = true;
+sdk.tiles.setVisibleTilesCount(100);
 
 const widgetContainer = sdk.placement.getWidgetContainer();
 const widgetSettings = getConfig(widgetContainer);
@@ -39,21 +33,17 @@ loadTitle();
 addCSSVariablesToPlacement(getCSSVariables());
 addAutoAddTileFeature<IWidgetSettings>(widgetSettings);
 loadExpandedTileFeature(widgetSettings);
-addTilesPerPageFeature<IWidgetSettings>(widgetSettings);
 
 sdk.addEventListener("load", () => {
-
   const sliderScrollUpButton = sdk.querySelector("#scrollUp");
-  const slidewrScrollDownButton = sdk.querySelector("#scrollDown");
+  const sliderScrollDownButton = sdk.querySelector("#scrollDown");
   const tileBlockElement = sdk.querySelector(".ugc-tile-wrapper");
   const tilesContainer = sdk.querySelector(".ugc-tiles");
 
-  const blockHeight = tileBlockElement?.offsetHeight ? tileBlockElement.offsetHeight : '220';
+  const blockHeight = tileBlockElement?.offsetHeight
+    ? tileBlockElement.offsetHeight
+    : 220;
 
-  console.log("slider blockHeight", blockHeight);
-  console.log("slider sliderScrollUpButton", sliderScrollUpButton);
-  console.log("slider tileBlockElement", tileBlockElement);
-  console.log("slider tilesContainer", tilesContainer);
   if (sliderScrollUpButton && blockHeight !== undefined) {
     sliderScrollUpButton.addEventListener("click", () => {
       console.error("sliderScrollUpButton clicked", blockHeight);
@@ -74,9 +64,33 @@ sdk.addEventListener("load", () => {
       console.error("Slider Tile not found or has no height");
     }
   }
+
+  if (sliderScrollDownButton && blockHeight !== undefined) {
+    sliderScrollDownButton.addEventListener("click", () => {
+      console.error("sliderScrollDownButton clicked", blockHeight);
+      if (tilesContainer && blockHeight !== undefined) {
+        tilesContainer.scrollBy({
+          top: blockHeight,
+          behavior: "smooth",
+        });
+      } else if (!tilesContainer) {
+        console.error("Slider Tiles Scroll Container not found");
+      }
+    });
+  } else {
+    if (!sliderScrollDownButton) {
+      console.error("Slider Tiles Scroll Down Button not found");
+    }
+    if (blockHeight === undefined) {
+      console.error("Slider Tile not found or has no height");
+    }
+  }
+  if (tilesContainer) {
+    tilesContainer.addEventListener("wheel", function (event) {
+      event.preventDefault();
+    });
+  }
 });
-sdk.addEventListener("moreLoad", () => loadMoreMasonryTiles());
-sdk.addEventListener("tilesUpdated", () => refreshMasonryLayout());
 sdk.addCSSToComponent(expandedTileCSS, "expanded-tile");
 sdk.addCSSToComponent(productsCSS, "ugc-products");
 sdk.addTemplateToComponent(customExpandedTileTemplate, "expanded-tile");
