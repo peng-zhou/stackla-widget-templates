@@ -95,3 +95,11 @@ export function hideGlideArrows() {
   }
   arrows.style.display = "none";
 }
+
+export function showGlideArrows() {
+  const arrows = sdk.querySelector(".glide__arrows");
+  if (!arrows) {
+    throw new Error("Failed to find glide arrows UI element");
+  }
+  arrows.style.display = "block";
+}

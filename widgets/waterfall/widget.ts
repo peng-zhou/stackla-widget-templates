@@ -4,8 +4,9 @@ import {
   addLoadMoreButtonFeature,
   addTilesPerPageFeature,
   loadExpandedTileFeature,
+  loadHoverTile,
   loadTitle,
-} from "widgets/libs/tile.features";
+} from "widgets/libs/widget.features";
 import { IWidgetSettings } from "types/IWidgetSettings";
 import { ISdkMasonry } from "types/ISdkMasonry";
 import {
@@ -36,6 +37,7 @@ if (!showWidget) {
 }
 
 loadTitle();
+loadHoverTile<IWidgetSettings>(widgetSettings);
 addAutoAddTileFeature<IWidgetSettings>(widgetSettings);
 loadExpandedTileFeature(widgetSettings);
 addTilesPerPageFeature<IWidgetSettings>(widgetSettings);
@@ -49,3 +51,5 @@ sdk.addCSSToComponent(expandedTileCSS, "expanded-tile");
 sdk.addCSSToComponent(productsCSS, "ugc-products");
 sdk.addCSSToComponent(shopspotStyle, "shopspot-icon");
 sdk.addTemplateToComponent(customExpandedTileTemplate, "expanded-tile");
+
+

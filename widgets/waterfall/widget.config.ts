@@ -34,6 +34,7 @@ export function getConfig(widgetContainer: WidgetContainer): IWidgetSettings {
     rows_per_page: widgetStyle.rows_per_page ?? 1,
     tiles_per_page: widgetStyle.tiles_per_page ?? 4,
     widget_background: widgetStyle.widget_background,
+    show_inline_tags: widgetConfig?.lightbox?.show_tags ?? false,
     text_tile_background: widgetStyle.text_tile_background,
     text_tile_font_size: widgetStyle.text_tile_font_size,
     text_tile_font_color: widgetStyle.text_tile_font_color,

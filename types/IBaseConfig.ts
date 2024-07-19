@@ -1,4 +1,5 @@
 export interface BaseConfig {
+  enabled?: boolean;
   tiles_per_page: number;
   enable_custom_tiles_per_page: boolean;
   rows_per_page: number;
@@ -23,4 +24,5 @@ export interface BaseConfig {
   text_tile_user_handle_font_size?: number;
   show_caption?: boolean;
   shopspot_icon?: string;
+  show_inline_tags?: boolean;
 }
