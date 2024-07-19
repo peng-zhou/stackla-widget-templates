@@ -75,9 +75,7 @@ export const arrowClickListener = (e: Event) => {
 
   const tileId = getNextNavigatedTile(currentTile, tilesAsHtmlArray, type);
 
-  const tilesStore: Tile[] = Object.values(
-    sdk.tiles.tiles,
-  );
+  const tilesStore: Tile[] = Object.values(sdk.tiles.tiles);
 
   const tileData = {
     tileData: tilesStore.find((tile) => tile.id === tileId),
@@ -213,7 +211,7 @@ export function loadTitle() {
   }
 }
 
-export function toggleInlineTile(tile : HTMLElement) {
+export function toggleInlineTile(tile: HTMLElement) {
   const tags = tile.querySelector(".tile-tags");
 
   if (!tags) {
@@ -229,9 +227,7 @@ export function toggleInlineTile(tile : HTMLElement) {
 
 export function loadHoverTile<T extends BaseConfig>(widgetSettings: T) {
   // Check if any features are enabled that require hover tile
-  const hoverTileFeatures = [
-    widgetSettings.show_inline_tags
-  ];
+  const hoverTileFeatures = [widgetSettings.show_inline_tags];
 
   const tiles = sdk.querySelectorAll(".ugc-tile");
 
@@ -244,7 +240,9 @@ export function loadHoverTile<T extends BaseConfig>(widgetSettings: T) {
       const hoverElement = tile.querySelector(".tile-hover");
 
       if (!hoverElement) {
-        throw new Error("Failed to find hover element - please check your tile template for tile-hover.");
+        throw new Error(
+          "Failed to find hover element - please check your tile template for tile-hover.",
+        );
       }
 
       tile.onmouseover = () => {
@@ -255,7 +253,7 @@ export function loadHoverTile<T extends BaseConfig>(widgetSettings: T) {
       tile.onmouseout = () => {
         hoverElement.classList.add("inactive");
         toggleInlineTile(tile);
-      }
+      };
     });
   }
 }

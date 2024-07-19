@@ -1,6 +1,10 @@
 import type { Sdk } from "@stackla/types";
 import { handleTileClick } from "./tile.lib";
-import { hideTilesView, loadTileExpandArrows, showTilesView } from "./widget.features";
+import {
+  hideTilesView,
+  loadTileExpandArrows,
+  showTilesView,
+} from "./widget.features";
 import { BaseConfig } from "../../types/IBaseConfig";
 
 declare const sdk: Sdk;

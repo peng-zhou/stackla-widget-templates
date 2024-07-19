@@ -51,5 +51,3 @@ sdk.addCSSToComponent(expandedTileCSS, "expanded-tile");
 sdk.addCSSToComponent(productsCSS, "ugc-products");
 sdk.addCSSToComponent(shopspotStyle, "shopspot-icon");
 sdk.addTemplateToComponent(customExpandedTileTemplate, "expanded-tile");
-
-

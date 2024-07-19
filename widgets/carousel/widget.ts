@@ -4,7 +4,11 @@ import { expandedTileTemplate } from "./components/expanded-tile/base.template";
 import expandedTileStyle from "./components/expanded-tile/base.scss";
 import productsStyle from "./components/products/base.scss";
 import shopspotStyle from "./components/shopspot-icon/base.scss";
-import { hideGlideArrows, initializeGlideListeners, showGlideArrows } from "./widget.extensions";
+import {
+  hideGlideArrows,
+  initializeGlideListeners,
+  showGlideArrows,
+} from "./widget.extensions";
 import { registerLoadListener } from "widgets/libs/tile.listeners";
 import {
   addAutoAddTileFeature,
@@ -39,9 +43,10 @@ registerLoadListener(() => initializeGlideListeners());
 
 // Add features
 addAutoAddTileFeature<IWidgetSettings>(widgetSettings);
-loadExpandedTileFeature<IWidgetSettings>(widgetSettings, 
+loadExpandedTileFeature<IWidgetSettings>(
+  widgetSettings,
   () => hideGlideArrows(),
-  () => showGlideArrows()
+  () => showGlideArrows(),
 );
 
 loadHoverTile<IWidgetSettings>(widgetSettings);

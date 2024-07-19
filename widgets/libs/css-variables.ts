@@ -1,8 +1,9 @@
 import { BaseConfig } from "types/IBaseConfig";
 
-export default function getCSSVariables<T extends BaseConfig>(widgetSettings : T) {
-
-    return `
+export default function getCSSVariables<T extends BaseConfig>(
+  widgetSettings: T,
+) {
+  return `
           --widget-background: #${widgetSettings.widget_background};
           --text-tile-background: #${widgetSettings.text_tile_background};
           --text-tile-font-color: #${widgetSettings.text_tile_font_color};
@@ -24,4 +25,4 @@ export default function getCSSVariables<T extends BaseConfig>(widgetSettings : T
           `
           };
       `;
-  }
+}
