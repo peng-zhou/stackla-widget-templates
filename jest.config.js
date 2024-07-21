@@ -1,7 +1,7 @@
-import tsConfig from './tsconfig.json' assert { type: 'json' };
-import baseConfig from '@stackla/jest-config';
+const tsConfig = require('./tsconfig.json');
+const baseConfig = require('@stackla/jest-config');
 
-export default {
+module.exports = {
   ...baseConfig({ tsConfig }),
   testEnvironment: '@happy-dom/jest-environment',
   globalSetup: './tests/setup.ts',
