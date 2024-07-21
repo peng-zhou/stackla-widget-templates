@@ -57,7 +57,7 @@ widgets.forEach((widget) => {
   fs.writeFileSync(widgetCSSPath, result.css.toString());
 
   ensureDirectoryExistence(tileHbsPath);
-  const tileHbs = fs.readFileSync(widgetHbsPath, 'utf8');
+  const tileHbs = fs.readFileSync(tileHbsPath, 'utf8');
   fs.writeFileSync(`dist/${widget}/tile.hbs`, tileHbs);
 
   ensureDirectoryExistence(widgetHbsPath);
