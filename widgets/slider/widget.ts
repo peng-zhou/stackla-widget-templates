@@ -32,7 +32,16 @@ if (!showWidget) {
 loadTitle();
 addCSSVariablesToPlacement(getCSSVariables());
 addAutoAddTileFeature<IWidgetSettings>(widgetSettings);
-loadExpandedTileFeature(widgetSettings);
+loadExpandedTileFeature(widgetSettings, () => {
+  const ugcTilesElement = sdk.querySelector(".ugc-tiles");
+
+  if (!ugcTilesElement) {
+    throw new Error("Failed to find arrows UI element");
+  }
+
+  ugcTilesElement.style.display = "none";
+}
+);
 
 sdk.addEventListener("load", () => {
   const sliderScrollUpButton = sdk.querySelector("#scrollUp");
