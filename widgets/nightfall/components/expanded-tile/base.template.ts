@@ -1,4 +1,5 @@
 import type { Sdk } from "@stackla/types";
+import { getTimephrase } from "widgets/libs/tile.lib";
 import { getConfig } from "widgets/nightfall/widget.config";
 
 export default (sdk: Sdk) => {

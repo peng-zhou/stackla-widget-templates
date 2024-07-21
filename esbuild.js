@@ -1,7 +1,7 @@
-import * as esbuild from "esbuild";
-import {sassPlugin} from 'esbuild-sass-plugin'
-import * as sass from 'sass';
-import * as fs from 'fs';
+const esbuild = require('esbuild');
+const { sassPlugin } = require('esbuild-sass-plugin');
+const sass = require('sass');
+const fs = require('fs');
 
 const env = process.env.APP_ENV || 'development';
 
@@ -32,7 +32,7 @@ if (env == 'development') {
   config.sourcemap = 'inline';
   esbuild.build(config);
 } else {
-  await esbuild.build(config);
+  esbuild.build(config);
 }
 
 widgets.forEach((widget) => {
