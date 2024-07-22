@@ -240,9 +240,11 @@ export function loadHoverTile<T extends BaseConfig>(widgetSettings: T) {
       const hoverElement = tile.querySelector(".tile-hover");
 
       if (!hoverElement) {
-        throw new Error(
+        console.error(
           "Failed to find hover element - please check your tile template for tile-hover.",
+          tile,
         );
+        return;
       }
 
       tile.onmouseover = () => {
