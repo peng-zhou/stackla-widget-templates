@@ -49,54 +49,45 @@ sdk.addEventListener("load", () => {
   const tileBlockElement = sdk.querySelector(".ugc-tile-wrapper");
   const tilesContainer = sdk.querySelector(".ugc-tiles");
 
-  const blockHeight = tileBlockElement?.offsetHeight
+  if (!tileBlockElement) {
+    throw new Error("Slider Tiles Scroll Container not found");
+  }
+
+  if (!tilesContainer) {
+    throw new Error("Slider Tiles Scroll Container not found");
+  }
+
+  if (!sliderScrollUpButton) {
+    throw new Error("Slider Tiles Scroll Up Button not found");
+  }
+
+  if (!sliderScrollDownButton) {
+    throw new Error("Slider Tiles Scroll Down Button not found");
+  }
+
+  const blockHeight = tileBlockElement.offsetHeight
     ? tileBlockElement.offsetHeight
     : 220;
 
-  if (sliderScrollUpButton && blockHeight !== undefined) {
+  if (sliderScrollUpButton) {
     sliderScrollUpButton.addEventListener("click", () => {
-      console.error("sliderScrollUpButton clicked", blockHeight);
-      if (tilesContainer && blockHeight !== undefined) {
+      if (tilesContainer) {
         tilesContainer.scrollBy({
           top: -blockHeight,
           behavior: "smooth",
         });
-      } else if (!tilesContainer) {
-        console.error("Slider Tiles Scroll Container not found");
       }
     });
-  } else {
-    if (!sliderScrollUpButton) {
-      console.error("Slider Tiles Scroll Up Button not found");
-    }
-    if (blockHeight === undefined) {
-      console.error("Slider Tile not found or has no height");
-    }
   }
 
-  if (sliderScrollDownButton && blockHeight !== undefined) {
+  if (sliderScrollDownButton) {
     sliderScrollDownButton.addEventListener("click", () => {
-      console.error("sliderScrollDownButton clicked", blockHeight);
-      if (tilesContainer && blockHeight !== undefined) {
+      if (tilesContainer) {
         tilesContainer.scrollBy({
           top: blockHeight,
           behavior: "smooth",
         });
-      } else if (!tilesContainer) {
-        console.error("Slider Tiles Scroll Container not found");
       }
-    });
-  } else {
-    if (!sliderScrollDownButton) {
-      console.error("Slider Tiles Scroll Down Button not found");
-    }
-    if (blockHeight === undefined) {
-      console.error("Slider Tile not found or has no height");
-    }
-  }
-  if (tilesContainer) {
-    tilesContainer.addEventListener("wheel", function (event) {
-      event.preventDefault();
     });
   }
 });
