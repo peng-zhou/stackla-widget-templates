@@ -1,8 +1,8 @@
-import * as esbuild from "esbuild";
-import {sassPlugin} from 'esbuild-sass-plugin'
-import * as sass from 'sass';
-import * as fs from 'fs';
-
+const esbuild = require('esbuild');
+const { sassPlugin } = require('esbuild-sass-plugin');
+const sass = require('sass');
+const fs = require('fs');
+const path = require('path');
 const env = process.env.APP_ENV || 'development';
 
 
@@ -32,12 +32,35 @@ if (env == 'development') {
   config.sourcemap = 'inline';
   esbuild.build(config);
 } else {
-  await esbuild.build(config);
+  esbuild.build(config);
 }
+
+const ensureDirectoryExistence = (filePath) => {
+  const dirname = path.dirname(filePath);
+  if (fs.existsSync(dirname)) {
+    return true;
+  }
+  ensureDirectoryExistence(dirname);
+  fs.mkdirSync(dirname);
+};
 
 widgets.forEach((widget) => {
   const result = sass.compile(`widgets/${widget}/widget.scss`, {
     style: env === 'development' ? 'expanded' : 'compressed'
   });
-  fs.writeFileSync(`dist/${widget}/widget.css`, result.css.toString());
+  
+  const widgetCSSPath = `dist/${widget}/widget.css`;
+  const tileHbsPath = `widgets/${widget}/tile.hbs`;
+  const widgetHbsPath = `widgets/${widget}/layout.hbs`;
+
+  ensureDirectoryExistence(widgetCSSPath);
+  fs.writeFileSync(widgetCSSPath, result.css.toString());
+
+  ensureDirectoryExistence(tileHbsPath);
+  const tileHbs = fs.readFileSync(tileHbsPath, 'utf8');
+  fs.writeFileSync(`dist/${widget}/tile.hbs`, tileHbs);
+
+  ensureDirectoryExistence(widgetHbsPath);
+  const widgetHbs = fs.readFileSync(widgetHbsPath, 'utf8');
+  fs.writeFileSync(`dist/${widget}/layout.hbs`, widgetHbs);
 });

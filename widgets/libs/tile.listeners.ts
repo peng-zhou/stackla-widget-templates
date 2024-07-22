@@ -1,6 +1,10 @@
 import type { Sdk } from "@stackla/types";
 import { handleTileClick } from "./tile.lib";
-import { loadTileExpandArrows } from "./tile.features";
+import {
+  hideTilesView,
+  loadTileExpandArrows,
+  showTilesView,
+} from "./widget.features";
 import { BaseConfig } from "../../types/IBaseConfig";
 
 declare const sdk: Sdk;
@@ -30,20 +34,15 @@ export function registerTileClickEventListeners<T extends BaseConfig>(
 
 export function registerTileExpandListener(fn: () => void = () => {}) {
   sdk.addEventListener("tileExpand", () => {
-    loadTileExpandArrows(fn);
+    loadTileExpandArrows();
+    hideTilesView();
+    fn();
   });
 }
 
 export function registerTileClosedListener(fn: () => void = () => {}) {
   sdk.addEventListener("expandedTileClose", () => {
-    const arrows = sdk.querySelector(".glide__arrows");
-
-    if (!arrows) {
-      throw new Error("Failed to find arrows UI element");
-    }
-
-    arrows.style.display = "block";
-
+    showTilesView();
     fn();
   });
 }

@@ -75,9 +75,7 @@ export const arrowClickListener = (e: Event) => {
 
   const tileId = getNextNavigatedTile(currentTile, tilesAsHtmlArray, type);
 
-  const tilesStore: Tile[] = Object.values(
-    sdk.tiles.tiles,
-  );
+  const tilesStore: Tile[] = Object.values(sdk.tiles.tiles);
 
   const tileData = {
     tileData: tilesStore.find((tile) => tile.id === tileId),
@@ -95,7 +93,27 @@ export function addAutoAddTileFeature<T extends BaseConfig>(widgetSettings: T) {
   }
 }
 
-export function loadTileExpandArrows(fn: () => void) {
+export function showTilesView() {
+  const ugcTiles = sdk.querySelector("#tiles");
+
+  if (!ugcTiles) {
+    throw new Error("Failed to find tiles UI element");
+  }
+
+  ugcTiles.style.display = "block";
+}
+
+export function hideTilesView() {
+  const ugcTiles = sdk.querySelector("#tiles");
+
+  if (!ugcTiles) {
+    throw new Error("Failed to find tiles UI element");
+  }
+
+  ugcTiles.style.display = "none";
+}
+
+export function loadTileExpandArrows() {
   const expandedTile = sdk.querySelector("expanded-tile");
 
   if (!expandedTile) {
@@ -122,8 +140,6 @@ export function loadTileExpandArrows(fn: () => void) {
 
     prevButton.addEventListener("click", arrowClickListener);
     nextButton.addEventListener("click", arrowClickListener);
-
-    fn();
   }, 500);
 }
 
@@ -192,5 +208,54 @@ export function loadTitle() {
 
   if (title) {
     widgetTitle.innerHTML = title;
+  }
+}
+
+export function toggleInlineTile(tile: HTMLElement) {
+  const tags = tile.querySelector(".tile-tags");
+
+  if (!tags) {
+    throw new Error("Failed to find tile tags");
+  }
+
+  if (tags.classList.contains("inactive")) {
+    tags.classList.remove("inactive");
+  } else {
+    tags.classList.add("inactive");
+  }
+}
+
+export function loadHoverTile<T extends BaseConfig>(widgetSettings: T) {
+  // Check if any features are enabled that require hover tile
+  const hoverTileFeatures = [widgetSettings.show_inline_tags];
+
+  const tiles = sdk.querySelectorAll(".ugc-tile");
+
+  if (!tiles) {
+    throw new Error("Failed to find tiles for hover tile initialisation");
+  }
+
+  if (hoverTileFeatures.some((feature) => feature)) {
+    tiles.forEach((tile) => {
+      const hoverElement = tile.querySelector(".tile-hover");
+
+      if (!hoverElement) {
+        console.error(
+          "Failed to find hover element - please check your tile template for tile-hover.",
+          tile,
+        );
+        return;
+      }
+
+      tile.onmouseover = () => {
+        hoverElement.classList.remove("inactive");
+        toggleInlineTile(tile);
+      };
+
+      tile.onmouseout = () => {
+        hoverElement.classList.add("inactive");
+        toggleInlineTile(tile);
+      };
+    });
   }
 }

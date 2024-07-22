@@ -12,8 +12,9 @@ import {
   addLoadMoreButtonFeature,
   addTilesPerPageFeature,
   loadExpandedTileFeature,
+  loadHoverTile,
   loadTitle,
-} from "widgets/libs/tile.features";
+} from "widgets/libs/widget.features";
 import { loadExpandSettingComponents } from "widgets/libs/widget.components";
 import { IWidgetSettings } from "types/IWidgetSettings";
 import customExpandedTileTemplate from "./components/expanded-tile/base.template";
@@ -39,6 +40,7 @@ if (!showWidget) {
 
 loadTitle();
 loadExpandSettingComponents(widgetSettings);
+loadHoverTile<IWidgetSettings>(widgetSettings);
 addAutoAddTileFeature<IWidgetSettings>(widgetSettings);
 loadExpandedTileFeature(widgetSettings, () => {}, onTileClose);
 addTilesPerPageFeature<IWidgetSettings>(widgetSettings);
