@@ -69,27 +69,19 @@ sdk.addEventListener("load", () => {
     ? tileBlockElement.offsetHeight
     : 220;
 
-  if (sliderScrollUpButton) {
-    sliderScrollUpButton.addEventListener("click", () => {
-      if (tilesContainer) {
-        tilesContainer.scrollBy({
-          top: -blockHeight,
-          behavior: "smooth",
-        });
-      }
+  sliderScrollUpButton.addEventListener("click", () => {
+    tilesContainer.scrollBy({
+      top: -blockHeight,
+      behavior: "smooth",
     });
-  }
+  });
 
-  if (sliderScrollDownButton) {
-    sliderScrollDownButton.addEventListener("click", () => {
-      if (tilesContainer) {
-        tilesContainer.scrollBy({
-          top: blockHeight,
-          behavior: "smooth",
-        });
-      }
+  sliderScrollDownButton.addEventListener("click", () => {
+    tilesContainer.scrollBy({
+      top: blockHeight,
+      behavior: "smooth",
     });
-  }
+  });
 });
 sdk.addCSSToComponent(expandedTileCSS, "expanded-tile");
 sdk.addCSSToComponent(productsCSS, "ugc-products");
