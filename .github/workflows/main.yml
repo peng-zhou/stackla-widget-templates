@@ -28,8 +28,6 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 20
-      - name: Install
-        run: npm install
       - uses: Stackla/stackla-github-actions/npm-cache@master
       - name: Build
         run: npm run build
