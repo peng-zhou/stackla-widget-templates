@@ -1,12 +1,35 @@
 const esbuild = require("esbuild")
 const { sassPlugin } = require("esbuild-sass-plugin")
+const { copy } = require("esbuild-plugin-copy")
 const sass = require("sass")
 const fs = require("fs")
-const path = require("path")
 const env = process.env.APP_ENV || "development"
 
 const widgets = ["carousel", "nightfall", "waterfall"]
 
+let preAndPostBuild = {
+  name: "preAndPost",
+  setup(build) {
+    // Load paths tagged with the "env-ns" namespace and behave as if
+    // they point to a JSON file containing the environment variables.
+    build.onStart(() => {
+      fs.rmSync("./dist", { recursive: true, force: true })
+    })
+
+    if (env === "development") {
+      build.onEnd(result => {
+        widgets.forEach(widget => {
+          const result = sass.compile(`widgets/${widget}/widget.scss`, {
+            style: env === "development" ? "expanded" : "compressed"
+          })
+          fs.writeFileSync(`dist/${widget}/widget.css`, result.css.toString())
+        })
+      })
+    }
+  }
+}
+
+/** @type {esbuild.BuildOptions} */
 const config = {
   entryPoints: [...widgets.map(widget => `widgets/${widget}/widget.ts`)],
   bundle: true,
@@ -17,9 +40,14 @@ const config = {
   },
   minify: true,
   plugins: [
+    preAndPostBuild,
     sassPlugin({
+      filter: /\.scss$/,
       type: "css-text",
-      minify: true
+      minify: true,
+      importMapper: path => {
+        path.replace(/^@styles\//, path.join(__dirname, "widgets/styles/"))
+      }
     })
   ]
 }
@@ -27,37 +55,18 @@ const config = {
 if (env == "development") {
   config.minify = false
   config.sourcemap = "inline"
+  config.plugins.push(
+    copy({
+      resolveFrom: "cwd",
+      assets: [
+        {
+          from: ["./widgets/**/*.hbs"],
+          to: ["./dist"]
+        }
+      ]
+    })
+  )
   esbuild.build(config)
 } else {
   esbuild.build(config)
 }
-
-const ensureDirectoryExistence = filePath => {
-  const dirname = path.dirname(filePath)
-  if (fs.existsSync(dirname)) {
-    return true
-  }
-  ensureDirectoryExistence(dirname)
-  fs.mkdirSync(dirname)
-}
-
-widgets.forEach(widget => {
-  const result = sass.compile(`widgets/${widget}/widget.scss`, {
-    style: env === "development" ? "expanded" : "compressed"
-  })
-
-  const widgetCSSPath = `dist/${widget}/widget.css`
-  const tileHbsPath = `widgets/${widget}/tile.hbs`
-  const widgetHbsPath = `widgets/${widget}/layout.hbs`
-
-  ensureDirectoryExistence(widgetCSSPath)
-  fs.writeFileSync(widgetCSSPath, result.css.toString())
-
-  ensureDirectoryExistence(tileHbsPath)
-  const tileHbs = fs.readFileSync(tileHbsPath, "utf8")
-  fs.writeFileSync(`dist/${widget}/tile.hbs`, tileHbs)
-
-  ensureDirectoryExistence(widgetHbsPath)
-  const widgetHbs = fs.readFileSync(widgetHbsPath, "utf8")
-  fs.writeFileSync(`dist/${widget}/layout.hbs`, widgetHbs)
-})

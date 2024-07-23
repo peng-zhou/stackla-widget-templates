@@ -25,7 +25,10 @@
       "noImplicitOverride": true,
       "esModuleInterop": true,
       "skipLibCheck": true,
-      "resolveJsonModule": true
+      "resolveJsonModule": true,
+      "paths": {
+        "@styles/*": ["./widgets/styles/*"]
+      },
     },
     "include": ["widgets/**/*.ts"],
     "exclude": []
