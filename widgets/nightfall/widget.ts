@@ -12,7 +12,6 @@ import {
   loadTitle
 } from "widgets/libs/widget.features"
 import { loadExpandSettingComponents } from "widgets/libs/widget.components"
-import { IWidgetSettings } from "types/IWidgetSettings"
 import customExpandedTileTemplate from "./components/expanded-tile/base.template"
 import customExpandedTileCSS from "./components/expanded-tile/base.scss"
 import customProductsCSS from "./components/products/base.scss"
@@ -36,16 +35,16 @@ if (!showWidget) {
 
 loadTitle()
 loadExpandSettingComponents(widgetSettings)
-loadHoverTile<IWidgetSettings>(widgetSettings)
-addAutoAddTileFeature<IWidgetSettings>(widgetSettings)
+loadHoverTile(widgetSettings)
+addAutoAddTileFeature(widgetSettings)
 loadExpandedTileFeature(widgetSettings, () => {}, onTileClose)
-addTilesPerPageFeature<IWidgetSettings>(widgetSettings)
-addLoadMoreButtonFeature<IWidgetSettings>(widgetSettings)
+addTilesPerPageFeature(widgetSettings)
+addLoadMoreButtonFeature(widgetSettings)
 addCSSVariablesToPlacement(getCSSVariables(widgetSettings))
 
-sdk.addEventListener("load", () => initializeMasonry())
-sdk.addEventListener("moreLoad", () => loadMoreMasonryTiles())
-sdk.addEventListener("tilesUpdated", () => refreshMasonryLayout())
+sdk.addEventListener("load", initializeMasonry)
+sdk.addEventListener("moreLoad", loadMoreMasonryTiles)
+sdk.addEventListener("tilesUpdated", refreshMasonryLayout)
 
 sdk.addCSSToComponent(customExpandedTileCSS, "expanded-tile")
 sdk.addCSSToComponent(customProductsCSS, "ugc-products")
