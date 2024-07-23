@@ -1,10 +1,10 @@
-import type { Sdk } from "@stackla/types";
+import type { Sdk } from "@stackla/types"
 
 export default (sdk: Sdk) => {
-  const tile = sdk.tiles.getTile();
-  const shopspotEnabled = sdk.isComponentLoaded("shopspots");
-  const productsEnabled = sdk.isComponentLoaded("products");
-  const parent = sdk.getNodeId();
+  const tile = sdk.tiles.getTile()
+  const shopspotEnabled = sdk.isComponentLoaded("shopspots")
+  const productsEnabled = sdk.isComponentLoaded("products")
+  const parent = sdk.getNodeId()
 
   return `<div class="panel">
         <a class="exit" href="#">Close</a>
@@ -66,5 +66,5 @@ export default (sdk: Sdk) => {
                 </div>
             </div>
         </div>
-      </div>`;
-};
+      </div>`
+}

@@ -1,21 +1,19 @@
-import type { WidgetContainer } from "@stackla/types";
-import { IWidgetSettings } from "types/IWidgetSettings";
+import type { WidgetContainer } from "@stackla/types"
+import { IWidgetSettings } from "types/IWidgetSettings"
 
 export function getConfig(widgetContainer: WidgetContainer): IWidgetSettings {
-  const { enabled, widgetOptions } = widgetContainer;
+  const { enabled, widgetOptions } = widgetContainer
 
-  const { widgetStyle, widgetConfig } = widgetOptions;
+  const { widgetStyle, widgetConfig } = widgetOptions
 
   const widgetSettings = {
     enabled: enabled,
     name: widgetStyle?.name ?? "",
     minimal_tiles: widgetStyle?.minimal_tiles ?? 0,
     auto_refresh: widgetStyle?.auto_refresh ?? true,
-    unavailable_products_behaviour:
-      widgetStyle?.unavailable_products_behaviour ?? "hide",
+    unavailable_products_behaviour: widgetStyle?.unavailable_products_behaviour ?? "hide",
     show_tags: widgetConfig?.lightbox?.show_tags ?? false,
-    enable_custom_tiles_per_page:
-      widgetStyle?.enable_custom_tiles_per_page ?? false,
+    enable_custom_tiles_per_page: widgetStyle?.enable_custom_tiles_per_page ?? false,
     rows_per_page: widgetStyle?.rows_per_page ?? 1,
     tiles_per_page: widgetStyle?.tiles_per_page ?? 4,
     widget_background: widgetStyle?.widget_background,
@@ -25,10 +23,8 @@ export function getConfig(widgetContainer: WidgetContainer): IWidgetSettings {
     text_tile_link_color: widgetStyle?.text_tile_link_color,
     text_tile_user_name_font_size: widgetStyle?.text_tile_user_name_font_size,
     text_tile_user_name_font_color: widgetStyle?.text_tile_user_name_font_color,
-    text_tile_user_handle_font_size:
-      widgetStyle?.text_tile_user_handle_font_size,
-    text_tile_user_handle_font_color:
-      widgetStyle?.text_tile_user_handle_font_color,
+    text_tile_user_handle_font_size: widgetStyle?.text_tile_user_handle_font_size,
+    text_tile_user_handle_font_color: widgetStyle?.text_tile_user_handle_font_color,
     enable_typekit: widgetStyle?.enable_typekit,
     max_tile_width: widgetStyle?.max_tile_width,
     margin: widgetStyle?.margin,
@@ -39,22 +35,18 @@ export function getConfig(widgetContainer: WidgetContainer): IWidgetSettings {
     shopspot_btn_font_color: widgetStyle?.shopspot_btn_font_color,
     shopspot_icon: widgetStyle?.shopspot_icon,
     show_caption: widgetConfig?.tile_options?.show_caption ?? true,
-    inline_tile_show_shopspots:
-      widgetConfig?.tile_options?.show_shopspots ?? false,
+    inline_tile_show_shopspots: widgetConfig?.tile_options?.show_shopspots ?? false,
     expanded_tile_show_sharing: widgetConfig?.lightbox?.show_sharing ?? false,
     expanded_tile_show_products: widgetConfig?.lightbox?.show_products ?? false,
     expanded_tile_show_caption: widgetConfig?.lightbox?.show_caption ?? false,
-    expanded_tile_show_shopspots:
-      widgetConfig?.lightbox?.show_shopspots ?? false,
-    expanded_tile_show_timestamp:
-      widgetConfig?.lightbox?.show_timestamp ?? false,
-    expanded_tile_show_add_to_cart:
-      widgetConfig?.lightbox?.show_add_to_cart ?? false,
-  };
-
-  if (!enabled) {
-    throw new Error("Widget is not enabled");
+    expanded_tile_show_shopspots: widgetConfig?.lightbox?.show_shopspots ?? false,
+    expanded_tile_show_timestamp: widgetConfig?.lightbox?.show_timestamp ?? false,
+    expanded_tile_show_add_to_cart: widgetConfig?.lightbox?.show_add_to_cart ?? false
   }
 
-  return widgetSettings;
+  if (!enabled) {
+    throw new Error("Widget is not enabled")
+  }
+
+  return widgetSettings
 }
