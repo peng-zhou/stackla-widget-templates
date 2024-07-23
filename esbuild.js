@@ -11,6 +11,7 @@ const widgets = [
   'nightfall',
   'waterfall',
   'slider',
+  'masonry',
 ]
 
 const config = {
