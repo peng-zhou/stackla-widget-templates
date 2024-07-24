@@ -1,69 +1,69 @@
-import type { Sdk, Tile } from "@stackla/types";
+import type { Sdk, Tile } from "@stackla/types"
 
-declare const sdk: Sdk;
+declare const sdk: Sdk
 
 export function handleTileClick(e: Event, widgetUrl: string) {
-  const ugcTiles = sdk.tiles.tiles;
+  const ugcTiles = sdk.tiles.tiles
 
-  const clickedElement = e.target as HTMLElement;
-  const clickedTile = clickedElement.closest(".ugc-tile");
+  const clickedElement = e.target as HTMLElement
+  const clickedTile = clickedElement.closest(".ugc-tile")
 
   if (!clickedTile) {
-    throw new Error("Failed to find clicked tile");
+    throw new Error("Failed to find clicked tile")
   }
 
-  const tileId = clickedTile.getAttribute("data-id");
+  const tileId = clickedTile.getAttribute("data-id")
 
   if (!tileId) {
-    throw new Error("Failed to find tile ID");
+    throw new Error("Failed to find tile ID")
   }
 
-  const tileData: Tile = ugcTiles[tileId] as Tile;
+  const tileData: Tile = ugcTiles[tileId]
 
-  const tileLink = widgetUrl || tileData.original_url || tileData.original_link;
+  const tileLink = widgetUrl || tileData.original_url || tileData.original_link
 
   if (tileLink) {
-    window.open(tileLink, "_blank");
+    window.open(tileLink, "_blank")
   }
 }
 
 export function getTimephrase(timestamp: number) {
   if (!timestamp) {
-    return "just now";
+    return "just now"
   }
-  const now = Math.round(new Date().getTime() / 1000);
-  const then = Math.round(timestamp);
+  const now = Math.round(new Date().getTime() / 1000)
+  const then = Math.round(timestamp)
   if (isNaN(then)) {
-    return "a while ago";
+    return "a while ago"
   }
-  const diff = now - then;
-  let timeNumber = diff;
-  let timeWord = "";
+  const diff = now - then
+  let timeNumber = diff
+  let timeWord = ""
 
   if (diff >= 2592000) {
-    timeNumber = Math.round(diff / 2592000);
-    timeWord = "month";
+    timeNumber = Math.round(diff / 2592000)
+    timeWord = "month"
   } else if (diff >= 604800) {
-    timeNumber = Math.round(diff / 604800);
-    timeWord = "week";
+    timeNumber = Math.round(diff / 604800)
+    timeWord = "week"
   } else if (diff >= 86400) {
-    timeNumber = Math.round(diff / 86400);
-    timeWord = "day";
+    timeNumber = Math.round(diff / 86400)
+    timeWord = "day"
   } else if (diff >= 3600) {
-    timeNumber = Math.round(diff / 3600);
-    timeWord = "hour";
+    timeNumber = Math.round(diff / 3600)
+    timeWord = "hour"
   } else if (diff >= 60) {
-    timeNumber = Math.round(diff / 60);
-    timeWord = "minute";
+    timeNumber = Math.round(diff / 60)
+    timeWord = "minute"
   } else if (diff > 0) {
-    timeNumber = diff;
-    timeWord = "second";
+    timeNumber = diff
+    timeWord = "second"
   } else {
-    return "just now";
+    return "just now"
   }
 
   if (timeNumber !== 1) {
-    timeWord += "s";
+    timeWord += "s"
   }
-  return timeNumber + " " + timeWord + " ago";
+  return timeNumber + " " + timeWord + " ago"
 }

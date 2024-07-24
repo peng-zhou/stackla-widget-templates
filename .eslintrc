@@ -20,7 +20,8 @@
     "rules": {
       "promise/prefer-await-to-then": "error",
       "@typescript-eslint/no-explicit-any": "error",
-      "@typescript-eslint/consistent-type-assertions": ["warn", { "assertionStyle": "never" }]
+      "@typescript-eslint/consistent-type-assertions": ["warn", { "assertionStyle": "never" }],
+      "no-console": "warn"
     },
     "ignorePatterns": ["node_modules/", "dist/", "esbuild.js"],
     "overrides": [

@@ -1,13 +1,11 @@
 <div class="glide__slide">
+	<div class="tile-hover inactive">
+	<ul class="tile-tags">
+      {{#tags_extended}}
+		<li class='tile-tag'><a href="{{custom_url}}">{{tag}}</a></li>
+       {{/tags_extended}}
+	</ul>
+	</div>
 	<div class="network-icon icon-{{source}}"></div>
 	<img src="{{image_thumbnail_url}}" width="120"/>
 </div>
-
-
-
-{{!-- {{#ifEquals media "video"}}
-        <iframe src="{{video.standard_resolution.url}}" width="120" height="90" frameborder="0" allowfullscreen></iframe>
-    {{/ifEquals}}
-    {{#ifEquals media "image"}}
-        <img src="{{image}}" width="120" />
-    {{/ifEquals}} --}}

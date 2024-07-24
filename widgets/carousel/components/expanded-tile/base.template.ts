@@ -1,23 +1,19 @@
-import type { Sdk } from "@stackla/types";
-import { getConfig } from "widgets/carousel/widget.config";
-import { getTimephrase } from "../../../libs/tile.lib";
+import type { Sdk } from "@stackla/types"
+import { getConfig } from "widgets/carousel/widget.config"
+import { getTimephrase } from "../../../libs/tile.lib"
 
 export const expandedTileTemplate = (sdk: Sdk) => {
-  const widgetContainer = sdk.placement.getWidgetContainer();
-  const widgetSettings = getConfig(widgetContainer);
-  const tile = sdk.tiles.getTile();
+  const widgetContainer = sdk.placement.getWidgetContainer()
+  const widgetSettings = getConfig(widgetContainer)
+  const tile = sdk.tiles.getTile()
 
   if (!tile) {
-    throw new Error("Failed to get tile");
+    throw new Error("Failed to get tile")
   }
 
-  const shopspotEnabled =
-    sdk.isComponentLoaded("shopspots") &&
-    widgetSettings.expanded_tile_show_shopspots;
-  const productsEnabled =
-    sdk.isComponentLoaded("products") &&
-    widgetSettings.expanded_tile_show_products;
-  const parent = sdk.getNodeId();
+  const shopspotEnabled = sdk.isComponentLoaded("shopspots") && widgetSettings.expanded_tile_show_shopspots
+  const productsEnabled = sdk.isComponentLoaded("products") && widgetSettings.expanded_tile_show_products
+  const parent = sdk.getNodeId()
   return `<div class="panel">
         <a class="exit" href="#">
             <span class="widget-icon close"></span>
@@ -30,21 +26,9 @@ export const expandedTileTemplate = (sdk: Sdk) => {
             <div class="image-wrapper">
                 <div class="image-wrapper-inner">
                     <div class="image">
-                        ${
-                          shopspotEnabled
-                            ? `<shopspot-flyout parent="${parent}"></shopspot-flyout>`
-                            : ""
-                        }
-                        ${
-                          shopspotEnabled
-                            ? `<shopspot-icon parent="${parent}"/></shopspot-icon>`
-                            : ""
-                        }
-                        ${
-                          tile.image
-                            ? `<img class="image-element" src="${tile.image}" />`
-                            : ""
-                        }
+                        ${shopspotEnabled ? `<shopspot-flyout parent="${parent}"></shopspot-flyout>` : ""}
+                        ${shopspotEnabled ? `<shopspot-icon parent="${parent}"/></shopspot-icon>` : ""}
+                        ${tile.image ? `<img class="image-element" src="${tile.image}" />` : ""}
                     </div>
                 </div>
             </div>
@@ -86,10 +70,7 @@ export const expandedTileTemplate = (sdk: Sdk) => {
                         <div class="tile-timestamp">${tile.source_created_at && widgetSettings.expanded_tile_show_timestamp ? getTimephrase(tile.source_created_at) : ""}</div>
                         <div class="caption">
                             <p class="caption-paragraph">${
-                              tile.message &&
-                              widgetSettings.expanded_tile_show_caption
-                                ? tile.message
-                                : ""
+                              tile.message && widgetSettings.expanded_tile_show_caption ? tile.message : ""
                             }</p>
                             ${
                               widgetSettings.expanded_tile_show_sharing
@@ -102,11 +83,7 @@ export const expandedTileTemplate = (sdk: Sdk) => {
                                </div>`
                                 : ""
                             }
-                            ${
-                              productsEnabled
-                                ? `<ugc-products parent="${parent}">`
-                                : ""
-                            }
+                            ${productsEnabled ? `<ugc-products parent="${parent}">` : ""}
                         </div>
                         <div class="sharethis-inline-share-buttons"></div>
                         <div class="footer">
@@ -118,5 +95,5 @@ export const expandedTileTemplate = (sdk: Sdk) => {
                 </div>
             </div>
         </div>
-      </div>`;
-};
+      </div>`
+}

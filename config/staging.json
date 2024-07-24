@@ -1,0 +1,12 @@
+{
+  "vpc": {
+    "subnetIds": [],
+    "securityGroupIds": []
+  },
+
+  "iam": {
+    "role": {
+      "statements": []
+    }
+  }
+}
