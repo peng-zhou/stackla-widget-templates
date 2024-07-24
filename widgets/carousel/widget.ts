@@ -8,7 +8,6 @@ import { hideGlideArrows, initializeGlideListeners, showGlideArrows } from "./wi
 import { registerLoadListener } from "widgets/libs/tile.listeners"
 import { addAutoAddTileFeature, loadExpandedTileFeature, loadHoverTile, loadTitle } from "widgets/libs/widget.features"
 import { addCSSVariablesToPlacement } from "widgets/libs/widget.layout"
-import { IWidgetSettings } from "types/IWidgetSettings"
 import getCSSVariables from "widgets/libs/css-variables"
 
 declare const sdk: Sdk
@@ -30,17 +29,17 @@ addCSSVariablesToPlacement(getCSSVariables(widgetSettings))
 loadTitle()
 
 // Load listeners
-registerLoadListener(() => initializeGlideListeners())
+registerLoadListener(initializeGlideListeners)
 
 // Add features
-addAutoAddTileFeature<IWidgetSettings>(widgetSettings)
-loadExpandedTileFeature<IWidgetSettings>(
+addAutoAddTileFeature(widgetSettings)
+loadExpandedTileFeature(
   widgetSettings,
-  () => hideGlideArrows(),
-  () => showGlideArrows()
+  hideGlideArrows,
+  showGlideArrows
 )
 
-loadHoverTile<IWidgetSettings>(widgetSettings)
+loadHoverTile(widgetSettings)
 
 // Add styles and templates to components
 sdk.addCSSToComponent(expandedTileStyle, "expanded-tile")
