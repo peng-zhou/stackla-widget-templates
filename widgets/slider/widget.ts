@@ -3,7 +3,7 @@ import {
   addAutoAddTileFeature,
   loadExpandedTileFeature,
   loadTitle,
-} from "widgets/libs/tile.features";
+} from "widgets/libs/widget.features"
 import { IWidgetSettings } from "types/IWidgetSettings";
 import { ISdkMasonry } from "types/ISdkMasonry";
 import { addCSSVariablesToPlacement } from "widgets/libs/widget.layout";
@@ -29,8 +29,10 @@ if (!showWidget) {
   throw new Error("Widget is not enabled");
 }
 
+const cssVariablesToString = Object.entries(getCSSVariables()).map(([key, value]) => `${key}: ${value};`) .join('\n');
+
 loadTitle();
-addCSSVariablesToPlacement(getCSSVariables());
+addCSSVariablesToPlacement(cssVariablesToString);
 addAutoAddTileFeature<IWidgetSettings>(widgetSettings);
 loadExpandedTileFeature(widgetSettings, () => {
   const ugcTilesElement = sdk.querySelector(".ugc-tiles");
