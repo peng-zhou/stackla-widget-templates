@@ -7,7 +7,7 @@ const env = process.env.APP_ENV || "development"
 
 const widgets = ["carousel", "nightfall", "waterfall"]
 
-let preAndPostBuild = {
+const preAndPostBuild = {
   name: "preAndPost",
   setup(build) {
     // Load paths tagged with the "env-ns" namespace and behave as if
