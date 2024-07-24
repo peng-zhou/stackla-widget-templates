@@ -5,7 +5,16 @@ const sass = require("sass")
 const fs = require("fs")
 const env = process.env.APP_ENV || "development"
 
-const widgets = ["carousel", "nightfall", "waterfall"]
+// extracting widget styling and entrypoint
+const widgetPaths = fs
+  .readdirSync("./widgets", { withFileTypes: true })
+  .filter(it => it.isDirectory())
+  .filter(dir => fs.existsSync(`./widgets/${dir.name}/widget.scss`))
+  .map(matched => ({
+    scss: `./widgets/${matched.name}/widget.scss`,
+    dist: `dist/${matched.name}/widget.css`,
+    entryPoint: `widgets/${matched.name}/widget.ts`
+  }))
 
 const preAndPostBuild = {
   name: "preAndPost",
@@ -15,23 +24,20 @@ const preAndPostBuild = {
       fs.rmSync("./dist", { recursive: true, force: true })
     })
 
-    // widget.scss compiled only in development mode
-    if (env === "development") {
-      build.onEnd(() => {
-        widgets.forEach(widget => {
-          const result = sass.compile(`widgets/${widget}/widget.scss`, {
-            style: env === "development" ? "expanded" : "compressed"
-          })
-          fs.writeFileSync(`dist/${widget}/widget.css`, result.css.toString())
+    build.onEnd(() => {
+      widgetPaths.forEach(path => {
+        const result = sass.compile(path.scss, {
+          style: env === "development" ? "expanded" : "compressed"
         })
+        fs.writeFileSync(path.dist, result.css.toString())
       })
-    }
+    })
   }
 }
 
 /** @type {esbuild.BuildOptions} */
 const config = {
-  entryPoints: [...widgets.map(widget => `widgets/${widget}/widget.ts`)],
+  entryPoints: [...widgetPaths.map(path => path.entryPoint)],
   bundle: true,
   outdir: "dist",
   loader: {
