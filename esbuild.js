@@ -2,19 +2,9 @@ const esbuild = require("esbuild")
 const { sassPlugin } = require("esbuild-sass-plugin")
 const { copy } = require("esbuild-plugin-copy")
 const sass = require("sass")
+const { globSync } = require("glob")
 const fs = require("fs")
 const env = process.env.APP_ENV || "development"
-
-// extracting widget styling and entrypoint
-const widgetPaths = fs
-  .readdirSync("./widgets", { withFileTypes: true })
-  .filter(it => it.isDirectory())
-  .filter(dir => fs.existsSync(`./widgets/${dir.name}/widget.scss`))
-  .map(matched => ({
-    scss: `./widgets/${matched.name}/widget.scss`,
-    dist: `dist/${matched.name}/widget.css`,
-    entryPoint: `widgets/${matched.name}/widget.ts`
-  }))
 
 const preAndPostBuild = {
   name: "preAndPost",
@@ -25,11 +15,11 @@ const preAndPostBuild = {
     })
 
     build.onEnd(() => {
-      widgetPaths.forEach(path => {
-        const result = sass.compile(path.scss, {
+      globSync("./widgets/**/widget.scss", { withFileTypes: true }).forEach(path => {
+        const result = sass.compile(path.relative(), {
           style: env === "development" ? "expanded" : "compressed"
         })
-        fs.writeFileSync(path.dist, result.css.toString())
+        fs.writeFileSync(`dist/${path.parent.name}/widget.css`, result.css.toString())
       })
     })
   }
@@ -37,7 +27,7 @@ const preAndPostBuild = {
 
 /** @type {esbuild.BuildOptions} */
 const config = {
-  entryPoints: [...widgetPaths.map(path => path.entryPoint)],
+  entryPoints: [...globSync("./widgets/**/widget.ts")],
   bundle: true,
   outdir: "dist",
   loader: {
