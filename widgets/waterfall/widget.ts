@@ -7,7 +7,6 @@ import {
   loadHoverTile,
   loadTitle
 } from "widgets/libs/widget.features"
-import { IWidgetSettings } from "types/IWidgetSettings"
 import { ISdkMasonry } from "types/ISdkMasonry"
 import {
   initializeMasonry,
@@ -37,16 +36,16 @@ if (!showWidget) {
 }
 
 loadTitle()
-loadHoverTile<IWidgetSettings>(widgetSettings)
-addAutoAddTileFeature<IWidgetSettings>(widgetSettings)
+loadHoverTile(widgetSettings)
+addAutoAddTileFeature(widgetSettings)
 loadExpandedTileFeature(widgetSettings)
-addTilesPerPageFeature<IWidgetSettings>(widgetSettings)
-addLoadMoreButtonFeature<IWidgetSettings>(widgetSettings)
+addTilesPerPageFeature(widgetSettings)
+addLoadMoreButtonFeature(widgetSettings)
 addCSSVariablesToPlacement(getCSSVariables(widgetSettings))
 
-sdk.addEventListener("load", () => initializeMasonry())
-sdk.addEventListener("moreLoad", () => loadMoreMasonryTiles())
-sdk.addEventListener("tilesUpdated", () => refreshMasonryLayout())
+sdk.addEventListener("load", initializeMasonry)
+sdk.addEventListener("moreLoad", loadMoreMasonryTiles)
+sdk.addEventListener("tilesUpdated", refreshMasonryLayout)
 sdk.addCSSToComponent(expandedTileCSS, "expanded-tile")
 sdk.addCSSToComponent(productsCSS, "ugc-products")
 sdk.addCSSToComponent(shopspotStyle, "shopspot-icon")
