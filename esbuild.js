@@ -10,14 +10,14 @@ const widgets = ["carousel", "nightfall", "waterfall"]
 const preAndPostBuild = {
   name: "preAndPost",
   setup(build) {
-    // Load paths tagged with the "env-ns" namespace and behave as if
-    // they point to a JSON file containing the environment variables.
+    // Cleanup dist before build
     build.onStart(() => {
       fs.rmSync("./dist", { recursive: true, force: true })
     })
 
+    // widget.scss compiled only in development mode
     if (env === "development") {
-      build.onEnd(result => {
+      build.onEnd(() => {
         widgets.forEach(widget => {
           const result = sass.compile(`widgets/${widget}/widget.scss`, {
             style: env === "development" ? "expanded" : "compressed"
@@ -55,6 +55,7 @@ const config = {
 if (env == "development") {
   config.minify = false
   config.sourcemap = "inline"
+  // manully copy handlebar files for development server
   config.plugins.push(
     copy({
       resolveFrom: "cwd",
