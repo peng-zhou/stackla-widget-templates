@@ -33,11 +33,7 @@ registerLoadListener(initializeGlideListeners)
 
 // Add features
 addAutoAddTileFeature(widgetSettings)
-loadExpandedTileFeature(
-  widgetSettings,
-  hideGlideArrows,
-  showGlideArrows
-)
+loadExpandedTileFeature(widgetSettings, hideGlideArrows, showGlideArrows)
 
 loadHoverTile(widgetSettings)
 
