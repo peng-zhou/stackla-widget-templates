@@ -23,7 +23,16 @@
       "@typescript-eslint/consistent-type-assertions": ["warn", { "assertionStyle": "never" }],
       "no-console": "warn"
     },
-    "ignorePatterns": ["node_modules/", "dist/", "esbuild.js"],
+    "ignorePatterns": [
+      "node_modules/", 
+      "dist/", 
+      "*.d.ts",
+      "jest.config.js",
+      "cypress.config.js",
+      "esbuild.js",
+      "serverless.ts",
+      "src/libs/express.ts"
+    ],
     "overrides": [
       {
         "files": ["./widgets/**/*.ts"],

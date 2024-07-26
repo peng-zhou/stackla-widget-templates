@@ -1,10 +1,8 @@
 function createHTMLElement(tagName: string, attributes: { [key: string]: string }) {
   const element = window.document.createElement(tagName)
-  for (const key in attributes) {
-    if (attributes.hasOwnProperty(key)) {
-      element.setAttribute(key, attributes[key])
-    }
-  }
+  Object.entries(attributes).forEach(([key, value]) => {
+    element.setAttribute(key, value)
+  })
   return element
 }
 

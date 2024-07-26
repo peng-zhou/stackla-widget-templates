@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Widget Templates",
   "scripts": {
-    "eslint": "eslint widgets/. --fix",
+    "eslint": "eslint . --ext .ts,.tsx",
     "typecheck": "npx tsc",
     "prettier": "prettier '**/*.{js,ts}' --write",
     "stylelint": "stylelint **/*.scss --fix",
@@ -21,7 +21,6 @@
     "@happy-dom/jest-environment": "^14.12.3",
     "@stackla/eslint-config": "^1.0.0",
     "@stackla/jest-config": "^1.0.6",
-    "@stackla/types": "^0.0.19",
     "@types/glidejs__glide": "^3.6.5",
     "@types/jest": "^29.5.12",
     "@types/masonry-layout": "^4.2.8",
@@ -45,6 +44,7 @@
   "dependencies": {
     "@glidejs/glide": "^3.6.1",
     "happy-dom": "^14.12.3",
-    "masonry-layout": "^4.2.2"
+    "masonry-layout": "^4.2.2",
+    "@stackla/types": "^0.0.19"
   }
 }
