@@ -1,0 +1,74 @@
+@import url("https://unpkg.com/@glidejs/glide@3.2.3/dist/css/glide.theme.min.css");
+@import url("https://unpkg.com/@glidejs/glide@3.2.3/dist/css/glide.core.min.css");
+@import url("../styles/tile-hover");
+@import url("../styles/social-icons");
+@import url("../styles/expanded-tile");
+
+#tiles {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.ugc-tiles {
+  /** Prevent GlideJS from creating large 10000px width **/
+  width: 100% !important; /* stylelint-disable-line declaration-no-important */
+}
+
+.glide__slide {
+  position: relative;
+}
+
+.glide__arrow {
+  background-color: #b2b2b2;
+  border-radius: 50%;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 1;
+  padding: 2px;
+  position: absolute;
+  text-align: center;
+  top: 48%;
+  z-index: 9;
+}
+
+.network-icon {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+}
+
+.ugc-tile {
+  display: inline-block;
+}
+
+.ugc-tile img {
+  width: 100%;
+}
+
+.tile-image,
+.tile-video {
+  position: relative;
+}
+
+.hidden {
+  display: none;
+}
+
+.glide__slide img {
+  height: 210px;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+.glide__arrows button.glide__arrow[disabled="disabled"],
+.glide__arrows button.glide__arrow:disabled {
+  display: none;
+}
+
+.widget-icon {
+  display: block;
+}

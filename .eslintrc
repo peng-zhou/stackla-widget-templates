@@ -20,9 +20,19 @@
     "rules": {
       "promise/prefer-await-to-then": "error",
       "@typescript-eslint/no-explicit-any": "error",
-      "@typescript-eslint/consistent-type-assertions": ["warn", { "assertionStyle": "never" }]
+      "@typescript-eslint/consistent-type-assertions": ["warn", { "assertionStyle": "never" }],
+      "no-console": "warn"
     },
-    "ignorePatterns": ["node_modules/", "dist/"],
+    "ignorePatterns": [
+      "node_modules/", 
+      "dist/", 
+      "*.d.ts",
+      "jest.config.js",
+      "cypress.config.js",
+      "esbuild.js",
+      "serverless.ts",
+      "src/libs/express.ts"
+    ],
     "overrides": [
       {
         "files": ["./widgets/**/*.ts"],
