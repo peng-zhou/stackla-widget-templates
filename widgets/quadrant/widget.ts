@@ -34,31 +34,28 @@ addCSSVariablesToPlacement(getCSSVariables(widgetSettings))
 sdk.tiles.preloadImages = true
 
 sdk.tiles.setLoadMode("page")
-sdk.addEventListener("load", () => {
-  setTimeout(() => {
-    for (let i = 0; i < groupsToShowInitially; i++) {
-      initializeQuadrant()
-    }
-  }, 500)
 
-  window.addEventListener("resize", function () {
-    for (let i = 0; i < groupsToShowInitially; i++) {
-      initializeQuadrant()
-    }
-    updateGridColumns()
-  })
 
-  const loadMoreButton = sdk.querySelector("#load-more")
-
-  if (!loadMoreButton) {
-    throw new Error("Load more button not found")
+sdk.addEventListener('tilesUpdated', () => {
+  initializeQuadrant();
+});
+window.addEventListener("resize", function () {
+  for (let i = 0; i < groupsToShowInitially; i++) {
+    initializeQuadrant()
   }
+  updateGridColumns()
+})
 
-  loadMoreButton.addEventListener("click", () => {
-    for (let i = 0; i < groupsToShowInitially; i++) {
-      initializeQuadrant()
-    }
-  })
+const loadMoreButton = sdk.querySelector("#load-more")
+
+if (!loadMoreButton) {
+  throw new Error("Load more button not found")
+}
+
+loadMoreButton.addEventListener("click", () => {
+  for (let i = 0; i < groupsToShowInitially; i++) {
+    initializeQuadrant()
+  }
 })
 
 sdk.addCSSToComponent(customExpandedTileCSS, "expanded-tile")
