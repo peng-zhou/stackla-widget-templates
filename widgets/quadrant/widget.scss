@@ -72,7 +72,7 @@
     grid-column: span 2;
     height: 400px;
 }
-.load-more-button {
+#load-more {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
@@ -103,12 +103,6 @@
         grid-column: span 1;
     }
 }
-.load-more-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
 /* Mobile Responsiveness */
 @media (max-width: 600px) {
     .grid-container {

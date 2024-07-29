@@ -5,7 +5,7 @@ const fs = require("fs")
 const path = require("path")
 const env = process.env.APP_ENV || "development"
 
-const widgets = ["carousel", "nightfall", "waterfall"]
+const widgets = ["carousel", "nightfall", "waterfall", "quadrant"]
 
 const config = {
   entryPoints: [...widgets.map(widget => `widgets/${widget}/widget.ts`)],
