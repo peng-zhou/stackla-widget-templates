@@ -109,8 +109,6 @@ export function initializeQuadrant() {
       }
 
       loadMoreButton.style.display = "none"
-
-      break
     }
   }
 }
