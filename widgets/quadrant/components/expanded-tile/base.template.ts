@@ -1,12 +1,17 @@
 import { Sdk } from "@stackla/types"
 import { getConfig } from "../../widget.config"
+import { getTimephrase } from "../../../libs/tile.lib"
 
 declare const sdk: Sdk
 
-export function initializeQuadrant() {
+export default function initializeQuadrant() {
   const widgetContainer = sdk.placement.getWidgetContainer()
   const widgetSettings = getConfig(widgetContainer)
   const tile = sdk.tiles.getTile()
+
+  if (!tile) {
+    throw new Error("Tile not found")
+  }
 
   const shopspotEnabled = sdk.isComponentLoaded("shopspots") && widgetSettings.expanded_tile_show_shopspots
   const productsEnabled = sdk.isComponentLoaded("products") && widgetSettings.expanded_tile_show_products
@@ -64,7 +69,7 @@ export function initializeQuadrant() {
                                   }
                               </div>
                           </div>
-                          <div class="tile-timestamp">${tile.source_created_at && widgetSettings.expanded_tile_show_timestamp ? window.StacklaTileDecorator._getTimephrase(tile.source_created_at) : ""}</div>
+                          <div class="tile-timestamp">${tile.source_created_at && widgetSettings.expanded_tile_show_timestamp ? getTimephrase(tile.source_created_at) : ""}</div>
                           <div class="caption">
                               <p class="caption-paragraph">${
                                 tile.message && widgetSettings.expanded_tile_show_caption ? tile.message : ""
