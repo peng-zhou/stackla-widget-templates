@@ -1,4 +1,11 @@
-export default sdk => {
+import { Sdk } from "@stackla/types"
+import { getConfig } from "../../widget.config"
+
+declare const sdk: Sdk
+
+export function initializeQuadrant() {
+  const widgetContainer = sdk.placement.getWidgetContainer()
+  const widgetSettings = getConfig(widgetContainer)
   const tile = sdk.tiles.getTile()
 
   const shopspotEnabled = sdk.isComponentLoaded("shopspots") && widgetSettings.expanded_tile_show_shopspots
