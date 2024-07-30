@@ -17,14 +17,14 @@ export function initializeMasonry() {
     initLayout: false
   })
 
-  sdk.masonry.layout!()
+  sdk.masonry.layout()
 }
 
 export function refreshMasonryLayout() {
   // Minor delay required to pickup the tiles available in the view
   // FIXME: Update tilesUpdated to execute after DOM update
   setTimeout(() => {
-    sdk.masonry.layout!()
+    sdk.masonry.layout()
   }, 200)
 }
 
@@ -33,6 +33,6 @@ export function loadMoreMasonryTiles() {
     initializeMasonry()
   }
 
-  sdk.masonry.reloadItems!()
-  sdk.masonry.layout!()
+  sdk.masonry.reloadItems()
+  sdk.masonry.layout()
 }
