@@ -1,22 +1,18 @@
-import type { Sdk } from "@stackla/types";
-import { getConfig } from "widgets/nightfall/widget.config";
+import type { Sdk } from "@stackla/types"
+import { getConfig } from "widgets/nightfall/widget.config"
 
 export default (sdk: Sdk) => {
-  const widgetContainer = sdk.placement.getWidgetContainer();
-  const widgetSettings = getConfig(widgetContainer);
-  const tile = sdk.tiles.getTile();
+  const widgetContainer = sdk.placement.getWidgetContainer()
+  const widgetSettings = getConfig(widgetContainer)
+  const tile = sdk.tiles.getTile()
 
   if (!tile) {
-    throw new Error("Failed to find expanded tile");
+    throw new Error("Failed to find expanded tile")
   }
 
-  const shopspotEnabled =
-    sdk.isComponentLoaded("shopspots") &&
-    widgetSettings.expanded_tile_show_shopspots;
-  const productsEnabled =
-    sdk.isComponentLoaded("products") &&
-    widgetSettings.expanded_tile_show_products;
-  const parent = sdk.getNodeId();
+  const shopspotEnabled = sdk.isComponentLoaded("shopspots") && widgetSettings.expanded_tile_show_shopspots
+  const productsEnabled = sdk.isComponentLoaded("products") && widgetSettings.expanded_tile_show_products
+  const parent = sdk.getNodeId()
   return `<div class="panel">
           <a class="exit" href="#">
               <span class="widget-icon close"></span>
@@ -29,21 +25,9 @@ export default (sdk: Sdk) => {
               <div class="image-wrapper">
                   <div class="image-wrapper-inner">
                       <div class="image">
-                          ${
-                            shopspotEnabled
-                              ? `<shopspot-flyout parent="${parent}"></shopspot-flyout>`
-                              : ""
-                          }
-                          ${
-                            shopspotEnabled
-                              ? `<shopspot-icon parent="${parent}"/></shopspot-icon>`
-                              : ""
-                          }
-                          ${
-                            tile.image
-                              ? `<img class="image-element" src="${tile.image}" />`
-                              : ""
-                          }
+                          ${shopspotEnabled ? `<shopspot-flyout parent="${parent}"></shopspot-flyout>` : ""}
+                          ${shopspotEnabled ? `<shopspot-icon parent="${parent}"/></shopspot-icon>` : ""}
+                          ${tile.image ? `<img class="image-element" src="${tile.image}" />` : ""}
                       </div>
                   </div>
               </div>
@@ -85,16 +69,9 @@ export default (sdk: Sdk) => {
                           <div class="tile-timestamp">${tile.source_created_at && widgetSettings.expanded_tile_show_timestamp ? getTimephrase(tile.source_created_at) : ""}</div>
                           <div class="caption">
                               <p class="caption-paragraph">${
-                                tile.message &&
-                                widgetSettings.expanded_tile_show_caption
-                                  ? tile.message
-                                  : ""
+                                tile.message && widgetSettings.expanded_tile_show_caption ? tile.message : ""
                               }</p>
-                              ${
-                                productsEnabled
-                                  ? `<ugc-products parent="${parent}">`
-                                  : ""
-                              }
+                              ${productsEnabled ? `<ugc-products parent="${parent}">` : ""}
                           </div>
                           <div class="footer">
                               <span class="base-v2 source source-instagram">
@@ -105,5 +82,5 @@ export default (sdk: Sdk) => {
                   </div>
               </div>
           </div>
-        </div>`;
-};
+        </div>`
+}
