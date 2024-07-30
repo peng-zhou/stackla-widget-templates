@@ -1,14 +1,7 @@
-import type { Sdk, Tile } from "@stackla/types"
+import type { Sdk } from "@stackla/types"
 import { getTimephrase } from "../../../libs/tile.lib"
 import { getConfig } from "../../widget.config"
-
-export function getTagsFromTile(tile: Tile) {
-  if (!tile.tags_extended) {
-    return ""
-  }
-
-  return `<div class='tags'>${tile.tags_extended.map(tag => `<div class='tag'><span><a href="${tag.custom_url ?? "#"}">${tag.tag}</a></span></div>`).join("")}</div>`
-}
+import { getTagsFromTile } from "widgets/libs/templates/expanded-tile.lib"
 
 export default (sdk: Sdk) => {
   const widgetContainer = sdk.placement.getWidgetContainer()
