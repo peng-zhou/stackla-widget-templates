@@ -2,13 +2,12 @@ declare const sdk: Sdk
 
 import { getConfig } from "./widget.config"
 import type { Sdk } from "@stackla/types"
-import { initializeMasonry, loadMoreMasonryTiles, refreshMasonryLayout } from "../libs/extensions/masonry.extension"
+import { initializeMasonry, refreshMasonryLayout } from "../libs/extensions/masonry.extension"
 import {
   addAutoAddTileFeature,
   addLoadMoreButtonFeature,
   addTilesPerPageFeature,
   loadExpandedTileFeature,
-  loadHoverTile,
   loadTitle
 } from "widgets/libs/widget.features"
 import { loadExpandSettingComponents } from "widgets/libs/widget.components"
@@ -35,15 +34,14 @@ if (!showWidget) {
 
 loadTitle()
 loadExpandSettingComponents(widgetSettings)
-loadHoverTile(widgetSettings)
 addAutoAddTileFeature(widgetSettings)
 loadExpandedTileFeature(widgetSettings, () => {}, onTileClose)
 addTilesPerPageFeature(widgetSettings)
 addLoadMoreButtonFeature(widgetSettings)
 addCSSVariablesToPlacement(getCSSVariables(widgetSettings))
 
-sdk.addEventListener("load", initializeMasonry)
-sdk.addEventListener("moreLoad", loadMoreMasonryTiles)
+initializeMasonry()
+
 sdk.addEventListener("tilesUpdated", refreshMasonryLayout)
 
 sdk.addCSSToComponent(customExpandedTileCSS, "expanded-tile")
