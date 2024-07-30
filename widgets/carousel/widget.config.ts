@@ -42,6 +42,7 @@ export function getConfig(widgetContainer: WidgetContainer): IWidgetSettings {
     expanded_tile_show_caption: widgetConfig?.lightbox?.show_caption ?? false,
     expanded_tile_show_shopspots: widgetConfig?.lightbox?.show_shopspots ?? false,
     expanded_tile_show_timestamp: widgetConfig?.lightbox?.show_timestamp ?? false,
-    expanded_tile_show_add_to_cart: widgetConfig?.lightbox?.show_add_to_cart ?? false
+    expanded_tile_show_add_to_cart: widgetConfig?.lightbox?.show_add_to_cart ?? false,
+    expanded_tile_show_tags: widgetConfig?.lightbox?.show_tags ?? false
   }
 }
