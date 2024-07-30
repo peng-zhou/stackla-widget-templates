@@ -1,6 +1,14 @@
-import type { Sdk } from "@stackla/types"
-import { getTimephrase } from "widgets/libs/tile.lib"
-import { getConfig } from "widgets/nightfall/widget.config"
+import type { Sdk, Tile } from "@stackla/types"
+import { getTimephrase } from "../../../libs/tile.lib"
+import { getConfig } from "../../widget.config"
+
+export function getTagsFromTile(tile: Tile) {
+  if (!tile.tags_extended) {
+    return ""
+  }
+
+  return `<div class='tags'>${tile.tags_extended.map(tag => `<div class='tag'><span><a href="${tag.custom_url ?? "#"}">${tag.tag}</a></span></div>`).join("")}</div>`
+}
 
 export default (sdk: Sdk) => {
   const widgetContainer = sdk.placement.getWidgetContainer()
@@ -72,6 +80,7 @@ export default (sdk: Sdk) => {
                               <p class="caption-paragraph">${
                                 tile.message && widgetSettings.expanded_tile_show_caption ? tile.message : ""
                               }</p>
+                              ${getTagsFromTile(tile)}
                               ${productsEnabled ? `<ugc-products parent="${parent}">` : ""}
                           </div>
                           <div class="footer">

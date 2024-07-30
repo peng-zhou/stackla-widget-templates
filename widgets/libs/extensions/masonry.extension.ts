@@ -12,38 +12,27 @@ export function initializeMasonry() {
 
   sdk.masonry = new Masonry(tileContainer, {
     itemSelector: ".ugc-tile",
-    gutter: 20
+    gutter: 20,
+    fitWidth: true,
+    initLayout: false
   })
 
-  if (!sdk.masonry.layout) {
-    throw new Error("Failed to find masonry layout function. This probably means the masonry library is not loaded.")
-  }
-
-  sdk.masonry.layout()
-
-  const tiles = sdk.querySelectorAll<HTMLDivElement>(".ugc-tile")
-
-  if (!tiles) {
-    throw new Error("Failed to find tiles UI element")
-  }
-
-  // TODO: Implement timestamp logic
+  sdk.masonry.layout!()
 }
 
 export function refreshMasonryLayout() {
-  if (!sdk.masonry.layout) {
-    throw new Error("Failed to find masonry layout function. This probably means the masonry library is not loaded.")
-  }
-
-  sdk.masonry.layout()
+  // Minor delay required to pickup the tiles available in the view
+  // FIXME: Update tilesUpdated to execute after DOM update
+  setTimeout(() => {
+    sdk.masonry.layout!()
+  }, 200)
 }
 
 export function loadMoreMasonryTiles() {
-  if (!sdk.masonry.reloadItems) {
-    throw new Error(
-      "Failed to find masonry reloadItems function. This probably means the masonry library is not loaded."
-    )
+  if (!sdk.masonry) {
+    initializeMasonry()
   }
 
-  sdk.masonry.reloadItems()
+  sdk.masonry.reloadItems!()
+  sdk.masonry.layout!()
 }
