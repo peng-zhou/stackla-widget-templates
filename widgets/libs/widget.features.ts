@@ -130,16 +130,16 @@ export function loadTileExpandArrows() {
 
 export function loadWidgetIsEnabled<T extends BaseConfig>(widgetSettings: T) {
   if (isEnabled(widgetSettings)) {
-    return true;
+    return true
   }
 
-  const ugcContainer = sdk.querySelector('#nosto-ugc-container');
+  const ugcContainer = sdk.querySelector("#nosto-ugc-container")
 
   if (!ugcContainer) {
     throw new Error("Failed to find Nosto UGC container")
   }
 
-  ugcContainer.style.display = 'none'
+  ugcContainer.style.display = "none"
 
   throw new Error("Widget is not enabled")
 }
@@ -179,7 +179,7 @@ function loadMore() {
 
 export function exceedsBoundaries() {
   // get x position of last visible tile where display none is not true
-  const tiles = sdk.querySelectorAll(".ugc-tile:not([style*='display: none'])");
+  const tiles = sdk.querySelectorAll(".ugc-tile:not([style*='display: none'])")
 
   if (!tiles) {
     throw new Error("Failed to find tiles for boundary check")
@@ -210,14 +210,14 @@ export function loadIfScrollExceedsBoundaries() {
   }
 
   if (exceedsBoundaries()) {
-    window.scrollLocked = true;
+    window.scrollLocked = true
     loadMore()
   }
 
   setTimeout(() => {
-    window.scrollLocked = false;
+    window.scrollLocked = false
     window.addEventListener("scroll", loadIfScrollExceedsBoundaries)
-    
+
     // Check if user has scrolled to the bottom of the tiles list, if so, load more tiles
     if (exceedsBoundaries()) {
       loadMore()

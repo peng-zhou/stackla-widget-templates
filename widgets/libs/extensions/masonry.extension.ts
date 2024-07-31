@@ -26,10 +26,9 @@ export function refreshMasonryLayout() {
   clearTimeout(window.refreshMasonryLayout)
 
   window.refreshMasonryLayout = setTimeout(() => {
-    sdk.masonry.reloadItems();
+    sdk.masonry.reloadItems()
     sdk.masonry.layout()
-  }, 200);
-
+  }, 200)
 }
 
 export function loadMoreMasonryTiles() {

@@ -14,7 +14,7 @@ export function addCSSVariablesToPlacement(cssVariables: string) {
 }
 
 export function isEnabled<T extends BaseConfig>(widgetSettings: T) {
-  return widgetSettings.enabled && hasMinimumTilesRequired(widgetSettings);
+  return widgetSettings.enabled && hasMinimumTilesRequired(widgetSettings)
 }
 
 export function hasMinimumTilesRequired<T extends BaseConfig>(widgetSettings: T) {
@@ -24,5 +24,5 @@ export function hasMinimumTilesRequired<T extends BaseConfig>(widgetSettings: T)
   }
 
   // Feature is not enabled via user config, so we default to true.
-  return true;
+  return true
 }
