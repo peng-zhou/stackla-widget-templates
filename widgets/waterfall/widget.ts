@@ -39,9 +39,9 @@ addTilesPerPageFeature(widgetSettings)
 addLoadMoreButtonFeature(widgetSettings)
 addCSSVariablesToPlacement(getCSSVariables(widgetSettings))
 
-sdk.addEventListener("load", initializeMasonry)
-sdk.addEventListener("moreLoad", loadMoreMasonryTiles)
+initializeMasonry()
 sdk.addEventListener("tilesUpdated", refreshMasonryLayout)
+
 sdk.addCSSToComponent(expandedTileCSS, "expanded-tile")
 sdk.addCSSToComponent(productsCSS, "ugc-products")
 sdk.addCSSToComponent(shopspotStyle, "shopspot-icon")
