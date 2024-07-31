@@ -162,7 +162,6 @@ export function loadExpandedTileFeature<T extends BaseConfig>(
 }
 
 function loadMore() {
-  console.log("Loading more tiles")
   const EVENT_LOAD_MORE = "moreLoad"
   const loadMoreButton = sdk.querySelector("#load-more")
 
