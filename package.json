@@ -23,7 +23,6 @@
     "@stackla/jest-config": "^1.0.6",
     "@types/glidejs__glide": "^3.6.5",
     "@types/jest": "^29.5.12",
-    "@types/masonry-layout": "^4.2.8",
     "@typescript-eslint/eslint-plugin": "^7.13.1",
     "esbuild": "^0.20.2",
     "esbuild-sass-plugin": "^3.3.1",

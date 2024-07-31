@@ -61,9 +61,5 @@ export function getConfig(widgetContainer: WidgetContainer): IWidgetSettings {
     expanded_tile_show_tags: widgetConfig?.lightbox?.show_tags ?? false
   }
 
-  if (!enabled) {
-    throw new Error("Widget is not enabled")
-  }
-
   return widgetSettings
 }

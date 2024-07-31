@@ -6,6 +6,7 @@ import {
   registerTileExpandListener
 } from "./tile.listeners"
 import { BaseConfig } from "../../types/IBaseConfig"
+import { isEnabled } from "./widget.layout"
 
 declare const sdk: Sdk
 
@@ -127,6 +128,22 @@ export function loadTileExpandArrows() {
   }, 500)
 }
 
+export function loadWidgetIsEnabled<T extends BaseConfig>(widgetSettings: T) {
+  if (isEnabled(widgetSettings)) {
+    return true;
+  }
+
+  const ugcContainer = sdk.querySelector('#nosto-ugc-container');
+
+  if (!ugcContainer) {
+    throw new Error("Failed to find Nosto UGC container")
+  }
+
+  ugcContainer.style.display = 'none'
+
+  throw new Error("Widget is not enabled")
+}
+
 export function loadExpandedTileFeature<T extends BaseConfig>(
   widgetSettings: T,
   onTileExpand: () => void = () => {},
@@ -144,7 +161,8 @@ export function loadExpandedTileFeature<T extends BaseConfig>(
   }
 }
 
-export function addLoadMoreButtonFeature<T extends BaseConfig>(widgetSettings: T) {
+function loadMore() {
+  console.log("Loading more tiles")
   const EVENT_LOAD_MORE = "moreLoad"
   const loadMoreButton = sdk.querySelector("#load-more")
 
@@ -152,24 +170,73 @@ export function addLoadMoreButtonFeature<T extends BaseConfig>(widgetSettings: T
     throw new Error("Failed to find load more button")
   }
 
-  function loadMore() {
-    sdk.triggerEvent(EVENT_LOAD_MORE)
+  sdk.triggerEvent(EVENT_LOAD_MORE)
 
-    if (!sdk.tiles.hasMorePages()) {
-      // @ts-expect-error - Property is possibly null or undefined
-      loadMoreButton.style.display = "none"
+  if (!sdk.tiles.hasMorePages()) {
+    loadMoreButton.style.display = "none"
+  }
+}
+
+export function exceedsBoundaries() {
+  // get x position of last visible tile where display none is not true
+  const tiles = sdk.querySelectorAll(".ugc-tile:not([style*='display: none'])");
+
+  if (!tiles) {
+    throw new Error("Failed to find tiles for boundary check")
+  }
+
+  const lastTile = tiles.item(tiles.length - 1)
+
+  // check x position of last visible tile
+  if (!lastTile) {
+    throw new Error("Failed to find last tile")
+  }
+
+  const lastTilePosition = lastTile.getBoundingClientRect().top + lastTile.offsetHeight
+
+  // check if last tile is visible
+
+  return lastTilePosition <= window.innerHeight
+}
+
+export function loadIfScrollExceedsBoundaries() {
+  // Remove event listener for a bit
+  window.removeEventListener("scroll", loadIfScrollExceedsBoundaries)
+
+  const loadMoreButton = sdk.querySelector("#load-more")
+
+  if (!loadMoreButton) {
+    throw new Error("Failed to find load more button")
+  }
+
+  if (exceedsBoundaries()) {
+    window.scrollLocked = true;
+    loadMore()
+  }
+
+  setTimeout(() => {
+    window.scrollLocked = false;
+    window.addEventListener("scroll", loadIfScrollExceedsBoundaries)
+    
+    // Check if user has scrolled to the bottom of the tiles list, if so, load more tiles
+    if (exceedsBoundaries()) {
+      loadMore()
     }
+  }, 1000)
+}
+
+export function addLoadMoreButtonFeature<T extends BaseConfig>(widgetSettings: T) {
+  const loadMoreButton = sdk.querySelector("#load-more")
+
+  if (!loadMoreButton) {
+    throw new Error("Failed to find load more button")
   }
 
   if (widgetSettings.load_more_type === "button") {
     loadMoreButton.onclick = loadMore
   } else {
     loadMoreButton.style.display = "none"
-    window.addEventListener("scroll", function () {
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-        loadMore()
-      }
-    })
+    window.addEventListener("scroll", loadIfScrollExceedsBoundaries)
   }
 }
 

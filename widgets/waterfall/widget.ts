@@ -5,7 +5,8 @@ import {
   addTilesPerPageFeature,
   loadExpandedTileFeature,
   loadHoverTile,
-  loadTitle
+  loadTitle,
+  loadWidgetIsEnabled
 } from "widgets/libs/widget.features"
 import { ISdkMasonry } from "types/ISdkMasonry"
 import {
@@ -29,12 +30,7 @@ sdk.tiles.preloadImages = true
 const widgetContainer = sdk.placement.getWidgetContainer()
 const widgetSettings = getConfig(widgetContainer)
 
-const showWidget = widgetContainer.enabled
-
-if (!showWidget) {
-  throw new Error("Widget is not enabled")
-}
-
+loadWidgetIsEnabled(widgetSettings)
 loadTitle()
 loadHoverTile(widgetSettings)
 addAutoAddTileFeature(widgetSettings)
