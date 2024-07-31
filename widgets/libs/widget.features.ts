@@ -195,7 +195,6 @@ export function exceedsBoundaries() {
   const lastTilePosition = lastTile.getBoundingClientRect().top + lastTile.offsetHeight
 
   // check if last tile is visible
-
   return lastTilePosition <= window.innerHeight
 }
 
