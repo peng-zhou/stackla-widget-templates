@@ -11,7 +11,6 @@ import {
 import { ISdkMasonry } from "types/ISdkMasonry"
 import {
   initializeMasonry,
-  loadMoreMasonryTiles,
   refreshMasonryLayout
 } from "widgets/libs/extensions/masonry.extension"
 import { addCSSVariablesToPlacement } from "widgets/libs/widget.layout"
