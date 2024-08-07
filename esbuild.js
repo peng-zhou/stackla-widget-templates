@@ -38,7 +38,6 @@ const config = {
   plugins: [
     preAndPostBuild,
     sassPlugin({
-      filter: /\.scss$/,
       type: "css-text",
       minify: true,
       importMapper: path => {
