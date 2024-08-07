@@ -1,4 +1,4 @@
-import type { Sdk } from "@stackla/types"
+import type { Sdk } from "@stackla/ugc-widgets"
 import { getConfig } from "./widget.config"
 import { expandedTileTemplate } from "./components/expanded-tile/base.template"
 import expandedTileStyle from "./components/expanded-tile/base.scss"
