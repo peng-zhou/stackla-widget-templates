@@ -176,53 +176,6 @@ function loadMore() {
   }
 }
 
-export function exceedsBoundaries() {
-  // get x position of last visible tile where display none is not true
-  const tiles = sdk.querySelectorAll(".ugc-tile:not([style*='display: none'])")
-
-  if (!tiles) {
-    throw new Error("Failed to find tiles for boundary check")
-  }
-
-  const lastTile = tiles.item(tiles.length - 1)
-
-  // check x position of last visible tile
-  if (!lastTile) {
-    throw new Error("Failed to find last tile")
-  }
-
-  const lastTilePosition = lastTile.getBoundingClientRect().top + lastTile.offsetHeight
-
-  // check if last tile is visible
-  return lastTilePosition <= window.innerHeight
-}
-
-export function loadIfScrollExceedsBoundaries() {
-  // Remove event listener for a bit
-  window.removeEventListener("scroll", loadIfScrollExceedsBoundaries)
-
-  const loadMoreButton = sdk.querySelector("#load-more")
-
-  if (!loadMoreButton) {
-    throw new Error("Failed to find load more button")
-  }
-
-  if (exceedsBoundaries()) {
-    window.scrollLocked = true
-    loadMore()
-  }
-
-  setTimeout(() => {
-    window.scrollLocked = false
-    window.addEventListener("scroll", loadIfScrollExceedsBoundaries)
-
-    // Check if user has scrolled to the bottom of the tiles list, if so, load more tiles
-    if (exceedsBoundaries()) {
-      loadMore()
-    }
-  }, 1000)
-}
-
 export function addLoadMoreButtonFeature<T extends BaseConfig>(widgetSettings: T) {
   const loadMoreButton = sdk.querySelector("#load-more")
 
@@ -234,7 +187,7 @@ export function addLoadMoreButtonFeature<T extends BaseConfig>(widgetSettings: T
     loadMoreButton.onclick = loadMore
   } else {
     loadMoreButton.style.display = "none"
-    window.addEventListener("scroll", loadIfScrollExceedsBoundaries)
+    // TODO: Add scroller logic from SDK here upon Mani's review.
   }
 }
 
