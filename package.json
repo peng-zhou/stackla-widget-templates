@@ -42,14 +42,14 @@
     "stylelint-config-standard": "^36.0.1",
     "stylelint-prettier": "^5.0.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.0"
+    "typescript": "^5.5.0",
+    "stylelint-scss": "^6.5.0"
   },
   "dependencies": {
     "@glidejs/glide": "^3.6.1",
     "@stackla/ugc-widgets": "^0.0.33",
     "happy-dom": "^14.12.3",
     "hbs": "^4.2.0",
-    "masonry-layout": "^4.2.2",
-    "stylelint-scss": "^6.5.0"
+    "masonry-layout": "^4.2.2"
   }
 }
