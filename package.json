@@ -43,8 +43,9 @@
   },
   "dependencies": {
     "@glidejs/glide": "^3.6.1",
+    "@stackla/ugc-widgets": "^0.0.33",
     "happy-dom": "^14.12.3",
-    "masonry-layout": "^4.2.2",
-    "@stackla/ugc-widgets": "^0.0.33"
+    "hbs": "^4.2.0",
+    "masonry-layout": "^4.2.2"
   }
 }
