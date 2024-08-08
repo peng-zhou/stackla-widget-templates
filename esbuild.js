@@ -19,7 +19,7 @@ const preAndPostBuild = {
         const result = sass.compile(path.relative(), {
           style: env === "development" ? "expanded" : "compressed"
         })
-        fs.writeFileSync(`dist/${path.parent.name}/widget.css`, result.css.toString())
+        fs.writeFileSync(`dist/widgets/${path.parent.name}/widget.css`, result.css.toString())
       })
     })
   }
@@ -29,7 +29,7 @@ const preAndPostBuild = {
 const config = {
   entryPoints: [...globSync("./widgets/**/widget.ts")],
   bundle: true,
-  outdir: "dist",
+  outdir: "dist/widgets",
   loader: {
     ".hbs": "text",
     ".css": "text"
@@ -49,7 +49,7 @@ const config = {
       assets: [
         {
           from: ["./widgets/**/*.hbs"],
-          to: ["./dist"]
+          to: ["./dist/widgets"]
         }
       ]
     })
@@ -63,4 +63,13 @@ if (env == "development") {
   esbuild.build(config)
 } else {
   esbuild.build(config)
+}
+
+const ensureDirectoryExistence = filePath => {
+  const dirname = path.dirname(filePath)
+  if (fs.existsSync(dirname)) {
+    return true
+  }
+  ensureDirectoryExistence(dirname)
+  fs.mkdirSync(dirname)
 }

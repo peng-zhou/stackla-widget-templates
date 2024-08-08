@@ -1,17 +1,19 @@
 import express from "express"
 import "hbs"
-import { WidgetRequest } from "@stackla/types"
+import { WidgetRequest } from "@stackla/ugc-widgets"
 import cors from "cors"
 import path from "path"
 import { readFileSync } from "fs"
+import * as hbs from 'hbs'
 
 const expressApp = express()
 expressApp.use((_req, res, next) => {
   res.set("Cache-Control", "public, max-age=300")
   next()
 })
-expressApp.use(express.static("dist", { redirect: false }))
-expressApp.set("view engine", "hbs")
+expressApp.use(express.static("dist/widgets", { redirect: false }))
+expressApp.engine('hbs', hbs.__express)
+expressApp.set('view engine', 'hbs')
 expressApp.use(cors())
 
 // Register preview route
@@ -22,7 +24,7 @@ expressApp.get("/preview", (req, res) => {
     return res.status(400).send("widgetType is required")
   }
 
-  const rootDir = path.resolve(__dirname, `../../../../../dist/${widgetType}`)
+  const rootDir = path.resolve(__dirname, `../../../../../dist/widgets/${widgetType}`)
 
   const layout = `${rootDir}/layout.hbs`
   const tile = `${rootDir}/tile.hbs`

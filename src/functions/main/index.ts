@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 const { handlerPath } = require("@stackla/lambda-api-bootstrap")
 module.exports = {
   handler: `${handlerPath(__dirname)}/handler.main`,

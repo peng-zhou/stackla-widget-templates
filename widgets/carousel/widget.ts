@@ -1,4 +1,4 @@
-import type { Sdk } from "@stackla/types"
+import type { Sdk } from "@stackla/ugc-widgets"
 import { getConfig } from "./widget.config"
 import { expandedTileTemplate } from "./components/expanded-tile/base.template"
 import expandedTileStyle from "./components/expanded-tile/base.scss"
@@ -6,7 +6,13 @@ import productsStyle from "./components/products/base.scss"
 import shopspotStyle from "./components/shopspot-icon/base.scss"
 import { hideGlideArrows, initializeGlideListeners, showGlideArrows } from "./widget.extensions"
 import { registerLoadListener } from "widgets/libs/tile.listeners"
-import { addAutoAddTileFeature, loadExpandedTileFeature, loadHoverTile, loadTitle } from "widgets/libs/widget.features"
+import {
+  addAutoAddTileFeature,
+  loadExpandedTileFeature,
+  loadHoverTile,
+  loadTitle,
+  loadWidgetIsEnabled
+} from "widgets/libs/widget.features"
 import { addCSSVariablesToPlacement } from "widgets/libs/widget.layout"
 import getCSSVariables from "widgets/libs/css-variables"
 
@@ -18,30 +24,14 @@ sdk.tiles.setVisibleTilesCount(100)
 const widgetContainer = sdk.placement.getWidgetContainer()
 const widgetSettings = getConfig(widgetContainer)
 
-if (!widgetSettings.enabled) {
-  throw new Error("Widget is not enabled")
-}
-
-// Add CSS variables to placement
+loadWidgetIsEnabled(widgetSettings)
 addCSSVariablesToPlacement(getCSSVariables(widgetSettings))
-
-// Load features
 loadTitle()
-
-// Load listeners
 registerLoadListener(initializeGlideListeners)
-
-// Add features
 addAutoAddTileFeature(widgetSettings)
-loadExpandedTileFeature(
-  widgetSettings,
-  hideGlideArrows,
-  showGlideArrows
-)
-
+loadExpandedTileFeature(widgetSettings, hideGlideArrows, showGlideArrows)
 loadHoverTile(widgetSettings)
 
-// Add styles and templates to components
 sdk.addCSSToComponent(expandedTileStyle, "expanded-tile")
 sdk.addCSSToComponent(productsStyle, "ugc-products")
 sdk.addCSSToComponent(shopspotStyle, "shopspot-icon")
