@@ -6,15 +6,17 @@ const testingHooks = {
   "before:offline:start:init": "npm run dev"
 }
 
-module.exports = serverlessConfig({
+const productionHooks = {
+  "before:package:initialize": "npm run build"
+}
+
+module.exports = {
+  ...serverlessConfig({
   service: "widget-templates",
   offlinePort: process.env.APP_ENV == "testing" ? 4002 : 80,
-  functions: {
-    main
-  },
   custom: {
     scriptable: {
-      hooks: process.env.APP_ENV === "testing" ? testingHooks : []
+      hooks: process.env.APP_ENV === "testing" ? testingHooks : productionHooks
     },
     esbuild: {
       otherExternal: ["hbs"]
@@ -23,4 +25,24 @@ module.exports = serverlessConfig({
   package: {
     include: ["views/**/*", "dist/**/*"]
   }
-})
+}),
+  functions: {
+    main: {
+      handler: 'src/functions/main/handler.main',
+      events: [
+        {
+          http: {
+            method: 'options',
+            path: '/{proxy+}'
+          }
+        },
+        {
+          http: {
+            method: 'get',
+            path: '/{proxy+}',
+          },
+        },
+      ],
+    },
+  }
+}
