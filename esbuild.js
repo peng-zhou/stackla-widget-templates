@@ -43,15 +43,7 @@ const config = {
       importMapper: path => {
         path.replace(/^@styles\//, path.join(__dirname, "widgets/styles/"))
       }
-    })
-  ]
-}
-
-if (env == "development") {
-  config.minify = false
-  config.sourcemap = "inline"
-  // manully copy handlebar files for development server
-  config.plugins.push(
+    }),
     copy({
       resolveFrom: "cwd",
       assets: [
@@ -61,7 +53,13 @@ if (env == "development") {
         }
       ]
     })
-  )
+  ]
+}
+
+if (env == "development") {
+  config.minify = false
+  config.sourcemap = "inline"
+
   esbuild.build(config)
 } else {
   esbuild.build(config)
