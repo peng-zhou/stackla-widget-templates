@@ -2,6 +2,9 @@ name: Release
 
 run-name: Release to ${{ inputs.environment || 'staging' }} by @${{ github.actor }}
 
+env:
+    GH_TOKEN: ${{ github.token }}
+
 permissions:
   id-token: write
   contents: read
