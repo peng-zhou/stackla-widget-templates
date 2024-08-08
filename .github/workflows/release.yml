@@ -1,0 +1,24 @@
+name: Release
+
+run-name: Release to ${{ inputs.environment || 'staging' }} by @${{ github.actor }}
+
+permissions:
+  id-token: write
+  contents: read
+  packages: read
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to run deployment in'
+        type: environment
+        required: true
+        default: staging
+
+jobs:
+  deploy:
+    uses: Stackla/stackla-github-actions/.github/workflows/serverless.yml@master
+    secrets: inherit
+    with:
+      environment: ${{ inputs.environment }}

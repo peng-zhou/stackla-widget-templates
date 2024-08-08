@@ -10,7 +10,7 @@ const widgets = ["carousel", "nightfall", "waterfall"]
 const config = {
   entryPoints: [...widgets.map(widget => `widgets/${widget}/widget.ts`)],
   bundle: true,
-  outdir: "dist",
+  outdir: "dist/widgets",
   loader: {
     ".hbs": "text",
     ".css": "text"
@@ -46,18 +46,18 @@ widgets.forEach(widget => {
     style: env === "development" ? "expanded" : "compressed"
   })
 
-  const widgetCSSPath = `dist/${widget}/widget.css`
-  const tileHbsPath = `widgets/${widget}/tile.hbs`
-  const widgetHbsPath = `widgets/${widget}/layout.hbs`
+  const widgetCSSPath = `dist/widgets/${widget}/widget.css`
+  const tileHbsSourcePath = `widgets/${widget}/tile.hbs`
+  const widgetHbsSourcePath = `widgets/${widget}/layout.hbs`
 
   ensureDirectoryExistence(widgetCSSPath)
   fs.writeFileSync(widgetCSSPath, result.css.toString())
 
-  ensureDirectoryExistence(tileHbsPath)
-  const tileHbs = fs.readFileSync(tileHbsPath, "utf8")
-  fs.writeFileSync(`dist/${widget}/tile.hbs`, tileHbs)
+  ensureDirectoryExistence(tileHbsSourcePath)
+  const tileHbs = fs.readFileSync(tileHbsSourcePath, "utf8")
+  fs.writeFileSync(`dist/widgets/${widget}/tile.hbs`, tileHbs)
 
-  ensureDirectoryExistence(widgetHbsPath)
-  const widgetHbs = fs.readFileSync(widgetHbsPath, "utf8")
-  fs.writeFileSync(`dist/${widget}/layout.hbs`, widgetHbs)
+  ensureDirectoryExistence(widgetHbsSourcePath)
+  const widgetHbs = fs.readFileSync(widgetHbsSourcePath, "utf8")
+  fs.writeFileSync(`dist/widgets/${widget}/layout.hbs`, widgetHbs)
 })
