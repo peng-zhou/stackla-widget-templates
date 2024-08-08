@@ -16,6 +16,7 @@ export default function getCSSVariables<T extends BaseConfig>(widgetSettings: T)
           --text-tile-user-name-font-size: ${widgetSettings.text_tile_user_name_font_size}px;
           --text-tile-user-handle-font-size: ${widgetSettings.text_tile_user_handle_font_size ? widgetSettings.text_tile_user_handle_font_size : 12}px;
           --show-caption: ${widgetSettings.show_caption ? "block" : "none"};
+          --tile-timephrase-display: ${widgetSettings.inline_tile_show_timestamps ? "inline-block" : "none"};
           ${
             widgetSettings.shopspot_icon
               ? `--shopspot-icon: url("${widgetSettings.shopspot_icon}")`
