@@ -4,7 +4,7 @@ import { expandedTileTemplate } from "./components/expanded-tile/base.template"
 import expandedTileStyle from "./components/expanded-tile/base.scss"
 import productsStyle from "./components/products/base.scss"
 import shopspotStyle from "./components/shopspot-icon/base.scss"
-import { hideGlideArrows, initializeGlideListeners, showGlideArrows } from "./widget.extensions"
+import { onTileExpand, initializeGlideListeners, onTileClosed } from "./widget.extensions"
 import { registerLoadListener } from "widgets/libs/tile.listeners"
 import {
   addAutoAddTileFeature,
@@ -29,7 +29,7 @@ addCSSVariablesToPlacement(getCSSVariables(widgetSettings))
 loadTitle()
 registerLoadListener(initializeGlideListeners)
 addAutoAddTileFeature(widgetSettings)
-loadExpandedTileFeature(widgetSettings, hideGlideArrows, showGlideArrows)
+loadExpandedTileFeature(widgetSettings, onTileExpand, onTileClosed)
 loadHoverTile(widgetSettings)
 
 sdk.addCSSToComponent(expandedTileStyle, "expanded-tile")

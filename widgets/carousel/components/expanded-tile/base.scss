@@ -29,20 +29,68 @@
 }
 
 .panel-left {
-  min-width: 40%;
-  max-width: 40%;
-  background: #fff;
+  min-width: 50%;
+  max-width: 50%;
   display: flex;
   place-content: center center;
   align-items: center;
-}
+  background: url(https://content-cdn.teaser.stackla.com/1451/669f258…/image);
+  /* filter: blur(10px); */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
 
-.panel-left img {
-  width: 100%;
+  .image-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 0px;
+  
+    .image-wrapper-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+
+      div.image-filler {
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 105%;
+        position: absolute;
+        display: flex;
+        width: 105%;
+        filter: blur(20px) brightness(0.75);
+      }
+  
+      div.image {
+        position: relative;
+  
+        img.image-element {
+          width: 100%;
+          height: auto;
+        }
+      }
+    }
+  }
 }
 
 .panel-right {
   padding: 26px 40px;
+  height: calc(100vh - 100px);
+}
+
+.panel-right-wrapper {
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 100%;
 }
 
 .tile-arrows-left {
@@ -73,28 +121,6 @@
   width: 50px;
   height: 50px;
   cursor: pointer;
-}
-
-div.image {
-  position: relative;
-}
-
-.image-wrapper {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  margin-bottom: 16px;
-}
-
-.image-wrapper-inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
 }
 
 .user-info {

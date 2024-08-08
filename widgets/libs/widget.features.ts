@@ -113,9 +113,11 @@ export function loadTileExpandArrows() {
     throw new Error("Failed to find expanded tile shadow root")
   }
 
-  waitForElm(expandedTileShadowRoot, [".tile-arrows-left", ".tile-arrows-right"], elements => {
-    const prevButton = elements[0]
-    const nextButton = elements[1]
+  // FIXME: This is a hack to wait for the shadow root to be ready, we should have a more accurate event
+
+  waitForElm(expandedTile.shadowRoot, [".tile-arrows-left", ".tile-arrows-right"], () => {
+    const prevButton = expandedTileShadowRoot.querySelector(".tile-arrows-left")
+    const nextButton = expandedTileShadowRoot.querySelector(".tile-arrows-right")
 
     if (!prevButton || !nextButton) {
       throw new Error("Failed to find arrow UI elements")
@@ -123,24 +125,6 @@ export function loadTileExpandArrows() {
 
     prevButton.addEventListener("click", arrowClickListener)
     nextButton.addEventListener("click", arrowClickListener)
-  })
-}
-
-function waitForElm(parent: Element | ShadowRoot, targets: string[], callback: (elements: Element[]) => void) {
-  if (targets.every(it => !!parent.querySelector(it))) {
-    callback(targets.map(it => parent.querySelector(it)!))
-  }
-
-  const observer = new MutationObserver((_, observer) => {
-    if (targets.every(it => !!parent.querySelector(it))) {
-      observer.disconnect()
-      callback(targets.map(it => parent.querySelector(it)!))
-    }
-  })
-
-  observer.observe(window.document.body, {
-    childList: true,
-    subtree: true
   })
 }
 
@@ -269,4 +253,22 @@ export function loadHoverTile<T extends BaseConfig>(widgetSettings: T) {
       }
     })
   }
+}
+
+export function waitForElm(parent: Element | ShadowRoot, targets: string[], callback: (elements: Element[]) => void) {
+  if (targets.every(it => !!parent.querySelector(it))) {
+    callback(targets.map(it => parent.querySelector(it)!))
+  }
+
+  const observer = new MutationObserver((_, observer) => {
+    if (targets.every(it => !!parent.querySelector(it))) {
+      observer.disconnect()
+      callback(targets.map(it => parent.querySelector(it)!))
+    }
+  })
+
+  observer.observe(parent, {
+    childList: true,
+    subtree: true
+  })
 }

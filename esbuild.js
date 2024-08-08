@@ -68,7 +68,7 @@ const config = {
 
 if (env == "development") {
   config.minify = false
-  config.sourcemap = "inline"
+  config.sourcemap = "both"
   esbuild.build(config)
 } else {
   esbuild.build(config)

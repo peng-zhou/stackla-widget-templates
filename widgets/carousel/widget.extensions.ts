@@ -2,6 +2,7 @@ import type { Sdk } from "@stackla/ugc-widgets"
 import { IWidgetSettings } from "../../types/IWidgetSettings"
 import Glide from "@glidejs/glide"
 import { getConfig } from "./widget.config"
+import { waitForElm } from "widgets/libs/widget.features"
 
 declare const sdk: Sdk
 
@@ -17,10 +18,10 @@ export function initializeGlideListeners() {
 
   tiles.classList.add("glide__slides")
   tiles.style.display = ""
-  initializeGlide(widgetSettings)
+  initializeInlineGlide(widgetSettings)
 
   window.addEventListener("resize", function () {
-    initializeGlide(widgetSettings)
+    initializeInlineGlide(widgetSettings)
   })
 
   const arrows = sdk.querySelector(".glide__arrows")
@@ -31,7 +32,7 @@ export function initializeGlideListeners() {
   arrows.style.display = "inline-block"
 }
 
-export function initializeGlide(widgetSettings: IWidgetSettings) {
+function initializeInlineGlide(widgetSettings: IWidgetSettings) {
   const widgetSelector = sdk.placement.querySelector(".glide")
 
   if (!widgetSelector) {
@@ -44,10 +45,15 @@ export function initializeGlide(widgetSettings: IWidgetSettings) {
     ? Math.floor(screenSize / tileWidth)
     : widgetSettings.tiles_per_page
 
+  initializeGlide(widgetSelector, perView, "slider")
+}
+
+function initializeGlide(widgetSelector: HTMLElement, perView: number, type: "slider" | "carousel") {
   const glide = new Glide(widgetSelector, {
-    type: "slider",
+    type,
     startAt: 0,
-    perView: perView
+    perView: perView,
+    peek: 0
   })
 
   glide.on("mount.after", function () {
@@ -80,18 +86,42 @@ export function initializeGlide(widgetSettings: IWidgetSettings) {
   glide.mount()
 }
 
-export function hideGlideArrows() {
+export function onTileExpand() {
   const arrows = sdk.querySelector(".glide__arrows")
   if (!arrows) {
     throw new Error("Failed to find glide arrows UI element")
   }
   arrows.style.display = "none"
+
+  const expandedTile = sdk.querySelector("expanded-tile")
+
+  if (!expandedTile?.shadowRoot) {
+    throw new Error("The expanded tile element not found")
+  }
+
+  expandedTile.closest("div.expanded-tile-container")?.classList.add("expanded-tile-overlay")
+
+  waitForElm(expandedTile.shadowRoot, [".expanded-glide"], () => {
+    if (!expandedTile?.shadowRoot) {
+      throw new Error("The expanded tile element not found")
+    }
+    const widgetSelector = expandedTile.shadowRoot.querySelector<HTMLElement>(".expanded-glide")
+
+    if (!widgetSelector) {
+      throw new Error("Failed to find widget UI element. Failed to initialise Glide")
+    }
+    initializeGlide(widgetSelector, 1, "carousel")
+  })
 }
 
-export function showGlideArrows() {
+export function onTileClosed() {
   const arrows = sdk.querySelector(".glide__arrows")
   if (!arrows) {
     throw new Error("Failed to find glide arrows UI element")
   }
   arrows.style.display = "block"
+
+  const expandedTile = sdk.querySelector("expanded-tile")
+
+  expandedTile?.closest("div.expanded-tile-container")?.classList.remove("expanded-tile-overlay")
 }

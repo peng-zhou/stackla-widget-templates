@@ -3,19 +3,3 @@
   right: 8px;
   bottom: 8px;
 }
-
-.glide__slide img {
-  height: 210px;
-  object-fit: cover;
-  overflow: hidden;
-  border-radius: 5px;
-}
-
-.glide__arrows button.glide__arrow[disabled="disabled"],
-.glide__arrows button.glide__arrow:disabled {
-  display: none;
-}
-
-.widget-icon {
-  display: block;
-}

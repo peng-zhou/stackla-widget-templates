@@ -28,7 +28,8 @@ export function registerTileClickEventListeners<T extends BaseConfig>(widgetSett
 
 export function registerTileExpandListener(fn: () => void = () => {}) {
   sdk.addEventListener("tileExpand", () => {
-    loadTileExpandArrows()
+    // TODO Fix this part
+    //loadTileExpandArrows()
     //hideTilesView()
     fn()
   })
