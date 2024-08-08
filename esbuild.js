@@ -29,7 +29,7 @@ const preAndPostBuild = {
           style: env === "development" ? "expanded" : "compressed"
         })
         const combined = `${result.css.toString()}\n${additionalData}`
-        fs.writeFileSync(`dist/${path.parent.name}/widget.css`, combined)
+        fs.writeFileSync(`dist/widgets/${path.parent.name}/widget.css`, combined)
       })
     })
   }
@@ -39,7 +39,7 @@ const preAndPostBuild = {
 const config = {
   entryPoints: [...globSync("./widgets/**/widget.ts")],
   bundle: true,
-  outdir: "dist",
+  outdir: "dist/widgets",
   loader: {
     ".hbs": "text",
     ".css": "text"
@@ -53,6 +53,15 @@ const config = {
       importMapper: path => {
         path.replace(/^@styles\//, path.join(__dirname, "widgets/styles/"))
       }
+    }),
+    copy({
+      resolveFrom: "cwd",
+      assets: [
+        {
+          from: ["./widgets/**/*.hbs"],
+          to: ["./dist/widgets"]
+        }
+      ]
     })
   ]
 }
@@ -60,18 +69,6 @@ const config = {
 if (env == "development") {
   config.minify = false
   config.sourcemap = "inline"
-  // manully copy handlebar files for development server
-  config.plugins.push(
-    copy({
-      resolveFrom: "cwd",
-      assets: [
-        {
-          from: ["./widgets/**/*.hbs"],
-          to: ["./dist"]
-        }
-      ]
-    })
-  )
   esbuild.build(config)
 } else {
   esbuild.build(config)

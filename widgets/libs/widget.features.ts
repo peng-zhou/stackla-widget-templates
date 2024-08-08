@@ -1,4 +1,4 @@
-import type { Sdk, Tile } from "@stackla/types"
+import type { Sdk, Tile } from "@stackla/ugc-widgets"
 import { loadExpandSettingComponents } from "./widget.components"
 import {
   registerTileClickEventListeners,
@@ -6,6 +6,7 @@ import {
   registerTileExpandListener
 } from "./tile.listeners"
 import { BaseConfig } from "../../types/IBaseConfig"
+import { isEnabled } from "./widget.layout"
 
 declare const sdk: Sdk
 
@@ -143,6 +144,22 @@ function waitForElm(parent: Element | ShadowRoot, targets: string[], callback: (
   })
 }
 
+export function loadWidgetIsEnabled<T extends BaseConfig>(widgetSettings: T) {
+  if (isEnabled(widgetSettings)) {
+    return true
+  }
+
+  const ugcContainer = sdk.querySelector("#nosto-ugc-container")
+
+  if (!ugcContainer) {
+    throw new Error("Failed to find Nosto UGC container")
+  }
+
+  ugcContainer.style.display = "none"
+
+  throw new Error("Widget is not enabled")
+}
+
 export function loadExpandedTileFeature<T extends BaseConfig>(
   widgetSettings: T,
   onTileExpand: () => void = () => {},
@@ -160,7 +177,7 @@ export function loadExpandedTileFeature<T extends BaseConfig>(
   }
 }
 
-export function addLoadMoreButtonFeature<T extends BaseConfig>(widgetSettings: T) {
+function loadMore() {
   const EVENT_LOAD_MORE = "moreLoad"
   const loadMoreButton = sdk.querySelector("#load-more")
 
@@ -168,24 +185,25 @@ export function addLoadMoreButtonFeature<T extends BaseConfig>(widgetSettings: T
     throw new Error("Failed to find load more button")
   }
 
-  function loadMore() {
-    sdk.triggerEvent(EVENT_LOAD_MORE)
+  sdk.triggerEvent(EVENT_LOAD_MORE)
 
-    if (!sdk.tiles.hasMorePages()) {
-      // @ts-expect-error - Property is possibly null or undefined
-      loadMoreButton.style.display = "none"
-    }
+  if (!sdk.tiles.hasMorePages()) {
+    loadMoreButton.style.display = "none"
+  }
+}
+
+export function addLoadMoreButtonFeature<T extends BaseConfig>(widgetSettings: T) {
+  const loadMoreButton = sdk.querySelector("#load-more")
+
+  if (!loadMoreButton) {
+    throw new Error("Failed to find load more button")
   }
 
   if (widgetSettings.load_more_type === "button") {
     loadMoreButton.onclick = loadMore
   } else {
     loadMoreButton.style.display = "none"
-    window.addEventListener("scroll", function () {
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-        loadMore()
-      }
-    })
+    // TODO: Add scroller logic from SDK here upon Mani's review.
   }
 }
 

@@ -14,16 +14,19 @@ export function initializeMasonry() {
     itemSelector: ".ugc-tile",
     gutter: 20,
     fitWidth: true,
-    initLayout: false
+    initLayout: false,
+    percentPosition: true,
+    stagger: 5
   })
 
   sdk.masonry.layout()
 }
 
 export function refreshMasonryLayout() {
-  // Minor delay required to pickup the tiles available in the view
-  // FIXME: Update tilesUpdated to execute after DOM update
-  setTimeout(() => {
+  clearTimeout(window.refreshMasonryLayout)
+
+  window.refreshMasonryLayout = setTimeout(() => {
+    sdk.masonry.reloadItems()
     sdk.masonry.layout()
   }, 200)
 }

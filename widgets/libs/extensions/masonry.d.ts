@@ -14,6 +14,7 @@ declare module "masonry-layout" {
         resize?: boolean;
         initLayout?: boolean;
         containerStyle?: object;
+        stagger?: number;
     }
 
     class Masonry {
