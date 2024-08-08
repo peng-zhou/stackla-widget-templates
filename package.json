@@ -11,6 +11,7 @@
     "test": "jest",
     "build": "APP_ENV=production node ./esbuild.js",
     "dev": "APP_ENV=development node ./esbuild.js",
+    "prestart": "npm run build",
     "start": "NODE_ENV=development APP_ENV=testing sls offline start --noPrependStageInUrl --reloadHandler --stage=development --region=us-west-1 --host=127.0.0.1"
   },
   "license": "MIT",
