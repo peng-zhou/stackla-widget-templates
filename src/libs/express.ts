@@ -10,7 +10,7 @@ expressApp.use((_req, res, next) => {
   res.set("Cache-Control", "public, max-age=300")
   next()
 })
-expressApp.use(express.static("dist", { redirect: false }))
+expressApp.use(express.static("dist/widgets", { redirect: false }))
 expressApp.set("view engine", "hbs")
 expressApp.use(cors())
 
@@ -22,7 +22,7 @@ expressApp.get("/preview", (req, res) => {
     return res.status(400).send("widgetType is required")
   }
 
-  const rootDir = path.resolve(__dirname, `../../../../../dist/${widgetType}`)
+  const rootDir = path.resolve(__dirname, `../../../../../dist/widgets/${widgetType}`)
 
   const layout = `${rootDir}/layout.hbs`
   const tile = `${rootDir}/tile.hbs`
