@@ -24,7 +24,7 @@ export function getConfig(widgetContainer: WidgetContainer): IWidgetSettings {
     text_tile_user_name_font_size: widgetStyle?.text_tile_user_name_font_size ?? 12,
     text_tile_user_name_font_color: widgetStyle?.text_tile_user_name_font_color ?? "000000",
     text_tile_user_handle_font_size: widgetStyle?.text_tile_user_handle_font_size ?? 12,
-    text_tile_user_handle_font_color: widgetStyle?.text_tile_user_handle_font_color ?? "000000",
+    text_tile_user_handle_font_color: widgetStyle?.text_tile_user_handle_font_color ?? "000000"
   }
 
   const widgetProperties = {
@@ -42,12 +42,12 @@ export function getConfig(widgetContainer: WidgetContainer): IWidgetSettings {
     max_tile_width: widgetStyle?.max_tile_width,
     margin: widgetStyle?.margin,
     click_through_url: widgetStyle?.click_through_url,
-    load_more_type: widgetStyle?.load_more_type,  
+    load_more_type: widgetStyle?.load_more_type
   }
 
   const inlineTileProperties = {
     inline_tile_show_shopspots: widgetConfig?.tile_options?.show_shopspots ?? false,
-    inline_tile_show_timestamps: widgetConfig?.tile_options?.show_timestamps ?? false,
+    inline_tile_show_timestamps: widgetConfig?.tile_options?.show_timestamps ?? false
   }
 
   return {
@@ -60,6 +60,6 @@ export function getConfig(widgetContainer: WidgetContainer): IWidgetSettings {
     ...widgetProperties,
     ...inlineTileProperties,
     ...tileTextProperties,
-    ...expandedTileProperties,
+    ...expandedTileProperties
   }
 }
