@@ -6,8 +6,9 @@
     "eslint": "eslint . --ext .ts,.tsx",
     "typecheck": "npx tsc",
     "prettier": "prettier '**/*.{js,ts}' --write",
-    "stylelint": "stylelint **/*.scss --fix",
+    "stylelint": "stylelint **/*.scss",
     "lint": "npm run eslint && npm run stylelint",
+    "lint:fix": "npm run eslint -- --fix && npm run stylelint -- --fix",
     "test": "jest",
     "build": "APP_ENV=production node ./esbuild.js",
     "dev": "APP_ENV=development node ./esbuild.js",
@@ -48,6 +49,7 @@
     "@stackla/ugc-widgets": "^0.0.33",
     "happy-dom": "^14.12.3",
     "hbs": "^4.2.0",
-    "masonry-layout": "^4.2.2"
+    "masonry-layout": "^4.2.2",
+    "stylelint-scss": "^6.5.0"
   }
 }

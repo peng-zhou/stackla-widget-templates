@@ -7,7 +7,7 @@ import {
 } from "./tile.listeners"
 import { BaseConfig } from "../../types/IBaseConfig"
 import { isEnabled } from "./widget.layout"
-import { useInfiniteScroller } from '@stackla/ugc-widgets';
+import { useInfiniteScroller } from "@stackla/ugc-widgets"
 
 declare const sdk: Sdk
 
@@ -188,7 +188,7 @@ export function addLoadMoreButtonFeature<T extends BaseConfig>(widgetSettings: T
     loadMoreButton.onclick = loadMore
   } else {
     loadMoreButton.style.display = "none"
-    useInfiniteScroller(sdk, loadMore);
+    useInfiniteScroller(sdk, loadMore)
   }
 }
 
