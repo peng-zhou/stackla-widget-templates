@@ -15,11 +15,21 @@ const preAndPostBuild = {
     })
 
     build.onEnd(() => {
+      const additionalData = globSync("./widgets/styles/*.scss", { withFileTypes: true })
+        .map(path =>
+          sass.compile(path.relative(), {
+            style: env === "development" ? "expanded" : "compressed"
+          })
+        )
+        .map(scss => scss.css.toString())
+        .join("\n")
+
       globSync("./widgets/**/widget.scss", { withFileTypes: true }).forEach(path => {
         const result = sass.compile(path.relative(), {
           style: env === "development" ? "expanded" : "compressed"
         })
-        fs.writeFileSync(`dist/widgets/${path.parent.name}/widget.css`, result.css.toString())
+        const combined = `${result.css.toString()}\n${additionalData}`
+        fs.writeFileSync(`dist/widgets/${path.parent.name}/widget.css`, combined)
       })
     })
   }
@@ -63,13 +73,4 @@ if (env == "development") {
   esbuild.build(config)
 } else {
   esbuild.build(config)
-}
-
-const ensureDirectoryExistence = filePath => {
-  const dirname = path.dirname(filePath)
-  if (fs.existsSync(dirname)) {
-    return true
-  }
-  ensureDirectoryExistence(dirname)
-  fs.mkdirSync(dirname)
 }
