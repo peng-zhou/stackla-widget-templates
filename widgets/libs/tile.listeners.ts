@@ -1,6 +1,6 @@
 import type { Sdk } from "@stackla/types"
 import { handleTileClick } from "./tile.lib"
-import { hideTilesView, loadTileExpandArrows, showTilesView } from "./widget.features"
+import { loadTileExpandArrows, showTilesView } from "./widget.features"
 import { BaseConfig } from "../../types/IBaseConfig"
 
 declare const sdk: Sdk
@@ -29,7 +29,7 @@ export function registerTileClickEventListeners<T extends BaseConfig>(widgetSett
 export function registerTileExpandListener(fn: () => void = () => {}) {
   sdk.addEventListener("tileExpand", () => {
     loadTileExpandArrows()
-    hideTilesView()
+    //hideTilesView()
     fn()
   })
 }

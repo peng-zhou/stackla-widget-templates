@@ -1,7 +1,3 @@
-@import url("../styles/tile-hover");
-@import url("../styles/social-icons");
-@import url("../styles/expanded-tile");
-
 .ugc-tiles {
   display: flex;
   flex-wrap: wrap;
@@ -27,12 +23,6 @@
 .ugc-tile img {
   width: 100%;
   height: auto;
-}
-
-.network-icon {
-  position: absolute;
-  right: 20px;
-  bottom: 20px;
 }
 
 .widget-icon {
