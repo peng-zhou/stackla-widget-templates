@@ -12,6 +12,7 @@ const productionHooks = {
 
 module.exports = {
   ...serverlessConfig({
+  plugins: ['serverless-domain-manager'],
   service: "widget-templates",
   offlinePort: process.env.APP_ENV == "testing" ? 4002 : 80,
   custom: {
@@ -44,5 +45,13 @@ module.exports = {
         },
       ],
     },
+  },
+  custom: {
+    customDomain: process.env.NODE_ENV === 'staging' || process.env.NODE_ENV === 'production' ? {
+      domainName: process.env.NODE_ENV === "staging" ? 'templates.teaser.stackla.com' : 'templates.stackla.com',
+      basePath: '',
+      stage: '${self:provider.stage}',
+      createRoute53Record: false
+    } : {}
   }
 }
