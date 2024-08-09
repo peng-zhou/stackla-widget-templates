@@ -18,6 +18,8 @@ expressApp.use(cors({
   origin: "*"
 }))
 
+const stripSymbols = (str: string) => str.replace(/[^a-zA-Z0-9]/g, "")
+
 // Register preview route
 expressApp.get("/preview", (req, res) => {
   const widgetRequest = req.query as WidgetRequest
@@ -38,6 +40,8 @@ expressApp.get("/preview", (req, res) => {
   const cssFileContents = readFileSync(css, "utf8")
   const jsFileContents = readFileSync(js, "utf8")
 
+  res.set("Content-Type", "text/javascript")
+
   res.render("preview", {
     widgetRequest: JSON.stringify(widgetRequest),
     layoutCode: layoutFileContents,
@@ -51,5 +55,32 @@ expressApp.get("/preview", (req, res) => {
       .replace(/\t/g, "\\t")
   })
 })
+
+expressApp.get("/autoload", (req, res) => {
+  if (!req.query['selector']) {
+    return res.status(400).send("widgetSelector is required")
+  }
+
+  if (!req.query['widget']) {
+    return res.status(400).send("widgetType is required")
+  }
+
+  if (!req.query['resource']) {
+    return res.status(400).send("resourceType is required")
+  }
+
+  const resource = req.query.resource as string;
+  const widgetType = req.query.widget as string;
+  const widgetSelector = req.query.selector as string;
+  const resourceWithoutSymbols = stripSymbols(resource)
+  const widgetTypeWithoutSymbols = stripSymbols(widgetType)
+  const widgetSrc = `dist/widgets/${widgetTypeWithoutSymbols}/widget.${resourceWithoutSymbols}`
+  const jsCode = readFileSync(widgetSrc, "utf8")
+
+  res.render("autoload", {
+    widgetSelector,
+    jsCode
+  })
+});
 
 export default expressApp
