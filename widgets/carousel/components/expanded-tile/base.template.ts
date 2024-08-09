@@ -13,11 +13,11 @@ export const expandedTileTemplate = (sdk: Sdk) => {
 
   return `<div class="glide expanded-glide">
             <div class="glide__track" data-glide-el="track">
-                <ul class="glide__slides">
+                <div class="glide__slides">
                     ${Object.values(tiles)
-                      .map(tile => '<li class="glide__slide">' + tileTemplate(sdk, widgetSettings, tile) + "</li>")
+                      .map(tile => '<div class="glide__slide">' + tileTemplate(sdk, widgetSettings, tile) + "</div>")
                       .join("")}
-                </ul>
+                </div>
             </div>
             <div class="glide__arrows" data-glide-el="controls">
                 <button class="glide__arrow glide__arrow--left" data-glide-dir="<"><span class="widget-icon chevron-left"></span></button>

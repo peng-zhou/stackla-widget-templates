@@ -6,7 +6,7 @@ import { waitForElm } from "widgets/libs/widget.features"
 
 declare const sdk: Sdk
 
-export function initializeGlideListeners() {
+export function initializeInlineGlideListeners() {
   const widgetContainer = sdk.placement.getWidgetContainer()
   const widgetSettings = getConfig(widgetContainer)
 
@@ -20,11 +20,13 @@ export function initializeGlideListeners() {
   tiles.style.display = ""
   initializeInlineGlide(widgetSettings)
 
-  window.addEventListener("resize", function () {
-    initializeInlineGlide(widgetSettings)
-  })
+  const glide = sdk.querySelector(".glide-inline")
 
-  const arrows = sdk.querySelector(".glide__arrows")
+  if (!glide) {
+    throw new Error("Failed to find inline glide element")
+  }
+
+  const arrows = glide.querySelector<HTMLElement>(".glide__arrows")
   if (!arrows) {
     throw new Error("Failed to find arrows UI element")
   }
@@ -39,13 +41,34 @@ function initializeInlineGlide(widgetSettings: IWidgetSettings) {
     throw new Error("Failed to find widget UI element. Failed to initialise Glide")
   }
 
-  const tileWidth = 240
+  const tileWidth = 280
   const screenSize = window.innerWidth
   const perView = !widgetSettings.enable_custom_tiles_per_page
     ? Math.floor(screenSize / tileWidth)
     : widgetSettings.tiles_per_page
 
-  initializeGlide(widgetSelector, perView, "slider")
+  initializeGlide(widgetSelector, perView, "carousel")
+}
+
+function initializeExtendedGlide() {
+  const expandedTile = sdk.querySelector("expanded-tile")
+  if (!expandedTile?.shadowRoot) {
+    throw new Error("The expanded tile element not found")
+  }
+  const widgetSelector = expandedTile.shadowRoot.querySelector<HTMLElement>(".expanded-glide")
+
+  if (!widgetSelector) {
+    throw new Error("Failed to find widget UI element. Failed to initialise Glide")
+  }
+
+  const arrows = widgetSelector.querySelector<HTMLElement>(".glide__arrows")
+  if (!arrows) {
+    throw new Error("Failed to find arrows UI element")
+  }
+
+  arrows.style.display = "inline-block"
+
+  initializeGlide(widgetSelector, 1, "carousel")
 }
 
 function initializeGlide(widgetSelector: HTMLElement, perView: number, type: "slider" | "carousel") {
@@ -53,7 +76,8 @@ function initializeGlide(widgetSelector: HTMLElement, perView: number, type: "sl
     type,
     startAt: 0,
     perView: perView,
-    peek: 0
+    peek: 0,
+    gap: 10
   })
 
   glide.on("mount.after", function () {
@@ -101,17 +125,7 @@ export function onTileExpand() {
 
   expandedTile.closest("div.expanded-tile-container")?.classList.add("expanded-tile-overlay")
 
-  waitForElm(expandedTile.shadowRoot, [".expanded-glide"], () => {
-    if (!expandedTile?.shadowRoot) {
-      throw new Error("The expanded tile element not found")
-    }
-    const widgetSelector = expandedTile.shadowRoot.querySelector<HTMLElement>(".expanded-glide")
-
-    if (!widgetSelector) {
-      throw new Error("Failed to find widget UI element. Failed to initialise Glide")
-    }
-    initializeGlide(widgetSelector, 1, "carousel")
-  })
+  waitForElm(expandedTile.shadowRoot, [".expanded-glide"], initializeExtendedGlide)
 }
 
 export function onTileClosed() {

@@ -44,7 +44,7 @@
     "typescript": "^5.5.0"
   },
   "dependencies": {
-    "@glidejs/glide": "^3.6.1",
+    "@glidejs/glide": "^3.6.2",
     "@stackla/ugc-widgets": "^0.0.33",
     "happy-dom": "^14.12.3",
     "hbs": "^4.2.0",

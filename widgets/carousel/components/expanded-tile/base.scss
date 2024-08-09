@@ -26,71 +26,59 @@
   background: #f4f4f4;
   width: 100%;
   height: fit-content;
-}
 
-.panel-left {
-  min-width: 50%;
-  max-width: 50%;
-  display: flex;
-  place-content: center center;
-  align-items: center;
-  background: url(https://content-cdn.teaser.stackla.com/1451/669f258…/image);
-  /* filter: blur(10px); */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  overflow: hidden;
-
-  .image-wrapper {
-    position: relative;
+  .panel-left {
+    min-width: 50%;
+    max-width: 50%;
     display: flex;
-    flex-direction: column;
+    place-content: center center;
     align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    margin-bottom: 0px;
+    background-image: url(https://content-cdn.teaser.stackla.com/1451/669f258…/image);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
   
-    .image-wrapper-inner {
+    .image-wrapper {
+      position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       width: 100%;
       height: 100%;
-
-      div.image-filler {
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        height: 105%;
-        position: absolute;
+      margin-bottom: 0px;
+    
+      .image-wrapper-inner {
         display: flex;
-        width: 105%;
-        filter: blur(20px) brightness(0.75);
-      }
-  
-      div.image {
-        position: relative;
-  
-        img.image-element {
-          width: 100%;
-          height: auto;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+    
+        div.image {
+          position: relative;
+    
+          img.image-element {
+            width: 100%;
+            height: auto;
+          }
         }
       }
     }
   }
-}
-
-.panel-right {
-  padding: 26px 40px;
-  height: calc(100vh - 100px);
-}
-
-.panel-right-wrapper {
-  overflow-x: hidden;
-  overflow-y: auto;
-  height: 100%;
+  
+  .panel-right {
+    padding: 26px 40px;
+    height: calc(100vh - 100px);
+  }
+  
+  .panel-right-wrapper {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 100%;
+  }
 }
 
 .tile-arrows-left {

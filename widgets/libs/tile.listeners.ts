@@ -37,7 +37,7 @@ export function registerTileExpandListener(fn: () => void = () => {}) {
 
 export function registerTileClosedListener(fn: () => void = () => {}) {
   sdk.addEventListener("expandedTileClose", () => {
-    showTilesView()
+    //showTilesView()
     fn()
   })
 }

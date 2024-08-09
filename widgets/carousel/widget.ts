@@ -4,7 +4,7 @@ import { expandedTileTemplate } from "./components/expanded-tile/base.template"
 import expandedTileStyle from "./components/expanded-tile/base.scss"
 import productsStyle from "./components/products/base.scss"
 import shopspotStyle from "./components/shopspot-icon/base.scss"
-import { onTileExpand, initializeGlideListeners, onTileClosed } from "./widget.extensions"
+import { onTileExpand, initializeInlineGlideListeners, onTileClosed } from "./widget.extensions"
 import { registerLoadListener } from "widgets/libs/tile.listeners"
 import {
   addAutoAddTileFeature,
@@ -27,7 +27,7 @@ const widgetSettings = getConfig(widgetContainer)
 loadWidgetIsEnabled(widgetSettings)
 addCSSVariablesToPlacement(getCSSVariables(widgetSettings))
 loadTitle()
-registerLoadListener(initializeGlideListeners)
+registerLoadListener(initializeInlineGlideListeners)
 addAutoAddTileFeature(widgetSettings)
 loadExpandedTileFeature(widgetSettings, onTileExpand, onTileClosed)
 loadHoverTile(widgetSettings)

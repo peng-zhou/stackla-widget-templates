@@ -4,7 +4,7 @@ import { WidgetRequest } from "@stackla/ugc-widgets"
 import cors from "cors"
 import path from "path"
 import { readFileSync } from "fs"
-import * as hbs from 'hbs'
+import * as hbs from "hbs"
 
 const expressApp = express()
 expressApp.use((_req, res, next) => {
@@ -12,9 +12,13 @@ expressApp.use((_req, res, next) => {
   next()
 })
 expressApp.use(express.static("dist/widgets", { redirect: false }))
-expressApp.engine('hbs', hbs.__express)
-expressApp.set('view engine', 'hbs')
+expressApp.engine("hbs", hbs.__express)
+expressApp.set("view engine", "hbs")
 expressApp.use(cors())
+expressApp.use(
+  "/sscripts",
+  express.static(path.join(__dirname, "../../../../../node_modules/@stackla/ugc-widgets/dist/"))
+)
 
 // Register preview route
 expressApp.get("/preview", (req, res) => {
