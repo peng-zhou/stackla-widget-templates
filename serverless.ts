@@ -13,13 +13,15 @@ const productionHooks = {
 const isStaging = process.env.AWS_REGION === 'us-west-1';
 const isProd = process.env.AWS_REGION === 'ap-southeast-2';
 
+const plugins : string[] = [];
+
+if (isStaging || isProd) {
+  plugins.push('serverless-domain-manager');
+}
+
 module.exports = {
   ...serverlessConfig({
-  plugins: [
-    process.env.AWS_REGION === 'us-west-1' || 
-    process.env.AWS_REGION === 'ap-southeast-2' ?
-    'serverless-domain-manager' : ''
-  ],
+  plugins: plugins,
   service: "widget-templates",
   offlinePort: process.env.APP_ENV == "testing" ? 4002 : 80,
   custom: {
