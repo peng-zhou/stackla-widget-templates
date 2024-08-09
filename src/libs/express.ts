@@ -14,7 +14,9 @@ expressApp.use((_req, res, next) => {
 expressApp.use(express.static("dist/widgets", { redirect: false }))
 expressApp.engine('hbs', hbs.__express)
 expressApp.set('view engine', 'hbs')
-expressApp.use(cors())
+expressApp.use(cors({
+  origin: "*"
+}))
 
 // Register preview route
 expressApp.get("/preview", (req, res) => {
