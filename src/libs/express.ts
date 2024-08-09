@@ -40,8 +40,6 @@ expressApp.get("/preview", (req, res) => {
   const cssFileContents = readFileSync(css, "utf8")
   const jsFileContents = readFileSync(js, "utf8")
 
-  res.set("Content-Type", "text/javascript")
-
   res.render("preview", {
     widgetRequest: JSON.stringify(widgetRequest),
     layoutCode: layoutFileContents,
@@ -76,6 +74,8 @@ expressApp.get("/autoload", (req, res) => {
   const widgetTypeWithoutSymbols = stripSymbols(widgetType)
   const widgetSrc = `dist/widgets/${widgetTypeWithoutSymbols}/widget.${resourceWithoutSymbols}`
   const jsCode = readFileSync(widgetSrc, "utf8")
+
+  res.set("Content-Type", "text/javascript")
 
   res.render("autoload", {
     widgetSelector,
