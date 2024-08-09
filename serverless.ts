@@ -10,14 +10,7 @@ const productionHooks = {
   "before:package:initialize": "npm run build"
 }
 
-const isStaging = process.env.AWS_REGION === 'us-west-1';
-const isProd = process.env.AWS_REGION === 'ap-southeast-2';
-
 const plugins : string[] = [];
-
-if (isStaging || isProd) {
-  plugins.push('serverless-domain-manager');
-}
 
 module.exports = {
   ...serverlessConfig({
@@ -54,13 +47,5 @@ module.exports = {
         },
       ],
     },
-  },
-  custom: {
-    customDomain: isStaging || isProd ? {
-      domainName: isStaging ? 'templates.teaser.stackla.com' : 'templates.stackla.com',
-      basePath: '',
-      stage: '${self:provider.stage}',
-      createRoute53Record: false
-    } : {}
   }
 }
