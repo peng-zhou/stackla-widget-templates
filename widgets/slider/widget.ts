@@ -64,7 +64,7 @@ sdk.addEventListener("load", () => {
     throw new Error("Slider Tiles Scroll Down Button not found")
   }
 
-  const blockHeight = tileBlockElement.offsetHeight ? tileBlockElement.offsetHeight : 220
+  const blockHeight = tileBlockElement.offsetHeight ?? 220
 
   sliderScrollUpButton.addEventListener("click", () => {
     tilesContainer.scrollBy({
