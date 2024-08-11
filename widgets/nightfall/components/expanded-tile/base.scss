@@ -27,6 +27,24 @@
   align-items: center;
 }
 
+.tag {
+  display: inline-block;
+  background-color: white;
+  font-size: 14px;
+  border-radius: 5px;
+  max-width: 120px;
+  text-align: center;
+  overflow-x: hidden;
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
+  padding: 5px;
+  margin: 2px;
+
+  a {
+    text-decoration: none;
+  }
+}
+
 .panel {
   position: relative;
   background: #f4f4f4;
@@ -142,9 +160,9 @@ div.image {
 }
 
 .caption-paragraph {
-  color: #090909;
+  color: white;
   display: inline-block;
-  font-size: 12px;
+  font-size: 16px;
   line-height: 2;
   text-align: left;
   width: 100%;

@@ -1,8 +1,5 @@
-@import url("https://unpkg.com/@glidejs/glide@3.2.3/dist/css/glide.theme.min.css");
-@import url("https://unpkg.com/@glidejs/glide@3.2.3/dist/css/glide.core.min.css");
-@import url("../styles/tile-hover");
-@import url("../styles/social-icons");
-@import url("../styles/expanded-tile");
+@import "./styles/glide.scss";
+@import "./styles/glide.theme.scss";
 
 #tiles {
   position: relative;
@@ -35,6 +32,17 @@
   z-index: 9;
 }
 
+.tile-timephrase {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px;
+  background-color: rgb(255 255 255 / 60%);
+  border-radius: 2px;
+  font-size: 12px;
+  display: var(--tile-timephrase-display);
+}
+
 .network-icon {
   position: absolute;
   right: 20px;
@@ -60,6 +68,7 @@
 
 .glide__slide img {
   height: 210px;
+  width: 210px;
   object-fit: cover;
   overflow: hidden;
 }
