@@ -1,5 +1,5 @@
-import type { Sdk } from "@stackla/types"
-import { getConfig } from "../../widget.config"
+import type { Sdk } from "@stackla/ugc-widgets"
+import { getConfig } from "widgets/carousel/widget.config"
 import { getTimephrase } from "../../../libs/tile.lib"
 
 export const expandedTileTemplate = (sdk: Sdk) => {

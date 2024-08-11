@@ -1,18 +1,18 @@
-@import "../styles/tile-hover";
-@import "../styles/social-icons";
-@import "../styles/expanded-tile";
-
 .ugc-tiles {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
 }
 
+#tiles {
+  display: flex;
+  justify-content: center;
+}
+
 .ugc-tile {
-  flex: 0 0 calc(33.333% - 20px);
-  max-width: calc(33.333% - 20px);
+  flex: 0 0 calc(20% - 20px);
+  max-width: calc(20% - 20px);
   margin-bottom: 20px;
-  min-height: 300px;
   cursor: pointer;
   background-color: rgb(44 45 44);
 }

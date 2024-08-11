@@ -25,4 +25,6 @@ export interface BaseConfig {
   show_caption?: boolean
   shopspot_icon?: string
   show_inline_tags?: boolean
+  minimal_tiles?: number
+  inline_tile_show_timestamps?: boolean
 }
