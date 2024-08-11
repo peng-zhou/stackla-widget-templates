@@ -1,4 +1,8 @@
+{{#if isJsCode}}
 (() => {
   const sdk = window.ugc.getWidgetBySelector(`{{{widgetSelector}}}`).getSdk();
-  {{{jsCode}}}
+  {{{code}}}
 })();
+{{else}}
+    {{{code}}}
+{{/if}}

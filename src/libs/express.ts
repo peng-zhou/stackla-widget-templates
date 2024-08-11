@@ -73,13 +73,20 @@ expressApp.get("/autoload", (req, res) => {
   const resourceWithoutSymbols = stripSymbols(resource)
   const widgetTypeWithoutSymbols = stripSymbols(widgetType)
   const widgetSrc = `dist/widgets/${widgetTypeWithoutSymbols}/widget.${resourceWithoutSymbols}`
-  const jsCode = readFileSync(widgetSrc, "utf8")
+  const code = readFileSync(widgetSrc, "utf8")
 
-  res.set("Content-Type", "text/javascript")
+  if (resourceWithoutSymbols === "css") {
+    res.set("Content-Type", "text/css")
+  }
+
+  if (resourceWithoutSymbols === "js") {
+    res.set("Content-Type", "text/javascript")
+  }
 
   res.render("autoload", {
     widgetSelector,
-    jsCode
+    code,
+    isJsCode: resourceWithoutSymbols === "js"
   })
 });
 
