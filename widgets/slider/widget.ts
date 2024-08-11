@@ -17,8 +17,6 @@ sdk.tiles.setVisibleTilesCount(100)
 
 const widgetContainer = sdk.placement.getWidgetContainer()
 const widgetSettings = getConfig(widgetContainer)
-const ugcTiles = sdk.tiles.tiles
-const ugcTilesLength = Object.keys(ugcTiles).length
 
 const showWidget = widgetContainer.enabled
 if (!showWidget) {

@@ -9,7 +9,7 @@
     "stylelint": "stylelint **/*.scss",
     "lint": "npm run eslint && npm run stylelint",
     "lint:fix": "npm run eslint -- --fix && npm run stylelint -- --fix",
-    "test": "jest",
+    "test": "jest && npm run test:e2e",
     "cy:run": "cypress run --browser chrome --headless",
     "test:e2e": "start-server-and-test --expect 400 start http://127.0.0.1:4002/preview cy:run",
     "build": "APP_ENV=production node ./esbuild.js",
