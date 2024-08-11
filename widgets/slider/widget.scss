@@ -1,22 +1,207 @@
+.ugc-tiles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.tile-image,
+.tile-video {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  height: 220px;
+}
+
+.ugc-tile:not([data-media="image"], [data-media="video"]) {
+  display: none;
+}
+
+.ugc-tile img {
+  width: 100%;
+  height: auto;
+}
+
+.ugc-tiles {
+  display: grid;
+  gap: 10px; /* Space between blocks */
+  width: 100%; /* Fixed Width */
+  height: 600px; /* Fixed Height */
+  overflow-y: hidden;
+}
+
+/* Style for individual blocks */
+.ugc-tile,
+.ugc-tile-wrapper {
+  align-items: center;
+  background-color: #000000;
+  color: #fff;
+  border: 1px solid #ccc;
+  text-align: center;
+  font-size: 1.5em;
+  transition: transform 0.5s ease-in-out; /* Apply transition to all blocks */
+  height: 220px;
+  cursor: pointer;
+}
+
+.ugc-tile:nth-child(even) .ugc-tile-wrapper {
+  flex-direction: row-reverse; /* Swap image and text for even rows */
+}
+
+/* Apply odd/even layout rule */
+.ugc-tile img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.tile-img {
+  width: 50%;
+  height: 220px;
+  position: relative;
+}
+
+.tile-caption {
+  height: 105px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 50%;
+  padding: 20px 10px;
+  font-size: 15px;
+  font-family: "Oswald", sans-serif;
+  line-height: 1.4;
+}
+
+/* Small Screens: Stack all blocks vertically */
+@media (max-width: 599px) {
+  .ugc-tiles {
+      grid-template-columns: 1fr;
+  }
+  .ugc-tile {
+      flex-direction: column; /* Stack image and text vertically on small screens */
+  }
+}
+
+/* Responsive Layout with Media Queries */
+@media (min-width: 1600px) {
+  .ugc-tiles {
+      grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1400px) and (max-width: 1599px) {
+  .ugc-tiles {
+      grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .ugc-tiles {
+      grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .ugc-tiles {
+      grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .ugc-tiles {
+      grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+  .ugc-tiles {
+      grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media (max-width: 575px) {
+  .ugc-tiles {
+      grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+/* Styles for Scroll Buttons */
+.tiles-scroll-button {
+  border: none;
+  background-color: #888;
+  color: white;
+  cursor: pointer;
+  font-size: 20px;
+  margin: 10px;
+  width: 50px;
+  height: 50px;
+  background: rgba(0, 0, 0, .2);
+  border-radius: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  display: inline-block;
+  line-height: 45px;
+  position: relative;
+}
+.tiles-scroll-button:hover {
+  background-color: #555;
+}
+
+.tiles-scroll-button .chevron-up,
+.tiles-scroll-button .chevron-down {
+  left: 12px;
+  top: 12px;
+  position: absolute;
+}
+
+.network-icon {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+}
+
 .widget-icon {
   display: block;
+}
+
+#load-more {
+  background: 0 0;
+  margin: auto;
+  padding: 12px 0;
+  text-transform: uppercase;
+  color: #525252;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 24px;
+  text-align: center;
+  display: block;
+  cursor: pointer;
+  width: 100%;
+  border: none;
 }
 
 .close {
   width: 24px;
   height: 24px;
+  background-size: contain;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 -960 960 960' width='24'%3E%3Cpath d='m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z'/%3E%3C/svg%3E");
 }
 
 .chevron-left {
   width: 24px;
   height: 24px;
+  background-size: contain;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 -960 960 960' width='24'%3E%3Cpath d='M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z'/%3E%3C/svg%3E");
 }
 
 .chevron-right {
   width: 24px;
   height: 24px;
+  background-size: contain;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 -960 960 960' width='24'%3E%3Cpath d='M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z'/%3E%3C/svg%3E");
 }
 
