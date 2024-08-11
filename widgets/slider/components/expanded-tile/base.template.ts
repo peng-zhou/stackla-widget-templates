@@ -1,6 +1,6 @@
 import type { Sdk } from "@stackla/ugc-widgets"
-import { getConfig } from "../../widget.config";
-import { getTimephrase } from "widgets/libs/tile.lib";
+import { getConfig } from "../../widget.config"
+import { getTimephrase } from "widgets/libs/tile.lib"
 
 export default (sdk: Sdk) => {
   const widgetContainer = sdk.placement.getWidgetContainer()

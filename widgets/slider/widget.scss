@@ -76,53 +76,53 @@
 /* Small Screens: Stack all blocks vertically */
 @media (max-width: 599px) {
   .ugc-tiles {
-      grid-template-columns: 1fr;
+    grid-template-columns: 1fr;
   }
   .ugc-tile {
-      flex-direction: column; /* Stack image and text vertically on small screens */
+    flex-direction: column; /* Stack image and text vertically on small screens */
   }
 }
 
 /* Responsive Layout with Media Queries */
 @media (min-width: 1600px) {
   .ugc-tiles {
-      grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
 @media (min-width: 1400px) and (max-width: 1599px) {
   .ugc-tiles {
-      grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
 @media (min-width: 1200px) and (max-width: 1399px) {
   .ugc-tiles {
-      grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (min-width: 992px) and (max-width: 1199px) {
   .ugc-tiles {
-      grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
   .ugc-tiles {
-      grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (min-width: 576px) and (max-width: 767px) {
   .ugc-tiles {
-      grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
 }
 
 @media (max-width: 575px) {
   .ugc-tiles {
-      grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
 }
 
@@ -136,7 +136,7 @@
   margin: 10px;
   width: 50px;
   height: 50px;
-  background: rgba(0, 0, 0, .2);
+  background: rgba(0, 0, 0, 0.2);
   border-radius: 100%;
   display: flex;
   flex-wrap: nowrap;
