@@ -3,15 +3,18 @@ const { serverlessConfig } = require("@stackla/base-serverless")
 
 const testingHooks = {
   "before:package:initialize": "npm run dev",
-  "before:offline:start:init": "npm run dev"
+  "before:offline:start:init": "npm run dev",
+  "before:webpack:compile:compile": "npm run dev"
 }
 
 const productionHooks = {
-  "before:package:initialize": "npm run build"
+  "before:package:initialize": "npm run build",
+  "before:webpack:compile:compile": "npm run build"
 }
 
 const plugins : string[] = [
-  'serverless-api-gateway-caching'
+  'serverless-api-gateway-caching',
+  'serverless-webpack'
 ];
 
 module.exports = {
@@ -35,7 +38,7 @@ module.exports = {
     include: ["views/**/*", "dist/**/*"],
     exclude: ["node_modules/**/*"],
   }
-}),
+  }),
   functions: {
     main: {
       handler: 'src/functions/main/handler.main',
