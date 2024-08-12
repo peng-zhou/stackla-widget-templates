@@ -46,13 +46,13 @@ module.exports = {
       provisionedConcurrency: 10,
       events: [
         {
-          httpApi: {
+          http: {
             method: 'options',
             path: '/{proxy+}'
           }
         },
         {
-          httpApi: {
+          http: {
             method: 'get',
             path: '/{proxy+}'
           },
