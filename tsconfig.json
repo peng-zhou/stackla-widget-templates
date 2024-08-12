@@ -27,8 +27,12 @@
       "skipLibCheck": true,
       "resolveJsonModule": true,
       "paths": {
-        "@styles/*": ["./widgets/styles/*"]
-      }
+        "@styles/*": ["./widgets/styles/*"],
+        "@utils/*": ["./widgets/utils/*"],
+      },
+      "jsx": "react",
+      "jsxFactory": "createElement",
+      "jsxFragmentFactory": "createFragment"
     },
     "include": ["widgets/**/*.ts"],
     "exclude": []
