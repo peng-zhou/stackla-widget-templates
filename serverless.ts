@@ -1,4 +1,5 @@
-const { serverlessConfig, handlerPath } = require("@stackla/base-serverless")
+const { serverlessConfig } = require("@stackla/base-serverless")
+const { handlerPath } = require("@stackla/lambda-api-bootstrap")
 
 const testingHooks = {
   "before:package:initialize": "npm run dev",
