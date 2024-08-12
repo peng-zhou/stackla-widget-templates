@@ -1,5 +1,4 @@
 const { serverlessConfig } = require("@stackla/base-serverless")
-const { handlerPath } = require("@stackla/lambda-api-bootstrap")
 
 const testingHooks = {
   "before:package:initialize": "npm run dev",
@@ -43,7 +42,8 @@ module.exports = {
   }),
   functions: {
     main: {
-      handler: `${handlerPath(__dirname)}/handler.main`,
+      handler: 'src/functions/main/handler.main',
+      provisionedConcurrency: 10,
       timeout: 30,
       url: {
         authorizer: "aws_iam" as const
