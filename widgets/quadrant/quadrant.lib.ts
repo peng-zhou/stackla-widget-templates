@@ -34,7 +34,7 @@ export function createSmallTile(tile: any, clickHandler: (id: number) => void) {
 
   const smallOverlay = document.createElement("div")
   smallOverlay.className = "tile-info-overlay"
-  smallOverlay.innerHTML = `<h3>${createElementHelper("h3", tile.name)}</h3><p>${createElementHelper("p", tile.message)}</p>`
+  smallOverlay.innerHTML = `${createElementHelper("h3", tile.name)}${createElementHelper("p", tile.message)}`
 
   tileImageWrapper.appendChild(smallImg)
   smallTileDiv.appendChild(tileImageWrapper)
