@@ -56,15 +56,15 @@ expressApp.get("/autoload", (req, res) => {
   const { selector, widget, resource } = req.query as { selector: string, widget: string, resource: string }
 
   if (!selector) {
-    return res.status(400).send("widgetSelector is required")
+    return res.status(400).send("selector is required")
   }
 
   if (!widget) {
-    return res.status(400).send("widgetType is required")
+    return res.status(400).send("widget is required")
   }
 
   if (!resource) {
-    return res.status(400).send("resourceType is required")
+    return res.status(400).send("resource is required")
   }
 
   const resourceWithoutSymbols = stripSymbols(resource)
