@@ -2,13 +2,14 @@ import type { Sdk } from "@stackla/ugc-widgets"
 import { Tile } from "@stackla/ugc-widgets"
 import { IWidgetSettings } from "types/IWidgetSettings"
 import { getTimephrase } from "../../../libs/tile.lib"
+import { createElement } from "@stackla/ugc-widgets/src/ui/core/utils/jsx-html"
 
 export const tileTemplate = (sdk: Sdk, widgetSettings: IWidgetSettings, tile: Tile) => {
   const shopspotEnabled = sdk.isComponentLoaded("shopspots") && widgetSettings.expanded_tile_show_shopspots
   const productsEnabled = sdk.isComponentLoaded("products") && widgetSettings.expanded_tile_show_products
   const parent = sdk.getNodeId()
 
-  return `<div class="panel">
+  return <div class="panel">
             <a class="exit" href="#">
                 <span class="widget-icon close"></span>
             </a>
@@ -86,5 +87,5 @@ export const tileTemplate = (sdk: Sdk, widgetSettings: IWidgetSettings, tile: Ti
                     </div>
                 </div>
             </div>
-        </div>`
+        </div>
 }

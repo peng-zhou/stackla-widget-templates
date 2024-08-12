@@ -19,6 +19,7 @@ expressApp.use(
   "/sscripts",
   express.static(path.join(__dirname, "../../../../../node_modules/@stackla/ugc-widgets/dist/"))
 )
+expressApp.use("/swiper", express.static(path.join(__dirname, "../../../../../node_modules/swiper/")))
 
 // Register preview route
 expressApp.get("/preview", (req, res) => {

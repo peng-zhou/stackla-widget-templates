@@ -1,6 +1,5 @@
 import type { Sdk } from "@stackla/ugc-widgets"
 import { handleTileClick } from "./tile.lib"
-import { loadTileExpandArrows, showTilesView } from "./widget.features"
 import { BaseConfig } from "../../types/IBaseConfig"
 
 declare const sdk: Sdk
@@ -27,19 +26,11 @@ export function registerTileClickEventListeners<T extends BaseConfig>(widgetSett
 }
 
 export function registerTileExpandListener(fn: () => void = () => {}) {
-  sdk.addEventListener("tileExpand", () => {
-    // TODO Fix this part
-    //loadTileExpandArrows()
-    //hideTilesView()
-    fn()
-  })
+  sdk.addEventListener("tileExpand", fn)
 }
 
 export function registerTileClosedListener(fn: () => void = () => {}) {
-  sdk.addEventListener("expandedTileClose", () => {
-    //showTilesView()
-    fn()
-  })
+  sdk.addEventListener("expandedTileClose", fn)
 }
 
 export function registerLoadListener(fn: () => void) {

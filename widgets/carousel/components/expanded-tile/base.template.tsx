@@ -1,6 +1,7 @@
 import type { Sdk } from "@stackla/ugc-widgets"
-import { getConfig } from "widgets/carousel/widget.config"
+import { getConfig } from "@widgets/carousel/widget.config"
 import { tileTemplate } from "./tile.template"
+import { createElement } from "@stackla/ugc-widgets/src/ui/core/utils/jsx-html"
 
 export const expandedTileTemplate = (sdk: Sdk) => {
   const widgetContainer = sdk.placement.getWidgetContainer()
@@ -11,7 +12,7 @@ export const expandedTileTemplate = (sdk: Sdk) => {
     throw new Error("Failed to get tile")
   }
 
-  return `<div class="glide expanded-glide">
+  return <div class="glide expanded-glide">
             <div class="glide__track" data-glide-el="track">
                 <div class="glide__slides">
                     ${Object.values(tiles)
@@ -23,5 +24,5 @@ export const expandedTileTemplate = (sdk: Sdk) => {
                 <button class="glide__arrow glide__arrow--left" data-glide-dir="<"><span class="widget-icon chevron-left"></span></button>
                 <button class="glide__arrow glide__arrow--right" data-glide-dir=">"><span class="widget-icon chevron-right"></span></button>
             </div>
-        </div>`
+        </div>
 }

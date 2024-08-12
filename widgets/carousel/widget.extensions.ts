@@ -1,26 +1,26 @@
 import type { Sdk } from "@stackla/ugc-widgets"
 import { IWidgetSettings } from "../../types/IWidgetSettings"
-import Glide from "@glidejs/glide"
 import { getConfig } from "./widget.config"
 import { waitForElm } from "widgets/libs/widget.features"
+import Swiper from "swiper"
+import { Navigation, Pagination } from "swiper/modules"
 
 declare const sdk: Sdk
 
-export function initializeInlineGlideListeners() {
+export function initializeInlineSwiperListeners() {
   const widgetContainer = sdk.placement.getWidgetContainer()
   const widgetSettings = getConfig(widgetContainer)
 
-  const tiles = sdk.querySelector("#tiles")
+  const tiles = sdk.querySelector(".swiper-inline")
 
   if (!tiles) {
     throw new Error("Failed to find tiles or arrow UI element")
   }
 
-  tiles.classList.add("glide__slides")
   tiles.style.display = ""
-  initializeInlineGlide(widgetSettings)
+  initializeInlineSwiper(widgetSettings)
 
-  const glide = sdk.querySelector(".glide-inline")
+  const glide = sdk.querySelector(".swiper-inline")
 
   if (!glide) {
     throw new Error("Failed to find inline glide element")
@@ -31,14 +31,14 @@ export function initializeInlineGlideListeners() {
     throw new Error("Failed to find arrows UI element")
   }
 
-  arrows.style.display = "inline-block"
+  arrows.style.display = ""
 }
 
-function initializeInlineGlide(widgetSettings: IWidgetSettings) {
-  const widgetSelector = sdk.placement.querySelector(".glide")
+function initializeInlineSwiper(widgetSettings: IWidgetSettings) {
+  const widgetSelector = sdk.placement.querySelector(".swiper")
 
   if (!widgetSelector) {
-    throw new Error("Failed to find widget UI element. Failed to initialise Glide")
+    throw new Error("Failed to find widget UI element. Failed to initialise Swiper")
   }
 
   const tileWidth = 280
@@ -47,10 +47,10 @@ function initializeInlineGlide(widgetSettings: IWidgetSettings) {
     ? Math.floor(screenSize / tileWidth)
     : widgetSettings.tiles_per_page
 
-  initializeGlide(widgetSelector, perView, "carousel")
+  initializeSwiper(widgetSelector, perView)
 }
 
-function initializeExtendedGlide() {
+function initializeExtendedSwiper() {
   const expandedTile = sdk.querySelector("expanded-tile")
   if (!expandedTile?.shadowRoot) {
     throw new Error("The expanded tile element not found")
@@ -61,53 +61,43 @@ function initializeExtendedGlide() {
     throw new Error("Failed to find widget UI element. Failed to initialise Glide")
   }
 
-  const arrows = widgetSelector.querySelector<HTMLElement>(".glide__arrows")
-  if (!arrows) {
+  const arrows = widgetSelector.querySelectorAll<HTMLElement>(".swiper-button-prev, .swiper-button-next")
+  if (!arrows.length) {
     throw new Error("Failed to find arrows UI element")
   }
 
-  arrows.style.display = "inline-block"
+  arrows.forEach(it => (it.style.display = ""))
 
-  initializeGlide(widgetSelector, 1, "carousel")
+  initializeSwiper(widgetSelector, 1)
 }
 
-function initializeGlide(widgetSelector: HTMLElement, perView: number, type: "slider" | "carousel") {
-  const glide = new Glide(widgetSelector, {
-    type,
-    startAt: 0,
-    perView: perView,
-    peek: 0,
-    gap: 10
-  })
+function initializeSwiper(widgetSelector: HTMLElement, perView: number) {
+  const ugcContainer = sdk.querySelector("#nosto-ugc-container")
+  const prev = ugcContainer!.querySelector<HTMLElement>(".swiper-button-prev")
+  const next = ugcContainer!.querySelector<HTMLElement>(".swiper-button-next")
+  const pagination = ugcContainer!.querySelector<HTMLElement>(".swiper-pagination")
 
-  glide.on("mount.after", function () {
-    const leftArrow = sdk.placement.querySelector<HTMLButtonElement>(".glide__arrow--left")
-    if (!leftArrow) {
-      throw new Error("Failed to find left arrow UI element")
-    }
+  new Swiper(widgetSelector, {
+    modules: [Navigation, Pagination],
+    slidesPerView: perView,
+    spaceBetween: 10,
+    centeredSlides: true,
+    hashNavigation: true,
+    loop: true,
+    direction: "horizontal",
+    observeParents: true,
+    observer: true,
+    // If we need pagination
+    pagination: {
+      el: pagination!
+    },
 
-    if (glide.index === 0) {
-      leftArrow.disabled = true
-    }
-  })
-
-  glide.on("run", function () {
-    const prevButton = sdk.placement.querySelector<HTMLButtonElement>(".glide__arrow--left")
-    const nextButton = sdk.placement.querySelector<HTMLButtonElement>(".glide__arrow--right")
-
-    if (!prevButton || !nextButton) {
-      throw new Error("Failed to find arrow UI elements")
-    }
-
-    prevButton.disabled = false
-    nextButton.disabled = false
-
-    if (glide.index === 0) {
-      prevButton.disabled = true
+    // Navigation arrows
+    navigation: {
+      nextEl: next!,
+      prevEl: prev!
     }
   })
-
-  glide.mount()
 }
 
 export function onTileExpand() {
@@ -125,7 +115,7 @@ export function onTileExpand() {
 
   expandedTile.closest("div.expanded-tile-container")?.classList.add("expanded-tile-overlay")
 
-  waitForElm(expandedTile.shadowRoot, [".expanded-glide"], initializeExtendedGlide)
+  waitForElm(expandedTile.shadowRoot, [".expanded-glide"], initializeExtendedSwiper)
 }
 
 export function onTileClosed() {
@@ -133,7 +123,7 @@ export function onTileClosed() {
   if (!arrows) {
     throw new Error("Failed to find glide arrows UI element")
   }
-  arrows.style.display = "block"
+  arrows.style.display = ""
 
   const expandedTile = sdk.querySelector("expanded-tile")
 

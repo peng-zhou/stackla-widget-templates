@@ -80,54 +80,6 @@ export function addAutoAddTileFeature<T extends BaseConfig>(widgetSettings: T) {
   }
 }
 
-export function showTilesView() {
-  const ugcTiles = sdk.querySelector("#tiles")
-
-  if (!ugcTiles) {
-    throw new Error("Failed to find tiles UI element")
-  }
-
-  ugcTiles.style.display = "block"
-}
-
-export function hideTilesView() {
-  const ugcTiles = sdk.querySelector("#tiles")
-
-  if (!ugcTiles) {
-    throw new Error("Failed to find tiles UI element")
-  }
-
-  ugcTiles.style.display = "none"
-}
-
-export function loadTileExpandArrows() {
-  const expandedTile = sdk.querySelector("expanded-tile")
-
-  if (!expandedTile) {
-    throw new Error("Failed to find expanded tile UI element")
-  }
-
-  const expandedTileShadowRoot = expandedTile.shadowRoot
-
-  if (!expandedTileShadowRoot) {
-    throw new Error("Failed to find expanded tile shadow root")
-  }
-
-  // FIXME: This is a hack to wait for the shadow root to be ready, we should have a more accurate event
-
-  waitForElm(expandedTile.shadowRoot, [".tile-arrows-left", ".tile-arrows-right"], () => {
-    const prevButton = expandedTileShadowRoot.querySelector(".tile-arrows-left")
-    const nextButton = expandedTileShadowRoot.querySelector(".tile-arrows-right")
-
-    if (!prevButton || !nextButton) {
-      throw new Error("Failed to find arrow UI elements")
-    }
-
-    prevButton.addEventListener("click", arrowClickListener)
-    nextButton.addEventListener("click", arrowClickListener)
-  })
-}
-
 export function loadWidgetIsEnabled<T extends BaseConfig>(widgetSettings: T) {
   if (isEnabled(widgetSettings)) {
     return true
@@ -210,7 +162,7 @@ export function loadTitle() {
 }
 
 export function toggleInlineTile(tile: HTMLElement) {
-  const tags = tile.querySelector(".tile-tags")
+  /* const tags = tile.querySelector(".tile-tags")
 
   if (!tags) {
     throw new Error("Failed to find tile tags")
@@ -220,7 +172,7 @@ export function toggleInlineTile(tile: HTMLElement) {
     tags.classList.remove("inactive")
   } else {
     tags.classList.add("inactive")
-  }
+  } */
 }
 
 export function loadHoverTile<T extends BaseConfig>(widgetSettings: T) {

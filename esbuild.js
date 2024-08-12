@@ -29,16 +29,7 @@ const preAndPostBuild = {
           style: env === "development" ? "expanded" : "compressed"
         })
 
-        let gliderStyles = ""
-
-        if (path.parent.name === "carousel") {
-          const suffix = env === "development" ? ".min.css" : ".css"
-          const coreStyles = fs.readFileSync(`./node_modules/@glidejs/glide/dist/css/glide.core${suffix}`)
-          const themeStyles = fs.readFileSync(`./node_modules/@glidejs/glide/dist/css/glide.theme${suffix}`)
-          gliderStyles = `${coreStyles}\n${themeStyles}`
-        }
-
-        const combined = `${gliderStyles}\n${result.css.toString()}\n${additionalData}`
+        const combined = `${result.css.toString()}\n${additionalData}`
         fs.writeFileSync(`dist/widgets/${path.parent.name}/widget.css`, combined)
       })
     })

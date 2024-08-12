@@ -13,7 +13,7 @@ const productionHooks = {
 module.exports = {
   ...serverlessConfig({
     service: "widget-templates",
-    offlinePort: process.env.APP_ENV == "testing" ? 4002 : 80,
+    offlinePort: process.env.APP_ENV == "testing" ? 4001 : 80,
     custom: {
       scriptable: {
         hooks: process.env.APP_ENV === "testing" ? testingHooks : productionHooks
