@@ -1,5 +1,5 @@
 const main = require("./src/functions/main")
-const { serverlessConfig } = require("@stackla/base-serverless")
+const { serverlessConfig, handlerPath } = require("@stackla/base-serverless")
 
 const testingHooks = {
   "before:package:initialize": "npm run dev",
@@ -43,22 +43,21 @@ module.exports = {
   }),
   functions: {
     main: {
-      handler: 'src/functions/main/handler.main',
-      provisionedConcurrency: 10,
-      events: [
-        {
-          http: {
-            method: 'options',
-            path: '/{proxy+}'
+      handler: `${handlerPath(__dirname)}/handler.main`,
+      timeout: 30,
+      url: {
+        authorizer: "aws_iam" as const
+      },
+      ...(process.env.NODE_ENV === "development" && {
+        events: [
+          {
+            http: {
+              method: "any",
+              path: "/{proxy+}"
+            }
           }
-        },
-        {
-          http: {
-            method: 'get',
-            path: '/{proxy+}'
-          },
-        },
-      ],
-    },
+        ]
+      })
+    }
   }
 }
