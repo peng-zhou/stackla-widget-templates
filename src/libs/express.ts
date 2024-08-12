@@ -55,6 +55,8 @@ expressApp.get("/preview", (req, res) => {
 })
 
 expressApp.get("/autoload", (req, res) => {
+  const { selector, widget, resource } = req.query as { selector: string, widget: string, resource: string }
+
   if (!req.query['selector']) {
     return res.status(400).send("widgetSelector is required")
   }
@@ -67,11 +69,8 @@ expressApp.get("/autoload", (req, res) => {
     return res.status(400).send("resourceType is required")
   }
 
-  const resource = req.query.resource as string;
-  const widgetType = req.query.widget as string;
-  const widgetSelector = req.query.selector as string;
   const resourceWithoutSymbols = stripSymbols(resource)
-  const widgetTypeWithoutSymbols = stripSymbols(widgetType)
+  const widgetTypeWithoutSymbols = stripSymbols(widget)
   const widgetSrc = `dist/widgets/${widgetTypeWithoutSymbols}/widget.${resourceWithoutSymbols}`
   const code = readFileSync(widgetSrc, "utf8")
 
@@ -84,7 +83,7 @@ expressApp.get("/autoload", (req, res) => {
   }
 
   res.render("autoload", {
-    widgetSelector,
+    selector,
     code,
     isJsCode: resourceWithoutSymbols === "js"
   })
