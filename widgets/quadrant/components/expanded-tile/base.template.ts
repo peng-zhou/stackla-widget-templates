@@ -1,4 +1,4 @@
-import { Sdk } from "@stackla/types"
+import type { Sdk } from "@stackla/ugc-widgets"
 import { getConfig } from "../../widget.config"
 import { getTimephrase } from "../../../libs/tile.lib"
 

@@ -2,6 +2,31 @@ import type { Sdk } from "@stackla/ugc-widgets"
 
 declare const sdk: Sdk
 
+export function createSmallTile(tile: any, clickHandler: (id: number) => void) {
+  const smallTileDiv = document.createElement("div")
+  smallTileDiv.className = "grid-item"
+
+  const tileImageWrapper = document.createElement("div")
+  tileImageWrapper.className = "tile-image-wrapper"
+
+  const smallImg = document.createElement("img")
+  smallImg.src = tile.image
+
+  const smallOverlay = document.createElement("div")
+  smallOverlay.className = "tile-info-overlay"
+  smallOverlay.innerHTML = `<h3>${tile.name}</h3><p>${tile.message}</p>`
+
+  tileImageWrapper.appendChild(smallImg)
+  smallTileDiv.appendChild(tileImageWrapper)
+  smallTileDiv.appendChild(smallOverlay)
+
+  smallTileDiv.addEventListener("click", () => {
+    clickHandler(tile.id)
+  })
+
+  return smallTileDiv
+}
+
 export function initializeQuadrant() {
   let groupCount = 0
   const imagesPerGroup = 5
@@ -44,27 +69,8 @@ export function initializeQuadrant() {
         // Odd index: Insert big image at the bottom
         for (let j = 0; j < 4; j++) {
           if (i + j < endIndex) {
-            const smallTileDiv = document.createElement("div")
-            smallTileDiv.className = "grid-item"
-
-            const tileImageWrapper = document.createElement("div")
-            tileImageWrapper.className = "tile-image-wrapper"
-
-            const smallImg = document.createElement("img")
-            smallImg.src = ugcTiles[i + j].image
-
-            const smallOverlay = document.createElement("div")
-            smallOverlay.className = "tile-info-overlay"
-            smallOverlay.innerHTML = `<h3>${ugcTiles[i + j].name}</h3><p>${ugcTiles[i + j].message}</p>`
-
-            tileImageWrapper.appendChild(smallImg)
-            smallTileDiv.appendChild(tileImageWrapper)
-            smallTileDiv.appendChild(smallOverlay)
-
+            const smallTileDiv = createSmallTile(ugcTiles[i + j], handleClickedTileEvents)
             groupDiv.appendChild(smallTileDiv)
-            smallTileDiv.addEventListener("click", () => {
-              handleClickedTileEvents(ugcTiles[i + j].id)
-            })
           }
         }
         groupDiv.appendChild(bigTileDiv)
@@ -73,27 +79,8 @@ export function initializeQuadrant() {
         groupDiv.appendChild(bigTileDiv)
         for (let j = 0; j < 4; j++) {
           if (i + j < endIndex) {
-            const smallTileDiv = document.createElement("div")
-            smallTileDiv.className = "grid-item"
-
-            const tileImageWrapper = document.createElement("div")
-            tileImageWrapper.className = "tile-image-wrapper"
-
-            const smallImg = document.createElement("img")
-            smallImg.src = ugcTiles[i + j].image
-
-            const smallOverlay = document.createElement("div")
-            smallOverlay.className = "tile-info-overlay"
-            smallOverlay.innerHTML = `<h3>${ugcTiles[i + j].name}</h3><p>${ugcTiles[i + j].message}</p>`
-
-            tileImageWrapper.appendChild(smallImg)
-            smallTileDiv.appendChild(tileImageWrapper)
-            smallTileDiv.appendChild(smallOverlay)
-
+            const smallTileDiv = createSmallTile(ugcTiles[i + j], handleClickedTileEvents)
             groupDiv.appendChild(smallTileDiv)
-            smallTileDiv.addEventListener("click", () => {
-              handleClickedTileEvents(ugcTiles[i + j].id)
-            })
           }
         }
       }
