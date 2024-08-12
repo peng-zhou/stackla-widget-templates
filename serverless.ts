@@ -46,7 +46,7 @@ module.exports = {
       provisionedConcurrency: 10,
       events: [
         {
-          http: {
+          httpApi: {
             method: 'options',
             path: '/{proxy+}',
             caching: {
@@ -55,7 +55,7 @@ module.exports = {
           }
         },
         {
-          http: {
+          httpApi: {
             method: 'get',
             path: '/{proxy+}',
             caching: {
