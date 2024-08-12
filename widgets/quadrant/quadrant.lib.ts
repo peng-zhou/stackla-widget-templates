@@ -2,22 +2,13 @@ import type { Sdk } from "@stackla/ugc-widgets"
 
 declare const sdk: Sdk
 
-// Utility Function to Escape HTML Special Characters
-function escapeHTML(str: string) {
-  const div = document.createElement("div")
-  div.appendChild(document.createTextNode(str))
-  return div.innerHTML
-}
-
 export const createElementHelper = (tag: string, text: string) => {
-  // Escape the text content
-  const escapedText = escapeHTML(text)
 
   // Create the element
   const element = document.createElement(tag)
 
   // Set the escaped text as innerHTML
-  element.innerHTML = escapedText
+  element.innerHTML = text
 
   return element
 }
