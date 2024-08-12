@@ -31,7 +31,8 @@ module.exports = {
     },
     apiGatewayCaching: {
       enabled: true,
-      ttlInSeconds: 300
+      ttlInSeconds: 300,
+      cacheKeyParameters: ['method.request.querystring.*']
     }
   },
   package: {
