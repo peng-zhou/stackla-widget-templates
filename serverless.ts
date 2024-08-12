@@ -43,6 +43,7 @@ module.exports = {
   functions: {
     main: {
       handler: 'src/functions/main/handler.main',
+      provisionedConcurrency: 10,
       events: [
         {
           http: {
