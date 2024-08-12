@@ -4,16 +4,9 @@ import { getConfig } from "../../widget.config"
 import { getTagsFromTile } from "widgets/libs/templates/expanded-tile.lib"
 import { createElement } from "@utils/jsx-html"
 
-interface WidgetSettings {
-  expanded_tile_show_shopspots: boolean
-  expanded_tile_show_products: boolean
-  expanded_tile_show_timestamp: boolean
-  expanded_tile_show_caption: boolean
-}
-
 export default function ExpandedTile(sdk: Sdk) {
   const widgetContainer = sdk.placement.getWidgetContainer()
-  const widgetSettings: WidgetSettings = getConfig(widgetContainer)
+  const widgetSettings = getConfig(widgetContainer)
   const tile = sdk.tiles.getTile()
 
   if (!tile) {
