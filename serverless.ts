@@ -10,7 +10,9 @@ const productionHooks = {
   "before:package:initialize": "npm run build"
 }
 
-const plugins : string[] = [];
+const plugins : string[] = [
+  'serverless-api-gateway-caching'
+];
 
 module.exports = {
   ...serverlessConfig({
@@ -23,6 +25,9 @@ module.exports = {
     },
     esbuild: {
       otherExternal: ["hbs"]
+    },
+    apiGatewayCaching: {
+      enabled: true
     }
   },
   package: {
@@ -36,13 +41,19 @@ module.exports = {
         {
           http: {
             method: 'options',
-            path: '/{proxy+}'
+            path: '/{proxy+}',
+            caching: {
+              enabled: true
+            }
           }
         },
         {
           http: {
             method: 'get',
             path: '/{proxy+}',
+            caching: {
+              enabled: true
+            }
           },
         },
       ],
