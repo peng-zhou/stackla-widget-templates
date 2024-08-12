@@ -27,7 +27,8 @@ module.exports = {
       otherExternal: ["hbs"]
     },
     apiGatewayCaching: {
-      enabled: true
+      enabled: true,
+      ttlInSeconds: 300
     }
   },
   package: {
