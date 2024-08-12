@@ -86,7 +86,7 @@ export const expandedTileTemplate = (sdk: Sdk) => {
                             ${productsEnabled ? `<ugc-products parent="${parent}">` : ""}
                         </div>
                         <div class="sharethis-inline-share-buttons"></div>
-                        <div class="footer">
+                        <div class="footer"
                             <span class="base-v2 source source-instagram">
                                 <i class="fs fs-instagram"></i>
                             </span>

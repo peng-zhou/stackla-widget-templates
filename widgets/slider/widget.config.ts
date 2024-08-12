@@ -1,4 +1,4 @@
-import type { WidgetContainer } from "@stackla/types"
+import type { WidgetContainer } from "@stackla/ugc-widgets"
 import { IWidgetSettings } from "types/IWidgetSettings"
 
 export function getConfig(widgetContainer: WidgetContainer): IWidgetSettings {
@@ -56,7 +56,8 @@ export function getConfig(widgetContainer: WidgetContainer): IWidgetSettings {
     expanded_tile_show_caption: widgetConfig.lightbox.show_caption ?? true,
     expanded_tile_show_shopspots: widgetConfig.lightbox.show_shopspots ?? false,
     expanded_tile_show_timestamp: widgetConfig.lightbox.show_timestamp ?? true,
-    expanded_tile_show_add_to_cart: widgetConfig.lightbox.show_add_to_cart ?? false
+    expanded_tile_show_add_to_cart: widgetConfig.lightbox.show_add_to_cart ?? false,
+    expanded_tile_show_tags: widgetConfig.lightbox.show_tags ?? false
   }
 
   if (!enabled) {
