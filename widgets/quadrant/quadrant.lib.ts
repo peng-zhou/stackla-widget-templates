@@ -19,7 +19,6 @@ export const createElementHelper = (tag: string, text: string) => {
   // Set the escaped text as innerHTML
   element.innerHTML = escapedText;
 
-  // Append the element to the body or any other container
   document.body.appendChild(element);
 };
 
