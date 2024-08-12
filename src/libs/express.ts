@@ -55,15 +55,15 @@ expressApp.get("/preview", (req, res) => {
 expressApp.get("/autoload", (req, res) => {
   const { selector, widget, resource } = req.query as { selector: string, widget: string, resource: string }
 
-  if (!req.query['selector']) {
+  if (!selector) {
     return res.status(400).send("widgetSelector is required")
   }
 
-  if (!req.query['widget']) {
+  if (!widget) {
     return res.status(400).send("widgetType is required")
   }
 
-  if (!req.query['resource']) {
+  if (!resource) {
     return res.status(400).send("resourceType is required")
   }
 
