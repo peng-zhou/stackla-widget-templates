@@ -125,6 +125,54 @@
     }
 }
 
+/* Base style for the smallest screens */
+.quadrant-grid-container {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+}
+
+/* Screens larger than or equal to 576px */
+@media (min-width: 576px) {
+    .quadrant-grid-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Screens larger than or equal to 768px */
+@media (min-width: 768px) {
+    .quadrant-grid-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Screens larger than or equal to 992px */
+@media (min-width: 992px) {
+    .quadrant-grid-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Screens larger than or equal to 1200px */
+@media (min-width: 1200px) {
+    .quadrant-grid-container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* Screens larger than or equal to 1400px */
+@media (min-width: 1400px) {
+    .quadrant-grid-container {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+/* Screens larger than or equal to 1600px */
+@media (min-width: 1600px) {
+    .quadrant-grid-container {
+        grid-template-columns: repeat(6, 1fr);
+    }
+}
+
 .network-icon {
     position: absolute;
     right: 20px;

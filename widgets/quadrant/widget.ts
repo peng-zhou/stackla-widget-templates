@@ -14,7 +14,7 @@ import customExpandedTileCSS from "./components/expanded-tile/styles.scss"
 import customProductsCSS from "./components/products/styles.scss"
 import getCSSVariables from "../libs/css-variables"
 import { addCSSVariablesToPlacement } from "../libs/widget.layout"
-import { initializeQuadrant, updateGridColumns } from "./quadrant.lib"
+import { initializeQuadrant } from "./quadrant.lib"
 
 declare const sdk: Sdk
 
@@ -42,7 +42,6 @@ window.addEventListener("resize", function () {
   for (let i = 0; i < groupsToShowInitially; i++) {
     initializeQuadrant()
   }
-  updateGridColumns()
 })
 
 const loadMoreButton = sdk.querySelector("#load-more")

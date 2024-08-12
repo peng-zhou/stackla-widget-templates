@@ -112,29 +112,3 @@ function handleClickedTileEvents(tileId) {
   sdk.triggerEvent("tileExpandClose")
   sdk.triggerEvent("tileExpand", tileData)
 }
-
-export function updateGridColumns() {
-  const container = sdk.querySelector(".quadrant-grid-container")
-
-  if (!container) {
-    throw new Error("Container not found")
-  }
-
-  const windowWidth = window.innerWidth
-
-  if (windowWidth >= 1600) {
-    container.style.gridTemplateColumns = "repeat(6, 1fr)"
-  } else if (windowWidth >= 1400) {
-    container.style.gridTemplateColumns = "repeat(5, 1fr)"
-  } else if (windowWidth >= 1200) {
-    container.style.gridTemplateColumns = "repeat(4, 1fr)"
-  } else if (windowWidth >= 992) {
-    container.style.gridTemplateColumns = "repeat(3, 1fr)"
-  } else if (windowWidth >= 768) {
-    container.style.gridTemplateColumns = "repeat(2, 1fr)"
-  } else if (windowWidth >= 576) {
-    container.style.gridTemplateColumns = "repeat(2, 1fr)"
-  } else {
-    container.style.gridTemplateColumns = "repeat(1, 1fr)"
-  }
-}
