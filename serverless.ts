@@ -1,4 +1,3 @@
-const main = require("./src/functions/main")
 const { serverlessConfig, handlerPath } = require("@stackla/base-serverless")
 
 const testingHooks = {
