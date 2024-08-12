@@ -2,7 +2,7 @@ import type { Sdk } from "@stackla/ugc-widgets"
 import { getTimephrase } from "../../../libs/tile.lib"
 import { getConfig } from "../../widget.config"
 import { getTagsFromTile } from "widgets/libs/templates/expanded-tile.lib"
-import { createElement, createFragment } from "@stackla/ugc-widgets/src/ui/core/utils/jsx-html"
+import { createElement, createFragment } from "jsx-html"
 
 export default function ExpandedTile(sdk: Sdk) {
   const widgetContainer = sdk.placement.getWidgetContainer()

@@ -28,7 +28,8 @@
       "resolveJsonModule": true,
       "paths": {
         "@styles/*": ["./widgets/styles/*"],
-        "@utils/*": ["./widgets/utils/*"]
+        "@utils/*": ["./widgets/utils/*"],
+        "jsx-html": ["./node_modules/@stackla/ugc-widgets/src/ui/core/utils/jsx-html"]
       },
       "jsx": "react",
       "jsxFactory": "createElement",
