@@ -28,7 +28,7 @@
       "resolveJsonModule": true,
       "paths": {
         "@styles/*": ["./widgets/styles/*"],
-        "@utils/*": ["./widgets/utils/*"],
+        "@utils/*": ["./widgets/utils/*"]
       },
       "jsx": "react",
       "jsxFactory": "createElement",

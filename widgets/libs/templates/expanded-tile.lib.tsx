@@ -1,5 +1,5 @@
 import { Tile } from "@stackla/ugc-widgets"
-import { createElement } from "@utils/jsx-html"
+import { createElement } from "@stackla/ugc-widgets/src/ui/core/utils/jsx-html"
 
 export function getTagsFromTile(tile: Tile) {
   if (!tile.tags_extended) {

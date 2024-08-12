@@ -2,7 +2,7 @@ import type { Sdk } from "@stackla/ugc-widgets"
 import { getTimephrase } from "../../../libs/tile.lib"
 import { getConfig } from "../../widget.config"
 import { getTagsFromTile } from "widgets/libs/templates/expanded-tile.lib"
-import { createElement } from "@utils/jsx-html"
+import { createElement } from "@stackla/ugc-widgets/src/ui/core/utils/jsx-html"
 
 export default function ExpandedTile(sdk: Sdk) {
   const widgetContainer = sdk.placement.getWidgetContainer()
@@ -52,14 +52,16 @@ export default function ExpandedTile(sdk: Sdk) {
             <div className="content-inner-wrapper">
               <div className="user-info-wrapper">
                 <div className="user-info">
-                  {tile.avatar && (
+                  {tile.avatar ? (
                     <span className="avatar-wrapper">
                       <a className="avatar-link" href={tile.original_url} target="_blank" rel="noopener noreferrer">
                         <img src={tile.avatar} alt="Avatar" />
                       </a>
                     </span>
+                  ) : (
+                    <></>
                   )}
-                  {tile.user && (
+                  {tile.user ? (
                     <a className="user-link" href={tile.original_url} target="_blank" rel="noopener noreferrer">
                       <div className="user-top">
                         <span className="user-name">{tile.user}</span>
@@ -68,20 +70,22 @@ export default function ExpandedTile(sdk: Sdk) {
                         <span className="user-handle">@{tile.user}</span>
                       </div>
                     </a>
+                  ) : (
+                    <></>
                   )}
                 </div>
               </div>
               <div className="tile-timestamp">
-                {tile.source_created_at &&
-                  widgetSettings.expanded_tile_show_timestamp &&
-                  getTimephrase(tile.source_created_at)}
+                {tile.source_created_at && widgetSettings.expanded_tile_show_timestamp
+                  ? getTimephrase(tile.source_created_at)
+                  : ""}
               </div>
               <div className="caption">
                 <p className="caption-paragraph">
-                  {tile.message && widgetSettings.expanded_tile_show_caption && tile.message}
+                  {tile.message && widgetSettings.expanded_tile_show_caption ? tile.message : ""}
                 </p>
                 <div>{getTagsFromTile(tile)}</div>
-                {productsEnabled && <ugc-products parent={parent}></ugc-products>}
+                {productsEnabled ? <ugc-products parent={parent}></ugc-products> : <></>}
               </div>
               <div className="footer">
                 <span className="base-v2 source source-instagram">
