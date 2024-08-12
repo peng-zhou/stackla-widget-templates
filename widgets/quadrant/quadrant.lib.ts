@@ -2,6 +2,13 @@ import type { Sdk } from "@stackla/ugc-widgets"
 
 declare const sdk: Sdk
 
+// Utility Function to Escape HTML Special Characters
+export const escapeHtml = (str: string) => {
+  const div = document.createElement('div');
+  div.appendChild(document.createTextNode(str));
+  return div.innerHTML;
+};
+
 export function createSmallTile(tile: any, clickHandler: (id: number) => void) {
   const smallTileDiv = document.createElement("div")
   smallTileDiv.className = "grid-item"
@@ -14,7 +21,7 @@ export function createSmallTile(tile: any, clickHandler: (id: number) => void) {
 
   const smallOverlay = document.createElement("div")
   smallOverlay.className = "tile-info-overlay"
-  smallOverlay.innerHTML = `<h3>${tile.name}</h3><p>${tile.message}</p>`
+  smallOverlay.innerHTML = `<h3>${escapeHtml(tile.name)}</h3><p>${escapeHtml(tile.message)}</p>`
 
   tileImageWrapper.appendChild(smallImg)
   smallTileDiv.appendChild(tileImageWrapper)
