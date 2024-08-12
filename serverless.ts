@@ -48,19 +48,13 @@ module.exports = {
         {
           httpApi: {
             method: 'options',
-            path: '/{proxy+}',
-            caching: {
-              enabled: true
-            }
+            path: '/{proxy+}'
           }
         },
         {
           httpApi: {
             method: 'get',
-            path: '/{proxy+}',
-            caching: {
-              enabled: true
-            }
+            path: '/{proxy+}'
           },
         },
       ],
