@@ -13,7 +13,6 @@ const productionHooks = {
 }
 
 const plugins : string[] = [
-  'serverless-api-gateway-caching',
   'serverless-webpack',
   'serverless-offline'
 ];
@@ -30,15 +29,10 @@ module.exports = {
     },
     esbuild: {
       otherExternal: ["hbs"]
-    },
-    apiGatewayCaching: {
-      enabled: true,
-      ttlInSeconds: 300,
-      cacheKeyParameters: ['method.request.querystring.*']
     }
   },
   package: {
-    include: ["views/**/*", "dist/**/*"],
+    include: ["views/**/*", "dist/**/*", "build/**/*"],
     exclude: ["node_modules/**/*"],
   }
   }),
