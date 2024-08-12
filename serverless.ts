@@ -14,7 +14,8 @@ const productionHooks = {
 
 const plugins : string[] = [
   'serverless-api-gateway-caching',
-  'serverless-webpack'
+  'serverless-webpack',
+  'serverless-offline'
 ];
 
 module.exports = {
