@@ -32,7 +32,8 @@ module.exports = {
     }
   },
   package: {
-    include: ["views/**/*", "dist/**/*"]
+    include: ["views/**/*", "dist/**/*"],
+    exclude: ["node_modules/**/*"],
   }
 }),
   functions: {
