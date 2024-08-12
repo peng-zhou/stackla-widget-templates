@@ -4,23 +4,23 @@ declare const sdk: Sdk
 
 // Utility Function to Escape HTML Special Characters
 function escapeHTML(str: string) {
-  const div = document.createElement('div');
-  div.appendChild(document.createTextNode(str));
-  return div.innerHTML;
+  const div = document.createElement("div")
+  div.appendChild(document.createTextNode(str))
+  return div.innerHTML
 }
 
 export const createElementHelper = (tag: string, text: string) => {
   // Escape the text content
-  const escapedText = escapeHTML(text);
+  const escapedText = escapeHTML(text)
 
   // Create the element
-  const element = document.createElement(tag);
+  const element = document.createElement(tag)
 
   // Set the escaped text as innerHTML
-  element.innerHTML = escapedText;
+  element.innerHTML = escapedText
 
-  document.body.appendChild(element);
-};
+  return element
+}
 
 export function createSmallTile(tile: any, clickHandler: (id: number) => void) {
   const smallTileDiv = document.createElement("div")
@@ -34,7 +34,10 @@ export function createSmallTile(tile: any, clickHandler: (id: number) => void) {
 
   const smallOverlay = document.createElement("div")
   smallOverlay.className = "tile-info-overlay"
-  smallOverlay.innerHTML = `${createElementHelper("h3", tile.name)}${createElementHelper("p", tile.message)}`
+  const titleEl = createElementHelper("h3", tile.name)
+  const msgEl = createElementHelper("p", tile.message)
+  smallOverlay.appendChild(titleEl)
+  smallOverlay.appendChild(msgEl)
 
   tileImageWrapper.appendChild(smallImg)
   smallTileDiv.appendChild(tileImageWrapper)

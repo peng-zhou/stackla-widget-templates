@@ -53,7 +53,7 @@ expressApp.get("/preview", (req, res) => {
 })
 
 expressApp.get("/autoload", (req, res) => {
-  const { selector, widget, resource } = req.query as { selector: string, widget: string, resource: string }
+  const { selector, widget, resource } = req.query as { selector: string; widget: string; resource: string }
 
   if (!selector) {
     return res.status(400).send("selector is required")
@@ -85,6 +85,6 @@ expressApp.get("/autoload", (req, res) => {
     code,
     isJsCode: resourceWithoutSymbols === "js"
   })
-});
+})
 
 export default expressApp
