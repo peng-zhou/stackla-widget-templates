@@ -23,7 +23,7 @@ module.exports = {
     output: {
       filename: '[name].js',
       libraryTarget: 'commonjs2',
-      path: path.resolve(__dirname, 'dist/')
+      path: path.resolve(__dirname, 'server/')
     },
     plugins: [new CopyWebpackPlugin({
       patterns: [

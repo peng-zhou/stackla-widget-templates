@@ -1,4 +1,5 @@
 const { serverlessConfig } = require("@stackla/base-serverless")
+const { handlerPath } = require("@stackla/lambda-api-bootstrap")
 
 const testingHooks = {
   "before:package:initialize": "npm run dev",
@@ -16,6 +17,7 @@ const plugins : string[] = [
   'serverless-webpack',
   'serverless-offline'
 ];
+
 
 module.exports = {
   ...serverlessConfig({
@@ -42,8 +44,7 @@ module.exports = {
   }),
   functions: {
     main: {
-      handler: 'src/functions/main/handler.main',
-      provisionedConcurrency: 10,
+      handler: `./src/functions/main/handler.main`,
       timeout: 30,
       url: {
         authorizer: "aws_iam" as const
