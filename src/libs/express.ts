@@ -17,6 +17,7 @@ expressApp.set('view engine', 'hbs')
 expressApp.use(cors())
 
 const stripSymbols = (str: string) => str.replace(/[^a-zA-Z0-9]/g, "")
+const stripSymbolsThatAreNotDash = (str: string) => str.replace(/[^a-zA-Z0-9-]/g, "")
 
 // Register preview route
 expressApp.get("/preview", (req, res) => {
@@ -81,7 +82,7 @@ expressApp.get("/autoload", (req, res) => {
   }
 
   res.render("autoload", {
-    selector,
+    selector: stripSymbolsThatAreNotDash(selector),
     code,
     isJsCode: resourceWithoutSymbols === "js"
   })
