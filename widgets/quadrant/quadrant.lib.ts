@@ -8,7 +8,7 @@ export const createElementHelper = (tag: string, text: string) => {
   const element = document.createElement(tag)
 
   // Set the escaped text as innerHTML
-  element.innerHTML = text
+  element.textContent = text
 
   return element
 }
