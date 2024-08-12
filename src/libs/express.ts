@@ -81,6 +81,8 @@ expressApp.get("/autoload", (req, res) => {
     res.set("Content-Type", "text/javascript")
   }
 
+  res.set("Cache-Control", "public, max-age=300")
+
   res.render("autoload", {
     selector: stripSymbolsThatAreNotDash(selector),
     code,
