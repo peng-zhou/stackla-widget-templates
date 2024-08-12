@@ -3,10 +3,24 @@ import type { Sdk } from "@stackla/ugc-widgets"
 declare const sdk: Sdk
 
 // Utility Function to Escape HTML Special Characters
-export const escapeHtml = (str: string) => {
+function escapeHTML(str: string) {
   const div = document.createElement('div');
   div.appendChild(document.createTextNode(str));
   return div.innerHTML;
+}
+
+export const createElementHelper = (tag: string, text: string) => {
+  // Escape the text content
+  const escapedText = escapeHTML(text);
+
+  // Create the element
+  const element = document.createElement(tag);
+
+  // Set the escaped text as innerHTML
+  element.innerHTML = escapedText;
+
+  // Append the element to the body or any other container
+  document.body.appendChild(element);
 };
 
 export function createSmallTile(tile: any, clickHandler: (id: number) => void) {
@@ -21,7 +35,7 @@ export function createSmallTile(tile: any, clickHandler: (id: number) => void) {
 
   const smallOverlay = document.createElement("div")
   smallOverlay.className = "tile-info-overlay"
-  smallOverlay.innerHTML = `<h3>${escapeHtml(tile.name)}</h3><p>${escapeHtml(tile.message)}</p>`
+  smallOverlay.innerHTML = `<h3>${createElementHelper("h3", tile.name)}</h3><p>${createElementHelper("p", tile.message)}</p>`
 
   tileImageWrapper.appendChild(smallImg)
   smallTileDiv.appendChild(tileImageWrapper)
