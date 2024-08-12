@@ -14,9 +14,7 @@ expressApp.use((_req, res, next) => {
 expressApp.use(express.static("dist/widgets", { redirect: false }))
 expressApp.engine('hbs', hbs.__express)
 expressApp.set('view engine', 'hbs')
-expressApp.use(cors({
-  origin: "*"
-}))
+expressApp.use(cors())
 
 const stripSymbols = (str: string) => str.replace(/[^a-zA-Z0-9]/g, "")
 
