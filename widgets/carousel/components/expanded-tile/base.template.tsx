@@ -34,9 +34,9 @@ export default function ExpandedTile(sdk: Sdk) {
         <div className="image-wrapper">
           <div className="image-wrapper-inner">
             <div className="image">
-              {shopspotEnabled && <shopspot-flyout parent={parent} />}
-              {shopspotEnabled && <shopspot-icon parent={parent} />}
-              {tile.image && <img className="image-element" src={tile.image} alt="Tile" />}
+              {shopspotEnabled ? <shopspot-flyout parent={parent} /> : <></>}
+              {shopspotEnabled ? <shopspot-icon parent={parent} /> : <></>}
+              {tile.image ? <img className="image-element" src={tile.image} alt="Tile" /> : <></>}
             </div>
           </div>
         </div>
