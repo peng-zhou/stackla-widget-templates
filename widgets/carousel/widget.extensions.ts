@@ -3,7 +3,7 @@ import { IWidgetSettings } from "../../types/IWidgetSettings"
 import { getConfig } from "./widget.config"
 import { waitForElm } from "widgets/libs/widget.features"
 import Swiper from "swiper"
-import { Navigation, Pagination } from "swiper/modules"
+import { Navigation, Pagination, Manipulation } from "swiper/modules"
 
 declare const sdk: Sdk
 
@@ -11,27 +11,13 @@ export function initializeInlineSwiperListeners() {
   const widgetContainer = sdk.placement.getWidgetContainer()
   const widgetSettings = getConfig(widgetContainer)
 
-  const tiles = sdk.querySelector(".swiper-inline")
+  const swiper = sdk.querySelector(".swiper-inline")
 
-  if (!tiles) {
-    throw new Error("Failed to find tiles or arrow UI element")
+  if (!swiper) {
+    throw new Error("Failed to find swiper element")
   }
 
-  tiles.style.display = ""
   initializeInlineSwiper(widgetSettings)
-
-  const glide = sdk.querySelector(".swiper-inline")
-
-  if (!glide) {
-    throw new Error("Failed to find inline glide element")
-  }
-
-  const arrows = glide.querySelector<HTMLElement>(".glide__arrows")
-  if (!arrows) {
-    throw new Error("Failed to find arrows UI element")
-  }
-
-  arrows.style.display = ""
 }
 
 function initializeInlineSwiper(widgetSettings: IWidgetSettings) {
@@ -78,7 +64,7 @@ function initializeSwiper(widgetSelector: HTMLElement, perView: number) {
   const pagination = ugcContainer!.querySelector<HTMLElement>(".swiper-pagination")
 
   new Swiper(widgetSelector, {
-    modules: [Navigation, Pagination],
+    modules: [Navigation, Pagination, Manipulation],
     slidesPerView: perView,
     spaceBetween: 10,
     centeredSlides: true,
@@ -89,13 +75,25 @@ function initializeSwiper(widgetSelector: HTMLElement, perView: number) {
     observer: true,
     // If we need pagination
     pagination: {
-      el: pagination!
+      el: pagination!,
+      dynamicBullets: true
     },
-
     // Navigation arrows
     navigation: {
       nextEl: next!,
       prevEl: prev!
+    },
+    on: {
+      afterInit: (swiper: Swiper) => {
+        const slidesToRemove = swiper.slides
+          .filter(el => !el.children.length || !!el.querySelector('div.ugc-tile[style*="display: none"]'))
+          .map(matchedEl => matchedEl.getAttribute("data-swiper-slide-index")!)
+          .map(strIndex => Number(strIndex))
+
+        slidesToRemove.forEach(index => swiper.pagination.bullets[index].remove())
+        swiper.removeSlide(slidesToRemove)
+        swiper.update()
+      }
     }
   })
 }
