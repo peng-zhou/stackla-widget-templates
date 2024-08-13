@@ -14,7 +14,6 @@
   max-width: calc(20% - 20px);
   margin-bottom: 20px;
   cursor: pointer;
-  background-color: rgb(44 45 44);
 }
 
 .ugc-tile:not([data-media="image"], [data-media="video"]) {
@@ -32,8 +31,9 @@
 }
 
 .tile-message-wrapper {
-  padding: 20px;
+  padding: 20px 5px;
   position: relative;
+  background-color: white;
 }
 
 .tile-message-wrapper > * {
@@ -83,10 +83,6 @@
 
 .tile-timephrase {
   color: #b9bab9;
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 10px;
   border-radius: 2px;
   font-size: 12px;
   display: var(--tile-timephrase-display);
