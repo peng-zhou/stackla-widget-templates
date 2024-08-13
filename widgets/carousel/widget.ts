@@ -1,6 +1,6 @@
 import type { Sdk } from "@stackla/ugc-widgets"
 import { getConfig } from "./widget.config"
-import { expandedTileTemplate } from "./components/expanded-tile/base.template"
+import expandedTileTemplate from "./components/expanded-tile/base.template"
 import expandedTileStyle from "./components/expanded-tile/base.scss"
 import productsStyle from "./components/products/base.scss"
 import shopspotStyle from "./components/shopspot-icon/base.scss"
