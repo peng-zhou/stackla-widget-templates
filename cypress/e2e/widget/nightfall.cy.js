@@ -1,14 +1,14 @@
-describe('Should test the carousel', () => {
+describe('Should test the nightfall template', () => {
     it('Should pass default tests', () => {
-        cy.widgetTests('carousel');
-    })
+        cy.widgetTests('nightfall');
+    });
 
     it('Should display timephrase in the tile', () => {
-        cy.visitWidget('carousel');
+        cy.visitWidget('nightfall');
 
         cy.getFirstTile().find('.tile-timephrase')
         .should('exist')
         .invoke('text')
         .should('not.be.empty');
     })
-})
+});
