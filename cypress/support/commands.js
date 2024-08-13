@@ -2,6 +2,10 @@ Cypress.Commands.add('visitWidget', (widgetType) => {
     cy.visit(`http://localhost:4002/preview?widgetType=${widgetType}`);
 });
 
+Cypress.Commands.add('getFirstTile', () => {
+    return cy.get('ugc-widget-668ca52ada8fb').shadow().find('.ugc-tile').first();
+});
+
 Cypress.Commands.add('widgetTests', (widgetType) => {
     cy.visitWidget(widgetType);
 
@@ -16,10 +20,7 @@ Cypress.Commands.add('widgetTests', (widgetType) => {
     })
 
     it('should expand tile when clicked', () => {
-        shadowRoot
-            .find('.ugc-tile')
-            .first()
-            .click();
+        cy.getFirstTile().click();
 
         const expandedTile = shadowRoot.get('expanded-tile');
 

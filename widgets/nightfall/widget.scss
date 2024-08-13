@@ -33,6 +33,7 @@
 
 .tile-message-wrapper {
   padding: 20px;
+  position: relative;
 }
 
 .tile-message-wrapper > * {
@@ -86,7 +87,6 @@
   top: 0;
   right: 0;
   padding: 10px;
-  background-color: rgb(255 255 255 / 60%);
   border-radius: 2px;
   font-size: 12px;
   display: var(--tile-timephrase-display);
