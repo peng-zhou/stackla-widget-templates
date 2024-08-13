@@ -11,3 +11,4 @@ describe('Should test the carousel', () => {
         .invoke('text')
         .should('not.be.empty');
     })
+})
