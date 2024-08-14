@@ -42,76 +42,70 @@ export function createSmallTile(tile: any, clickHandler: (id: number) => void) {
 }
 
 export function initializeQuadrant() {
-  let groupCount = 0
-  const imagesPerGroup = 5
+  const imagesPerGroup = 5;
+  let groupCount = 0;
 
-  const ugcTiles = sdk.tiles.getEnabledTiles()
-  const startIndex = groupCount * imagesPerGroup
-  const endIndex = Math.min(startIndex + imagesPerGroup, ugcTiles.length)
-  const container = sdk.querySelector(".quadrant-grid-container")
+  const ugcTiles = sdk.tiles.getEnabledTiles();
+  const container = sdk.querySelector(".quadrant-grid-container");
 
   if (!container) {
-    throw new Error("Container not found")
+    throw new Error("Container not found");
   }
 
-  for (let i = startIndex; i < endIndex; i += imagesPerGroup) {
-    const groupDiv = document.createElement("div")
-    groupDiv.className = "group-container"
+  while (groupCount * imagesPerGroup < ugcTiles.length) {
+    const groupDiv = document.createElement("div");
+    groupDiv.className = "group-container";
+    const currentStartIndex = groupCount * imagesPerGroup;
+    const endIndex = Math.min(currentStartIndex + imagesPerGroup, ugcTiles.length);
+    const prependBigTile = (groupCount % 4 === 0);
 
-    if (i + 4 < endIndex) {
-      const bigTileDiv = document.createElement("div")
-      bigTileDiv.className = "grid-item large"
+    // Create and append small tiles to the group
+    for (let offset = 0; offset < imagesPerGroup - 1 && currentStartIndex + offset < endIndex; offset++) {
+      const smallTileDiv = createSmallTile(ugcTiles[currentStartIndex + offset], handleClickedTileEvents);
+      groupDiv.appendChild(smallTileDiv);
+    }
 
-      const tileImageWrapper = document.createElement("div")
-      tileImageWrapper.className = "tile-image-wrapper"
+    // Create big tile div
+    if (currentStartIndex + imagesPerGroup - 1 < ugcTiles.length) {
+      const bigTile = ugcTiles[currentStartIndex + imagesPerGroup - 1];
+      const bigTileDiv = document.createElement("div");
+      bigTileDiv.className = "grid-item large";
 
-      const bigImg = document.createElement("img")
-      bigImg.src = ugcTiles[i + 4].image
+      const tileImageWrapper = document.createElement("div");
+      tileImageWrapper.className = "tile-image-wrapper";
 
-      const bigOverlay = document.createElement("div")
-      bigOverlay.className = "tile-info-overlay"
-      bigOverlay.innerHTML = `<h3>${ugcTiles[i + 4].name}</h3><p>${ugcTiles[i + 4].message}</p>`
+      const bigImg = document.createElement("img");
+      bigImg.src = bigTile.image;
 
-      tileImageWrapper.appendChild(bigImg)
-      bigTileDiv.appendChild(tileImageWrapper)
-      bigTileDiv.appendChild(bigOverlay)
+      const bigOverlay = document.createElement("div");
+      bigOverlay.className = "tile-info-overlay";
+      bigOverlay.innerHTML = `<h3>${bigTile.name}</h3><p>${bigTile.message}</p>`;
+
+      tileImageWrapper.appendChild(bigImg);
+      bigTileDiv.appendChild(tileImageWrapper);
+      bigTileDiv.appendChild(bigOverlay);
       bigTileDiv.addEventListener("click", () => {
-        handleClickedTileEvents(ugcTiles[i + 4].id)
-      })
+        handleClickedTileEvents(bigTile.id);
+      });
 
-      if (groupCount % 2 === 1) {
-        // Odd index: Insert big image at the bottom
-        for (let j = 0; j < 4; j++) {
-          if (i + j < endIndex) {
-            const smallTileDiv = createSmallTile(ugcTiles[i + j], handleClickedTileEvents)
-            groupDiv.appendChild(smallTileDiv)
-          }
-        }
-        groupDiv.appendChild(bigTileDiv)
+      if (prependBigTile) {
+        groupDiv.insertBefore(bigTileDiv, groupDiv.firstChild);
       } else {
-        // Even index: Insert big image at the top
-        groupDiv.appendChild(bigTileDiv)
-        for (let j = 0; j < 4; j++) {
-          if (i + j < endIndex) {
-            const smallTileDiv = createSmallTile(ugcTiles[i + j], handleClickedTileEvents)
-            groupDiv.appendChild(smallTileDiv)
-          }
-        }
+        groupDiv.appendChild(bigTileDiv);
       }
     }
 
-    container.appendChild(groupDiv)
-    groupCount++
-    if (groupCount >= ugcTiles.length / imagesPerGroup) {
-      const loadMoreButton = sdk.querySelector("#load-more")
-
-      if (!loadMoreButton) {
-        throw new Error("Load more button not found")
-      }
-
-      loadMoreButton.style.display = "none"
-    }
+    container.appendChild(groupDiv);
+    groupCount++;
   }
+
+  const loadMoreButton = sdk.querySelector("#load-more");
+
+  if (!loadMoreButton) {
+    throw new Error("Load more button not found");
+  }
+
+  loadMoreButton.style.display = groupCount >= Math.ceil(ugcTiles.length / imagesPerGroup) ? "none" : "block";
 }
 
 function handleClickedTileEvents(tileId) {
