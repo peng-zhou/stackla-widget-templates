@@ -12,9 +12,7 @@ export function initializeSwiper(widgetSelector: HTMLElement, perView: number, m
   const next = ugcContainer!.querySelector<HTMLElement>(".swiper-button-next")
   const pagination = ugcContainer!.querySelector<HTMLElement>(".swiper-pagination")
 
-  if (sdk[mode]) {
-    sdk[mode].destroy(true, true)
-  }
+  sdk[mode]?.destroy(true, true)
 
   sdk[mode] = new Swiper(widgetSelector, {
     modules: [Navigation, Pagination, Manipulation],
@@ -27,7 +25,8 @@ export function initializeSwiper(widgetSelector: HTMLElement, perView: number, m
     observeParents: true,
     observer: true,
     pagination: {
-      el: pagination!
+      el: pagination!,
+      dynamicBullets: true
     },
     navigation: {
       nextEl: next!,
@@ -45,15 +44,4 @@ export function initializeSwiper(widgetSelector: HTMLElement, perView: number, m
 export function refreshSwiper(mode: SwiperMode) {
   sdk[mode]?.disable()
   sdk[mode]?.update()
-}
-
-function updateTiles(mode: SwiperMode) {
-  const hiddenTiles = Array.from(sdk.placement.getAllHiddenTilesInDom())
-  const hiddenTileIds = hiddenTiles.map(hidTile => hidTile.getAttribute("data-id"))
-
-  const indexesToRemove = hiddenTileIds.map(id =>
-    sdk[mode]!.slides.findIndex(slide => slide.querySelector(`div.ugc-tile[data-id="${id}"]`))
-  )
-
-  sdk[mode]?.removeSlide(indexesToRemove)
 }
