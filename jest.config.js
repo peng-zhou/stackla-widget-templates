@@ -29,6 +29,9 @@ module.exports = {
   coverageReporters: ["json", "lcov", "text", "clover", "html"],
   transform: {
     "^.+\\.js$": "babel-jest",
-    "^.+\\.ts$": "ts-jest"
-  }
+    "^.+\\.(ts|tsx)$": "ts-jest"
+  },
+  transformIgnorePatterns: [
+    "/node_modules/(?!(@stackla)/)"
+  ]
 }

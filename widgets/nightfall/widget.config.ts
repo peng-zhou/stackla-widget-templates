@@ -36,6 +36,7 @@ export function getConfig(widgetContainer: WidgetContainer): IWidgetSettings {
     shopspot_icon: widgetStyle?.shopspot_icon,
     show_caption: widgetConfig?.tile_options?.show_caption ?? true,
     inline_tile_show_shopspots: widgetConfig?.tile_options?.show_shopspots ?? false,
+    inline_tile_show_timestamps: widgetConfig?.tile_options?.show_timestamps ?? false,
     expanded_tile_show_sharing: widgetConfig?.lightbox?.show_sharing ?? false,
     expanded_tile_show_products: widgetConfig?.lightbox?.show_products ?? false,
     expanded_tile_show_caption: widgetConfig?.lightbox?.show_caption ?? false,

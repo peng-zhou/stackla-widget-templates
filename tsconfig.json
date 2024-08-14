@@ -27,8 +27,13 @@
       "skipLibCheck": true,
       "resolveJsonModule": true,
       "paths": {
-        "@styles/*": ["./widgets/styles/*"]
-      }
+        "@styles/*": ["./widgets/styles/*"],
+        "@utils/*": ["./widgets/utils/*"],
+        "jsx-html": ["./node_modules/@stackla/ugc-widgets/src/ui/core/utils/jsx-html"]
+      },
+      "jsx": "react",
+      "jsxFactory": "createElement",
+      "jsxFragmentFactory": "createFragment"
     },
     "include": ["widgets/**/*.ts"],
     "exclude": []

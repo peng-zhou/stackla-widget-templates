@@ -21,7 +21,8 @@
       "promise/prefer-await-to-then": "error",
       "@typescript-eslint/no-explicit-any": "error",
       "@typescript-eslint/consistent-type-assertions": ["warn", { "assertionStyle": "never" }],
-      "no-console": "warn"
+      "no-console": "warn",
+      "@typescript-eslint/no-unused-vars": ["error", { "varsIgnorePattern": "create(Element|Fragment)" }]
     },
     "ignorePatterns": [
       "node_modules/", 
