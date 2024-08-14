@@ -4,9 +4,14 @@ import { expandedTileTemplate } from "./components/expanded-tile/base.template"
 import expandedTileStyle from "./components/expanded-tile/base.scss"
 import productsStyle from "./components/products/base.scss"
 import shopspotStyle from "./components/shopspot-icon/base.scss"
-import swiperCssBundle from "swiper/swiper-bundle.css"
-import { onTileExpand, initializeInlineSwiperListeners, onTileClosed } from "./widget.extensions"
-import { registerLoadListener } from "widgets/libs/tile.listeners"
+import {
+  onTileExpand,
+  initializeInlineSwiperListeners,
+  onTileClosed,
+  hideSlidesWithInvisibleTiles,
+  onPreloadTileHidden
+} from "./widget.extensions"
+import { registerLoadListener, registerPreloadTileHidden, registerTilesUpdated } from "widgets/libs/tile.listeners"
 import {
   addAutoAddTileFeature,
   loadExpandedTileFeature,
@@ -16,6 +21,7 @@ import {
 } from "widgets/libs/widget.features"
 import { addCSSVariablesToPlacement } from "widgets/libs/widget.layout"
 import getCSSVariables from "widgets/libs/css-variables"
+import { refreshSwiper } from "@widgets/libs/extensions/swiper.extension"
 
 declare const sdk: Sdk
 sdk.tiles.preloadImages = true
@@ -32,6 +38,8 @@ registerLoadListener(initializeInlineSwiperListeners)
 addAutoAddTileFeature(widgetSettings)
 loadExpandedTileFeature(widgetSettings, onTileExpand, onTileClosed)
 loadHoverTile(widgetSettings)
+registerTilesUpdated(hideSlidesWithInvisibleTiles)
+registerPreloadTileHidden(onPreloadTileHidden)
 
 // FIXME Find a better option?
 sdk.addGlobalCSSUrl("https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css")

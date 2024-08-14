@@ -34,7 +34,16 @@ export function registerTileClosedListener(fn: () => void = () => {}) {
 }
 
 export function registerLoadListener(fn: () => void) {
-  sdk.addEventListener("load", () => {
-    fn()
+  sdk.addEventListener("load", fn)
+}
+
+export function registerTilesUpdated(fn: () => void) {
+  sdk.placement.events.addUgcEventListener("tilesUpdated", () => setTimeout(fn, 500))
+}
+
+export function registerPreloadTileHidden(fn: (id: string) => void) {
+  sdk.placement.events.addUgcEventListener("preloadTileHidden", async event => {
+    const tileId = (event as CustomEvent).detail.data.id
+    fn(tileId)
   })
 }

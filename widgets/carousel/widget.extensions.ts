@@ -2,8 +2,7 @@ import type { Sdk } from "@stackla/ugc-widgets"
 import { IWidgetSettings } from "../../types/IWidgetSettings"
 import { getConfig } from "./widget.config"
 import { waitForElm } from "widgets/libs/widget.features"
-import Swiper from "swiper"
-import { Navigation, Pagination, Manipulation } from "swiper/modules"
+import { initializeSwiper, refreshSwiper } from "@widgets/libs/extensions/swiper.extension"
 
 declare const sdk: Sdk
 
@@ -57,47 +56,6 @@ function initializeExtendedSwiper() {
   initializeSwiper(widgetSelector, 1)
 }
 
-function initializeSwiper(widgetSelector: HTMLElement, perView: number) {
-  const ugcContainer = sdk.querySelector("#nosto-ugc-container")
-  const prev = ugcContainer!.querySelector<HTMLElement>(".swiper-button-prev")
-  const next = ugcContainer!.querySelector<HTMLElement>(".swiper-button-next")
-  const pagination = ugcContainer!.querySelector<HTMLElement>(".swiper-pagination")
-
-  new Swiper(widgetSelector, {
-    modules: [Navigation, Pagination, Manipulation],
-    slidesPerView: perView,
-    spaceBetween: 10,
-    centeredSlides: true,
-    hashNavigation: true,
-    loop: true,
-    direction: "horizontal",
-    observeParents: true,
-    observer: true,
-    // If we need pagination
-    pagination: {
-      el: pagination!,
-      dynamicBullets: true
-    },
-    // Navigation arrows
-    navigation: {
-      nextEl: next!,
-      prevEl: prev!
-    },
-    on: {
-      afterInit: (swiper: Swiper) => {
-        const slidesToRemove = swiper.slides
-          .filter(el => !el.children.length || !!el.querySelector('div.ugc-tile[style*="display: none"]'))
-          .map(matchedEl => matchedEl.getAttribute("data-swiper-slide-index")!)
-          .map(strIndex => Number(strIndex))
-
-        slidesToRemove.forEach(index => swiper.pagination.bullets[index].remove())
-        swiper.removeSlide(slidesToRemove)
-        swiper.update()
-      }
-    }
-  })
-}
-
 export function onTileExpand() {
   const arrows = sdk.querySelector(".glide__arrows")
   if (!arrows) {
@@ -126,4 +84,42 @@ export function onTileClosed() {
   const expandedTile = sdk.querySelector("expanded-tile")
 
   expandedTile?.closest("div.expanded-tile-container")?.classList.remove("expanded-tile-overlay")
+}
+
+export function hideSlidesWithInvisibleTiles() {
+  const ugcContainer = sdk.placement.querySelector("#nosto-ugc-container")
+  const widgetSelector = sdk.placement.querySelector(".swiper")
+  const slides = widgetSelector?.querySelectorAll<HTMLElement>(".swiper-slide")
+
+  slides?.forEach(slide => {
+    if (!slide.children.length || !!slide.querySelector('div.ugc-tile[style="display: none;"]')) {
+      slide.remove()
+    }
+  })
+
+  const totalSlides = widgetSelector?.querySelectorAll(".swiper-slide").length || 0
+  const totalPaginationBullets = ugcContainer?.querySelectorAll(".swiper-pagination-bullet").length || 0
+
+  if (totalPaginationBullets > totalSlides) {
+    const additionalBullets = totalPaginationBullets - totalSlides
+    const bullets = ugcContainer!.querySelectorAll<HTMLElement>(".swiper-pagination-bullet")
+    Array.from(Array(additionalBullets).keys()).forEach(index => {
+      if (bullets[index]) {
+        bullets[index].remove()
+      }
+    })
+  }
+  initializeInlineSwiperListeners()
+}
+
+export function onPreloadTileHidden(tileId: string) {
+  const ugcContainer = sdk.placement.querySelector("#nosto-ugc-container")
+  const widgetSelector = sdk.placement.querySelector(".swiper")
+  const slides = Array.from(widgetSelector?.querySelectorAll<HTMLElement>(".swiper-slide") || [])
+
+  slides.find(slide => slide.querySelector(`div.ugc-tile[data-id="${tileId}"]`))?.remove()
+
+  Array.from(ugcContainer!.querySelectorAll<HTMLElement>(".swiper-pagination-bullet")).pop()
+
+  refreshSwiper("swiperInline")
 }

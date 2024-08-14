@@ -90,10 +90,6 @@
   border-radius: 5px;
   overflow: hidden;
 
-    &:not(:has(.ugc-tile)), &:has(.ugc-tile[style*="display: none"]) {
-      display: none;
-    }
-
   .ugc-tile {
     img {
       height: 200px;

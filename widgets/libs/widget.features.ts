@@ -70,7 +70,7 @@ export const arrowClickListener = (e: Event) => {
     filterId: sdk.placement.getWidgetContainer().widgetOptions?.filterId
   }
 
-  sdk.triggerEvent("tileExpandClose")
+  sdk.triggerEvent("expandedTileClose")
   sdk.triggerEvent("tileExpand", tileData)
 }
 
