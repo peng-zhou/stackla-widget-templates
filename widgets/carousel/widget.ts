@@ -11,7 +11,11 @@ import {
   hideSlidesWithInvisibleTiles,
   onPreloadTileHidden
 } from "./widget.extensions"
-import { registerLoadListener, registerPreloadTileHidden, registerTilesUpdated } from "widgets/libs/tile.listeners"
+import {
+  registerPreloadTileHidden,
+  registerTilesUpdated,
+  registerWidgetInitComplete
+} from "widgets/libs/tile.listeners"
 import {
   addAutoAddTileFeature,
   loadExpandedTileFeature,
@@ -21,7 +25,6 @@ import {
 } from "widgets/libs/widget.features"
 import { addCSSVariablesToPlacement } from "widgets/libs/widget.layout"
 import getCSSVariables from "widgets/libs/css-variables"
-import { refreshSwiper } from "@widgets/libs/extensions/swiper.extension"
 
 declare const sdk: Sdk
 sdk.tiles.preloadImages = true
@@ -34,7 +37,7 @@ const widgetSettings = getConfig(widgetContainer)
 loadWidgetIsEnabled(widgetSettings)
 addCSSVariablesToPlacement(getCSSVariables(widgetSettings))
 loadTitle()
-registerLoadListener(initializeInlineSwiperListeners)
+registerWidgetInitComplete(initializeInlineSwiperListeners)
 addAutoAddTileFeature(widgetSettings)
 loadExpandedTileFeature(widgetSettings, onTileExpand, onTileClosed)
 loadHoverTile(widgetSettings)

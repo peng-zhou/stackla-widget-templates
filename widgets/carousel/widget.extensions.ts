@@ -53,7 +53,7 @@ function initializeExtendedSwiper() {
 
   arrows.forEach(it => (it.style.display = ""))
 
-  initializeSwiper(widgetSelector, 1)
+  //initializeSwiper(widgetSelector, 1)
 }
 
 export function onTileExpand() {
@@ -87,39 +87,23 @@ export function onTileClosed() {
 }
 
 export function hideSlidesWithInvisibleTiles() {
-  const ugcContainer = sdk.placement.querySelector("#nosto-ugc-container")
-  const widgetSelector = sdk.placement.querySelector(".swiper")
-  const slides = widgetSelector?.querySelectorAll<HTMLElement>(".swiper-slide")
+  const widgetSelectorWrapper = sdk.placement.querySelector(".swiper-wrapper")
+  const slides = widgetSelectorWrapper?.querySelectorAll<HTMLElement>(".swiper-slide")
 
   slides?.forEach(slide => {
     if (!slide.children.length || !!slide.querySelector('div.ugc-tile[style="display: none;"]')) {
       slide.remove()
     }
   })
-
-  const totalSlides = widgetSelector?.querySelectorAll(".swiper-slide").length || 0
-  const totalPaginationBullets = ugcContainer?.querySelectorAll(".swiper-pagination-bullet").length || 0
-
-  if (totalPaginationBullets > totalSlides) {
-    const additionalBullets = totalPaginationBullets - totalSlides
-    const bullets = ugcContainer!.querySelectorAll<HTMLElement>(".swiper-pagination-bullet")
-    Array.from(Array(additionalBullets).keys()).forEach(index => {
-      if (bullets[index]) {
-        bullets[index].remove()
-      }
-    })
-  }
-  initializeInlineSwiperListeners()
+  refreshSwiper("swiperInline")
 }
 
 export function onPreloadTileHidden(tileId: string) {
-  const ugcContainer = sdk.placement.querySelector("#nosto-ugc-container")
-  const widgetSelector = sdk.placement.querySelector(".swiper")
-  const slides = Array.from(widgetSelector?.querySelectorAll<HTMLElement>(".swiper-slide") || [])
+  const widgetSelectorWrapper = sdk.placement.querySelector(".swiper-wrapper")
+  const slides = Array.from(widgetSelectorWrapper?.querySelectorAll<HTMLElement>(".swiper-slide") || [])
 
-  slides.find(slide => slide.querySelector(`div.ugc-tile[data-id="${tileId}"]`))?.remove()
-
-  Array.from(ugcContainer!.querySelectorAll<HTMLElement>(".swiper-pagination-bullet")).pop()
+  const swiperSlide = slides.find(slide => slide.querySelector(`div.ugc-tile[data-id="${tileId}"]`))
+  swiperSlide?.remove()
 
   refreshSwiper("swiperInline")
 }

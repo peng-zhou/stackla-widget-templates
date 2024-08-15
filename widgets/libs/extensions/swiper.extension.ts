@@ -1,6 +1,6 @@
 import Swiper from "swiper"
 import { ISdkSwiper } from "../../../types/ISdkSwiper"
-import { Manipulation, Navigation, Pagination } from "swiper/modules"
+import { Manipulation, Navigation } from "swiper/modules"
 
 declare const sdk: ISdkSwiper
 
@@ -10,38 +10,31 @@ export function initializeSwiper(widgetSelector: HTMLElement, perView: number, m
   const ugcContainer = sdk.querySelector("#nosto-ugc-container")
   const prev = ugcContainer!.querySelector<HTMLElement>(".swiper-button-prev")
   const next = ugcContainer!.querySelector<HTMLElement>(".swiper-button-next")
-  const pagination = ugcContainer!.querySelector<HTMLElement>(".swiper-pagination")
 
-  sdk[mode]?.destroy(true, true)
+  sdk[mode]?.destroy(true)
 
   sdk[mode] = new Swiper(widgetSelector, {
-    modules: [Navigation, Pagination, Manipulation],
+    modules: [Navigation, Manipulation],
     slidesPerView: perView,
     spaceBetween: 10,
-    centeredSlides: true,
     hashNavigation: true,
-    loop: true,
-    direction: "horizontal",
     observeParents: true,
     observer: true,
-    pagination: {
-      el: pagination!,
-      dynamicBullets: true
-    },
+    loop: true,
+    direction: "horizontal",
+    noSwiping: true,
     navigation: {
       nextEl: next!,
       prevEl: prev!
     },
     on: {
-      update: swiper => {
+      afterInit: swiper => {
         swiper.slideToLoop(0, 0, false)
-        sdk[mode]?.enable()
       }
     }
   })
 }
 
 export function refreshSwiper(mode: SwiperMode) {
-  sdk[mode]?.disable()
   sdk[mode]?.update()
 }

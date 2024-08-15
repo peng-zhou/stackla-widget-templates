@@ -38,12 +38,16 @@ export function registerLoadListener(fn: () => void) {
 }
 
 export function registerTilesUpdated(fn: () => void) {
-  sdk.placement.events.addUgcEventListener("tilesUpdated", () => setTimeout(fn, 500))
+  sdk.addEventListener("tilesUpdated", () => setTimeout(fn, 200))
 }
 
 export function registerPreloadTileHidden(fn: (id: string) => void) {
-  sdk.placement.events.addUgcEventListener("preloadTileHidden", async event => {
+  sdk.addEventListener("preloadTileHidden", async event => {
     const tileId = (event as CustomEvent).detail.data.id
     fn(tileId)
   })
+}
+
+export function registerWidgetInitComplete(fn: () => void) {
+  sdk.addEventListener("widgetInitComplete", () => setTimeout(fn, 1000))
 }
