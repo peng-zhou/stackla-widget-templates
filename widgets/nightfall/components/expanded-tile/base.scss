@@ -3,6 +3,7 @@
   box-sizing: border-box;
   margin: 30px auto;
   max-width: 1060px;
+  overflow: visible;
   position: relative;
   vertical-align: middle;
   width: 100%;
@@ -24,6 +25,24 @@
   flex-wrap: nowrap;
   place-content: center center;
   align-items: center;
+}
+
+.tag {
+  display: inline-block;
+  background-color: white;
+  font-size: 14px;
+  border-radius: 5px;
+  max-width: 120px;
+  text-align: center;
+  overflow-x: hidden;
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
+  padding: 5px;
+  margin: 2px;
+
+  a {
+    text-decoration: none;
+  }
 }
 
 .panel {
@@ -141,9 +160,9 @@ div.image {
 }
 
 .caption-paragraph {
-  color: #090909;
+  color: white;
   display: inline-block;
-  font-size: 12px;
+  font-size: 16px;
   line-height: 2;
   text-align: left;
   width: 100%;

@@ -1,55 +1,46 @@
-declare const sdk: Sdk;
+declare const sdk: ISdkMasonry
 
-import { getConfig } from "./widget.config";
-import type { Sdk } from "@stackla/types";
-import {
-  initializeMasonry,
-  loadMoreMasonryTiles,
-  refreshMasonryLayout,
-} from "../libs/extensions/masonry.extension";
+import { getConfig } from "./widget.config"
+import { initializeMasonry, refreshMasonryLayout } from "../libs/extensions/masonry.extension"
 import {
   addAutoAddTileFeature,
   addLoadMoreButtonFeature,
   addTilesPerPageFeature,
   loadExpandedTileFeature,
   loadTitle,
-} from "widgets/libs/tile.features";
-import { loadExpandSettingComponents } from "widgets/libs/widget.components";
-import { IWidgetSettings } from "types/IWidgetSettings";
-import customExpandedTileTemplate from "./components/expanded-tile/base.template";
-import customExpandedTileCSS from "./components/expanded-tile/base.scss";
-import customProductsCSS from "./components/products/base.scss";
-import getCSSVariables from "./css.variables";
-import { addCSSVariablesToPlacement } from "widgets/libs/widget.layout";
-import { onTileClose } from "./widget.listeners";
+  loadWidgetIsEnabled
+} from "widgets/libs/widget.features"
+import { loadExpandSettingComponents } from "widgets/libs/widget.components"
+import customExpandedTileTemplate from "./components/expanded-tile/base.template"
+import customExpandedTileCSS from "./components/expanded-tile/base.scss"
+import customProductsCSS from "./components/products/base.scss"
+import shopspotStyle from "./components/shopspot-icon/base.scss"
+import getCSSVariables from "../libs/css-variables"
+import { addCSSVariablesToPlacement } from "widgets/libs/widget.layout"
+import { onTileClose } from "./widget.listeners"
+import { ISdkMasonry } from "types/ISdkMasonry"
 
-sdk.tiles.setLoadMode("all");
-sdk.tiles.hideBrokenTiles = true;
-sdk.tiles.preloadImages = true;
+sdk.tiles.setLoadMode("all")
+sdk.tiles.hideBrokenTiles = true
+sdk.tiles.preloadImages = true
 
-const widgetContainer = sdk.placement.getWidgetContainer();
-const widgetSettings = getConfig(widgetContainer);
-const ugcTiles = sdk.tiles.tiles;
-const ugcTilesLength = Object.keys(ugcTiles).length;
+const widgetContainer = sdk.placement.getWidgetContainer()
+const widgetSettings = getConfig(widgetContainer)
 
-const showWidget = widgetContainer.enabled;
+loadWidgetIsEnabled(widgetSettings)
+loadTitle()
+loadExpandSettingComponents(widgetSettings)
+addAutoAddTileFeature(widgetSettings)
+loadExpandedTileFeature(widgetSettings, () => {}, onTileClose)
+addTilesPerPageFeature(widgetSettings)
+addLoadMoreButtonFeature(widgetSettings)
+addCSSVariablesToPlacement(getCSSVariables(widgetSettings))
 
-if (!showWidget) {
-  throw new Error("Widget is not enabled");
-}
+initializeMasonry()
 
-loadTitle();
-loadExpandSettingComponents(widgetSettings);
-addAutoAddTileFeature<IWidgetSettings>(widgetSettings);
-loadExpandedTileFeature(widgetSettings, () => {}, onTileClose);
-addTilesPerPageFeature<IWidgetSettings>(widgetSettings);
-addLoadMoreButtonFeature<IWidgetSettings>(widgetSettings);
-addCSSVariablesToPlacement(getCSSVariables());
+sdk.addEventListener("tilesUpdated", refreshMasonryLayout)
 
-sdk.addEventListener("load", () => initializeMasonry());
-sdk.addEventListener("moreLoad", () => loadMoreMasonryTiles());
-sdk.addEventListener("tilesUpdated", () => refreshMasonryLayout());
-
-sdk.addCSSToComponent(customExpandedTileCSS, "expanded-tile");
-sdk.addCSSToComponent(customProductsCSS, "ugc-products");
-sdk.addTemplateToComponent(customExpandedTileTemplate, "expanded-tile");
+sdk.addCSSToComponent(customExpandedTileCSS, "expanded-tile")
+sdk.addCSSToComponent(customProductsCSS, "ugc-products")
+sdk.addCSSToComponent(shopspotStyle, "shopspot-icon")
+sdk.addTemplateToComponent(customExpandedTileTemplate, "expanded-tile")

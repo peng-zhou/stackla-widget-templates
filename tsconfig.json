@@ -4,7 +4,7 @@
       "target": "ES6",
       "module": "CommonJS",
       "lib": [
-        "DOM",
+        "DOM"
       ],
       "declaration": true,
       "declarationMap": true,
@@ -25,7 +25,15 @@
       "noImplicitOverride": true,
       "esModuleInterop": true,
       "skipLibCheck": true,
-      "resolveJsonModule": true
+      "resolveJsonModule": true,
+      "paths": {
+        "@styles/*": ["./widgets/styles/*"],
+        "@utils/*": ["./widgets/utils/*"],
+        "jsx-html": ["./node_modules/@stackla/ugc-widgets/src/ui/core/utils/jsx-html"]
+      },
+      "jsx": "react",
+      "jsxFactory": "createElement",
+      "jsxFragmentFactory": "createFragment"
     },
     "include": ["widgets/**/*.ts"],
     "exclude": []
