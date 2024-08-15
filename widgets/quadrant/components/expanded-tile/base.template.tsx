@@ -1,15 +1,24 @@
 import type { Sdk } from "@stackla/ugc-widgets"
-import { Tile } from "@stackla/ugc-widgets"
-import { IWidgetSettings } from "../../../../types/IWidgetSettings"
+import { getConfig } from "../../widget.config"
 import { getTimephrase } from "../../../libs/tile.lib"
 import { createElement, createFragment } from "jsx-html"
 
-export const tileTemplate = (sdk: Sdk, widgetSettings: IWidgetSettings, tile: Tile) => {
-    const shopspotEnabled = sdk.isComponentLoaded("shopspots") && widgetSettings.expanded_tile_show_shopspots
-    const productsEnabled = sdk.isComponentLoaded("products") && widgetSettings.expanded_tile_show_products
-    const parent = sdk.getNodeId()
-    return (
-        <div className="panel">
+declare const sdk: Sdk
+
+export default function initializeQuadrant() {
+  const widgetContainer = sdk.placement.getWidgetContainer()
+  const widgetSettings = getConfig(widgetContainer)
+  const tile = sdk.tiles.getTile()
+
+  if (!tile) {
+    throw new Error("Failed to find expanded tile")
+  }
+
+  const shopspotEnabled = sdk.isComponentLoaded("shopspots") && widgetSettings.expanded_tile_show_shopspots
+  const productsEnabled = sdk.isComponentLoaded("products") && widgetSettings.expanded_tile_show_products
+  const parent = sdk.getNodeId()
+
+  return <div className="panel">
             <a className="exit" href="#">
                 <span className="widget-icon close-white"></span>
             </a>
@@ -101,5 +110,4 @@ export const tileTemplate = (sdk: Sdk, widgetSettings: IWidgetSettings, tile: Ti
                 </div>
             </div>
         </div>
-    )
 }
