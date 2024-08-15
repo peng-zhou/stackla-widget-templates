@@ -37,15 +37,18 @@ if (!showWidget) {
 }
 
 loadTitle()
-addCSSVariablesToPlacement(getCSSVariables())
+const cssVariablesToString = Object.entries(getCSSVariables())
+  .map(([key, value]) => `${key}: ${value};`)
+  .join("\n")
+addCSSVariablesToPlacement(cssVariablesToString)
 addAutoAddTileFeature<IWidgetSettings>(widgetSettings)
 loadExpandedTileFeature(widgetSettings)
 addTilesPerPageFeature<IWidgetSettings>(widgetSettings)
 addLoadMoreButtonFeature<IWidgetSettings>(widgetSettings)
 
-sdk.addEventListener("load", () => initializeMasonry())
-sdk.addEventListener("moreLoad", () => loadMoreMasonryTiles())
-sdk.addEventListener("tilesUpdated", () => refreshMasonryLayout())
+sdk.addEventListener("load", initializeMasonry)
+sdk.addEventListener("moreLoad", loadMoreMasonryTiles)
+sdk.addEventListener("tilesUpdated", refreshMasonryLayout)
 sdk.addCSSToComponent(expandedTileCSS, "expanded-tile")
 sdk.addCSSToComponent(productsCSS, "ugc-products")
 sdk.addTemplateToComponent(customExpandedTileTemplate, "expanded-tile")

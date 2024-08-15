@@ -1,8 +1,12 @@
-import type { WidgetContainer } from "@stackla/types"
+import type { WidgetContainer } from "@stackla/ugc-widgets"
 import { IWidgetSettings } from "types/IWidgetSettings"
 
 export function getConfig(widgetContainer: WidgetContainer): IWidgetSettings {
   const { enabled, widgetOptions } = widgetContainer
+
+  if (!enabled) {
+    throw new Error("Widget is not enabled")
+  }
 
   const { widgetStyle, widgetConfig } = widgetOptions
 
@@ -57,10 +61,6 @@ export function getConfig(widgetContainer: WidgetContainer): IWidgetSettings {
     expanded_tile_show_shopspots: widgetConfig.lightbox.show_shopspots ?? false,
     expanded_tile_show_timestamp: widgetConfig.lightbox.show_timestamp ?? true,
     expanded_tile_show_add_to_cart: widgetConfig.lightbox.show_add_to_cart ?? false
-  }
-
-  if (!enabled) {
-    throw new Error("Widget is not enabled")
   }
 
   return widgetSettings
