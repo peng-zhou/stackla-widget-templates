@@ -29,12 +29,12 @@
       "paths": {
         "@styles/*": ["./widgets/styles/*"],
         "@utils/*": ["./widgets/utils/*"],
-        "jsx-html": ["./node_modules/@stackla/ugc-widgets/src/ui/core/utils/jsx-html"]
+        "jsx-html": ["./node_modules/@stackla/ugc-widgets/src/ui/core/utils/jsx-html"],
+        "@extensions/*": ["./widgets/libs/extensions/*"]
       },
       "jsx": "react",
       "jsxFactory": "createElement",
       "jsxFragmentFactory": "createFragment"
     },
-    "include": ["widgets/**/*.ts"],
-    "exclude": []
+    "include": ["widgets/**/*.ts", "widgets/**/*.tsx"]
   }

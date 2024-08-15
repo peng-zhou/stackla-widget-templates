@@ -2,7 +2,7 @@ import type { Sdk } from "@stackla/ugc-widgets"
 import { IWidgetSettings } from "../../types/IWidgetSettings"
 import { getConfig } from "./widget.config"
 import { waitForElm } from "widgets/libs/widget.features"
-import { initializeSwiper, refreshSwiper } from "@widgets/libs/extensions/swiper.extension"
+import { initializeSwiper, refreshSwiper } from "@extensions/swiper.extension"
 
 declare const sdk: Sdk
 

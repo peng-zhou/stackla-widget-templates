@@ -163,7 +163,7 @@ export function loadTitle() {
 }
 
 export function toggleInlineTile(tile: HTMLElement) {
-  /* const tags = tile.querySelector(".tile-tags")
+  const tags = tile.querySelector(".tile-tags")
 
   if (!tags) {
     throw new Error("Failed to find tile tags")
@@ -173,7 +173,7 @@ export function toggleInlineTile(tile: HTMLElement) {
     tags.classList.remove("inactive")
   } else {
     tags.classList.add("inactive")
-  } */
+  }
 }
 
 export function loadHoverTile<T extends BaseConfig>(widgetSettings: T) {
