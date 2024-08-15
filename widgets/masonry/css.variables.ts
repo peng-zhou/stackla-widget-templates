@@ -1,11 +1,11 @@
-import type { Sdk } from "@stackla/types";
-import { getConfig } from "./widget.config";
+import type { Sdk } from "@stackla/types"
+import { getConfig } from "./widget.config"
 
-declare const sdk: Sdk;
+declare const sdk: Sdk
 
 export default function getCSSVariables() {
-  const widgetContainer = sdk.placement.getWidgetContainer();
-  const widgetSettings = getConfig(widgetContainer);
+  const widgetContainer = sdk.placement.getWidgetContainer()
+  const widgetSettings = getConfig(widgetContainer)
 
   return `
         --widget-background: #${widgetSettings.widget_background};
@@ -24,5 +24,5 @@ export default function getCSSVariables() {
         ? widgetSettings.text_tile_user_handle_font_size
         : 12};
         --show-caption: ${widgetSettings.show_caption ? "block" : "none"};
-    `;
+    `
 }
