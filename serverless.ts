@@ -12,25 +12,29 @@ const productionHooks = {
   "before:webpack:compile:compile": "npm run build"
 }
 
-const plugins: string[] = ["serverless-webpack", "serverless-offline"]
+const plugins : string[] = [
+  'serverless-webpack',
+  'serverless-offline'
+];
+
 
 module.exports = {
   ...serverlessConfig({
-    plugins: plugins,
-    service: "widget-templates",
-    offlinePort: process.env.APP_ENV == "testing" ? 4002 : 80,
-    custom: {
-      scriptable: {
-        hooks: process.env.APP_ENV === "testing" ? testingHooks : productionHooks
-      },
-      package: {
-        include: ["views/**/*", "dist/**/*"]
-      }
+  plugins: plugins,
+  service: "widget-templates",
+  offlinePort: process.env.APP_ENV == "testing" ? 4002 : 80,
+  custom: {
+    scriptable: {
+      hooks: process.env.APP_ENV === "testing" ? testingHooks : productionHooks
     },
-    package: {
-      include: ["views/**/*", "dist/**/*", "build/**/*"],
-      exclude: ["node_modules/**/*"]
+    esbuild: {
+      otherExternal: ["hbs"]
     }
+  },
+  package: {
+    include: ["views/**/*", "dist/**/*", "build/**/*"],
+    exclude: ["node_modules/**/*"],
+  }
   }),
   functions: {
     main: {
