@@ -3,7 +3,7 @@ import { getConfig } from "@widgets/carousel/widget.config"
 import { tileTemplate } from "./tile.template"
 import { createElement, createFragment } from "@stackla/ugc-widgets/src/ui/core/utils/jsx-html"
 
-export const expandedTileTemplate = (sdk: Sdk) => {
+export default (sdk: Sdk) => {
   const widgetContainer = sdk.placement.getWidgetContainer()
   const widgetSettings = getConfig(widgetContainer)
   const tiles = sdk.tiles.tiles
