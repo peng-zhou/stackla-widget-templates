@@ -2,18 +2,9 @@ node_modules
 .idea
 dist
 .esbuild
-cypress/videos
-cypress/screenshots
 *.d.ts
 *.map
 cypress/support/e2e.js
-
-
-# Output
-/dist
-
-# Libraries
-node_modules
 
 # Logs
 logs
@@ -23,8 +14,6 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 .localstack
-.esbuild
-.idea
 
 # OS
 .DS_Store
@@ -78,3 +67,5 @@ src/**/**.map
 
 cypress/videos/*
 cypress/screenshots/*
+.serverless
+server

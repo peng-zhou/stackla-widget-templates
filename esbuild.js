@@ -15,6 +15,8 @@ const preAndPostBuild = {
     })
 
     build.onEnd(() => {
+      // Include additional libraries in the final CSS
+      // These libraries are located in the `styles` folder
       const additionalData = globSync("./widgets/styles/*.scss", { withFileTypes: true })
         .map(path =>
           sass.compile(path.relative(), {

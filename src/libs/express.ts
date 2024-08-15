@@ -21,6 +21,9 @@ expressApp.use(
 )
 expressApp.use("/swiper", express.static(path.join(__dirname, "../../../../../node_modules/swiper/")))
 
+const stripSymbols = (str: string) => str.replace(/[^a-zA-Z0-9]/g, "")
+const stripSymbolsThatAreNotDash = (str: string) => str.replace(/[^a-zA-Z0-9-]/g, "")
+
 // Register preview route
 expressApp.get("/preview", (req, res) => {
   const widgetRequest = req.query as WidgetRequest
@@ -54,5 +57,42 @@ expressApp.get("/preview", (req, res) => {
       .replace(/\t/g, "\\t")
   })
 })
+
+expressApp.get("/autoload", (req, res) => {
+  const { selector, widget, resource } = req.query as { selector: string, widget: string, resource: string }
+
+  if (!selector) {
+    return res.status(400).send("selector is required")
+  }
+
+  if (!widget) {
+    return res.status(400).send("widget is required")
+  }
+
+  if (!resource) {
+    return res.status(400).send("resource is required")
+  }
+
+  const resourceWithoutSymbols = stripSymbols(resource)
+  const widgetTypeWithoutSymbols = stripSymbols(widget)
+  const widgetSrc = `dist/widgets/${widgetTypeWithoutSymbols}/widget.${resourceWithoutSymbols}`
+  const code = readFileSync(widgetSrc, "utf8")
+
+  if (resourceWithoutSymbols === "css") {
+    res.set("Content-Type", "text/css")
+  }
+
+  if (resourceWithoutSymbols === "js") {
+    res.set("Content-Type", "text/javascript")
+  }
+
+  res.set("Cache-Control", "public, max-age=300")
+
+  res.render("autoload", {
+    selector: stripSymbolsThatAreNotDash(selector),
+    code,
+    isJsCode: resourceWithoutSymbols === "js"
+  })
+});
 
 export default expressApp
