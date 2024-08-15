@@ -30,7 +30,6 @@ const preAndPostBuild = {
         const result = sass.compile(path.relative(), {
           style: env === "development" ? "expanded" : "compressed"
         })
-
         const combined = `${result.css.toString()}\n${additionalData}`
         fs.writeFileSync(`dist/widgets/${path.parent.name}/widget.css`, combined)
       })
@@ -72,6 +71,7 @@ const config = {
 if (env == "development") {
   config.minify = false
   config.sourcemap = "inline"
+
   esbuild.build(config)
 } else {
   esbuild.build(config)
