@@ -1,5 +1,5 @@
 import { getConfig } from "./widget.config"
-import type { Sdk } from "@stackla/types"
+import type { Sdk } from "@stackla/ugc-widgets"
 import {
   addAutoAddTileFeature,
   addLoadMoreButtonFeature,
@@ -35,9 +35,7 @@ sdk.tiles.preloadImages = true
 
 sdk.tiles.setLoadMode("page")
 
-sdk.addEventListener("tilesUpdated", () => {
-  initializeQuadrant()
-})
+sdk.addEventListener("tilesUpdated", initializeQuadrant)
 window.addEventListener("resize", function () {
   for (let i = 0; i < groupsToShowInitially; i++) {
     initializeQuadrant()

@@ -52,14 +52,14 @@ export default function initializeQuadrant() {
                         <div className="content-inner-wrapper">
                             <div className="user-info-wrapper">
                                 <div className="user-info">
-                                    {tile.avatar && (
+                                    {tile.avatar ? (
                                         <span className="avatar-wrapper">
                                             <a className="avatar-link" href={tile.original_url} target="_blank" rel="noopener noreferrer">
                                                 <img src={tile.avatar} alt="User Avatar"/>
                                             </a>
                                         </span>
-                                    )}
-                                    {tile.user && (
+                                    ) : (<></>)}
+                                    {tile.user ? (
                                         <a className="user-link" href={tile.original_url} target="_blank" rel="noopener noreferrer">
                                             <div className="user-top">
                                                 <span className="user-name">{tile.user}</span>
@@ -68,7 +68,7 @@ export default function initializeQuadrant() {
                                                 <span className="user-handle">@{tile.user}</span>
                                             </div>
                                         </a>
-                                    )}
+                                    ) : (<></>)}
                                 </div>
                             </div>
                             <div className="tile-timestamp">
@@ -78,7 +78,7 @@ export default function initializeQuadrant() {
                                 <p className="caption-paragraph">
                                     {tile.message && widgetSettings.expanded_tile_show_caption ? tile.message : ""}
                                 </p>
-                                {widgetSettings.expanded_tile_show_sharing && (
+                                {widgetSettings.expanded_tile_show_sharing ? (
                                     <div className="ugc-inline-share-buttons">
                                         <a href={`https://www.addtoany.com/add_to/facebook?linkurl=${tile.original_url}&linkname=${tile.name}`} target="_blank" rel="noopener noreferrer">
                                             <img src="https://static.addtoany.com/buttons/facebook.svg" width="32" height="32" style={{backgroundColor:"#333"}} alt="Share on Facebook"/>
@@ -96,8 +96,8 @@ export default function initializeQuadrant() {
                                             <img src="https://static.addtoany.com/buttons/email.svg" width="32" height="32" style={{backgroundColor:"#333"}} alt="Share via Email"/>
                                         </a>
                                     </div>
-                                )}
-                                {productsEnabled && <ugc-products parent={parent}></ugc-products>}
+                                ) : (<></>)}
+                                {productsEnabled ? <ugc-products parent={parent}></ugc-products> : (<></>)}
                             </div>
                             <div className="sharethis-inline-share-buttons"></div>
                             <div className="footer">
