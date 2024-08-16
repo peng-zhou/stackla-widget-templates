@@ -162,29 +162,29 @@ export function loadExpandedTileFeature<T extends BaseConfig>(
   }
 }
 
-function loadMore() {    
+function loadMore() {
   if (window.__isLoading) {
-    return;
+    return
   }
 
-  window.__isLoading = true;
+  window.__isLoading = true
 
-  const EVENT_LOAD_MORE = "moreLoad";
-  const loadMoreButton = sdk.querySelector("#load-more");
+  const EVENT_LOAD_MORE = "moreLoad"
+  const loadMoreButton = sdk.querySelector("#load-more")
 
   if (!loadMoreButton) {
-    throw new Error("Failed to find load more button");
+    throw new Error("Failed to find load more button")
   }
-  
-  sdk.triggerEvent(EVENT_LOAD_MORE);
+
+  sdk.triggerEvent(EVENT_LOAD_MORE)
 
   if (!sdk.tiles.hasMorePages()) {
-    loadMoreButton.style.display = "none";
+    loadMoreButton.style.display = "none"
   }
 
   setTimeout(() => {
-    window.__isLoading = false;
-  }, 500);
+    window.__isLoading = false
+  }, 500)
 }
 
 export function addLoadMoreButtonFeature<T extends BaseConfig>(widgetSettings: T) {
@@ -265,4 +265,3 @@ export function loadHoverTile<T extends BaseConfig>(widgetSettings: T) {
     })
   }
 }
-
