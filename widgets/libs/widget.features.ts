@@ -163,6 +163,12 @@ export function loadExpandedTileFeature<T extends BaseConfig>(
 }
 
 function loadMore() {
+  if (window.__isLoading) {
+    return
+  }
+
+  window.__isLoading = true
+
   const EVENT_LOAD_MORE = "moreLoad"
   const loadMoreButton = sdk.querySelector("#load-more")
 
@@ -175,6 +181,10 @@ function loadMore() {
   if (!sdk.tiles.hasMorePages()) {
     loadMoreButton.style.display = "none"
   }
+
+  setTimeout(() => {
+    window.__isLoading = false
+  }, 500)
 }
 
 export function addLoadMoreButtonFeature<T extends BaseConfig>(widgetSettings: T) {
