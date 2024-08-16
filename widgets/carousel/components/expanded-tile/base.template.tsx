@@ -1,11 +1,8 @@
 import type { Sdk } from "@stackla/ugc-widgets"
-import { getConfig } from "@widgets/carousel/widget.config"
-import { tileTemplate } from "./tile.template"
+import { ExpandedTile } from "./tile.template"
 import { createElement, createFragment } from "@stackla/ugc-widgets/src/ui/core/utils/jsx-html"
 
-export default (sdk: Sdk) => {
-  const widgetContainer = sdk.placement.getWidgetContainer()
-  const widgetSettings = getConfig(widgetContainer)
+export const ExpandedTiles = (sdk: Sdk) => {
   const tiles = sdk.tiles.tiles
 
   if (!Object.values(tiles).length) {
@@ -17,7 +14,9 @@ export default (sdk: Sdk) => {
       <div class="swiper swiper-expanded">
         <div class="swiper-wrapper">
           {Object.values(tiles).map(tile => (
-            <div class="swiper-slide">{tileTemplate(sdk, widgetSettings, tile)}</div>
+            <div class="swiper-slide">
+              <ExpandedTile sdk={sdk} tile={tile} />
+            </div>
           ))}
         </div>
       </div>

@@ -15,7 +15,7 @@
 }
 
 .swiper {
-  width: 90% !important;
+  width: 90%;
   height: 300px;
   display: flex;
 
@@ -26,9 +26,10 @@
     justify-content: center;
     border-radius: 5px;
     overflow: hidden;
-  
+
     > .ugc-tile {
       width: 100%;
+
       img {
         height: 200px;
         width: 100%;
@@ -48,14 +49,6 @@
   }
 }
 
-/*.ugc-tile {
-  display: inline-block;
-  max-width: calc(100vh - 175px);
-  img {
-    width: 100%;
-  }
-}*/
-
 .tile-image,
 .tile-video {
   position: relative;
@@ -73,17 +66,15 @@
   position: fixed;
   width: 100%;
   height: 100%;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   background-color: rgb(0 0 0 / 90%);
   z-index: 2;
   cursor: pointer;
 }
 
 .glide__arrows {
-  &[disabled="disabled"], &:disabled {
+  [disabled="disabled"],
+  :disabled {
     display: none;
   }
 
@@ -100,9 +91,10 @@
     background: rgb(255 255 255 / 90%);
     width: 40px;
     height: 40px;
-    padding: 0px;
+    padding: 0;
 
-    .chevron-right, .chevron-left {
+    .chevron-right,
+    .chevron-left {
       width: auto !important;
       background-repeat: no-repeat;
       background-attachment: fixed;
@@ -122,7 +114,8 @@ div.image-filler {
   filter: blur(20px) brightness(0.75);
 }
 
-.swiper-button-next, .swiper-button-prev {
+.swiper-button-next,
+.swiper-button-prev {
   background-color: #dfdfdf;
   border-radius: 100%;
   border: 2px solid #dfdfdf;
@@ -131,6 +124,7 @@ div.image-filler {
   width: 32px !important;
 }
 
-.swiper-button-next:after, .swiper-button-prev:after {
+.swiper-button-next::after,
+.swiper-button-prev::after {
   --swiper-navigation-size: 16px;
 }

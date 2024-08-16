@@ -34,12 +34,11 @@
     display: flex;
     place-content: center center;
     align-items: center;
-    background-image: url(https://content-cdn.teaser.stackla.com/1451/669f258…/image);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     overflow: hidden;
-  
+
     .image-wrapper {
       position: relative;
       display: flex;
@@ -48,8 +47,8 @@
       justify-content: center;
       width: 100%;
       height: 100%;
-      margin-bottom: 0px;
-    
+      margin-bottom: 0;
+
       .image-wrapper-inner {
         display: flex;
         flex-direction: column;
@@ -57,10 +56,10 @@
         justify-content: center;
         width: 100%;
         height: 100%;
-    
+
         div.image {
           position: relative;
-    
+
           img.image-element {
             width: 100%;
             height: auto;
@@ -69,15 +68,14 @@
       }
     }
   }
-  
+
   .panel-right {
     padding: 26px 40px;
     height: calc(100vh - 100px);
   }
-  
+
   .panel-right-wrapper {
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow: auto hidden;
     height: 100%;
   }
 }

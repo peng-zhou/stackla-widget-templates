@@ -1,6 +1,6 @@
 import type { Sdk } from "@stackla/ugc-widgets"
 import { getConfig } from "./widget.config"
-import expandedTileTemplate from "./components/expanded-tile/base.template"
+import { ExpandedTiles } from "./components/expanded-tile/base.template"
 import expandedTileStyle from "./components/expanded-tile/base.scss"
 import productsStyle from "./components/products/base.scss"
 import shopspotStyle from "./components/shopspot-icon/base.scss"
@@ -49,4 +49,4 @@ void sdk.addGlobalCSSUrl("https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.m
 sdk.addCSSToComponent(expandedTileStyle, "expanded-tile")
 sdk.addCSSToComponent(productsStyle, "ugc-products")
 sdk.addCSSToComponent(shopspotStyle, "shopspot-icon")
-sdk.addTemplateToComponent(expandedTileTemplate, "expanded-tile")
+sdk.addTemplateToComponent(ExpandedTiles, "expanded-tiles")

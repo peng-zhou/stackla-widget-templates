@@ -4,6 +4,8 @@ import { BaseConfig } from "../../types/IBaseConfig"
 
 declare const sdk: Sdk
 
+type Callback = () => void
+
 export function registerTileClickEventListeners<T extends BaseConfig>(widgetSettings: T) {
   const urlPattern = /^https?:\/\/.+/
 
@@ -25,19 +27,19 @@ export function registerTileClickEventListeners<T extends BaseConfig>(widgetSett
   })
 }
 
-export function registerTileExpandListener(fn: () => void = () => {}) {
+export function registerTileExpandListener(fn: Callback = () => {}) {
   sdk.addEventListener("tileExpand", fn)
 }
 
-export function registerTileClosedListener(fn: () => void = () => {}) {
+export function registerTileClosedListener(fn: Callback = () => {}) {
   sdk.addEventListener("expandedTileClose", fn)
 }
 
-export function registerLoadListener(fn: () => void) {
+export function registerLoadListener(fn: Callback) {
   sdk.addEventListener("load", fn)
 }
 
-export function registerTilesUpdated(fn: () => void) {
+export function registerTilesUpdated(fn: Callback) {
   sdk.addEventListener("tilesUpdated", () => setTimeout(fn, 200))
 }
 
@@ -48,6 +50,6 @@ export function registerPreloadTileHidden(fn: (id: string) => void) {
   })
 }
 
-export function registerWidgetInitComplete(fn: () => void) {
+export function registerWidgetInitComplete(fn: Callback) {
   sdk.addEventListener("widgetInitComplete", () => setTimeout(fn, 1000))
 }

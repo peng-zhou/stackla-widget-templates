@@ -1,11 +1,18 @@
 import type { Sdk } from "@stackla/ugc-widgets"
 import { Tile } from "@stackla/ugc-widgets"
-import { IWidgetSettings } from "types/IWidgetSettings"
 import { getTimephrase } from "@libs/tile.lib"
 import { createElement, createFragment } from "jsx-html"
-import { getTagsFromTile } from "@libs/templates/expanded-tile.lib"
+import { Tags } from "@libs/templates/tags.lib"
+import { getConfig } from "@widgets/carousel/widget.config"
 
-export const tileTemplate = (sdk: Sdk, widgetSettings: IWidgetSettings, tile: Tile) => {
+export type ExpandedTileProps = {
+  sdk: Sdk
+  tile: Tile
+}
+
+export const ExpandedTile = ({ sdk, tile }: ExpandedTileProps) => {
+  const widgetContainer = sdk.placement.getWidgetContainer()
+  const widgetSettings = getConfig(widgetContainer)
   const shopspotEnabled = sdk.isComponentLoaded("shopspots") && widgetSettings.expanded_tile_show_shopspots
   const productsEnabled = sdk.isComponentLoaded("products") && widgetSettings.expanded_tile_show_products
   const parent = sdk.getNodeId()
@@ -20,7 +27,7 @@ export const tileTemplate = (sdk: Sdk, widgetSettings: IWidgetSettings, tile: Ti
           <div class="image-wrapper-inner">
             <div class="image-filler" style="background-image: url(${tile.image})"></div>
             <div class="image">
-              {shopSpotTemplate(shopspotEnabled, parent)}
+              <ShopSpotTemplate shopspotEnabled={shopspotEnabled} parent={parent} />
               {tile.image ? <img class="image-element" src={tile.image} /> : ""}
             </div>
           </div>
@@ -36,7 +43,9 @@ export const tileTemplate = (sdk: Sdk, widgetSettings: IWidgetSettings, tile: Ti
           <div class="content-wrapper">
             <div class="content-inner-wrapper">
               <div class="user-info-wrapper">
-                <div class="user-info">${userInfoTemplate(tile)}</div>
+                <div class="user-info">
+                  <UserInfoTemplate tile={tile} />
+                </div>
               </div>
               <div class="tile-timestamp">
                 {tile.source_created_at && widgetSettings.expanded_tile_show_timestamp
@@ -47,7 +56,7 @@ export const tileTemplate = (sdk: Sdk, widgetSettings: IWidgetSettings, tile: Ti
                 <p class="caption-paragraph">
                   {tile.message && widgetSettings.expanded_tile_show_caption ? tile.message : ""}
                 </p>
-                {getTagsFromTile(tile)}
+                <Tags tile={tile} />
                 {productsEnabled ? <ugc-products parent={parent} /> : ""}
               </div>
               <div class="footer">
@@ -63,7 +72,7 @@ export const tileTemplate = (sdk: Sdk, widgetSettings: IWidgetSettings, tile: Ti
   )
 }
 
-const userInfoTemplate = (tile: Tile) => {
+const UserInfoTemplate = ({ tile }: { tile: Tile }) => {
   if (tile.avatar) {
     return (
       <span class="avatar-wrapper">
@@ -85,10 +94,10 @@ const userInfoTemplate = (tile: Tile) => {
       </a>
     )
   }
-  return ""
+  return <></>
 }
 
-const shopSpotTemplate = (shopspotEnabled: boolean, parent?: string) => {
+const ShopSpotTemplate = ({ shopspotEnabled, parent }: { shopspotEnabled: boolean; parent?: string }) => {
   if (shopspotEnabled) {
     return (
       <>
@@ -97,57 +106,5 @@ const shopSpotTemplate = (shopspotEnabled: boolean, parent?: string) => {
       </>
     )
   }
-  return ""
-}
-
-const shareMenuTemplate = (tile: Tile, showMenu: boolean) => {
-  const constructUrl = (icon: string) => {
-    const url = new URL(`https://www.addtoany.com/add_to/${icon}`)
-    url.searchParams.append("linkurl", tile.original_url)
-    tile.name && url.searchParams.append("linkname", tile.name)
-    return url.href
-  }
-
-  if (showMenu) {
-    return (
-      <div class="ugc-inline-share-buttons">
-        <a href={constructUrl("facebook")} target="_blank">
-          <img
-            src="https://static.addtoany.com/buttons/facebook.svg"
-            width="32"
-            height="32"
-            style="background-color:#333"
-          />
-        </a>
-        <a href={constructUrl("x")} target="_blank">
-          <img src="https://static.addtoany.com/buttons/x.svg" width="32" height="32" style="background-color:#333" />
-        </a>
-        <a href={constructUrl("pinterest")} target="_blank">
-          <img
-            src="https://static.addtoany.com/buttons/pinterest.svg"
-            width="32"
-            height="32"
-            style="background-color:#333"
-          />
-        </a>
-        <a href={constructUrl("linkedin")} target="_blank">
-          <img
-            src="https://static.addtoany.com/buttons/linkedin.svg"
-            width="32"
-            height="32"
-            style="background-color:#333"
-          />
-        </a>
-        <a href={constructUrl("email")} target="_blank">
-          <img
-            src="https://static.addtoany.com/buttons/email.svg"
-            width="32"
-            height="32"
-            style="background-color:#333"
-          />
-        </a>
-      </div>
-    )
-  }
-  return ""
+  return <></>
 }

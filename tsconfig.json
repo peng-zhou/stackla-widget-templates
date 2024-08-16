@@ -25,12 +25,13 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "paths": {
+      "jsx-html": ["./node_modules/@stackla/ugc-widgets/src/ui/core/utils/jsx-html"],
       "@widgets/*": ["./widgets/*"],
       "@libs/*": ["./widgets/libs/*"],
       "@styles/*": ["./widgets/styles/*"],
       "@utils/*": ["./widgets/utils/*"],
       "@extensions/*": ["./widgets/libs/extensions/*"],
-      "jsx-html": ["./node_modules/@stackla/ugc-widgets/src/ui/core/utils/jsx-html"]
+      "types": ["./types"]
     },
     "jsx": "react",
     "jsxFactory": "createElement",
