@@ -1,97 +1,109 @@
 import type { Sdk } from "@stackla/ugc-widgets"
 import { IWidgetSettings } from "../../types/IWidgetSettings"
-import Glide from "@glidejs/glide"
 import { getConfig } from "./widget.config"
+import { waitForElm } from "widgets/libs/widget.features"
+import { initializeSwiper, refreshSwiper } from "@extensions/swiper.extension"
 
 declare const sdk: Sdk
 
-export function initializeGlideListeners() {
+export function initializeInlineSwiperListeners() {
   const widgetContainer = sdk.placement.getWidgetContainer()
   const widgetSettings = getConfig(widgetContainer)
 
-  const tiles = sdk.querySelector("#tiles")
+  const swiper = sdk.querySelector(".swiper-inline")
 
-  if (!tiles) {
-    throw new Error("Failed to find tiles or arrow UI element")
+  if (!swiper) {
+    throw new Error("Failed to find swiper element")
   }
 
-  tiles.classList.add("glide__slides")
-  tiles.style.display = ""
-  initializeGlide(widgetSettings)
-
-  window.addEventListener("resize", function () {
-    initializeGlide(widgetSettings)
-  })
-
-  const arrows = sdk.querySelector(".glide__arrows")
-  if (!arrows) {
-    throw new Error("Failed to find arrows UI element")
-  }
-
-  arrows.style.display = "inline-block"
+  initializeInlineSwiper(widgetSettings)
 }
 
-export function initializeGlide(widgetSettings: IWidgetSettings) {
-  const widgetSelector = sdk.placement.querySelector(".glide")
+function initializeInlineSwiper(widgetSettings: IWidgetSettings) {
+  const widgetSelector = sdk.placement.querySelector(".swiper")
 
   if (!widgetSelector) {
-    throw new Error("Failed to find widget UI element. Failed to initialise Glide")
+    throw new Error("Failed to find widget UI element. Failed to initialise Swiper")
   }
 
-  const tileWidth = 240
+  const tileWidth = 280
   const screenSize = window.innerWidth
   const perView = !widgetSettings.enable_custom_tiles_per_page
     ? Math.floor(screenSize / tileWidth)
     : widgetSettings.tiles_per_page
 
-  const glide = new Glide(widgetSelector, {
-    type: "slider",
-    startAt: 0,
-    perView: perView
-  })
-
-  glide.on("mount.after", function () {
-    const leftArrow = sdk.placement.querySelector<HTMLButtonElement>(".glide__arrow--left")
-    if (!leftArrow) {
-      throw new Error("Failed to find left arrow UI element")
-    }
-
-    if (glide.index === 0) {
-      leftArrow.disabled = true
-    }
-  })
-
-  glide.on("run", function () {
-    const prevButton = sdk.placement.querySelector<HTMLButtonElement>(".glide__arrow--left")
-    const nextButton = sdk.placement.querySelector<HTMLButtonElement>(".glide__arrow--right")
-
-    if (!prevButton || !nextButton) {
-      throw new Error("Failed to find arrow UI elements")
-    }
-
-    prevButton.disabled = false
-    nextButton.disabled = false
-
-    if (glide.index === 0) {
-      prevButton.disabled = true
-    }
-  })
-
-  glide.mount()
+  initializeSwiper(widgetSelector, perView)
 }
 
-export function hideGlideArrows() {
+function initializeExtendedSwiper() {
+  const expandedTile = sdk.querySelector("expanded-tile")
+  if (!expandedTile?.shadowRoot) {
+    throw new Error("The expanded tile element not found")
+  }
+  const widgetSelector = expandedTile.shadowRoot.querySelector<HTMLElement>(".expanded-glide")
+
+  if (!widgetSelector) {
+    throw new Error("Failed to find widget UI element. Failed to initialise Glide")
+  }
+
+  const arrows = widgetSelector.querySelectorAll<HTMLElement>(".swiper-button-prev, .swiper-button-next")
+  if (!arrows.length) {
+    throw new Error("Failed to find arrows UI element")
+  }
+
+  arrows.forEach(it => (it.style.display = ""))
+
+  //initializeSwiper(widgetSelector, 1)
+}
+
+export function onTileExpand() {
   const arrows = sdk.querySelector(".glide__arrows")
   if (!arrows) {
     throw new Error("Failed to find glide arrows UI element")
   }
   arrows.style.display = "none"
+
+  const expandedTile = sdk.querySelector("expanded-tile")
+
+  if (!expandedTile?.shadowRoot) {
+    throw new Error("The expanded tile element not found")
+  }
+
+  expandedTile.closest("div.expanded-tile-container")?.classList.add("expanded-tile-overlay")
+
+  waitForElm(expandedTile.shadowRoot, [".expanded-glide"], initializeExtendedSwiper)
 }
 
-export function showGlideArrows() {
+export function onTileClosed() {
   const arrows = sdk.querySelector(".glide__arrows")
   if (!arrows) {
     throw new Error("Failed to find glide arrows UI element")
   }
-  arrows.style.display = "block"
+  arrows.style.display = ""
+
+  const expandedTile = sdk.querySelector("expanded-tile")
+
+  expandedTile?.closest("div.expanded-tile-container")?.classList.remove("expanded-tile-overlay")
+}
+
+export function hideSlidesWithInvisibleTiles() {
+  const widgetSelectorWrapper = sdk.placement.querySelector(".swiper-wrapper")
+  const slides = widgetSelectorWrapper?.querySelectorAll<HTMLElement>(".swiper-slide")
+
+  slides?.forEach(slide => {
+    if (!slide.children.length || !!slide.querySelector('div.ugc-tile[style="display: none;"]')) {
+      slide.remove()
+    }
+  })
+  refreshSwiper("swiperInline")
+}
+
+export function onPreloadTileHidden(tileId: string) {
+  const widgetSelectorWrapper = sdk.placement.querySelector(".swiper-wrapper")
+  const slides = Array.from(widgetSelectorWrapper?.querySelectorAll<HTMLElement>(".swiper-slide") || [])
+
+  const swiperSlide = slides.find(slide => slide.querySelector(`div.ugc-tile[data-id="${tileId}"]`))
+  swiperSlide?.remove()
+
+  refreshSwiper("swiperInline")
 }

@@ -1,7 +1,11 @@
 import { Tile } from "@stackla/ugc-widgets"
 import { createElement, createFragment } from "jsx-html"
 
-export function getTagsFromTile(tile: Tile) {
+type TagsProps = {
+  tile: Tile
+}
+
+export const Tags = ({ tile }: TagsProps) => {
   if (!tile.tags_extended) {
     return <></>
   }

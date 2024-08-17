@@ -1,16 +1,17 @@
 import tiles from "../../../tests/fixtures/tiles.fixtures"
-import { getTagsFromTile } from "./expanded-tile.lib"
+import { Tags } from "./tags.lib"
 import { createElement } from "jsx-html"
+//import { render } from "@testing-library/jest-dom"
 
 describe("widgets/nightfall/components/expanded-tile/base.template.ts", () => {
   it("should return empty string if tile does not have extended tags", () => {
-    expect(getTagsFromTile(tiles[7])).toEqual(<div className="tags"></div>)
+    expect(<Tags tile={tiles[7]} />).toEqual(<div className="tags"></div>)
   })
 
   it("should return tags if tile has extended tags", () => {
     const tile = tiles[0]
 
-    expect(getTagsFromTile(tile)).toEqual(
+    expect(<Tags tile={tile} />).toEqual(
       <div className="tags">
         <div className="tag">
           <span>

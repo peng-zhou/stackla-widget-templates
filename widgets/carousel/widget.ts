@@ -1,11 +1,21 @@
 import type { Sdk } from "@stackla/ugc-widgets"
 import { getConfig } from "./widget.config"
-import expandedTileTemplate from "./components/expanded-tile/base.template"
+import { ExpandedTiles } from "./components/expanded-tile/base.template"
 import expandedTileStyle from "./components/expanded-tile/base.scss"
 import productsStyle from "./components/products/base.scss"
 import shopspotStyle from "./components/shopspot-icon/base.scss"
-import { hideGlideArrows, initializeGlideListeners, showGlideArrows } from "./widget.extensions"
-import { registerLoadListener } from "widgets/libs/tile.listeners"
+import {
+  onTileExpand,
+  initializeInlineSwiperListeners,
+  onTileClosed,
+  hideSlidesWithInvisibleTiles,
+  onPreloadTileHidden
+} from "./widget.extensions"
+import {
+  registerPreloadTileHidden,
+  registerTilesUpdated,
+  registerWidgetInitComplete
+} from "widgets/libs/tile.listeners"
 import {
   addAutoAddTileFeature,
   loadExpandedTileFeature,
@@ -27,12 +37,16 @@ const widgetSettings = getConfig(widgetContainer)
 loadWidgetIsEnabled(widgetSettings)
 addCSSVariablesToPlacement(getCSSVariables(widgetSettings))
 loadTitle()
-registerLoadListener(initializeGlideListeners)
+registerWidgetInitComplete(initializeInlineSwiperListeners)
 addAutoAddTileFeature(widgetSettings)
-loadExpandedTileFeature(widgetSettings, hideGlideArrows, showGlideArrows)
+loadExpandedTileFeature(widgetSettings, onTileExpand, onTileClosed)
 loadHoverTile(widgetSettings)
+registerTilesUpdated(hideSlidesWithInvisibleTiles)
+registerPreloadTileHidden(onPreloadTileHidden)
 
+// FIXME Find a better option?
+void sdk.addGlobalCSSUrl("https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css")
 sdk.addCSSToComponent(expandedTileStyle, "expanded-tile")
 sdk.addCSSToComponent(productsStyle, "ugc-products")
 sdk.addCSSToComponent(shopspotStyle, "shopspot-icon")
-sdk.addTemplateToComponent(expandedTileTemplate, "expanded-tile")
+sdk.addTemplateToComponent(ExpandedTiles, "expanded-tiles")
