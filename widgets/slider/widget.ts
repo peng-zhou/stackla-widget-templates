@@ -29,7 +29,7 @@ const cssVariablesToString = Object.entries(getCSSVariables())
 
 loadTitle()
 addCSSVariablesToPlacement(cssVariablesToString)
-addAutoAddTileFeature<IWidgetSettings>(widgetSettings)
+addAutoAddTileFeature(widgetSettings)
 loadExpandedTileFeature(widgetSettings, () => {
   const ugcTilesElement = sdk.querySelector(".ugc-tiles")
 
