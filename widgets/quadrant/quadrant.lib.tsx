@@ -1,5 +1,5 @@
 import type { Sdk, Tile } from "@stackla/ugc-widgets"
-import { createElement, createFragment } from "jsx-html"
+import { createElement } from "jsx-html"
 
 declare const sdk: Sdk
 
