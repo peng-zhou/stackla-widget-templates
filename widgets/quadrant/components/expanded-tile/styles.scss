@@ -4,6 +4,7 @@
   background-size: contain;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 -960 960 960' width='24'%3E%3Cpath d='m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z' style='fill: %23fff;'/%3E%3C/svg%3E");
 }
+
 .close {
   width: 24px;
   height: 24px;
@@ -18,23 +19,27 @@
   right: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgb(0 0 0 / 80%);
   display: flex;
   justify-content: center;
   align-items: center;
   color: #fff;
-  transition: visibility 0s, opacity 0.5s;
+  transition:
+    visibility 0s,
+    opacity 0.5s;
   margin: auto;
   max-width: 1060px;
   z-index: 1;
   overflow: visible;
 }
+
 .exit {
   position: absolute;
   top: 20px;
   right: 20px;
   z-index: 1;
 }
+
 .panel {
   display: flex;
   position: relative;
@@ -42,21 +47,24 @@
   width: 100%;
   height: 100%;
 }
+
 .panel-left {
   min-width: 40%;
   max-width: 40%;
   background: #fff;
   display: flex;
-  align-content: center;
-  justify-content: center;
+  place-content: center center;
   align-items: center;
 }
+
 .panel-left img {
   width: 100%;
 }
+
 .panel-right {
   padding: 26px 40px;
 }
+
 .tile-arrows-left {
   position: absolute;
   width: 50px;
@@ -66,6 +74,7 @@
   border: 0;
   background: none;
 }
+
 .tile-arrows-right {
   position: absolute;
   width: 50px;
@@ -76,14 +85,20 @@
   background: none;
 }
 
+.widget-icon {
+  display: block;
+}
+
 .tile-arrows .widget-icon {
   width: 50px;
   height: 50px;
   cursor: pointer;
 }
+
 div.image {
   position: relative;
 }
+
 .image-wrapper {
   position: relative;
   display: flex;
@@ -93,6 +108,7 @@ div.image {
   width: 100%;
   margin-bottom: 16px;
 }
+
 .image-wrapper-inner {
   display: flex;
   flex-direction: column;
@@ -108,12 +124,12 @@ div.image {
 }
 
 .user-info-wrapper {
-  text-align: left !important;
+  text-align: left;
 }
 
 .user-info-wrapper a {
   color: #666;
-  font-family: 'Roboto Condensed', sans-serif;
+  font-family: "Roboto Condensed", sans-serif;
   text-decoration: none;
   line-height: 1.4;
 }
@@ -169,9 +185,6 @@ html {
   color: var(--text-tile-user-handle-font-color);
 }
 
-.widget-icon {
-  display: block;
-}
 .tile-timestamp {
   color: #ababab;
   display: inline-block;
@@ -180,6 +193,7 @@ html {
   text-align: left;
   width: 100%;
 }
+
 .quadrant-grid-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -187,6 +201,7 @@ html {
   width: 100%;
   margin-bottom: 20px;
 }
+
 .group-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -194,6 +209,7 @@ html {
   margin-bottom: 30px;
   height: 800px;
 }
+
 .grid-item {
   position: relative;
   background-color: #f0f0f0;
@@ -202,23 +218,21 @@ html {
   height: 200px;
   cursor: pointer;
 }
+
 .grid-item img {
-  width: 100%;
-  height: auto;
   transition: transform 0.3s ease;
-  bottom: 0;
+  inset: 0;
   height: 100%;
-  left: 0;
   object-fit: cover;
   opacity: 1;
   position: absolute;
-  right: 0;
-  top: 0;
   width: 100%;
 }
+
 .grid-item:hover img {
   transform: scale(1.1);
 }
+
 .tile-info-overlay {
   position: absolute;
   top: 0;
@@ -229,21 +243,25 @@ html {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgb(0 0 0 / 70%);
   color: white;
   opacity: 0;
   transition: opacity 0.3s ease;
 }
+
 .grid-item:hover .tile-info-overlay {
   opacity: 1;
 }
+
 .grid-item:hover .tile-info-overlay p {
   padding: 0 10px;
 }
+
 .grid-item.large {
   grid-column: span 2;
   height: 400px;
 }
+
 #load-more {
   padding: 10px 20px;
   font-size: 16px;
@@ -251,19 +269,22 @@ html {
 }
 
 /* Mobile Responsiveness */
-@media (max-width: 600px) {
+@media (width <= 600px) {
   .quadrant-grid-container {
-      width: 100%;
-      padding: 0 10px;
-      grid-template-columns: repeat(1, 1fr);
+    width: 100%;
+    padding: 0 10px;
+    grid-template-columns: repeat(1, 1fr);
   }
+
   .group-container {
-      grid-template-columns: 1fr;
+    grid-template-columns: 1fr;
   }
+
   .grid-item.large {
-      grid-column: span 1;
+    grid-column: span 1;
   }
 }
+
 .expanded-tile-wrapper {
   position: absolute;
   width: 100%;
