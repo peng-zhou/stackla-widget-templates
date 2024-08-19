@@ -4,17 +4,16 @@ import { createElement } from "jsx-html"
 declare const sdk: Sdk
 
 export const createElementHelper = (tag: string, text: string): HTMLElement => {
-  const element = document.createElement(tag);
+  const element = document.createElement(tag)
 
-  element.textContent = text;
+  element.textContent = text
 
-  return element;
-};
-
+  return element
+}
 
 interface SmallTileProps {
-  tile: Tile;
-  clickHandler: (id: number) => void;
+  tile: Tile
+  clickHandler: (id: number) => void
 }
 
 export function createSmallTile({ tile, clickHandler }: SmallTileProps): JSX.Element {
@@ -28,38 +27,36 @@ export function createSmallTile({ tile, clickHandler }: SmallTileProps): JSX.Ele
         <p>{tile.message}</p>
       </div>
     </div>
-  );
+  )
 }
 
 export function initializeQuadrant(): void {
-  const imagesPerGroup = 5;
-  let groupCount = 0;
+  const imagesPerGroup = 5
+  let groupCount = 0
 
-  const ugcTiles = sdk.tiles.getEnabledTiles();
-  const container = sdk.querySelector(".quadrant-grid-container");
+  const ugcTiles = sdk.tiles.getEnabledTiles()
+  const container = sdk.querySelector(".quadrant-grid-container")
 
   if (!container) {
-    throw new Error("Container not found");
+    throw new Error("Container not found")
   }
 
   while (groupCount * imagesPerGroup < ugcTiles.length) {
-    const currentStartIndex = groupCount * imagesPerGroup;
-    const endIndex = Math.min(currentStartIndex + imagesPerGroup, ugcTiles.length);
-    const prependBigTile = groupCount % 4 === 0;
+    const currentStartIndex = groupCount * imagesPerGroup
+    const endIndex = Math.min(currentStartIndex + imagesPerGroup, ugcTiles.length)
+    const prependBigTile = groupCount % 4 === 0
 
     // Create small tiles in array
-    const smallTiles: JSX.Element[] = [];
+    const smallTiles: JSX.Element[] = []
     for (let offset = 0; offset < imagesPerGroup - 1 && currentStartIndex + offset < endIndex; offset++) {
-      const currentTile = ugcTiles[currentStartIndex + offset];
-      smallTiles.push(
-        createSmallTile({tile: currentTile, clickHandler: handleClickedTileEvents})
-      );
+      const currentTile = ugcTiles[currentStartIndex + offset]
+      smallTiles.push(createSmallTile({ tile: currentTile, clickHandler: handleClickedTileEvents }))
     }
 
     // Create big tile if available
-    let bigTileDiv: JSX.Element | null = null;
+    let bigTileDiv: JSX.Element | null = null
     if (currentStartIndex + imagesPerGroup - 1 < ugcTiles.length) {
-      const bigTile = ugcTiles[currentStartIndex + imagesPerGroup - 1];
+      const bigTile = ugcTiles[currentStartIndex + imagesPerGroup - 1]
       bigTileDiv = (
         <div className="grid-item large" onClick={() => handleClickedTileEvents(Number(bigTile.id))} key={bigTile.id}>
           <div className="tile-image-wrapper">
@@ -70,7 +67,7 @@ export function initializeQuadrant(): void {
             <p>{bigTile.message}</p>
           </div>
         </div>
-      );
+      )
     }
 
     // append all to group div
@@ -78,30 +75,30 @@ export function initializeQuadrant(): void {
       <div className="group-container" key={`group-${groupCount}`}>
         {prependBigTile ? [bigTileDiv, ...smallTiles] : [...smallTiles, bigTileDiv]}
       </div>
-    );
+    )
 
-    container.appendChild(groupDiv);
-    groupCount++;
+    container.appendChild(groupDiv)
+    groupCount++
   }
 
-  const loadMoreButton = sdk.querySelector("#load-more");
+  const loadMoreButton = sdk.querySelector("#load-more")
 
   if (!loadMoreButton) {
-    throw new Error("Load more button not found");
+    throw new Error("Load more button not found")
   }
 
-  loadMoreButton.style.display = groupCount >= Math.ceil(ugcTiles.length / imagesPerGroup) ? "none" : "block";
+  loadMoreButton.style.display = groupCount >= Math.ceil(ugcTiles.length / imagesPerGroup) ? "none" : "block"
 }
 
 function handleClickedTileEvents(tileId: number): void {
-  const ugcTiles = sdk.tiles.getEnabledTiles();
+  const ugcTiles = sdk.tiles.getEnabledTiles()
   const tileData = {
-    tileData: ugcTiles.find((tile) => Number(tile.id) === tileId),
+    tileData: ugcTiles.find(tile => Number(tile.id) === tileId),
     widgetId: sdk.placement.getWidgetId(),
-    filterId: sdk.placement.getWidgetContainer().widgetOptions?.filterId,
-  };
-  const expandedTileWrapper = document.createElement("div");
-  expandedTileWrapper.className = "expanded-tile-wrapper";
-  sdk.triggerEvent("expandedTileClose");
-  sdk.triggerEvent("tileExpand", tileData);
+    filterId: sdk.placement.getWidgetContainer().widgetOptions?.filterId
+  }
+  const expandedTileWrapper = document.createElement("div")
+  expandedTileWrapper.className = "expanded-tile-wrapper"
+  sdk.triggerEvent("expandedTileClose")
+  sdk.triggerEvent("tileExpand", tileData)
 }
