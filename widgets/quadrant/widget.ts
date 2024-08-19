@@ -36,11 +36,6 @@ sdk.tiles.preloadImages = true
 sdk.tiles.setLoadMode("page")
 
 sdk.addEventListener("tilesUpdated", initializeQuadrant)
-window.addEventListener("resize", function () {
-  for (let i = 0; i < groupsToShowInitially; i++) {
-    initializeQuadrant()
-  }
-})
 
 const loadMoreButton = sdk.querySelector("#load-more")
 

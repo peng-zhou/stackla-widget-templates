@@ -5,7 +5,7 @@ import { createElement, createFragment } from "jsx-html"
 
 declare const sdk: Sdk
 
-export default function initializeQuadrant() {
+export default function ExpandedTile() {
   const widgetContainer = sdk.placement.getWidgetContainer()
   const widgetSettings = getConfig(widgetContainer)
   const tile = sdk.tiles.getTile()
