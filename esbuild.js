@@ -24,9 +24,9 @@ const WebSocket = require('ws');
 
 const isWatch = process.argv.includes("--watch");
 const isDevelopment = env === "development";
-const server = http.createServer();
 
-if (isWatch) {
+if (isWatch && isDevelopment) {
+  const server = http.createServer();
   new WebSocket.Server({ server });
 }
 
