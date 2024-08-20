@@ -85,7 +85,7 @@ export default function ExpandedTile(sdk: Sdk) {
                   {tile.message && widgetSettings.expanded_tile_show_caption ? tile.message : ""}
                 </p>
                 <div>{getTagsFromTile(tile)}</div>
-                {productsEnabled ? <ugc-products parent={parent}></ugc-products> : <></>}
+                {productsEnabled && <ugc-products parent={parent}></ugc-products>}
               </div>
               <div className="footer">
                 <span className="base-v2 source source-instagram">

@@ -18,7 +18,7 @@ export default ({ tile, widgetSettings }: ExpandedTileProps) => {
     <div className="caption">
       <p className="caption-paragraph">{isCaptionEnabled(tile, widgetSettings) ? tile.message : <></>}</p>
       {getTagsFromTile(tile)}
-      {productsEnabled ? <ugc-products parent={parent}></ugc-products> : <></>}
+      {productsEnabled && <ugc-products parent={parent}></ugc-products>}
     </div>
   )
 }

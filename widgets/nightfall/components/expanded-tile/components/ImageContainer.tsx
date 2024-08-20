@@ -5,7 +5,7 @@ import { IWidgetSettings } from "types/IWidgetSettings"
 
 declare const sdk: Sdk
 
-export function getShopspots(widgetSettings: IWidgetSettings) {
+export function Shopspots({ widgetSettings }: { widgetSettings: IWidgetSettings }) {
   const shopspotEnabled = sdk.isComponentLoaded("shopspots") && widgetSettings.expanded_tile_show_shopspots
   const parent = sdk.getNodeId()
 
@@ -27,7 +27,7 @@ export default ({ tile, widgetSettings }: ExpandedTileProps) => {
       <div className="image-wrapper">
         <div className="image-wrapper-inner">
           <div className="image">
-            {getShopspots(widgetSettings)}
+            <Shopspots widgetSettings={widgetSettings} />
             {tile.image ? <img alt="UGC Image" className="image-element" src={tile.image} /> : <></>}
           </div>
         </div>

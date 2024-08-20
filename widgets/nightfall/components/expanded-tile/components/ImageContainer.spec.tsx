@@ -1,7 +1,7 @@
 import { createElement } from "jsx-html"
 import tiles from "../../../../../tests/fixtures/tiles.fixtures"
 import { IWidgetSettings } from "types/IWidgetSettings"
-import ImageContainer, { getShopspots } from "./ImageContainer"
+import ImageContainer, { Shopspots } from "./ImageContainer"
 
 jest.mock("@stackla/ugc-widgets", () => ({
   Sdk: {
@@ -23,14 +23,14 @@ global.sdk = mockSdk
 describe("Test shopspot logic", () => {
   test("returns shopspot components when shopspot is enabled", () => {
     const widgetSettings = { expanded_tile_show_shopspots: true } as IWidgetSettings
-    const shopspots = getShopspots(widgetSettings)
+    const shopspots = <Shopspots widgetSettings={widgetSettings} />
 
     expect(shopspots).not.toBeInstanceOf(DocumentFragment)
   })
 
   test("returns empty fragment when shopspot is disabled", () => {
     const widgetSettings = { expanded_tile_show_shopspots: false } as IWidgetSettings
-    const shopspots = getShopspots(widgetSettings)
+    const shopspots = <Shopspots widgetSettings={widgetSettings} />
 
     expect(shopspots).toBeInstanceOf(DocumentFragment)
   })
@@ -41,7 +41,7 @@ describe("ImageContainer", () => {
     document.body.innerHTML = ""
   })
 
-  test("renders image element when tile has image", () => {
+  it("should render image element when tile has image", () => {
     const widgetSettings = { expanded_tile_show_shopspots: true } as IWidgetSettings
     const imageContainer = <ImageContainer tile={tiles[0]} widgetSettings={widgetSettings} />
 
@@ -52,7 +52,7 @@ describe("ImageContainer", () => {
     )
   })
 
-  it("renders shopspot components when shopspot is enabled", () => {
+  it("should render shopspot components when shopspot is enabled", () => {
     const widgetSettings = { expanded_tile_show_shopspots: true } as IWidgetSettings
     const imageContainer = <ImageContainer tile={tiles[0]} widgetSettings={widgetSettings} />
 

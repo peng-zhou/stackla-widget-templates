@@ -4,7 +4,7 @@ import { ExpandedTileProps } from "../../../types/ExpandedTileProps"
 export default ({ tile }: ExpandedTileProps) => (
   <div class="footer">
     <span className={`base-v2 source source-${tile.source}`}>
-      <i class={`fs fs-${tile.source}`}></i>
+      <i className={`fs fs-${tile.source}`}></i>
     </span>
   </div>
 )

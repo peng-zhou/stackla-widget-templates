@@ -1,3 +1,16 @@
+function startWebSocketServer() {
+  const { spawn } = require('child_process');
+  const server = spawn('node', ['hot-reload-server.js'], {
+    stdio: 'inherit',
+    shell: true,
+  });
+  server.on('error', err => {
+    console.error('Error starting WebSocket server:', err);
+  });
+  return server;
+}
+
+
 (async () => {
 const esbuild = require("esbuild")
 const { sassPlugin } = require("esbuild-sass-plugin")
@@ -6,7 +19,6 @@ const sass = require("sass")
 const { globSync } = require("glob")
 const fs = require("fs")
 const env = process.env.APP_ENV || "development"
-const { spawn } = require('child_process');
 const http = require('http');
 const WebSocket = require('ws');
 
@@ -17,17 +29,6 @@ const server = http.createServer();
 if (isWatch) {
   new WebSocket.Server({ server });
 }
-
-const startWebSocketServer = () => {
-  const server = spawn('node', ['hot-reload-server.js'], {
-    stdio: 'inherit',
-    shell: true,
-  });
-  server.on('error', err => {
-    console.error('Error starting WebSocket server:', err);
-  });
-  return server;
-};
 
 const preAndPostBuild = {
   name: "preAndPost",

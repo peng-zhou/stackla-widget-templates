@@ -2,7 +2,7 @@ import { createElement, createFragment } from "jsx-html"
 import { Tile } from "@stackla/ugc-widgets"
 import { ExpandedTileProps } from "../../../types/ExpandedTileProps"
 
-function renderAvatar(tile: Tile) {
+function Avatar({ tile }: { tile: Tile }) {
   return tile.avatar ? (
     <span className="avatar-wrapper">
       <a className="avatar-link" href={tile.original_url} target="_blank">
@@ -14,7 +14,7 @@ function renderAvatar(tile: Tile) {
   )
 }
 
-function renderUser(tile: Tile) {
+function User({ tile }: { tile: Tile }) {
   return tile.user ? (
     <a className="user-link" href={tile.original_url} target="_blank">
       <div className="user-top">
@@ -32,8 +32,8 @@ function renderUser(tile: Tile) {
 export default ({ tile }: ExpandedTileProps) => (
   <div className="user-info-wrapper">
     <div className="user-info">
-      {renderAvatar(tile)}
-      {renderUser(tile)}
+      <Avatar tile={tile} />
+      <User tile={tile} />
     </div>
   </div>
 )
