@@ -16,7 +16,8 @@ export function initializeMasonry() {
     fitWidth: true,
     initLayout: false,
     percentPosition: true,
-    stagger: 5
+    stagger: 5,
+    columnWidth: ".ugc-tile"
   })
 
   sdk.masonry.layout()

@@ -10,14 +10,9 @@
     <shopspot-flyout tile-id="{{id}}"></shopspot-flyout>
     <shopspot-icon tile-id="{{id}}"></shopspot-icon>
     <div class="tile-message-wrapper">
+        <div class="tile-author">{{name}}</div>
         <span class="tile-timephrase">{{time_ago}}</span>
-        <div class="tile-avatar-wrapper">
-            {{#avatar}}
-                <img class="tile-avatar" src="{{avatar}}"/>
-            {{/avatar}}
-            <div class="tile-network">
-                <div class="network-icon icon-{{source}}"></div>
-            </div>
-        </div>
+        <div class="network-icon icon-{{source}}"></div>
+        <div class="tile-caption"><p>{{message}}</p></div>
     </div>
 </div>

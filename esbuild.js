@@ -1,3 +1,4 @@
+(async () => {
 const esbuild = require("esbuild")
 const { sassPlugin } = require("esbuild-sass-plugin")
 const { copy } = require("esbuild-plugin-copy")
@@ -5,6 +6,28 @@ const sass = require("sass")
 const { globSync } = require("glob")
 const fs = require("fs")
 const env = process.env.APP_ENV || "development"
+const { spawn } = require('child_process');
+const http = require('http');
+const WebSocket = require('ws');
+
+const isWatch = process.argv.includes("--watch");
+const isDevelopment = env === "development";
+const server = http.createServer();
+
+if (isWatch) {
+  new WebSocket.Server({ server });
+}
+
+const startWebSocketServer = () => {
+  const server = spawn('node', ['hot-reload-server.js'], {
+    stdio: 'inherit',
+    shell: true,
+  });
+  server.on('error', err => {
+    console.error('Error starting WebSocket server:', err);
+  });
+  return server;
+};
 
 const preAndPostBuild = {
   name: "preAndPost",
@@ -46,6 +69,14 @@ const config = {
     ".hbs": "text",
     ".css": "text"
   },
+  banner: {
+    js: isDevelopment ? `(() => {
+      const ws = new WebSocket("ws://localhost:3001");
+      ws.onmessage = () => {
+        location.reload();
+      };
+    })();` : ``,
+  },
   minify: true,
   plugins: [
     preAndPostBuild,
@@ -72,7 +103,13 @@ if (env == "development") {
   config.minify = false
   config.sourcemap = "inline"
 
-  esbuild.build(config)
+  if (isWatch) {
+    startWebSocketServer()
+    esbuild.build(config);
+  } else {
+    esbuild.build(config)
+  }
 } else {
   esbuild.build(config)
 }
+})()
