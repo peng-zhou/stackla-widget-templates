@@ -88,7 +88,7 @@ export function showTilesView() {
     throw new Error("Failed to find tiles UI element")
   }
 
-  ugcTiles.style.display = "block"
+  ugcTiles.style.display = ""
 }
 
 export function hideTilesView() {
