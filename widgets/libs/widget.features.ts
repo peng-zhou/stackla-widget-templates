@@ -121,12 +121,13 @@ export function loadTileExpandArrows() {
     const nextButton = expandedTileShadowRoot.querySelector(".tile-arrows-right")
 
     if (!prevButton || !nextButton) {
-      throw new Error("Failed to find arrow UI elements")
+      console.error("Failed to find arrow UI elements")
+      return
     }
 
     prevButton.addEventListener("click", arrowClickListener)
     nextButton.addEventListener("click", arrowClickListener)
-  }, 500)
+  }, 1000)
 }
 
 export function loadWidgetIsEnabled<T extends BaseConfig>(widgetSettings: T) {

@@ -10,9 +10,7 @@ export function getTagsFromTile(tile: Tile) {
     <div class="tags">
       {tile.tags_extended.map(tag => (
         <div class="tag">
-          <span>
-            <a href={tag.custom_url ?? "#"}>{tag.tag}</a>
-          </span>
+          <a href={tag.custom_url ?? "#"}>{tag.tag}</a>
         </div>
       ))}
     </div>
