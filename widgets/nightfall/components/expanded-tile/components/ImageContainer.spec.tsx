@@ -3,13 +3,6 @@ import tiles from "../../../../../tests/fixtures/tiles.fixtures"
 import { IWidgetSettings } from "types/IWidgetSettings"
 import ImageContainer, { Shopspots } from "./ImageContainer"
 
-jest.mock("@stackla/ugc-widgets", () => ({
-  Sdk: {
-    isComponentLoaded: jest.fn(),
-    getNodeId: jest.fn()
-  }
-}))
-
 const mockSdk = {
   isComponentLoaded: jest.fn(),
   getNodeId: jest.fn()
