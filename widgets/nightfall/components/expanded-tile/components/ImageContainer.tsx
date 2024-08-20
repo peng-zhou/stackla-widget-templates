@@ -9,8 +9,6 @@ export function getShopspots(widgetSettings: IWidgetSettings) {
   const shopspotEnabled = sdk.isComponentLoaded("shopspots") && widgetSettings.expanded_tile_show_shopspots
   const parent = sdk.getNodeId()
 
-  console.log("shopspotEnabled", shopspotEnabled)
-
   if (!shopspotEnabled) {
     return <></>
   }
