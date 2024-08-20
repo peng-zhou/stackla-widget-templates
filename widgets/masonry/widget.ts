@@ -6,7 +6,6 @@ import {
   loadExpandedTileFeature,
   loadTitle
 } from "widgets/libs/widget.features"
-import { IWidgetSettings } from "types/IWidgetSettings"
 import { ISdkMasonry } from "types/ISdkMasonry"
 import {
   initializeMasonry,
@@ -27,8 +26,6 @@ sdk.tiles.preloadImages = true
 
 const widgetContainer = sdk.placement.getWidgetContainer()
 const widgetSettings = getConfig(widgetContainer)
-const ugcTiles = sdk.tiles.tiles
-const ugcTilesLength = Object.keys(ugcTiles).length
 
 const showWidget = widgetContainer.enabled
 

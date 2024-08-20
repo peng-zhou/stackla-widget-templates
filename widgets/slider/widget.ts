@@ -1,6 +1,5 @@
 import { getConfig } from "./widget.config"
 import { addAutoAddTileFeature, loadExpandedTileFeature, loadTitle } from "widgets/libs/widget.features"
-import { IWidgetSettings } from "types/IWidgetSettings"
 import { ISdkMasonry } from "types/ISdkMasonry"
 import { addCSSVariablesToPlacement } from "widgets/libs/widget.layout"
 import getCSSVariables from "./css.variables"
