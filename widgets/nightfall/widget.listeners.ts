@@ -1,13 +1,23 @@
-import type { Sdk } from "@stackla/ugc-widgets"
-
+import { Sdk } from "@stackla/ugc-widgets"
 declare const sdk: Sdk
 
 export function onTileClose() {
   const tilesWrapper = sdk.querySelector(".track")
+  const tilesContainer = sdk.querySelector("#tiles")
+  const ugcTiles = sdk.querySelector(".ugc-tiles")
 
-  if (!tilesWrapper) {
-    throw new Error("Failed to find tiles UI element")
+  if (!ugcTiles) {
+    throw new Error("Failed to find tiles wrapper")
   }
 
-  tilesWrapper.style.display = "block"
+  if (!tilesWrapper) {
+    throw new Error("Failed to find tiles wrapper")
+  }
+
+  if (!tilesContainer) {
+    throw new Error("Failed to find tiles container")
+  }
+
+  tilesWrapper.style.display = "flex"
+  tilesContainer.style.display = "flex"
 }
