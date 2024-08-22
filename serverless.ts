@@ -18,15 +18,12 @@ const plugins : string[] = [
 ];
 
 
-module.exports = {
+const config = {
   ...serverlessConfig({
   plugins: plugins,
   service: "widget-templates",
   offlinePort: process.env.APP_ENV == "testing" ? 4002 : 80,
   custom: {
-    scriptable: {
-      hooks: process.env.APP_ENV === "testing" ? testingHooks : productionHooks
-    },
     esbuild: {
       otherExternal: ["hbs"]
     }
@@ -57,3 +54,11 @@ module.exports = {
     }
   }
 }
+
+if (process.env.APP_ENV == "testing") {
+  config.hooks = testingHooks
+} else if (process.env.APP_ENV == "production") {
+  config.hooks = productionHooks
+}
+
+module.exports = config
