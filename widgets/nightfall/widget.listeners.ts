@@ -12,7 +12,6 @@ export function onTileClose() {
       throw new Error("Failed to find tiles wrapper")
     }
 
-
     if (!tilesContainer) {
       throw new Error("Failed to find tiles container")
     }
@@ -21,5 +20,5 @@ export function onTileClose() {
 
     // TODO - A bit buggy, need to find a better way to refresh masonry
     refreshMasonryLayout()
-  }, 200);
+  }, 200)
 }

@@ -65,8 +65,8 @@
 .panel-left {
   background: #fff;
   display: flex;
-  place-content: center center;
-  align-items: center;
+  justify-content: start;
+  align-items: start;
   flex: 1 1 55%;
 }
 
@@ -223,10 +223,9 @@ html {
   color: #ababab;
   display: inline-block;
   font-size: 12px;
-  padding-right: 20px;
   text-align: left;
   width: 100%;
-  padding: 20px 0px;
+  padding: 10px 0px;
 }
 
 .tile-caption {
