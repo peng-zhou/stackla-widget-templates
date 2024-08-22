@@ -19,7 +19,7 @@ const mockSdk = {
         enabled: true
       }
     }
-  },
+  }
 }
 
 // @ts-expect-error global properties are not typed
@@ -88,6 +88,8 @@ describe("Caption Component", () => {
   it("should not render ugc-products component when products are disabled", () => {
     mockSdk.isComponentLoaded.mockReturnValue(false)
     const caption = <Caption tile={tile} widgetSettings={widgetSettings} />
-    expect(caption.toString()).toBe(`<div class="caption"><p class="caption-paragraph">Sample caption</p><div class="tile-timestamp"></div></div>`)
+    expect(caption.toString()).toBe(
+      `<div class="caption"><p class="caption-paragraph">Sample caption</p><div class="tile-timestamp"></div></div>`
+    )
   })
 })
