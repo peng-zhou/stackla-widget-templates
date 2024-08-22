@@ -1,5 +1,4 @@
 import UserInfo from "./UserInfo"
-import Timestamp from "./Timestamp"
 import Caption from "./Caption"
 import Footer from "./Footer"
 import { createElement } from "@stackla/ugc-widgets/src/ui/core/utils/jsx-html"
@@ -12,7 +11,6 @@ export default (props: ExpandedTileProps) => {
         <div class="content-wrapper">
           <div class="content-inner-wrapper">
             <UserInfo {...props} />
-            <Timestamp {...props} />
             <Caption {...props} />
             <Footer {...props} />
           </div>
