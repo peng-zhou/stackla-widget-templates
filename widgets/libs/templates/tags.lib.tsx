@@ -1,16 +1,12 @@
 import { Tile } from "@stackla/ugc-widgets"
-import { createElement, createFragment } from "jsx-html"
+import { createElement } from "jsx-html"
 
 type TagsProps = {
   tile: Tile
 }
 
 export const Tags = ({ tile }: TagsProps) => {
-  if (!tile.tags_extended) {
-    return <></>
-  }
-
-  return (
+  return tile.tags_extended && (
     <div class="tags">
       {tile.tags_extended.map(tag => (
         <div class="tag">

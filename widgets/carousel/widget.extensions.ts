@@ -36,11 +36,11 @@ function initializeInlineSwiper(widgetSettings: IWidgetSettings) {
 }
 
 function initializeExtendedSwiper() {
-  const expandedTile = sdk.querySelector("expanded-tile")
+  const expandedTile = sdk.querySelector("expanded-tiles")
   if (!expandedTile?.shadowRoot) {
     throw new Error("The expanded tile element not found")
   }
-  const widgetSelector = expandedTile.shadowRoot.querySelector<HTMLElement>(".expanded-glide")
+  const widgetSelector = expandedTile.shadowRoot.querySelector<HTMLElement>(".swiper-expanded")
 
   if (!widgetSelector) {
     throw new Error("Failed to find widget UI element. Failed to initialise Glide")
@@ -53,37 +53,33 @@ function initializeExtendedSwiper() {
 
   arrows.forEach(it => (it.style.display = ""))
 
-  //initializeSwiper(widgetSelector, 1)
+  initializeSwiper(widgetSelector, 1)
 }
 
 export function onTileExpand() {
-  const arrows = sdk.querySelector(".glide__arrows")
-  if (!arrows) {
-    throw new Error("Failed to find glide arrows UI element")
-  }
-  arrows.style.display = "none"
-
-  const expandedTile = sdk.querySelector("expanded-tile")
+  const expandedTile = sdk.querySelector("expanded-tiles")
 
   if (!expandedTile?.shadowRoot) {
     throw new Error("The expanded tile element not found")
   }
 
-  expandedTile.closest("div.expanded-tile-container")?.classList.add("expanded-tile-overlay")
+  expandedTile.style.display = "block"
 
-  waitForElm(expandedTile.shadowRoot, [".expanded-glide"], initializeExtendedSwiper)
+  expandedTile.closest("div.expanded-tiles-container")?.classList.add("expanded-tile-overlay")
+
+  waitForElm(expandedTile.shadowRoot, [".expanded-swiper"], initializeExtendedSwiper)
 }
 
 export function onTileClosed() {
-  const arrows = sdk.querySelector(".glide__arrows")
-  if (!arrows) {
-    throw new Error("Failed to find glide arrows UI element")
+  const expandedTile = sdk.querySelector("expanded-tiles")
+
+  if (!expandedTile?.shadowRoot) {
+    throw new Error("The expanded tile element not found")
   }
-  arrows.style.display = ""
 
-  const expandedTile = sdk.querySelector("expanded-tile")
+  expandedTile.style.display = "block"
 
-  expandedTile?.closest("div.expanded-tile-container")?.classList.remove("expanded-tile-overlay")
+  expandedTile.closest("div.expanded-tile-container")?.classList.remove("expanded-tile-overlay")
 }
 
 export function hideSlidesWithInvisibleTiles() {

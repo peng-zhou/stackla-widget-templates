@@ -1,19 +1,16 @@
 import { Tile } from "@stackla/ugc-widgets"
-import { createElement, createFragment } from "jsx-html"
+import { createElement } from "jsx-html"
 
 export const ShareMenu = (tile: Tile, showMenu: boolean) => {
-  if (showMenu) {
-    return (
-      <div class="ugc-inline-share-buttons">
-        <MenuLink icon="facebook" tile={tile} />
-        <MenuLink icon="x" tile={tile} />
-        <MenuLink icon="pinterest" tile={tile} />
-        <MenuLink icon="linkedin" tile={tile} />
-        <MenuLink icon="email" tile={tile} />
-      </div>
-    )
-  }
-  return <></>
+  return showMenu ? (
+    <div class="ugc-inline-share-buttons">
+      <MenuLink icon="facebook" tile={tile} />
+      <MenuLink icon="x" tile={tile} />
+      <MenuLink icon="pinterest" tile={tile} />
+      <MenuLink icon="linkedin" tile={tile} />
+      <MenuLink icon="email" tile={tile} />
+    </div>
+  ) : null
 }
 
 const MenuLink = ({ tile, icon }: { tile: Tile; icon: string }) => {
