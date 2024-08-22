@@ -10,7 +10,7 @@ export type ExpandedTileProps = {
   tile: Tile
 }
 
-export const ExpandedTile = ({ sdk, tile }: ExpandedTileProps) => {
+export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
   const widgetContainer = sdk.placement.getWidgetContainer()
   const widgetSettings = getConfig(widgetContainer)
   const shopspotEnabled = sdk.isComponentLoaded("shopspots") && widgetSettings.expanded_tile_show_shopspots
@@ -72,7 +72,7 @@ export const ExpandedTile = ({ sdk, tile }: ExpandedTileProps) => {
   )
 }
 
-const UserInfoTemplate = ({ tile }: { tile: Tile }) => {
+function UserInfoTemplate({ tile }: { tile: Tile }) {
   if (tile.avatar) {
     return (
       <span class="avatar-wrapper">
@@ -97,7 +97,7 @@ const UserInfoTemplate = ({ tile }: { tile: Tile }) => {
   return <></>
 }
 
-const ShopSpotTemplate = ({ shopspotEnabled, parent }: { shopspotEnabled: boolean; parent?: string }) => {
+function ShopSpotTemplate({ shopspotEnabled, parent }: { shopspotEnabled: boolean; parent?: string }) {
   if (shopspotEnabled) {
     return (
       <>

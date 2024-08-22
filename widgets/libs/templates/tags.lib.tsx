@@ -5,7 +5,7 @@ type TagsProps = {
   tile: Tile
 }
 
-export const Tags = ({ tile }: TagsProps) => {
+export function Tags({ tile }: TagsProps) {
   if (!tile.tags_extended) {
     return <></>
   }

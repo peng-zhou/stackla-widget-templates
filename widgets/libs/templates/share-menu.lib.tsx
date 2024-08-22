@@ -1,7 +1,7 @@
 import { Tile } from "@stackla/ugc-widgets"
 import { createElement, createFragment } from "jsx-html"
 
-export const ShareMenu = (tile: Tile, showMenu: boolean) => {
+export function ShareMenu(tile: Tile, showMenu: boolean) {
   if (showMenu) {
     return (
       <div class="ugc-inline-share-buttons">
@@ -16,7 +16,7 @@ export const ShareMenu = (tile: Tile, showMenu: boolean) => {
   return <></>
 }
 
-const MenuLink = ({ tile, icon }: { tile: Tile; icon: string }) => {
+function MenuLink({ tile, icon }: { tile: Tile; icon: string }) {
   const url = new URL(`https://www.addtoany.com/add_to/${icon}`)
   url.searchParams.append("linkurl", tile.original_url)
   tile.name && url.searchParams.append("linkname", tile.name)
