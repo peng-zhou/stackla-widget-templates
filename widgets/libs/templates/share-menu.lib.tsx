@@ -25,7 +25,7 @@ function MenuLink({ tile, icon }: { tile: Tile; icon: string }) {
   return (
     <a href={href} target="_blank">
       <img
-        src="https://static.addtoany.com/buttons/facebook.svg"
+        src={`https://static.addtoany.com/buttons/${icon}.svg`}
         width="32"
         height="32"
         style="background-color:#333"
