@@ -44,8 +44,6 @@ loadHoverTile(widgetSettings)
 registerTilesUpdated(hideSlidesWithInvisibleTiles)
 registerPreloadTileHidden(onPreloadTileHidden)
 
-// FIXME Find a better option?
-void sdk.addCSSImportUrl("https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css")
 sdk.addCSSToComponent(expandedTileStyle, "expanded-tile")
 sdk.addCSSToComponent(productsStyle, "ugc-products")
 sdk.addCSSToComponent(shopspotStyle, "shopspot-icon")
