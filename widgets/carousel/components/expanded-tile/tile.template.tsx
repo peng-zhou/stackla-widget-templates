@@ -92,7 +92,9 @@ function UserInfoTemplate({ tile }: { tile: Tile }) {
         <span class="user-handle">@{tile.user}</span>
       </div>
     </a>
-  ) : null
+  ) : (
+    <></>
+  )
 }
 
 function ShopSpotTemplate({ shopspotEnabled, parent }: { shopspotEnabled: boolean; parent?: string }) {
@@ -101,5 +103,7 @@ function ShopSpotTemplate({ shopspotEnabled, parent }: { shopspotEnabled: boolea
       <shopspot-flyout parent={parent}></shopspot-flyout>
       <shopspot-icon parent={parent} />
     </>
-  ) : null
+  ) : (
+    <></>
+  )
 }

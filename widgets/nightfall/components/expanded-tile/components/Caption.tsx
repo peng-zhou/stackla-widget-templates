@@ -2,8 +2,8 @@ import { createElement, createFragment } from "jsx-html"
 import { Sdk, Tile } from "@stackla/ugc-widgets"
 import { ExpandedTileProps } from "../../../types/ExpandedTileProps"
 import { IWidgetSettings } from "types/IWidgetSettings"
-import Timestamp from "./Timestamp"
 import { Tags } from "@widgets/libs/templates/tags.lib"
+import Timestamp from "./Timestamp"
 
 declare const sdk: Sdk
 
@@ -18,8 +18,8 @@ export default ({ tile, widgetSettings }: ExpandedTileProps) => {
   return (
     <div className="caption">
       <p className="caption-paragraph">{isCaptionEnabled(tile, widgetSettings) ? tile.message : <></>}</p>
-      <Timestamp tile={tile} widgetSettings={widgetSettings} />
       <Tags tile={tile} />
+      <Timestamp tile={tile} widgetSettings={widgetSettings} />
       {productsEnabled && <ugc-products parent={parent}></ugc-products>}
     </div>
   )
