@@ -80,8 +80,8 @@ describe("Caption Component", () => {
   it("should render tags from tile", () => {
     const tile = tiles[0]
     const caption = <Caption tile={tile} widgetSettings={widgetSettings} />
-    expect(caption.toString()).toContain(`<a href="#">Single column span</a>`);
-    expect(caption.toString()).toContain(`<a href="#">Double column span</a>`);
+    expect(caption.toString()).toContain(`<a href="#">Single column span</a>`)
+    expect(caption.toString()).toContain(`<a href="#">Double column span</a>`)
   })
 
   it("should not render ugc-products component when products are disabled", () => {
