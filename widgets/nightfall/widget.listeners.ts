@@ -1,8 +1,10 @@
 import { Sdk } from "@stackla/ugc-widgets"
+import { refreshMasonryLayout } from "../libs/extensions/masonry.extension"
+import { waitForElement } from "widgets/libs/widget.utils"
 declare const sdk: Sdk
 
-export function onTileClose() {
-  const tilesWrapper = sdk.querySelector(".track")
+export async function onTileClose() {
+  await waitForElement(".ugc-tiles", 3000)
   const tilesContainer = sdk.querySelector("#tiles")
   const ugcTiles = sdk.querySelector(".ugc-tiles")
 
@@ -10,14 +12,11 @@ export function onTileClose() {
     throw new Error("Failed to find tiles wrapper")
   }
 
-  if (!tilesWrapper) {
-    throw new Error("Failed to find tiles wrapper")
-  }
-
   if (!tilesContainer) {
     throw new Error("Failed to find tiles container")
   }
 
-  tilesWrapper.style.display = "flex"
   tilesContainer.style.display = "flex"
+
+  refreshMasonryLayout()
 }
