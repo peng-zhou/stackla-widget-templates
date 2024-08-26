@@ -6,11 +6,7 @@ type TagsProps = {
 }
 
 export function Tags({ tile }: TagsProps) {
-  if (!tile.tags_extended) {
-    return <></>
-  }
-
-  return (
+  return tile.tags_extended ? (
     <div class="tags">
       {tile.tags_extended.map(tag => (
         <div class="tag">
@@ -18,5 +14,7 @@ export function Tags({ tile }: TagsProps) {
         </div>
       ))}
     </div>
+  ) : (
+    <></>
   )
 }
