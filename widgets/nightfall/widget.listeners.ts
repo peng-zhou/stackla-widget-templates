@@ -1,10 +1,10 @@
 import { Sdk } from "@stackla/ugc-widgets"
 import { refreshMasonryLayout } from "../libs/extensions/masonry.extension"
+import { waitForElement } from "widgets/libs/widget.utils"
 declare const sdk: Sdk
 
-export function onTileClose() {
-  // TODO: Add waitforelm here
-  setTimeout(() => {
+export async function onTileClose() {
+    await waitForElement(".ugc-tiles")
     const tilesContainer = sdk.querySelector("#tiles")
     const ugcTiles = sdk.querySelector(".ugc-tiles")
 
@@ -18,7 +18,5 @@ export function onTileClose() {
 
     tilesContainer.style.display = "flex"
 
-    // TODO - A bit buggy, need to find a better way to refresh masonry
-    refreshMasonryLayout()
-  }, 200)
-}
+    refreshMasonryLayout();
+  }
