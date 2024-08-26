@@ -8,8 +8,8 @@ export function waitForElement(selector: string, timeout = 5000) {
     const timer = setInterval(() => {
       const element = sdk.querySelector(selector)
       if (element) {
-        clearInterval(timer)
         resolve(element)
+        clearInterval(timer)
       }
     }, interval)
     setTimeout(() => {
