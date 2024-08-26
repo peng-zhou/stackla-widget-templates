@@ -2,14 +2,10 @@ import type { Sdk } from "@stackla/ugc-widgets"
 import { ExpandedTile } from "./tile.template"
 import { createElement, createFragment } from "@stackla/ugc-widgets/src/ui/core/utils/jsx-html"
 
-export const ExpandedTiles = (sdk: Sdk) => {
+export function ExpandedTiles(sdk: Sdk) {
   const tiles = sdk.tiles.tiles
 
-  if (!Object.values(tiles).length) {
-    throw new Error("Failed to get tile")
-  }
-
-  return (
+  return Object.values(tiles).length ? (
     <>
       <div class="swiper swiper-expanded">
         <div class="swiper-wrapper">
@@ -23,5 +19,7 @@ export const ExpandedTiles = (sdk: Sdk) => {
       <div class="swiper-button-prev"></div>
       <div class="swiper-button-next"></div>
     </>
+  ) : (
+    <span>No tiles found</span>
   )
 }

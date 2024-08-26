@@ -97,7 +97,7 @@
 
     .chevron-right,
     .chevron-left {
-      width: auto !important;
+      width: auto;
       background-repeat: no-repeat;
       background-attachment: fixed;
       background-position: center;
@@ -122,8 +122,8 @@ div.image-filler {
   border-radius: 100%;
   border: 2px solid #dfdfdf;
   color: #000;
-  height: 32px !important;
-  width: 32px !important;
+  height: 32px;
+  width: 32px;
 }
 
 .swiper-button-next::after,

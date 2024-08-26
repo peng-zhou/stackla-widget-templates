@@ -1,9 +1,9 @@
 import { Tile } from "@stackla/ugc-widgets"
-import { createElement, createFragment } from "jsx-html"
+import { createElement } from "jsx-html"
 
 export function ShareMenu(tile: Tile, showMenu: boolean) {
-  if (showMenu) {
-    return (
+  return (
+    showMenu && (
       <div class="ugc-inline-share-buttons">
         <MenuLink icon="facebook" tile={tile} />
         <MenuLink icon="x" tile={tile} />
@@ -12,8 +12,7 @@ export function ShareMenu(tile: Tile, showMenu: boolean) {
         <MenuLink icon="email" tile={tile} />
       </div>
     )
-  }
-  return <></>
+  )
 }
 
 function MenuLink({ tile, icon }: { tile: Tile; icon: string }) {

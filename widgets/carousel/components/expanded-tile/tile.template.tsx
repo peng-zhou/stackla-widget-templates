@@ -73,38 +73,33 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
 }
 
 function UserInfoTemplate({ tile }: { tile: Tile }) {
-  if (tile.avatar) {
-    return (
-      <span class="avatar-wrapper">
-        <a class="avatar-link" href={tile.original_url} target="_blank">
-          <img src={tile.avatar} />
-        </a>
-      </span>
-    )
-  }
-  if (tile.user) {
-    return (
-      <a class="user-link" href={tile.original_url} target="_blank">
-        <div class="user-top">
-          <span class="user-name">{tile.user}</span>
-        </div>
-        <div class="user-bottom">
-          <span class="user-handle">@{tile.user}</span>
-        </div>
+  return tile.avatar ? (
+    <span class="avatar-wrapper">
+      <a class="avatar-link" href={tile.original_url} target="_blank">
+        <img src={tile.avatar} />
       </a>
-    )
-  }
-  return <></>
+    </span>
+  ) : tile.user ? (
+    <a class="user-link" href={tile.original_url} target="_blank">
+      <div class="user-top">
+        <span class="user-name">{tile.user}</span>
+      </div>
+      <div class="user-bottom">
+        <span class="user-handle">@{tile.user}</span>
+      </div>
+    </a>
+  ) : (
+    <></>
+  )
 }
 
 function ShopSpotTemplate({ shopspotEnabled, parent }: { shopspotEnabled: boolean; parent?: string }) {
-  if (shopspotEnabled) {
-    return (
-      <>
-        <shopspot-flyout parent={parent}></shopspot-flyout>
-        <shopspot-icon parent={parent} />
-      </>
-    )
-  }
-  return <></>
+  return shopspotEnabled ? (
+    <>
+      <shopspot-flyout parent={parent}></shopspot-flyout>
+      <shopspot-icon parent={parent} />
+    </>
+  ) : (
+    <></>
+  )
 }
