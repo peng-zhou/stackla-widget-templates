@@ -2,19 +2,20 @@ import { Sdk } from "@stackla/ugc-widgets"
 
 declare const sdk: Sdk
 
-export function waitForElement(selector: string, timeout = 5000) {
+export function waitForElement(selector: string, timeout: number): Promise<Element> {
   return new Promise((resolve, reject) => {
     const interval = 100
-    const timer = setInterval(() => {
+    const endTime = Date.now() + timeout
+
+    const intervalId = setInterval(() => {
       const element = sdk.querySelector(selector)
       if (element) {
+        clearInterval(intervalId)
         resolve(element)
-        clearInterval(timer)
+      } else if (Date.now() > endTime) {
+        clearInterval(intervalId)
+        reject(new Error(`Element with selector "${selector}" not found within ${timeout}ms`))
       }
     }, interval)
-    setTimeout(() => {
-      clearInterval(timer)
-      reject(new Error(`Failed to find element with selector: ${selector}`))
-    }, timeout)
   })
 }
