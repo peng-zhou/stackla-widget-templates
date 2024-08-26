@@ -2,7 +2,7 @@ import { Sdk } from "@stackla/ugc-widgets"
 
 declare const sdk: Sdk
 
-export function waitForElement(selector: string, timeout: number): Promise<Element> {
+export function waitForElement(selector: string, timeout: number = 5000): Promise<Element> {
   return new Promise((resolve, reject) => {
     const interval = 100
     const endTime = Date.now() + timeout
