@@ -12,7 +12,11 @@ const productionHooks = {
   "before:webpack:compile:compile": "npm run build"
 }
 
-const plugins: string[] = ["serverless-webpack", "serverless-offline"]
+const plugins : string[] = [
+  'serverless-webpack',
+  'serverless-offline'
+];
+
 
 const config = {
   ...serverlessConfig({
@@ -23,6 +27,11 @@ const config = {
     esbuild: {
       otherExternal: ["hbs"]
     }
+  },
+  package: {
+    include: ["views/**/*", "dist/**/*", "build/**/*"],
+    exclude: ["node_modules/**/*"],
+  }
   }),
   functions: {
     main: {
