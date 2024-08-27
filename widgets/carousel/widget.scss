@@ -1,4 +1,4 @@
-@use "pkg:swiper/scss";
+@use "pkg:swiper/css/bundle";
 
 .tile-timephrase {
   position: absolute;
@@ -14,6 +14,10 @@
 .glide__track {
   display: flex;
   width: 100%;
+}
+
+#nosto-ugc-container {
+  height: fit-content;
 }
 
 .swiper {
