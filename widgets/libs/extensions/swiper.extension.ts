@@ -42,3 +42,15 @@ export function initializeSwiper(widgetSelector: HTMLElement, perView: number, m
 export function refreshSwiper(mode: SwiperMode) {
   sdk[mode]?.update()
 }
+
+export function disableSwiper(mode: SwiperMode) {
+  if (sdk[mode]) {
+    sdk[mode].disable()
+  }
+}
+
+export function enableSwiper(mode: SwiperMode) {
+  if (sdk[mode]) {
+    sdk[mode].enable()
+  }
+}

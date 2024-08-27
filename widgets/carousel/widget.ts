@@ -4,6 +4,7 @@ import { ExpandedTiles } from "./components/expanded-tile/base.template"
 import expandedTileStyle from "./components/expanded-tile/base.scss"
 import productsStyle from "./components/products/base.scss"
 import shopspotStyle from "./components/shopspot-icon/base.scss"
+import swiperFont from "./swiper-fonts.scss"
 import {
   onTileExpand,
   initializeInlineSwiperListeners,
@@ -44,7 +45,7 @@ loadHoverTile(widgetSettings)
 registerTilesUpdated(hideSlidesWithInvisibleTiles)
 registerPreloadTileHidden(onPreloadTileHidden)
 
-// FIXME Find a better option?
+sdk.addWidgetCusomStyles(swiperFont)
 sdk.addCSSToComponent(expandedTileStyle, "expanded-tiles")
 sdk.addCSSToComponent(productsStyle, "ugc-products")
 sdk.addCSSToComponent(shopspotStyle, "shopspot-icon")

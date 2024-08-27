@@ -2,7 +2,7 @@ import type { Sdk } from "@stackla/ugc-widgets"
 import { IWidgetSettings } from "../../types/IWidgetSettings"
 import { getConfig } from "./widget.config"
 import { waitForElm } from "widgets/libs/widget.features"
-import { initializeSwiper, refreshSwiper } from "@extensions/swiper.extension"
+import { disableSwiper, initializeSwiper, refreshSwiper } from "@extensions/swiper.extension"
 
 declare const sdk: Sdk
 
@@ -46,13 +46,6 @@ function initializeExtendedSwiper() {
     throw new Error("Failed to find widget UI element. Failed to initialise Glide")
   }
 
-  const arrows = widgetSelector.querySelectorAll<HTMLElement>(".swiper-button-prev, .swiper-button-next")
-  if (!arrows.length) {
-    throw new Error("Failed to find arrows UI element")
-  }
-
-  arrows.forEach(it => (it.style.display = ""))
-
   initializeSwiper(widgetSelector, 1)
 }
 
@@ -67,7 +60,9 @@ export function onTileExpand() {
 
   expandedTile.closest("div.expanded-tiles-container")?.classList.add("expanded-tile-overlay")
 
-  waitForElm(expandedTile.shadowRoot, [".expanded-swiper"], initializeExtendedSwiper)
+  disableSwiper("swiperInline")
+
+  waitForElm(expandedTile.shadowRoot, [".swiper-expanded"], initializeExtendedSwiper)
 }
 
 export function onTileClosed() {
@@ -80,6 +75,8 @@ export function onTileClosed() {
   expandedTile.style.display = "block"
 
   expandedTile.closest("div.expanded-tile-container")?.classList.remove("expanded-tile-overlay")
+
+  disableSwiper("swiperInline")
 }
 
 export function hideSlidesWithInvisibleTiles() {

@@ -1,3 +1,5 @@
+@use "pkg:swiper/css/bundle";
+
 :host {
   padding: 0;
   box-sizing: border-box;
@@ -184,4 +186,38 @@ html {
   padding-right: 20px;
   text-align: left;
   width: 100%;
+}
+
+.swiper {
+  height: calc(100% - 50px);
+  display: flex;
+
+  .swiper-slide {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    border-radius: 5px;
+    overflow: hidden;
+
+    > .ugc-tile {
+      width: 100%;
+
+      img {
+        height: 200px;
+        width: 100%;
+        object-fit: cover;
+        overflow: hidden;
+        border-radius: 5px;
+        position: relative;
+        opacity: 1;
+      }
+    }
+  }
+
+  &:not(.swiper-initialized) {
+    .swiper-slide > .ugc-tile > img {
+      opacity: 0;
+    }
+  }
 }
