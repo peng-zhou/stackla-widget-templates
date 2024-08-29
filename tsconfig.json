@@ -37,6 +37,6 @@
     "jsxFactory": "createElement",
     "jsxFragmentFactory": "createFragment"
   },
-  "include": ["widgets/**/*.ts", "widgets/**/*.tsx"],
+  "include": ["widgets/**/*.ts", "widgets/**/*.tsx", "./node_modules/@stackla/ugc-widgets/src/**.d.ts"],
   "exclude": []
 }
