@@ -45,7 +45,7 @@ loadHoverTile(widgetSettings)
 registerTilesUpdated(hideSlidesWithInvisibleTiles)
 registerPreloadTileHidden(onPreloadTileHidden)
 
-sdk.addWidgetCusomStyles(swiperFont)
+sdk.addWidgetCustomStyles(swiperFont)
 sdk.addCSSToComponent(expandedTileStyle, "expanded-tile")
 sdk.addCSSToComponent(productsStyle, "ugc-products")
 sdk.addCSSToComponent(shopspotStyle, "shopspot-icon")
