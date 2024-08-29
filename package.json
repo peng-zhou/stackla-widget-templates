@@ -59,7 +59,7 @@
   },
   "dependencies": {
     "@glidejs/glide": "^3.6.1",
-    "@stackla/ugc-widgets": "^0.0.42-c",
+    "@stackla/ugc-widgets": "^0.0.43",
     "happy-dom": "^14.12.3",
     "hbs": "^4.2.0",
     "masonry-layout": "^4.2.2",
