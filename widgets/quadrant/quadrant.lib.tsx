@@ -3,14 +3,6 @@ import { createElement } from "jsx-html"
 
 declare const sdk: Sdk
 
-export const createElementHelper = (tag: string, text: string): HTMLElement => {
-  const element = document.createElement(tag)
-
-  element.textContent = text
-
-  return element
-}
-
 interface SmallTileProps {
   tile: Tile
   clickHandler: (id: number) => void
