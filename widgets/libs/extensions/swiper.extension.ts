@@ -6,10 +6,23 @@ declare const sdk: SdkSwiper
 
 export type SwiperMode = "swiperInline" | "swiperExpanded"
 
-export function initializeSwiper(widgetSelector: HTMLElement, perView: number, mode: SwiperMode = "swiperInline") {
-  const ugcContainer = sdk.querySelector("#nosto-ugc-container")
-  const prev = ugcContainer!.querySelector<HTMLElement>(".swiper-button-prev")
-  const next = ugcContainer!.querySelector<HTMLElement>(".swiper-button-next")
+export type SwiperProps = {
+  widgetSelector: HTMLElement
+  prevButton?: string
+  nextButton?: string
+  perView: number
+  mode?: SwiperMode
+}
+
+export function initializeSwiper({
+  widgetSelector,
+  perView,
+  mode = "swiperInline",
+  prevButton = "swiper-button-prev",
+  nextButton = "swiper-button-next"
+}: SwiperProps) {
+  const prev = widgetSelector!.parentNode!.querySelector<HTMLElement>(`.${prevButton}`)
+  const next = widgetSelector!.parentNode!.querySelector<HTMLElement>(`.${nextButton}`)
 
   if (!prev || !next) {
     throw new Error("Missing swiper Navigation elements for previous and next navigation")

@@ -1,5 +1,3 @@
-@use "pkg:swiper/css/bundle";
-
 :host {
   padding: 0;
   box-sizing: border-box;
@@ -82,36 +80,6 @@
   }
 }
 
-.tile-arrows-left {
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  top: 50%;
-  left: -60px;
-  border: 0;
-  background: none;
-}
-
-.tile-arrows-right {
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  top: 50%;
-  right: -60px;
-  border: 0;
-  background: none;
-}
-
-.widget-icon {
-  display: block;
-}
-
-.tile-arrows .widget-icon {
-  width: 50px;
-  height: 50px;
-  cursor: pointer;
-}
-
 .user-info {
   display: flex;
   flex-direction: row;
@@ -190,29 +158,9 @@ html {
 
 .swiper {
   height: calc(100% - 50px);
-  display: flex;
 
   .swiper-slide {
-    position: relative;
-    display: flex;
     align-items: flex-start;
-    justify-content: center;
-    border-radius: 5px;
-    overflow: hidden;
-
-    > .ugc-tile {
-      width: 100%;
-
-      img {
-        height: 200px;
-        width: 100%;
-        object-fit: cover;
-        overflow: hidden;
-        border-radius: 5px;
-        position: relative;
-        opacity: 1;
-      }
-    }
 
     div.image-filler {
       background-position: center;
@@ -222,12 +170,6 @@ html {
       filter: blur(50px) brightness(0.5);
       inset: 0;
       transform: scale(1.2);
-    }
-  }
-
-  &:not(.swiper-initialized) {
-    .swiper-slide > .ugc-tile > img {
-      opacity: 0;
     }
   }
 }

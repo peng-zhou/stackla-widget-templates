@@ -31,6 +31,7 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
                 <div class="image">
                   <ShopSpotTemplate shopspotEnabled={shopspotEnabled} parent={parent} />
                   <img class="image-element" src={tile.image} />
+                  <div class="swiper-lazy-preloader"></div>
                 </div>
               </>
             ) : null}
