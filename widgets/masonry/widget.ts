@@ -18,7 +18,7 @@ import productsCSS from "./components/products/base.scss"
 import customExpandedTileTemplate from "./components/expanded-tile/base.template"
 import { Sdk } from "@stackla/ugc-widgets"
 
-declare const sdk: Sdk;
+declare const sdk: Sdk
 
 sdk.tiles.setLoadMode("all")
 sdk.tiles.hideBrokenTiles = true
