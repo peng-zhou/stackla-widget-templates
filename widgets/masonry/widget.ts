@@ -6,7 +6,6 @@ import {
   loadExpandedTileFeature,
   loadTitle
 } from "widgets/libs/widget.features"
-import { ISdkMasonry } from "types/ISdkMasonry"
 import {
   initializeMasonry,
   loadMoreMasonryTiles,
@@ -17,8 +16,9 @@ import getCSSVariables from "./css.variables"
 import expandedTileCSS from "./components/expanded-tile/base.scss"
 import productsCSS from "./components/products/base.scss"
 import customExpandedTileTemplate from "./components/expanded-tile/base.template"
+import { Sdk } from "@stackla/ugc-widgets"
 
-declare const sdk: ISdkMasonry
+declare const sdk: Sdk;
 
 sdk.tiles.setLoadMode("all")
 sdk.tiles.hideBrokenTiles = true

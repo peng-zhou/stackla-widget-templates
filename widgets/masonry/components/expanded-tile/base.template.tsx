@@ -181,6 +181,10 @@ export default function initializeQuadrant() {
   const productsEnabled = sdk.isComponentLoaded("products") && widgetSettings.expanded_tile_show_products
   const parent = sdk.getNodeId()
 
+  if (!parent) {
+    throw new Error("Failed to find parent node")
+  }
+
   return (
     <div className="panel">
       <ExitButton />
