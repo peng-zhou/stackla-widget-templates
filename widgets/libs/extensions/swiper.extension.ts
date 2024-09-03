@@ -55,9 +55,6 @@ export function initializeSwiper({
     on: {
       afterInit: swiper => {
         swiper.slideToLoop(initialIndex, 0, false)
-      },
-      click(swiper, event) {
-        event.target
       }
     }
   })

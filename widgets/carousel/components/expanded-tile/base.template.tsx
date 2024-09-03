@@ -1,6 +1,6 @@
 import type { Sdk } from "@stackla/ugc-widgets"
 import { ExpandedTile } from "./tile.template"
-import { createElement, createFragment } from "@stackla/ugc-widgets/src/ui/core/utils/jsx-html"
+import { createElement } from "@stackla/ugc-widgets/src/ui/core/utils/jsx-html"
 
 export function ExpandedTiles(sdk: Sdk) {
   const tiles = sdk.tiles.tiles
