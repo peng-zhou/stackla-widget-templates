@@ -4,7 +4,71 @@ import { WidgetRequest } from "@stackla/ugc-widgets"
 import cors from "cors"
 import path from "path"
 import { readFileSync } from "fs"
-import * as hbs from 'hbs'
+import * as Handlebars from 'hbs'
+import tiles from "../../tests/fixtures/tiles.fixtures"
+import fs from "fs"
+
+interface IDraftRequest {
+  custom_templates: {
+    layout: {
+      template: string
+    }
+    tile: {
+      template: string
+    }
+  },
+  customCSS: string
+  customJS: string
+}
+
+interface HandlebarsParital {
+  name: string;
+  template: string;
+};
+
+function registerHelpers(hbs) {
+  hbs.registerHelper('ifEquals', function (arg1, arg2, options) {
+    return arg1 == arg2 ? options.fn(this) : options.inverse(this);
+  });
+}
+
+function renderTemplateWithPartials(
+  hbs,
+  partial: HandlebarsParital
+) {
+  registerHelpers(hbs);
+  hbs.registerPartial(partial.name, partial.template);
+
+  return hbs;
+}
+
+function makeImagesLazy(html: string) {
+  return html.replace(/<img/g, '<img loading="lazy"');
+}
+
+function wrapWithTileIdentifier(tileTemplate: string) {
+  return `<div style="display: none;" class="ugc-tile" data-id="{{id}}" data-media="{{media}}">${tileTemplate}</div>`;
+}
+
+
+async function getAndRenderTiles(widgetContainer : IDraftRequest) {
+  const decorators = [
+    makeImagesLazy,
+    wrapWithTileIdentifier,
+  ];
+
+  const tileTemplate = widgetContainer.custom_templates.tile.template;
+  const decoratedTileTemplate = decorators.map(decorator => decorator(tileTemplate)).join('\n');
+
+  const hbs = await renderTemplateWithPartials(Handlebars.create(), {
+    name: 'tpl-tile',
+    template: decoratedTileTemplate,
+  });
+
+  const handlebarsTemplate = hbs.compile(decoratedTileTemplate);
+
+  return tiles.map((tile) => handlebarsTemplate(tile)).join('');
+}
 
 const expressApp = express()
 expressApp.use((_req, res, next) => {
@@ -12,12 +76,232 @@ expressApp.use((_req, res, next) => {
   next()
 })
 expressApp.use(express.static("dist/widgets", { redirect: false }))
-expressApp.engine('hbs', hbs.__express)
+expressApp.engine('hbs', Handlebars.__express)
 expressApp.set('view engine', 'hbs')
 expressApp.use(cors())
 
 const stripSymbols = (str: string) => str.replace(/[^a-zA-Z0-9]/g, "")
 const stripSymbolsThatAreNotDash = (str: string) => str.replace(/[^a-zA-Z0-9-]/g, "")
+
+expressApp.post('/widgets/668ca52ada8fb/draft', async (req, res) => {
+  const body = JSON.parse(req.body);
+  const draft = body.draft as IDraftRequest;
+  const tiles = await getAndRenderTiles(draft);
+  const customCss = draft.customCSS;
+  const customJs = draft.customJS;
+
+  res.send({
+    html: tiles,
+    css: customCss,
+    js: customJs,
+    "widgetOptions": {
+        "widgetConfig": {
+            "lightbox": {
+                "apply_custom_sharing_title_on_miss_title": false,
+                "disable_short_url": false,
+                "fallback_share_image": "",
+                "layout": "portrait",
+                "post_comments": false,
+                "sharing_text": "",
+                "sharing_title": "",
+                "show_additional_info": true,
+                "show_caption": true,
+                "show_timestamp": true,
+                "show_comments": true,
+                "show_dislikes": true,
+                "show_likes": true,
+                "show_nav": true,
+                "show_sharing": true,
+                "show_shopspots": true,
+                "show_products": true,
+                "show_tags": true,
+                "show_votes": true,
+                "show_cross_sellers": false,
+                "show_add_to_cart": true
+            },
+            "tile_options": {
+                "show_comments": true,
+                "show_dislikes": true,
+                "show_likes": true,
+                "show_nav": true,
+                "show_sharing": true,
+                "show_shopspots": true,
+                "show_tags": true,
+                "show_votes": true
+            },
+            "claim_config": {
+                "show_claim_button": false,
+                "show_claim_button_on_tags": []
+            }
+        },
+        "widgetStyle": {
+            "auto_refresh": "1",
+            "click_through_url": "[EXPAND]",
+            "enable_custom_tiles_per_page": false,
+            "load_more_type": "static",
+            "enable_typekit": false,
+            "margin": 10,
+            "name": "NextGen Widget Sample 3.0",
+            "parent_page_secret_key": "",
+            "polling_frequency": 30,
+            "rows_per_page": 3,
+            "show_powered_by_stackla": true,
+            "shopspot_btn_background": "0198CF",
+            "shopspot_btn_font_color": "ffffff",
+            "shopspot_icon": "",
+            "style": "base_carousel_v3",
+            "text_tile_background": "ffffff",
+            "text_tile_font_color": "666666",
+            "text_tile_font_size": 24,
+            "text_tile_user_handle_font_color": "333333",
+            "text_tile_user_handle_font_size": 18,
+            "text_tile_user_name_font_color": "333333",
+            "text_tile_user_name_font_size": 18,
+            "text_tile_link_color": "00abf0",
+            "tiles_per_page": 15,
+            "minimal_tiles": 1,
+            "type": "fluid",
+            "widget_background": "",
+            "widget_height": 210,
+            "widget_loading_image": "//assetscdn.stackla.com/media/images/widget/ajax-loader.gif",
+            "unavailable_products_behaviour": "always_show",
+            "dynamic_filter": "none",
+            "dynamic_filter_fallback": {
+                "category": false,
+                "brand": false,
+                "custom": 0
+            }
+        },
+        "guid": "668ca52ada8fb",
+        "filterId": 10695,
+        "plugins": {
+            "googleAnalytics": {
+                "id": 3307,
+                "config": {
+                    "events": {
+                        "load": true,
+                        "tileExpand": true,
+                        "pinClick": true,
+                        "userClick": true,
+                        "shareClick": true,
+                        "moreLoad": true,
+                        "shopspotFlyoutExpand": true,
+                        "productActionClick": true,
+                        "impression": true,
+                        "tileHover": true,
+                        "emailTileLoad": true,
+                        "emailTileClick": true,
+                        "likeClick": true,
+                        "dislikeClick": true,
+                        "voteClick": false
+                    },
+                    "nonInteractionEvents": {
+                        "load": false,
+                        "tileExpand": false,
+                        "pinClick": false,
+                        "userClick": false,
+                        "shareClick": false,
+                        "moreLoad": false,
+                        "shopspotFlyoutExpand": false,
+                        "productActionClick": false,
+                        "impression": false,
+                        "tileHover": false,
+                        "emailTileLoad": false,
+                        "emailTileClick": false,
+                        "likeClick": false,
+                        "dislikeClick": false,
+                        "voteClick": false
+                    },
+                    "categoryName": "",
+                    "enabledCustomCategoryName": false,
+                    "eventLabel": "default",
+                    "accountId": "254530664",
+                    "trackingId": "G-XSBBDRKE04",
+                    "viewId": "G-XSBBDRKE04",
+                    "widgets": {
+                        "66bad1333d71e": {
+                            "propertyId": null,
+                            "events": null,
+                            "nonInteractionEvents": null,
+                            "categoryName": "",
+                            "enabledCustomCategoryName": false,
+                            "eventLabel": "default",
+                            "trackingId": null,
+                            "isOverridden": false,
+                            "isDisabled": false,
+                            "isActive": true,
+                            "widgetName": "Nightfall test",
+                            "widgetId": 64181,
+                            "accountId": null,
+                            "dataStreamId": null,
+                            "domainName": null,
+                            "trackingStatus": true
+                        },
+                        "66b5940e9dbba": {
+                            "propertyId": null,
+                            "events": null,
+                            "nonInteractionEvents": null,
+                            "categoryName": "",
+                            "enabledCustomCategoryName": false,
+                            "eventLabel": "default",
+                            "trackingId": null,
+                            "isOverridden": false,
+                            "isDisabled": false,
+                            "isActive": true,
+                            "widgetName": "0Carousel",
+                            "widgetId": 64179,
+                            "accountId": null,
+                            "dataStreamId": null,
+                            "domainName": null,
+                            "trackingStatus": true
+                        },
+                        "66b460aa4f91e": {
+                            "propertyId": null,
+                            "events": null,
+                            "nonInteractionEvents": null,
+                            "categoryName": "",
+                            "enabledCustomCategoryName": false,
+                            "eventLabel": "default",
+                            "trackingId": null,
+                            "isOverridden": false,
+                            "isDisabled": false,
+                            "isActive": true,
+                            "widgetName": null,
+                            "widgetId": null,
+                            "accountId": null,
+                            "dataStreamId": null,
+                            "domainName": null,
+                            "trackingStatus": false
+                        }
+                    },
+                    "connectionInfo": [],
+                    "analyticsVersion": "v4",
+                    "trackingStatus": true,
+                    "acknowledgedEmailTrackingIds": {
+                        "349987181": true
+                    },
+                    "activated": true,
+                    "connectedAt": "1723765750000",
+                    "propertyId": "349987181",
+                    "dataStreamId": "4433178738"
+                },
+                "stackId": 1451
+            }
+        }
+    },
+    "stackId": 1451,
+    "merchantId": "shopify-64671154416",
+    "tileCount": 2177,
+    "enabled": 1
+})
+});
+
+expressApp.get('/core.js', (req, res) => {
+  const jsCode = fs.readFileSync(path.resolve(__dirname, '../../../../../node_modules/@stackla/ugc-widgets/dist/core.js'), 'utf8');
+  const parsedCode = jsCode
+  .replace(/https:\/\/widget-data.stackla.com/g, 'http://localhost:4002')
+  res.send(parsedCode);
+});
 
 // Register preview route
 expressApp.get("/preview", (req, res) => {
