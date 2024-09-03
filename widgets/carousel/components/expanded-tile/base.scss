@@ -16,16 +16,16 @@
 
 .exit {
   position: absolute;
-  top: 20px;
-  right: 20px;
-  z-index: 1;
+  top: 0;
+  right: 55px;
+  z-index: 2;
 }
 
 .panel {
   display: flex;
   position: relative;
   background: #f4f4f4;
-  width: fit-content;
+  width: 100%;
   height: fit-content;
 
   .panel-left {

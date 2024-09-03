@@ -2,7 +2,13 @@ import type { Sdk } from "@stackla/ugc-widgets"
 import { IWidgetSettings } from "../../types/IWidgetSettings"
 import { getConfig } from "./widget.config"
 import { waitForElm } from "widgets/libs/widget.features"
-import { disableSwiper, enableSwiper, initializeSwiper, refreshSwiper } from "@extensions/swiper.extension"
+import {
+  disableSwiper,
+  enableSwiper,
+  getClickedIndex,
+  initializeSwiper,
+  refreshSwiper
+} from "@extensions/swiper.extension"
 
 declare const sdk: Sdk
 
@@ -20,7 +26,7 @@ export function initializeInlineSwiperListeners() {
 }
 
 function initializeInlineSwiper(widgetSettings: IWidgetSettings) {
-  const widgetSelector = sdk.placement.querySelector(".swiper")
+  const widgetSelector = sdk.placement.querySelector(".swiper-inline")
 
   if (!widgetSelector) {
     throw new Error("Failed to find widget UI element. Failed to initialise Swiper")
@@ -32,7 +38,12 @@ function initializeInlineSwiper(widgetSettings: IWidgetSettings) {
     ? Math.floor(screenSize / tileWidth)
     : widgetSettings.tiles_per_page
 
-  initializeSwiper({ widgetSelector, perView })
+  initializeSwiper({
+    widgetSelector,
+    perView,
+    prevButton: "swiper-inline-button-prev",
+    nextButton: "swiper-inline-button-next"
+  })
 }
 
 function initializeExtendedSwiper() {
@@ -49,6 +60,8 @@ function initializeExtendedSwiper() {
   initializeSwiper({
     widgetSelector,
     perView: 1,
+    mode: "swiperExpanded",
+    initialIndex: getClickedIndex("swiperInline"),
     prevButton: "swiper-expanded-button-prev",
     nextButton: "swiper-expanded-button-next"
   })

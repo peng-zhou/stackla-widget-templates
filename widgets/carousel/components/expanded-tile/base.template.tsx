@@ -6,7 +6,10 @@ export function ExpandedTiles(sdk: Sdk) {
   const tiles = sdk.tiles.tiles
 
   return Object.values(tiles).length ? (
-    <>
+    <div class="expanded-tile-wrapper">
+      <a class="exit" href="#">
+        <span class="widget-icon close"></span>
+      </a>
       <div class="swiper swiper-expanded">
         <div class="swiper-wrapper">
           {Object.values(tiles).map(tile => (
@@ -18,7 +21,7 @@ export function ExpandedTiles(sdk: Sdk) {
       </div>
       <div class="swiper-expanded-button-prev swiper-button-prev"></div>
       <div class="swiper-expanded-button-next swiper-button-next"></div>
-    </>
+    </div>
   ) : (
     <span>No tiles found</span>
   )
