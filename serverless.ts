@@ -23,7 +23,7 @@ const config = {
     esbuild: {
       otherExternal: ["hbs"]
     }
-  }),
+  },
   functions: {
     main: {
       handler: `./src/functions/main/handler.main`,
@@ -44,6 +44,7 @@ const config = {
       })
     }
   }
+})
 }
 
 if (process.env.APP_ENV == "testing") {
