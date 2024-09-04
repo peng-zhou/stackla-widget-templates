@@ -11,4 +11,13 @@ describe('Should test the carousel', () => {
         .invoke('text')
         .should('not.be.empty');
     })
+
+    it('Shoud display caption in the tile', () => {
+        cy.visitWidget('carousel');
+
+        cy.getFirstTile().find('.tile-caption')
+        .should('exist')
+        .invoke('text')
+        .should('not.be.empty');
+    })
 })
