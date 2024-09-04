@@ -22,18 +22,22 @@ export function SmallTile({ tile, clickHandler }: SmallTileProps): JSX.Element {
   )
 }
 
-export function BigTileDiv(bigTile: Tile): JSX.Element {
+interface BigTileProps {
+  tile: Tile
+}
+export function BigTile(tile: BigTileProps): JSX.Element {
+  const { id, image, name, message } = tile.tile
   return (
-      <div className="grid-item large" onClick={() => handleClickedTileEvents(Number(bigTile.id))} key={bigTile.id}>
-          <div className="tile-image-wrapper">
-              <img src={bigTile.image} />
-          </div>
-          <div className="tile-info-overlay">
-              <h3>{bigTile.name}</h3>
-              <p>{bigTile.message}</p>
-          </div>
+    <div className="grid-item large" onClick={() => handleClickedTileEvents(Number(id))} key={id}>
+      <div className="tile-image-wrapper">
+        <img src={image} />
       </div>
-  );
+      <div className="tile-info-overlay">
+        <h3>{name}</h3>
+        <p>{message}</p>
+      </div>
+    </div>
+  )
 }
 
 export function initializeQuadrant(): void {
@@ -63,7 +67,7 @@ export function initializeQuadrant(): void {
     let bigTileDiv: JSX.Element | null = null
     if (currentStartIndex + imagesPerGroup - 1 < ugcTiles.length) {
       const bigTile = ugcTiles[currentStartIndex + imagesPerGroup - 1]
-      bigTileDiv = BigTileDiv(bigTile)
+      bigTileDiv = <BigTile tile={bigTile} />
     }
 
     // append all to group div
