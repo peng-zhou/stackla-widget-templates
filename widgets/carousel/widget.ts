@@ -4,6 +4,11 @@ import { ExpandedTiles } from "./components/expanded-tile/base.template"
 import expandedTileStyle from "./components/expanded-tile/base.scss"
 import productsStyle from "./components/products/base.scss"
 import shopspotStyle from "./components/shopspot-icon/base.scss"
+import swiperFont from "./swiper-font.scss"
+import swiperCommon from "./swiper-common.scss"
+import icons from "../../uikit/icon.scss"
+import swiperBundleCss from "@swiper/swiper-bundle.css"
+
 import {
   onTileExpand,
   initializeInlineSwiperListeners,
@@ -44,9 +49,13 @@ loadHoverTile(widgetSettings)
 registerTilesUpdated(hideSlidesWithInvisibleTiles)
 registerPreloadTileHidden(onPreloadTileHidden)
 
-// FIXME Find a better option?
-void sdk.addCSSImportUrl("https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css")
-sdk.addCSSToComponent(expandedTileStyle, "expanded-tile")
+sdk.addWidgetCustomStyles(swiperFont)
+
+sdk.addSharedCssCustomStyles(swiperBundleCss)
+sdk.addSharedCssCustomStyles(icons)
+sdk.addSharedCssCustomStyles(swiperCommon)
+sdk.addSharedCssCustomStyles(shopspotStyle)
+
+sdk.addCSSToComponent(expandedTileStyle, "expanded-tiles")
 sdk.addCSSToComponent(productsStyle, "ugc-products")
-sdk.addCSSToComponent(shopspotStyle, "shopspot-icon")
 sdk.addTemplateToComponent(ExpandedTiles, "expanded-tiles")

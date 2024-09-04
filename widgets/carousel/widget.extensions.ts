@@ -2,7 +2,13 @@ import type { Sdk } from "@stackla/ugc-widgets"
 import { IWidgetSettings } from "../../types/IWidgetSettings"
 import { getConfig } from "./widget.config"
 import { waitForElm } from "widgets/libs/widget.features"
-import { initializeSwiper, refreshSwiper } from "@extensions/swiper.extension"
+import {
+  disableSwiper,
+  enableSwiper,
+  getClickedIndex,
+  initializeSwiper,
+  refreshSwiper
+} from "@extensions/swiper.extension"
 
 declare const sdk: Sdk
 
@@ -20,7 +26,7 @@ export function initializeInlineSwiperListeners() {
 }
 
 function initializeInlineSwiper(widgetSettings: IWidgetSettings) {
-  const widgetSelector = sdk.placement.querySelector(".swiper")
+  const widgetSelector = sdk.placement.querySelector(".swiper-inline")
 
   if (!widgetSelector) {
     throw new Error("Failed to find widget UI element. Failed to initialise Swiper")
@@ -32,58 +38,60 @@ function initializeInlineSwiper(widgetSettings: IWidgetSettings) {
     ? Math.floor(screenSize / tileWidth)
     : widgetSettings.tiles_per_page
 
-  initializeSwiper(widgetSelector, perView)
+  initializeSwiper({
+    widgetSelector,
+    perView,
+    prevButton: "swiper-inline-button-prev",
+    nextButton: "swiper-inline-button-next"
+  })
 }
 
 function initializeExtendedSwiper() {
-  const expandedTile = sdk.querySelector("expanded-tile")
+  const expandedTile = sdk.querySelector("expanded-tiles")
   if (!expandedTile?.shadowRoot) {
     throw new Error("The expanded tile element not found")
   }
-  const widgetSelector = expandedTile.shadowRoot.querySelector<HTMLElement>(".expanded-glide")
+  const widgetSelector = expandedTile.shadowRoot.querySelector<HTMLElement>(".swiper-expanded")
 
   if (!widgetSelector) {
     throw new Error("Failed to find widget UI element. Failed to initialise Glide")
   }
 
-  const arrows = widgetSelector.querySelectorAll<HTMLElement>(".swiper-button-prev, .swiper-button-next")
-  if (!arrows.length) {
-    throw new Error("Failed to find arrows UI element")
-  }
-
-  arrows.forEach(it => (it.style.display = ""))
-
-  //initializeSwiper(widgetSelector, 1)
+  initializeSwiper({
+    widgetSelector,
+    perView: 1,
+    mode: "swiperExpanded",
+    initialIndex: getClickedIndex("swiperInline"),
+    prevButton: "swiper-expanded-button-prev",
+    nextButton: "swiper-expanded-button-next"
+  })
 }
 
 export function onTileExpand() {
-  const arrows = sdk.querySelector(".glide__arrows")
-  if (!arrows) {
-    throw new Error("Failed to find glide arrows UI element")
-  }
-  arrows.style.display = "none"
-
-  const expandedTile = sdk.querySelector("expanded-tile")
+  const expandedTile = sdk.querySelector("expanded-tiles")
 
   if (!expandedTile?.shadowRoot) {
     throw new Error("The expanded tile element not found")
   }
 
-  expandedTile.closest("div.expanded-tile-container")?.classList.add("expanded-tile-overlay")
+  expandedTile.parentElement!.classList.add("expanded-tile-overlay")
 
-  waitForElm(expandedTile.shadowRoot, [".expanded-glide"], initializeExtendedSwiper)
+  disableSwiper("swiperInline")
+
+  waitForElm(expandedTile.shadowRoot, [".swiper-expanded"], initializeExtendedSwiper)
 }
 
 export function onTileClosed() {
-  const arrows = sdk.querySelector(".glide__arrows")
-  if (!arrows) {
-    throw new Error("Failed to find glide arrows UI element")
+  const expandedTile = sdk.querySelector("expanded-tiles")
+
+  if (!expandedTile?.shadowRoot) {
+    throw new Error("The expanded tile element not found")
   }
-  arrows.style.display = ""
 
-  const expandedTile = sdk.querySelector("expanded-tile")
+  expandedTile.parentElement!.classList.remove("expanded-tile-overlay")
 
-  expandedTile?.closest("div.expanded-tile-container")?.classList.remove("expanded-tile-overlay")
+  disableSwiper("swiperExpanded")
+  enableSwiper("swiperInline")
 }
 
 export function hideSlidesWithInvisibleTiles() {
