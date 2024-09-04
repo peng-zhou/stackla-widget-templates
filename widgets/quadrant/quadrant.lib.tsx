@@ -1,44 +1,9 @@
-import type { Sdk, Tile } from "@stackla/ugc-widgets"
+import type { Sdk } from "@stackla/ugc-widgets"
 import { createElement } from "jsx-html"
+import { BigTile } from "./components/big-tile/base.template"
+import { SmallTile } from "./components/small-tile/index"
 
 declare const sdk: Sdk
-
-interface SmallTileProps {
-  tile: Tile
-  clickHandler: (id: number) => void
-}
-
-export function SmallTile({ tile, clickHandler }: SmallTileProps): JSX.Element {
-  return (
-    <div className="grid-item" onClick={() => clickHandler(Number(tile.id))}>
-      <div className="tile-image-wrapper">
-        <img src={tile.image} alt={tile.name} />
-      </div>
-      <div className="tile-info-overlay">
-        <h3>{tile.name}</h3>
-        <p>{tile.message}</p>
-      </div>
-    </div>
-  )
-}
-
-interface BigTileProps {
-  tile: Tile
-}
-export function BigTile(tile: BigTileProps): JSX.Element {
-  const { id, image, name, message } = tile.tile
-  return (
-    <div className="grid-item large" onClick={() => handleClickedTileEvents(Number(id))} key={id}>
-      <div className="tile-image-wrapper">
-        <img src={image} />
-      </div>
-      <div className="tile-info-overlay">
-        <h3>{name}</h3>
-        <p>{message}</p>
-      </div>
-    </div>
-  )
-}
 
 export function initializeQuadrant(): void {
   const imagesPerGroup = 5
@@ -67,7 +32,7 @@ export function initializeQuadrant(): void {
     let bigTileDiv: JSX.Element | null = null
     if (currentStartIndex + imagesPerGroup - 1 < ugcTiles.length) {
       const bigTile = ugcTiles[currentStartIndex + imagesPerGroup - 1]
-      bigTileDiv = <BigTile tile={bigTile} />
+      bigTileDiv = <BigTile tile={bigTile} clickHandler={handleClickedTileEvents} />
     }
 
     // append all to group div

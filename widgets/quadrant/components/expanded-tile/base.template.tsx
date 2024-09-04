@@ -179,7 +179,7 @@ export default function ExpandedTile() {
 
   const shopspotEnabled = sdk.isComponentLoaded("shopspots") && widgetSettings.expanded_tile_show_shopspots
   const productsEnabled = sdk.isComponentLoaded("products") && widgetSettings.expanded_tile_show_products
-  const parent = sdk.getNodeId() ?? ''
+  const parent = sdk.getNodeId() ?? ""
 
   return (
     <div className="panel">
