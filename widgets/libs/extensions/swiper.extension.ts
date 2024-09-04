@@ -31,9 +31,10 @@ export function initializeSwiper({
   }
 
   if (sdk[mode]) {
-    if (sdk[mode].params.enabled == false) {
+    if (!sdk[mode]?.params.enabled) {
       enableSwiper(mode)
     } else {
+      // re-initialize
       sdk[mode].destroy(true)
     }
   }
