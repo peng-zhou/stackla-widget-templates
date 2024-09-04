@@ -1,6 +1,5 @@
 import { getConfig } from "./widget.config"
 import { addAutoAddTileFeature, loadExpandedTileFeature, loadTitle } from "widgets/libs/widget.features"
-import { IWidgetSettings } from "types/IWidgetSettings"
 import { Sdk } from "@stackla/ugc-widgets"
 import { addCSSVariablesToPlacement } from "widgets/libs/widget.layout"
 import getCSSVariables from "./css.variables"
@@ -29,7 +28,7 @@ const cssVariablesToString = Object.entries(getCSSVariables())
 
 loadTitle()
 addCSSVariablesToPlacement(cssVariablesToString)
-addAutoAddTileFeature<IWidgetSettings>(widgetSettings)
+addAutoAddTileFeature(widgetSettings)
 loadExpandedTileFeature(widgetSettings, () => {
   const ugcTilesElement = sdk.querySelector(".ugc-tiles")
 
