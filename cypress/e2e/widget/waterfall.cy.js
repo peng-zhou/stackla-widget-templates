@@ -1,10 +1,10 @@
-describe('Should test the carousel', () => {
+describe('Should test the waterfall', () => {
     it('Should pass default tests', () => {
-        cy.widgetTests('carousel');
+        cy.widgetTests('waterfall');
     })
 
     it('Should display timephrase in the tile', () => {
-        cy.visitWidget('carousel');
+        cy.visitWidget('waterfall');
 
         cy.getFirstTile().find('.tile-timephrase')
         .should('exist')
@@ -13,7 +13,7 @@ describe('Should test the carousel', () => {
     })
 
     it('Shoud display caption in the tile', () => {
-        cy.visitWidget('carousel');
+        cy.visitWidget('waterfall');
 
         cy.getFirstTile().find('.tile-caption')
         .should('exist')
