@@ -31,7 +31,9 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
                   <div class="swiper-lazy-preloader"></div>
                 </div>
               </>
-            ) : null}
+            ) : (
+              <></>
+            )}
           </div>
         </div>
         <div>

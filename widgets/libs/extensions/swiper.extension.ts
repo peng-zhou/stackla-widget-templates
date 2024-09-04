@@ -2,7 +2,7 @@ import Swiper from "swiper"
 import { SdkSwiper } from "types"
 import { Manipulation, Navigation } from "swiper/modules"
 
-declare const sdk: SdkSwiper
+declare const sdkSwiper: SdkSwiper
 
 export type SwiperMode = "swiperInline" | "swiperExpanded"
 
@@ -30,15 +30,15 @@ export function initializeSwiper({
     throw new Error("Missing swiper Navigation elements for previous and next navigation")
   }
 
-  if (sdk[mode]) {
-    if (sdk[mode].params.enabled == false) {
+  if (sdkSwiper[mode]) {
+    if (sdkSwiper[mode].params.enabled == false) {
       enableSwiper(mode)
     } else {
-      sdk[mode].destroy(true)
+      sdkSwiper[mode].destroy(true)
     }
   }
 
-  sdk[mode] = new Swiper(widgetSelector, {
+  sdkSwiper[mode] = new Swiper(widgetSelector, {
     modules: [Navigation, Manipulation],
     slidesPerView: perView,
     spaceBetween: 10,
@@ -61,34 +61,28 @@ export function initializeSwiper({
 }
 
 export function refreshSwiper(mode: SwiperMode) {
-  sdk[mode]?.update()
+  sdkSwiper[mode]?.update()
 }
 
 export function disableSwiper(mode: SwiperMode) {
-  if (sdk[mode]) {
-    sdk[mode].disable()
-  }
+  sdkSwiper[mode]?.disable()
 }
 
 export function enableSwiper(mode: SwiperMode) {
-  if (sdk[mode]) {
-    sdk[mode].enable()
-  }
+  sdkSwiper[mode]?.enable()
 }
 
 export function destroySwiper(mode: SwiperMode) {
-  if (sdk[mode]) {
-    sdk[mode].destroy(true, true)
-  }
+  sdkSwiper[mode]?.destroy(true, true)
 }
 
 export function getClickedIndex(mode: SwiperMode) {
-  if (sdk[mode]) {
-    const clickedSlide = sdk[mode].clickedSlide
+  if (sdkSwiper[mode]) {
+    const clickedSlide = sdkSwiper[mode].clickedSlide
     const indexFromAttribute = clickedSlide.attributes.getNamedItem("data-swiper-slide-index")?.value
     return indexFromAttribute && !Number.isNaN(parseInt(indexFromAttribute))
       ? parseInt(indexFromAttribute)
-      : sdk[mode].clickedIndex
+      : sdkSwiper[mode].clickedIndex
   }
   return 0
 }
