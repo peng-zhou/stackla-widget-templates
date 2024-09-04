@@ -2,14 +2,14 @@ const { serverlessConfig } = require("@stackla/base-serverless")
 const { handlerPath } = require("@stackla/lambda-api-bootstrap")
 
 const testingHooks = {
-  "before:package:initialize": "npm run dev",
-  "before:offline:start:init": "npm run dev",
-  "before:webpack:compile:compile": "npm run dev"
+  "before:package:initialize": ["npm run dev"],
+  "before:offline:start:init": ["npm run dev"],
+  "before:webpack:compile:compile": ["npm run dev"]
 }
 
 const productionHooks = {
-  "before:package:initialize": "npm run build",
-  "before:webpack:compile:compile": "npm run build"
+  "before:package:initialize": ["npm run build"],
+  "before:webpack:compile:compile": ["npm run build"]
 }
 
 const plugins : string[] = [
@@ -27,7 +27,8 @@ const config = {
   custom: {
     esbuild: {
       otherExternal: ["hbs"]
-    }
+    },
+    hooks: process.env.APP_ENV == "testing" ? testingHooks : productionHooks
   },
   package: {
     include: ["views/**/*", "dist/**/*", "build/**/*"],
@@ -54,12 +55,6 @@ const config = {
       })
     }
   }
-}
-
-if (process.env.APP_ENV == "testing") {
-  config.hooks = testingHooks
-} else {
-  config.hooks = productionHooks
 }
 
 module.exports = config
