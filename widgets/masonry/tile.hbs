@@ -1,12 +1,12 @@
 <div class="ugc-tile-wrapper tile-{{media}}">
-	<div class="tile-hover inactive">
-	<ul class="tile-tags">
-      {{#tags_extended}}
-		<li class='tile-tag'><a href="{{custom_url}}">{{tag}}</a></li>
-       {{/tags_extended}}
-	</ul>
+    <div class="tile-hover inactive">
+        <ul class="tile-tags">
+        {{#tags_extended}}
+            <li class='tile-tag'><a href="{{custom_url}}">{{tag}}</a></li>
+        {{/tags_extended}}
+        </ul>
 	</div>
-    <img src="{{image_thumbnail_url}}" width="120"/>
+    <img  alt="UGC Image Thumbnail" src="{{image_thumbnail_url}}" width="120"/>
     <shopspot-flyout tile-id="{{id}}"></shopspot-flyout>
     <shopspot-icon tile-id="{{id}}"></shopspot-icon>
     <div class="tile-message-wrapper">
