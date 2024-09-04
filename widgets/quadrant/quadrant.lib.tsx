@@ -8,7 +8,7 @@ interface SmallTileProps {
   clickHandler: (id: number) => void
 }
 
-export function createSmallTile({ tile, clickHandler }: SmallTileProps): JSX.Element {
+export function SmallTile({ tile, clickHandler }: SmallTileProps): JSX.Element {
   return (
     <div className="grid-item" onClick={() => clickHandler(Number(tile.id))}>
       <div className="tile-image-wrapper">
@@ -20,6 +20,20 @@ export function createSmallTile({ tile, clickHandler }: SmallTileProps): JSX.Ele
       </div>
     </div>
   )
+}
+
+export function BigTileDiv(bigTile: Tile): JSX.Element {
+  return (
+      <div className="grid-item large" onClick={() => handleClickedTileEvents(Number(bigTile.id))} key={bigTile.id}>
+          <div className="tile-image-wrapper">
+              <img src={bigTile.image} />
+          </div>
+          <div className="tile-info-overlay">
+              <h3>{bigTile.name}</h3>
+              <p>{bigTile.message}</p>
+          </div>
+      </div>
+  );
 }
 
 export function initializeQuadrant(): void {
@@ -42,24 +56,14 @@ export function initializeQuadrant(): void {
     const smallTiles: JSX.Element[] = []
     for (let offset = 0; offset < imagesPerGroup - 1 && currentStartIndex + offset < endIndex; offset++) {
       const currentTile = ugcTiles[currentStartIndex + offset]
-      smallTiles.push(createSmallTile({ tile: currentTile, clickHandler: handleClickedTileEvents }))
+      smallTiles.push(SmallTile({ tile: currentTile, clickHandler: handleClickedTileEvents }))
     }
 
     // Create big tile if available
     let bigTileDiv: JSX.Element | null = null
     if (currentStartIndex + imagesPerGroup - 1 < ugcTiles.length) {
       const bigTile = ugcTiles[currentStartIndex + imagesPerGroup - 1]
-      bigTileDiv = (
-        <div className="grid-item large" onClick={() => handleClickedTileEvents(Number(bigTile.id))} key={bigTile.id}>
-          <div className="tile-image-wrapper">
-            <img src={bigTile.image} />
-          </div>
-          <div className="tile-info-overlay">
-            <h3>{bigTile.name}</h3>
-            <p>{bigTile.message}</p>
-          </div>
-        </div>
-      )
+      bigTileDiv = BigTileDiv(bigTile)
     }
 
     // append all to group div
