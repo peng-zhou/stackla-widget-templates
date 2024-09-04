@@ -1,14 +1,13 @@
 import { getConfig } from "./widget.config"
 import { addAutoAddTileFeature, loadExpandedTileFeature, loadTitle } from "widgets/libs/widget.features"
-import { IWidgetSettings } from "types/IWidgetSettings"
-import { ISdkMasonry } from "types/ISdkMasonry"
+import { Sdk } from "@stackla/ugc-widgets"
 import { addCSSVariablesToPlacement } from "widgets/libs/widget.layout"
 import getCSSVariables from "./css.variables"
 import expandedTileCSS from "./components/expanded-tile/base.scss"
 import productsCSS from "./components/products/base.scss"
 import customExpandedTileTemplate from "./components/expanded-tile/base.template"
 
-declare const sdk: ISdkMasonry
+declare const sdk: Sdk
 
 sdk.tiles.setLoadMode("all")
 sdk.tiles.hideBrokenTiles = true
@@ -29,7 +28,7 @@ const cssVariablesToString = Object.entries(getCSSVariables())
 
 loadTitle()
 addCSSVariablesToPlacement(cssVariablesToString)
-addAutoAddTileFeature<IWidgetSettings>(widgetSettings)
+addAutoAddTileFeature(widgetSettings)
 loadExpandedTileFeature(widgetSettings, () => {
   const ugcTilesElement = sdk.querySelector(".ugc-tiles")
 
