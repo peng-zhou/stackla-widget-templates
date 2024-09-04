@@ -58,7 +58,7 @@ const config = {
 
 if (process.env.APP_ENV == "testing") {
   config.hooks = testingHooks
-} else if (process.env.NODE_ENV == "production" || process.env.NODE_ENV == "staging") {
+} else {
   config.hooks = productionHooks
 }
 
