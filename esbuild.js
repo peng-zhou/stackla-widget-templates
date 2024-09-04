@@ -90,7 +90,8 @@ function startWebSocketServer() {
         minify: true,
         importMapper: path => {
           path.replace(/^@styles\//, path.join(__dirname, "widgets/styles/"))
-        }
+        },
+        importers: [new sass.NodePackageImporter()]
       }),
       copy({
         resolveFrom: "cwd",

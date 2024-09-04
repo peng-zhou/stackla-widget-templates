@@ -19,17 +19,21 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
 
   return (
     <div class="panel">
-      <a class="exit" href="#">
-        <span class="widget-icon close"></span>
-      </a>
       <div class="panel-left">
         <div class="image-wrapper">
           <div class="image-wrapper-inner">
-            <div class="image-filler" style="background-image: url(${tile.image})"></div>
-            <div class="image">
-              <ShopSpotTemplate shopspotEnabled={shopspotEnabled} parent={parent} />
-              {tile.image ? <img class="image-element" src={tile.image} /> : ""}
-            </div>
+            {tile.image ? (
+              <>
+                <div class="image-filler" style={{ "background-image": `url('${tile.image}')` }}></div>
+                <div class="image">
+                  <ShopSpotTemplate shopspotEnabled={shopspotEnabled} parent={parent} />
+                  <img class="image-element" src={tile.image} />
+                  <div class="swiper-lazy-preloader"></div>
+                </div>
+              </>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
         <div>
