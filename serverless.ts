@@ -16,12 +16,13 @@ const plugins: string[] = ["serverless-webpack", "serverless-offline"]
 
 const config = {
   ...serverlessConfig({
-  plugins: plugins,
-  service: "widget-templates",
-  offlinePort: process.env.APP_ENV == "testing" ? 4002 : 80,
-  custom: {
-    esbuild: {
-      otherExternal: ["hbs"]
+    plugins: plugins,
+    service: "widget-templates",
+    offlinePort: process.env.APP_ENV == "testing" ? 4002 : 80,
+    custom: {
+      esbuild: {
+        otherExternal: ["hbs"]
+      }
     }
   }),
   functions: {
