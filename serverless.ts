@@ -1,7 +1,7 @@
 const { serverlessConfig } = require("@stackla/base-serverless")
 const { handlerPath } = require("@stackla/lambda-api-bootstrap")
 
-const env = process.env.NODE_ENV || "development"
+const env = process.env.APP_ENV || "development"
 
 const testingHooks = {
   "before:package:initialize": ["npm run dev"],
@@ -26,10 +26,6 @@ const config = {
   plugins: plugins,
   service: "widget-templates",
   offlinePort: process.env.APP_ENV == "testing" ? 4002 : 80,
-  env: {
-    APP_ENV: env,
-    NODE_ENV: env
-  },
   custom: {
     esbuild: {
       otherExternal: ["hbs"]
