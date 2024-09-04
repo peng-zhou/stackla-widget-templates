@@ -60,7 +60,7 @@ export function initializeQuadrant(): void {
     const smallTiles: JSX.Element[] = []
     for (let offset = 0; offset < imagesPerGroup - 1 && currentStartIndex + offset < endIndex; offset++) {
       const currentTile = ugcTiles[currentStartIndex + offset]
-      smallTiles.push(SmallTile({ tile: currentTile, clickHandler: handleClickedTileEvents }))
+      smallTiles.push(<SmallTile tile={currentTile} clickHandler={handleClickedTileEvents} />)
     }
 
     // Create big tile if available
