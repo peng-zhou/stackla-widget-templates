@@ -14,7 +14,8 @@ const productionHooks = {
 
 const plugins : string[] = [
   'serverless-webpack',
-  'serverless-offline'
+  'serverless-offline',
+  'serverless-hooks-plugin',
 ];
 
 
