@@ -4,6 +4,7 @@ run-name: Release to ${{ inputs.environment || 'staging' }} by @${{ github.actor
 
 env:
     GH_TOKEN: ${{ github.token }}
+    APP_ENV: ${{ vars.APP_ENV }}
 
 permissions:
   id-token: write
@@ -25,4 +26,4 @@ jobs:
     secrets: inherit
     with:
       environment: ${{ inputs.environment }}
-      app-env: ${{ secrets.APP_ENV }}
+      app-env: $APP_ENV
