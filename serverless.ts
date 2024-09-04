@@ -26,6 +26,10 @@ const config = {
   plugins: plugins,
   service: "widget-templates",
   offlinePort: process.env.APP_ENV == "testing" ? 4002 : 80,
+  env: {
+    APP_ENV: env,
+    NODE_ENV: env
+  },
   custom: {
     esbuild: {
       otherExternal: ["hbs"]
