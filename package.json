@@ -12,7 +12,7 @@
     "test": "jest && npm run test:e2e",
     "cy:run": "cypress run --browser chrome --headless",
     "test:e2e": "start-server-and-test --expect 400 start http://127.0.0.1:4002/preview cy:run",
-    "build": "APP_ENV=production node ./esbuild.js",
+    "build": "node ./esbuild.js",
     "watch": "APP_ENV=development node ./esbuild.js --watch",
     "dev": "APP_ENV=development node ./esbuild.js",
     "start:lambda": "NODE_ENV=development APP_ENV=testing sls offline start --noPrependStageInUrl --reloadHandler --stage=development --region=us-west-1 --host=127.0.0.1",
@@ -63,6 +63,7 @@
     "happy-dom": "^14.12.3",
     "hbs": "^4.2.0",
     "masonry-layout": "^4.2.2",
+    "serverless-hooks-plugin": "^1.1.0",
     "serverless-http": "^3.2.0",
     "swiper": "^11.1.9"
   }
