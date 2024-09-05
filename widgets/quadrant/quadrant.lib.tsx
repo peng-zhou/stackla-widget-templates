@@ -25,14 +25,14 @@ export function initializeQuadrant(): void {
     const smallTiles: JSX.Element[] = []
     for (let offset = 0; offset < imagesPerGroup - 1 && currentStartIndex + offset < endIndex; offset++) {
       const currentTile = ugcTiles[currentStartIndex + offset]
-      smallTiles.push(<SmallTile tile={currentTile} clickHandler={handleClickedTileEvents} />)
+      smallTiles.push(<SmallTile tile={currentTile} onClick={handleClickedTileEvents} />)
     }
 
     // Create big tile if available
     let bigTileDiv: JSX.Element | null = null
     if (currentStartIndex + imagesPerGroup - 1 < ugcTiles.length) {
       const bigTile = ugcTiles[currentStartIndex + imagesPerGroup - 1]
-      bigTileDiv = <BigTile tile={bigTile} clickHandler={handleClickedTileEvents} />
+      bigTileDiv = <BigTile tile={bigTile} onClick={handleClickedTileEvents} />
     }
 
     // append all to group div

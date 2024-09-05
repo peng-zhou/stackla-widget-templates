@@ -3,12 +3,12 @@ import { createElement } from "jsx-html"
 
 interface SmallTileProps {
   tile: Tile
-  clickHandler: (id: number) => void
+  onClick: (id: number) => void
 }
 
-export function SmallTile({ tile, clickHandler }: SmallTileProps): JSX.Element {
+export function SmallTile({ tile, onClick }: SmallTileProps): JSX.Element {
   return (
-    <div className="grid-item" onClick={() => clickHandler(Number(tile.id))}>
+    <div className="grid-item" onClick={() => onClick(Number(tile.id))}>
       <div className="tile-image-wrapper">
         <img src={tile.image} alt={tile.name} />
       </div>

@@ -3,14 +3,14 @@ import { createElement } from "jsx-html"
 
 interface BigTileProps {
   tile: Tile
-  clickHandler: (id: number) => void
+  onClick: (id: number) => void
 }
 
-export function BigTile({ tile, clickHandler }: BigTileProps): JSX.Element {
+export function BigTile({ tile, onClick }: BigTileProps): JSX.Element {
   const { id, image, name, message } = tile
 
   return (
-    <div className="grid-item large" onClick={() => clickHandler(Number(id ?? 0))} key={id}>
+    <div className="grid-item large" onClick={() => onClick(Number(id ?? 0))} key={id}>
       <div className="tile-image-wrapper">
         <img src={image} alt={`${name}`} />
       </div>
