@@ -3,11 +3,13 @@ import { getConfig } from "./widget.config"
 import { ExpandedTiles } from "./components/expanded-tile/base.template"
 import expandedTileStyle from "./components/expanded-tile/base.scss"
 import productsStyle from "./components/products/base.scss"
-import shopspotStyle from "./components/shopspot-icon/base.scss"
 import swiperFont from "./swiper-font.scss"
 import swiperCommon from "./swiper-common.scss"
 import icons from "../../uikit/icon.scss"
 import swiperBundleCss from "@swiper/swiper-bundle.css"
+import shopspotFlyout from "@widget-css/shopspot-flyout.css"
+import shopspotIcon from "@widget-css/shopspot-icon.css"
+import shopspotIconOverride from "./components/shopspot-icon/base.scss"
 
 import {
   onTileExpand,
@@ -54,7 +56,9 @@ sdk.addWidgetCustomStyles(swiperFont)
 sdk.addSharedCssCustomStyles(swiperBundleCss)
 sdk.addSharedCssCustomStyles(icons)
 sdk.addSharedCssCustomStyles(swiperCommon)
-sdk.addSharedCssCustomStyles(shopspotStyle)
+sdk.addSharedCssCustomStyles(shopspotFlyout)
+sdk.addSharedCssCustomStyles(shopspotIcon)
+sdk.addSharedCssCustomStyles(shopspotIconOverride)
 
 sdk.addCSSToComponent(expandedTileStyle, "expanded-tiles")
 sdk.addCSSToComponent(productsStyle, "ugc-products")
