@@ -14,6 +14,7 @@ function startWebSocketServer() {
   const esbuild = require("esbuild")
   const { sassPlugin } = require("esbuild-sass-plugin")
   const { copy } = require("esbuild-plugin-copy")
+  const path = require("path")
   const sass = require("sass")
   const { globSync } = require("glob")
   const fs = require("fs")
@@ -49,12 +50,14 @@ function startWebSocketServer() {
           .map(scss => scss.css.toString())
           .join("\n")
 
-        globSync("./widgets/**/widget.scss", { withFileTypes: true }).forEach(path => {
-          const result = sass.compile(path.relative(), {
-            style: env === "development" ? "expanded" : "compressed"
+        globSync("./widgets/**/widget.scss", { withFileTypes: true }).forEach(item => {
+          const result = sass.compile(item.relative(), {
+            style: env === "development" ? "expanded" : "compressed",
+            importers: [new sass.NodePackageImporter()] // refer https://sass-lang.com/documentation/js-api/classes/nodepackageimporter/
           })
+
           const combined = `${result.css.toString()}\n${additionalData}`
-          fs.writeFileSync(`dist/widgets/${path.parent.name}/widget.css`, combined)
+          fs.writeFileSync(`dist/widgets/${item.parent.name}/widget.css`, combined)
         })
       })
     }
@@ -87,7 +90,8 @@ function startWebSocketServer() {
         minify: true,
         importMapper: path => {
           path.replace(/^@styles\//, path.join(__dirname, "widgets/styles/"))
-        }
+        },
+        importers: [new sass.NodePackageImporter()]
       }),
       copy({
         resolveFrom: "cwd",

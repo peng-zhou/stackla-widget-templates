@@ -16,6 +16,17 @@
   position: relative;
 }
 
+.tile-caption {
+  margin-top: 15px;
+  display: var(--show-caption);
+  text-align: left;
+
+  p {
+    max-height: 200px;
+    overflow: hidden;
+  }
+}
+
 .tile-timephrase {
   position: absolute;
   top: 0;

@@ -2,10 +2,10 @@ import { getConfig } from "./widget.config"
 import { addAutoAddTileFeature, loadExpandedTileFeature, loadTitle } from "widgets/libs/widget.features"
 import { Sdk } from "@stackla/ugc-widgets"
 import { addCSSVariablesToPlacement } from "widgets/libs/widget.layout"
-import getCSSVariables from "./css.variables"
 import expandedTileCSS from "./components/expanded-tile/base.scss"
 import productsCSS from "./components/products/base.scss"
 import customExpandedTileTemplate from "./components/expanded-tile/base.template"
+import getCSSVariables from "@widgets/libs/css-variables"
 
 declare const sdk: Sdk
 
@@ -21,13 +21,8 @@ const showWidget = widgetContainer.enabled
 if (!showWidget) {
   throw new Error("Widget is not enabled")
 }
-
-const cssVariablesToString = Object.entries(getCSSVariables())
-  .map(([key, value]) => `${key}: ${value};`)
-  .join("\n")
-
 loadTitle()
-addCSSVariablesToPlacement(cssVariablesToString)
+addCSSVariablesToPlacement(getCSSVariables(widgetSettings))
 addAutoAddTileFeature(widgetSettings)
 loadExpandedTileFeature(widgetSettings, () => {
   const ugcTilesElement = sdk.querySelector(".ugc-tiles")
