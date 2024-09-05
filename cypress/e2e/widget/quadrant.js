@@ -1,10 +1,10 @@
-describe("Should test the masonry", () => {
+describe("Should test the quadrant", () => {
   it("Should pass default tests", () => {
-    cy.widgetTests("masonry")
+    cy.widgetTests("quadrant")
   })
 
   it("Should display timephrase in the tile", () => {
-    cy.visitWidget("masonry")
+    cy.visitWidget("quadrant")
 
     cy.getFirstTile().find(".tile-timephrase").should("exist").invoke("text").should("not.be.empty")
   })
