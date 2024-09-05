@@ -14,28 +14,23 @@ const defaultHooks = {
   "before:webpack:compile:compile": [`APP_ENV=${env} npm run build`]
 }
 
-const plugins : string[] = [
-  'serverless-webpack',
-  'serverless-offline',
-  'serverless-hooks-plugin',
-];
-
+const plugins: string[] = ["serverless-webpack", "serverless-offline", "serverless-hooks-plugin"]
 
 const config = {
   ...serverlessConfig({
-  plugins: plugins,
-  service: "widget-templates",
-  offlinePort: process.env.APP_ENV == "testing" ? 4002 : 80,
-  custom: {
-    esbuild: {
-      otherExternal: ["hbs"]
+    plugins: plugins,
+    service: "widget-templates",
+    offlinePort: process.env.APP_ENV == "testing" ? 4002 : 80,
+    custom: {
+      esbuild: {
+        otherExternal: ["hbs"]
+      },
+      hooks: process.env.APP_ENV == "testing" ? testingHooks : defaultHooks
     },
-    hooks: process.env.APP_ENV == "testing" ? testingHooks : defaultHooks
-  },
-  package: {
-    include: ["views/**/*", "dist/**/*", "build/**/*"],
-    exclude: ["node_modules/**/*"],
-  }
+    package: {
+      include: ["views/**/*", "dist/**/*", "build/**/*"],
+      exclude: ["node_modules/**/*"]
+    }
   }),
   functions: {
     main: {
