@@ -41,10 +41,7 @@ export function loadStaticFileRoutes(expressApp) {
   })
 
   expressApp.get("/core.js", (req, res) => {
-    const jsCode = fs.readFileSync(
-      path.resolve(__dirname, `${WIDGET_PATH}/core.js`),
-      "utf8"
-    )
+    const jsCode = fs.readFileSync(path.resolve(__dirname, `${WIDGET_PATH}/core.js`), "utf8")
     const parsedCode = jsCode
       .replace(/https:\/\/widget-data.stackla.com/g, "http://localhost:4002")
       .replace(/https:\/\/widget-ui.stackla.com/g, "http://localhost:4002")
