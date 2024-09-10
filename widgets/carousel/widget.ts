@@ -7,8 +7,6 @@ import swiperFont from "./swiper-font.scss"
 import swiperCommon from "./swiper-common.scss"
 import icons from "../../uikit/icon.scss"
 import swiperBundleCss from "@swiper/swiper-bundle.css"
-import shopspotFlyout from "@widget-css/shopspot-flyout.css"
-import shopspotIcon from "@widget-css/shopspot-icon.css"
 import shopspotIconOverride from "./components/shopspot-icon/base.scss"
 
 import {
@@ -51,13 +49,18 @@ loadHoverTile(widgetSettings)
 registerTilesUpdated(hideSlidesWithInvisibleTiles)
 registerPreloadTileHidden(onPreloadTileHidden)
 
+// some of the css styles are inherited across the shadow DOM components
+// https://www.w3.org/TR/CSS22/propidx.html#q0
+// Injects @font-face into placement head
 sdk.addWidgetCustomStyles(swiperFont)
 
-sdk.addSharedCssCustomStyles(swiperBundleCss)
 sdk.addSharedCssCustomStyles(icons)
+
+// Swiper specific styles to be available for both carousel and expanded tile
+sdk.addSharedCssCustomStyles(swiperBundleCss)
 sdk.addSharedCssCustomStyles(swiperCommon)
-sdk.addSharedCssCustomStyles(shopspotFlyout)
-sdk.addSharedCssCustomStyles(shopspotIcon)
+
+// Shopspot icon style overrides
 sdk.addSharedCssCustomStyles(shopspotIconOverride)
 
 sdk.addCSSToComponent(expandedTileStyle, "expanded-tiles")

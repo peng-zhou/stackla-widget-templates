@@ -26,7 +26,6 @@
     "resolveJsonModule": true,
     "paths": {
       "jsx-html": ["./node_modules/@stackla/ugc-widgets/src/ui/core/utils/jsx-html"],
-      "@widget-css/*": ["./node_modules/@stackla/ugc-widgets/dist/styles/*"],
       "@widgets/*": ["./widgets/*"],
       "@swiper/*": ["./node_modules/swiper/*"],
       "@libs/*": ["./widgets/libs/*"],
