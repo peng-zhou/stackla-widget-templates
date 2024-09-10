@@ -7,9 +7,10 @@ import { readFileSync } from "fs"
 import * as Handlebars from 'hbs'
 import tiles from "../../tests/fixtures/tiles.fixtures"
 import fs from "fs"
-import LayoutTemplateDecorator from "./layout-decorator"
+import { getAndRenderTiles, renderHTMLWithTemplates } from "./tile.handlers"
+import { loadStaticFileRoutes } from "./static-files"
 
-interface IDraftRequest {
+export interface IDraftRequest {
   custom_templates: {
     layout: {
       template: string
@@ -22,83 +23,6 @@ interface IDraftRequest {
   custom_js: string
 }
 
-interface HandlebarsParital {
-  name: string;
-  template: string;
-};
-
-function registerHelpers(hbs) {
-  hbs.registerHelper('ifEquals', function (arg1, arg2, options) {
-    return arg1 == arg2 ? options.fn(this) : options.inverse(this);
-  });
-}
-
-function renderTemplateWithPartials(
-  hbs,
-  partial: HandlebarsParital
-) {
-  registerHelpers(hbs);
-  hbs.registerPartial(partial.name, partial.template);
-
-  return hbs;
-}
-
-function makeImagesLazy(html: string) {
-  return html.replace(/<img/g, '<img loading="lazy"');
-}
-
-function wrapWithTileIdentifier(tileTemplate: string) {
-  return `<div style="display: none;" class="ugc-tile" data-id="{{id}}" data-media="{{media}}">${tileTemplate}</div>`;
-}
-
-async function renderHTMLWithTemplates(
-  widgetContainer: IDraftRequest,
-) {
-  registerHelpers(Handlebars);
-
-  const layoutTemplate = widgetContainer.custom_templates.layout.template;
-
-  const decoratedLayoutTemplate =
-    LayoutTemplateDecorator.decorate(layoutTemplate);
-  const decorators = [
-    makeImagesLazy,
-    wrapWithTileIdentifier,
-  ];
-  
-  const tileTemplate = widgetContainer.custom_templates.tile.template;
-  const decoratedTileTemplate = decorators.map(decorator => decorator(tileTemplate)).join('\n');
-
-  const hbs = await renderTemplateWithPartials(Handlebars.create(), {
-    name: 'tpl-tile',
-    template: decoratedTileTemplate,
-  });
-
-  const handlebarsTemplate = hbs.compile(decoratedLayoutTemplate);
-  return handlebarsTemplate({
-    tiles,
-  });
-}
-
-async function getAndRenderTiles(widgetContainer : IDraftRequest) {
-  const decorators = [
-    makeImagesLazy,
-    wrapWithTileIdentifier,
-  ];
-
-  const tileTemplate = widgetContainer.custom_templates.tile.template;
-  const decoratedTileTemplate = decorators.map(decorator => decorator(tileTemplate)).join('\n');
-
-  const hbs = await renderTemplateWithPartials(Handlebars.create(), {
-    name: 'tpl-tile',
-    template: decoratedTileTemplate,
-  });
-
-  const handlebarsTemplate = hbs.compile(decoratedTileTemplate);
-
-  return {
-    tiles: tiles.map((tile) => handlebarsTemplate(tile))
-  };
-}
 
 const expressApp = express()
 expressApp.use((_req, res, next) => {
@@ -112,45 +36,8 @@ expressApp.use(cors())
 
 const stripSymbols = (str: string) => str.replace(/[^a-zA-Z0-9]/g, "")
 const stripSymbolsThatAreNotDash = (str: string) => str.replace(/[^a-zA-Z0-9-]/g, "")
-const WIDGET_PATH = '../../../../../node_modules/@stackla/ugc-widgets/dist';
 
-
-expressApp.get("/expanded-tile.js", (req, res) => {
-  const code = readFileSync(path.resolve(__dirname, `${WIDGET_PATH}/expanded-tile.js`), "utf8")
-  res.set("Content-Type", "text/javascript")
-  res.send(code)
-});
-
-expressApp.get("/shopspots.js", (req, res) => {
-  const code = readFileSync(path.resolve(__dirname, `${WIDGET_PATH}/shopspots.js`), "utf8")
-  res.set("Content-Type", "text/javascript")
-  res.send(code)
-});
-
-expressApp.get("/google-analytics.js", (req, res) => {
-  const code = readFileSync(path.resolve(__dirname, `${WIDGET_PATH}/google-analytics.js`), "utf8")
-  res.set("Content-Type", "text/javascript")
-  res.send(code)
-});
-
-expressApp.get("/cross-sellers.js", (req, res) => {
-  const code = readFileSync(path.resolve(__dirname, `${WIDGET_PATH}/cross-sellers.js`), "utf8")
-  res.set("Content-Type", "text/javascript")
-  res.send(code)
-});
-
-expressApp.get("/add-to-cart.js", (req, res) => {
-  const code = readFileSync(path.resolve(__dirname, `${WIDGET_PATH}/add-to-cart.js`), "utf8")
-  res.set("Content-Type", "text/javascript")
-  res.send(code)
-});
-
-expressApp.get("/products.js", (req, res) => {
-  const code = readFileSync(path.resolve(__dirname, `${WIDGET_PATH}/products.js`), "utf8")
-  res.set("Content-Type", "text/javascript")
-  res.send(code)
-});
-
+loadStaticFileRoutes(expressApp);
 
 expressApp.post('/widgets/668ca52ada8fb/draft', async (req, res) => {
   const body = JSON.parse(req.body);
@@ -366,6 +253,12 @@ expressApp.post('/widgets/668ca52ada8fb/draft', async (req, res) => {
 });
 
 expressApp.get("/widgets/668ca52ada8fb/tiles", async (req, res) => {
+  res.send({
+    tiles: tiles
+  });
+});
+
+expressApp.get("/widgets/668ca52ada8fb/rendered/tiles", async (req, res) => {
   const widgetType = req.query.widgetType
   const rootDir = path.resolve(__dirname, `../../../../../dist/widgets/${widgetType}`)
   const layout = `${rootDir}/layout.hbs`
@@ -391,16 +284,7 @@ expressApp.get("/widgets/668ca52ada8fb/tiles", async (req, res) => {
     custom_js: jsFileContents
   });
 
-  res.send(tileHtml);
-});
-
-expressApp.get('/core.js', (req, res) => {
-  const jsCode = fs.readFileSync(path.resolve(__dirname, '../../../../../node_modules/@stackla/ugc-widgets/dist/core.js'), 'utf8');
-  const parsedCode = jsCode
-  .replace(/https:\/\/widget-data.stackla.com/g, 'http://localhost:4002')
-  .replace(/https:\/\/widget-ui.stackla.com/g, 'http://localhost:4002')
-  .replace(/\/tiles\?/g, `/tiles?widgetType=${req.query.widgetType}&`)
-  res.send(parsedCode);
+  res.json(tileHtml);
 });
 
 // Register preview route
