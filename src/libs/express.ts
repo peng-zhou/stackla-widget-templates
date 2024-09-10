@@ -7,6 +7,7 @@ import { readFileSync } from "fs"
 import * as Handlebars from 'hbs'
 import tiles from "../../tests/fixtures/tiles.fixtures"
 import fs from "fs"
+import LayoutTemplateDecorator from "./layout-decorator"
 
 interface IDraftRequest {
   custom_templates: {
@@ -17,8 +18,8 @@ interface IDraftRequest {
       template: string
     }
   },
-  customCSS: string
-  customJS: string
+  custom_css: string
+  custom_js: string
 }
 
 interface HandlebarsParital {
@@ -50,6 +51,33 @@ function wrapWithTileIdentifier(tileTemplate: string) {
   return `<div style="display: none;" class="ugc-tile" data-id="{{id}}" data-media="{{media}}">${tileTemplate}</div>`;
 }
 
+async function renderHTMLWithTemplates(
+  widgetContainer: IDraftRequest,
+) {
+  registerHelpers(Handlebars);
+
+  const layoutTemplate = widgetContainer.custom_templates.layout.template;
+
+  const decoratedLayoutTemplate =
+    LayoutTemplateDecorator.decorate(layoutTemplate);
+  const decorators = [
+    makeImagesLazy,
+    wrapWithTileIdentifier,
+  ];
+  
+  const tileTemplate = widgetContainer.custom_templates.tile.template;
+  const decoratedTileTemplate = decorators.map(decorator => decorator(tileTemplate)).join('\n');
+
+  const hbs = await renderTemplateWithPartials(Handlebars.create(), {
+    name: 'tpl-tile',
+    template: decoratedTileTemplate,
+  });
+
+  const handlebarsTemplate = hbs.compile(decoratedLayoutTemplate);
+  return handlebarsTemplate({
+    tiles,
+  });
+}
 
 async function getAndRenderTiles(widgetContainer : IDraftRequest) {
   const decorators = [
@@ -67,7 +95,9 @@ async function getAndRenderTiles(widgetContainer : IDraftRequest) {
 
   const handlebarsTemplate = hbs.compile(decoratedTileTemplate);
 
-  return tiles.map((tile) => handlebarsTemplate(tile)).join('');
+  return {
+    tiles: tiles.map((tile) => handlebarsTemplate(tile))
+  };
 }
 
 const expressApp = express()
@@ -82,18 +112,57 @@ expressApp.use(cors())
 
 const stripSymbols = (str: string) => str.replace(/[^a-zA-Z0-9]/g, "")
 const stripSymbolsThatAreNotDash = (str: string) => str.replace(/[^a-zA-Z0-9-]/g, "")
+const WIDGET_PATH = '../../../../../node_modules/@stackla/ugc-widgets/dist';
+
+
+expressApp.get("/expanded-tile.js", (req, res) => {
+  const code = readFileSync(path.resolve(__dirname, `${WIDGET_PATH}/expanded-tile.js`), "utf8")
+  res.set("Content-Type", "text/javascript")
+  res.send(code)
+});
+
+expressApp.get("/shopspots.js", (req, res) => {
+  const code = readFileSync(path.resolve(__dirname, `${WIDGET_PATH}/shopspots.js`), "utf8")
+  res.set("Content-Type", "text/javascript")
+  res.send(code)
+});
+
+expressApp.get("/google-analytics.js", (req, res) => {
+  const code = readFileSync(path.resolve(__dirname, `${WIDGET_PATH}/google-analytics.js`), "utf8")
+  res.set("Content-Type", "text/javascript")
+  res.send(code)
+});
+
+expressApp.get("/cross-sellers.js", (req, res) => {
+  const code = readFileSync(path.resolve(__dirname, `${WIDGET_PATH}/cross-sellers.js`), "utf8")
+  res.set("Content-Type", "text/javascript")
+  res.send(code)
+});
+
+expressApp.get("/add-to-cart.js", (req, res) => {
+  const code = readFileSync(path.resolve(__dirname, `${WIDGET_PATH}/add-to-cart.js`), "utf8")
+  res.set("Content-Type", "text/javascript")
+  res.send(code)
+});
+
+expressApp.get("/products.js", (req, res) => {
+  const code = readFileSync(path.resolve(__dirname, `${WIDGET_PATH}/products.js`), "utf8")
+  res.set("Content-Type", "text/javascript")
+  res.send(code)
+});
+
 
 expressApp.post('/widgets/668ca52ada8fb/draft', async (req, res) => {
   const body = JSON.parse(req.body);
   const draft = body.draft as IDraftRequest;
-  const tiles = await getAndRenderTiles(draft);
-  const customCss = draft.customCSS;
-  const customJs = draft.customJS;
+  const html = await renderHTMLWithTemplates(draft);
+  const customCss = draft.custom_css;
+  const customJs = draft.custom_js;
 
   res.send({
-    html: tiles,
-    css: customCss,
-    js: customJs,
+    html,
+    customCSS: customCss,
+    customJS: customJs,
     "widgetOptions": {
         "widgetConfig": {
             "lightbox": {
@@ -296,10 +365,41 @@ expressApp.post('/widgets/668ca52ada8fb/draft', async (req, res) => {
 })
 });
 
+expressApp.get("/widgets/668ca52ada8fb/tiles", async (req, res) => {
+  const widgetType = req.query.widgetType
+  const rootDir = path.resolve(__dirname, `../../../../../dist/widgets/${widgetType}`)
+  const layout = `${rootDir}/layout.hbs`
+  const tile = `${rootDir}/tile.hbs`
+  const css = `${rootDir}/widget.css`
+  const js = `${rootDir}/widget.js`
+
+  const layoutFileContents = readFileSync(layout, "utf8")
+  const tileFileContents = readFileSync(tile, "utf8")
+  const cssFileContents = readFileSync(css, "utf8")
+  const jsFileContents = readFileSync(js, "utf8")
+
+  const tileHtml = await getAndRenderTiles({
+    custom_templates: {
+      layout: {
+        template: layoutFileContents
+      },
+      tile: {
+        template: tileFileContents
+      }
+    },
+    custom_css: cssFileContents,
+    custom_js: jsFileContents
+  });
+
+  res.send(tileHtml);
+});
+
 expressApp.get('/core.js', (req, res) => {
   const jsCode = fs.readFileSync(path.resolve(__dirname, '../../../../../node_modules/@stackla/ugc-widgets/dist/core.js'), 'utf8');
   const parsedCode = jsCode
   .replace(/https:\/\/widget-data.stackla.com/g, 'http://localhost:4002')
+  .replace(/https:\/\/widget-ui.stackla.com/g, 'http://localhost:4002')
+  .replace(/\/tiles\?/g, `/tiles?widgetType=${req.query.widgetType}&`)
   res.send(parsedCode);
 });
 
@@ -328,6 +428,7 @@ expressApp.get("/preview", (req, res) => {
     layoutCode: layoutFileContents,
     tileCode: tileFileContents,
     cssCode: cssFileContents,
+    widgetType: widgetType,
     jsCode: jsFileContents
       .replace(/\\/g, "\\\\")
       .replace(/\"/g, '\\"')
