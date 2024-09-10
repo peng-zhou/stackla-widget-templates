@@ -3,9 +3,7 @@
     "baseUrl": ".",
     "target": "ES6",
     "module": "CommonJS",
-    "lib": [
-      "DOM"
-    ],
+    "lib": ["DOM"],
     "declaration": true,
     "declarationMap": true,
     "sourceMap": false,
@@ -27,13 +25,18 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "paths": {
+      "jsx-html": ["./node_modules/@stackla/ugc-widgets/src/ui/core/utils/jsx-html"],
+      "@widgets/*": ["./widgets/*"],
+      "@swiper/*": ["./node_modules/swiper/*"],
+      "@libs/*": ["./widgets/libs/*"],
       "@styles/*": ["./widgets/styles/*"],
       "@utils/*": ["./widgets/utils/*"],
-      "jsx-html": ["./node_modules/@stackla/ugc-widgets/src/ui/core/utils/jsx-html"]
+      "@extensions/*": ["./widgets/libs/extensions/*"],
+      "types": ["./types"]
     },
     "jsx": "react",
     "jsxFactory": "createElement",
-    "jsxFragmentFactory": "createFragment",
+    "jsxFragmentFactory": "createFragment"
   },
   "include": ["widgets/**/*.ts", "widgets/**/*.tsx", "./node_modules/@stackla/ugc-widgets/src/**.d.ts"],
   "exclude": []
