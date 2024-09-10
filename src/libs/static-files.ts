@@ -1,7 +1,7 @@
 import fs, { readFileSync } from "fs"
 import path from "path"
 
-const WIDGET_PATH = "../../../../../node_modules/@stackla/ugc-widgets/dist"
+export const WIDGET_PATH = "../../../../../node_modules/@stackla/ugc-widgets/dist"
 
 export function loadStaticFileRoutes(expressApp) {
   expressApp.get("/expanded-tile.js", (req, res) => {
@@ -42,7 +42,7 @@ export function loadStaticFileRoutes(expressApp) {
 
   expressApp.get("/core.js", (req, res) => {
     const jsCode = fs.readFileSync(
-      path.resolve(__dirname, "../../../../../node_modules/@stackla/ugc-widgets/dist/core.js"),
+      path.resolve(__dirname, `${WIDGET_PATH}/core.js`),
       "utf8"
     )
     const parsedCode = jsCode
