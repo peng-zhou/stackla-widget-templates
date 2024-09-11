@@ -3,8 +3,7 @@ Cypress.Commands.add("visitWidget", widgetType => {
 })
 
 Cypress.Commands.add("getFirstTile", () => {
-  const tile = cy.get("ugc-widget-668ca52ada8fb").shadow().find(".ugc-tile");
-  return tile.eq(1)
+  return cy.get("ugc-widget-668ca52ada8fb").shadow().find(".ugc-tile").first()
 })
 
 Cypress.Commands.add("widgetTests", widgetType => {

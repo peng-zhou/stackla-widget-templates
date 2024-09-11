@@ -1,8 +1,8 @@
 import tiles from "../../tests/fixtures/tiles.fixtures"
-import TileTemplateDecorator from "./tile.decorators"
 import * as Handlebars from "hbs"
-import LayoutTemplateDecorator from "./layout-decorator"
 import { IDraftRequest } from "./express"
+import { decorateTile } from "./tile.decorators"
+import { decorateLayout } from "./layout-decorator"
 
 export async function getAndRenderTiles(widgetContainer: IDraftRequest) {
   const tileTemplate = widgetContainer.custom_templates.tile.template
@@ -44,8 +44,8 @@ export async function renderHTMLWithTemplates(widgetContainer: IDraftRequest) {
 
   registerHelpers(Handlebars)
 
-  const decoratedLayoutTemplate = LayoutTemplateDecorator.decorate(layoutTemplate)
-  const decoratedTileTemplate = TileTemplateDecorator.decorate(tileTemplate)
+  const decoratedLayoutTemplate = decorateLayout(layoutTemplate)
+  const decoratedTileTemplate = decorateTile(tileTemplate)
 
   const hbs = await renderTemplateWithPartials(Handlebars.create(), {
     name: "tpl-tile",
