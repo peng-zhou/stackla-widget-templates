@@ -20,7 +20,7 @@
   },
   "license": "MIT",
   "optionalDependencies": {
-    "@esbuild/linux-x64": "^0.21.5"
+    "@esbuild/linux-x64": "^0.23.1"
   },
   "devDependencies": {
     "@happy-dom/jest-environment": "^14.12.3",
