@@ -7,11 +7,11 @@ function wrapWithTileIdentifier(tileTemplate: string) {
 }
 
 export function decorateTile(html: string): string {
-    const decorators = [makeImagesLazy, wrapWithTileIdentifier]
+  const decorators = [makeImagesLazy, wrapWithTileIdentifier]
 
-    decorators.forEach(decorator => {
-      html = decorator(html)
-    })
+  decorators.forEach(decorator => {
+    html = decorator(html)
+  })
 
-    return html
+  return html
 }
