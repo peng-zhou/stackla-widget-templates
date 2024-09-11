@@ -19,8 +19,12 @@ export function ExpandedTiles(sdk: Sdk) {
           ))}
         </div>
       </div>
-      <div class="swiper-expanded-button-prev swiper-button-prev"></div>
-      <div class="swiper-expanded-button-next swiper-button-next"></div>
+      <div class="swiper-expanded-button-prev swiper-button-prev">
+        <span class="chevron-left" />
+      </div>
+      <div class="swiper-expanded-button-next swiper-button-next">
+        <span class="chevron-right" />
+      </div>
     </div>
   ) : (
     <span>No tiles found</span>

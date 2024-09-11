@@ -35,17 +35,19 @@
 .swiper-button-prev,
 .swiper-expanded-button-next,
 .swiper-expanded-button-prev {
-  --swiper-navigation-size: 35px;
-  background-color: #dfdfdf;
+  --swiper-navigation-size: 28px;
+  background-color: #FFFFFF;
   border-radius: 100%;
-  border: 2px solid #dfdfdf;
+  box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.1);
   color: #000;
   width: var(--swiper-navigation-size);
+  z-index: 2;
 }
 
 .swiper-button-next::after,
 .swiper-button-prev::after,
 .swiper-expanded-button-next::after,
 .swiper-expanded-button-prev::after {
+  content: "";
   --swiper-navigation-size: 20px;
 }
