@@ -4,41 +4,20 @@ import path from "path"
 export const WIDGET_PATH = "../../../../../node_modules/@stackla/ugc-widgets/dist"
 
 export function loadStaticFileRoutes(expressApp) {
-  expressApp.get("/expanded-tile.js", (req, res) => {
-    const code = readFileSync(path.resolve(__dirname, `${WIDGET_PATH}/expanded-tile.js`), "utf8")
-    res.set("Content-Type", "text/javascript")
-    res.send(code)
-  })
+  const serveStaticFile = (route, fileName, contentType = "text/javascript") => {
+    expressApp.get(route, (req, res) => {
+      const code = readFileSync(path.resolve(__dirname, `${WIDGET_PATH}/${fileName}`), "utf8")
+      res.set("Content-Type", contentType)
+      res.send(code)
+    })
+  }
 
-  expressApp.get("/shopspots.js", (req, res) => {
-    const code = readFileSync(path.resolve(__dirname, `${WIDGET_PATH}/shopspots.js`), "utf8")
-    res.set("Content-Type", "text/javascript")
-    res.send(code)
-  })
-
-  expressApp.get("/google-analytics.js", (req, res) => {
-    const code = readFileSync(path.resolve(__dirname, `${WIDGET_PATH}/google-analytics.js`), "utf8")
-    res.set("Content-Type", "text/javascript")
-    res.send(code)
-  })
-
-  expressApp.get("/cross-sellers.js", (req, res) => {
-    const code = readFileSync(path.resolve(__dirname, `${WIDGET_PATH}/cross-sellers.js`), "utf8")
-    res.set("Content-Type", "text/javascript")
-    res.send(code)
-  })
-
-  expressApp.get("/add-to-cart.js", (req, res) => {
-    const code = readFileSync(path.resolve(__dirname, `${WIDGET_PATH}/add-to-cart.js`), "utf8")
-    res.set("Content-Type", "text/javascript")
-    res.send(code)
-  })
-
-  expressApp.get("/products.js", (req, res) => {
-    const code = readFileSync(path.resolve(__dirname, `${WIDGET_PATH}/products.js`), "utf8")
-    res.set("Content-Type", "text/javascript")
-    res.send(code)
-  })
+  serveStaticFile("/expanded-tile.js", "expanded-tile.js")
+  serveStaticFile("/shopspots.js", "shopspots.js")
+  serveStaticFile("/google-analytics.js", "google-analytics.js")
+  serveStaticFile("/cross-sellers.js", "cross-sellers.js")
+  serveStaticFile("/add-to-cart.js", "add-to-cart.js")
+  serveStaticFile("/products.js", "products.js")
 
   expressApp.get("/core.js", (req, res) => {
     const jsCode = fs.readFileSync(path.resolve(__dirname, `${WIDGET_PATH}/core.js`), "utf8")
