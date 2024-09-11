@@ -1,5 +1,3 @@
-// TODO - share libs with node-content-v2 nestjs
-
 export default class LayoutTemplateDecorator {
   static wrapLayoutWithTilesIdentifier(tileTemplate: string) {
     // Find the mustache loop for {{#tiles}} and wrap the layout template with a div with class ugc-tiles
