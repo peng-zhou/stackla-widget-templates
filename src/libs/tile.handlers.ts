@@ -7,7 +7,7 @@ import { decorateLayout } from "./layout-decorator"
 export async function getAndRenderTiles(widgetContainer: IDraftRequest) {
   const tileTemplate = widgetContainer.custom_templates.tile.template
 
-  const decoratedTileTemplate = TileTemplateDecorator.decorate(tileTemplate)
+  const decoratedTileTemplate = decorateTile(tileTemplate)
   registerHelpers(Handlebars)
 
   const hbs = await renderTemplateWithPartials(Handlebars.create(), {
