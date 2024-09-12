@@ -1,9 +1,6 @@
 import Swiper from "swiper"
 import { SdkSwiper } from "types"
 import { Manipulation, Navigation } from "swiper/modules"
-import swiperFont from "./swiper-font.scss"
-import swiperCommon from "./swiper-common.scss"
-import swiperBundleCss from "@swiper/swiper-bundle.css"
 
 declare const sdk: SdkSwiper
 
@@ -26,10 +23,6 @@ export function initializeSwiper({
   nextButton = "swiper-button-next",
   initialIndex = 0
 }: SwiperProps) {
-  sdk.addWidgetCustomStyles(swiperFont)
-  sdk.addSharedCssCustomStyles(swiperBundleCss)
-  sdk.addSharedCssCustomStyles(swiperCommon)
-
   const prev = widgetSelector!.parentNode!.querySelector<HTMLElement>(`.${prevButton}`)
   const next = widgetSelector!.parentNode!.querySelector<HTMLElement>(`.${nextButton}`)
 
