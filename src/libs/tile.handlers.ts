@@ -20,7 +20,7 @@ export async function getAndRenderTiles(widgetContainer: IDraftRequest) {
   return tiles.map(tile => handlebarsTemplate(tile))
 }
 
-interface HandlebarsParital {
+interface HandlebarsPartial {
   name: string
   template: string
 }
@@ -31,7 +31,7 @@ function registerHelpers(hbs) {
   })
 }
 
-function renderTemplateWithPartials(hbs, partial: HandlebarsParital) {
+function renderTemplateWithPartials(hbs, partial: HandlebarsPartial) {
   registerHelpers(hbs)
   hbs.registerPartial(partial.name, partial.template)
 
