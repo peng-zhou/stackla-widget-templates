@@ -8,7 +8,7 @@ import {
   getClickedIndex,
   initializeSwiper,
   refreshSwiper
-} from "@extensions/swiper.extension"
+} from "@widgets/libs/extensions/swiper/swiper.extension"
 
 declare const sdk: Sdk
 
