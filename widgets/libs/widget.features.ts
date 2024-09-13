@@ -82,19 +82,7 @@ export function addAutoAddTileFeature<T extends BaseConfig>(widgetSettings: T) {
 }
 
 // TODO - Move to ugc-widgets
-function validateWidgetHandlebarsTemplate() {
-  const ugcTiles = sdk.querySelectorAll(".ugc-tiles")!
-  const ugcTile = sdk.querySelectorAll(".ugc-tile")!
-
-  if (!ugcTiles.length || !ugcTile.length) {
-    throw new Error("Failed to find UGC tiles or UGC tile, please check your configured handlebars template")
-  }
-}
-
-// TODO - Move to ugc-widgets
 export function loadWidgetIsEnabled<T extends BaseConfig>(widgetSettings: T) {
-  validateWidgetHandlebarsTemplate()
-
   if (isEnabled(widgetSettings)) {
     return true
   }
