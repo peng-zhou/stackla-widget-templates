@@ -38,10 +38,6 @@
   display: var(--tile-timephrase-display);
 }
 
-.ugc-tile:not([data-media="image"], [data-media="video"]) {
-  display: none;
-}
-
 .ugc-tile img {
   width: 100%;
   height: auto;
