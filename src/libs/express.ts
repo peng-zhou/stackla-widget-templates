@@ -4,7 +4,25 @@ import { WidgetRequest } from "@stackla/ugc-widgets"
 import cors from "cors"
 import path from "path"
 import { readFileSync } from "fs"
-import * as hbs from "hbs"
+import * as Handlebars from 'hbs'
+import tiles from "../../tests/fixtures/tiles.fixtures"
+import fs from "fs"
+import { getAndRenderTiles, renderTemplates } from "./tile.handlers"
+import { loadStaticFileRoutes } from "./static-files"
+import widgetOptions from "../../tests/fixtures/widget.options"
+
+export interface IDraftRequest {
+  custom_templates: {
+    layout: {
+      template: string
+    }
+    tile: {
+      template: string
+    }
+  },
+  custom_css: string
+  custom_js: string
+}
 
 const expressApp = express()
 expressApp.use((_req, res, next) => {
@@ -12,12 +30,68 @@ expressApp.use((_req, res, next) => {
   next()
 })
 expressApp.use(express.static("dist/widgets", { redirect: false }))
-expressApp.engine("hbs", hbs.__express)
-expressApp.set("view engine", "hbs")
+expressApp.engine('hbs', Handlebars.__express)
+expressApp.set('view engine', 'hbs')
 expressApp.use(cors())
 
 const stripSymbols = (str: string) => str.replace(/[^a-zA-Z0-9]/g, "")
 const stripSymbolsThatAreNotDash = (str: string) => str.replace(/[^a-zA-Z0-9-]/g, "")
+
+loadStaticFileRoutes(expressApp);
+
+expressApp.post('/widgets/668ca52ada8fb/draft', async (req, res) => {
+  const body = JSON.parse(req.body);
+  const draft = body.draft as IDraftRequest;
+  const html = await renderTemplates(draft);
+  const customCss = draft.custom_css;
+  const customJs = draft.custom_js;
+
+  res.send({
+    html,
+    customCSS: customCss,
+    customJS: customJs,
+    "widgetOptions": widgetOptions,
+    "stackId": 1451,
+    "merchantId": "shopify-64671154416",
+    "tileCount": 2177,
+    "enabled": 1
+})
+});
+
+expressApp.get("/widgets/668ca52ada8fb/tiles", async (req, res) => {
+  res.send({
+    tiles: tiles
+  });
+});
+
+expressApp.get("/widgets/668ca52ada8fb/rendered/tiles", async (req, res) => {
+  const widgetType = req.query.widgetType
+  const rootDir = path.resolve(__dirname, `../../../../../dist/widgets/${widgetType}`)
+  const layout = `${rootDir}/layout.hbs`
+  const tile = `${rootDir}/tile.hbs`
+  const css = `${rootDir}/widget.css`
+  const js = `${rootDir}/widget.js`
+
+  const layoutFileContents = readFileSync(layout, "utf8")
+  const tileFileContents = readFileSync(tile, "utf8")
+  const cssFileContents = readFileSync(css, "utf8")
+  const jsFileContents = readFileSync(js, "utf8")
+
+  const tileHtml = await getAndRenderTiles({
+    custom_templates: {
+      layout: {
+        template: layoutFileContents
+      },
+      tile: {
+        template: tileFileContents
+      }
+    },
+    custom_css: cssFileContents,
+    custom_js: jsFileContents
+  });
+
+  res.json(tileHtml);
+});
 
 // Register preview route
 expressApp.get("/preview", (req, res) => {
@@ -44,6 +118,7 @@ expressApp.get("/preview", (req, res) => {
     layoutCode: layoutFileContents,
     tileCode: tileFileContents,
     cssCode: cssFileContents,
+    widgetType: widgetType,
     jsCode: jsFileContents
       .replace(/\\/g, "\\\\")
       .replace(/\"/g, '\\"')

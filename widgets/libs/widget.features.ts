@@ -81,6 +81,7 @@ export function addAutoAddTileFeature<T extends BaseConfig>(widgetSettings: T) {
   }
 }
 
+// TODO - Move to ugc-widgets
 export function loadWidgetIsEnabled<T extends BaseConfig>(widgetSettings: T) {
   if (isEnabled(widgetSettings)) {
     return true

@@ -41,10 +41,18 @@ describe("Widget Settings Functions", () => {
       expect(hasMinimumTilesRequired(widgetSettings)).toBe(true)
     })
 
-    it("returns false when minimal_tiles is set and there are not enough tiles", () => {
+    it("throws error when minimum tiles is set and there are not enough tiles", () => {
       const widgetSettings = { ...defaultWidgetSettings, minimal_tiles: 3 }
       sdk.querySelectorAll.mockReturnValue([{}])
-      expect(hasMinimumTilesRequired(widgetSettings)).toBe(false)
+
+      try {
+        hasMinimumTilesRequired(widgetSettings)
+      } catch (error: unknown) {
+        expect(error).toBeInstanceOf(Error)
+        if (error instanceof Error) {
+          expect(error.message).toBe("Not enough tiles to render widget. Expected 3 but found 1")
+        }
+      }
     })
   })
 
@@ -55,10 +63,17 @@ describe("Widget Settings Functions", () => {
       expect(isEnabled(widgetSettings)).toBe(true)
     })
 
-    it("returns false when enabled is true but hasMinimumTilesRequired returns false", () => {
+    it("returns exception when enabled is true but hasMinimumTilesRequired returns false", () => {
       const widgetSettings = { ...defaultWidgetSettings, enabled: true, minimal_tiles: 3 }
       sdk.querySelectorAll.mockReturnValue([{}])
-      expect(isEnabled(widgetSettings)).toBe(false)
+      try {
+        isEnabled(widgetSettings)
+      } catch (error: unknown) {
+        expect(error).toBeInstanceOf(Error)
+        if (error instanceof Error) {
+          expect(error.message).toBe("Not enough tiles to render widget. Expected 3 but found 1")
+        }
+      }
     })
 
     it("returns false when enabled is false", () => {

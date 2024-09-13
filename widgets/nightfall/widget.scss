@@ -20,11 +20,9 @@ div {
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
-}
-
-#tiles {
-  display: flex;
-  justify-content: center;
+  margin: 0 auto;
+  // Override glitch in masonry plugin
+  width: 100% !important;
 }
 
 .ugc-tile {
@@ -54,10 +52,6 @@ div {
   .ugc-tile {
     max-width: calc(50% - 20px);
   }
-}
-
-.ugc-tile:not([data-media="image"], [data-media="video"]) {
-  display: none;
 }
 
 .ugc-tile img {
