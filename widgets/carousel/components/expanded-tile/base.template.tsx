@@ -8,7 +8,7 @@ export function ExpandedTiles(sdk: Sdk) {
   return Object.values(tiles).length ? (
     <div class="expanded-tile-wrapper">
       <a class="exit" href="#">
-        <span class="widget-icon close"></span>
+        <span class="widget-icon close-white"></span>
       </a>
       <div class="swiper swiper-expanded">
         <div class="swiper-wrapper">
@@ -19,8 +19,12 @@ export function ExpandedTiles(sdk: Sdk) {
           ))}
         </div>
       </div>
-      <div class="swiper-expanded-button-prev swiper-button-prev"></div>
-      <div class="swiper-expanded-button-next swiper-button-next"></div>
+      <div class="swiper-expanded-button-prev swiper-button-prev">
+        <span class="chevron-left" />
+      </div>
+      <div class="swiper-expanded-button-next swiper-button-next">
+        <span class="chevron-right" />
+      </div>
     </div>
   ) : (
     <span>No tiles found</span>
