@@ -8,7 +8,7 @@ export function ExpandedTiles(sdk: Sdk) {
   return Object.values(tiles).length ? (
     <div class="expanded-tile-wrapper">
       <a class="exit" href="#">
-        <span class="widget-icon close"></span>
+        <span class="widget-icon close-white"></span>
       </a>
       <div class="swiper swiper-expanded">
         <div class="swiper-wrapper">
