@@ -20,7 +20,7 @@ const config = {
   ...serverlessConfig({
     plugins: plugins,
     service: "widget-templates",
-    offlinePort: process.env.APP_ENV == "testing" ? 4002 : 80,
+    offlinePort: process.env.APP_ENV == "testing" ? 4003 : 80,
     custom: {
       esbuild: {
         otherExternal: ["hbs"]

@@ -18,20 +18,6 @@
 
   .swiper-slide {
     align-items: center;
-
-    > .ugc-tile {
-      width: 100%;
-
-      img {
-        height: 200px;
-        width: 100%;
-        object-fit: cover;
-        overflow: hidden;
-        border-radius: 5px;
-        position: relative;
-        opacity: 1;
-      }
-    }
   }
 }
 

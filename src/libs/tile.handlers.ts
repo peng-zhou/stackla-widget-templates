@@ -1,5 +1,5 @@
 import tiles from "../../tests/fixtures/tiles.fixtures"
-import { IDraftRequest } from "./express"
+import type { IDraftRequest } from "./express"
 import { renderHTMLWithTemplates, renderTilesWithTemplate } from "@stackla/handlebars"
 
 export async function getAndRenderTiles(widgetContainer: IDraftRequest) {

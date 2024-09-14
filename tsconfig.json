@@ -27,7 +27,6 @@
     "paths": {
       "jsx-html": ["./node_modules/@stackla/ugc-widgets/src/ui/core/utils/jsx-html"],
       "@widgets/*": ["./widgets/*"],
-      "@swiper/*": ["./node_modules/swiper/*"],
       "@libs/*": ["./widgets/libs/*"],
       "@styles/*": ["./widgets/styles/*"],
       "@utils/*": ["./widgets/utils/*"],
