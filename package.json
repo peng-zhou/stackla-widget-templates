@@ -10,13 +10,17 @@
     "lint": "npm run eslint && npm run stylelint",
     "lint:fix": "npm run eslint -- --fix && npm run stylelint -- --fix",
     "test": "jest && npm run test:e2e",
+    "cy:debug": "cypress open",
+    "debug:e2e": "start-server-and-test --expect 400 start:test http://127.0.0.1:4002/preview cy:debug",
     "cy:run": "cypress run --browser chrome --headless",
-    "test:e2e": "start-server-and-test --expect 400 start http://127.0.0.1:4002/preview cy:run",
+    "test:e2e": "start-server-and-test --expect 400 start:test http://127.0.0.1:4002/preview cy:run",
+    "watch:test": "APP_ENV=testing node ./esbuild.js --watch",
+    "start:test": "APP_ENV=testing npx concurrently \"npm run watch:test\" \"npm run start:lambda\"",
     "build": "node ./esbuild.js",
     "watch": "APP_ENV=development node ./esbuild.js --watch",
     "dev": "APP_ENV=development node ./esbuild.js",
-    "start:lambda": "NODE_ENV=development APP_ENV=testing sls offline start --noPrependStageInUrl --reloadHandler --stage=development --region=us-west-1 --host=127.0.0.1",
-    "start": "npx concurrently \"npm run watch\" \"npm run start:lambda\""
+    "start:lambda": "NODE_ENV=development sls offline start --noPrependStageInUrl --reloadHandler --stage=development --region=us-west-1 --host=127.0.0.1",
+    "start": "APP_ENV=development npx concurrently \"npm run watch\" \"npm run start:lambda\""
   },
   "license": "MIT",
   "optionalDependencies": {

@@ -1,8 +1,8 @@
-declare module "*.scss";
-declare module "*.css";
+declare module "*.scss"
+declare module "*.css"
 
 interface Window {
-    scrollLocked: boolean;
-    refreshMasonryLayout: Timeout;
-    __isLoading: boolean;
+  scrollLocked: boolean
+  refreshMasonryLayout: Timeout
+  __isLoading: boolean
 }
