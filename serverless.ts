@@ -16,11 +16,22 @@ const defaultHooks = {
 
 const plugins: string[] = ["serverless-webpack", "serverless-offline", "serverless-hooks-plugin"]
 
+const getPort = () => {
+  switch (env) {
+    case "development":
+      return 4003
+    case "testing":
+      return 4002
+    default:
+      return 80
+  }
+}
+
 const config = {
   ...serverlessConfig({
     plugins: plugins,
     service: "widget-templates",
-    offlinePort: process.env.APP_ENV == "testing" ? 4003 : 80,
+    offlinePort: getPort(),
     custom: {
       esbuild: {
         otherExternal: ["hbs"]
