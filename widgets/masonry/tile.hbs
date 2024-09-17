@@ -1,4 +1,5 @@
-<div class="ugc-tile-wrapper tile-{{media}} ugc-tile" data-id="{{id}}" style="display:none">
+
+{{#tile class="ugc-tile-wrapper"}}
     <div class="tile-hover inactive">
         <ul class="tile-tags">
             {{#tags_extended}}
@@ -6,7 +7,7 @@
             {{/tags_extended}}
         </ul>
 	</div>
-    <img  alt="UGC Image Thumbnail" src="{{image_thumbnail_url}}" width="120"/>
+    {{#lazy image_thumbnail_url "120"}}{{/lazy}}
     <shopspot-flyout tile-id="{{id}}"></shopspot-flyout>
     <shopspot-icon tile-id="{{id}}"></shopspot-icon>
     <div class="tile-message-wrapper">
@@ -15,4 +16,4 @@
         <div class="network-icon icon-{{source}}"></div>
         <div class="tile-caption"><p>{{message}}</p></div>
     </div>
-</div>
+{{/tile}}
