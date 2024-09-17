@@ -1,4 +1,4 @@
-<div class="tile-{{media}} ugc-tile" data-id="{{id}}" style="display:none">
+{{#tile}}
 	<div class="tile">
         <ul class="tile-tags">
             {{#tags_extended}}
@@ -8,9 +8,9 @@
 	</div>
 
     <div class="network-icon icon-{{source}}"></div>
-    <img src="{{image_thumbnail_url}}" width="120"/>
+    {{#lazy image_thumbnail_url "120"}}{{/lazy}}
     <span class="tile-timephrase">{{time_ago}}</span>
     <shopspot-flyout tile-id="{{id}}"></shopspot-flyout>
 	<shopspot-icon tile-id="{{id}}"></shopspot-icon>
     <div class="tile-caption">{{{message}}}</div>
-</div>
+{{/tile}}

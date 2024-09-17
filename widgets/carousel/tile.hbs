@@ -6,10 +6,10 @@
         {{/tags_extended}}
       </ul>
       <div class="network-icon icon-{{source}}"></div>
-      <img src="{{image_thumbnail_url}}" width="120" />
+      {{#lazy image_thumbnail_url "120"}}{{/lazy}}
   </div>
   <div class="swiper-lazy-preloader"></div>
   <span class="tile-timephrase">{{time_ago}}</span>
   <shopspot-flyout tile-id="{{id}}"></shopspot-flyout>
   <shopspot-icon tile-id="{{id}}"></shopspot-icon>
-</div>
+{{/tile}}
