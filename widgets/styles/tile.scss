@@ -1,0 +1,51 @@
+.swiper-wrapper {
+  gap: 10px;
+}
+
+.tile {
+  height: 210.4px;
+  width: 210.4px;
+}
+
+.tile-tags {
+  bottom: 0;
+  display: inline-flex;
+  gap: 4px;
+  list-style: none;
+  margin: 0 16.4px 8.4px 8px;
+  mask-image: linear-gradient(to left, transparent 5%, black 15%);
+  overflow-y: auto;
+  padding: 0;
+  position: absolute;
+  scrollbar-width: none;
+  width: -webkit-fill-available;
+  z-index: 2;
+}
+
+.tile-tag {
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 25px;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  padding: 0 4px;
+  line-height: 12px;
+  text-wrap: nowrap;
+
+  a {
+    color: #fff;
+    text-decoration: none;
+  }
+}
+
+.icon-instagram {
+  height: 12px !important;
+  width: 12px !important;
+}
+
+.network-icon {
+  bottom: 8.4px;
+  position: absolute;
+  right: 8.4px;
+  z-index: 2;
+}

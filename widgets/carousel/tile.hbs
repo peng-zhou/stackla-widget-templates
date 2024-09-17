@@ -1,13 +1,13 @@
 <div class="swiper-slide ugc-tile" data-id="{{id}}" style="display:none">
-  <div class="tile-hover inactive">
-    <ul class="tile-tags">
-      {{#tags_extended}}
-        <li class="tile-tag"><a href="{{custom_url}}">{{tag}}</a></li>
-      {{/tags_extended}}
-    </ul>
+  <div class="tile">
+      <ul class="tile-tags">
+        {{#tags_extended}}
+          <li class="tile-tag"><a href="{{custom_url}}">{{tag}}</a></li>
+        {{/tags_extended}}
+      </ul>
+      <div class="network-icon icon-{{source}}"></div>
+      <img src="{{image_thumbnail_url}}" width="120" />
   </div>
-  <div class="network-icon icon-{{source}}"></div>
-  <img src="{{image_thumbnail_url}}" width="120" />
   <div class="swiper-lazy-preloader"></div>
   <span class="tile-timephrase">{{time_ago}}</span>
   <shopspot-flyout tile-id="{{id}}"></shopspot-flyout>

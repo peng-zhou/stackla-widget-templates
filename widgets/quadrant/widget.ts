@@ -5,7 +5,6 @@ import {
   addLoadMoreButtonFeature,
   addTilesPerPageFeature,
   loadExpandedTileFeature,
-  loadHoverTile,
   loadTitle
 } from "../libs/widget.features"
 import { loadExpandSettingComponents } from "../libs/widget.components"
@@ -24,7 +23,6 @@ const groupsToShowInitially = 6
 
 loadTitle()
 loadExpandSettingComponents(widgetSettings)
-loadHoverTile(widgetSettings)
 addAutoAddTileFeature(widgetSettings)
 loadExpandedTileFeature(widgetSettings)
 addTilesPerPageFeature(widgetSettings)

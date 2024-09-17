@@ -14,10 +14,13 @@
 }
 
 .swiper {
-  height: 300px;
+  height: 210.4px;
 
   .swiper-slide {
     align-items: center;
+    height: 100%;
+    margin: 0 !important;
+    width: 210.4px !important;
   }
 }
 
