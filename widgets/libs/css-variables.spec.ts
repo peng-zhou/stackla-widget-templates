@@ -17,6 +17,7 @@ describe("getCSSVariables", () => {
       text_tile_font_size: 14,
       text_tile_user_name_font_size: 16,
       text_tile_user_handle_font_size: 12,
+      tags_gap: 4,
       show_caption: true,
       shopspot_icon: "http://example.com/icon.png",
       tiles_per_page: 4,

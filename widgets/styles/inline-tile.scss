@@ -6,7 +6,7 @@
 .tile-tags {
   bottom: 0;
   display: inline-flex;
-  gap: 4px;
+  gap: var(--tags-gap);
   list-style: none;
   margin: 0 16.4px 8.4px 8px;
   mask-image: linear-gradient(to left, transparent 5%, black 15%);
