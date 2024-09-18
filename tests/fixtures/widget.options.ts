@@ -21,7 +21,7 @@ export default {
       show_tags: true,
       show_votes: true,
       show_cross_sellers: false,
-      show_add_to_cart: true
+      show_add_to_cart: false
     },
     tile_options: {
       show_comments: true,
