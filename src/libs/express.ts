@@ -5,9 +5,8 @@ import cors from "cors"
 import path from "path"
 import { readFileSync } from "fs"
 import * as Handlebars from "hbs"
-import tiles from "../../tests/fixtures/tiles.fixtures"
 import fs from "fs"
-import { getAndRenderTiles, renderTemplates } from "./tile.handlers"
+import { getAndRenderTiles, getTilesToRender, renderTemplates } from "./tile.handlers"
 import { loadStaticFileRoutes } from "./static-files"
 import widgetOptions from "../../tests/fixtures/widget.options"
 
@@ -82,24 +81,33 @@ expressApp.post("/widgets/668ca52ada8fb/draft", async (req, res) => {
 })
 
 expressApp.get("/widgets/668ca52ada8fb/tiles", async (req, res) => {
+  const page = (req.query.page ?? 0) as number
+  const limit = (req.query.limit ?? 25) as number
   res.send({
-    tiles: tiles
+    tiles: getTilesToRender(page, limit)
   })
 })
 
 expressApp.get("/widgets/668ca52ada8fb/rendered/tiles", async (req, res) => {
-  const tileHtml = await getAndRenderTiles({
-    custom_templates: {
-      layout: {
-        template: layoutCode || ""
+  const page = (req.query.page ?? 0) as number
+  const limit = (req.query.limit ?? 25) as number
+
+  const tileHtml = await getAndRenderTiles(
+    {
+      custom_templates: {
+        layout: {
+          template: layoutCode || ""
+        },
+        tile: {
+          template: tileCode || ""
+        }
       },
-      tile: {
-        template: tileCode || ""
-      }
+      custom_css: cssCode || "",
+      custom_js: jsCode || ""
     },
-    custom_css: cssCode || "",
-    custom_js: jsCode || ""
-  })
+    page,
+    limit
+  )
 
   res.json(tileHtml)
 })

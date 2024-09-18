@@ -1,4 +1,4 @@
-import tiles from "../../../tests/fixtures/tiles.fixtures"
+import tiles from "../../../tests/fixtures/tiles-page-1"
 import { Tags } from "./tags.lib"
 import { createElement } from "jsx-html"
 

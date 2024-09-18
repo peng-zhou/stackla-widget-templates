@@ -99,7 +99,7 @@ export function hideSlidesWithInvisibleTiles() {
   const slides = widgetSelectorWrapper?.querySelectorAll<HTMLElement>(".swiper-slide")
 
   slides?.forEach(slide => {
-    if (!slide.children.length || !!slide.querySelector('div.ugc-tile[style="display: none;"]')) {
+    if (!slide.children.length || slide.style.display === "none") {
       slide.remove()
     }
   })
@@ -108,10 +108,8 @@ export function hideSlidesWithInvisibleTiles() {
 
 export function onPreloadTileHidden(tileId: string) {
   const widgetSelectorWrapper = sdk.placement.querySelector(".swiper-wrapper")
-  const slides = Array.from(widgetSelectorWrapper?.querySelectorAll<HTMLElement>(".swiper-slide") || [])
-
-  const swiperSlide = slides.find(slide => slide.querySelector(`div.ugc-tile[data-id="${tileId}"]`))
-  swiperSlide?.remove()
+  const slide = widgetSelectorWrapper?.querySelector<HTMLElement>(`.swiper-slide[data-id="${tileId}"]`)
+  slide?.remove()
 
   refreshSwiper("swiperInline")
 }

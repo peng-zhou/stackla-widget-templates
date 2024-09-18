@@ -44,6 +44,7 @@ export function initializeSwiper({
     slidesPerView: perView,
     spaceBetween: 10,
     hashNavigation: true,
+    lazyPreloadPrevNext: perView,
     observeParents: true,
     observer: true,
     loop: true,
