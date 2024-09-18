@@ -1,0 +1,57 @@
+.tile {
+  height: 210px;
+  width: 210px;
+}
+
+.play-icon {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none"><circle cx="15" cy="15" r="15" fill="%23BCBBBC"/><path d="M19.5 14.1336C20.1667 14.5185 20.1667 15.4808 19.5 15.8657L13.5 19.3298C12.8333 19.7147 12 19.2335 12 18.4637L12 11.5355C12 10.7657 12.8333 10.2846 13.5 10.6695L19.5 14.1336Z" fill="black"/></svg>');
+  background-size: contain;
+  position: absolute;
+  top: 90px;
+}
+
+.tile-tags {
+  bottom: 0;
+  display: inline-flex;
+  gap: var(--tags-gap);
+  list-style: none;
+  margin: 0 16.4px 8.4px 8px;
+  mask-image: linear-gradient(to left, transparent 5%, black 15%);
+  overflow-y: auto;
+  padding: 0;
+  position: absolute;
+  scrollbar-width: none;
+  width: -webkit-fill-available;
+  z-index: 2;
+}
+
+.tile-tag {
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 25px;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  padding: 0 4px;
+  line-height: 12px;
+  text-wrap: nowrap;
+
+  a {
+    color: #fff;
+    text-decoration: none;
+  }
+}
+
+.icon-instagram {
+  height: 12px !important;
+  width: 12px !important;
+}
+
+.network-icon {
+  bottom: 8.4px;
+  position: absolute;
+  right: 8.4px;
+  z-index: 2;
+}

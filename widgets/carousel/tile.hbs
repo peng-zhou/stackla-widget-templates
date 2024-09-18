@@ -6,8 +6,9 @@
       {{/tags_extended}}
     </ul>
   </div>
-  <div class="network-icon icon-{{source}}"></div>
-  {{#lazy image_thumbnail_url "120"}}{{/lazy}}
+  {{#ifequals media "video"}}
+    <div class="play-icon"></div>
+  {{/ifequals}}
   <div class="swiper-lazy-preloader"></div>
   <span class="tile-timephrase">{{time_ago}}</span>
   <shopspot-icon tile-id="{{id}}"></shopspot-icon>
