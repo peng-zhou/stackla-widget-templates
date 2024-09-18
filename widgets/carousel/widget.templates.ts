@@ -12,5 +12,5 @@ export function loadCustomisation() {
   loadExpandedTileTemplates()
   loadShopspotTemplates()
   loadSwiperStyles()
-  sdk.addSharedCssCustomStyles(icons)
+  sdk.addSharedCssCustomStyles("icons", icons, [sdk.placement.getWidgetId(), "expanded-tiles"])
 }
