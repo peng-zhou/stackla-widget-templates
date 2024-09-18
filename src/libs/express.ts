@@ -49,8 +49,8 @@ const stripSymbolsThatAreNotDash = (str: string) => str.replace(/[^a-zA-Z0-9-]/g
 loadStaticFileRoutes(expressApp)
 
 expressApp.use((req, res, next) => {
-  if (!req.path.includes("/preview") && !req.cookies.widgetType) {
-    res.status(400).send("widgetType is not available cookies")
+  if (req.path === "/widgets/668ca52ada8fb" && !req.cookies.widgetType) {
+    res.status(400).send("widgetType cookie is not available")
   } else {
     next()
   }
