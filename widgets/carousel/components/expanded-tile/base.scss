@@ -1,17 +1,14 @@
 html {
   background: var(--widget-background);
 }
-
 .ugc-tile {
   width: var(--max-tile-width) px;
   background: var(--text-tile-background);
   margin: var(--margin) px;
 }
-
 .content-inner-wrapper a {
   color: var(--text-tile-link-color);
 }
-
 .tile-timestamp {
   color: #ababab;
   display: inline-block;
@@ -20,13 +17,10 @@ html {
   text-align: left;
   width: 100%;
 }
-
 .swiper {
   height: calc(100% - 50px);
-
   .swiper-slide {
     align-items: flex-start;
-
     div.image-filler {
       background-position: center;
       background-repeat: no-repeat;
@@ -37,4 +31,75 @@ html {
       transform: scale(1.2);
     }
   }
+}
+
+.share-socials-popup-wrapper {
+  position: absolute;
+  right: 50%;
+}
+
+.share-socials-popup {
+  display: flex;
+  flex-direction: column;
+  width: 351px;
+  border-radius: 5px;
+  background: #FFFFFF;
+  position: relative;
+
+  .exit {
+    top: -12px;
+    right: -12px;
+  }
+}
+
+.ugc-inline-share-buttons {
+  align-items: baseline;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 19px;
+}
+
+.popup-text {
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  border-bottom: solid #D6D4D5 1px;
+  padding: 20px 0 12px 0;
+}
+
+.url-copy {
+  display: flex;
+  height: 32px;
+  align-items: flex-start;
+  margin: 0 19px 20px;
+  border-radius: 3px;
+  border: 1px solid #D6D4D5;
+  background: #FFFFFF;
+}
+
+.share-url {
+  border: none;
+  outline: none;
+  background: #FFFFFF;
+  margin: 0;
+  box-shadow: none;
+  padding: 8px 12px;
+  width: 100%;
+  color: #4D4A4C;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.copy-button {
+  border: none;
+  border-left: 1px solid #D6D4D5;
+  outline: none;
+  background: #FFFFFF;
+  box-shadow: none;
+  cursor: pointer;
+  height: 100%;
+  padding: 9px 12px;
+  color: #1F63CA;
+  font-size: 12px;
 }

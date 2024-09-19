@@ -1,17 +1,17 @@
 import { Tile } from "@stackla/ugc-widgets"
 import { createElement } from "jsx-html"
 
-export function ShareMenu(tile: Tile, showMenu: boolean) {
+export function ShareMenu({ tile, showMenu }: { tile: Tile; showMenu: boolean }) {
+  if (!showMenu) return null
   return (
-    showMenu && (
-      <div class="ugc-inline-share-buttons">
-        <MenuLink icon="facebook" tile={tile} />
-        <MenuLink icon="x" tile={tile} />
-        <MenuLink icon="pinterest" tile={tile} />
-        <MenuLink icon="linkedin" tile={tile} />
-        <MenuLink icon="email" tile={tile} />
-      </div>
-    )
+    <div class="ugc-inline-share-buttons">
+      <MenuLink icon="facebook" tile={tile} />
+      <MenuLink icon="instagram" tile={tile} />
+      <MenuLink icon="x" tile={tile} />
+      <MenuLink icon="pinterest" tile={tile} />
+      <MenuLink icon="linkedin" tile={tile} />
+      <MenuLink icon="email" tile={tile} />
+    </div>
   )
 }
 
@@ -21,14 +21,5 @@ function MenuLink({ tile, icon }: { tile: Tile; icon: string }) {
   tile.name && url.searchParams.append("linkname", tile.name)
   const href = url.href
 
-  return (
-    <a href={href} target="_blank">
-      <img
-        src={`https://static.addtoany.com/buttons/${icon}.svg`}
-        width="32"
-        height="32"
-        style="background-color:#333"
-      />
-    </a>
-  )
+  return <a href={href} target="_blank" className={`widget-icon icon-${icon}-share`} />
 }
