@@ -150,11 +150,8 @@ expressApp.get("/widgets/668ca52ada8fb/tiles", async (req, res) => {
 })
 
 expressApp.get("/widgets/668ca52ada8fb/rendered/tiles", async (req, res) => {
-   const widgetType = req.cookies.widgetType
-
-   console.log("widgetType: ", widgetType)
+  const widgetType = req.cookies.widgetType
   const tileHtml = await getHTML(getContent(widgetType))
-
   res.json(tileHtml);
 })
 
