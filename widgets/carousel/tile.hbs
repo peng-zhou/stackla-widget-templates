@@ -1,4 +1,5 @@
 {{#tile class="swiper-slide"}}
+<<<<<<< HEAD
 <div class="tile-hover inactive">
   <ul class="tile-tags">
     {{#tags_extended}}
@@ -11,4 +12,21 @@
 <div class="swiper-lazy-preloader"></div>
 <span class="tile-timephrase">{{time_ago}}</span>
 <shopspot-icon tile-id="{{id}}"></shopspot-icon>
+=======
+  <div class="tile">
+      <ul class="tile-tags">
+        {{#tags_extended}}
+          <li class="tile-tag"><a href="{{custom_url}}">{{tag}}</a></li>
+        {{/tags_extended}}
+      </ul>
+      <div class="network-icon icon-{{source}}"></div>
+      {{#lazy image_thumbnail_url "120"}}{{/lazy}}
+  </div>
+ {{#ifequals media "video"}}
+    <div class="play-icon"></div>
+  {{/ifequals}}
+  <div class="swiper-lazy-preloader"></div>
+  <span class="tile-timephrase">{{time_ago}}</span>
+  <shopspot-icon tile-id="{{id}}"></shopspot-icon>
+>>>>>>> master
 {{/tile}}

@@ -21,6 +21,7 @@ export interface IWidgetSettings extends BaseConfig {
   text_tile_user_name_font_color?: string
   text_tile_user_handle_font_size?: number
   text_tile_user_handle_font_color?: string
+  tags_gap?: number
   enable_typekit?: boolean
   max_tile_width?: number
   margin?: number

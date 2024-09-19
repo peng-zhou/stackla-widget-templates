@@ -22,6 +22,7 @@ export interface BaseConfig {
   text_tile_font_size?: number
   text_tile_user_name_font_size?: number
   text_tile_user_handle_font_size?: number
+  tags_gap?: number
   show_caption?: boolean
   shopspot_icon?: string
   show_inline_tags?: boolean

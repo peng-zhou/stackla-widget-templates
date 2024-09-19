@@ -4,7 +4,6 @@ import {
   addLoadMoreButtonFeature,
   addTilesPerPageFeature,
   loadExpandedTileFeature,
-  loadHoverTile,
   loadTitle,
   loadWidgetIsEnabled
 } from "widgets/libs/widget.features"
@@ -28,7 +27,6 @@ const widgetSettings = getConfig(widgetContainer)
 
 loadWidgetIsEnabled(widgetSettings)
 loadTitle()
-loadHoverTile(widgetSettings)
 addAutoAddTileFeature(widgetSettings)
 loadExpandedTileFeature(widgetSettings)
 addTilesPerPageFeature(widgetSettings)

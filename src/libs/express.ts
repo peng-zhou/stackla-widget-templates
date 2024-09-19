@@ -48,12 +48,18 @@ const stripSymbolsThatAreNotDash = (str: string) => str.replace(/[^a-zA-Z0-9-]/g
 loadStaticFileRoutes(expressApp)
 
 expressApp.use((req, res, next) => {
+  if (req.hostname === "127.0.0.1") {
+    res.redirect(301, `http://localhost:4003${req.originalUrl}`)
+    return
+  }
+
   const dependentPaths = ["/widgets/668ca52ada8fb", "/widgets/668ca52ada8fb/rendered/tiles"]
   if (dependentPaths.includes(req.path) && !req.cookies.widgetType) {
     res.status(400).send("widgetType cookie is not available")
-  } else {
-    next()
+    return
   }
+
+  next()
 })
 
 expressApp.use("/preview", (req, res, next) => {
@@ -150,11 +156,12 @@ expressApp.get("/widgets/668ca52ada8fb/tiles", async (req, res) => {
 })
 
 expressApp.get("/widgets/668ca52ada8fb/rendered/tiles", async (req, res) => {
-  const content = getContent(req.cookies.widgetType as string)
+  const widgetType = req.cookies.widgetType as string
   const page = (req.query.page ?? 0) as number
   const limit = (req.query.limit ?? 25) as number
+  const tileHtml = await getHTML(getContent(widgetType))
 
-  res.json(await getHTML(content, page, limit))
+  res.json(tileHtml)
 })
 
 // Register preview route
