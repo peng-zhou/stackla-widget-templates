@@ -19,9 +19,8 @@ const plugins: string[] = ["serverless-webpack", "serverless-offline", "serverle
 const getPort = () => {
   switch (env) {
     case "development":
-      return 4003
     case "testing":
-      return 4002
+      return 4003
     default:
       return 80
   }
