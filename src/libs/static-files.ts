@@ -1,4 +1,4 @@
-import fs, { readFileSync } from "fs"
+import fs from "fs"
 import path from "path"
 
 export const WIDGET_PATH = "../../../../../node_modules/@stackla/ugc-widgets/dist"
