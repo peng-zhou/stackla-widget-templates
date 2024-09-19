@@ -1,6 +1,6 @@
 import Swiper from "swiper"
 import { SdkSwiper } from "types"
-import { Manipulation, Navigation } from "swiper/modules"
+import { HashNavigation, Manipulation, Navigation, Virtual } from "swiper/modules"
 
 declare const sdk: SdkSwiper
 
@@ -40,7 +40,7 @@ export function initializeSwiper({
   }
 
   sdk[mode] = new Swiper(widgetSelector, {
-    modules: [Navigation, Manipulation],
+    modules: [Navigation, Manipulation, Virtual, HashNavigation],
     slidesPerView: perView,
     spaceBetween: 10,
     hashNavigation: true,
