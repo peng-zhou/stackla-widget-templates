@@ -1,12 +1,14 @@
 {{#tile class="swiper-slide"}}
-  <div class="tile-hover inactive">
-    <ul class="tile-tags">
-      {{#tags_extended}}
-      <li class="tile-tag"><a href="{{custom_url}}">{{tag}}</a></li>
-      {{/tags_extended}}
-    </ul>
+  <div class="tile">
+      <ul class="tile-tags">
+        {{#tags_extended}}
+          <li class="tile-tag"><a href="{{custom_url}}">{{tag}}</a></li>
+        {{/tags_extended}}
+      </ul>
+      <div class="network-icon icon-{{source}}"></div>
+      {{#lazy image_thumbnail_url "120"}}{{/lazy}}
   </div>
-  {{#ifequals media "video"}}
+ {{#ifequals media "video"}}
     <div class="play-icon"></div>
   {{/ifequals}}
   <div class="swiper-lazy-preloader"></div>

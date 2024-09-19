@@ -173,52 +173,6 @@ export function loadTitle() {
   }
 }
 
-export function toggleInlineTile(tile: HTMLElement) {
-  const tags = tile.querySelector(".tile-tags")
-
-  if (!tags) {
-    throw new Error("Failed to find tile tags")
-  }
-
-  if (tags.classList.contains("inactive")) {
-    tags.classList.remove("inactive")
-  } else {
-    tags.classList.add("inactive")
-  }
-}
-
-export function loadHoverTile<T extends BaseConfig>(widgetSettings: T) {
-  // Check if any features are enabled that require hover tile
-  const hoverTileFeatures = [widgetSettings.show_inline_tags]
-
-  const tiles = sdk.querySelectorAll(".ugc-tile")
-
-  if (!tiles) {
-    throw new Error("Failed to find tiles for hover tile initialisation")
-  }
-
-  if (hoverTileFeatures.some(feature => feature)) {
-    tiles.forEach(tile => {
-      const hoverElement = tile.querySelector(".tile-hover")
-
-      if (!hoverElement) {
-        console.error("Failed to find hover element - please check your tile template for tile-hover.", tile)
-        return
-      }
-
-      tile.onmouseover = () => {
-        hoverElement.classList.remove("inactive")
-        toggleInlineTile(tile)
-      }
-
-      tile.onmouseout = () => {
-        hoverElement.classList.add("inactive")
-        toggleInlineTile(tile)
-      }
-    })
-  }
-}
-
 export function waitForElm(parent: Element | ShadowRoot, targets: string[], callback: (elements: Element[]) => void) {
   if (targets.every(it => !!parent.querySelector(it))) {
     callback(targets.map(it => parent.querySelector(it)!))

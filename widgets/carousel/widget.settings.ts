@@ -13,7 +13,6 @@ import {
 import {
   addAutoAddTileFeature,
   loadExpandedTileFeature,
-  loadHoverTile,
   loadTitle,
   loadWidgetIsEnabled
 } from "widgets/libs/widget.features"
@@ -38,7 +37,6 @@ export function loadSettings() {
   registerWidgetInitComplete(initializeInlineSwiperListeners)
   addAutoAddTileFeature(widgetSettings)
   loadExpandedTileFeature(widgetSettings, onTileExpand, onTileClosed)
-  loadHoverTile(widgetSettings)
   registerTilesUpdated(hideSlidesWithInvisibleTiles)
   registerPreloadTileHidden(onPreloadTileHidden)
 }

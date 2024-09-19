@@ -1,3 +1,5 @@
+@import "./swiper-inline-tile.scss";
+
 .tile-timephrase {
   position: absolute;
   top: 0;
@@ -11,14 +13,6 @@
 
 #nosto-ugc-container {
   height: fit-content;
-}
-
-.swiper {
-  height: 300px;
-
-  .swiper-slide {
-    align-items: center;
-  }
 }
 
 .tile-image,
