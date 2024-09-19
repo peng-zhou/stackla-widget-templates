@@ -46,6 +46,8 @@ export function initializeSwiper({
     hashNavigation: true,
     lazyPreloadPrevNext: perView,
     observeParents: true,
+    setWrapperSize: true,
+    roundLengths: true,
     observer: true,
     loop: true,
     direction: "horizontal",

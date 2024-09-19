@@ -32,10 +32,10 @@ function initializeInlineSwiper(widgetSettings: IWidgetSettings) {
     throw new Error("Failed to find widget UI element. Failed to initialise Swiper")
   }
 
-  const tileWidth = 280
+  const tileWidth = 210
   const screenSize = window.innerWidth
   const perView = !widgetSettings.enable_custom_tiles_per_page
-    ? Math.floor(screenSize / tileWidth)
+    ? Math.floor(screenSize / (tileWidth + 10))
     : widgetSettings.tiles_per_page
 
   initializeSwiper({

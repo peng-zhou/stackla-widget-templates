@@ -12,6 +12,10 @@ html {
   color: var(--text-tile-link-color);
 }
 
+.tile-tags {
+  margin: 0 16.4px 8.4px 0;
+}
+
 .tile-timestamp {
   color: #ababab;
   display: inline-block;
@@ -21,20 +25,6 @@ html {
   width: 100%;
 }
 
-.swiper {
-  height: calc(100% - 50px);
-
-  .swiper-slide {
-    align-items: flex-start;
-
-    div.image-filler {
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
-      position: absolute;
-      filter: blur(50px) brightness(0.5);
-      inset: 0;
-      transform: scale(1.2);
-    }
-  }
+.expanded-tile-wrapper {
+  width: 100%;
 }

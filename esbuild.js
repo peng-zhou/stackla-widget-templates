@@ -53,6 +53,7 @@ function startWebSocketServer() {
         globSync("./widgets/**/widget.scss", { withFileTypes: true }).forEach(item => {
           const result = sass.compile(item.relative(), {
             style: env === "development" ? "expanded" : "compressed",
+            loadPaths: [path.join(__dirname, "./widgets/libs")],
             importers: [new sass.NodePackageImporter()] // refer https://sass-lang.com/documentation/js-api/classes/nodepackageimporter/
           })
 

@@ -1,4 +1,5 @@
 @import "./swiper-inline-tile.scss";
+@import "templates/tags/tags.scss";
 
 .tile-timephrase {
   position: absolute;
@@ -18,6 +19,11 @@
 .tile-image,
 .tile-video {
   position: relative;
+}
+
+.tile-tags {
+  position: absolute;
+  margin: 0 16.4px 8.4px 8px;
 }
 
 .hidden {
