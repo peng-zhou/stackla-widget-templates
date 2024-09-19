@@ -1,5 +1,5 @@
 Cypress.Commands.add("visitWidget", widgetType => {
-  cy.visit(`http://localhost:4002/preview?widgetType=${widgetType}`)
+  cy.visit(`http://localhost:4003/preview?widgetType=${widgetType}`)
 })
 
 Cypress.Commands.add("getFirstTile", () => {
