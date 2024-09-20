@@ -1,5 +1,5 @@
 import { createElement } from "jsx-html"
-import tiles from "../../../../../tests/fixtures/tiles-page-1"
+import tiles from "../../../../../tests/fixtures/tiles"
 import { IWidgetSettings } from "types/IWidgetSettings"
 import ImageContainer, { Shopspots } from "./ImageContainer"
 

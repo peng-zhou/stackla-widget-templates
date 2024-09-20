@@ -1,7 +1,4 @@
-import type { Tile } from "@stackla/ugc-widgets"
 import tiles from "../../tests/fixtures/tiles"
-import fs from "fs"
-import path from "path"
 import type { IDraftRequest } from "./express"
 import { renderHTMLWithTemplates, renderTilesWithTemplate } from "@stackla/handlebars"
 

@@ -1,7 +1,7 @@
 import Caption, { isCaptionEnabled } from "./Caption"
 import { Tile } from "@stackla/ugc-widgets"
 import { createElement } from "jsx-html"
-import tiles from "../../../../../tests/fixtures/tiles-page-1"
+import tiles from "../../../../../tests/fixtures/tiles"
 import { IWidgetSettings } from "types/IWidgetSettings"
 
 const mockSdk = {
