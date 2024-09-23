@@ -24,7 +24,6 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
     removeExistingModal()
     createModalWrapper()
     appendModalToPanel()
-    setupCopyButtonEvent()
   }
 
   function removeExistingModal() {
@@ -50,7 +49,7 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
         <ShareMenu tile={tile} showMenu={true} />
         <div class="url-copy">
           <input class="share-url" type="text" id="share-url" value="https://example.com/share-link" readonly />
-          <button class="copy-button" data-action="copy">
+          <button class="copy-button" data-action="copy" onClick={copyToClipboard}>
             Copy
           </button>
         </div>
@@ -70,11 +69,6 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
     const overlayContainer = document.createElement("div")
     overlayContainer.className = "panel-overlay"
     panel?.appendChild(overlayContainer)
-  }
-
-  function setupCopyButtonEvent() {
-    const copyButton = modalWrapper.querySelector(".copy-button[data-action='copy']")
-    copyButton?.addEventListener("click", copyToClipboard)
   }
 
   async function copyToClipboard() {
