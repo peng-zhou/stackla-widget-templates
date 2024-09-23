@@ -78,6 +78,7 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
         await navigator.clipboard.writeText(copyText.value)
         alert("Copied!")
       } catch (err) {
+        // eslint-disable-next-line no-console
         console.error("Failed to copy text: ", err)
       }
     }
