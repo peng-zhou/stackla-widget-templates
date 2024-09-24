@@ -18,83 +18,7 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
   const productsEnabled = sdk.isComponentLoaded("products") && widgetSettings.expanded_tile_show_products
   const parent = sdk.getNodeId()
   const container = sdk.querySelector("expanded-tiles")
-  const modalWrapper = document.createElement("div")
-
-  function openShareModal() {
-    removeExistingModal()
-    createModalWrapper()
-    appendModalToPanel()
-  }
-
-  function removeExistingModal() {
-    const popup = modalWrapper.querySelector(".share-socials-popup")
-    if (popup) {
-      popup.remove()
-    }
-  }
-
-  function createModalWrapper() {
-    modalWrapper.className = "share-socials-popup-wrapper"
-    const modalElement = createShareModalElement()
-    modalWrapper.appendChild(modalElement)
-  }
-
-  function createShareModalElement() {
-    return (
-      <div class="share-socials-popup">
-        <a class="exit" href="#" onClick={closeShareModal}>
-          <span class="widget-icon close-white"></span>
-        </a>
-        <div class="popup-text">Share Now</div>
-        <ShareMenu tile={tile} showMenu={true} />
-        <div class="url-copy">
-          <input class="share-url" type="text" id="share-url" value="https://example.com/share-link" readonly />
-          <button class="copy-button" data-action="copy" onClick={copyToClipboard}>
-            Copy
-          </button>
-        </div>
-      </div>
-    )
-  }
-
-  function appendModalToPanel() {
-    const panel = container?.shadowRoot?.querySelector(".swiper-expanded .panel")
-    panel?.appendChild(modalWrapper)
-    if (panel) {
-      createOverlay(panel)
-    }
-  }
-
-  function createOverlay(panel: Element | null) {
-    const overlayContainer = document.createElement("div")
-    overlayContainer.className = "panel-overlay"
-    panel?.appendChild(overlayContainer)
-  }
-
-  async function copyToClipboard() {
-    const copyText = modalWrapper.querySelector(".share-url")
-    if (copyText instanceof HTMLInputElement) {
-      try {
-        await navigator.clipboard.writeText(copyText.value)
-        alert("Copied!")
-      } catch (err) {
-        // eslint-disable-next-line no-console
-        console.error("Failed to copy text: ", err)
-      }
-    }
-  }
-
-  function closeShareModal(event: Event) {
-    event.preventDefault()
-    const modal = container?.shadowRoot?.querySelector(".share-socials-popup-wrapper")
-    const panel = container?.shadowRoot?.querySelector(".swiper-expanded .panel")
-    const panelOverlay = panel?.querySelector(".panel-overlay")
-
-    if (modal) {
-      modal.remove()
-      panelOverlay?.remove()
-    }
-  }
+  const panelComponent = container?.shadowRoot?.querySelector(".swiper-expanded .panel")
 
   return (
     <div class="panel">
@@ -125,9 +49,7 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
         <div class="panel-right-wrapper">
           <div class="content-wrapper">
             <div class="content-inner-wrapper">
-              <button class="share-button" onClick={openShareModal}>
-                <span class="widget-icon icon-share"></span>
-              </button>
+              <ShareMenu tile={tile} component={panelComponent} />
               <div class="user-info-wrapper">
                 <UserInfoTemplate tile={tile} />
               </div>
