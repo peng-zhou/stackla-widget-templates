@@ -25,7 +25,7 @@ export function loadStaticFileRoutes(expressApp) {
     expressApp.get(`/${componentName}.js`, (req, res) => {
       const parsedCode = jsCode
         .replace(/https:\/\/widget-data.stackla.com/g, "http://localhost:4003")
-        .replace(/https:\/\/widget-ui.stackla.com/g, "http://localhost:4003")
+        .replace(/https:\/\/widget-ui.stackla.com/g, "http://localhost:4002")
         .replace(/\/tiles\?/g, `/tiles?widgetType=${req.query.widgetType}&`)
 
       res.setHeader("Content-Type", "application/javascript")
