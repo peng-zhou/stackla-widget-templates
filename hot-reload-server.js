@@ -18,7 +18,7 @@ wss.on("connection", ws => {
 
 // Watch files for changes
 chokidar
-  .watch(["./widgets/**/**"], {
+  .watch(["./widgets"], {
     ignoreInitial: true,
     persistent: true
   })
