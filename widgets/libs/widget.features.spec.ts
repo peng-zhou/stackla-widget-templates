@@ -1,5 +1,5 @@
 import tilesAsHTML from "../../tests/fixtures/tiles.html"
-import tiles from "../../tests/fixtures/tiles.fixtures"
+import tiles from "../../tests/fixtures/tiles"
 import { getNextNavigatedTile } from "./widget.features"
 
 describe("Test Tile Features to ensure that expanded tiles function as expected", () => {

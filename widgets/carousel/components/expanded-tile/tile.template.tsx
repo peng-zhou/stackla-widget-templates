@@ -2,7 +2,7 @@ import type { Sdk } from "@stackla/ugc-widgets"
 import { Tile } from "@stackla/ugc-widgets"
 import { getTimephrase } from "@libs/tile.lib"
 import { createElement, createFragment } from "jsx-html"
-import { Tags } from "@libs/templates/tags.lib"
+import { Tags } from "@libs/templates/tags/tags.lib"
 import { getConfig } from "@widgets/carousel/widget.config"
 
 export type ExpandedTileProps = {
