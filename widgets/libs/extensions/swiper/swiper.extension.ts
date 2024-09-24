@@ -40,13 +40,14 @@ export function initializeSwiper({
   }
 
   sdk[mode] = new Swiper(widgetSelector, {
-    modules: [Navigation, Manipulation, HashNavigation],
-    slidesPerView: "auto",
+    modules: [Navigation, Manipulation, Virtual, HashNavigation],
+    slidesPerView: perView,
     spaceBetween: 10,
     hashNavigation: true,
+    lazyPreloadPrevNext: perView,
     observeParents: true,
-    shortSwipes: false,
-    watchSlidesProgress: true,
+    setWrapperSize: true,
+    roundLengths: true,
     observer: true,
     loop: true,
     direction: "horizontal",
