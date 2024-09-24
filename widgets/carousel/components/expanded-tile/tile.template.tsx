@@ -18,10 +18,21 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
   const productsEnabled = sdk.isComponentLoaded("products") && widgetSettings.expanded_tile_show_products
   const parent = sdk.getNodeId()
   const container = sdk.querySelector("expanded-tiles")
-  const panelComponent = container?.shadowRoot?.querySelector(".swiper-expanded .panel")
+
+  function toggleModalVisibility(show: boolean) {
+    const modalWrapper = container?.shadowRoot?.querySelector(".share-socials-popup-wrapper")
+    const overlay = container?.shadowRoot?.querySelector(".panel-overlay")
+    if (modalWrapper instanceof HTMLElement) {
+      modalWrapper.style.display = show ? "block" : "none"
+    }
+    if (overlay instanceof HTMLElement) {
+      overlay.style.display = show ? "block" : "none"
+    }
+  }
 
   return (
     <div class="panel">
+      <div class="panel-overlay" style={{ display: "none" }} onClick={() => toggleModalVisibility(false)}></div>
       <div class="panel-left">
         <div class="image-wrapper">
           <div class="image-wrapper-inner">
@@ -49,7 +60,10 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
         <div class="panel-right-wrapper">
           <div class="content-wrapper">
             <div class="content-inner-wrapper">
-              <ShareMenu tile={tile} component={panelComponent} />
+              <button class="share-button" onClick={() => toggleModalVisibility(true)}>
+                {container ? <ShareMenu tile={tile} component={container} /> : ""}
+                <span class="widget-icon icon-share"></span>
+              </button>
               <div class="user-info-wrapper">
                 <UserInfoTemplate tile={tile} />
               </div>
@@ -67,13 +81,11 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
                 <Tags tile={tile} />
                 {productsEnabled ? (
                   <>
-                    <span class="line"></span>
                     <ugc-products parent={parent} />
                   </>
                 ) : (
                   ""
                 )}
-
                 <div class="footer">
                   <span class="base-v2 source source-instagram">
                     <i class="fs fs-instagram"></i>

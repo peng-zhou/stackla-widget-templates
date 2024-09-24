@@ -2,29 +2,18 @@ import { Tile } from "@stackla/ugc-widgets"
 import { createElement } from "jsx-html"
 
 export function ShareMenu({ tile, component }: { tile: Tile; component: Element }) {
-  let modalWrapper: HTMLElement | null = null
-
-  function openShareModal() {
-    if (!modalWrapper) {
-      modalWrapper = createShareModalElement()
-      component.appendChild(modalWrapper)
-    }
-  }
-
-  function closeShareModal(event: Event) {
-    event.preventDefault()
-    if (modalWrapper) {
-      modalWrapper.remove()
-      modalWrapper = null
+  function toggleModalVisibility(show: boolean) {
+    const modalWrapper = component.querySelector(".share-socials-popup-wrapper")
+    if (modalWrapper instanceof HTMLElement) {
+      modalWrapper.style.display = show ? "block" : "none"
     }
   }
 
   async function copyToClipboard() {
-    const copyText = modalWrapper?.querySelector(".share-url")
+    const copyText = component.shadowRoot?.querySelector(".share-url")
     if (copyText instanceof HTMLInputElement) {
       try {
         await navigator.clipboard.writeText(copyText.value)
-        alert("Copied!")
       } catch (err) {
         // eslint-disable-next-line no-console
         console.error("Failed to copy text: ", err)
@@ -32,11 +21,17 @@ export function ShareMenu({ tile, component }: { tile: Tile; component: Element 
     }
   }
 
-  function createShareModalElement() {
-    const modalElement = (
-      <div class="share-socials-popup-wrapper">
+  return (
+    <div>
+      <div class="share-socials-popup-wrapper" style={{ display: "none" }}>
         <div class="share-socials-popup">
-          <a class="exit" href="#" onClick={closeShareModal}>
+          <a
+            class="exit"
+            href="#"
+            onClick={e => {
+              e.preventDefault()
+              toggleModalVisibility(false)
+            }}>
             <span class="widget-icon close-white"></span>
           </a>
           <div class="popup-text">Share Now</div>
@@ -56,15 +51,6 @@ export function ShareMenu({ tile, component }: { tile: Tile; component: Element 
           </div>
         </div>
       </div>
-    )
-    return modalElement
-  }
-
-  return (
-    <div>
-      <button class="share-button" onClick={openShareModal}>
-        <span class="widget-icon icon-share"></span>
-      </button>
     </div>
   )
 }
