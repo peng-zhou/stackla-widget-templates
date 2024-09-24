@@ -5,9 +5,8 @@ import cors from "cors"
 import path from "path"
 import { readFileSync } from "fs"
 import * as Handlebars from "hbs"
-import tiles from "../../tests/fixtures/tiles.fixtures"
 import fs from "fs"
-import { getAndRenderTiles, renderTemplates } from "./tile.handlers"
+import { getAndRenderTiles, getTilesToRender, renderTemplates } from "./tile.handlers"
 import { loadStaticFileRoutes } from "./static-files"
 import widgetOptions from "../../tests/fixtures/widget.options"
 import cookieParser from "cookie-parser"
@@ -51,15 +50,16 @@ loadStaticFileRoutes(expressApp)
 expressApp.use((req, res, next) => {
   if (req.hostname === "127.0.0.1") {
     res.redirect(301, `http://localhost:4003${req.originalUrl}`)
-    return;
+    return
   }
 
-
-  if (req.path === "/widgets/668ca52ada8fb" && !req.cookies.widgetType) {
+  const dependentPaths = ["/widgets/668ca52ada8fb", "/widgets/668ca52ada8fb/rendered/tiles"]
+  if (dependentPaths.includes(req.path) && !req.cookies.widgetType) {
     res.status(400).send("widgetType cookie is not available")
-  } else {
-    next()
+    return
   }
+
+  next()
 })
 
 expressApp.use("/preview", (req, res, next) => {
@@ -95,19 +95,23 @@ function getContent(widgetType: string) {
   }
 }
 
-async function getHTML(content: PreviewContent) {
-  return await getAndRenderTiles({
-    custom_templates: {
-      layout: {
-        template: content.layoutCode || ""
+async function getHTML(content: PreviewContent, page: number = 1, limit: number = 25) {
+  return await getAndRenderTiles(
+    {
+      custom_templates: {
+        layout: {
+          template: content.layoutCode || ""
+        },
+        tile: {
+          template: content.tileCode || ""
+        }
       },
-      tile: {
-        template: content.tileCode || ""
-      }
+      custom_css: content.cssCode || "",
+      custom_js: content.jsCode || ""
     },
-    custom_css: content.cssCode || "",
-    custom_js: content.jsCode || ""
-  })
+    page,
+    limit
+  )
 }
 
 expressApp.post("/widgets/668ca52ada8fb/draft", async (req, res) => {
@@ -144,15 +148,20 @@ expressApp.get("/widgets/668ca52ada8fb", async (req, res) => {
 })
 
 expressApp.get("/widgets/668ca52ada8fb/tiles", async (req, res) => {
+  const page = (req.query.page ?? 0) as number
+  const limit = (req.query.limit ?? 25) as number
   res.send({
-    tiles: tiles
+    tiles: getTilesToRender(page, limit)
   })
 })
 
 expressApp.get("/widgets/668ca52ada8fb/rendered/tiles", async (req, res) => {
-  const widgetType = req.cookies.widgetType
+  const widgetType = req.cookies.widgetType as string
+  const page = (req.query.page ?? 0) as number
+  const limit = (req.query.limit ?? 25) as number
   const tileHtml = await getHTML(getContent(widgetType))
-  res.json(tileHtml);
+
+  res.json(tileHtml)
 })
 
 // Register preview route

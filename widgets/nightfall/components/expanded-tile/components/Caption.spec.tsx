@@ -1,7 +1,7 @@
 import Caption, { isCaptionEnabled } from "./Caption"
 import { Tile } from "@stackla/ugc-widgets"
 import { createElement } from "jsx-html"
-import tiles from "../../../../../tests/fixtures/tiles.fixtures"
+import tiles from "../../../../../tests/fixtures/tiles"
 import { IWidgetSettings } from "types/IWidgetSettings"
 
 const mockSdk = {
@@ -80,15 +80,28 @@ describe("Caption Component", () => {
   it("should render tags from tile", () => {
     const tile = tiles[0]
     const caption = <Caption tile={tile} widgetSettings={widgetSettings} />
-    expect(caption.toString()).toContain(`<a href="#">Single column span</a>`)
-    expect(caption.toString()).toContain(`<a href="#">Double column span</a>`)
+    const expectedLink1 = (
+      <a href="http://localhost:4002/products/asus-tuf-f15-15-6-fhd-144hz-gaming-laptop-1tbgeforce-rtx-3050">
+        Kathmandu 1
+      </a>
+    )
+    const expectedLink2 = (
+      <a href="http://localhost:4002/products/samsung-98-qn90d-neo-qled-4k-smart-tv-2024">Kathmandu 2</a>
+    )
+
+    expect(caption.innerHTML).toContain(expectedLink1.outerHTML)
+    expect(caption.innerHTML).toContain(expectedLink2.outerHTML)
   })
 
   it("should not render ugc-products component when products are disabled", () => {
     mockSdk.isComponentLoaded.mockReturnValue(false)
     const caption = <Caption tile={tile} widgetSettings={widgetSettings} />
-    expect(caption.toString()).toBe(
-      `<div class="caption"><p class="caption-paragraph">Sample caption</p><div class="tile-timestamp"></div></div>`
+    const expected = (
+      <div class="caption">
+        <p class="caption-paragraph">Sample caption</p>
+        <div class="tile-timestamp"></div>
+      </div>
     )
+    expect(caption.innerHTML).toBe(expected.innerHTML)
   })
 })

@@ -2,7 +2,7 @@ import { createElement, createFragment } from "jsx-html"
 import { Sdk, Tile } from "@stackla/ugc-widgets"
 import { ExpandedTileProps } from "../../../types/ExpandedTileProps"
 import { IWidgetSettings } from "types/IWidgetSettings"
-import { Tags } from "@widgets/libs/templates/tags.lib"
+import { Tags } from "@libs/templates/tags/tags.lib"
 import Timestamp from "./Timestamp"
 
 declare const sdk: Sdk

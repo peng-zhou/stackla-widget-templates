@@ -1,10 +1,12 @@
-import tiles from "../../../tests/fixtures/tiles.fixtures"
+import tiles from "../../../../tests/fixtures/tiles"
 import { Tags } from "./tags.lib"
 import { createElement } from "jsx-html"
 
 describe("widgets/nightfall/components/expanded-tile/base.template.ts", () => {
   it("should return empty string if tile does not have extended tags", () => {
-    expect(<Tags tile={tiles[7]} />).toEqual(<div className="tags"></div>)
+    const rendered = <Tags tile={tiles[7]} />
+    const expected = <div className="tags"></div>
+    expect(rendered.innerHTML).toEqual(expected.innerHTML)
   })
 
   it("should return tags if tile has extended tags", () => {
@@ -12,16 +14,17 @@ describe("widgets/nightfall/components/expanded-tile/base.template.ts", () => {
 
     expect(tile.tags_extended).toBeDefined()
 
+    const rendered = <Tags tile={tile} />
     const expected = (
-      <div class="tags">
+      <div class="tile-tags">
         {tile.tags_extended!.map(tag => (
-          <div class="tag">
+          <div class="tile-tag">
             <a href={tag.custom_url ?? "#"}>{tag.tag}</a>
           </div>
         ))}
       </div>
     )
 
-    expect(<Tags tile={tile} />).toEqual(expected)
+    expect(rendered.innerHTML).toEqual(expected.innerHTML)
   })
 })

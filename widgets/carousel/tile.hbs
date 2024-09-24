@@ -1,4 +1,4 @@
-{{#tile class="swiper-slide"}}
+{{#tile class="swiper-slide" data-hash=(join "swiper-" @index) }}
   <div class="tile">
       <ul class="tile-tags">
         {{#tags_extended}}
@@ -6,7 +6,7 @@
         {{/tags_extended}}
       </ul>
       <div class="network-icon icon-{{source}}"></div>
-     <div class="tile-img">
+       <div class="tile-img">
         {{#lazy image_thumbnail_url "120"}}{{/lazy}}
       </div>
   </div>
