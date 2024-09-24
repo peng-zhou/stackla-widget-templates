@@ -1,5 +1,5 @@
 function startWebSocketServer() {
-  const { spawn } = require("child_process")
+  const { spawn } = require("node:child_process")
   const server = spawn("node", ["hot-reload-server.js"], {
     stdio: "inherit",
     shell: true
@@ -24,11 +24,6 @@ function startWebSocketServer() {
 
   const isWatch = process.argv.includes("--watch")
   const isDevelopment = env === "development"
-
-  if (isWatch && isDevelopment) {
-    const server = http.createServer()
-    new WebSocket.Server({ server })
-  }
 
   const preAndPostBuild = {
     name: "preAndPost",
