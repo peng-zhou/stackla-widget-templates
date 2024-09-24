@@ -17,22 +17,10 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
   const shopspotEnabled = sdk.isComponentLoaded("shopspots") && widgetSettings.expanded_tile_show_shopspots
   const productsEnabled = sdk.isComponentLoaded("products") && widgetSettings.expanded_tile_show_products
   const parent = sdk.getNodeId()
-  const container = sdk.querySelector("expanded-tiles")
-
-  function toggleModalVisibility(show: boolean) {
-    const modalWrapper = container?.shadowRoot?.querySelector(".share-socials-popup-wrapper")
-    const overlay = container?.shadowRoot?.querySelector(".panel-overlay")
-    if (modalWrapper instanceof HTMLElement) {
-      modalWrapper.style.display = show ? "block" : "none"
-    }
-    if (overlay instanceof HTMLElement) {
-      overlay.style.display = show ? "block" : "none"
-    }
-  }
 
   return (
     <div class="panel">
-      <div class="panel-overlay" style={{ display: "none" }} onClick={() => toggleModalVisibility(false)}></div>
+      <div class="panel-overlay"></div>
       <div class="panel-left">
         <div class="image-wrapper">
           <div class="image-wrapper-inner">
@@ -61,7 +49,7 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
           <div class="content-wrapper">
             <div class="content-inner-wrapper">
               <button class="share-button">
-                {container ? <ShareMenu tile={tile} /> : ""}
+                <ShareMenu tile={tile} />
                 <span class="widget-icon icon-share"></span>
               </button>
               <div class="user-info-wrapper">
