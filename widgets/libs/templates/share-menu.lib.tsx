@@ -1,37 +1,12 @@
 import { Tile } from "@stackla/ugc-widgets"
 import { createElement } from "jsx-html"
 
-export function ShareMenu({ tile, component }: { tile: Tile; component: Element }) {
-  function toggleModalVisibility(show: boolean) {
-    const modalWrapper = component.querySelector(".share-socials-popup-wrapper")
-    if (modalWrapper instanceof HTMLElement) {
-      modalWrapper.style.display = show ? "block" : "none"
-    }
-  }
-
-  async function copyToClipboard() {
-    const copyText = component.shadowRoot?.querySelector(".share-url")
-    if (copyText instanceof HTMLInputElement) {
-      try {
-        await navigator.clipboard.writeText(copyText.value)
-      } catch (err) {
-        // eslint-disable-next-line no-console
-        console.error("Failed to copy text: ", err)
-      }
-    }
-  }
-
+export function ShareMenu({ tile }: { tile: Tile }) {
   return (
     <div>
-      <div class="share-socials-popup-wrapper" style={{ display: "none" }}>
+      <div class="share-socials-popup-wrapper">
         <div class="share-socials-popup">
-          <a
-            class="exit"
-            href="#"
-            onClick={e => {
-              e.preventDefault()
-              toggleModalVisibility(false)
-            }}>
+          <a class="exit" href="#">
             <span class="widget-icon close-white"></span>
           </a>
           <div class="popup-text">Share Now</div>
@@ -45,7 +20,7 @@ export function ShareMenu({ tile, component }: { tile: Tile; component: Element 
           </div>
           <div class="url-copy">
             <input class="share-url" type="text" id="share-url" value={tile.original_url} readonly />
-            <button class="copy-button" data-action="copy" onClick={copyToClipboard}>
+            <button class="copy-button" data-action="copy">
               Copy
             </button>
           </div>

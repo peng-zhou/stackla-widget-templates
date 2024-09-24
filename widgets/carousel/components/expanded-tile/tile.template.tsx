@@ -60,8 +60,8 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
         <div class="panel-right-wrapper">
           <div class="content-wrapper">
             <div class="content-inner-wrapper">
-              <button class="share-button" onClick={() => toggleModalVisibility(true)}>
-                {container ? <ShareMenu tile={tile} component={container} /> : ""}
+              <button class="share-button">
+                {container ? <ShareMenu tile={tile} /> : ""}
                 <span class="widget-icon icon-share"></span>
               </button>
               <div class="user-info-wrapper">

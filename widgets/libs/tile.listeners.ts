@@ -35,6 +35,10 @@ export function registerTileClosedListener(fn: Callback = () => {}) {
   sdk.addEventListener("expandedTileClose", fn)
 }
 
+export function registerExpandedTileRenderedListener(fn: Callback = () => {}) {
+  sdk.addEventListener("tileExpandRendered", fn)
+}
+
 export function registerLoadListener(fn: Callback) {
   sdk.addEventListener("load", fn)
 }

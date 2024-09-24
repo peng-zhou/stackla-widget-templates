@@ -81,6 +81,55 @@ export function onTileExpand() {
   waitForElm(expandedTile.shadowRoot, [".swiper-expanded"], initializeExtendedSwiper)
 }
 
+export function onTileRendered() {
+  const expandedTilesElement = sdk.querySelector("expanded-tiles")
+
+  if (!expandedTilesElement) {
+    throw new Error("Expanded tiles element not found")
+  }
+
+  const tiles = expandedTilesElement.shadowRoot?.querySelectorAll(".swiper-slide")
+
+  tiles?.forEach(tile => {
+    const shareButton = tile.querySelector<HTMLElement>(".panel-right .share-button")
+    if (shareButton) {
+      shareButton.addEventListener("click", (shareButtonEvent: MouseEvent) => {
+        shareButtonEvent.preventDefault()
+        shareButtonEvent.stopPropagation()
+        const wrapper = shareButton.querySelector<HTMLElement>(".share-socials-popup-wrapper")
+        if (wrapper) {
+          wrapper.style.display = "block"
+          const exitButton = wrapper.querySelector<HTMLElement>(".exit")
+          if (exitButton) {
+            exitButton.addEventListener("click", (exitButtonEvent: MouseEvent) => {
+              exitButtonEvent.preventDefault()
+              exitButtonEvent.stopPropagation()
+              wrapper.style.display = "none"
+            })
+          }
+          const clipboardElement = wrapper.querySelector<HTMLElement>(".url-copy .copy-button")
+          const shareUrlElement = wrapper.querySelector<HTMLInputElement>(".url-copy .share-url")
+
+          if (shareUrlElement && clipboardElement) {
+            clipboardElement.addEventListener("click", () => copyToClipboard(shareUrlElement.value))
+          }
+        }
+      })
+    }
+  })
+}
+
+async function copyToClipboard(copyText: unknown) {
+  if (copyText instanceof HTMLInputElement) {
+    try {
+      await navigator.clipboard.writeText(copyText.value)
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error("Failed to copy text: ", err)
+    }
+  }
+}
+
 export function onTileClosed() {
   const expandedTile = sdk.querySelector("expanded-tiles")
 
