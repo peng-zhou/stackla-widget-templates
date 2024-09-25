@@ -9,6 +9,7 @@ import {
   initializeSwiper,
   refreshSwiper
 } from "@widgets/libs/extensions/swiper/swiper.extension"
+import { registerExpandedTileShareMenuListeners } from "@widgets/libs/templates/share-menu/share-menu.listener"
 
 declare const sdk: Sdk
 
@@ -92,42 +93,11 @@ export function onTileRendered() {
 
   tiles?.forEach(tile => {
     const shareButton = tile.querySelector<HTMLElement>(".panel-right .share-button")
-    if (shareButton) {
-      shareButton.addEventListener("click", (shareButtonEvent: MouseEvent) => {
-        shareButtonEvent.preventDefault()
-        shareButtonEvent.stopPropagation()
-        const wrapper = shareButton.querySelector<HTMLElement>(".share-socials-popup-wrapper")
-        if (wrapper) {
-          wrapper.style.display = "block"
-          const exitButton = wrapper.querySelector<HTMLElement>(".exit")
-          if (exitButton) {
-            exitButton.addEventListener("click", (exitButtonEvent: MouseEvent) => {
-              exitButtonEvent.preventDefault()
-              exitButtonEvent.stopPropagation()
-              wrapper.style.display = "none"
-            })
-          }
-          const clipboardElement = wrapper.querySelector<HTMLElement>(".url-copy .copy-button")
-          const shareUrlElement = wrapper.querySelector<HTMLInputElement>(".url-copy .share-url")
-
-          if (shareUrlElement && clipboardElement) {
-            clipboardElement.addEventListener("click", () => copyToClipboard(shareUrlElement.value))
-          }
-        }
-      })
+    if (!shareButton) {
+      throw new Error(`Share button not found in expanded tile ${tile.getAttribute("data-id")}`)
     }
+    registerExpandedTileShareMenuListeners(shareButton)
   })
-}
-
-async function copyToClipboard(copyText: unknown) {
-  if (copyText instanceof HTMLInputElement) {
-    try {
-      await navigator.clipboard.writeText(copyText.value)
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.error("Failed to copy text: ", err)
-    }
-  }
 }
 
 export function onTileClosed() {
