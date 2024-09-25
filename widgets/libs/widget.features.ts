@@ -1,6 +1,7 @@
 import type { Sdk, Tile } from "@stackla/ugc-widgets"
 import { loadExpandSettingComponents } from "./widget.components"
 import {
+  registerExpandedTileRenderedListener,
   registerTileClickEventListeners,
   registerTileClosedListener,
   registerTileExpandListener
@@ -101,12 +102,14 @@ export function loadWidgetIsEnabled<T extends BaseConfig>(widgetSettings: T) {
 export function loadExpandedTileFeature<T extends BaseConfig>(
   widgetSettings: T,
   onTileExpand: () => void = () => {},
-  onTileClosed: () => void = () => {}
+  onTileClosed: () => void = () => {},
+  onTileRendered: () => void = () => {}
 ) {
   if (widgetSettings.click_through_url === "[EXPAND]") {
     loadExpandSettingComponents<T>(widgetSettings)
     registerTileExpandListener(onTileExpand)
     registerTileClosedListener(onTileClosed)
+    registerExpandedTileRenderedListener(onTileRendered)
   } else if (
     widgetSettings.click_through_url === "[ORIGINAL_URL]" ||
     /^https?:\/\/.+/.test(widgetSettings.click_through_url ?? "")

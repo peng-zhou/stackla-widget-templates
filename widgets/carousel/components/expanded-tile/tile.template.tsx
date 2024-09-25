@@ -3,6 +3,7 @@ import { Tile } from "@stackla/ugc-widgets"
 import { getTimephrase } from "@libs/tile.lib"
 import { createElement, createFragment } from "jsx-html"
 import { Tags } from "@libs/templates/tags/tags.lib"
+import { ShareMenu } from "@libs/templates/share-menu.lib"
 import { getConfig } from "@widgets/carousel/widget.config"
 
 export type ExpandedTileProps = {
@@ -19,6 +20,7 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
 
   return (
     <div class="panel">
+      <div class="panel-overlay"></div>
       <div class="panel-left">
         <div class="image-wrapper">
           <div class="image-wrapper-inner">
@@ -46,27 +48,37 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
         <div class="panel-right-wrapper">
           <div class="content-wrapper">
             <div class="content-inner-wrapper">
+              <button class="share-button">
+                <ShareMenu tile={tile} />
+                <span class="widget-icon icon-share"></span>
+              </button>
               <div class="user-info-wrapper">
-                <div class="user-info">
-                  <UserInfoTemplate tile={tile} />
+                <UserInfoTemplate tile={tile} />
+              </div>
+              <div class="description">
+                <div class="caption">
+                  <p class="caption-paragraph">
+                    {tile.message && widgetSettings.expanded_tile_show_caption ? tile.message : ""}
+                  </p>
                 </div>
-              </div>
-              <div class="tile-timestamp">
-                {tile.source_created_at && widgetSettings.expanded_tile_show_timestamp
-                  ? getTimephrase(tile.source_created_at)
-                  : ""}
-              </div>
-              <div class="caption">
-                <p class="caption-paragraph">
-                  {tile.message && widgetSettings.expanded_tile_show_caption ? tile.message : ""}
-                </p>
+                <div class="tile-timestamp">
+                  {tile.source_created_at && widgetSettings.expanded_tile_show_timestamp
+                    ? getTimephrase(tile.source_created_at)
+                    : ""}
+                </div>
                 <Tags tile={tile} />
-                {productsEnabled ? <ugc-products parent={parent} /> : ""}
-              </div>
-              <div class="footer">
-                <span class="base-v2 source source-instagram">
-                  <i class="fs fs-instagram"></i>
-                </span>
+                {productsEnabled ? (
+                  <>
+                    <ugc-products parent={parent} />
+                  </>
+                ) : (
+                  ""
+                )}
+                <div class="footer">
+                  <span class="base-v2 source source-instagram">
+                    <i class="fs fs-instagram"></i>
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -77,13 +89,16 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
 }
 
 function UserInfoTemplate({ tile }: { tile: Tile }) {
-  return tile.avatar ? (
+  const tileAvatar = tile.avatar ? (
     <span class="avatar-wrapper">
       <a class="avatar-link" href={tile.original_url} target="_blank">
         <img src={tile.avatar} />
       </a>
     </span>
-  ) : tile.user ? (
+  ) : (
+    <></>
+  )
+  const tileUser = tile.user ? (
     <a class="user-link" href={tile.original_url} target="_blank">
       <div class="user-top">
         <span class="user-name">{tile.user}</span>
@@ -94,6 +109,12 @@ function UserInfoTemplate({ tile }: { tile: Tile }) {
     </a>
   ) : (
     <></>
+  )
+  return (
+    <div class="user-info">
+      {tileAvatar}
+      {tileUser}
+    </div>
   )
 }
 

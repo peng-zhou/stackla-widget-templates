@@ -3,7 +3,8 @@ import {
   initializeInlineSwiperListeners,
   onTileClosed,
   hideSlidesWithInvisibleTiles,
-  onPreloadTileHidden
+  onPreloadTileHidden,
+  onTileRendered
 } from "./widget.extensions"
 import {
   registerPreloadTileHidden,
@@ -36,7 +37,7 @@ export function loadSettings() {
   loadTitle()
   registerWidgetInitComplete(initializeInlineSwiperListeners)
   addAutoAddTileFeature(widgetSettings)
-  loadExpandedTileFeature(widgetSettings, onTileExpand, onTileClosed)
+  loadExpandedTileFeature(widgetSettings, onTileExpand, onTileClosed, onTileRendered)
   registerTilesUpdated(hideSlidesWithInvisibleTiles)
   registerPreloadTileHidden(onPreloadTileHidden)
 }
