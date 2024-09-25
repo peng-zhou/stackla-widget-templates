@@ -1,6 +1,7 @@
 import Swiper from "swiper"
 import { SdkSwiper } from "types"
 import { HashNavigation, Manipulation, Navigation, Virtual } from "swiper/modules"
+import { elements } from "happy-dom/lib/PropertySymbol"
 
 declare const sdk: SdkSwiper
 
@@ -40,18 +41,13 @@ export function initializeSwiper({
   }
 
   sdk[mode] = new Swiper(widgetSelector, {
-    modules: [Navigation, Manipulation, Virtual, HashNavigation],
-    slidesPerView: perView,
+    modules: [Navigation, Manipulation, HashNavigation],
     spaceBetween: 10,
+    slidesPerView: perView,
     hashNavigation: true,
-    lazyPreloadPrevNext: perView,
-    observeParents: true,
-    setWrapperSize: true,
-    roundLengths: true,
-    observer: true,
     loop: true,
     direction: "horizontal",
-    noSwiping: true,
+    watchSlidesProgress: true,
     navigation: {
       nextEl: next,
       prevEl: prev
@@ -60,12 +56,14 @@ export function initializeSwiper({
       afterInit: swiper => {
         swiper.slideToLoop(initialIndex, 0, false)
       }
-    }
+    },
+    resizeObserver: true
   })
 }
 
 export function refreshSwiper(mode: SwiperMode) {
   sdk[mode]?.update()
+  sdk[mode]?.virtual.update(true)
 }
 
 export function disableSwiper(mode: SwiperMode) {

@@ -9,20 +9,23 @@
     border-radius: 5px;
     overflow: hidden;
 
-    img {
-      width: 100%;
+    .tile-img {
       height: 100%;
-      object-fit: cover;
-      overflow: hidden;
-      border-radius: 5px;
-      position: relative;
-      opacity: 1;
+      > img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        overflow: hidden;
+        border-radius: 5px;
+        position: relative;
+        opacity: 1;
+      }
     }
-  }
 
-  &:not(.swiper-initialized) {
-    .swiper-slide > .ugc-tile > img {
-      opacity: 0;
+    &:not(.swiper-initialized) {
+      .swiper-slide > .ugc-tile > img {
+        opacity: 0;
+      }
     }
   }
 }
@@ -40,8 +43,8 @@
   z-index: 2;
 }
 
-.swiper-button-next::after,
-.swiper-button-prev::after,
+.swiper-inline-button-next::after,
+.swiper-inline-button-prev::after,
 .swiper-expanded-button-next::after,
 .swiper-expanded-button-prev::after {
   content: "";
