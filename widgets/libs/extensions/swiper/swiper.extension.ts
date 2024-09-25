@@ -1,7 +1,6 @@
 import Swiper from "swiper"
 import { SdkSwiper } from "types"
-import { HashNavigation, Manipulation, Navigation, Virtual } from "swiper/modules"
-import { elements } from "happy-dom/lib/PropertySymbol"
+import { HashNavigation, Manipulation, Navigation } from "swiper/modules"
 
 declare const sdk: SdkSwiper
 
