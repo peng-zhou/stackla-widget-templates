@@ -6,6 +6,18 @@ Cypress.Commands.add("getFirstTile", () => {
   return cy.get("ugc-widget-668ca52ada8fb").shadow().find(".ugc-tile").first()
 })
 
+Cypress.Commands.add("expandedTileTest", expandedTile => {
+  expandedTile.should("exist")
+
+  const expandedTileShadow = expandedTile.shadow()
+
+  expandedTileShadow.find("img").should("exist")
+
+  expandedTileShadow.find(".stacklapopup-products-item-title").should("exist")
+
+  expandedTileShadow.find(".stacklapopup-products-item-title").invoke("text").should("not.be.empty")
+})
+
 Cypress.Commands.add("widgetTests", widgetType => {
   cy.visitWidget(widgetType)
 
@@ -22,14 +34,29 @@ Cypress.Commands.add("widgetTests", widgetType => {
 
     const expandedTile = shadowRoot.get("expanded-tile")
 
-    expandedTile.should("exist")
+    cy.expandedTileTest(expandedTile)
+  })
 
-    const expandedTileShadow = expandedTile.shadow()
+  it("should display share menu in expanded and handle share menu events", () => {
+    cy.getFirstTile().click()
 
-    expandedTileShadow.find("img").should("exist")
+    const expandedTile = shadowRoot.get("expanded-tile")
+    cy.expandedTileTest(expandedTile)
 
-    expandedTileShadow.find(".stacklapopup-products-item-title").should("exist")
+    const shareButton = expandedTile.find(".panel-right .share-button")
+    shareButton.should("exist")
+    shareButton.click()
 
-    expandedTileShadow.find(".stacklapopup-products-item-title").invoke("text").should("not.be.empty")
+    const shareMenuWrapper = shareButton.find(".share-socials-popup-wrapper")
+    shareMenuWrapper.should("exist")
+
+    const urlCopyElement = shareMenuWrapper.find(".url-copy")
+    urlCopyElement.should("exist")
+    urlCopyElement.find(".url-controls .copy-button").should(exist).click()
+    urlCopyElement.find(".copy-status").contains("Copied!")
+
+    shareMenuWrapper.find(".exit").should("exist").click()
+
+    shareButton.find(".share-socials-popup-wrapper").should("not.exist")
   })
 })
