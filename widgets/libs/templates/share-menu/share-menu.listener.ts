@@ -2,7 +2,7 @@ import { useClipboard } from "@libs/clipboard-polyfills"
 
 export async function copyToClipboard(inputElement: HTMLInputElement) {
   try {
-    const { writeText } = useClipboard()
+    const writeText = useClipboard()
     await writeText(inputElement.value)
     const statusElement = inputElement.closest(".url-copy")?.querySelector<HTMLElement>(".copy-status")
     if (statusElement) {

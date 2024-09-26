@@ -1,18 +1,16 @@
 // clipboard copy polyfill
 
 export function useClipboard() {
-  const writeText = (text: string) => {
-    if (navigator.clipboard) {
+  if (navigator.clipboard) {
+    return (text: string) => {
       return navigator.clipboard.writeText(text)
     }
-    // compatibility with older browsers
-    return new Promise<void>(resolve => {
+  }
+
+  // compatibility with older browsers
+  return () =>
+    new Promise<void>(resolve => {
       document.execCommand("copy")
       resolve()
     })
-  }
-
-  return {
-    writeText
-  }
 }
