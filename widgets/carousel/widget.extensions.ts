@@ -97,14 +97,17 @@ export function onTileRendered() {
         shareButtonEvent.preventDefault()
         shareButtonEvent.stopPropagation()
         const wrapper = tile.querySelector<HTMLElement>(".share-socials-popup-wrapper")
+        const panelOverlay = tile.querySelector<HTMLElement>(".panel-overlay")
         if (wrapper) {
           wrapper.style.display = "block"
+          panelOverlay?.classList.add("active")
           const exitButton = wrapper.querySelector<HTMLElement>(".exit")
           if (exitButton) {
             exitButton.addEventListener("click", (exitButtonEvent: MouseEvent) => {
               exitButtonEvent.preventDefault()
               exitButtonEvent.stopPropagation()
               wrapper.style.display = "none"
+              panelOverlay?.classList.remove("active")
             })
           }
           const clipboardElement = wrapper.querySelector<HTMLElement>(".url-copy .copy-button")
