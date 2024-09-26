@@ -100,12 +100,8 @@ function UserInfoTemplate({ tile }: { tile: Tile }) {
   )
   const tileUser = tile.user ? (
     <a class="user-link" href={tile.original_url} target="_blank">
-      <div class="user-top">
-        <span class="user-name">{tile.user}</span>
-      </div>
-      <div class="user-bottom">
-        <span class="user-handle">@{tile.user}</span>
-      </div>
+      <span class="user-name">{tile.user}</span>
+      <span class="user-handle">@{tile.user}</span>
     </a>
   ) : (
     <></>
