@@ -4,10 +4,13 @@ export async function copyToClipboard(inputElement: HTMLInputElement) {
   try {
     const writeText = useClipboard()
     await writeText(inputElement)
-    const statusElement = inputElement.closest(".url-copy")?.querySelector<HTMLElement>(".copy-status")
-    if (statusElement) {
-      statusElement.textContent = "Copied!"
-      statusElement.style.display = "block"
+    const buttonElement = inputElement.closest(".url-copy")?.querySelector<HTMLElement>(".copy-button")
+    if (buttonElement) {
+      buttonElement.textContent = "Copied!"
+      setInterval(() => {
+        buttonElement.textContent = "Copy"
+      }, 2000)
+      // buttonElement.style.display = "block"
     }
   } catch (err) {
     // eslint-disable-next-line no-console
