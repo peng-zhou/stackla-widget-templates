@@ -10,6 +10,7 @@ describe("getCSSVariables", () => {
       text_tile_link_color: "007acc",
       text_tile_user_name_font_color: "444444",
       text_tile_user_handle_font_color: "555555",
+      text_tile_tag_font_color: "201C1F",
       shopspot_btn_background: "ff9900",
       shopspot_btn_font_color: "000000",
       max_tile_width: 500,
@@ -28,7 +29,8 @@ describe("getCSSVariables", () => {
       expanded_tile_show_add_to_cart: false,
       expanded_tile_show_products: false,
       expanded_tile_show_shopspots: false,
-      inline_tile_show_timestamps: false
+      inline_tile_show_timestamps: false,
+      tile_tag_background: "D6D4D5"
     }
 
     const expectedCSS = `
