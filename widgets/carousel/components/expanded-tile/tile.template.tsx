@@ -121,7 +121,6 @@ function UserInfoTemplate({ tile }: { tile: Tile }) {
 function ShopSpotTemplate({ shopspotEnabled, parent }: { shopspotEnabled: boolean; parent?: string }) {
   return shopspotEnabled ? (
     <>
-      <shopspot-flyout parent={parent}></shopspot-flyout>
       <shopspot-icon parent={parent} />
     </>
   ) : (
