@@ -96,7 +96,7 @@ export function onTileRendered() {
       shareButton.addEventListener("click", (shareButtonEvent: MouseEvent) => {
         shareButtonEvent.preventDefault()
         shareButtonEvent.stopPropagation()
-        const wrapper = shareButton.querySelector<HTMLElement>(".share-socials-popup-wrapper")
+        const wrapper = tile.querySelector<HTMLElement>(".share-socials-popup-wrapper")
         if (wrapper) {
           wrapper.style.display = "block"
           const exitButton = wrapper.querySelector<HTMLElement>(".exit")

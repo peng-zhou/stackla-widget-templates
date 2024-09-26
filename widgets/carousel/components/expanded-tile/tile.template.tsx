@@ -49,9 +49,9 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
           <div class="content-wrapper">
             <div class="content-inner-wrapper">
               <button class="share-button">
-                <ShareMenu tile={tile} />
                 <span class="widget-icon icon-share"></span>
               </button>
+              <ShareMenu tile={tile} />
               <div class="user-info-wrapper">
                 <UserInfoTemplate tile={tile} />
               </div>
