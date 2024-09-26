@@ -15,14 +15,16 @@ export async function copyToClipboard(inputElement: HTMLInputElement) {
   }
 }
 
-function addShareMenuListeners(shareMenuWrapper: HTMLElement) {
+function addShareMenuListeners(shareMenuWrapper: HTMLElement, tile: Element) {
   // Exit button listener
   const exitButton = shareMenuWrapper.querySelector<HTMLElement>(".exit")
+  const panelOverlay = tile.querySelector<HTMLElement>(".panel-overlay")
   if (exitButton) {
     exitButton.addEventListener("click", exitButtonEvent => {
       exitButtonEvent.preventDefault()
       exitButtonEvent.stopPropagation()
       shareMenuWrapper.style.display = "none"
+      panelOverlay?.classList.remove("active")
     })
   }
 
@@ -35,16 +37,18 @@ function addShareMenuListeners(shareMenuWrapper: HTMLElement) {
   }
 }
 
-export function registerExpandedTileShareMenuListeners(shareButtonElement: HTMLElement) {
+export function registerExpandedTileShareMenuListeners(shareButtonElement: HTMLElement, tile: Element) {
   shareButtonElement.addEventListener("click", (shareButtonEvent: MouseEvent) => {
     shareButtonEvent.preventDefault()
     shareButtonEvent.stopPropagation()
-    const wrapper = shareButtonElement.querySelector<HTMLElement>(".share-socials-popup-wrapper")
+    const wrapper = tile.querySelector<HTMLElement>(".share-socials-popup-wrapper")
+    const panelOverlay = tile.querySelector<HTMLElement>(".panel-overlay")
     if (!wrapper) {
       throw new Error("Share menu wrapper not found")
     }
     wrapper.style.display = "block"
+    panelOverlay?.classList.add("active")
 
-    addShareMenuListeners(wrapper)
+    addShareMenuListeners(wrapper, tile)
   })
 }
