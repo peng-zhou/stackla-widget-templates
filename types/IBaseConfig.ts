@@ -15,6 +15,7 @@ export interface BaseConfig {
   text_tile_link_color?: string
   text_tile_user_name_font_color?: string
   text_tile_user_handle_font_color?: string
+  text_tile_tag_font_color?: string
   shopspot_btn_background?: string
   shopspot_btn_font_color?: string
   max_tile_width?: number
@@ -28,4 +29,5 @@ export interface BaseConfig {
   show_inline_tags?: boolean
   minimal_tiles?: number
   inline_tile_show_timestamps?: boolean
+  tile_tag_background?: string
 }

@@ -62,6 +62,8 @@ export default {
     text_tile_user_name_font_color: "333333",
     text_tile_user_name_font_size: 18,
     text_tile_link_color: "00abf0",
+    text_tile_tag_font_color: "201C1F",
+    tile_tag_background: "D6D4D5",
     tiles_per_page: 15,
     minimal_tiles: 1,
     type: "fluid",

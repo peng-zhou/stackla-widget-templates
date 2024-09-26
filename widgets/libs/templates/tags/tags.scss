@@ -11,7 +11,7 @@
   z-index: 2;
 
   .tile-tag {
-    background: #D6D4D5;
+    background: var(--tile-tag-background);
     border-radius: 3px;
     font-size: 10px;
     font-style: normal;
@@ -21,7 +21,7 @@
     text-wrap: nowrap;
 
     a {
-      color: #201C1F;
+      color: var(--text-tile-tag-font-color);
       text-decoration: none;
     }
   }
