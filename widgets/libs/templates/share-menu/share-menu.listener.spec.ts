@@ -11,19 +11,19 @@ describe("share menu listener", () => {
   afterEach(() => {
     jest.resetAllMocks()
   })
-  it("clipboard functionality with async api", () => {
+  it("clipboard functionality with async api", async () => {
     const writeTextSpy = jest.spyOn(global.navigator.clipboard, "writeText")
 
     const inputElement = document.createElement("input")
     inputElement.value = "text to copy"
 
-    copyToClipboard(inputElement)
+    await copyToClipboard(inputElement)
 
     expect(writeTextSpy).toHaveBeenCalledTimes(1)
     expect(global.document.execCommand).not.toHaveBeenCalled()
   })
 
-  it("clipboard functionality with no async api", () => {
+  it("clipboard functionality with no async api", async () => {
     Object.defineProperty(global, "navigator", {
       value: { clipboard: undefined }
     })
@@ -33,7 +33,7 @@ describe("share menu listener", () => {
     const inputElement = document.createElement("input")
     inputElement.value = "text to copy"
 
-    copyToClipboard(inputElement)
+    await copyToClipboard(inputElement)
 
     expect(execCommandSpy).toHaveBeenCalledTimes(1)
   })
