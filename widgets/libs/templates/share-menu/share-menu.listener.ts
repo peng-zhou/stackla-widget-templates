@@ -1,16 +1,17 @@
-async function copyToClipboard(copyElement: unknown) {
-  if (copyElement instanceof HTMLInputElement) {
-    try {
-      await navigator.clipboard.writeText(copyElement.value)
-      const statusElement = copyElement.closest(".url-copy")?.querySelector<HTMLElement>(".copy-status")
-      if (statusElement) {
-        statusElement.textContent = "Copied!"
-        statusElement.style.display = "block"
-      }
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.error("Failed to copy text: ", err)
+import { useClipboard } from "@libs/clipboard-polyfills"
+
+export async function copyToClipboard(inputElement: HTMLInputElement) {
+  try {
+    const { writeText } = useClipboard()
+    await writeText(inputElement.value)
+    const statusElement = inputElement.closest(".url-copy")?.querySelector<HTMLElement>(".copy-status")
+    if (statusElement) {
+      statusElement.textContent = "Copied!"
+      statusElement.style.display = "block"
     }
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error("Failed to copy text: ", err)
   }
 }
 
@@ -18,7 +19,7 @@ function addShareMenuListeners(shareMenuWrapper: HTMLElement) {
   // Exit button listener
   const exitButton = shareMenuWrapper.querySelector<HTMLElement>(".exit")
   if (exitButton) {
-    exitButton.addEventListener("click", (exitButtonEvent: MouseEvent) => {
+    exitButton.addEventListener("click", exitButtonEvent => {
       exitButtonEvent.preventDefault()
       exitButtonEvent.stopPropagation()
       shareMenuWrapper.style.display = "none"
