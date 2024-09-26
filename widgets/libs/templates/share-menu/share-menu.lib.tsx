@@ -3,27 +3,28 @@ import { createElement } from "jsx-html"
 
 export function ShareMenu({ tile }: { tile: Tile }) {
   return (
-    <div>
-      <div class="share-socials-popup-wrapper">
-        <div class="share-socials-popup">
-          <a class="exit" href="#">
-            <span class="widget-icon close-white"></span>
-          </a>
-          <div class="popup-text">Share Now</div>
-          <div class="ugc-inline-share-buttons">
-            <MenuLink icon="facebook" tile={tile} />
-            <MenuLink icon="instagram" tile={tile} />
-            <MenuLink icon="x" tile={tile} />
-            <MenuLink icon="pinterest" tile={tile} />
-            <MenuLink icon="linkedin" tile={tile} />
-            <MenuLink icon="email" tile={tile} />
-          </div>
-          <div class="url-copy">
+    <div class="share-socials-popup-wrapper">
+      <div class="share-socials-popup">
+        <a class="exit" href="#">
+          <span class="widget-icon close-white"></span>
+        </a>
+        <div class="popup-text">Share Now</div>
+        <div class="ugc-inline-share-buttons">
+          <MenuLink icon="facebook" tile={tile} />
+          <MenuLink icon="instagram" tile={tile} />
+          <MenuLink icon="x" tile={tile} />
+          <MenuLink icon="pinterest" tile={tile} />
+          <MenuLink icon="linkedin" tile={tile} />
+          <MenuLink icon="email" tile={tile} />
+        </div>
+        <div class="url-copy">
+          <div class="url-controls">
             <input class="share-url" type="text" id="share-url" value={tile.original_url} readonly />
             <button class="copy-button" data-action="copy">
               Copy
             </button>
           </div>
+          <span class="copy-status"></span>
         </div>
       </div>
     </div>

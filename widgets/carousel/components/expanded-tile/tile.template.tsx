@@ -3,8 +3,8 @@ import { Tile } from "@stackla/ugc-widgets"
 import { getTimephrase } from "@libs/tile.lib"
 import { createElement, createFragment } from "jsx-html"
 import { Tags } from "@libs/templates/tags/tags.lib"
-import { ShareMenu } from "@libs/templates/share-menu.lib"
 import { getConfig } from "@widgets/carousel/widget.config"
+import { ShareMenu } from "@libs/templates/share-menu/share-menu.lib"
 
 export type ExpandedTileProps = {
   sdk: Sdk
