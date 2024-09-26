@@ -62,7 +62,6 @@ export function initializeSwiper({
 
 export function refreshSwiper(mode: SwiperMode) {
   sdk[mode]?.update()
-  sdk[mode]?.virtual.update(true)
 }
 
 export function disableSwiper(mode: SwiperMode) {
