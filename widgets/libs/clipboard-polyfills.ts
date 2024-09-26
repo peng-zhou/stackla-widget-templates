@@ -2,14 +2,15 @@
 
 export function useClipboard() {
   if (navigator.clipboard) {
-    return (text: string) => {
-      return navigator.clipboard.writeText(text)
+    return (inputElement: HTMLInputElement) => {
+      return navigator.clipboard.writeText(inputElement.value)
     }
   }
 
   // compatibility with older browsers
-  return () =>
+  return (inputElement: HTMLInputElement) =>
     new Promise<void>(resolve => {
+      inputElement.select()
       document.execCommand("copy")
       resolve()
     })
