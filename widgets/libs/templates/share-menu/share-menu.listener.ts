@@ -6,7 +6,7 @@ export async function copyToClipboard(inputElement: HTMLInputElement) {
     await writeText(inputElement)
     const buttonElement = inputElement.closest(".url-copy")?.querySelector<HTMLElement>(".copy-button")
     if (buttonElement) {
-      buttonElement.textContent = "Copied!"
+      buttonElement.textContent = "Copied"
       setInterval(() => {
         buttonElement.textContent = "Copy"
       }, 2000)

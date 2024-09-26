@@ -53,7 +53,7 @@ Cypress.Commands.add("widgetTests", widgetType => {
     const urlCopyElement = shareMenuWrapper.find(".url-copy")
     urlCopyElement.should("exist")
     urlCopyElement.find(".url-controls .copy-button").should(exist).click()
-    urlCopyElement.find(".copy-status").contains("Copied!")
+    urlCopyElement.find(".copy-button").contains("Copied")
 
     shareMenuWrapper.find(".exit").should("exist").click()
 
