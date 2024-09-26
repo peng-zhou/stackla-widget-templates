@@ -36,5 +36,7 @@ describe("share menu listener", () => {
     await copyToClipboard(inputElement)
 
     expect(execCommandSpy).toHaveBeenCalledTimes(1)
+    // verifying if the input element text is selected during fallback
+    expect(inputElement.selectionEnd).toBe(inputElement.value.length)
   })
 })
