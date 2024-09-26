@@ -23,6 +23,16 @@
 .tile-tags {
   position: absolute;
   margin: 0 16.4px 8.4px 8px;
+
+  .tag-inline {
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 25px;
+    line-height: 12px;
+
+    a {
+      color: #fff;
+    }
+  }
 }
 
 .hidden {
