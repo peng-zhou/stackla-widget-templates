@@ -11,17 +11,17 @@
   z-index: 2;
 
   .tile-tag {
-    background: rgba(0, 0, 0, 0.4);
-    border-radius: 25px;
+    background: var(--tile-tag-background);
+    border-radius: 3px;
     font-size: 10px;
     font-style: normal;
     font-weight: 400;
     padding: 0 4px;
-    line-height: 12px;
+    line-height: 16px;
     text-wrap: nowrap;
 
     a {
-      color: #fff;
+      color: var(--text-tile-tag-font-color);
       text-decoration: none;
     }
   }
