@@ -10,7 +10,6 @@ export async function copyToClipboard(inputElement: HTMLInputElement) {
       setInterval(() => {
         buttonElement.textContent = "Copy"
       }, 2000)
-      // buttonElement.style.display = "block"
     }
   } catch (err) {
     // eslint-disable-next-line no-console
@@ -51,7 +50,6 @@ export function registerExpandedTileShareMenuListeners(shareButtonElement: HTMLE
     }
     wrapper.style.display = "block"
     panelOverlay?.classList.add("active")
-
     addShareMenuListeners(wrapper, tile)
   })
 }
