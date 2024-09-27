@@ -10,6 +10,7 @@ describe("getCSSVariables", () => {
       text_tile_link_color: "007acc",
       text_tile_user_name_font_color: "444444",
       text_tile_user_handle_font_color: "555555",
+      text_tile_tag_font_color: "201C1F",
       shopspot_btn_background: "ff9900",
       shopspot_btn_font_color: "000000",
       max_tile_width: 500,
@@ -28,7 +29,8 @@ describe("getCSSVariables", () => {
       expanded_tile_show_add_to_cart: false,
       expanded_tile_show_products: false,
       expanded_tile_show_shopspots: false,
-      inline_tile_show_timestamps: false
+      inline_tile_show_timestamps: false,
+      tile_tag_background: "D6D4D5"
     }
 
     const expectedCSS = `
@@ -38,6 +40,7 @@ describe("getCSSVariables", () => {
     --text-tile-link-color:#007acc;
     --text-tile-user-name-font-color:#444444;
     --text-tile-user-handle-font-color:#555555;
+    --text-tile-tag-font-color:#201C1F;
     --shopspot-btn-background:#ff9900;
     --shopspot-btn-font-color:#000000;
     --max-tile-width:500px;
@@ -49,6 +52,7 @@ describe("getCSSVariables", () => {
     --tile-timephrase-display:none;
     --shopspot-icon:url("http://example.com/icon.png");
     --tags-gap:4px;
+    --tile-tag-background:#D6D4D5;
       `
 
     expect(getCSSVariables(widgetSettings).replace(/\s/g, "")).toBe(expectedCSS.replace(/\s/g, ""))
@@ -62,6 +66,7 @@ describe("getCSSVariables", () => {
       text_tile_link_color: "007acc",
       text_tile_user_name_font_color: "444444",
       text_tile_user_handle_font_color: "555555",
+      text_tile_tag_font_color: "201C1F",
       shopspot_btn_background: "ff9900",
       shopspot_btn_font_color: "000000",
       max_tile_width: 500,
@@ -75,7 +80,8 @@ describe("getCSSVariables", () => {
       expanded_tile_show_add_to_cart: false,
       expanded_tile_show_products: false,
       expanded_tile_show_shopspots: false,
-      inline_tile_show_timestamps: true
+      inline_tile_show_timestamps: true,
+      tile_tag_background: "D6D4D5"
     }
 
     const expectedCSS = `
@@ -85,6 +91,7 @@ describe("getCSSVariables", () => {
     --text-tile-link-color:#007acc;
     --text-tile-user-name-font-color:#444444;
     --text-tile-user-handle-font-color:#555555;
+    --text-tile-tag-font-color:#201C1F;
     --shopspot-btn-background:#ff9900;
     --shopspot-btn-font-color:#000000;
     --max-tile-width:500px;
@@ -96,6 +103,7 @@ describe("getCSSVariables", () => {
     --tile-timephrase-display:inline-block;
     --shopspot-icon:url("data:image/svg+xml,%3Csvgxmlns='http://www.w3.org/2000/svg'viewBox='00512512'%3E%3Cpathd='M34539.1L472.8168.4c52.45352.4138.20191.2L360.8472.9c-9.39.4-24.59.5-33.9.2s-9.5-24.5-.2-33.9L438.6325.9c33.9-34.333.9-89.40-123.7L310.972.9c-9.3-9.4-9.2-24.6.2-33.9s24.6-9.233.9.2zM0229.5V80C053.521.5324832H197.5c17033.36.745.318.7l168168c25252565.5090.5L277.3442.7c-2525-65.525-90.50l-168-168C6.7262.70246.50229.5zM144144a3232010-6403232010640z'fill='%23fff'/%3E%3C/svg%3E");
     --tags-gap:4px;
+    --tile-tag-background:#D6D4D5;
       `
 
     expect(getCSSVariables(widgetSettings).replace(/\s/g, "")).toBe(expectedCSS.replace(/\s/g, ""))

@@ -4,10 +4,12 @@ export async function copyToClipboard(inputElement: HTMLInputElement) {
   try {
     const writeText = useClipboard()
     await writeText(inputElement)
-    const statusElement = inputElement.closest(".url-copy")?.querySelector<HTMLElement>(".copy-status")
-    if (statusElement) {
-      statusElement.textContent = "Copied!"
-      statusElement.style.display = "block"
+    const buttonElement = inputElement.closest(".url-copy")?.querySelector<HTMLElement>(".copy-button")
+    if (buttonElement) {
+      buttonElement.textContent = "Copied"
+      setInterval(() => {
+        buttonElement.textContent = "Copy"
+      }, 2000)
     }
   } catch (err) {
     // eslint-disable-next-line no-console
@@ -15,14 +17,16 @@ export async function copyToClipboard(inputElement: HTMLInputElement) {
   }
 }
 
-function addShareMenuListeners(shareMenuWrapper: HTMLElement) {
+function addShareMenuListeners(shareMenuWrapper: HTMLElement, tile: Element) {
   // Exit button listener
   const exitButton = shareMenuWrapper.querySelector<HTMLElement>(".exit")
+  const panelOverlay = tile.querySelector<HTMLElement>(".panel-overlay")
   if (exitButton) {
     exitButton.addEventListener("click", exitButtonEvent => {
       exitButtonEvent.preventDefault()
       exitButtonEvent.stopPropagation()
       shareMenuWrapper.style.display = "none"
+      panelOverlay?.classList.remove("active")
     })
   }
 
@@ -35,16 +39,17 @@ function addShareMenuListeners(shareMenuWrapper: HTMLElement) {
   }
 }
 
-export function registerExpandedTileShareMenuListeners(shareButtonElement: HTMLElement) {
+export function registerExpandedTileShareMenuListeners(shareButtonElement: HTMLElement, tile: Element) {
   shareButtonElement.addEventListener("click", (shareButtonEvent: MouseEvent) => {
     shareButtonEvent.preventDefault()
     shareButtonEvent.stopPropagation()
-    const wrapper = shareButtonElement.querySelector<HTMLElement>(".share-socials-popup-wrapper")
+    const wrapper = tile.querySelector<HTMLElement>(".share-socials-popup-wrapper")
+    const panelOverlay = tile.querySelector<HTMLElement>(".panel-overlay")
     if (!wrapper) {
       throw new Error("Share menu wrapper not found")
     }
     wrapper.style.display = "block"
-
-    addShareMenuListeners(wrapper)
+    panelOverlay?.classList.add("active")
+    addShareMenuListeners(wrapper, tile)
   })
 }

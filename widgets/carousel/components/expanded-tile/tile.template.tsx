@@ -49,9 +49,9 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
           <div class="content-wrapper">
             <div class="content-inner-wrapper">
               <button class="share-button">
-                <ShareMenu tile={tile} />
                 <span class="widget-icon icon-share"></span>
               </button>
+              <ShareMenu tile={tile} />
               <div class="user-info-wrapper">
                 <UserInfoTemplate tile={tile} />
               </div>
@@ -100,12 +100,8 @@ function UserInfoTemplate({ tile }: { tile: Tile }) {
   )
   const tileUser = tile.user ? (
     <a class="user-link" href={tile.original_url} target="_blank">
-      <div class="user-top">
-        <span class="user-name">{tile.user}</span>
-      </div>
-      <div class="user-bottom">
-        <span class="user-handle">@{tile.user}</span>
-      </div>
+      <span class="user-name">{tile.user}</span>
+      <span class="user-handle">@{tile.user}</span>
     </a>
   ) : (
     <></>
