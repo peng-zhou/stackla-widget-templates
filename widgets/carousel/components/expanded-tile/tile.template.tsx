@@ -11,6 +11,12 @@ export type ExpandedTileProps = {
   tile: Tile
 }
 
+type ShopspotProps = {
+  shopspotEnabled: boolean
+  parent?: string
+  tileId: string
+}
+
 export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
   const widgetContainer = sdk.placement.getWidgetContainer()
   const widgetSettings = getConfig(widgetContainer)
@@ -28,8 +34,8 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
               <>
                 <div class="image-filler" style={{ "background-image": `url('${tile.image}')` }}></div>
                 <div class="image">
-                  <ShopSpotTemplate shopspotEnabled={shopspotEnabled} parent={parent} />
-                  <img class="image-element" src={tile.image} />
+                  <ShopSpotTemplate shopspotEnabled={shopspotEnabled} parent={parent} tileId={tile.id} />
+                  <img class="image-element" src={tile.image} loading="lazy" />
                   <div class="swiper-lazy-preloader"></div>
                 </div>
               </>
@@ -114,11 +120,10 @@ function UserInfoTemplate({ tile }: { tile: Tile }) {
   )
 }
 
-function ShopSpotTemplate({ shopspotEnabled, parent }: { shopspotEnabled: boolean; parent?: string }) {
+function ShopSpotTemplate({ shopspotEnabled, parent, tileId }: ShopspotProps) {
   return shopspotEnabled ? (
     <>
-      <shopspot-flyout parent={parent}></shopspot-flyout>
-      <shopspot-icon parent={parent} />
+      <shopspot-icon parent={parent} mode="expanded" tile-id={tileId} />
     </>
   ) : (
     <></>
