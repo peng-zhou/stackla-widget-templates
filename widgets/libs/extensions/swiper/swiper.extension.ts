@@ -29,6 +29,10 @@ export function initializeSwiper({
     throw new Error("Missing swiper Navigation elements for previous and next navigation")
   }
 
+  if (!sdk.swiperInstances) {
+    sdk.swiperInstances = {} as Record<SwiperMode, Swiper>
+  }
+
   const swiperInstance = sdk.swiperInstances?.[mode]
 
   if (swiperInstance) {
@@ -69,23 +73,23 @@ export function generateId() {
 }
 
 export function refreshSwiper(mode: SwiperMode) {
-  sdk.swiperInstances[mode]?.update()
+  sdk.swiperInstances?.[mode]?.update()
 }
 
 export function disableSwiper(mode: SwiperMode) {
-  sdk.swiperInstances[mode]?.disable()
+  sdk.swiperInstances?.[mode]?.disable()
 }
 
 export function enableSwiper(mode: SwiperMode) {
-  sdk.swiperInstances[mode]?.enable()
+  sdk.swiperInstances?.[mode]?.enable()
 }
 
 export function destroySwiper(mode: SwiperMode) {
-  sdk.swiperInstances[mode]?.destroy(true, true)
+  sdk.swiperInstances?.[mode]?.destroy(true, true)
 }
 
 export function getClickedIndex(mode: SwiperMode) {
-  if (sdk.swiperInstances[mode]) {
+  if (sdk.swiperInstances?.[mode]) {
     const clickedSlide = sdk.swiperInstances[mode].clickedSlide
     const indexFromAttribute = clickedSlide.attributes.getNamedItem("data-swiper-slide-index")?.value
     return indexFromAttribute && !Number.isNaN(parseInt(indexFromAttribute))

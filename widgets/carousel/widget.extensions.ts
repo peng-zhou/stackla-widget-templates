@@ -27,17 +27,20 @@ export function initializeInlineSwiperListeners() {
 }
 
 function initializeInlineSwiper(widgetSettings: IWidgetSettings) {
-  const widgetSelector = sdk.placement.querySelector(".swiper-inline")
+  const widgetSelector = sdk.placement.querySelector<HTMLElement>(".swiper-inline")
 
   if (!widgetSelector) {
     throw new Error("Failed to find widget UI element. Failed to initialise Swiper")
   }
 
-  const tileWidth = 220
+  const tileWidth = 210
   const screenSize = window.innerWidth
   const perView = !widgetSettings.enable_custom_tiles_per_page
     ? Math.floor(screenSize / (tileWidth + 10))
     : widgetSettings.tiles_per_page
+
+  const width = (tileWidth + 10) * perView
+  widgetSelector.style.width = `${width}px`
 
   initializeSwiper({
     widgetSelector,
