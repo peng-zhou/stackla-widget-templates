@@ -61,8 +61,8 @@ function initializeExtendedSwiper() {
   initializeSwiper({
     widgetSelector,
     perView: 1,
-    mode: "swiperExpanded",
-    initialIndex: getClickedIndex("swiperInline"),
+    mode: "expanded",
+    initialIndex: getClickedIndex("inline"),
     prevButton: "swiper-expanded-button-prev",
     nextButton: "swiper-expanded-button-next"
   })
@@ -77,7 +77,7 @@ export function onTileExpand() {
 
   expandedTile.parentElement!.classList.add("expanded-tile-overlay")
 
-  disableSwiper("swiperInline")
+  disableSwiper("inline")
 
   waitForElm(expandedTile.shadowRoot, [".swiper-expanded"], initializeExtendedSwiper)
 }
@@ -109,8 +109,8 @@ export function onTileClosed() {
 
   expandedTile.parentElement!.classList.remove("expanded-tile-overlay")
 
-  disableSwiper("swiperExpanded")
-  enableSwiper("swiperInline")
+  disableSwiper("expanded")
+  enableSwiper("inline")
 }
 
 export function hideSlidesWithInvisibleTiles() {
@@ -122,7 +122,7 @@ export function hideSlidesWithInvisibleTiles() {
       slide.remove()
     }
   })
-  refreshSwiper("swiperInline")
+  refreshSwiper("inline")
 }
 
 export function onPreloadTileHidden(tileId: string) {
@@ -130,5 +130,5 @@ export function onPreloadTileHidden(tileId: string) {
   const slide = widgetSelectorWrapper?.querySelector<HTMLElement>(`.swiper-slide[data-id="${tileId}"]`)
   slide?.remove()
 
-  refreshSwiper("swiperInline")
+  refreshSwiper("inline")
 }
