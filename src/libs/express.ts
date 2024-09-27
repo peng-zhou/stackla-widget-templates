@@ -117,7 +117,7 @@ async function getHTML(content: PreviewContent, page: number = 1, limit: number 
 expressApp.post("/widgets/668ca52ada8fb/draft", async (req, res) => {
   const body = JSON.parse(req.body)
   const draft = body.draft as IDraftRequest
-  const html = await renderTemplates(draft)
+  const html = await renderTemplates(draft, body.page, body.limit)
   const customCss = draft.custom_css
   const customJs = draft.custom_js
 
