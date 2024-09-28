@@ -26,8 +26,8 @@ declare const sdk: Sdk
 
 export function loadSettings() {
   sdk.tiles.preloadImages = true
-  sdk.tiles.setLoadMode("page")
-  sdk.tiles.setVisibleTilesCount(100)
+  sdk.tiles.setLoadMode("all")
+  sdk.tiles.setLoadOwner("client")
 
   const widgetContainer = sdk.placement.getWidgetContainer()
   const widgetSettings = getConfig(widgetContainer)
@@ -39,5 +39,5 @@ export function loadSettings() {
   addAutoAddTileFeature(widgetSettings)
   loadExpandedTileFeature(widgetSettings, onTileExpand, onTileClosed, onTileRendered)
   registerTilesUpdated(hideSlidesWithInvisibleTiles)
-  registerPreloadTileHidden(onPreloadTileHidden)
+  //registerPreloadTileHidden(onPreloadTileHidden)
 }

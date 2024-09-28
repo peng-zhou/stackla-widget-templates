@@ -10,6 +10,7 @@ import { getAndRenderTiles, getTilesToRender, renderTemplates } from "./tile.han
 import { loadStaticFileRoutes } from "./static-files"
 import widgetOptions from "../../tests/fixtures/widget.options"
 import cookieParser from "cookie-parser"
+import tiles from "../../tests/fixtures/tiles"
 
 export interface IDraftRequest {
   custom_templates: {
@@ -128,7 +129,7 @@ expressApp.post("/widgets/668ca52ada8fb/draft", async (req, res) => {
     widgetOptions: widgetOptions,
     stackId: 1451,
     merchantId: "shopify-64671154416",
-    tileCount: 2177,
+    tileCount: tiles.length,
     enabled: 1
   })
 })
@@ -143,7 +144,7 @@ expressApp.get("/widgets/668ca52ada8fb", async (req, res) => {
     widgetOptions: widgetOptions,
     merchantId: "shopify-64671154416",
     stackId: 1451,
-    tileCount: 1000
+    tileCount: tiles.length
   })
 })
 
@@ -159,7 +160,7 @@ expressApp.get("/widgets/668ca52ada8fb/rendered/tiles", async (req, res) => {
   const widgetType = req.cookies.widgetType as string
   const page = (req.query.page ?? 0) as number
   const limit = (req.query.limit ?? 25) as number
-  const tileHtml = await getHTML(getContent(widgetType))
+  const tileHtml = await getHTML(getContent(widgetType), page, limit)
 
   res.json(tileHtml)
 })

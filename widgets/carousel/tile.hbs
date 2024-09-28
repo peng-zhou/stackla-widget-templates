@@ -1,5 +1,6 @@
-{{#tile class="swiper-slide" data-hash=(join "swiper-" @index) }}
-<div class="tile">
+{{#tile class="swiper-slide" }}
+<div class="tile-loading"></div>
+<div class="tile hidden">
   <ul class="tile-tags">
     {{#tags_extended}}
     <li class="tile-tag tag-inline"><a href="{{custom_url}}">{{tag}}</a></li>
@@ -8,12 +9,12 @@
   <div class="network-icon icon-{{source}}"></div>
   <div class="tile-img">
     {{#lazy image_thumbnail_url "120"}}{{/lazy}}
+    <div class="swiper-lazy-preloader"></div>
   </div>
+  {{#ifequals media "video"}}
+  <div class="play-icon"></div>
+  {{/ifequals}}
+  <span class="tile-timephrase">{{time_ago}}</span>
 </div>
-{{#ifequals media "video"}}
-<div class="play-icon"></div>
-{{/ifequals}}
-<div class="swiper-lazy-preloader"></div>
-<span class="tile-timephrase">{{time_ago}}</span>
 <shopspot-icon tile-id={{id}} />
 {{/tile}}
