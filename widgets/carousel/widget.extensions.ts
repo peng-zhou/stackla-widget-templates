@@ -27,13 +27,13 @@ export function initializeInlineSwiperListeners() {
 }
 
 function initializeInlineSwiper(widgetSettings: IWidgetSettings) {
-  const widgetSelector = sdk.placement.querySelector(".swiper-inline")
+  const widgetSelector = sdk.placement.querySelector<HTMLElement>(".swiper-inline")
 
   if (!widgetSelector) {
     throw new Error("Failed to find widget UI element. Failed to initialise Swiper")
   }
 
-  const tileWidth = 220
+  const tileWidth = 210
   const screenSize = window.innerWidth
   const perView = !widgetSettings.enable_custom_tiles_per_page
     ? Math.floor(screenSize / (tileWidth + 10))
@@ -65,8 +65,8 @@ function initializeExtendedSwiper() {
   initializeSwiper({
     widgetSelector,
     perView: 1,
-    mode: "swiperExpanded",
-    initialIndex: getClickedIndex("swiperInline"),
+    mode: "expanded",
+    initialIndex: getClickedIndex("inline"),
     prevButton: "swiper-expanded-button-prev",
     nextButton: "swiper-expanded-button-next"
   })
@@ -81,7 +81,7 @@ export function onTileExpand() {
 
   expandedTile.parentElement!.classList.add("expanded-tile-overlay")
 
-  disableSwiper("swiperInline")
+  disableSwiper("inline")
 
   waitForElm(expandedTile.shadowRoot, [".swiper-expanded"], initializeExtendedSwiper)
 }
@@ -113,8 +113,8 @@ export function onTileClosed() {
 
   expandedTile.parentElement!.classList.remove("expanded-tile-overlay")
 
-  disableSwiper("swiperExpanded")
-  enableSwiper("swiperInline")
+  disableSwiper("expanded")
+  enableSwiper("inline")
 }
 
 export function hideSlidesWithInvisibleTilesBackup() {
@@ -126,5 +126,5 @@ export function hideSlidesWithInvisibleTilesBackup() {
       slide.remove()
     }
   })
-  refreshSwiper("swiperInline")
+  refreshSwiper("inline")
 }

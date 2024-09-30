@@ -8,7 +8,7 @@ declare const sdk: SdkSwiper
 export function initializeSwiper({
   widgetSelector,
   perView,
-  mode = "swiperInline",
+  mode = "inline",
   prevButton = "swiper-button-prev",
   nextButton = "swiper-button-next",
   initialIndex = 0
@@ -118,6 +118,13 @@ function completeLoad(mode: SwiperMode) {
   sdk[mode]!.isLoading = false
   sdk[mode]!.instance?.off("activeIndexChange")
   enablePrevNavigation(sdk[mode]!.instance!)
+}
+
+export function generateId() {
+  const minCeiled = Math.ceil(10)
+  const maxFloored = Math.floor(100)
+  const randomPrefix = Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled)
+  return randomPrefix + Date.now().toString(16)
 }
 
 export function refreshSwiper(mode: SwiperMode) {
