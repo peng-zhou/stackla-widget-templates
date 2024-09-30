@@ -1,7 +1,7 @@
 import Swiper from "swiper"
 import { SdkSwiper } from "types"
 import { Manipulation, Navigation } from "swiper/modules"
-import { SwiperMode, SwiperProps } from "types/SdkSwiper"
+import { SwiperData, SwiperMode, SwiperProps } from "types/SdkSwiper"
 
 declare const sdk: SdkSwiper
 
@@ -20,20 +20,24 @@ export function initializeSwiper({
     throw new Error("Missing swiper Navigation elements for previous and next navigation")
   }
 
-  if (!sdk[mode]) {
-    sdk[mode] = {}
+  if (!sdk.swiperInstances) {
+    sdk.swiperInstances = {} as Record<SwiperMode, SwiperData>
   }
 
-  if (sdk[mode].instance) {
-    if (!sdk[mode].instance?.params?.enabled) {
+  const swiperInstance = sdk.swiperInstances?.[mode]?.instance
+
+  if (swiperInstance) {
+    if (!swiperInstance.params?.enabled) {
       enableSwiper(mode)
     } else {
       // re-initialize
-      sdk[mode].instance?.destroy(true)
+      swiperInstance.destroy(true)
     }
+  } else {
+    sdk.swiperInstances[mode] = {}
   }
 
-  sdk[mode].instance = new Swiper(widgetSelector, {
+  sdk.swiperInstances[mode]!.instance = new Swiper(widgetSelector, {
     modules: [Navigation, Manipulation],
     spaceBetween: 10,
     slidesPerView: perView,
@@ -51,14 +55,14 @@ export function initializeSwiper({
     on: {
       afterInit: swiper => {
         swiper.slideToLoop(initialIndex, 0, false)
-        sdk[mode]!.isLoading = true
+        sdk.swiperInstances![mode]!.isLoading = true
         swiper.allowSlidePrev = false
         swiper.navigation.prevEl.querySelector("span.swiper-nav-icon")?.classList.add("nav-loading")
         loadTilesAsync(swiper, mode)
       },
       activeIndexChange: swiper => {
         if (swiper.navigation.prevEl) {
-          if (swiper.realIndex === 0 && sdk[mode]?.isLoading) {
+          if (swiper.realIndex === 0 && sdk.swiperInstances?.[mode]?.isLoading) {
             disblePrevNavigation(swiper)
           } else {
             enablePrevNavigation(swiper)
@@ -69,7 +73,7 @@ export function initializeSwiper({
     resizeObserver: true
   })
 
-  sdk[mode].perView = perView
+  sdk.swiperInstances[mode]!.perView = perView
 }
 
 function enablePrevNavigation(swiper: Swiper) {
@@ -115,9 +119,9 @@ function loadTilesAsync(swiper: Swiper, mode: SwiperMode) {
 }
 
 function completeLoad(mode: SwiperMode) {
-  sdk[mode]!.isLoading = false
-  sdk[mode]!.instance?.off("activeIndexChange")
-  enablePrevNavigation(sdk[mode]!.instance!)
+  sdk.swiperInstances![mode]!.isLoading = false
+  sdk.swiperInstances![mode]!.instance?.off("activeIndexChange")
+  enablePrevNavigation(sdk.swiperInstances![mode]!.instance!)
 }
 
 export function generateId() {
@@ -128,30 +132,30 @@ export function generateId() {
 }
 
 export function refreshSwiper(mode: SwiperMode) {
-  if (sdk[mode]?.instance) {
-    sdk[mode].instance.update()
+  if (sdk.swiperInstances?.[mode]?.instance) {
+    sdk.swiperInstances[mode].instance.update()
   }
 }
 
 export function disableSwiper(mode: SwiperMode) {
-  sdk[mode]?.instance?.disable()
+  sdk.swiperInstances?.[mode]?.instance?.disable()
 }
 
 export function enableSwiper(mode: SwiperMode) {
-  sdk[mode]?.instance?.enable()
+  sdk.swiperInstances?.[mode]?.instance?.enable()
 }
 
 export function destroySwiper(mode: SwiperMode) {
-  sdk[mode]?.instance?.destroy(true, true)
+  sdk.swiperInstances?.[mode]?.instance?.destroy(true, true)
 }
 
 export function getClickedIndex(mode: SwiperMode) {
-  if (sdk[mode]?.instance) {
-    const clickedSlide = sdk[mode].instance.clickedSlide
+  if (sdk.swiperInstances?.[mode]?.instance) {
+    const clickedSlide = sdk.swiperInstances[mode].instance.clickedSlide
     const indexFromAttribute = clickedSlide.attributes.getNamedItem("data-swiper-slide-index")?.value
     return indexFromAttribute && !Number.isNaN(parseInt(indexFromAttribute))
       ? parseInt(indexFromAttribute)
-      : sdk[mode].instance.clickedIndex
+      : sdk.swiperInstances[mode].instance.clickedIndex
   }
   return 0
 }

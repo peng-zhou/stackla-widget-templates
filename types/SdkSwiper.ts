@@ -1,7 +1,7 @@
 import type { Sdk } from "@stackla/ugc-widgets"
 import Swiper from "swiper"
 
-export type SwiperMode = "swiperInline" | "swiperExpanded"
+export type SwiperMode = "inline" | "expanded"
 
 export type SwiperProps = {
   widgetSelector: HTMLElement
@@ -17,13 +17,9 @@ export type SwiperData = {
   perView?: number
   isLoading?: boolean
 }
-export interface SdkSwiper extends Sdk {
-  swiperInline?: SwiperData
-  swiperExpanded?: SwiperData
-export type SwiperMode = "inline" | "expanded"
 
 export interface SdkSwiper extends Sdk {
-  swiperInstances?: Record<SwiperMode, Swiper | undefined>
+  swiperInstances?: Record<SwiperMode, SwiperData | undefined>
   activeInstances?: string[] // using array to support multiple instances of swiper (future purpose)
   getActiveInstances: () => string[]
 }
