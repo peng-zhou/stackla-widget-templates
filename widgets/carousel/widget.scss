@@ -1,36 +1,40 @@
 @import "templates/tags/tags.scss";
 
-.tile-timephrase {
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 10px;
-  background-color: rgb(255 255 255 / 60%);
-  border-radius: 2px;
-  font-size: 12px;
-  display: var(--tile-timephrase-display);
-}
-
 #nosto-ugc-container {
   height: 210px;
-}
 
-.tile-image,
-.tile-video {
-  position: relative;
-}
+  .swiper-slide {
+    width: 210px !important;
+  }
 
-.tile-tags {
-  position: absolute;
-  margin: 0 16.4px 8.4px 8px;
+  .tile-image,
+  .tile-video {
+    position: relative;
 
-  .tag-inline {
-    background: rgba(0, 0, 0, 0.4);
-    border-radius: 25px;
-    line-height: 12px;
+    .tile-timephrase {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 10px;
+      background-color: rgb(255 255 255 / 60%);
+      border-radius: 2px;
+      font-size: 12px;
+      display: var(--tile-timephrase-display);
+    }
 
-    a {
-      color: #fff;
+    .tile-tags {
+      position: absolute;
+      margin: 0 16.4px 8.4px 8px;
+
+      .tag-inline {
+        background: rgba(0, 0, 0, 0.4);
+        border-radius: 25px;
+        line-height: 12px;
+
+        a {
+          color: #fff;
+        }
+      }
     }
   }
 }

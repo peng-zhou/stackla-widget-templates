@@ -1,10 +1,9 @@
 import Swiper from "swiper"
 import { SdkSwiper } from "types"
 import { HashNavigation, Manipulation, Navigation } from "swiper/modules"
+import { SwiperMode } from "types/SdkSwiper"
 
 declare const sdk: SdkSwiper
-
-export type SwiperMode = "swiperInline" | "swiperExpanded"
 
 export type SwiperProps = {
   widgetSelector: HTMLElement
@@ -18,7 +17,7 @@ export type SwiperProps = {
 export function initializeSwiper({
   widgetSelector,
   perView,
-  mode = "swiperInline",
+  mode = "inline",
   prevButton = "swiper-button-prev",
   nextButton = "swiper-button-next",
   initialIndex = 0
@@ -30,16 +29,22 @@ export function initializeSwiper({
     throw new Error("Missing swiper Navigation elements for previous and next navigation")
   }
 
-  if (sdk[mode]) {
-    if (!sdk[mode]?.params.enabled) {
+  if (!sdk.swiperInstances) {
+    sdk.swiperInstances = {} as Record<SwiperMode, Swiper>
+  }
+
+  const swiperInstance = sdk.swiperInstances?.[mode]
+
+  if (swiperInstance) {
+    if (!swiperInstance.params.enabled) {
       enableSwiper(mode)
     } else {
       // re-initialize
-      sdk[mode].destroy(true)
+      swiperInstance.destroy(true)
     }
   }
 
-  sdk[mode] = new Swiper(widgetSelector, {
+  sdk.swiperInstances[mode] = new Swiper(widgetSelector, {
     modules: [Navigation, Manipulation, HashNavigation],
     spaceBetween: 10,
     slidesPerView: perView,
@@ -60,29 +65,36 @@ export function initializeSwiper({
   })
 }
 
+export function generateId() {
+  const minCeiled = Math.ceil(10)
+  const maxFloored = Math.floor(100)
+  const randomPrefix = Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled)
+  return randomPrefix + Date.now().toString(16)
+}
+
 export function refreshSwiper(mode: SwiperMode) {
-  sdk[mode]?.update()
+  sdk.swiperInstances?.[mode]?.update()
 }
 
 export function disableSwiper(mode: SwiperMode) {
-  sdk[mode]?.disable()
+  sdk.swiperInstances?.[mode]?.disable()
 }
 
 export function enableSwiper(mode: SwiperMode) {
-  sdk[mode]?.enable()
+  sdk.swiperInstances?.[mode]?.enable()
 }
 
 export function destroySwiper(mode: SwiperMode) {
-  sdk[mode]?.destroy(true, true)
+  sdk.swiperInstances?.[mode]?.destroy(true, true)
 }
 
 export function getClickedIndex(mode: SwiperMode) {
-  if (sdk[mode]) {
-    const clickedSlide = sdk[mode].clickedSlide
+  if (sdk.swiperInstances?.[mode]) {
+    const clickedSlide = sdk.swiperInstances[mode].clickedSlide
     const indexFromAttribute = clickedSlide.attributes.getNamedItem("data-swiper-slide-index")?.value
     return indexFromAttribute && !Number.isNaN(parseInt(indexFromAttribute))
       ? parseInt(indexFromAttribute)
-      : sdk[mode].clickedIndex
+      : sdk.swiperInstances[mode].clickedIndex
   }
   return 0
 }
