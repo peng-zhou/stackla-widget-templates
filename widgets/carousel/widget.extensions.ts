@@ -128,15 +128,3 @@ export function hideSlidesWithInvisibleTilesBackup() {
   })
   refreshSwiper("swiperInline")
 }
-
-export function hideSlidesWithInvisibleTiles() {
-  //refreshSwiper("swiperInline")
-}
-
-export function onPreloadTileHidden(tileId: string) {
-  const widgetSelectorWrapper = sdk.placement.querySelector(".swiper-wrapper")
-  const slide = widgetSelectorWrapper?.querySelector<HTMLElement>(`.swiper-slide[data-id="${tileId}"]`)
-  slide?.remove()
-
-  refreshSwiper("swiperInline")
-}

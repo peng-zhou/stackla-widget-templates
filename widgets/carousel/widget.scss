@@ -1,10 +1,12 @@
 @import "templates/tags/tags.scss";
-@import "../styles/toolip.scss";
+@import "../styles/inline-tile.scss";
 
 .loading {
   border-radius: 50% !important;
   -webkit-animation: spin 2s linear infinite; /* Safari */
   animation: spin 2s linear infinite;
+  position: absolute;
+  z-index: 10;
 }
 
 @keyframes spin {
@@ -40,28 +42,6 @@
   }
 }
 
-.tile {
-  .tile-image,
-  .tile-video {
-    position: relative;
-  }
-
-  .tile-tags {
-    position: absolute;
-    margin: 0 16.4px 8.4px 8px;
-
-    .tag-inline {
-      background: rgba(0, 0, 0, 0.4);
-      border-radius: 25px;
-      line-height: 12px;
-
-      a {
-        color: #fff;
-      }
-    }
-  }
-}
-
 .hidden {
   display: none;
 }
@@ -82,13 +62,13 @@
   .swiper-slide {
     align-items: center;
 
-    > .tile-loading {
+    > .tile > .tile-loading {
       @extend .loading;
       border: 5px solid #f3f3f3;
       border-top: 5px solid #3498db;
       border-bottom: 5px solid #3498db;
-      width: 50px !important;
-      height: 50px !important;
+      width: 30px !important;
+      height: 30px !important;
     }
   }
 }

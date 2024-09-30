@@ -38,12 +38,12 @@ export function initializeSwiper({
     spaceBetween: 10,
     slidesPerView: perView,
     observer: true,
-    observeSlideChildren: true,
     loop: true,
     grabCursor: true,
     maxBackfaceHiddenSlides: 0,
     direction: "horizontal",
     watchSlidesProgress: true,
+    watchOverflow: true,
     navigation: {
       nextEl: next,
       prevEl: prev
@@ -84,33 +84,40 @@ function disblePrevNavigation(swiper: Swiper) {
   swiper.navigation.prevEl.querySelector("span.swiper-nav-icon")?.classList.add("nav-loading")
 }
 
+function registerObserver(swiperWrapperElem: HTMLElement) {
+  if (swiperWrapperElem) {
+    const observer = new MutationObserver(() => {
+      enableSlides(swiperWrapperElem)
+    })
+    observer.observe(swiperWrapperElem, {
+      childList: true
+    })
+    return observer
+  }
+  return undefined
+}
+
 function loadTilesAsync(swiper: Swiper, mode: SwiperMode) {
-  const totalIterationRequired = sdk.tiles.totalIteration()
+  const observer = registerObserver(swiper.wrapperEl)
   return new Promise<void>(async resolve => {
     while (sdk.tiles.hasMorePages()) {
       sdk.tiles.page += 1
       await sdk.tiles.loadAndRenderTiles()
       sdk.tiles.reload()
       swiper.update()
-      if (totalIterationRequired > 3 && sdk.tiles.page > 1) {
-        enableIfEnoughTiles(swiper.el, sdk.tiles.page, mode)
-      }
     }
 
-    sdk[mode]!.isLoading = false
-    removeLoader(swiper.el)
-    enablePrevNavigation(swiper)
+    observer?.disconnect()
+    completeLoad(mode)
     swiper.update()
     resolve()
   })
 }
 
-function enableIfEnoughTiles(swiperElem: HTMLElement, page: number, mode: SwiperMode) {
-  const requiredTiles = (sdk[mode]?.perView || 1) * page
-  const totalActive = sdk.tiles.getVisibleTilesInDomCount()
-  if (requiredTiles <= totalActive) {
-    removeLoader(swiperElem, requiredTiles)
-  }
+function completeLoad(mode: SwiperMode) {
+  sdk[mode]!.isLoading = false
+  sdk[mode]!.instance?.off("activeIndexChange")
+  enablePrevNavigation(sdk[mode]!.instance!)
 }
 
 export function refreshSwiper(mode: SwiperMode) {
@@ -142,18 +149,24 @@ export function getClickedIndex(mode: SwiperMode) {
   return 0
 }
 
-function removeLoader(swiperElem: HTMLElement, count?: number) {
-  if (count) {
-    Array.from(swiperElem.querySelectorAll<HTMLElement>(".swiper-slide"))
-      .slice(0, count)
-      .forEach(element => {
-        element.querySelector(".tile-loading")?.classList.add("hidden")
-        element.querySelector(".tile.hidden")?.classList.remove("hidden")
-      })
-  } else {
-    Array.from(swiperElem.querySelectorAll<HTMLElement>(".swiper-slide")).forEach(element => {
-      element.querySelector(".tile-loading")?.classList.add("hidden")
-      element.querySelector(".tile.hidden")?.classList.remove("hidden")
-    })
+function enableSlides(swiperElem: HTMLElement) {
+  const elements = swiperElem.querySelectorAll<HTMLElement>(".swiper-slide:has(.tile-content.hidden)")
+  elements.forEach(element => {
+    enableSlide(element)
+  })
+}
+
+function enableSlide(slide: HTMLElement) {
+  const tileImage = slide.querySelector<HTMLImageElement>(".tile-image > img")
+  if (tileImage) {
+    if (tileImage.complete) {
+      enableTileContent(slide)
+    }
+    tileImage.onload = () => enableTileContent(slide)
   }
+}
+
+function enableTileContent(slide: HTMLElement) {
+  slide.querySelector(".tile-loading")?.classList.add("hidden")
+  slide.querySelector(".tile-content.hidden")?.classList.remove("hidden")
 }
