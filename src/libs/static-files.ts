@@ -1,3 +1,4 @@
+import { Express } from "express-serve-static-core"
 import fs from "fs"
 import path from "path"
 
@@ -17,14 +18,16 @@ function getComponentFilePaths() {
   return components.map(component => path.resolve(__dirname, `${WIDGET_PATH}/${component}.js`))
 }
 
-export function loadStaticFileRoutes(expressApp) {
+export function loadStaticFileRoutes(expressApp: Express) {
   getComponentFilePaths().forEach(componentPath => {
     const jsCode = fs.readFileSync(componentPath, "utf8")
     const componentName = path.basename(componentPath, ".js")
 
     expressApp.get(`/${componentName}.js`, (req, res) => {
+      const host = req.headers.host || "http://localhost:4003"
+      const port = host.substring(host.indexOf(":") + 1)
       const parsedCode = jsCode
-        .replace(/https:\/\/widget-data.stackla.com/g, "http://localhost:4003")
+        .replace(/https:\/\/widget-data.stackla.com/g, `http://localhost:${port}}`)
         .replace(/https:\/\/widget-ui.stackla.com/g, "http://localhost:4002")
         .replace(/\/tiles\?/g, `/tiles?widgetType=${req.query.widgetType}&`)
 

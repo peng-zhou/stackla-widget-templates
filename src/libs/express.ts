@@ -5,7 +5,6 @@ import cors from "cors"
 import path from "path"
 import { readFileSync } from "fs"
 import * as Handlebars from "hbs"
-import fs from "fs"
 import { getAndRenderTiles, getTilesToRender, renderTemplates } from "./tile.handlers"
 import { loadStaticFileRoutes } from "./static-files"
 import widgetOptions from "../../tests/fixtures/widget.options"
@@ -49,8 +48,10 @@ const stripSymbolsThatAreNotDash = (str: string) => str.replace(/[^a-zA-Z0-9-]/g
 loadStaticFileRoutes(expressApp)
 
 expressApp.use((req, res, next) => {
+  const host = req.headers.host || "http://localhost:4003"
+  const port = host.substring(host.indexOf(":") + 1)
   if (req.hostname === "127.0.0.1") {
-    res.redirect(301, `http://localhost:4003${req.originalUrl}`)
+    res.redirect(301, `http://localhost:${port}${req.originalUrl}`)
     return
   }
 
