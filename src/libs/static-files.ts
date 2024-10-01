@@ -1,4 +1,3 @@
-import { Express } from "express-serve-static-core"
 import fs from "fs"
 import path from "path"
 
@@ -18,7 +17,7 @@ function getComponentFilePaths() {
   return components.map(component => path.resolve(__dirname, `${WIDGET_PATH}/${component}.js`))
 }
 
-export function loadStaticFileRoutes(expressApp: Express) {
+export function loadStaticFileRoutes(expressApp) {
   getComponentFilePaths().forEach(componentPath => {
     const jsCode = fs.readFileSync(componentPath, "utf8")
     const componentName = path.basename(componentPath, ".js")
