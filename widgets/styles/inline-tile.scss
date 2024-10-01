@@ -11,17 +11,28 @@
     width: 100%;
   }
 
-  .tile-tags {
-    position: absolute;
-    margin: 0 16.4px 8.4px 8px;
+  .tile-content {
+    z-index: 10;
+    .tile-timephrase {
+      color: #b9bab9;
+      border-radius: 2px;
+      font-size: 14px;
+      font-weight: 400;
+      display: var(--tile-timephrase-display);
+    }
 
-    .tag-inline {
-      background: rgba(0, 0, 0, 0.4);
-      border-radius: 25px;
-      line-height: 12px;
+    .tile-tags {
+      position: absolute;
+      margin: 0 16.4px 8.4px 8px;
 
-      a {
-        color: #fff;
+      .tag-inline {
+        background: rgba(0, 0, 0, 0.4);
+        border-radius: 25px;
+        line-height: 12px;
+
+        a {
+          color: #fff;
+        }
       }
     }
   }

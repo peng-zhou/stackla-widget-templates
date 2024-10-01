@@ -44,6 +44,7 @@ export function initializeSwiper({
     observer: true,
     loop: true,
     grabCursor: true,
+    lazyPreloadPrevNext: perView,
     maxBackfaceHiddenSlides: 0,
     direction: "horizontal",
     watchSlidesProgress: true,
@@ -57,8 +58,7 @@ export function initializeSwiper({
         swiper.slideToLoop(initialIndex, 0, false)
         sdk.swiperInstances![mode]!.isLoading = true
         swiper.allowSlidePrev = false
-        swiper.navigation.prevEl.querySelector("span.swiper-nav-icon")?.classList.add("nav-loading")
-        loadTilesAsync(swiper, mode)
+        void loadTilesAsync(swiper, mode)
       },
       activeIndexChange: swiper => {
         if (swiper.navigation.prevEl) {
@@ -78,50 +78,48 @@ export function initializeSwiper({
 
 function enablePrevNavigation(swiper: Swiper) {
   swiper.allowSlidePrev = true
-  swiper.navigation.prevEl.querySelector("span.swiper-nav-icon")?.classList.add("chevron-left")
-  swiper.navigation.prevEl.querySelector("span.swiper-nav-icon")?.classList.remove("nav-loading")
+  swiper.navigation.prevEl.style.display = "flex"
 }
 
 function disblePrevNavigation(swiper: Swiper) {
   swiper.allowSlidePrev = false
-  swiper.navigation.prevEl.querySelector("span.swiper-nav-icon")?.classList.remove("chevron-left")
-  swiper.navigation.prevEl.querySelector("span.swiper-nav-icon")?.classList.add("nav-loading")
+  swiper.navigation.prevEl.style.display = "none"
 }
 
-function registerObserver(swiperWrapperElem: HTMLElement) {
-  if (swiperWrapperElem) {
-    const observer = new MutationObserver(() => {
-      enableSlides(swiperWrapperElem)
-    })
-    observer.observe(swiperWrapperElem, {
-      childList: true
-    })
-    return observer
-  }
-  return undefined
-}
-
-function loadTilesAsync(swiper: Swiper, mode: SwiperMode) {
-  const observer = registerObserver(swiper.wrapperEl)
-  return new Promise<void>(async resolve => {
-    while (sdk.tiles.hasMorePages()) {
-      sdk.tiles.page += 1
-      await sdk.tiles.loadAndRenderTiles()
-      sdk.tiles.reload()
-      swiper.update()
-    }
-
-    observer?.disconnect()
-    completeLoad(mode)
-    swiper.update()
-    resolve()
+function registerObserver(swiperWrapperElement: HTMLElement) {
+  const observer = new MutationObserver(() => {
+    enableSlides(swiperWrapperElement)
   })
+  observer.observe(swiperWrapperElement, {
+    childList: true
+  })
+  return observer
 }
 
-function completeLoad(mode: SwiperMode) {
-  sdk.swiperInstances![mode]!.isLoading = false
-  sdk.swiperInstances![mode]!.instance?.off("activeIndexChange")
-  enablePrevNavigation(sdk.swiperInstances![mode]!.instance!)
+async function loadTilesAsync(swiper: Swiper, mode: SwiperMode) {
+  const observer = registerObserver(swiper.wrapperEl)
+  while (sdk.tiles.hasMorePages()) {
+    sdk.tiles.page += 1
+    await sdk.tiles.loadAndRenderTiles()
+    sdk.tiles.reload()
+    swiper.update()
+  }
+
+  observer.disconnect()
+  updateLoadingStateInterval(swiper.el, mode)
+  swiper.update()
+}
+
+function updateLoadingStateInterval(swiperElem: HTMLElement, mode: SwiperMode) {
+  const intervalId = setInterval(function () {
+    const elements = swiperElem.querySelectorAll<HTMLElement>(".swiper-slide:has(.tile-content.hidden)")
+    if (elements.length === 0) {
+      sdk.swiperInstances![mode]!.isLoading = false
+      sdk.swiperInstances![mode]!.instance?.off("activeIndexChange")
+      enablePrevNavigation(sdk.swiperInstances![mode]!.instance!)
+      clearInterval(intervalId)
+    }
+  }, 200)
 }
 
 export function generateId() {
@@ -160,11 +158,9 @@ export function getClickedIndex(mode: SwiperMode) {
   return 0
 }
 
-function enableSlides(swiperElem: HTMLElement) {
-  const elements = swiperElem.querySelectorAll<HTMLElement>(".swiper-slide:has(.tile-content.hidden)")
-  elements.forEach(element => {
-    enableSlide(element)
-  })
+function enableSlides(swiperWrapperElement: HTMLElement) {
+  const elements = swiperWrapperElement.querySelectorAll<HTMLElement>(".swiper-slide:has(.tile-content.hidden)")
+  elements.forEach(element => enableSlide(element))
 }
 
 function enableSlide(slide: HTMLElement) {

@@ -39,6 +39,9 @@ function initializeInlineSwiper(widgetSettings: IWidgetSettings) {
     ? Math.floor(screenSize / (tileWidth + 10))
     : widgetSettings.tiles_per_page
 
+  const width = (tileWidth + 10) * perView
+  widgetSelector.style.width = `${width}px`
+
   sdk.tiles.setVisibleTilesCount(perView * 2)
 
   initializeSwiper({
