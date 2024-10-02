@@ -47,6 +47,7 @@ const stripSymbolsThatAreNotDash = (str: string) => str.replace(/[^a-zA-Z0-9-]/g
 loadStaticFileRoutes(expressApp)
 
 expressApp.use((req, res, next) => {
+  console.log("req is ", req.headers.host)
   const host = req.headers.host || "http://localhost:4003"
   const port = host.substring(host.indexOf(":") + 1)
   if (req.hostname === "127.0.0.1") {
