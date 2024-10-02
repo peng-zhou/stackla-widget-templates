@@ -1,17 +1,25 @@
 .swiper {
-  height: calc(100% - 50px);
+  .swiper-wrapper {
+    height: 701px;
 
-  .swiper-slide {
-    align-items: flex-start;
+    .swiper-slide {
+      align-items: flex-start;
 
-    div.image-filler {
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
-      position: absolute;
-      filter: blur(50px) brightness(0.5);
-      inset: 0;
-      transform: scale(1.2);
+      div.image-filler {
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: absolute;
+        filter: blur(50px) brightness(0.5);
+        inset: 0;
+        transform: scale(1.2);
+      }
     }
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .swiper .swiper-wrapper {
+    height: auto;
   }
 }

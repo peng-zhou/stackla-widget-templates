@@ -1,6 +1,6 @@
 .share-socials-popup-wrapper {
   display: none;
-  position: absolute;
+  position: fixed;
   right: 30%;
   top: 37%;
   z-index: 3;
@@ -93,6 +93,13 @@
   all: initial;
   cursor: pointer;
   position: absolute;
-  right: 20px;
-  top: 29px;
+  right: 0px;
+  top: 0;
+}
+
+@media only screen and (max-width: 1024px) {
+  .share-socials-popup-wrapper {
+    right: 25%;
+    top: 30%;
+  }
 }
