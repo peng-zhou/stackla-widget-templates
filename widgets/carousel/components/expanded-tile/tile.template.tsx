@@ -22,32 +22,35 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
   const widgetSettings = getConfig(widgetContainer)
   const shopspotEnabled = sdk.isComponentLoaded("shopspots") && widgetSettings.expanded_tile_show_shopspots
   const productsEnabled = sdk.isComponentLoaded("products") && widgetSettings.expanded_tile_show_products
+
   const parent = sdk.getNodeId()
+
+  const isDesktopScreen = window.innerWidth >= 1024
 
   return (
     <div class="panel">
       <div class="panel-overlay"></div>
-      <div class="panel-left">
+      <div class={`${!isDesktopScreen && (!tile.image || tile.media) !== "video" ? "no-image-panel" : "panel-left"}`}>
         <div class="image-wrapper">
           <div class="image-wrapper-inner">
-            {tile.image ? (
-              <>
-                <div class="image-filler" style={{ "background-image": `url('${tile.image}')` }}></div>
-                <div class="image">
-                  <ShopSpotTemplate shopspotEnabled={shopspotEnabled} parent={parent} tileId={tile.id} />
-                  <img class="image-element" src={tile.image} loading="lazy" />
-                  <div class="swiper-lazy-preloader"></div>
-                </div>
-              </>
+            {tile.media === "video" ? (
+              <VideoTemplate />
+            ) : tile.media === "image" ? (
+              <ImageTemplate
+                tile={tile}
+                productsEnabled={productsEnabled}
+                shopspotEnabled={shopspotEnabled}
+                parent={parent}
+              />
             ) : (
               <></>
             )}
+            <div>
+              <span class="source">
+                <i class={"fs fs-" + tile.source}></i>
+              </span>
+            </div>
           </div>
-        </div>
-        <div>
-          <span class="source">
-            <i class={"fs fs-" + tile.source}></i>
-          </span>
         </div>
       </div>
       <div class="panel-right">
@@ -55,7 +58,7 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
           <div class="content-wrapper">
             <div class="content-inner-wrapper">
               <button class="share-button">
-                <span class="widget-icon icon-share"></span>
+                <span class="widget-icon icon-share" alt="Share button"></span>
               </button>
               <ShareMenu tile={tile} />
               <div class="user-info-wrapper">
@@ -128,4 +131,106 @@ function ShopSpotTemplate({ shopspotEnabled, parent, tileId }: ShopspotProps) {
   ) : (
     <></>
   )
+}
+
+function ImageTemplate({
+  tile,
+  productsEnabled,
+  shopspotEnabled,
+  parent
+}: {
+  tile: Tile
+  productsEnabled: boolean
+  shopspotEnabled: ShopspotProps["shopspotEnabled"]
+  parent: ShopspotProps["parent"]
+}) {
+  return tile.image ? (
+    <>
+      <div class="image-filler" style={{ "background-image": `url('${tile.image}')` }}></div>
+      <div class="image">
+        <span class="youtube-reels-icon"></span>
+        <span class="instagram-icon"></span>
+        {productsEnabled ? <span class="product-bag-icon" aria-label="Product bag icon"></span> : <></>}
+        <ShopSpotTemplate shopspotEnabled={shopspotEnabled} parent={parent} tileId={tile.id} />
+        <img class="image-element" src={tile.image} loading="lazy" alt={tile.description || "Image"} />
+        <div class="swiper-lazy-preloader"></div>
+      </div>
+    </>
+  ) : (
+    <></>
+  )
+}
+
+function VideoTemplate() {
+  const handlePlayPause = (event: MouseEvent) => {
+    const videoWrapper = (event.currentTarget as HTMLElement).closest(".video-wrapper")
+    const video = videoWrapper?.querySelector("video")
+    const playPauseButton = videoWrapper?.querySelector(".play-pause-button span")
+
+    if (video && playPauseButton) {
+      if (video.paused) {
+        void video.play()
+        playPauseButton.classList.remove("icon-play")
+        playPauseButton.classList.add("icon-pause")
+      } else {
+        video.pause()
+        playPauseButton.classList.remove("icon-pause")
+        playPauseButton.classList.add("icon-play")
+      }
+    }
+  }
+
+  const handleMuteUnmute = (event: MouseEvent) => {
+    const video = (event.currentTarget as HTMLElement).closest(".video-wrapper")?.querySelector("video")
+    if (video) {
+      video.muted = !video.muted
+    }
+  }
+
+  const handleFullscreen = (event: MouseEvent) => {
+    const videoWrapper = (event.currentTarget as HTMLElement).closest(".video-wrapper")
+    if (videoWrapper) {
+      if (document.fullscreenElement) {
+        void document.exitFullscreen()
+      } else {
+        void videoWrapper.requestFullscreen()
+      }
+    }
+  }
+
+  return (
+    <div class="video-wrapper">
+      <video autoplay oncanplay="this.muted=true">
+        <source
+          //TODO: replace with actual url
+          src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+          type="video/mp4"
+        />
+      </video>
+      <div class="video-control-panel" onMouseEnter={() => showControls(true)} onMouseLeave={() => showControls(false)}>
+        <button class="play-pause-button" onClick={handlePlayPause} aria-label="Play or Pause">
+          <span class="icon-play"></span>
+        </button>
+        <button class="mute-unmute-button" onClick={handleMuteUnmute} aria-label="Mute button">
+          <span class="icon-mute"></span>
+        </button>
+        <button class="fullscreen-button" onClick={handleFullscreen} aria-label="Fullscreen button">
+          <span class="icon-fullscreen"></span>
+        </button>
+        <button class="more-option-button" aria-label="More option button">
+          <span class="icon-more-option"></span>
+        </button>
+        <div class="video-progress-bar">
+          <div class="progress"></div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function showControls(show: boolean) {
+  const controlPanel = document.querySelector(".video-control-panel")
+  if (controlPanel instanceof HTMLElement) {
+    controlPanel.style.opacity = show ? "1" : "0"
+  }
 }
