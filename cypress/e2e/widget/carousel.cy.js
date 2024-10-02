@@ -5,7 +5,6 @@ describe("Should test the carousel", () => {
 
   it("Should display timephrase in the tile", () => {
     cy.visitWidget("carousel")
-
     cy.getFirstTile().find(".tile-timephrase").should("exist").invoke("text").should("not.be.empty")
   })
 })

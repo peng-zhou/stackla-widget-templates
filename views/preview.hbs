@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Widget Preview</title>
-  <script type="text/javascript" src="http://localhost:4003/core.js?widgetType={{{widgetType}}}"></script>
+  <script type="text/javascript" src="http://localhost:4002/core.js?widgetType={{{widgetType}}}"></script>
 </head>
+
 <body>
   <div id="ugc-widget" data-wid='668ca52ada8fb'></div>
   <script>
@@ -13,28 +15,29 @@
     const layoutTemplate = `{{{layoutCode}}}`;
     const tileTemplate = `{{{tileCode}}}`;
     const jsTemplate = "{{{jsCode}}}";
-        
+
     var stackWidgetCustomData = {};
     const widgetParams = {
-        "draft": {
-            "guid": "668ca52ada8fb",
-            "filter_id": 10695,
-            "enabled": 1,
-            "custom_css": cssTemplate,
-            "custom_js": jsTemplate,
-            "custom_templates": {
-                "layout": {
-                    "template": layoutTemplate,
-                },
-                "tile": {
-                    "template": tileTemplate,
-                }
-            }
-       },
-       "wid": "668ca52ada8fb",
+      "draft": {
+        "guid": "668ca52ada8fb",
+        "filter_id": 10695,
+        "enabled": 1,
+        "custom_css": cssTemplate,
+        "custom_js": jsTemplate,
+        "custom_templates": {
+          "layout": {
+            "template": layoutTemplate,
+          },
+          "tile": {
+            "template": tileTemplate,
+          }
+        }
+      },
+      "wid": "668ca52ada8fb",
     };
     const widget = new window.ugc.widget(widgetParams);
     widget.init();
   </script>
 </body>
+
 </html>
