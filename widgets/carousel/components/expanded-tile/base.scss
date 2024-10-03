@@ -37,7 +37,7 @@ html {
   width: 100%;
 }
 
-.stacklapopup-products-item-button { 
+.stacklapopup-products-item-button {
   background-color: var(--cta-button-background-color);
   color: var(--cta-button-font-color);
   font-size: var(--cta-button-font-size);
@@ -53,27 +53,4 @@ html {
   padding-left: 16px;
   //TODO: change to a variable that is used for .swiper .swiper-slide too
   border-radius: 5px 5px 0 0;
-}
-
-.image-wrapper-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-.video-wrapper {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #000000;
-}
-
-.video-wrapper video {
-  height: 100%;
-  width: 100%;
-  z-index: 1;
 }
