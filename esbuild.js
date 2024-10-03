@@ -107,10 +107,9 @@ async function buildAll () {
 
     if (isWatch) {
       startWebSocketServer()
-      await esbuild.build(config);
-    } else {
-      await esbuild.build(config);
     }
+
+    await esbuild.build(config);
   } else {
     await esbuild.build(config)
   }
