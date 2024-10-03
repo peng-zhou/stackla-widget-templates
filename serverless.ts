@@ -1,12 +1,11 @@
 const { serverlessConfig } = require("@stackla/base-serverless")
-const { handlerPath } = require("@stackla/lambda-api-bootstrap")
 
 const env = process.env.APP_ENV || "development"
 
 const testingHooks = {
-  "before:package:initialize": ["npm run dev"],
-  "before:offline:start:init": ["npm run dev"],
-  "before:webpack:compile:compile": ["npm run dev"]
+  "before:package:initialize": ["npm run test:build"],
+  "before:offline:start:init": ["npm run test:build"],
+  "before:webpack:compile:compile": ["npm run test:build"]
 }
 
 const defaultHooks = {
@@ -19,8 +18,9 @@ const plugins: string[] = ["serverless-webpack", "serverless-offline", "serverle
 const getPort = () => {
   switch (env) {
     case "development":
-    case "testing":
       return 4003
+    case "testing":
+      return 4002
     default:
       return 80
   }
