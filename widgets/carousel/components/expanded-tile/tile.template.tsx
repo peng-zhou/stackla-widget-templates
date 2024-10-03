@@ -75,7 +75,7 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
                 <Tags tile={tile} />
                 {productsEnabled ? (
                   <>
-                    <ugc-products parent={parent} tile={tile.id} />
+                    <ugc-products parent={parent} tile-id={tile.id} />
                   </>
                 ) : (
                   ""
