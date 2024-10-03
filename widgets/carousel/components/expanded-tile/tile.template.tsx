@@ -162,75 +162,14 @@ function ImageTemplate({
 }
 
 function VideoTemplate() {
-  const handlePlayPause = (event: MouseEvent) => {
-    const videoWrapper = (event.currentTarget as HTMLElement).closest(".video-wrapper")
-    const video = videoWrapper?.querySelector("video")
-    const playPauseButton = videoWrapper?.querySelector(".play-pause-button span")
-
-    if (video && playPauseButton) {
-      if (video.paused) {
-        void video.play()
-        playPauseButton.classList.remove("icon-play")
-        playPauseButton.classList.add("icon-pause")
-      } else {
-        video.pause()
-        playPauseButton.classList.remove("icon-pause")
-        playPauseButton.classList.add("icon-play")
-      }
-    }
-  }
-
-  const handleMuteUnmute = (event: MouseEvent) => {
-    const video = (event.currentTarget as HTMLElement).closest(".video-wrapper")?.querySelector("video")
-    if (video) {
-      video.muted = !video.muted
-    }
-  }
-
-  const handleFullscreen = (event: MouseEvent) => {
-    const videoWrapper = (event.currentTarget as HTMLElement).closest(".video-wrapper")
-    if (videoWrapper) {
-      if (document.fullscreenElement) {
-        void document.exitFullscreen()
-      } else {
-        void videoWrapper.requestFullscreen()
-      }
-    }
-  }
-
   return (
     <div class="video-wrapper">
-      <video autoplay oncanplay="this.muted=true">
+      <video autoplay oncanplay="this.muted=true" controls>
         <source
-          //TODO: replace with actual url
           src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
           type="video/mp4"
         />
       </video>
-      <div class="video-control-panel" onMouseEnter={() => showControls(true)} onMouseLeave={() => showControls(false)}>
-        <button class="play-pause-button" onClick={handlePlayPause} aria-label="Play or Pause">
-          <span class="icon-play"></span>
-        </button>
-        <button class="mute-unmute-button" onClick={handleMuteUnmute} aria-label="Mute button">
-          <span class="icon-mute"></span>
-        </button>
-        <button class="fullscreen-button" onClick={handleFullscreen} aria-label="Fullscreen button">
-          <span class="icon-fullscreen"></span>
-        </button>
-        <button class="more-option-button" aria-label="More option button">
-          <span class="icon-more-option"></span>
-        </button>
-        <div class="video-progress-bar">
-          <div class="progress"></div>
-        </div>
-      </div>
     </div>
   )
-}
-
-function showControls(show: boolean) {
-  const controlPanel = document.querySelector(".video-control-panel")
-  if (controlPanel instanceof HTMLElement) {
-    controlPanel.style.opacity = show ? "1" : "0"
-  }
 }
