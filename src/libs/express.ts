@@ -73,8 +73,10 @@ expressApp.use("/preview", (req, res, next) => {
   }
 })
 
-async function getContent(widgetType: string) {
-  console.log("widgetType: ", widgetType)
+async function getContent(widgetType: string, retry = 0): Promise<PreviewContent> {
+  if (retry > 3) {
+    throw new Error("Failed to get content, exiting")
+  }
 
   const rootDir = path.resolve(__dirname, `../../../../../dist/widgets/${widgetType}`)
 
@@ -98,7 +100,7 @@ async function getContent(widgetType: string) {
   } catch (e) {
     await new Promise((resolve) => setTimeout(resolve, 3000))
     
-    return getContent(widgetType);
+    return getContent(widgetType, retry + 1)
   }
 }
 

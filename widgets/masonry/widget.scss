@@ -6,23 +6,15 @@
     $total-padding: 20px;
     box-sizing: border-box;
 
-    @include for-big-desktop {
+    @include breakpoint(desktop) {
       width: #{'calc((100vw / 6) - #{$total-padding})'};
     }
 
-    @include for-desktop {
-      width:  #{'calc((100vw / 5) - #{$total-padding})'};
-    }
-
-    @include for-tablet-landscape {
+    @include breakpoint(tablet) {
       width:  #{'calc((100vw / 4) - #{$total-padding})'};
     }
 
-    @include for-tablet-portrait {
-      width:  #{'calc((100vw / 3) - #{$total-padding})'};
-    }
-
-    @include for-phone-only {
+    @include breakpoint(mobile) {
       width:  #{'calc((100vw / 1) - #{$total-padding})'};
     }
 

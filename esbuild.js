@@ -116,13 +116,18 @@ async function buildAll () {
   }
 }
 
-async function buildAllWithErrorHandling() {
+async function buildAllWithErrorHandling(retries = 0) {
+  if (retries > 3) {
+    console.error("Failed to build after 3 retries. Exiting.")
+    process.exit(1)
+  }
+
   try {
     await buildAll()
   } catch (e) {
     console.error("Error building. Retrying.", e)
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    buildAllWithErrorHandling()
+    await new Promise(resolve => setTimeout(resolve, 3000))
+    buildAllWithErrorHandling(retries + 1)
   }
 }
 
