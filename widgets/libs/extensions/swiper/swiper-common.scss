@@ -53,6 +53,7 @@
   --swiper-navigation-size: 20px;
 }
 
+//TODO: use mixins when available
 @media only screen and (max-width: 1024px) {
   .swiper .swiper-slide {
     border-radius: 0;
