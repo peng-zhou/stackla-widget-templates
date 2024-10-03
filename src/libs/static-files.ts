@@ -23,8 +23,10 @@ export function loadStaticFileRoutes(expressApp) {
     const componentName = path.basename(componentPath, ".js")
 
     expressApp.get(`/${componentName}.js`, (req, res) => {
+      const host = req.headers.host || "http://localhost:4003"
+      const port = host.substring(host.indexOf(":") + 1)
       const parsedCode = jsCode
-        .replace(/https:\/\/widget-data.stackla.com/g, "http://localhost:4003")
+        .replace(/https:\/\/widget-data.stackla.com/g, `http://localhost:${port}`)
         .replace(/https:\/\/widget-ui.stackla.com/g, "http://localhost:4002")
         .replace(/\/tiles\?/g, `/tiles?widgetType=${req.query.widgetType}&`)
 
