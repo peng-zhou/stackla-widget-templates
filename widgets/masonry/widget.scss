@@ -5,6 +5,8 @@
   .ugc-tile {
     $total-padding: 20px;
     box-sizing: border-box;
+    border-radius: 12px;
+    overflow: hidden;
 
     @include for-big-desktop {
       width: #{'calc((100vw / 6) - #{$total-padding})'};
@@ -59,7 +61,9 @@
       .tag-inline {
         background: rgba(0, 0, 0, 0.4);
         border-radius: 25px;
-        line-height: 12px;
+        font-size: 14px;
+        padding: 4px;
+        font-weight: 400;
 
         a {
           color: #fff;

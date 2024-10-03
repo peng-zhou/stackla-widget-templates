@@ -1,11 +1,5 @@
-import {
-  onTileExpand,
-  initializeInlineSwiperListeners,
-  onTileClosed,
-  hideSlidesWithInvisibleTiles,
-  onPreloadTileHidden,
-  onTileRendered
-} from "./widget.extensions"
+import { initializeInlineSwiperListeners, hideSlidesWithInvisibleTiles, onPreloadTileHidden } from "./widget.extensions"
+import { onTileExpand, onTileClosed, onTileRendered } from "@widgets/libs/extensions/swiper/swiper.expanded-tile"
 import {
   registerPreloadTileHidden,
   registerTilesUpdated,
