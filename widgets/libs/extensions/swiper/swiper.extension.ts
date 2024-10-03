@@ -42,8 +42,9 @@ export function initializeSwiper({
     spaceBetween: 10,
     slidesPerView: perView,
     observer: true,
+    grabCursor: false,
+    allowTouchMove: false,
     loop: true,
-    grabCursor: true,
     lazyPreloadPrevNext: perView,
     maxBackfaceHiddenSlides: 0,
     direction: "horizontal",
@@ -98,9 +99,9 @@ function registerObserver(swiperWrapperElement: HTMLElement) {
 
 async function loadTilesAsync(swiper: Swiper, mode: SwiperMode) {
   const observer = registerObserver(swiper.wrapperEl)
-  while (sdk.tiles.hasMorePages()) {
+  while (sdk.tiles.hasMoreTiles()) {
     sdk.tiles.page += 1
-    await sdk.tiles.loadAndRenderTiles()
+    await sdk.tiles.loadAndRenderTiles(sdk.tiles.page)
     sdk.tiles.reload()
     swiper.update()
   }
@@ -115,7 +116,9 @@ function updateLoadingStateInterval(swiperElem: HTMLElement, mode: SwiperMode) {
     const elements = swiperElem.querySelectorAll<HTMLElement>(".swiper-slide:has(.tile-content.hidden)")
     if (elements.length === 0) {
       sdk.swiperInstances![mode]!.isLoading = false
-      sdk.swiperInstances![mode]!.instance?.off("activeIndexChange")
+      sdk.swiperInstances![mode]!.instance!.off("activeIndexChange")
+      sdk.swiperInstances![mode]!.instance!.setGrabCursor()
+      sdk.swiperInstances![mode]!.instance!.allowTouchMove = true
       enablePrevNavigation(sdk.swiperInstances![mode]!.instance!)
       clearInterval(intervalId)
     }
