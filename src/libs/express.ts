@@ -48,7 +48,7 @@ loadStaticFileRoutes(expressApp)
 
 expressApp.use((req, res, next) => {
   const host = req.headers.host || "http://localhost:4003"
-  const port = host.substring(host.indexOf(":") + 1)
+  const port = host.split(":")[1]
   if (req.hostname === "127.0.0.1") {
     res.redirect(301, `http://localhost:${port}${req.originalUrl}`)
     return
