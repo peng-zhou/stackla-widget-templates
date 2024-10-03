@@ -30,9 +30,9 @@ describe("getCSSVariables", () => {
       expanded_tile_show_products: false,
       expanded_tile_show_shopspots: false,
       inline_tile_show_timestamps: false,
-      tile_tag_background: "D6D4D5"
-      // cta_button_background_color: "000000",
-      // cta_button_font_color: "ffffff"
+      tile_tag_background: "D6D4D5",
+      cta_button_background_color: "000000",
+      cta_button_font_color: "ffffff"
     }
 
     const expectedCSS = `

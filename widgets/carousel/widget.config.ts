@@ -60,10 +60,9 @@ export function getConfig(widgetContainer: WidgetContainer): IWidgetSettings {
     shopspot_btn_font_color: widgetStyle?.shopspot_btn_font_color,
     shopspot_icon: widgetStyle?.shopspot_icon,
     show_caption: widgetConfig?.tile_options?.show_caption ?? true,
-    //TODO: uncomment when variables are available in the stackla-widgets
-    // cta_button_background_color: widgetStyle?.cta_button_background_color,
-    // cta_button_font_color: widgetStyle?.cta_button_font_color,
-    // cta_button_font_size: widgetStyle?.cta_button_font_size,
+    cta_button_background_color: widgetStyle?.cta_button_background_color,
+    cta_button_font_color: widgetStyle?.cta_button_font_color,
+    cta_button_font_size: widgetStyle?.cta_button_font_size,
     ...widgetProperties,
     ...inlineTileProperties,
     ...tileTextProperties,
