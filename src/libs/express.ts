@@ -49,7 +49,7 @@ loadStaticFileRoutes(expressApp)
 
 expressApp.use((req, res, next) => {
   const host = req.headers.host || "http://localhost:4003"
-  const port = host.substring(host.indexOf(":") + 1)
+  const port = host.split(":")[1]
   if (req.hostname === "127.0.0.1") {
     res.redirect(301, `http://localhost:${port}${req.originalUrl}`)
     return
@@ -168,12 +168,14 @@ expressApp.get("/widgets/668ca52ada8fb/rendered/tiles", async (req, res) => {
 
 // Register preview route
 expressApp.get("/preview", (req, res) => {
+  const port = req.headers.host?.split(":")[1] || "4003"
   const widgetRequest = req.query as WidgetRequest
   const widgetType = req.query.widgetType as string
-
+  
   res.render("preview", {
     widgetRequest: JSON.stringify(widgetRequest),
     widgetType,
+    port: port,
     ...getContent(widgetType)
   })
 })
