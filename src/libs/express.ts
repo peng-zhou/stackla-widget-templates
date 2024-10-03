@@ -167,12 +167,14 @@ expressApp.get("/widgets/668ca52ada8fb/rendered/tiles", async (req, res) => {
 
 // Register preview route
 expressApp.get("/preview", (req, res) => {
+  const port = req.headers.host?.split(":")[1] || "4003"
   const widgetRequest = req.query as WidgetRequest
   const widgetType = req.query.widgetType as string
-
+  
   res.render("preview", {
     widgetRequest: JSON.stringify(widgetRequest),
     widgetType,
+    port: port,
     ...getContent(widgetType)
   })
 })
