@@ -9,7 +9,7 @@ declare const sdk: Sdk
 function ExitButton() {
   return (
     <a className="exit" href="#">
-      <span className="widget-icon close"></span>
+      <span className="widget-icon close" alt="Exit button"></span>
     </a>
   )
 }
