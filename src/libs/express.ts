@@ -180,7 +180,7 @@ expressApp.get("/preview", async (req, res) => {
   res.render("preview", {
     widgetRequest: JSON.stringify(widgetRequest),
     widgetType,
-    ...await getContent(widgetType)
+    ...await getContent(widgetType),
     port: port,
   })
 })
