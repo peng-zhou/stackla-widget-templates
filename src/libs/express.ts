@@ -73,8 +73,10 @@ expressApp.use("/preview", (req, res, next) => {
   }
 })
 
-function getContent(widgetType: string) {
-  console.log("widgetType: ", widgetType)
+async function getContent(widgetType: string, retry = 0): Promise<PreviewContent> {
+  if (retry > 3) {
+    throw new Error("Failed to get content, exiting")
+  }
 
   const rootDir = path.resolve(__dirname, `../../../../../dist/widgets/${widgetType}`)
 
@@ -83,16 +85,22 @@ function getContent(widgetType: string) {
   const css = `${rootDir}/widget.css`
   const js = `${rootDir}/widget.js`
 
-  return {
-    layoutCode: readFileSync(layout, "utf8"),
-    tileCode: readFileSync(tile, "utf8"),
-    cssCode: readFileSync(css, "utf8"),
-    jsCode: readFileSync(js, "utf8")
-      .replace(/\\/g, "\\\\")
-      .replace(/\"/g, '\\"')
-      .replace(/\n/g, "\\n")
-      .replace(/\r/g, "\\r")
-      .replace(/\t/g, "\\t")
+  try {
+    return {
+      layoutCode: readFileSync(layout, "utf8"),
+      tileCode: readFileSync(tile, "utf8"),
+      cssCode: readFileSync(css, "utf8"),
+      jsCode: readFileSync(js, "utf8")
+        .replace(/\\/g, "\\\\")
+        .replace(/\"/g, '\\"')
+        .replace(/\n/g, "\\n")
+        .replace(/\r/g, "\\r")
+        .replace(/\t/g, "\\t")
+    }
+  } catch (e) {
+    await new Promise((resolve) => setTimeout(resolve, 3000))
+    
+    return getContent(widgetType, retry + 1)
   }
 }
 
@@ -135,7 +143,7 @@ expressApp.post("/widgets/668ca52ada8fb/draft", async (req, res) => {
 })
 
 expressApp.get("/widgets/668ca52ada8fb", async (req, res) => {
-  const content = getContent(req.cookies.widgetType as string)
+  const content = await getContent(req.cookies.widgetType as string)
 
   res.json({
     html: await getHTML(content),
@@ -160,13 +168,13 @@ expressApp.get("/widgets/668ca52ada8fb/rendered/tiles", async (req, res) => {
   const widgetType = req.cookies.widgetType as string
   const page = (req.query.page ?? 0) as number
   const limit = (req.query.limit ?? 25) as number
-  const tileHtml = await getHTML(getContent(widgetType))
+  const tileHtml = await getHTML(await getContent(widgetType))
 
   res.json(tileHtml)
 })
 
 // Register preview route
-expressApp.get("/preview", (req, res) => {
+expressApp.get("/preview", async (req, res) => {
   const port = req.headers.host?.split(":")[1] || "4003"
   const widgetRequest = req.query as WidgetRequest
   const widgetType = req.query.widgetType as string
@@ -174,8 +182,8 @@ expressApp.get("/preview", (req, res) => {
   res.render("preview", {
     widgetRequest: JSON.stringify(widgetRequest),
     widgetType,
+    ...await getContent(widgetType),
     port: port,
-    ...getContent(widgetType)
   })
 })
 

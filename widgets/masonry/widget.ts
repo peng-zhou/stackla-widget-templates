@@ -40,7 +40,8 @@ loadExpandedTileFeature(widgetSettings)
 addTilesPerPageFeature(widgetSettings)
 addLoadMoreButtonFeature(widgetSettings)
 
-sdk.addEventListener("load", initializeMasonry)
+initializeMasonry()
+
 sdk.addEventListener("moreLoad", loadMoreMasonryTiles)
 sdk.addEventListener("tilesUpdated", refreshMasonryLayout)
 sdk.addCSSToComponent(expandedTileCSS, "expanded-tile")

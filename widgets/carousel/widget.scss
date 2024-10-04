@@ -7,6 +7,11 @@
     width: 210px !important;
   }
 
+  .tile {
+    height: 210px;
+    width: 210px;
+  }
+
   .tile-image,
   .tile-video {
     position: relative;
@@ -35,6 +40,10 @@
           color: #fff;
         }
       }
+    }
+
+    .play-icon {
+      top: 90px;
     }
   }
 }

@@ -13,12 +13,10 @@ export function initializeMasonry() {
   }
 
   masonryInstance = new Masonry(tileContainer, {
+    gutter: 10,
     itemSelector: ".ugc-tile",
-    gutter: 20,
     fitWidth: true,
-    initLayout: false,
-    percentPosition: true,
-    columnWidth: ".ugc-tile"
+    initLayout: false
   })
 
   masonryInstance.layout()
