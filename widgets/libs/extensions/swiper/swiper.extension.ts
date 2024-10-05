@@ -1,6 +1,6 @@
 import Swiper from "swiper"
 import { SdkSwiper } from "types"
-import { Manipulation, Navigation } from "swiper/modules"
+import { Keyboard, Manipulation, Navigation } from "swiper/modules"
 import { SwiperData, SwiperMode, SwiperProps } from "types/SdkSwiper"
 
 declare const sdk: SdkSwiper
@@ -38,17 +38,20 @@ export function initializeSwiper({
   }
 
   sdk.swiperInstances[mode]!.instance = new Swiper(widgetSelector, {
-    modules: [Navigation, Manipulation],
+    modules: [Navigation, Manipulation, Keyboard],
     spaceBetween: 10,
     slidesPerView: perView,
     observer: true,
     grabCursor: false,
     allowTouchMove: false,
-    loop: true,
     lazyPreloadPrevNext: perView,
-    maxBackfaceHiddenSlides: 0,
+    keyboard: {
+      enabled: true,
+      onlyInViewport: false
+    },
     direction: "horizontal",
     watchSlidesProgress: true,
+    normalizeSlideIndex: true,
     watchOverflow: true,
     navigation: {
       nextEl: next,
@@ -58,7 +61,6 @@ export function initializeSwiper({
       afterInit: swiper => {
         swiper.slideToLoop(initialIndex, 0, false)
         sdk.swiperInstances![mode]!.isLoading = true
-        swiper.allowSlidePrev = false
         void loadTilesAsync(swiper, mode)
       },
       activeIndexChange: swiper => {
@@ -79,57 +81,51 @@ export function initializeSwiper({
 
 function enablePrevNavigation(swiper: Swiper) {
   swiper.allowSlidePrev = true
-  swiper.navigation.prevEl.style.display = "flex"
+  swiper.navigation.prevEl.classList.remove("swiper-button-hidden")
 }
 
 function disblePrevNavigation(swiper: Swiper) {
   swiper.allowSlidePrev = false
-  swiper.navigation.prevEl.style.display = "none"
+  swiper.navigation.prevEl.classList.add("swiper-button-hidden")
 }
 
-function registerObserver(swiperWrapperElement: HTMLElement) {
+function registerObserver(swiper: Swiper) {
   const observer = new MutationObserver(() => {
-    enableSlides(swiperWrapperElement)
+    enableSlides(swiper)
   })
-  observer.observe(swiperWrapperElement, {
+  observer.observe(swiper.wrapperEl, {
     childList: true
   })
   return observer
 }
 
 async function loadTilesAsync(swiper: Swiper, mode: SwiperMode) {
-  const observer = registerObserver(swiper.wrapperEl)
+  const observer = registerObserver(swiper)
   while (sdk.tiles.hasMoreTiles()) {
     sdk.tiles.page += 1
-    await sdk.tiles.loadAndRenderTiles(sdk.tiles.page)
-    sdk.tiles.reload()
+    await sdk.tiles.fetchTiles(sdk.tiles.page, true)
     swiper.update()
   }
 
   observer.disconnect()
+  swiper.navigation.nextEl.classList.remove("swiper-button-hidden")
   updateLoadingStateInterval(swiper.el, mode)
-  swiper.update()
 }
 
 function updateLoadingStateInterval(swiperElem: HTMLElement, mode: SwiperMode) {
   const intervalId = setInterval(function () {
     const elements = swiperElem.querySelectorAll<HTMLElement>(".swiper-slide:has(.tile-content.hidden)")
     if (elements.length === 0) {
+      clearInterval(intervalId)
       sdk.swiperInstances![mode]!.isLoading = false
       sdk.swiperInstances![mode]!.instance!.off("activeIndexChange")
       sdk.swiperInstances![mode]!.instance!.setGrabCursor()
       sdk.swiperInstances![mode]!.instance!.allowTouchMove = true
+      sdk.swiperInstances![mode]!.instance!.params.loop = true
       enablePrevNavigation(sdk.swiperInstances![mode]!.instance!)
-      clearInterval(intervalId)
+      refreshSwiper(mode)
     }
   }, 200)
-}
-
-export function generateId() {
-  const minCeiled = Math.ceil(10)
-  const maxFloored = Math.floor(100)
-  const randomPrefix = Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled)
-  return randomPrefix + Date.now().toString(16)
 }
 
 export function refreshSwiper(mode: SwiperMode) {
@@ -161,8 +157,8 @@ export function getClickedIndex(mode: SwiperMode) {
   return 0
 }
 
-function enableSlides(swiperWrapperElement: HTMLElement) {
-  const elements = swiperWrapperElement.querySelectorAll<HTMLElement>(".swiper-slide:has(.tile-content.hidden)")
+function enableSlides(swiper: Swiper) {
+  const elements = swiper.wrapperEl.querySelectorAll<HTMLElement>(".swiper-slide:has(.tile-content.hidden)")
   elements.forEach(element => enableSlide(element))
 }
 

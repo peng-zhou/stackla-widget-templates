@@ -78,7 +78,7 @@ export const arrowClickListener = (e: Event) => {
 
 export function addAutoAddTileFeature<T extends BaseConfig>(widgetSettings: T) {
   if (widgetSettings.auto_refresh === true) {
-    sdk.tiles.setAutoAddNewTiles(true)
+    sdk.tiles.enableAutoAddNewTiles()
   }
 }
 
