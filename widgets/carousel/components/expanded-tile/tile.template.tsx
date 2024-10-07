@@ -34,10 +34,14 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
         <div class="image-wrapper">
           <div class="image-wrapper-inner">
             {tile.media === "video" ? (
-              <VideoTemplate />
+              <>
+                <VideoTemplate tile={tile} />
+                <VideoErrorFallback tile={tile} parent={parent} />
+              </>
             ) : tile.media === "image" ? (
               <ImageTemplate
                 tile={tile}
+                image={tile.image}
                 productsEnabled={productsEnabled}
                 shopspotEnabled={shopspotEnabled}
                 parent={parent}
@@ -135,25 +139,27 @@ function ShopSpotTemplate({ shopspotEnabled, parent, tileId }: ShopspotProps) {
 
 function ImageTemplate({
   tile,
+  image,
   productsEnabled,
   shopspotEnabled,
   parent
 }: {
   tile: Tile
+  image: string
   productsEnabled: boolean
   shopspotEnabled: ShopspotProps["shopspotEnabled"]
   parent: ShopspotProps["parent"]
 }) {
-  return tile.image ? (
+  return image ? (
     <>
-      <div class="image-filler" style={{ "background-image": `url('${tile.image}')` }}></div>
+      <div class="image-filler" style={{ "background-image": `url('${image}')` }}></div>
       <div class="image">
         <span class="youtube-reels-icon"></span>
         <span class="instagram-icon"></span>
         {productsEnabled ? <span class="product-bag-icon" aria-label="Product bag icon"></span> : <></>}
         <ShopSpotTemplate shopspotEnabled={shopspotEnabled} parent={parent} tileId={tile.id} />
-        <img class="image-element" src={tile.image} loading="lazy" alt={tile.description || "Image"} />
-        <div class="swiper-lazy-preloader"></div>
+        <img class="image-element" src={image} loading="lazy" alt={tile.description || "Image"} />
+        <div class="swiper-lazy-preloader swiper-lazy-preloader-black"></div>
       </div>
     </>
   ) : (
@@ -161,15 +167,78 @@ function ImageTemplate({
   )
 }
 
-function VideoTemplate() {
+function VideoTemplate({ tile }: { tile: Tile }) {
+  const additionalAttrs: Record<string, string> = {}
+  const sourceAttrs: Record<string, string> = {}
+
+  // handle unplayable tiktok source
+  // TODO handle vide_source "tiktok"
+  if (tile.source === "tiktok" || tile.video_source === "tiktok") {
+    const src = tile.embed_url as string
+    return <FrameEmbedTemplate src={src} />
+  }
+
+  if (tile.source === "youtube") {
+    const youtubeId = tile.youtube_id as string
+    const src = `https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1`
+    const title = tile.title as string
+    return <FrameEmbedTemplate src={src} title={title} />
+  } else if (tile.source === "twitter") {
+    const { standard_resolution } = tile.video
+    sourceAttrs["src"] = standard_resolution.url
+  } else {
+    const { url, width, height, mime } = tile.video_files[0]
+    sourceAttrs["src"] = url
+    sourceAttrs["width"] = width.toString()
+    sourceAttrs["height"] = height.toString()
+    sourceAttrs["type"] = mime
+  }
+
   return (
-    <div class="video-wrapper">
-      <video autoplay oncanplay="this.muted=true" controls>
-        <source
-          src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-          type="video/mp4"
-        />
+    <div class="video-content-wrapper">
+      <div class="image-filler" style={{ "background-image": `url('${tile.original_image_url}')` }}></div>
+      <video
+        tileid={tile.id}
+        class="video-content"
+        controls
+        autoplay
+        preload="auto"
+        playsinline="playsinline"
+        oncanplay="this.muted=true"
+        {...additionalAttrs}>
+        <source {...sourceAttrs} />
       </video>
+    </div>
+  )
+}
+
+function FrameEmbedTemplate({ src, title = "" }: { src: string; title?: string }) {
+  return (
+    <iframe
+      class="yt-video-frame"
+      src={src}
+      title={title}
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allowfullscreen></iframe>
+  )
+}
+
+function VideoErrorFallback({ tile, parent }: { tile: Tile; parent?: string }) {
+  const originalImageUrl = tile.original_image_url as string
+  return (
+    <div class="video-fallback-content hidden">
+      <a href={tile.original_url} target="_blank">
+        <ImageTemplate
+          parent={parent}
+          image={originalImageUrl}
+          tile={tile}
+          productsEnabled={false}
+          shopspotEnabled={false}
+        />
+        <div class="play-icon"></div>
+      </a>
     </div>
   )
 }
