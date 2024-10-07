@@ -24,7 +24,8 @@ export default function getCSSVariables<T extends BaseConfig>(widgetSettings: T)
     "--tags-gap": `${widgetSettings.tags_gap ? widgetSettings.tags_gap : 4}px`,
     "--tile-tag-background": `#${widgetSettings.tile_tag_background}`,
     "--cta-button-background-color": `#${widgetSettings.cta_button_background_color}`,
-    "--cta-button-font-color": `#${widgetSettings.cta_button_font_color}`
+    "--cta-button-font-color": `#${widgetSettings.cta_button_font_color}`,
+    "--cta-button-font-size": `#${widgetSettings.cta_button_font_size}`
   }
 
   return Object.entries(cssVariables)

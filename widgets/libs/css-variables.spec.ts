@@ -32,7 +32,8 @@ describe("getCSSVariables", () => {
       inline_tile_show_timestamps: false,
       tile_tag_background: "D6D4D5",
       cta_button_background_color: "000000",
-      cta_button_font_color: "ffffff"
+      cta_button_font_color: "ffffff",
+      cta_button_font_size: 14
     }
 
     const expectedCSS = `
@@ -57,6 +58,7 @@ describe("getCSSVariables", () => {
     --tile-tag-background:#D6D4D5;
     --cta-button-background-color:#000000;
     --cta-button-font-color:#ffffff;
+    --cta-button-font-size:14px;
       `
 
     expect(getCSSVariables(widgetSettings).replace(/\s/g, "")).toBe(expectedCSS.replace(/\s/g, ""))
@@ -87,7 +89,8 @@ describe("getCSSVariables", () => {
       inline_tile_show_timestamps: true,
       tile_tag_background: "D6D4D5",
       cta_button_background_color: "000000",
-      cta_button_font_color: "ffffff"
+      cta_button_font_color: "ffffff",
+      cta_button_font_size: 14
     }
 
     const expectedCSS = `
@@ -112,6 +115,7 @@ describe("getCSSVariables", () => {
     --tile-tag-background:#D6D4D5;
     --cta-button-background-color:#000000;
     --cta-button-font-color:#ffffff;
+    --cta-button-font-size:14px;
       `
 
     expect(getCSSVariables(widgetSettings).replace(/\s/g, "")).toBe(expectedCSS.replace(/\s/g, ""))
