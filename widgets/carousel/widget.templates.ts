@@ -8,9 +8,9 @@ import { Sdk } from "@stackla/ugc-widgets"
 declare const sdk: Sdk
 
 export function loadCustomisation() {
+  sdk.addSharedCssCustomStyles("icons", icons, [sdk.placement.getWidgetId(), "expanded-tiles"])
   loadSwiperStyles()
   loadProductsTemplate()
   loadExpandedTileTemplates()
   loadShopspotTemplates()
-  sdk.addSharedCssCustomStyles("icons", icons, [sdk.placement.getWidgetId(), "expanded-tiles"])
 }

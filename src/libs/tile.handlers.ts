@@ -4,7 +4,8 @@ import { renderHTMLWithTemplates, renderTilesWithTemplate } from "@stackla/handl
 
 export function getTilesToRender(page: number, limit: number) {
   const startIndex = limit * (page - 1)
-  return tiles.slice(startIndex, limit)
+  const endIndex = limit * page
+  return tiles.slice(startIndex, endIndex)
 }
 
 export async function getAndRenderTiles(widgetContainer: IDraftRequest, page: number = 1, limit: number = 25) {

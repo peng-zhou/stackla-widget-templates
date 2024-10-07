@@ -1,16 +1,5 @@
-import {
-  onTileExpand,
-  initializeInlineSwiperListeners,
-  onTileClosed,
-  hideSlidesWithInvisibleTiles,
-  onPreloadTileHidden,
-  onTileRendered
-} from "./widget.extensions"
-import {
-  registerPreloadTileHidden,
-  registerTilesUpdated,
-  registerWidgetInitComplete
-} from "widgets/libs/tile.listeners"
+import { onTileExpand, initializeInlineSwiperListeners, onTileClosed, onTileRendered } from "./widget.extensions"
+import { registerWidgetInitComplete } from "widgets/libs/tile.listeners"
 import {
   addAutoAddTileFeature,
   loadExpandedTileFeature,
@@ -26,8 +15,8 @@ declare const sdk: Sdk
 
 export function loadSettings() {
   sdk.tiles.preloadImages = true
-  sdk.tiles.setLoadMode("page")
-  sdk.tiles.setVisibleTilesCount(100)
+  sdk.tiles.setLoadMode("all")
+  sdk.tiles.loadOwner = "client"
 
   const widgetContainer = sdk.placement.getWidgetContainer()
   const widgetSettings = getConfig(widgetContainer)
@@ -38,6 +27,4 @@ export function loadSettings() {
   registerWidgetInitComplete(initializeInlineSwiperListeners)
   addAutoAddTileFeature(widgetSettings)
   loadExpandedTileFeature(widgetSettings, onTileExpand, onTileClosed, onTileRendered)
-  registerTilesUpdated(hideSlidesWithInvisibleTiles)
-  registerPreloadTileHidden(onPreloadTileHidden)
 }

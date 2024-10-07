@@ -42,6 +42,8 @@ function initializeInlineSwiper(widgetSettings: IWidgetSettings) {
   const width = (tileWidth + 10) * perView
   widgetSelector.style.width = `${width}px`
 
+  sdk.tiles.setVisibleTilesCount(perView * 2)
+
   initializeSwiper({
     widgetSelector,
     perView,
@@ -60,6 +62,8 @@ function initializeExtendedSwiper() {
   if (!widgetSelector) {
     throw new Error("Failed to find widget UI element. Failed to initialise Glide")
   }
+
+  sdk.tiles.setVisibleTilesCount(2)
 
   initializeSwiper({
     widgetSelector,
@@ -116,22 +120,14 @@ export function onTileClosed() {
   enableSwiper("inline")
 }
 
-export function hideSlidesWithInvisibleTiles() {
+export function hideSlidesWithInvisibleTilesBackup() {
   const widgetSelectorWrapper = sdk.placement.querySelector(".swiper-wrapper")
   const slides = widgetSelectorWrapper?.querySelectorAll<HTMLElement>(".swiper-slide")
 
   slides?.forEach(slide => {
-    if (!slide.children.length || slide.style.display === "none") {
+    if (!slide.children.length || getComputedStyle(slide).display === "none") {
       slide.remove()
     }
   })
-  refreshSwiper("inline")
-}
-
-export function onPreloadTileHidden(tileId: string) {
-  const widgetSelectorWrapper = sdk.placement.querySelector(".swiper-wrapper")
-  const slide = widgetSelectorWrapper?.querySelector<HTMLElement>(`.swiper-slide[data-id="${tileId}"]`)
-  slide?.remove()
-
   refreshSwiper("inline")
 }
