@@ -19,7 +19,7 @@ export async function copyToClipboard(inputElement: HTMLInputElement) {
 
 function addShareMenuListeners(shareMenuWrapper: HTMLElement, tile: Element) {
   // Exit button listener
-  const exitButton = shareMenuWrapper.querySelector<HTMLElement>(".exit")
+  const exitButton = shareMenuWrapper.querySelector<HTMLElement>(".share-modal-exit")
   const panelOverlay = tile.querySelector<HTMLElement>(".panel-overlay")
   if (exitButton) {
     exitButton.addEventListener("click", exitButtonEvent => {
