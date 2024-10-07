@@ -10,7 +10,7 @@ function startWebSocketServer() {
   return server
 }
 
-;(async () => {
+async function buildAll () {
   const esbuild = require("esbuild")
   const { sassPlugin } = require("esbuild-sass-plugin")
   const { copy } = require("esbuild-plugin-copy")
@@ -107,11 +107,26 @@ function startWebSocketServer() {
 
     if (isWatch) {
       startWebSocketServer()
-      esbuild.build(config)
-    } else {
-      esbuild.build(config)
     }
-  } else {
-    esbuild.build(config)
   }
-})()
+
+  await esbuild.build(config)
+}
+
+async function buildAllWithErrorHandling(retries = 0) {
+  if (retries > 3) {
+    console.error("Failed to build after 3 retries. Exiting.")
+    process.exit(1)
+  }
+
+  try {
+    await buildAll()
+  } catch (e) {
+    console.error("Error building. Retrying.", e)
+    await new Promise(resolve => setTimeout(resolve, 3000))
+    buildAllWithErrorHandling(retries + 1)
+  }
+}
+
+  buildAllWithErrorHandling()
+

@@ -47,13 +47,6 @@ export function registerTilesUpdated(fn: Callback) {
   sdk.addEventListener("tilesUpdated", () => setTimeout(fn, 200))
 }
 
-export function registerPreloadTileHidden(fn: (id: string) => void) {
-  sdk.addEventListener("preloadTileHidden", async event => {
-    const tileId = (event as CustomEvent).detail.data.id
-    fn(tileId)
-  })
-}
-
 export function registerWidgetInitComplete(fn: Callback) {
   sdk.addEventListener("widgetInitComplete", () => setTimeout(fn, 1000))
 }
