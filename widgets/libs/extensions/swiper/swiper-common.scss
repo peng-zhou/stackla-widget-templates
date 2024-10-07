@@ -9,7 +9,7 @@
     border-radius: 5px;
     overflow: hidden;
 
-    .tile-img {
+    .tile-image {
       height: 100%;
       > img {
         width: 100%;
@@ -49,7 +49,7 @@
 .swiper-inline-button-prev::after,
 .swiper-expanded-button-next::after,
 .swiper-expanded-button-prev::after {
-  content: "";
+  content: unset;
   --swiper-navigation-size: 20px;
 }
 

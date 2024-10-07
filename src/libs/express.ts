@@ -9,6 +9,7 @@ import { getAndRenderTiles, getTilesToRender, renderTemplates } from "./tile.han
 import { loadStaticFileRoutes } from "./static-files"
 import widgetOptions from "../../tests/fixtures/widget.options"
 import cookieParser from "cookie-parser"
+import tiles from "../../tests/fixtures/tiles"
 
 export interface IDraftRequest {
   custom_templates: {
@@ -98,8 +99,8 @@ async function getContent(widgetType: string, retry = 0): Promise<PreviewContent
         .replace(/\t/g, "\\t")
     }
   } catch (e) {
-    await new Promise((resolve) => setTimeout(resolve, 3000))
-    
+    await new Promise(resolve => setTimeout(resolve, 3000))
+
     return getContent(widgetType, retry + 1)
   }
 }
@@ -126,7 +127,7 @@ async function getHTML(content: PreviewContent, page: number = 1, limit: number 
 expressApp.post("/widgets/668ca52ada8fb/draft", async (req, res) => {
   const body = JSON.parse(req.body)
   const draft = body.draft as IDraftRequest
-  const html = await renderTemplates(draft)
+  const html = await renderTemplates(draft, body.page, body.limit)
   const customCss = draft.custom_css
   const customJs = draft.custom_js
 
@@ -137,7 +138,7 @@ expressApp.post("/widgets/668ca52ada8fb/draft", async (req, res) => {
     widgetOptions: widgetOptions,
     stackId: 1451,
     merchantId: "shopify-64671154416",
-    tileCount: 2177,
+    tileCount: tiles.length,
     enabled: 1
   })
 })
@@ -152,7 +153,7 @@ expressApp.get("/widgets/668ca52ada8fb", async (req, res) => {
     widgetOptions: widgetOptions,
     merchantId: "shopify-64671154416",
     stackId: 1451,
-    tileCount: 1000
+    tileCount: tiles.length
   })
 })
 
@@ -168,7 +169,7 @@ expressApp.get("/widgets/668ca52ada8fb/rendered/tiles", async (req, res) => {
   const widgetType = req.cookies.widgetType as string
   const page = (req.query.page ?? 0) as number
   const limit = (req.query.limit ?? 25) as number
-  const tileHtml = await getHTML(await getContent(widgetType))
+  const tileHtml = await getHTML(await getContent(widgetType), page, limit)
 
   res.json(tileHtml)
 })
@@ -178,12 +179,12 @@ expressApp.get("/preview", async (req, res) => {
   const port = req.headers.host?.split(":")[1] || "4003"
   const widgetRequest = req.query as WidgetRequest
   const widgetType = req.query.widgetType as string
-  
+
   res.render("preview", {
     widgetRequest: JSON.stringify(widgetRequest),
     widgetType,
-    ...await getContent(widgetType),
-    port: port,
+    ...(await getContent(widgetType)),
+    port: port
   })
 })
 
