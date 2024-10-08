@@ -21,12 +21,17 @@ function addShareMenuListeners(shareMenuWrapper: HTMLElement, tile: Element) {
   // Exit button listener
   const exitButton = shareMenuWrapper.querySelector<HTMLElement>(".share-modal-exit")
   const panelOverlay = tile.querySelector<HTMLElement>(".panel-overlay")
+  const panelRightWrapper = tile.querySelector<HTMLElement>(".panel-right-wrapper")
+
   if (exitButton) {
     exitButton.addEventListener("click", exitButtonEvent => {
       exitButtonEvent.preventDefault()
       exitButtonEvent.stopPropagation()
       shareMenuWrapper.style.display = "none"
       panelOverlay?.classList.remove("active")
+      if(panelRightWrapper){
+        panelRightWrapper.removeAttribute("style")
+      }
     })
   }
 
@@ -45,11 +50,16 @@ export function registerExpandedTileShareMenuListeners(shareButtonElement: HTMLE
     shareButtonEvent.stopPropagation()
     const wrapper = tile.querySelector<HTMLElement>(".share-socials-popup-wrapper")
     const panelOverlay = tile.querySelector<HTMLElement>(".panel-overlay")
+    const panelRightWrapper = tile.querySelector<HTMLElement>(".panel-right-wrapper")
+
     if (!wrapper) {
       throw new Error("Share menu wrapper not found")
     }
     wrapper.style.display = "block"
     panelOverlay?.classList.add("active")
+    if (panelRightWrapper){
+      panelRightWrapper.style.overflow = "unset"
+    }
     addShareMenuListeners(wrapper, tile)
   })
 }
