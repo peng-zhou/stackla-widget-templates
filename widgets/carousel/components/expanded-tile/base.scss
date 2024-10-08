@@ -2,39 +2,78 @@ html {
   background: var(--widget-background);
 }
 
+.play-icon {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none"><circle cx="15" cy="15" r="15" fill="%23BCBBBC"/><path d="M19.5 14.1336C20.1667 14.5185 20.1667 15.4808 19.5 15.8657L13.5 19.3298C12.8333 19.7147 12 19.2335 12 18.4637L12 11.5355C12 10.7657 12.8333 10.2846 13.5 10.6695L19.5 14.1336Z" fill="black"/></svg>');
+  background-size: contain;
+  position: absolute;
+  top: calc(50% - 15px);
+  left: calc(50% - 15px);
+}
+
 .ugc-tile {
   width: var(--max-tile-width) px;
   background: var(--text-tile-background);
   margin: var(--margin) px;
 }
 
-.content-wrapper {
-  height: 100%;
-}
-
-.content-inner-wrapper {
-  height: 100%;
-  position: relative;
-
-  a {
-    color: var(--text-tile-link-color);
-  }
-}
-
-.tile-tags {
-  margin: 0 16.4px 8.4px 0;
-}
-
-.tile-timestamp {
-  color: #908e8f;
-  display: inline-block;
-  font-size: 10px;
-  font-weight: 400;
-  line-height: 16px;
+.hidden {
+  display: none;
 }
 
 .expanded-tile-wrapper {
   width: 100%;
+
+  .swiper {
+    max-width: 90%;
+  }
+
+  .panel-left {
+    video {
+      display: flex;
+      width: 100%;
+      height: auto;
+      z-index: 10;
+      position: relative;
+
+      .panel-overlay {
+        display: none;
+      }
+    }
+    .video-fallback-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .panel-right {
+    .content-wrapper {
+      height: 100%;
+      .content-inner-wrapper {
+        height: 100%;
+        position: relative;
+
+        a {
+          color: var(--text-tile-link-color);
+        }
+
+        .tile-timestamp {
+          color: #908e8f;
+          display: inline-block;
+          font-size: 10px;
+          font-weight: 400;
+          line-height: 16px;
+        }
+
+        .tile-tags {
+          margin: 0 16.4px 8.4px 0;
+        }
+      }
+    }
+  }
 }
 
 .back {

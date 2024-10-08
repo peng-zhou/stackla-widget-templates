@@ -104,6 +104,14 @@ export function onTileRendered() {
       throw new Error(`Share button not found in expanded tile ${tile.getAttribute("data-id")}`)
     }
     registerExpandedTileShareMenuListeners(shareButton, tile)
+
+    const videoElement = tile.querySelector<HTMLVideoElement>("video.video-js")
+    if (videoElement) {
+      videoElement.onerror = () => {
+        videoElement.closest(".video-content-wrapper")?.classList.add("hidden")
+        tile.querySelector(".video-fallback-content")?.classList.remove("hidden")
+      }
+    }
   })
 }
 
