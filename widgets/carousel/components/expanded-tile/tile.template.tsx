@@ -25,7 +25,6 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
 
   const parent = sdk.getNodeId()
 
-
   return (
     <div class="panel">
       <div class="panel-overlay"></div>
