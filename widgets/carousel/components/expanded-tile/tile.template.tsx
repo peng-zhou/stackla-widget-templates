@@ -31,7 +31,7 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
   return (
     <div class="panel">
       <div class="panel-overlay"></div>
-      <div class={isImageMedia ? "no-image-panel" : "panel-left"}>
+      <div class="panel-left">
         <div class="image-wrapper">
           <div class="image-wrapper-inner">
             {tile.media === "video" ? (

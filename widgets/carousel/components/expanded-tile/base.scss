@@ -14,13 +14,9 @@ html {
 }
 
 .ugc-tile {
-  width: var(--max-tile-width) px;
+  width: var(--max-tile-width)px;
   background: var(--text-tile-background);
-  margin: var(--margin) px;
-}
-
-.hidden {
-  display: none;
+  margin: var(--margin)px;
 }
 
 .expanded-tile-wrapper {
@@ -47,6 +43,10 @@ html {
       justify-content: center;
       align-items: center;
     }
+
+    .video-fallback-content.hidden {
+      display: none;
+    }
   }
 
   .panel-right {
@@ -57,7 +57,7 @@ html {
         position: relative;
 
         a {
-          color: var(--text-tile-link-color);
+          color: var(--text-tile-tag-font-color);
         }
 
         .tile-timestamp {
