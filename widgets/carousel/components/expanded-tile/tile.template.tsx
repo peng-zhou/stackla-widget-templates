@@ -25,8 +25,6 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
 
   const parent = sdk.getNodeId()
 
-  const isDesktopScreen = window.innerWidth >= 1024
-  const isImageMedia = isDesktopScreen && (!tile.image || tile.media) !== "video"
 
   return (
     <div class="panel">
