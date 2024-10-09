@@ -78,7 +78,8 @@ export default {
       custom: 0
     },
     cta_button_background_color: "000000",
-    cta_button_font_color: "ffffff"
+    cta_button_font_color: "ffffff",
+    cta_button_font_size: 14
   },
   guid: "668ca52ada8fb",
   filterId: 10695,

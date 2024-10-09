@@ -103,7 +103,7 @@ async function loadTilesAsync(swiper: Swiper, mode: SwiperMode) {
   const observer = registerObserver(swiper)
   while (sdk.tiles.hasMoreTiles()) {
     sdk.tiles.page += 1
-    await sdk.tiles.fetchTiles(sdk.tiles.page, true)
+    await sdk.tiles.fetchTiles(sdk.tiles.page)
     swiper.update()
   }
 

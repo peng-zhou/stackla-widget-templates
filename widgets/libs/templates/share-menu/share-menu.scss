@@ -1,8 +1,10 @@
+@import "@styles/mixins.scss";
+
 .share-socials-popup-wrapper {
   display: none;
-  position: fixed;
-  right: 30%;
-  top: 37%;
+  position: absolute;
+  right: 75%;
+  top: 36%;
   z-index: 3;
 
   .share-socials-popup {
@@ -13,9 +15,11 @@
     background: #ffffff;
     position: relative;
 
-    .exit {
+    .share-modal-exit {
+      position: absolute;
       top: -12px;
       right: -12px;
+      z-index: 2;
     }
   }
 
@@ -96,10 +100,22 @@
   right: 0px;
   top: 0;
 }
-//TODO: use mixins when available
-@media only screen and (max-width: 1024px) {
+
+@include breakpoint(tablet) {
   .share-socials-popup-wrapper {
-    right: 25%;
+    right: 30%;
     top: 30%;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .share-socials-popup-wrapper {
+    right: 20%;
+  }
+}
+
+@include breakpoint(mobile) {
+  .share-socials-popup-wrapper {
+    right: 15%;
   }
 }

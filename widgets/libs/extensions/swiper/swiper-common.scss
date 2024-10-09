@@ -1,3 +1,4 @@
+@import "@styles/mixins.scss";
 .swiper {
   display: flex;
 
@@ -53,8 +54,7 @@
   --swiper-navigation-size: 20px;
 }
 
-//TODO: use mixins when available
-@media only screen and (max-width: 1024px) {
+@include breakpoint(tablet) {
   .swiper .swiper-slide {
     border-radius: 0;
   }

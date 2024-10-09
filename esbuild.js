@@ -10,7 +10,7 @@ function startWebSocketServer() {
   return server
 }
 
-async function buildAll () {
+async function buildAll() {
   const esbuild = require("esbuild")
   const { sassPlugin } = require("esbuild-sass-plugin")
   const { copy } = require("esbuild-plugin-copy")
@@ -84,8 +84,8 @@ async function buildAll () {
       sassPlugin({
         type: "css-text",
         minify: true,
-        importMapper: path => {
-          path.replace(/^@styles\//, path.join(__dirname, "widgets/styles/"))
+        importMapper: url => {
+          return url.replace(/^@styles\//, path.join(__dirname, "widgets/styles/"))
         },
         importers: [new sass.NodePackageImporter()]
       }),
@@ -128,5 +128,4 @@ async function buildAllWithErrorHandling(retries = 0) {
   }
 }
 
-  buildAllWithErrorHandling()
-
+buildAllWithErrorHandling()
