@@ -100,7 +100,7 @@
   right: 0px;
   top: 0;
 }
-//TODO: use mixins when available
+
 @include breakpoint(tablet) {
   .share-socials-popup-wrapper {
     right: 30%;

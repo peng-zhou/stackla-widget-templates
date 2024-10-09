@@ -1,3 +1,5 @@
+@import "@styles/mixins.scss";
+
 html {
   background: var(--widget-background);
 }
@@ -88,7 +90,7 @@ html {
   border-radius: 5px 5px 0 0;
 }
 
-@media only screen and (max-width: 992px) {
+@include breakpoint(tablet) {
   .expanded-tile-wrapper .swiper {
       max-width: unset;
     }
