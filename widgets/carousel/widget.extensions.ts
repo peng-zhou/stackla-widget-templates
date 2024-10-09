@@ -2,13 +2,7 @@ import type { Sdk } from "@stackla/ugc-widgets"
 import { IWidgetSettings } from "../../types/IWidgetSettings"
 import { getConfig } from "./widget.config"
 import { waitForElm } from "widgets/libs/widget.features"
-import {
-  disableSwiper,
-  enableSwiper,
-  getClickedIndex,
-  initializeSwiper,
-  refreshSwiper
-} from "@widgets/libs/extensions/swiper/swiper.extension"
+import { disableSwiper, initializeSwiper, refreshSwiper } from "@widgets/libs/extensions/swiper/swiper.extension"
 import { registerExpandedTileShareMenuListeners } from "@widgets/libs/templates/share-menu/share-menu.listener"
 
 declare const sdk: Sdk
@@ -23,10 +17,10 @@ export function initializeInlineSwiperListeners() {
     throw new Error("Failed to find swiper element")
   }
 
-  initializeInlineSwiper(widgetSettings)
+  initializeSwiperForInlineTiles(widgetSettings)
 }
 
-function initializeInlineSwiper(widgetSettings: IWidgetSettings) {
+function initializeSwiperForInlineTiles(widgetSettings: IWidgetSettings) {
   const widgetSelector = sdk.placement.querySelector<HTMLElement>(".swiper-inline")
 
   if (!widgetSelector) {
@@ -52,7 +46,7 @@ function initializeInlineSwiper(widgetSettings: IWidgetSettings) {
   })
 }
 
-function initializeExtendedSwiper() {
+function initializeSwiperForExpandedTiles(initialTileId: string) {
   const expandedTile = sdk.querySelector("expanded-tiles")
   if (!expandedTile?.shadowRoot) {
     throw new Error("The expanded tile element not found")
@@ -69,13 +63,13 @@ function initializeExtendedSwiper() {
     widgetSelector,
     perView: 1,
     mode: "expanded",
-    initialIndex: getClickedIndex("inline"),
     prevButton: "swiper-expanded-button-prev",
-    nextButton: "swiper-expanded-button-next"
+    nextButton: "swiper-expanded-button-next",
+    initialTileId
   })
 }
 
-export function onTileExpand() {
+export function onTileExpand(tileId: string) {
   const expandedTile = sdk.querySelector("expanded-tiles")
 
   if (!expandedTile?.shadowRoot) {
@@ -84,9 +78,7 @@ export function onTileExpand() {
 
   expandedTile.parentElement!.classList.add("expanded-tile-overlay")
 
-  disableSwiper("inline")
-
-  waitForElm(expandedTile.shadowRoot, [".swiper-expanded"], initializeExtendedSwiper)
+  waitForElm(expandedTile.shadowRoot, [".swiper-expanded"], () => initializeSwiperForExpandedTiles(tileId))
 }
 
 export function onTileRendered() {
@@ -125,7 +117,6 @@ export function onTileClosed() {
   expandedTile.parentElement!.classList.remove("expanded-tile-overlay")
 
   disableSwiper("expanded")
-  enableSwiper("inline")
 }
 
 export function hideSlidesWithInvisibleTilesBackup() {

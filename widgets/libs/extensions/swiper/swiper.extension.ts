@@ -11,7 +11,8 @@ export function initializeSwiper({
   mode = "inline",
   prevButton = "swiper-button-prev",
   nextButton = "swiper-button-next",
-  initialIndex = 0
+  initialIndex = 0,
+  initialTileId = undefined
 }: SwiperProps) {
   const prev = widgetSelector!.parentNode!.querySelector<HTMLElement>(`.${prevButton}`)
   const next = widgetSelector!.parentNode!.querySelector<HTMLElement>(`.${nextButton}`)
@@ -20,11 +21,11 @@ export function initializeSwiper({
     throw new Error("Missing swiper Navigation elements for previous and next navigation")
   }
 
-  if (!sdk.swiperInstances) {
-    sdk.swiperInstances = {} as Record<SwiperMode, SwiperData>
+  if (!sdk[mode]) {
+    sdk[mode] = {} as SwiperData
   }
 
-  const swiperInstance = sdk.swiperInstances?.[mode]?.instance
+  const swiperInstance = sdk[mode]?.instance
 
   if (swiperInstance) {
     if (!swiperInstance.params?.enabled) {
@@ -34,10 +35,10 @@ export function initializeSwiper({
       swiperInstance.destroy(true)
     }
   } else {
-    sdk.swiperInstances[mode] = {}
+    sdk[mode] = { pageIndex: 1 }
   }
 
-  sdk.swiperInstances[mode]!.instance = new Swiper(widgetSelector, {
+  sdk[mode]!.instance = new Swiper(widgetSelector, {
     modules: [Navigation, Manipulation, Keyboard],
     spaceBetween: 10,
     slidesPerView: perView,
@@ -58,14 +59,20 @@ export function initializeSwiper({
       prevEl: prev
     },
     on: {
+      beforeInit: swiper => {
+        enableLoadedTiles()
+        const tileIndex = initialTileId ? getSwiperIndexforTile(widgetSelector, initialTileId) : initialIndex
+        swiper.slideToLoop(tileIndex, 0, false)
+      },
       afterInit: swiper => {
-        swiper.slideToLoop(initialIndex, 0, false)
-        sdk.swiperInstances![mode]!.isLoading = true
-        void loadTilesAsync(swiper, mode)
+        sdk[mode]!.isLoading = true
+        if (mode === "inline") {
+          void loadTilesAsync(swiper, mode)
+        }
       },
       activeIndexChange: swiper => {
         if (swiper.navigation.prevEl) {
-          if (swiper.realIndex === 0 && sdk.swiperInstances?.[mode]?.isLoading) {
+          if (swiper.realIndex === 0 && sdk[mode]?.isLoading) {
             disblePrevNavigation(swiper)
           } else {
             enablePrevNavigation(swiper)
@@ -76,7 +83,7 @@ export function initializeSwiper({
     resizeObserver: true
   })
 
-  sdk.swiperInstances[mode]!.perView = perView
+  sdk[mode]!.perView = perView
 }
 
 function enablePrevNavigation(swiper: Swiper) {
@@ -99,11 +106,22 @@ function registerObserver(swiper: Swiper) {
   return observer
 }
 
+function enableLoadedTiles() {
+  sdk.placement
+    .querySelectorAll(".ugc-tiles > .ugc-tile[style*='display: none']")
+    ?.forEach(tileElement => (tileElement.style.display = ""))
+}
+
 async function loadTilesAsync(swiper: Swiper, mode: SwiperMode) {
   const observer = registerObserver(swiper)
+  let pageIndex = 1
   while (sdk.tiles.hasMoreTiles()) {
-    sdk.tiles.page += 1
-    await sdk.tiles.fetchTiles(sdk.tiles.page, true)
+    pageIndex++
+    if (sdk.tiles.page < pageIndex) {
+      sdk.tiles.page = pageIndex
+    }
+    await sdk.tiles.fetchTiles(pageIndex)
+    enableLoadedTiles()
     swiper.update()
   }
 
@@ -117,42 +135,48 @@ function updateLoadingStateInterval(swiperElem: HTMLElement, mode: SwiperMode) {
     const elements = swiperElem.querySelectorAll<HTMLElement>(".swiper-slide:has(.tile-content.hidden)")
     if (elements.length === 0) {
       clearInterval(intervalId)
-      sdk.swiperInstances![mode]!.isLoading = false
-      sdk.swiperInstances![mode]!.instance!.off("activeIndexChange")
-      sdk.swiperInstances![mode]!.instance!.setGrabCursor()
-      sdk.swiperInstances![mode]!.instance!.allowTouchMove = true
-      sdk.swiperInstances![mode]!.instance!.params.loop = true
-      enablePrevNavigation(sdk.swiperInstances![mode]!.instance!)
+      sdk[mode]!.isLoading = false
+      sdk[mode]!.instance!.off("activeIndexChange")
+      sdk[mode]!.instance!.setGrabCursor()
+      sdk[mode]!.instance!.allowTouchMove = true
+      sdk[mode]!.instance!.params.loop = true
+      enablePrevNavigation(sdk[mode]!.instance!)
       refreshSwiper(mode)
     }
   }, 200)
 }
 
 export function refreshSwiper(mode: SwiperMode) {
-  if (sdk.swiperInstances?.[mode]?.instance) {
-    sdk.swiperInstances[mode].instance.update()
+  if (sdk[mode]?.instance) {
+    sdk[mode].instance.update()
   }
 }
 
+function getSwiperIndexforTile(swiperSelector: HTMLElement, tileId: string) {
+  const slideElements = swiperSelector.querySelectorAll<HTMLElement>(".swiper-slide")
+  const index = Array.from(slideElements).findIndex(element => element.getAttribute("data-id") === tileId)
+  return index < 0 ? 0 : index
+}
+
 export function disableSwiper(mode: SwiperMode) {
-  sdk.swiperInstances?.[mode]?.instance?.disable()
+  sdk[mode]?.instance?.disable()
 }
 
 export function enableSwiper(mode: SwiperMode) {
-  sdk.swiperInstances?.[mode]?.instance?.enable()
+  sdk[mode]?.instance?.enable()
 }
 
 export function destroySwiper(mode: SwiperMode) {
-  sdk.swiperInstances?.[mode]?.instance?.destroy(true, true)
+  sdk[mode]?.instance?.destroy(true, true)
 }
 
 export function getClickedIndex(mode: SwiperMode) {
-  if (sdk.swiperInstances?.[mode]?.instance) {
-    const clickedSlide = sdk.swiperInstances[mode].instance.clickedSlide
-    const indexFromAttribute = clickedSlide.attributes.getNamedItem("data-swiper-slide-index")?.value
+  if (sdk[mode]?.instance) {
+    const clickedSlide = sdk[mode].instance.clickedSlide
+    const indexFromAttribute = clickedSlide.getAttribute("data-swiper-slide-index")
     return indexFromAttribute && !Number.isNaN(parseInt(indexFromAttribute))
       ? parseInt(indexFromAttribute)
-      : sdk.swiperInstances[mode].instance.clickedIndex
+      : sdk[mode].instance.clickedIndex
   }
   return 0
 }

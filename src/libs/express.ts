@@ -165,6 +165,10 @@ expressApp.get("/widgets/668ca52ada8fb/tiles", async (req, res) => {
   })
 })
 
+expressApp.get("/widgets/668ca52ada8fb/tiles/:tid", async (req, res) => {
+  res.json(tiles.find(tile => tile.id === req.params.tid))
+})
+
 expressApp.get("/widgets/668ca52ada8fb/rendered/tiles", async (req, res) => {
   const widgetType = req.cookies.widgetType as string
   const page = (req.query.page ?? 0) as number

@@ -10,16 +10,16 @@ export type SwiperProps = {
   perView: number
   mode?: SwiperMode
   initialIndex?: number
+  initialTileId?: string
 }
 
 export type SwiperData = {
   instance?: Swiper
   perView?: number
   isLoading?: boolean
+  pageIndex: number
 }
 
-export interface SdkSwiper extends Sdk {
-  swiperInstances?: Record<SwiperMode, SwiperData | undefined>
-  activeInstances?: string[] // using array to support multiple instances of swiper (future purpose)
-  getActiveInstances: () => string[]
+export type SdkSwiper = Sdk & {
+  [mode in SwiperMode]: SwiperData | undefined
 }

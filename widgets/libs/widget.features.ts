@@ -101,7 +101,7 @@ export function loadWidgetIsEnabled<T extends BaseConfig>(widgetSettings: T) {
 
 export function loadExpandedTileFeature<T extends BaseConfig>(
   widgetSettings: T,
-  onTileExpand: () => void = () => {},
+  onTileExpand: (tileId: string) => void = () => {},
   onTileClosed: () => void = () => {},
   onTileRendered: () => void = () => {}
 ) {

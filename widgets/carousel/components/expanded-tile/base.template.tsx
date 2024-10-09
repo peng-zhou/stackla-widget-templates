@@ -3,9 +3,9 @@ import { ExpandedTile } from "./tile.template"
 import { createElement, createFragment } from "@stackla/ugc-widgets/src/ui/core/utils/jsx-html"
 
 export function ExpandedTiles(sdk: Sdk) {
-  const tiles = sdk.tiles.getVisibleTiles()
+  const tiles = sdk.tiles.getEnabledTiles()
 
-  return Object.values(tiles).length ? (
+  return (
     <div class="expanded-tile-wrapper">
       <a class="exit" href="#">
         <span class="widget-icon close-white"></span>
@@ -14,7 +14,7 @@ export function ExpandedTiles(sdk: Sdk) {
       <div class="swiper swiper-expanded">
         <div class="swiper-wrapper">
           {Object.values(tiles).map(tile => (
-            <div class="swiper-slide">
+            <div class="swiper-slide" data-id={tile.id}>
               <ExpandedTile sdk={sdk} tile={tile} />
             </div>
           ))}
@@ -27,8 +27,6 @@ export function ExpandedTiles(sdk: Sdk) {
         <span class="chevron-right" alt="Next arrow" />
       </div>
     </div>
-  ) : (
-    <span>No tiles found</span>
   )
 }
 

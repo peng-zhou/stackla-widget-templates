@@ -26,12 +26,12 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
   const parent = sdk.getNodeId()
 
   const isDesktopScreen = window.innerWidth >= 1024
-  const isImageMedia = isDesktopScreen && (!tile.image || tile.media) !== "video"
+  const isImageMediaNonDesktop = !isDesktopScreen && (!tile.image || tile.media !== "video")
 
   return (
     <div class="panel">
       <div class="panel-overlay"></div>
-      <div class={isImageMedia ? "no-image-panel" : "panel-left"}>
+      <div class={isImageMediaNonDesktop ? "no-image-panel" : "panel-left"}>
         <div class="image-wrapper">
           <div class="image-wrapper-inner">
             {tile.media === "video" ? (
