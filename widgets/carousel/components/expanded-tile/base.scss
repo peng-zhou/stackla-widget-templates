@@ -1,3 +1,5 @@
+@import "@styles/mixins.scss";
+
 html {
   background: var(--widget-background);
 }
@@ -47,6 +49,10 @@ html {
       justify-content: center;
       align-items: center;
     }
+
+    .video-fallback-content.hidden {
+      display: none;
+    }
   }
 
   .panel-right {
@@ -57,7 +63,7 @@ html {
         position: relative;
 
         a {
-          color: var(--text-tile-link-color);
+          color: var(--text-tile-tag-font-color);
         }
 
         .tile-timestamp {
@@ -76,12 +82,6 @@ html {
   }
 }
 
-.stacklapopup-products-item-button {
-  background-color: var(--cta-button-background-color);
-  color: var(--cta-button-font-color);
-  font-size: var(--cta-button-font-size);
-}
-
 .back {
   background: var(--text-tile-background);
   display: block;
@@ -92,4 +92,10 @@ html {
   padding-left: 16px;
   //TODO: change to a variable that is used for .swiper .swiper-slide too
   border-radius: 5px 5px 0 0;
+}
+
+@include breakpoint(tablet) {
+  .expanded-tile-wrapper .swiper {
+    max-width: unset;
+  }
 }

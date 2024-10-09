@@ -10,7 +10,7 @@ describe("Share menu rendering", () => {
     const socialItems = (
       <div class="ugc-inline-share-buttons">
         <div class="share-socials-popup">
-          <a class="exit" href="#">
+          <a class="share-modal-exit" href="#">
             <span class="widget-icon close-white" alt="Exit button"></span>
           </a>
           <div class="popup-text">Share Now</div>
