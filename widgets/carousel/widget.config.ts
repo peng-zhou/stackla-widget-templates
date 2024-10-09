@@ -63,6 +63,7 @@ export function getConfig(widgetContainer: WidgetContainer): IWidgetSettings {
     cta_button_background_color: widgetStyle?.cta_button_background_color,
     cta_button_font_color: widgetStyle?.cta_button_font_color,
     cta_button_font_size: widgetStyle?.cta_button_font_size,
+    expanded_tile_border_radius: widgetStyle?.expanded_tile_border_radius,
     ...widgetProperties,
     ...inlineTileProperties,
     ...tileTextProperties,
