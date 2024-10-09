@@ -19,18 +19,28 @@ export async function copyToClipboard(inputElement: HTMLInputElement) {
 
 function addShareMenuListeners(shareMenuWrapper: HTMLElement, tile: Element) {
   // Exit button listener
-  const exitButton = shareMenuWrapper.querySelector<HTMLElement>(".share-modal-exit")
+  const shareExitButton = shareMenuWrapper.querySelector<HTMLElement>(".share-modal-exit")
   const panelOverlay = tile.querySelector<HTMLElement>(".panel-overlay")
   const panelRightWrapper = tile.querySelector<HTMLElement>(".panel-right-wrapper")
+  const navigationParent = tile.parentElement?.parentElement?.parentElement
+  const navigationPrevButton = navigationParent?.querySelector<HTMLElement>(".swiper-expanded-button-prev")
+  const navigationNextButton = navigationParent?.querySelector<HTMLElement>(".swiper-expanded-button-next")
+  const exitTileButton = navigationParent?.querySelector<HTMLElement>(".exit")
 
-  if (exitButton) {
-    exitButton.addEventListener("click", exitButtonEvent => {
-      exitButtonEvent.preventDefault()
-      exitButtonEvent.stopPropagation()
+  if (shareExitButton) {
+    shareExitButton.addEventListener("click", shareExitButtonEvent => {
+      shareExitButtonEvent.preventDefault()
+      shareExitButtonEvent.stopPropagation()
       shareMenuWrapper.style.display = "none"
       panelOverlay?.classList.remove("active")
+      navigationNextButton?.classList.remove("swiper-button-disabled")
+      navigationPrevButton?.classList.remove("swiper-button-disabled")
+
       if (panelRightWrapper) {
         panelRightWrapper.removeAttribute("style")
+      }
+      if (exitTileButton) {
+        exitTileButton.removeAttribute("style")
       }
     })
   }
@@ -51,14 +61,24 @@ export function registerExpandedTileShareMenuListeners(shareButtonElement: HTMLE
     const wrapper = tile.querySelector<HTMLElement>(".share-socials-popup-wrapper")
     const panelOverlay = tile.querySelector<HTMLElement>(".panel-overlay")
     const panelRightWrapper = tile.querySelector<HTMLElement>(".panel-right-wrapper")
+    const navigationParent = tile.parentElement?.parentElement?.parentElement
+    const navigationPrevButton = navigationParent?.querySelector<HTMLElement>(".swiper-expanded-button-prev")
+    const navigationNextButton = navigationParent?.querySelector<HTMLElement>(".swiper-expanded-button-next")
+    const exitTileButton = navigationParent?.querySelector<HTMLElement>(".exit")
 
     if (!wrapper) {
       throw new Error("Share menu wrapper not found")
     }
     wrapper.style.display = "block"
     panelOverlay?.classList.add("active")
+    navigationNextButton?.classList.add("swiper-button-disabled")
+    navigationPrevButton?.classList.add("swiper-button-disabled")
+
     if (panelRightWrapper) {
       panelRightWrapper.style.overflow = "unset"
+    }
+    if (exitTileButton) {
+      exitTileButton.style.opacity = "0.4"
     }
     addShareMenuListeners(wrapper, tile)
   })
