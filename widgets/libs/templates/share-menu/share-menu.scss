@@ -1,3 +1,5 @@
+@import "../../../styles/mixins.scss";
+
 .share-socials-popup-wrapper {
   display: none;
   position: absolute;
@@ -99,7 +101,7 @@
   top: 0;
 }
 //TODO: use mixins when available
-@media only screen and (max-width: 992px) {
+@include breakpoint(tablet) {
   .share-socials-popup-wrapper {
     right: 30%;
     top: 30%;
@@ -112,7 +114,7 @@
   }
 }
 
-@media only screen and (max-width: 576px) {
+@include breakpoint(mobile) {
   .share-socials-popup-wrapper {
     right: 15%;
   }
