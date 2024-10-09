@@ -12,7 +12,7 @@ import cookieParser from "cookie-parser"
 import tiles from "../../tests/fixtures/tiles"
 
 export interface IDraftRequest {
-  custom_templates: {
+  customTemplates: {
     layout: {
       template: string
     }
@@ -20,8 +20,9 @@ export interface IDraftRequest {
       template: string
     }
   }
-  custom_css: string
-  custom_js: string
+  customCSS: string
+  customJS: string,
+  widgetConfig: typeof widgetOptions.widgetConfig
 }
 
 type PreviewContent = {
@@ -108,7 +109,7 @@ async function getContent(widgetType: string, retry = 0): Promise<PreviewContent
 async function getHTML(content: PreviewContent, page: number = 1, limit: number = 25) {
   return await getAndRenderTiles(
     {
-      custom_templates: {
+      customTemplates: {
         layout: {
           template: content.layoutCode || ""
         },
@@ -116,8 +117,9 @@ async function getHTML(content: PreviewContent, page: number = 1, limit: number 
           template: content.tileCode || ""
         }
       },
-      custom_css: content.cssCode || "",
-      custom_js: content.jsCode || ""
+      customCSS: content.cssCode || "",
+      customJS: content.jsCode || "",
+      widgetConfig: widgetOptions.widgetConfig
     },
     page,
     limit
@@ -128,8 +130,8 @@ expressApp.post("/widgets/668ca52ada8fb/draft", async (req, res) => {
   const body = JSON.parse(req.body)
   const draft = body.draft as IDraftRequest
   const html = await renderTemplates(draft, body.page, body.limit)
-  const customCss = draft.custom_css
-  const customJs = draft.custom_js
+  const customCss = draft.customCSS
+  const customJs = draft.customJS
 
   res.send({
     html,
