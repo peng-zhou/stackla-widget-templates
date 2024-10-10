@@ -20,8 +20,8 @@ export default {
       show_products: true,
       show_tags: true,
       show_votes: true,
-      show_cross_sellers: false,
-      show_add_to_cart: false
+      show_cross_sellers: true,
+      show_add_to_cart: true
     },
     tile_options: {
       show_comments: true,
@@ -76,7 +76,10 @@ export default {
       category: false,
       brand: false,
       custom: 0
-    }
+    },
+    cta_button_background_color: "000000",
+    cta_button_font_color: "ffffff",
+    cta_button_font_size: 14
   },
   guid: "668ca52ada8fb",
   filterId: 10695,

@@ -4,17 +4,23 @@ import { renderHTMLWithTemplates, renderTilesWithTemplate } from "@stackla/handl
 
 export function getTilesToRender(page: number, limit: number) {
   const startIndex = limit * (page - 1)
-  return tiles.slice(startIndex, limit)
+  const endIndex = limit * page
+  return tiles.slice(startIndex, endIndex)
 }
 
 export async function getAndRenderTiles(widgetContainer: IDraftRequest, page: number = 1, limit: number = 25) {
-  const tileTemplate = widgetContainer.custom_templates.tile.template
-  return renderTilesWithTemplate(tileTemplate, getTilesToRender(page, limit))
+  const tileTemplate = widgetContainer.customTemplates.tile.template
+  return renderTilesWithTemplate(tileTemplate, getTilesToRender(page, limit), widgetContainer.widgetConfig)
 }
 
 export async function renderTemplates(widgetContainer: IDraftRequest, page: number = 1, limit: number = 25) {
-  const tileTemplate = widgetContainer.custom_templates.tile.template
-  const layoutTemplate = widgetContainer.custom_templates.layout.template
+  const tileTemplate = widgetContainer.customTemplates.tile.template
+  const layoutTemplate = widgetContainer.customTemplates.layout.template
 
-  return renderHTMLWithTemplates(tileTemplate, layoutTemplate, getTilesToRender(page, limit))
+  return renderHTMLWithTemplates(
+    tileTemplate,
+    layoutTemplate,
+    getTilesToRender(page, limit),
+    widgetContainer.widgetConfig
+  )
 }

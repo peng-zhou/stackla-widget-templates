@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Widget Preview</title>
-  <script type="text/javascript" src="http://localhost:{{{port}}}/core.js?widgetType={{{widgetType}}}"></script>
+  <script type="text/javascript" src="http://localhost:{{port}}/core.js?widgetType={{{widgetType}}}"></script>
 </head>
 
 <body>
@@ -22,9 +22,9 @@
         "guid": "668ca52ada8fb",
         "filter_id": 10695,
         "enabled": 1,
-        "custom_css": cssTemplate,
-        "custom_js": jsTemplate,
-        "custom_templates": {
+        "customCSS": cssTemplate,
+        "customJS": jsTemplate,
+        "customTemplates": {
           "layout": {
             "template": layoutTemplate,
           },
@@ -34,6 +34,8 @@
         }
       },
       "wid": "668ca52ada8fb",
+      "limit": 25,
+      "page": 1
     };
     const widget = new window.ugc.widget(widgetParams);
     widget.init();

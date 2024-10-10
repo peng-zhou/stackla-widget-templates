@@ -9,9 +9,10 @@ import { getAndRenderTiles, getTilesToRender, renderTemplates } from "./tile.han
 import { loadStaticFileRoutes } from "./static-files"
 import widgetOptions from "../../tests/fixtures/widget.options"
 import cookieParser from "cookie-parser"
+import tiles from "../../tests/fixtures/tiles"
 
 export interface IDraftRequest {
-  custom_templates: {
+  customTemplates: {
     layout: {
       template: string
     }
@@ -19,8 +20,9 @@ export interface IDraftRequest {
       template: string
     }
   }
-  custom_css: string
-  custom_js: string
+  customCSS: string
+  customJS: string,
+  widgetConfig: typeof widgetOptions.widgetConfig
 }
 
 type PreviewContent = {
@@ -73,8 +75,10 @@ expressApp.use("/preview", (req, res, next) => {
   }
 })
 
-async function getContent(widgetType: string) {
-  console.log("widgetType: ", widgetType)
+async function getContent(widgetType: string, retry = 0): Promise<PreviewContent> {
+  if (retry > 3) {
+    throw new Error("Failed to get content, exiting")
+  }
 
   const rootDir = path.resolve(__dirname, `../../../../../dist/widgets/${widgetType}`)
 
@@ -96,16 +100,16 @@ async function getContent(widgetType: string) {
         .replace(/\t/g, "\\t")
     }
   } catch (e) {
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    
-    return getContent(widgetType);
+    await new Promise(resolve => setTimeout(resolve, 3000))
+
+    return getContent(widgetType, retry + 1)
   }
 }
 
 async function getHTML(content: PreviewContent, page: number = 1, limit: number = 25) {
   return await getAndRenderTiles(
     {
-      custom_templates: {
+      customTemplates: {
         layout: {
           template: content.layoutCode || ""
         },
@@ -113,8 +117,9 @@ async function getHTML(content: PreviewContent, page: number = 1, limit: number 
           template: content.tileCode || ""
         }
       },
-      custom_css: content.cssCode || "",
-      custom_js: content.jsCode || ""
+      customCSS: content.cssCode || "",
+      customJS: content.jsCode || "",
+      widgetConfig: widgetOptions.widgetConfig
     },
     page,
     limit
@@ -124,9 +129,9 @@ async function getHTML(content: PreviewContent, page: number = 1, limit: number 
 expressApp.post("/widgets/668ca52ada8fb/draft", async (req, res) => {
   const body = JSON.parse(req.body)
   const draft = body.draft as IDraftRequest
-  const html = await renderTemplates(draft)
-  const customCss = draft.custom_css
-  const customJs = draft.custom_js
+  const html = await renderTemplates(draft, body.page, body.limit)
+  const customCss = draft.customCSS
+  const customJs = draft.customJS
 
   res.send({
     html,
@@ -135,7 +140,7 @@ expressApp.post("/widgets/668ca52ada8fb/draft", async (req, res) => {
     widgetOptions: widgetOptions,
     stackId: 1451,
     merchantId: "shopify-64671154416",
-    tileCount: 2177,
+    tileCount: tiles.length,
     enabled: 1
   })
 })
@@ -150,7 +155,7 @@ expressApp.get("/widgets/668ca52ada8fb", async (req, res) => {
     widgetOptions: widgetOptions,
     merchantId: "shopify-64671154416",
     stackId: 1451,
-    tileCount: 1000
+    tileCount: tiles.length
   })
 })
 
@@ -162,11 +167,15 @@ expressApp.get("/widgets/668ca52ada8fb/tiles", async (req, res) => {
   })
 })
 
+expressApp.get("/widgets/668ca52ada8fb/tiles/:tid", async (req, res) => {
+  res.json(tiles.find(tile => tile.id === req.params.tid))
+})
+
 expressApp.get("/widgets/668ca52ada8fb/rendered/tiles", async (req, res) => {
   const widgetType = req.cookies.widgetType as string
   const page = (req.query.page ?? 0) as number
   const limit = (req.query.limit ?? 25) as number
-  const tileHtml = await getHTML(await getContent(widgetType))
+  const tileHtml = await getHTML(await getContent(widgetType), page, limit)
 
   res.json(tileHtml)
 })
@@ -176,12 +185,12 @@ expressApp.get("/preview", async (req, res) => {
   const port = req.headers.host?.split(":")[1] || "4003"
   const widgetRequest = req.query as WidgetRequest
   const widgetType = req.query.widgetType as string
-  
+
   res.render("preview", {
     widgetRequest: JSON.stringify(widgetRequest),
     widgetType,
-    ...await getContent(widgetType),
-    port: port,
+    ...(await getContent(widgetType)),
+    port: port
   })
 })
 

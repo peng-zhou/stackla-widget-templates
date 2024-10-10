@@ -5,8 +5,8 @@ export function ShareMenu({ tile }: { tile: Tile }) {
   return (
     <div class="share-socials-popup-wrapper">
       <div class="share-socials-popup">
-        <a class="exit" href="#">
-          <span class="widget-icon close-white"></span>
+        <a class="share-modal-exit" href="#">
+          <span class="widget-icon close-white" alt="Exit button"></span>
         </a>
         <div class="popup-text">Share Now</div>
         <div class="ugc-inline-share-buttons">
@@ -36,6 +36,7 @@ function MenuLink({ tile, icon }: { tile: Tile; icon: string }) {
   url.searchParams.append("linkurl", tile.original_url)
   tile.name && url.searchParams.append("linkname", tile.name)
   const href = url.href
+  const alt = `${icon} logo`
 
-  return <a href={href} target="_blank" className={`widget-icon icon-${icon}-share`} />
+  return <a href={href} target="_blank" className={`widget-icon icon-${icon}-share`} alt={alt} />
 }

@@ -30,4 +30,7 @@ export interface BaseConfig {
   minimal_tiles?: number
   inline_tile_show_timestamps?: boolean
   tile_tag_background?: string
+  cta_button_background_color?: string
+  cta_button_font_color?: string
+  cta_button_font_size?: number
 }

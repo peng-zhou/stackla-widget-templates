@@ -1,7 +1,9 @@
 import type { Sdk } from "@stackla/ugc-widgets"
 import { IWidgetSettings } from "../../types/IWidgetSettings"
 import { getConfig } from "./widget.config"
-import { initializeSwiper, refreshSwiper } from "@widgets/libs/extensions/swiper/swiper.extension"
+import { waitForElm } from "widgets/libs/widget.features"
+import { disableSwiper, initializeSwiper, refreshSwiper } from "@widgets/libs/extensions/swiper/swiper.extension"
+import { registerExpandedTileShareMenuListeners } from "@widgets/libs/templates/share-menu/share-menu.listener"
 
 declare const sdk: Sdk
 
@@ -15,10 +17,10 @@ export function initializeInlineSwiperListeners() {
     throw new Error("Failed to find swiper element")
   }
 
-  initializeInlineSwiper(widgetSettings)
+  initializeSwiperForInlineTiles(widgetSettings)
 }
 
-function initializeInlineSwiper(widgetSettings: IWidgetSettings) {
+function initializeSwiperForInlineTiles(widgetSettings: IWidgetSettings) {
   const widgetSelector = sdk.placement.querySelector<HTMLElement>(".swiper-inline")
 
   if (!widgetSelector) {
@@ -34,6 +36,8 @@ function initializeInlineSwiper(widgetSettings: IWidgetSettings) {
   const width = (tileWidth + 10) * perView
   widgetSelector.style.width = `${width}px`
 
+  sdk.tiles.setVisibleTilesCount(perView * 2)
+
   initializeSwiper({
     widgetSelector,
     perView,
@@ -42,22 +46,87 @@ function initializeInlineSwiper(widgetSettings: IWidgetSettings) {
   })
 }
 
-export function hideSlidesWithInvisibleTiles() {
+function initializeSwiperForExpandedTiles(initialTileId: string) {
+  const expandedTile = sdk.querySelector("expanded-tiles")
+  if (!expandedTile?.shadowRoot) {
+    throw new Error("The expanded tile element not found")
+  }
+  const widgetSelector = expandedTile.shadowRoot.querySelector<HTMLElement>(".swiper-expanded")
+
+  if (!widgetSelector) {
+    throw new Error("Failed to find widget UI element. Failed to initialise Glide")
+  }
+
+  sdk.tiles.setVisibleTilesCount(2)
+
+  initializeSwiper({
+    widgetSelector,
+    perView: 1,
+    mode: "expanded",
+    prevButton: "swiper-expanded-button-prev",
+    nextButton: "swiper-expanded-button-next",
+    initialTileId
+  })
+}
+
+export function onTileExpand(tileId: string) {
+  const expandedTile = sdk.querySelector("expanded-tiles")
+
+  if (!expandedTile?.shadowRoot) {
+    throw new Error("The expanded tile element not found")
+  }
+
+  expandedTile.parentElement!.classList.add("expanded-tile-overlay")
+
+  waitForElm(expandedTile.shadowRoot, [".swiper-expanded"], () => initializeSwiperForExpandedTiles(tileId))
+}
+
+export function onTileRendered() {
+  const expandedTilesElement = sdk.querySelector("expanded-tiles")
+
+  if (!expandedTilesElement) {
+    throw new Error("Expanded tiles element not found")
+  }
+
+  const tiles = expandedTilesElement.shadowRoot?.querySelectorAll(".swiper-slide")
+
+  tiles?.forEach(tile => {
+    const shareButton = tile.querySelector<HTMLElement>(".panel-right .share-button")
+    if (!shareButton) {
+      throw new Error(`Share button not found in expanded tile ${tile.getAttribute("data-id")}`)
+    }
+    registerExpandedTileShareMenuListeners(shareButton, tile)
+
+    const videoElement = tile.querySelector<HTMLVideoElement>("video.video-js")
+    if (videoElement) {
+      videoElement.onerror = () => {
+        videoElement.closest(".video-content-wrapper")?.classList.add("hidden")
+        tile.querySelector(".video-fallback-content")?.classList.remove("hidden")
+      }
+    }
+  })
+}
+
+export function onTileClosed() {
+  const expandedTile = sdk.querySelector("expanded-tiles")
+
+  if (!expandedTile?.shadowRoot) {
+    throw new Error("The expanded tile element not found")
+  }
+
+  expandedTile.parentElement!.classList.remove("expanded-tile-overlay")
+
+  disableSwiper("expanded")
+}
+
+export function hideSlidesWithInvisibleTilesBackup() {
   const widgetSelectorWrapper = sdk.placement.querySelector(".swiper-wrapper")
   const slides = widgetSelectorWrapper?.querySelectorAll<HTMLElement>(".swiper-slide")
 
   slides?.forEach(slide => {
-    if (!slide.children.length || slide.style.display === "none") {
+    if (!slide.children.length || getComputedStyle(slide).display === "none") {
       slide.remove()
     }
   })
-  refreshSwiper("inline")
-}
-
-export function onPreloadTileHidden(tileId: string) {
-  const widgetSelectorWrapper = sdk.placement.querySelector(".swiper-wrapper")
-  const slide = widgetSelectorWrapper?.querySelector<HTMLElement>(`.swiper-slide[data-id="${tileId}"]`)
-  slide?.remove()
-
   refreshSwiper("inline")
 }

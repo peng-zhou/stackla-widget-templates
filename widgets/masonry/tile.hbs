@@ -1,17 +1,18 @@
 {{#tile data-hash=@index }}
 <div class="tile">
     <ul class="tile-tags">
-    {{#tags_extended}}
-    <li class="tile-tag tag-inline"><a href="{{custom_url}}">{{tag}}</a></li>
-    {{/tags_extended}}
+        {{#tags_extended}}
+        <li class="tile-tag tag-inline"><a href="{{custom_url}}">{{tag}}</a></li>
+        {{/tags_extended}}
     </ul>
     <div class="network-icon icon-{{source}}"></div>
     <div class="tile-img">
-    {{#lazy image_thumbnail_url}}{{/lazy}}
+        {{#lazy image_thumbnail_url}}{{/lazy}}
     </div>
     {{#ifequals media "video"}}
     <div class="play-icon"></div>
     {{/ifequals}}
+    <div class="swiper-lazy-preloader swiper-lazy-preloader-black"></div>
     <span class="tile-timephrase">{{time_ago}}</span>
     <shopspot-icon tile-id={{id}} />
 </div>

@@ -1,19 +1,24 @@
-@mixin for-phone-only {
-  @media (max-width: 599px) { @content; }
-}
+$breakpoints: (
+  mobile: 576px,
+  tablet: 577px,
+  desktop: 992px
+);
 
-@mixin for-tablet-portrait {
-  @media (min-width: 600px) and (max-width: 899px) { @content; }
-}
-
-@mixin for-tablet-landscape {
-  @media (min-width: 900px) and (max-width: 1199px) { @content; }
-}
-
-@mixin for-desktop {
-  @media (min-width: 1200px) and (max-width: 1799px) { @content; }
-}
-
-@mixin for-big-desktop {
-  @media (min-width: 1800px) { @content; }
+// Can be utilised by using : @include breakpoint(mobile) { ... }
+@mixin breakpoint($point) {
+  @if $point == mobile {
+    @media (max-width: map-get($breakpoints, mobile)) {
+      @content;
+    }
+  }
+  @else if $point == tablet {
+    @media (min-width: map-get($breakpoints, tablet)) and (max-width: map-get($breakpoints, desktop)) {
+      @content;
+    }
+  }
+  @else if $point == desktop {
+    @media (min-width: map-get($breakpoints, desktop)) {
+      @content;
+    }
+  }
 }

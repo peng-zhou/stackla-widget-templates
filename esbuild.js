@@ -10,7 +10,7 @@ function startWebSocketServer() {
   return server
 }
 
-async function buildAll () {
+async function buildAll() {
   const esbuild = require("esbuild")
   const { sassPlugin } = require("esbuild-sass-plugin")
   const { copy } = require("esbuild-plugin-copy")
@@ -84,8 +84,8 @@ async function buildAll () {
       sassPlugin({
         type: "css-text",
         minify: true,
-        importMapper: path => {
-          path.replace(/^@styles\//, path.join(__dirname, "widgets/styles/"))
+        importMapper: url => {
+          return url.replace(/^@styles\//, path.join(__dirname, "widgets/styles/"))
         },
         importers: [new sass.NodePackageImporter()]
       }),
@@ -107,24 +107,25 @@ async function buildAll () {
 
     if (isWatch) {
       startWebSocketServer()
-      await esbuild.build(config);
-    } else {
-      await esbuild.build(config);
     }
-  } else {
-    await esbuild.build(config)
   }
+
+  await esbuild.build(config)
 }
 
-async function buildAllWithErrorHandling() {
+async function buildAllWithErrorHandling(retries = 0) {
+  if (retries > 3) {
+    console.error("Failed to build after 3 retries. Exiting.")
+    process.exit(1)
+  }
+
   try {
     await buildAll()
   } catch (e) {
     console.error("Error building. Retrying.", e)
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    buildAllWithErrorHandling()
+    await new Promise(resolve => setTimeout(resolve, 3000))
+    buildAllWithErrorHandling(retries + 1)
   }
 }
 
-  buildAllWithErrorHandling()
-
+buildAllWithErrorHandling()
