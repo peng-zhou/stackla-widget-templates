@@ -10,7 +10,6 @@ export function enableTileContent(slide: HTMLElement) {
 export function enableTileImage(slide: HTMLElement) {
   const tileImage = slide.querySelector<HTMLImageElement>(".tile-image > img")
   if (tileImage) {
-    console.log("tileImage", tileImage)
     if (tileImage.complete) {
       enableTileContent(slide)
     }
