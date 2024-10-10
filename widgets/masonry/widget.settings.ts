@@ -27,7 +27,11 @@ export function loadWidgetSettings() {
 
   const masonryLayout = document.querySelector("masonry-layout")
 
-  const refreshMasonryLayout = () => {}
+  const refreshMasonryLayout = () => {
+    if (masonryLayout) {
+      masonryLayout.layout()
+    }
+  }
 
   sdk.addEventListener("moreLoad", () => {
     refreshMasonryLayout()
