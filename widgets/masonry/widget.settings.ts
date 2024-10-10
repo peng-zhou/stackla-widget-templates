@@ -19,7 +19,6 @@ import { onTileExpand, onTileClosed, onTileRendered } from "@widgets/libs/extens
 declare const sdk: Sdk
 
 export function loadWidgetSettings() {
-  sdk.tiles.setLoadMode("all")
   sdk.tiles.hideBrokenTiles = true
   sdk.tiles.preloadImages = true
 
