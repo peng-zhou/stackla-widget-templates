@@ -44,6 +44,8 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
                 shopspotEnabled={shopspotEnabled}
                 parent={parent}
               />
+            ) : tile.media === "text" ? (
+              <span>{tile.message}</span>
             ) : (
               <></>
             )}
@@ -172,18 +174,21 @@ function VideoTemplate({ tile }: { tile: Tile }) {
   // handle unplayable tiktok source
   // TODO handle vide_source "tiktok"
   if (tile.source === "tiktok" || tile.video_source === "tiktok") {
-    const src = tile.embed_url as string
-    return <FrameEmbedTemplate src={src} />
+    return <TiktokRenderTemplate tile={tile} />
   }
 
   if (tile.source === "youtube") {
     const youtubeId = tile.youtube_id as string
     const src = `https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1`
     const title = tile.title as string
-    return <FrameEmbedTemplate src={src} title={title} />
-  } else if (tile.source === "twitter") {
+    return <YoutubeRenderTemplate src={src} title={title} />
+  }
+
+  if (tile.source === "twitter") {
     const { standard_resolution } = tile.video
     sourceAttrs["src"] = standard_resolution.url
+  } else if (!tile.video_files?.length) {
+    return <></>
   } else {
     const { url, width, height, mime } = tile.video_files[0]
     sourceAttrs["src"] = url
@@ -210,7 +215,20 @@ function VideoTemplate({ tile }: { tile: Tile }) {
   )
 }
 
-function FrameEmbedTemplate({ src, title = "" }: { src: string; title?: string }) {
+function TiktokRenderTemplate({ tile }: { tile: Tile }) {
+  const content = new DOMParser().parseFromString(tile.full_embed_html as string, "text/html").body.children
+  return <>{Array.from(content)}</>
+}
+
+function sanitizeHTML(content: string) {
+  const scriptSrcPattern =
+    /<script\s(?:async\s)?src=(['"]https:\/\/www\.(?!tiktok\b)\b\w+\.com\/embed\.js['"])\/?>(?:<\/script>)?/g
+  const injectedScriptPattern = /<script(?:.*)?>(.*)(?:<\/script>)/g
+
+  Array.from(content.matchAll(scriptSrcPattern)).forEach(match => content.replace(match[0], ""))
+}
+
+function YoutubeRenderTemplate({ src, title = "" }: { src: string; title?: string }) {
   return (
     <iframe
       class="yt-video-frame"

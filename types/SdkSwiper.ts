@@ -1,7 +1,7 @@
 import type { Sdk } from "@stackla/ugc-widgets"
 import Swiper from "swiper"
 
-export type SwiperMode = "inline" | "expanded"
+export type SwiperMode = "inline" | "expanded" | "cross-sell"
 
 export type SwiperProps = {
   widgetSelector: HTMLElement
