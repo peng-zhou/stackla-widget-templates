@@ -9,7 +9,6 @@ import getCSSVariables from "@widgets/libs/css-variables"
 
 declare const sdk: Sdk
 
-sdk.tiles.setLoadMode("all")
 sdk.tiles.hideBrokenTiles = true
 sdk.tiles.preloadImages = true
 sdk.tiles.setVisibleTilesCount(100)
