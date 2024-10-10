@@ -1,6 +1,6 @@
 import { ExpandedTiles } from "./base.template"
 import expandedTileStyle from "./base.scss"
-import swiperExpandedStyles from "./swiper-expanded-tile.scss"
+import swiperExpandedStyles from "@libs/extensions/swiper/swiper-expanded-tile.scss"
 import tileTagStyles from "@libs/templates/tags/tags.scss"
 import { Sdk } from "@stackla/ugc-widgets"
 import shareMenuStyle from "@libs/templates/share-menu/share-menu.scss"
