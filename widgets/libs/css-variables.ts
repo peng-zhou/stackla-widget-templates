@@ -26,7 +26,7 @@ export default function getCSSVariables<T extends BaseConfig>(widgetSettings: T)
     "--cta-button-background-color": `#${widgetSettings.cta_button_background_color}`,
     "--cta-button-font-color": `#${widgetSettings.cta_button_font_color}`,
     "--cta-button-font-size": `${widgetSettings.cta_button_font_size}px`,
-    "--tile-border-radius": `${widgetSettings.expanded_tile_border_radius}px`
+    "--expanded-tile-border-radius": `${widgetSettings.expanded_tile_border_radius}px`
   }
 
   return Object.entries(cssVariables)
