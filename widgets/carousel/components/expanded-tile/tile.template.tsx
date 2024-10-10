@@ -216,16 +216,7 @@ function VideoTemplate({ tile }: { tile: Tile }) {
 }
 
 function TiktokRenderTemplate({ tile }: { tile: Tile }) {
-  const content = new DOMParser().parseFromString(tile.full_embed_html as string, "text/html").body.children
-  return <>{Array.from(content)}</>
-}
-
-function sanitizeHTML(content: string) {
-  const scriptSrcPattern =
-    /<script\s(?:async\s)?src=(['"]https:\/\/www\.(?!tiktok\b)\b\w+\.com\/embed\.js['"])\/?>(?:<\/script>)?/g
-  const injectedScriptPattern = /<script(?:.*)?>(.*)(?:<\/script>)/g
-
-  Array.from(content.matchAll(scriptSrcPattern)).forEach(match => content.replace(match[0], ""))
+  return <iframe class="yt-video-frame" frameborder="0" allowfullscreen srcdoc={tile.full_embed_html} />
 }
 
 function YoutubeRenderTemplate({ src, title = "" }: { src: string; title?: string }) {

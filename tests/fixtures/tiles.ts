@@ -2592,8 +2592,7 @@ export default [
       S: "https://p16-sign-sg.tiktokcdn.com/tos-alisg-avt-0068/092554186f04b6b2b5d02f9273dac576~c5_168x168.jpeg?x-expires=1694682000&x-signature=wmbrMLZE%2BCLqleYrBozKKvtFpuo%3D",
       XS: "https://p16-sign-sg.tiktokcdn.com/tos-alisg-avt-0068/092554186f04b6b2b5d02f9273dac576~c5_168x168.jpeg?x-expires=1694682000&x-signature=wmbrMLZE%2BCLqleYrBozKKvtFpuo%3D"
     },
-    original_image_url:
-      "https://p16-sign-sg.tiktokcdn.com/obj/tos-alisg-p-0037/okARnDghIdlBleEDQBAbvU8YfAq8YBbDQJAXAW?x-expires=1708041600&x-signature=pYAOn2Ju2k%2BrkfagMLRBTRMnEI4%3D",
+    original_image_url: "https://i.imgur.com/EcxFr.jpeg",
     time_ago: "12 Sep 23",
     image_thumbnail_url: "https://i.imgur.com/EcxFr.jpeg",
     image_thumbnail_width: 720,
