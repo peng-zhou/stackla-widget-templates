@@ -8,17 +8,17 @@
     border-radius: 12px;
     overflow: hidden;
 
-    @include breakpoint(desktop) {
-      width: #{'calc((100vw / 6) - #{$total-padding})'};
-    }
+    // @include breakpoint(desktop) {
+    //   width: #{'calc((100vw / 6) - #{$total-padding})'};
+    // }
 
-    @include breakpoint(tablet) {
-      width:  #{'calc((100vw / 4) - #{$total-padding})'};
-    }
+    // @include breakpoint(tablet) {
+    //   width:  #{'calc((100vw / 4) - #{$total-padding})'};
+    // }
 
-    @include breakpoint(mobile) {
-      width:  #{'calc((100vw / 1) - #{$total-padding})'};
-    }
+    // @include breakpoint(mobile) {
+    //   width:  #{'calc((100vw / 1) - #{$total-padding})'};
+    // }
 
     img {
       width: 100%;
@@ -75,7 +75,7 @@
   height: 100%;
   inset: 0;
   background-color: rgb(0 0 0 / 90%);
-  z-index: 2;
+  z-index: 10;
   cursor: pointer;
 }
 

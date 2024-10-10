@@ -1,10 +1,6 @@
 import { Sdk } from "@stackla/ugc-widgets"
 import getCSSVariables from "@widgets/libs/css-variables"
-import {
-  initializeMasonry,
-  loadMoreMasonryTiles,
-  refreshMasonryLayout
-} from "@widgets/libs/extensions/masonry.extension"
+import "@appnest/masonry-layout"
 import {
   loadTitle,
   addAutoAddTileFeature,
@@ -19,9 +15,6 @@ import { onTileExpand, onTileClosed, onTileRendered } from "@widgets/libs/extens
 declare const sdk: Sdk
 
 export function loadWidgetSettings() {
-  sdk.tiles.hideBrokenTiles = true
-  sdk.tiles.preloadImages = true
-
   const widgetContainer = sdk.placement.getWidgetContainer()
   const widgetSettings = getConfig(widgetContainer)
 
@@ -32,8 +25,12 @@ export function loadWidgetSettings() {
   addTilesPerPageFeature(widgetSettings)
   addLoadMoreButtonFeature(widgetSettings)
 
-  initializeMasonry()
+  const masonryLayout = document.querySelector("masonry-layout")
 
-  sdk.addEventListener("moreLoad", loadMoreMasonryTiles)
+  const refreshMasonryLayout = () => {}
+
+  sdk.addEventListener("moreLoad", () => {
+    refreshMasonryLayout()
+  })
   sdk.addEventListener("tilesUpdated", refreshMasonryLayout)
 }
