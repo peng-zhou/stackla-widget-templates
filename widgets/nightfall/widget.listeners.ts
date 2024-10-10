@@ -11,5 +11,4 @@ export async function onTileClose() {
   }
 
   ugcTiles.style.display = "flex"
-
 }
