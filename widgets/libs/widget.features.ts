@@ -143,6 +143,17 @@ function loadMore() {
   }, 500)
 }
 
+export function loadUntilVisibleTilesCountInScreen() {
+  const visibleTiles = sdk.tiles.getTiles()
+  const visibleTilesCount = visibleTiles.length
+  const tilesPerPage = sdk.tiles.visibleTilesCount
+
+  if (visibleTilesCount < tilesPerPage) {
+    loadMore()
+    setTimeout(loadUntilVisibleTilesCountInScreen, 500)
+  }
+}
+
 export function addLoadMoreButtonFeature<T extends BaseConfig>(widgetSettings: T) {
   const loadMoreButton = sdk.querySelector("#load-more")
 
@@ -155,6 +166,7 @@ export function addLoadMoreButtonFeature<T extends BaseConfig>(widgetSettings: T
   } else {
     loadMoreButton.style.display = "none"
     useInfiniteScroller(sdk, window, loadMore)
+    loadUntilVisibleTilesCountInScreen()
   }
 }
 
@@ -162,7 +174,7 @@ export function addTilesPerPageFeature<T extends BaseConfig>(widgetSettings: T) 
   if (widgetSettings.enable_custom_tiles_per_page) {
     sdk.tiles.setVisibleTilesCount(widgetSettings.tiles_per_page)
   } else {
-    sdk.tiles.setVisibleTilesCount(3 * widgetSettings.rows_per_page)
+    sdk.tiles.setVisibleTilesCount(10 * widgetSettings.rows_per_page)
   }
 }
 

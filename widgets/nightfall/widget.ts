@@ -1,7 +1,6 @@
 declare const sdk: Sdk
 
 import { getConfig } from "./widget.config"
-import { initializeMasonry, refreshMasonryLayout } from "../libs/extensions/masonry.extension"
 import {
   addAutoAddTileFeature,
   addLoadMoreButtonFeature,
@@ -34,10 +33,6 @@ loadExpandedTileFeature(widgetSettings, () => {}, onTileClose)
 addTilesPerPageFeature(widgetSettings)
 addLoadMoreButtonFeature(widgetSettings)
 addCSSVariablesToPlacement(getCSSVariables(widgetSettings))
-
-initializeMasonry()
-
-sdk.addEventListener("tilesUpdated", refreshMasonryLayout)
 
 sdk.addCSSToComponent(customExpandedTileCSS, "expanded-tile")
 sdk.addCSSToComponent(customProductsCSS, "ugc-products")

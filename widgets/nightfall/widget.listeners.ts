@@ -1,5 +1,4 @@
 import { Sdk } from "@stackla/ugc-widgets"
-import { refreshMasonryLayout } from "../libs/extensions/masonry.extension"
 import { waitForElement } from "widgets/libs/widget.utils"
 declare const sdk: Sdk
 
@@ -12,6 +11,4 @@ export async function onTileClose() {
   }
 
   ugcTiles.style.display = "flex"
-
-  refreshMasonryLayout()
 }
