@@ -4,7 +4,7 @@ import { BaseConfig } from "../../types/IBaseConfig"
 
 declare const sdk: Sdk
 
-type Callback = () => void
+type Callback = (args: unknown) => void
 
 export function registerTileClickEventListeners<T extends BaseConfig>(widgetSettings: T) {
   const urlPattern = /^https?:\/\/.+/
@@ -27,8 +27,12 @@ export function registerTileClickEventListeners<T extends BaseConfig>(widgetSett
   })
 }
 
-export function registerTileExpandListener(fn: Callback = () => {}) {
-  sdk.addEventListener("tileExpand", fn)
+export function registerTileExpandListener(fn: (tileId: string) => void = () => {}) {
+  sdk.addEventListener("tileExpand", (event: Event) => {
+    const customEvent = event as CustomEvent
+    const tileId = customEvent.detail.data.tileId as string
+    fn(tileId)
+  })
 }
 
 export function registerTileClosedListener(fn: Callback = () => {}) {

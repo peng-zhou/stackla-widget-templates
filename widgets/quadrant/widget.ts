@@ -31,8 +31,6 @@ addCSSVariablesToPlacement(getCSSVariables(widgetSettings))
 
 sdk.tiles.preloadImages = true
 
-sdk.tiles.setLoadMode("page")
-
 sdk.addEventListener("tilesUpdated", initializeQuadrant)
 
 const loadMoreButton = sdk.querySelector("#load-more")

@@ -101,7 +101,7 @@ export function loadWidgetIsEnabled<T extends BaseConfig>(widgetSettings: T) {
 
 export function loadExpandedTileFeature<T extends BaseConfig>(
   widgetSettings: T,
-  onTileExpand: () => void = () => {},
+  onTileExpand: (tileId: string) => void = () => {},
   onTileClosed: () => void = () => {},
   onTileRendered: () => void = () => {}
 ) {
@@ -154,7 +154,7 @@ export function addLoadMoreButtonFeature<T extends BaseConfig>(widgetSettings: T
     loadMoreButton.onclick = loadMore
   } else {
     loadMoreButton.style.display = "none"
-    useInfiniteScroller(sdk, loadMore)
+    useInfiniteScroller(sdk, window, loadMore)
   }
 }
 

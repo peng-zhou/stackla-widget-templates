@@ -29,6 +29,7 @@ export function loadStaticFileRoutes(expressApp) {
         .replace(/https:\/\/widget-data.stackla.com/g, `http://localhost:${port}`)
         .replace(/https:\/\/widget-ui.stackla.com/g, "http://localhost:4002")
         .replace(/\/tiles\?/g, `/tiles?widgetType=${req.query.widgetType}&`)
+        .replace(/https:\/\/my.stackla.com\/cs\/image\/disable/g, `http://localhost:4002/stackla/cs/image/disable`)
 
       res.setHeader("Content-Type", "application/javascript")
       res.send(parsedCode)

@@ -9,7 +9,7 @@ export function ExpandedTiles(sdk: Sdk) {
   const widgetSettings = getConfig(widgetContainer)
   const navigationArrowsEnabled = widgetSettings.expanded_tile_show_navigation_arrows
 
-  return Object.values(tiles).length ? (
+  return (
     <div class="expanded-tile-wrapper">
       <a class="exit" href="#">
         <span class="widget-icon close-white"></span>
@@ -18,7 +18,7 @@ export function ExpandedTiles(sdk: Sdk) {
       <div class="swiper swiper-expanded">
         <div class="swiper-wrapper">
           {Object.values(tiles).map(tile => (
-            <div class="swiper-slide">
+            <div class="swiper-slide" data-id={tile.id}>
               <ExpandedTile sdk={sdk} tile={tile} />
             </div>
           ))}
@@ -37,8 +37,6 @@ export function ExpandedTiles(sdk: Sdk) {
         ""
       )}
     </div>
-  ) : (
-    <span>No tiles found</span>
   )
 }
 

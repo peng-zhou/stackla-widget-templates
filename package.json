@@ -65,8 +65,8 @@
   },
   "dependencies": {
     "@glidejs/glide": "^3.6.1",
-    "@stackla/handlebars": "^0.1.1",
-    "@stackla/ugc-widgets": "^0.0.58",
+    "@stackla/handlebars": "^0.1.2",
+    "@stackla/ugc-widgets": "^0.0.61",
     "cookie-parser": "^1.4.6",
     "happy-dom": "^14.12.3",
     "hbs": "^4.2.0",
