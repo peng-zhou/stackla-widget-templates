@@ -154,7 +154,7 @@ export function addLoadMoreButtonFeature<T extends BaseConfig>(widgetSettings: T
     loadMoreButton.onclick = loadMore
   } else {
     loadMoreButton.style.display = "none"
-    useInfiniteScroller(sdk, loadMore)
+    useInfiniteScroller(sdk, window, loadMore)
   }
 }
 

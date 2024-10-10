@@ -9,7 +9,7 @@ export function initializeQuadrant(): void {
   const imagesPerGroup = 5
   let groupCount = 0
 
-  const ugcTiles = sdk.tiles.getEnabledTiles()
+  const ugcTiles = sdk.tiles.getTiles()
   const container = sdk.querySelector(".quadrant-grid-container")
 
   if (!container) {
@@ -56,7 +56,7 @@ export function initializeQuadrant(): void {
 }
 
 function handleClickedTileEvents(tileId: number): void {
-  const ugcTiles = sdk.tiles.getEnabledTiles()
+  const ugcTiles = sdk.tiles.getTiles()
   const tileData = {
     tileData: ugcTiles.find(tile => Number(tile.id) === tileId),
     widgetId: sdk.placement.getWidgetId(),
