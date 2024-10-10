@@ -38,4 +38,5 @@ export interface IWidgetSettings extends BaseConfig {
   expanded_tile_show_caption: boolean
   expanded_tile_show_timestamp: boolean
   expanded_tile_show_tags: boolean
+  expanded_tile_show_navigation_arrows: boolean
 }
