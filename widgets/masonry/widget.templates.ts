@@ -1,5 +1,5 @@
 import { loadSwiperStyles } from "@widgets/libs/extensions/swiper"
-import { loadExpandedTileTemplates } from "./components/expanded-tile"
+import { loadExpandedTileTemplates } from "@libs/components/expanded-tile-swiper"
 import { loadProductsTemplate } from "./components/products"
 import { loadShopspotTemplates } from "./components/shopspot-icon"
 import icons from "../../uikit/icon.scss"
