@@ -14,9 +14,7 @@ import { getConfig } from "./widget.config"
 declare const sdk: Sdk
 
 export function loadSettings() {
-  sdk.tiles.preloadImages = false
-  sdk.tiles.setLoadMode("all")
-  sdk.tiles.loadOwner = "client"
+  sdk.tiles.preloadImages = true
 
   const widgetContainer = sdk.placement.getWidgetContainer()
   const widgetSettings = getConfig(widgetContainer)

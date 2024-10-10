@@ -184,7 +184,7 @@ function VideoTemplate({ tile }: { tile: Tile }) {
   } else if (tile.source === "twitter") {
     const { standard_resolution } = tile.video
     sourceAttrs["src"] = standard_resolution.url
-  } else {
+  } else if (tile.video_files) {
     const { url, width, height, mime } = tile.video_files[0]
     sourceAttrs["src"] = url
     sourceAttrs["width"] = width.toString()

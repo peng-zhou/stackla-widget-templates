@@ -20,7 +20,6 @@ import { addCSSVariablesToPlacement } from "widgets/libs/widget.layout"
 import { onTileClose } from "./widget.listeners"
 import { Sdk } from "@stackla/ugc-widgets"
 
-sdk.tiles.setLoadMode("all")
 sdk.tiles.hideBrokenTiles = true
 sdk.tiles.preloadImages = true
 
