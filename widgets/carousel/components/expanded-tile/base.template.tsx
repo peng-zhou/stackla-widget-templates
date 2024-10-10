@@ -4,7 +4,7 @@ import { createElement, createFragment } from "@stackla/ugc-widgets/src/ui/core/
 import { getConfig } from "@widgets/carousel/widget.config"
 
 export function ExpandedTiles(sdk: Sdk) {
-  const tiles = sdk.tiles.getVisibleTiles()
+  const tiles = sdk.tiles.tiles
   const widgetContainer = sdk.placement.getWidgetContainer()
   const widgetSettings = getConfig(widgetContainer)
   const navigationArrowsEnabled = widgetSettings.expanded_tile_show_navigation_arrows
@@ -24,18 +24,16 @@ export function ExpandedTiles(sdk: Sdk) {
           ))}
         </div>
       </div>
-      {navigationArrowsEnabled ? (
-        <>
-          <div class="swiper-expanded-button-prev swiper-button-prev">
-            <span class="chevron-left" alt="Previous arrow" />
-          </div>
-          <div class="swiper-expanded-button-next swiper-button-next">
-            <span class="chevron-right" alt="Next arrow" />
-          </div>
-        </>
-      ) : (
-        ""
-      )}
+      <div
+        class="swiper-expanded-button-prev swiper-button-prev"
+        style={{ visibility: !navigationArrowsEnabled ? "hidden" : "visible" }}>
+        <span class="chevron-left" alt="Previous arrow" />
+      </div>
+      <div
+        class="swiper-expanded-button-next swiper-button-next"
+        style={{ visibility: !navigationArrowsEnabled ? "hidden" : "visible" }}>
+        <span class="chevron-right" alt="Next arrow" />
+      </div>
     </div>
   )
 }
