@@ -26,12 +26,12 @@ export function ExpandedTiles(sdk: Sdk) {
       </div>
       <div
         class="swiper-expanded-button-prev swiper-button-prev"
-        style={{ visibility: !navigationArrowsEnabled ? "hidden" : "visible" }}>
+        style={{ display: !navigationArrowsEnabled ? "none" : "flex" }}>
         <span class="chevron-left" alt="Previous arrow" />
       </div>
       <div
         class="swiper-expanded-button-next swiper-button-next"
-        style={{ visibility: !navigationArrowsEnabled ? "hidden" : "visible" }}>
+        style={{ display: !navigationArrowsEnabled ? "none" : "flex" }}>
         <span class="chevron-right" alt="Next arrow" />
       </div>
     </div>

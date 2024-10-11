@@ -31,7 +31,8 @@ export default {
       show_sharing: true,
       show_shopspots: true,
       show_tags: true,
-      show_votes: true
+      show_votes: true,
+      inline_tile_show_shopspots: true
     },
     claim_config: {
       show_claim_button: false,
