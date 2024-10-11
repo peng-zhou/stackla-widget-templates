@@ -26,24 +26,23 @@ html {
 }
 
 .expanded-tile-wrapper {
-  width: 100%;
-
-  .swiper {
-    max-width: 90%;
+  .panel-overlay {
+    display: none;
   }
 
   .panel-left {
     video {
       display: flex;
       width: 100%;
-      height: auto;
+      height: 100%;
       z-index: 10;
       position: relative;
-
-      .panel-overlay {
-        display: none;
-      }
     }
+
+    .video-content-wrapper {
+      height: 100%;
+    }
+
     .video-fallback-content {
       display: flex;
       justify-content: center;
