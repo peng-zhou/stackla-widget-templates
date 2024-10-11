@@ -39,6 +39,9 @@
   background-color: rgb(0 0 0 / 90%);
   z-index: 10;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .swiper {
