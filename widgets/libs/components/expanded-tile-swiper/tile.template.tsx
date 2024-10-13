@@ -172,19 +172,22 @@ function VideoTemplate({ tile }: { tile: Tile }) {
   // handle unplayable tiktok source
   // TODO handle vide_source "tiktok"
   if (tile.source === "tiktok" || tile.video_source === "tiktok") {
-    const src = tile.embed_url as string
-    return <FrameEmbedTemplate src={src} />
+    return <TiktokRenderTemplate tile={tile} />
   }
 
   if (tile.source === "youtube") {
     const youtubeId = tile.youtube_id as string
     const src = `https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1`
     const title = tile.title as string
-    return <FrameEmbedTemplate src={src} title={title} />
-  } else if (tile.source === "twitter") {
+    return <YoutubeRenderTemplate src={src} title={title} />
+  }
+
+  if (tile.source === "twitter") {
     const { standard_resolution } = tile.video
     sourceAttrs["src"] = standard_resolution.url
-  } else if (tile.video_files) {
+  } else if (!tile.video_files?.length) {
+    return <></>
+  } else {
     const { url, width, height, mime } = tile.video_files[0]
     sourceAttrs["src"] = url
     sourceAttrs["width"] = width.toString()
@@ -210,7 +213,11 @@ function VideoTemplate({ tile }: { tile: Tile }) {
   )
 }
 
-function FrameEmbedTemplate({ src, title = "" }: { src: string; title?: string }) {
+function TiktokRenderTemplate({ tile }: { tile: Tile }) {
+  return <iframe class="yt-video-frame" frameborder="0" allowfullscreen srcdoc={tile.full_embed_html} />
+}
+
+function YoutubeRenderTemplate({ src, title = "" }: { src: string; title?: string }) {
   return (
     <iframe
       class="yt-video-frame"
