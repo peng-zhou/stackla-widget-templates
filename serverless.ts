@@ -46,6 +46,7 @@ const config = {
     main: {
       handler: `./src/functions/main/handler.main`,
       timeout: 30,
+      provisionedConcurrency: 10,
       url: {
         authorizer: "aws_iam" as const
       },
