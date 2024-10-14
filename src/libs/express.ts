@@ -46,7 +46,9 @@ expressApp.use(cookieParser())
 const stripSymbols = (str: string) => str.replace(/[^a-zA-Z0-9]/g, "")
 const stripSymbolsThatAreNotDash = (str: string) => str.replace(/[^a-zA-Z0-9-]/g, "")
 
-loadStaticFileRoutes(expressApp)
+if (process.env.APP_ENV == "testing" || process.env.APP_ENV == "development") {
+  loadStaticFileRoutes(expressApp)
+}
 
 expressApp.use((req, res, next) => {
   const host = req.headers.host || "http://localhost:4003"
