@@ -66,32 +66,24 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
               <button class="share-button">
                 <span class="widget-icon icon-share" alt="Share button"></span>
               </button>
-              {sharingToolsEnabled ? <ShareMenu tile={tile} /> : ""}
+              {sharingToolsEnabled && <ShareMenu tile={tile} />}
               <div class="user-info-wrapper">
                 <UserInfoTemplate tile={tile} />
               </div>
               <div class="description">
-                {captionsEnabled ? (
+                {captionsEnabled && (
                   <div class="caption">
                     <p class="caption-paragraph">{tile.message}</p>
                   </div>
-                ) : (
-                  ""
                 )}
-                {timestampEnabled ? (
-                  <div class="tile-timestamp">
-                    {tile.source_created_at ? getTimephrase(tile.source_created_at) : ""}
-                  </div>
-                ) : (
-                  ""
+                {timestampEnabled && (
+                  <div class="tile-timestamp">{tile.source_created_at && getTimephrase(tile.source_created_at)}</div>
                 )}
-                {tagsEnabled ? <Tags tile={tile} /> : ""}
-                {productsEnabled ? (
+                {tagsEnabled && <Tags tile={tile} />}
+                {productsEnabled && (
                   <>
                     <ugc-products parent={parent} tile-id={tile.id} />
                   </>
-                ) : (
-                  ""
                 )}
                 <div class="footer">
                   <span class="base-v2 source source-instagram">
