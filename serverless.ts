@@ -44,6 +44,9 @@ const config = {
   }),
   functions: {
     main: {
+      environment: {
+        APP_ENV: env
+      },
       handler: `./src/functions/main/handler.main`,
       timeout: 30,
       url: {
