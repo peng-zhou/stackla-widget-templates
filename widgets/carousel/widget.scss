@@ -2,23 +2,6 @@
 @import "@styles/inline-tile.scss";
 @import "@styles/mixins.scss";
 
-.loading {
-  border-radius: 50% !important;
-  -webkit-animation: spin 2s linear infinite; /* Safari */
-  animation: spin 2s linear infinite;
-  position: absolute;
-  z-index: 10;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
 #nosto-ugc-container {
   height: 210px;
 
@@ -43,23 +26,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.swiper {
-  height: 100%;
-
-  .swiper-slide {
-    align-items: center;
-
-    > .tile > .tile-loading {
-      @extend .loading;
-      border: 5px solid #f3f3f3;
-      border-top: 5px solid #3498db;
-      border-bottom: 5px solid #3498db;
-      width: 30px !important;
-      height: 30px !important;
-    }
-  }
 }
 
 @include breakpoint(mobile) {

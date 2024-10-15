@@ -32,8 +32,6 @@ export function loadWidgetSettings() {
     }
   }
 
-  window.refreshMasonryLayout = refreshMasonryLayout
-
   sdk.addEventListener("moreLoad", () => {
     refreshMasonryLayout()
   })
