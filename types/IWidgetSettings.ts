@@ -39,4 +39,5 @@ export interface IWidgetSettings extends BaseConfig {
   expanded_tile_show_timestamp: boolean
   expanded_tile_show_tags?: boolean
   expanded_tile_show_navigation_arrows?: boolean
+  tile_size: "medium" | "small" | "large"
 }

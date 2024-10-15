@@ -156,6 +156,7 @@ export function loadUntilVisibleTilesCountInScreen() {
 
 export function addLoadMoreButtonFeature<T extends BaseConfig>(widgetSettings: T) {
   const loadMoreButton = sdk.querySelector("#load-more")
+  const loadMoreLoader = sdk.querySelector("#load-more-loader")
 
   if (!loadMoreButton) {
     throw new Error("Failed to find load more button")
@@ -171,6 +172,13 @@ export function addLoadMoreButtonFeature<T extends BaseConfig>(widgetSettings: T
     loadUntilVisibleTilesCountInScreen()
   } else if (loadMoreType === "static") {
     loadMoreButton.style.display = "none"
+  }
+
+  if (!sdk.tiles.hasMorePages()) {
+    loadMoreButton.style.display = "none"
+    if (loadMoreLoader) {
+      loadMoreLoader.style.display = "none"
+    }
   }
 }
 

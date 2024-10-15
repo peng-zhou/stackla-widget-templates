@@ -35,4 +35,5 @@ export interface BaseConfig {
   cta_button_background_color?: string
   cta_button_font_color?: string
   cta_button_font_size?: number
+  tile_size: "medium" | "small" | "large"
 }

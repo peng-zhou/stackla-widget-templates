@@ -25,10 +25,17 @@ export function loadWidgetSettings() {
   addTilesPerPageFeature(widgetSettings)
   addLoadMoreButtonFeature(widgetSettings)
 
+  const tileSizes: { [key: string]: string } = {
+    small: "127.8px",
+    medium: "210.4px",
+    large: "265.5px"
+  }
+
   const refreshMasonryLayout = () => {
     const masonryLayout = sdk.querySelector<MasonryLayout>("masonry-layout")
     if (masonryLayout instanceof MasonryLayout) {
       masonryLayout.layout()
+      masonryLayout.setAttribute("maxColWidth", tileSizes[widgetSettings.tile_size])
     }
   }
 
