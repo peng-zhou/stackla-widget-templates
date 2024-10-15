@@ -1,4 +1,4 @@
-import { Sdk, Tile } from "@stackla/ugc-widgets"
+import { Sdk } from "@stackla/ugc-widgets"
 import getCSSVariables from "@widgets/libs/css-variables"
 import { MasonryLayout } from "@appnest/masonry-layout"
 import {
