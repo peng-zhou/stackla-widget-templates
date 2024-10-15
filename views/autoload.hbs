@@ -2,7 +2,7 @@
 (() => {
   const sdk = window.ugc.getWidgetBySelector(`{{{selector}}}`).getSdk();
   sdk.querySelector('#nosto-ugc-container').style.display = 'none';
-  sdk.addUgcEventListener('load', () => {
+  sdk.addEventListener('load', () => {
     sdk.querySelector('#nosto-ugc-container').style.display = '';
   });
   {{{code}}}
