@@ -4,11 +4,24 @@
 #nosto-ugc-container {
   .ugc-tiles {
     display: grid;
-    grid-template-columns: repeat(auto-fit, 134.6px);
-    grid-auto-rows: 134.6px;
-    grid-gap: 10px;
+    // grid-template-columns: repeat(auto-fit, 1fr);
+    // grid-template-rows: 210.4px;
   }
+
+  .tile-group {
+    display: grid;
+  // grid-template-columns: repeat(4, 210.4px);
+  // grid-template-rows: 210.4px;
+  grid-template-areas:
+    "large large small1 small2"
+    "large large small3 small4";
+  gap: 10px; /* Gap between tiles */
+  }
+
   .ugc-tile {
+    $total-padding: 20px;
+    box-sizing: border-box;
+    border-radius: 12px;
     overflow: hidden;
 
     img {
@@ -16,19 +29,27 @@
       height: auto;
     }
   }
-  .ugc-tile.large {
-    grid-column: span 2;
-    grid-row: span 2;
-    max-width: 269.3px;
-    max-height: 269.3px;
-  }
-  .ugc-tile.small {
-    grid-column: span 1;
-    grid-row: span 1;
-    max-width: 134.6px;
-    max-height: 134.6px;
 
+  .ugc-tile.large {
+    grid-area: large; /* Large tile spans 2 columns and 2 rows */
   }
+  
+  .ugc-tile.small:nth-child(2) {
+    grid-area: small1;
+  }
+  
+  .ugc-tile.small:nth-child(3) {
+    grid-area: small2;
+  }
+  
+  .ugc-tile.small:nth-child(4) {
+    grid-area: small3;
+  }
+  
+  .ugc-tile.small:nth-child(5) {
+    grid-area: small4;
+  }
+
   .tile {
     position: relative;
 
@@ -66,6 +87,19 @@
         }
       }
     }
+  }
+}
+
+#load-more-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  margin-top: 25px;
+
+  .loading {
+    height: 50px !important;
+    width: 50px !important;
   }
 }
 
