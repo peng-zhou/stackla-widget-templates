@@ -1,12 +1,9 @@
-<div class="track">
-    <div class="quadrant-grid-container">
-        <div style="display:none;" class="ugc-tiles">
-            {{#tiles}}
-            {{>tpl-tile}}
-            {{/tiles}}
-        </div>
-    </div>
-</div>
+
+<quadrant-layout class="ugc-tiles" cols="auto" gap="10">
+    {{#tiles}}
+        {{>tpl-tile}}
+    {{/tiles}}
+</quadrant-layout>
 <div id="buttons">
     <button id="load-more">Load More</button>
 </div>

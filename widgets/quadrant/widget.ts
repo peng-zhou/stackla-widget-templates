@@ -1,50 +1,7 @@
-import { getConfig } from "./widget.config"
-import type { Sdk } from "@stackla/ugc-widgets"
-import {
-  addAutoAddTileFeature,
-  addLoadMoreButtonFeature,
-  addTilesPerPageFeature,
-  loadExpandedTileFeature,
-  loadTitle
-} from "../libs/widget.features"
-import { loadExpandSettingComponents } from "../libs/widget.components"
-import customExpandedTileTemplate from "./components/expanded-tile/base.template"
-import customExpandedTileCSS from "./components/expanded-tile/styles.scss"
-import customProductsCSS from "./components/products/styles.scss"
-import getCSSVariables from "../libs/css-variables"
-import { addCSSVariablesToPlacement } from "../libs/widget.layout"
-import { initializeQuadrant } from "./quadrant.lib"
+import { loadAllUnloadedTiles } from "@widgets/libs/extensions/swiper/loader.extension"
+import { loadWidgetSettings } from "./widget.settings"
+import { loadCustomisation } from "./widget.templates"
 
-declare const sdk: Sdk
-
-const widgetContainer = sdk.placement.getWidgetContainer()
-const widgetSettings = getConfig(widgetContainer)
-const groupsToShowInitially = 6
-
-loadTitle()
-loadExpandSettingComponents(widgetSettings)
-addAutoAddTileFeature(widgetSettings)
-loadExpandedTileFeature(widgetSettings)
-addTilesPerPageFeature(widgetSettings)
-addLoadMoreButtonFeature(widgetSettings)
-addCSSVariablesToPlacement(getCSSVariables(widgetSettings))
-
-sdk.tiles.preloadImages = true
-
-sdk.addEventListener("tilesUpdated", initializeQuadrant)
-
-const loadMoreButton = sdk.querySelector("#load-more")
-
-if (!loadMoreButton) {
-  throw new Error("Load more button not found")
-}
-
-loadMoreButton.addEventListener("click", () => {
-  for (let i = 0; i < groupsToShowInitially; i++) {
-    initializeQuadrant()
-  }
-})
-
-sdk.addCSSToComponent(customExpandedTileCSS, "expanded-tile")
-sdk.addCSSToComponent(customProductsCSS, "ugc-products")
-sdk.addTemplateToComponent(customExpandedTileTemplate, "expanded-tile")
+loadCustomisation()
+loadWidgetSettings()
+loadAllUnloadedTiles()
