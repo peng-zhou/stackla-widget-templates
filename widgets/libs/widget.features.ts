@@ -143,17 +143,6 @@ function loadMore() {
   }, 500)
 }
 
-export function loadUntilVisibleTilesCountInScreen() {
-  const visibleTiles = sdk.tiles.getTiles()
-  const visibleTilesCount = visibleTiles.length
-  const tilesPerPage = sdk.tiles.visibleTilesCount
-
-  if (visibleTilesCount < tilesPerPage) {
-    loadMore()
-    setTimeout(loadUntilVisibleTilesCountInScreen, 500)
-  }
-}
-
 export function addLoadMoreButtonFeature<T extends BaseConfig>(widgetSettings: T) {
   const loadMoreButton = sdk.querySelector("#load-more")
   const loadMoreLoader = sdk.querySelector("#load-more-loader")
@@ -169,7 +158,6 @@ export function addLoadMoreButtonFeature<T extends BaseConfig>(widgetSettings: T
   } else if (loadMoreType === "scroll") {
     loadMoreButton.style.display = "none"
     useInfiniteScroller(sdk, window, loadMore)
-    loadUntilVisibleTilesCountInScreen()
   } else if (loadMoreType === "static") {
     loadMoreButton.style.display = "none"
   }
