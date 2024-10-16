@@ -46,7 +46,7 @@ export function getConfig(widgetContainer: WidgetContainer): IWidgetSettings {
     click_through_url: widgetStyle?.click_through_url,
     load_more_type: widgetStyle?.load_more_type,
     tags_gap: widgetStyle?.tags_gap ?? 4,
-    tile_size: "medium"
+    tile_size: widgetConfig?.tile_options?.tile_size
   }
 
   const inlineTileProperties = {

@@ -4,18 +4,15 @@
 #nosto-ugc-container {
   .ugc-tiles {
     display: grid;
-    // grid-template-columns: repeat(auto-fit, 1fr);
-    // grid-template-rows: 210.4px;
   }
 
   .tile-group {
     display: grid;
-  // grid-template-columns: repeat(4, 210.4px);
-  // grid-template-rows: 210.4px;
-  grid-template-areas:
-    "large large small1 small2"
-    "large large small3 small4";
-  gap: 10px; /* Gap between tiles */
+    grid-template-areas:
+      "large large small1 small2"
+      "large large small3 small4";
+    gap: var(--margin);
+    margin-bottom: var(--margin);
   }
 
   .ugc-tile {
@@ -31,21 +28,21 @@
   }
 
   .ugc-tile.large {
-    grid-area: large; /* Large tile spans 2 columns and 2 rows */
+    grid-area: large;
   }
-  
+
   .ugc-tile.small:nth-child(2) {
     grid-area: small1;
   }
-  
+
   .ugc-tile.small:nth-child(3) {
     grid-area: small2;
   }
-  
+
   .ugc-tile.small:nth-child(4) {
     grid-area: small3;
   }
-  
+
   .ugc-tile.small:nth-child(5) {
     grid-area: small4;
   }
@@ -86,6 +83,10 @@
           color: #fff;
         }
       }
+    }
+
+    .tile-image {
+      display: flex;
     }
   }
 }

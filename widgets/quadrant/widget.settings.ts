@@ -35,20 +35,24 @@ export function loadWidgetSettings() {
   }
 
   if (tilesContainer) {
-    tilesContainer.style.gridTemplateColumns = `repeat(auto-fit, ${(parseInt(tileSizes[widgetSettings.tile_size]) + 11) * 4}px)`
+    const tileSize = parseInt(tileSizes[widgetSettings.tile_size ?? "medium"])
+    const tileGap = widgetSettings.margin ?? 10
+    const totalTileWidth = (tileSize + tileGap) * 4
+    tilesContainer.style.gridTemplateColumns = `repeat(auto-fit, ${totalTileWidth}px)`
   }
 
   if (tiles) {
     for (let i = 0; i < tiles.length; i += 5) {
       const tileGroup = document.createElement("div")
       tileGroup.classList.add("tile-group")
-      tileGroup.style.gridTemplateColumns = `repeat(4, ${tileSizes[widgetSettings.tile_size]}px)`
-      tileGroup.style.gridTemplateRows = tileSizes[widgetSettings.tile_size]
+      tileGroup.style.gridTemplateColumns = `repeat(4, ${tileSizes[widgetSettings.tile_size ?? "medium"]}px)`
+      tileGroup.style.gridTemplateRows = tileSizes[widgetSettings.tile_size ?? "medium"]
 
       const largeTile = tiles[i]
-      largeTile.classList.add("large")
-
-      tileGroup.appendChild(largeTile)
+      if (largeTile) {
+        largeTile.classList.add("large")
+        tileGroup.appendChild(largeTile)
+      }
 
       for (let j = 1; j <= 4; j++) {
         const smallTile = tiles[i + j]
