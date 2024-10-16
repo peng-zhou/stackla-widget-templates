@@ -8,6 +8,7 @@ export function ExpandedTiles(sdk: Sdk) {
   const widgetContainer = sdk.placement.getWidgetContainer()
   const widgetSettings = getConfig(widgetContainer)
   const navigationArrowsEnabled = widgetSettings.expanded_tile_show_navigation_arrows
+  const isDesktopScreen = window.innerWidth > 992
 
   return (
     <div class="expanded-tile-wrapper">
@@ -26,12 +27,12 @@ export function ExpandedTiles(sdk: Sdk) {
       </div>
       <div
         class="swiper-expanded-button-prev swiper-button-prev"
-        style={{ display: !navigationArrowsEnabled ? "none" : "flex" }}>
+        style={{ display: isDesktopScreen && navigationArrowsEnabled ? "flex" : "none" }}>
         <span class="chevron-left" alt="Previous arrow" />
       </div>
       <div
         class="swiper-expanded-button-next swiper-button-next"
-        style={{ display: !navigationArrowsEnabled ? "none" : "flex" }}>
+        style={{ display: isDesktopScreen && navigationArrowsEnabled ? "flex" : "none" }}>
         <span class="chevron-right" alt="Next arrow" />
       </div>
     </div>
