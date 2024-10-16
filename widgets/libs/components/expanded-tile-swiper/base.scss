@@ -113,6 +113,9 @@ html {
 }
 
 @include breakpoint(tablet) {
+  .expanded-tile-wrapper {
+    height: 100%;
+  }
   .expanded-tile-wrapper .swiper {
     max-width: unset;
   }
