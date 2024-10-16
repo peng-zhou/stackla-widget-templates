@@ -83,3 +83,10 @@
   align-items: center;
   justify-content: center;
 }
+
+@include breakpoint(tablet) {
+  .expanded-tile-overlay {
+    align-items: flex-start;
+  }
+}
+
