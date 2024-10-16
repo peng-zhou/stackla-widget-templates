@@ -23,6 +23,7 @@
 
 @include breakpoint(tablet) {
   .swiper .swiper-wrapper {
+    max-height: unset;
     height: auto;
   }
 }
