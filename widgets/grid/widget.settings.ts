@@ -35,7 +35,9 @@ export function loadWidgetSettings() {
     const masonryLayout = sdk.querySelector<MasonryLayout>("masonry-layout")
     if (masonryLayout instanceof MasonryLayout) {
       masonryLayout.layout()
-      masonryLayout.setAttribute("maxColWidth", tileSizes[widgetSettings.tile_size])
+      if (widgetSettings.tile_size) {
+        masonryLayout.setAttribute("maxColWidth", tileSizes[widgetSettings.tile_size])
+      }
     }
   }
 
