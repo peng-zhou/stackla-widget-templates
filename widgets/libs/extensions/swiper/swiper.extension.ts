@@ -2,6 +2,7 @@ import Swiper from "swiper"
 import { SdkSwiper } from "types"
 import { Keyboard, Manipulation, Navigation } from "swiper/modules"
 import { SwiperData, SwiperMode, SwiperProps } from "types/SdkSwiper"
+import { enableTileImages } from "./loader.extension"
 
 declare const sdk: SdkSwiper
 
@@ -98,7 +99,7 @@ function disblePrevNavigation(swiper: Swiper) {
 
 function registerObserver(swiper: Swiper) {
   const observer = new MutationObserver(() => {
-    enableSlides(swiper)
+    enableTileImages(swiper.wrapperEl)
   })
   observer.observe(swiper.wrapperEl, {
     childList: true
@@ -179,24 +180,4 @@ export function getClickedIndex(mode: SwiperMode) {
       : sdk[mode].instance.clickedIndex
   }
   return 0
-}
-
-function enableSlides(swiper: Swiper) {
-  const elements = swiper.wrapperEl.querySelectorAll<HTMLElement>(".swiper-slide:has(.tile-content.hidden)")
-  elements.forEach(element => enableSlide(element))
-}
-
-function enableSlide(slide: HTMLElement) {
-  const tileImage = slide.querySelector<HTMLImageElement>(".tile-image > img")
-  if (tileImage) {
-    if (tileImage.complete) {
-      enableTileContent(slide)
-    }
-    tileImage.onload = () => enableTileContent(slide)
-  }
-}
-
-function enableTileContent(slide: HTMLElement) {
-  slide.querySelector(".tile-loading")?.classList.add("hidden")
-  slide.querySelector(".tile-content.hidden")?.classList.remove("hidden")
 }
