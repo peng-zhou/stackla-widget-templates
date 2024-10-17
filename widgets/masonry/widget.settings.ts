@@ -30,12 +30,12 @@ export async function loadWidgetSettings() {
 
   await preloadTileBackgroundImages()
 
-  resizeAllUgcTiles()
+  await resizeAllUgcTiles()
 
-  sdk.addEventListener("moreLoad", () => {
-    refreshMasonryLayout(false)
+  sdk.addEventListener("moreLoad", async () => {
+    await refreshMasonryLayout(false)
   })
-  sdk.addEventListener("tilesUpdated", () => {
-    refreshMasonryLayout(false);
+  sdk.addEventListener("tilesUpdated", async () => {
+    await refreshMasonryLayout(false)
   })
 }
