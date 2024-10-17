@@ -32,7 +32,8 @@ export default {
       show_shopspots: true,
       show_tags: true,
       show_votes: true,
-      inline_tile_show_shopspots: true
+      inline_tile_show_shopspots: true,
+      tile_size: "medium"
     },
     claim_config: {
       show_claim_button: false,
@@ -43,7 +44,7 @@ export default {
     auto_refresh: "1",
     click_through_url: "[EXPAND]",
     enable_custom_tiles_per_page: false,
-    load_more_type: "static",
+    load_more_type: "scroll",
     enable_typekit: false,
     margin: 10,
     name: "NextGen Widget Sample 3.0",
