@@ -49,7 +49,6 @@ export const resizeAllUgcTiles = (() => {
     }
 
     const screenWidth = window.innerWidth;
-    let possibleWidths: number[];
     let minWidth = 250; 
     let maxWidth = 350;
 
@@ -76,8 +75,16 @@ export const resizeAllUgcTiles = (() => {
       return validWidths;
     }
 
+    const widths = generateWidthBasedOnScreen(minWidth, maxWidth);
+    let possibleWidths = [...widths];
+
     ugcTiles.forEach((tile: HTMLElement) => {
-      let widths = generateWidthBasedOnScreen(minWidth, maxWidth);
+      if (!possibleWidths || possibleWidths.length === 0) {
+        possibleWidths = [...widths];
+      }
+
+      console.log('possibleWidths', possibleWidths, rows);
+
       let randomWidth = widths[Math.floor(Math.random() * widths.length)] - 50;
       const rowWidth = sdk.querySelector("#nosto-ugc-container")?.clientWidth! - 80
       
