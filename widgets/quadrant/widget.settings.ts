@@ -5,7 +5,7 @@ import {
   loadTitle,
   addAutoAddTileFeature,
   loadExpandedTileFeature,
-  addTilesPerPageFeature,
+  // addTilesPerPageFeature,
   addLoadMoreButtonFeature
 } from "@widgets/libs/widget.features"
 import { addCSSVariablesToPlacement } from "@widgets/libs/widget.layout"
@@ -22,7 +22,8 @@ export function loadWidgetSettings() {
   addCSSVariablesToPlacement(getCSSVariables(widgetSettings))
   addAutoAddTileFeature(widgetSettings)
   loadExpandedTileFeature(widgetSettings, onTileExpand, onTileClosed, onTileRendered)
-  addTilesPerPageFeature(widgetSettings)
+  //TODO: is this needed?
+  // addTilesPerPageFeature(widgetSettings)
   addLoadMoreButtonFeature(widgetSettings)
 
   const refreshMasonryLayout = () => {

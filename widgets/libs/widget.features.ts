@@ -205,3 +205,28 @@ export function waitForElm(parent: Element | ShadowRoot, targets: string[], call
     subtree: true
   })
 }
+
+export function waitForMultipleElements(
+  parent: Element | ShadowRoot,
+  target: string,
+  callback: (elements: Element[]) => void
+) {
+  const elements = Array.from(parent.querySelectorAll(target))
+
+  if (elements.length > 0) {
+    callback(elements)
+  }
+
+  const observer = new MutationObserver(() => {
+    const newElements = Array.from(parent.querySelectorAll(target))
+    if (newElements.length > 0) {
+      observer.disconnect()
+      callback(newElements)
+    }
+  })
+
+  observer.observe(parent, {
+    childList: true,
+    subtree: true
+  })
+}
