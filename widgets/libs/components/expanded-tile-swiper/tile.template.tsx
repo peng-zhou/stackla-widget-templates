@@ -37,7 +37,7 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
           <div class="image-wrapper-inner">
             {tile.media === "video" ? (
               <>
-                <VideoTemplate tile={tile} />
+                <VideoTemplate tile={tile} parent={parent} />
                 <RenderVideoErrorFallbackTemplate tile={tile} parent={parent} />
               </>
             ) : tile.media === "image" ? (
@@ -157,7 +157,6 @@ function ImageTemplate({
         {productsEnabled ? <span class="product-bag-icon" aria-label="Product bag icon"></span> : <></>}
         <ShopSpotTemplate shopspotEnabled={shopspotEnabled} parent={parent} tileId={tile.id} />
         <img class="image-element" src={image} loading="lazy" alt={tile.description || "Image"} />
-        <div class="swiper-lazy-preloader swiper-lazy-preloader-black"></div>
       </div>
     </>
   ) : (
@@ -165,7 +164,7 @@ function ImageTemplate({
   )
 }
 
-function VideoTemplate({ tile }: { tile: Tile }) {
+function VideoTemplate({ tile, parent }: { tile: Tile; parent?: string }) {
   const additionalAttrs: Record<string, string> = {}
   const sourceAttrs: Record<string, string> = {}
 
@@ -182,7 +181,11 @@ function VideoTemplate({ tile }: { tile: Tile }) {
     return <RenderYoutubeTemplate src={src} title={title} />
   }
 
-  if (tile.source === "facebook" && !tile.video_files?.length) {
+  if (tile.source === "facebook") {
+    const videoUrlPattern = /videos\/(\d)+?/
+    if (!tile.video_files?.length || !videoUrlPattern.test(tile.video_files[0].url)) {
+      return <RenderVideoErrorFallbackTemplate tile={tile} parent={parent} defaultHidden={false} />
+    }
     return <RenderFacebookFallbackTemplate tile={tile} />
   }
 
@@ -256,11 +259,21 @@ function RenderYoutubeTemplate({ src, title = "" }: { src: string; title?: strin
   )
 }
 
-function RenderVideoErrorFallbackTemplate({ tile, parent }: { tile: Tile; parent?: string }) {
+function RenderVideoErrorFallbackTemplate({
+  tile,
+  parent,
+  defaultHidden = true
+}: {
+  tile: Tile
+  parent?: string
+  defaultHidden?: boolean
+}) {
   const originalImageUrl = tile.original_image_url as string
+  const fallbackCss = `video-fallback-content${defaultHidden ? " hidden" : ""}`
+
   return (
-    <div class="video-fallback-content hidden">
-      <a href={tile.original_url} target="_blank">
+    <div class={fallbackCss}>
+      <a href={tile.original_url || tile.original_link} target="_blank">
         <ImageTemplate
           parent={parent}
           image={originalImageUrl}
