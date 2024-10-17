@@ -50,17 +50,27 @@ export const resizeAllUgcTiles = (() => {
 
     const screenWidth = window.innerWidth;
     let possibleWidths: number[];
+    let minWidth = 250; 
+    let maxWidth = 350;
 
     if (screenWidth >= 1200) {
-      possibleWidths = [250, 300, 350];
+      minWidth = 250;
+      maxWidth = 350;
     } else if (screenWidth >= 768) {
-      possibleWidths = [200, 250];
+      minWidth = 200;
+      maxWidth = 300;
     } else {
-      possibleWidths = [150, 180, 200];
+      minWidth = 150;
+      maxWidth = 250;
+    }
+
+    const generateWidthBasedOnScreen = (minWidth: number, maxWidth: number) => {
+      return Array.from({ length: Math.floor(screenWidth / minWidth) }, (_, i) => minWidth + i * 50).filter(width => width <= maxWidth);
     }
 
     ugcTiles.forEach((tile: HTMLElement) => {
-      let randomWidth = possibleWidths[Math.floor(Math.random() * possibleWidths.length)];
+      let widths = generateWidthBasedOnScreen(minWidth, maxWidth);
+      let randomWidth = widths[Math.floor(Math.random() * widths.length)] - 50;
       const rowWidth = sdk.querySelector("#nosto-ugc-container")?.clientWidth! - 80
       
       if (totalWidth !== 0 && randomWidth + totalWidth >= rowWidth) {
@@ -79,6 +89,8 @@ export const resizeAllUgcTiles = (() => {
       tile.setAttribute('row', `${rows}`);
 
       refreshMasonryLayout(false);
+      
+      possibleWidths = widths.filter(width => width !== randomWidth);
     });
   };
 })();
