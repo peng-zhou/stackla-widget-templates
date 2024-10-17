@@ -3605,8 +3605,7 @@ export default [
       S: "https://scontent-sea1-1.xx.fbcdn.net/v/t39.30808-1/337991035_737606664677164_8322237725064132821_n.png?stp=cp0_dst-png_p50x50&_nc_cat=104&ccb=1-7&_nc_sid=5f2048&_nc_ohc=hhoDzXjSjzEAX98XQvU&_nc_ht=scontent-sea1-1.xx&edm=AKK4YLsEAAAA&oh=00_AfC4v_qHt6JT026-SgERlTkaB1Q2wgTlQbE5-leDraX7jg&oe=653CA533",
       XS: "https://scontent-sea1-1.xx.fbcdn.net/v/t39.30808-1/337991035_737606664677164_8322237725064132821_n.png?stp=cp0_dst-png_p50x50&_nc_cat=104&ccb=1-7&_nc_sid=5f2048&_nc_ohc=hhoDzXjSjzEAX98XQvU&_nc_ht=scontent-sea1-1.xx&edm=AKK4YLsEAAAA&oh=00_AfC4v_qHt6JT026-SgERlTkaB1Q2wgTlQbE5-leDraX7jg&oe=653CA533"
     },
-    original_image_url:
-      "https://media-library.qa.stackla.com/25/fixtures/2023-10/6538a88addd09628b8aad817_f7413b40-72f7-11ee-938d-8574c617488d.jpeg",
+    original_image_url: "https://musicalsampling.com/wp-content/uploads/2023/04/Nylon-Rustique-Cover-Art-V1.jpg",
     original_link: "https://www.facebook.com/109153978803191_233058063022819",
     time_ago: "5 Sep 23",
     predictions: [],

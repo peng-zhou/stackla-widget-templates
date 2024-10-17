@@ -37,8 +37,8 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
           <div class="image-wrapper-inner">
             {tile.media === "video" ? (
               <>
-                <VideoTemplate tile={tile} />
-                <VideoErrorFallback tile={tile} parent={parent} />
+                <VideoTemplate tile={tile} parent={parent} />
+                <RenderVideoErrorFallbackTemplate tile={tile} parent={parent} />
               </>
             ) : tile.media === "image" ? (
               <ImageTemplate
@@ -50,6 +50,8 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
               />
             ) : tile.media === "text" ? (
               <span>{tile.message}</span>
+            ) : tile.media === "html" ? (
+              <span>{tile.html}</span>
             ) : (
               <></>
             )}
@@ -159,7 +161,6 @@ function ImageTemplate({
         {productsEnabled ? <span class="product-bag-icon" aria-label="Product bag icon"></span> : <></>}
         <ShopSpotTemplate shopspotEnabled={shopspotEnabled} parent={parent} tileId={tile.id} />
         <img class="image-element" src={image} loading="lazy" alt={tile.description || "Image"} />
-        <div class="swiper-lazy-preloader swiper-lazy-preloader-black"></div>
       </div>
     </>
   ) : (
@@ -167,21 +168,29 @@ function ImageTemplate({
   )
 }
 
-function VideoTemplate({ tile }: { tile: Tile }) {
+function VideoTemplate({ tile, parent }: { tile: Tile; parent?: string }) {
   const additionalAttrs: Record<string, string> = {}
   const sourceAttrs: Record<string, string> = {}
 
   // handle unplayable tiktok source
   // TODO handle vide_source "tiktok"
   if (tile.source === "tiktok" || tile.video_source === "tiktok") {
-    return <TiktokRenderTemplate tile={tile} />
+    return <RenderTikTokTemplate tile={tile} />
   }
 
   if (tile.source === "youtube") {
     const youtubeId = tile.youtube_id as string
     const src = `https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1`
     const title = tile.title as string
-    return <YoutubeRenderTemplate src={src} title={title} />
+    return <RenderYoutubeTemplate src={src} title={title} />
+  }
+
+  if (tile.source === "facebook") {
+    const videoUrlPattern = /videos\/(\d)+?/
+    if (!tile.video_files?.length || !videoUrlPattern.test(tile.video_files[0].url)) {
+      return <RenderVideoErrorFallbackTemplate tile={tile} parent={parent} defaultHidden={false} />
+    }
+    return <RenderFacebookFallbackTemplate tile={tile} />
   }
 
   if (tile.source === "twitter") {
@@ -199,7 +208,6 @@ function VideoTemplate({ tile }: { tile: Tile }) {
 
   return (
     <div class="video-content-wrapper">
-      <div class="image-filler" style={{ "background-image": `url('${tile.original_image_url}')` }}></div>
       <video
         tileid={tile.id}
         class="video-content"
@@ -215,14 +223,36 @@ function VideoTemplate({ tile }: { tile: Tile }) {
   )
 }
 
-function TiktokRenderTemplate({ tile }: { tile: Tile }) {
-  return <iframe class="yt-video-frame" frameborder="0" allowfullscreen srcdoc={tile.full_embed_html} />
+function RenderTikTokTemplate({ tile }: { tile: Tile }) {
+  return <iframe class="video-frame" frameborder="0" allowfullscreen srcdoc={tile.full_embed_html} />
 }
 
-function YoutubeRenderTemplate({ src, title = "" }: { src: string; title?: string }) {
+function RenderFacebookFallbackTemplate({ tile }: { tile: Tile }) {
+  const embedBlock = (
+    <div class="fb-content-wrapper">
+      <div id="fb-root"></div>
+      <script
+        async
+        defer
+        crossorigin="anonymous"
+        src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v21.0"></script>
+
+      <div class="fb-video" data-href={tile.original_link} data-width="500" data-show-text="false">
+        <blockquote cite={tile.original_link} class="fb-xfbml-parse-ignore">
+          <a href={tile.original_link}></a>
+          <p></p>Posted by <a href={`https://www.facebook.com/$${tile.source_user_id}`}>{tile.name}</a> on
+          {tile.time_ago}
+        </blockquote>
+      </div>
+    </div>
+  )
+  return <iframe class="video-frame" frameborder="0" allowfullscreen srcdoc={embedBlock.innerHTML}></iframe>
+}
+
+function RenderYoutubeTemplate({ src, title = "" }: { src: string; title?: string }) {
   return (
     <iframe
-      class="yt-video-frame"
+      class="video-frame"
       src={src}
       title={title}
       frameborder="0"
@@ -232,11 +262,21 @@ function YoutubeRenderTemplate({ src, title = "" }: { src: string; title?: strin
   )
 }
 
-function VideoErrorFallback({ tile, parent }: { tile: Tile; parent?: string }) {
+function RenderVideoErrorFallbackTemplate({
+  tile,
+  parent,
+  defaultHidden = true
+}: {
+  tile: Tile
+  parent?: string
+  defaultHidden?: boolean
+}) {
   const originalImageUrl = tile.original_image_url as string
+  const fallbackCss = `video-fallback-content${defaultHidden ? " hidden" : ""}`
+
   return (
-    <div class="video-fallback-content hidden">
-      <a href={tile.original_url} target="_blank">
+    <div class={fallbackCss}>
+      <a href={tile.original_url || tile.original_link} target="_blank">
         <ImageTemplate
           parent={parent}
           image={originalImageUrl}
