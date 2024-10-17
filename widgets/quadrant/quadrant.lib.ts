@@ -63,7 +63,9 @@ export function getQuadrantTiles() {
   }
   sdk.addEventListener("moreLoad", () => {
     waitForMultipleElements(tilesContainer, ".ugc-tile:not(.processed)", newTiles => {
-      addQuadrantTiles(newTiles as unknown as Tile[], tileSize)
+      if (newTiles && newTiles.length >= 5) {
+        addQuadrantTiles(newTiles as unknown as Tile[], tileSize)
+      }
     })
   })
 }
