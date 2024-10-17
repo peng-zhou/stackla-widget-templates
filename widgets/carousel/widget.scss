@@ -28,9 +28,8 @@
   justify-content: center;
 }
 
-@include breakpoint(mobile) {
-  .swiper-button-next,
-  .swiper-button-prev {
-    display: none;
+@include breakpoint(tablet) {
+  .expanded-tile-overlay {
+    align-items: flex-start;
   }
 }
