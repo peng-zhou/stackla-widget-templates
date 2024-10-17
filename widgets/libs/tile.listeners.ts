@@ -52,5 +52,5 @@ export function registerTilesUpdated(fn: Callback) {
 }
 
 export function registerWidgetInitComplete(fn: Callback) {
-  sdk.addEventListener("widgetInitComplete", () => setTimeout(fn, 1000))
+  sdk.events.listenOrFindEvent("widgetInitComplete", () => setTimeout(fn, 200))
 }
