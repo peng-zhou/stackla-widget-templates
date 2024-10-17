@@ -97,12 +97,12 @@ export function onTileRendered() {
     }
     registerExpandedTileShareMenuListeners(expandedTilesElement, shareButton, tile)
 
-    const videoElement = tile.querySelector<HTMLVideoElement>("video.video-js")
-    if (videoElement) {
-      videoElement.onerror = () => {
-        videoElement.closest(".video-content-wrapper")?.classList.add("hidden")
+    const videoSourceElement = tile.querySelector<HTMLVideoElement>("video.video-content > source")
+    if (videoSourceElement) {
+      videoSourceElement.addEventListener("error", () => {
+        videoSourceElement.closest(".video-content-wrapper")?.classList.add("hidden")
         tile.querySelector(".video-fallback-content")?.classList.remove("hidden")
-      }
+      })
     }
   })
 }

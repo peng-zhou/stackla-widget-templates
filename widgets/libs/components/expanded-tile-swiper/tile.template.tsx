@@ -48,6 +48,10 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
                 shopspotEnabled={shopspotEnabled}
                 parent={parent}
               />
+            ) : tile.media === "text" ? (
+              <span>{tile.message}</span>
+            ) : tile.media === "html" ? (
+              <span>{tile.html}</span>
             ) : (
               <></>
             )}
@@ -197,7 +201,6 @@ function VideoTemplate({ tile }: { tile: Tile }) {
 
   return (
     <div class="video-content-wrapper">
-      <div class="image-filler" style={{ "background-image": `url('${tile.original_image_url}')` }}></div>
       <video
         tileid={tile.id}
         class="video-content"
@@ -234,7 +237,7 @@ function VideoErrorFallback({ tile, parent }: { tile: Tile; parent?: string }) {
   const originalImageUrl = tile.original_image_url as string
   return (
     <div class="video-fallback-content hidden">
-      <a href={tile.original_url} target="_blank">
+      <a href={tile.original_url || tile.original_link} target="_blank">
         <ImageTemplate
           parent={parent}
           image={originalImageUrl}
