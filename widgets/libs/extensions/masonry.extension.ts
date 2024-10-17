@@ -4,7 +4,7 @@ import Isotope from "isotope-layout"
 
 declare const sdk: Sdk
 
-export let masonryInstance: typeof Isotope
+export let masonryInstance: Isotope
 
 export function initializeMasonry() {
   const tileContainer = sdk.querySelector("#nosto-ugc-container")
@@ -16,8 +16,6 @@ export function initializeMasonry() {
   masonryInstance = new Isotope(tileContainer, {
     itemSelector: ".grid-item",
     layoutMode: "fitRows",
-    fitWidth: true,
-    horizontalOrder: true,
     percentPosition: true
   })
 }
