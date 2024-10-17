@@ -354,7 +354,7 @@ export default [
   {
     _id: { $id: "6494ec5ff9ecf716ce2404c8" },
     anonymous: false,
-    attrs: ["src:graph", "instagram.reel"],
+    attrs: ["src:graph"],
     carousel: null,
     claimed: true,
     comments: [],
@@ -391,7 +391,7 @@ export default [
     numReportedComments: 0,
     numUps: 0,
     numVotes: 0,
-    original_url: "https://www.instagram.com/reel/Ct0DnQkr_8n/",
+    original_url: "https://www.facebook.com/facebook/videos/10153231379946729/",
     page_post: false,
     pending_review: false,
     pin_until: 0,
@@ -401,9 +401,9 @@ export default [
     reviewed: false,
     scheduled: false,
     score: 12298.9649333,
-    source: "instagram",
+    source: "facebook",
     source_created_at: 1687481425,
-    source_unique_id: "instagram:https://www.instagram.com/p/Ct0DnQkr_8n/",
+    source_unique_id: "facebook:https://www.instagram.com/p/Ct0DnQkr_8n/",
     stackla_sentiment_score: 0,
     status: "published",
     tags: ["1851498"],
@@ -497,11 +497,6 @@ export default [
     original_link: "",
     predictions: [],
     process_statuses: [],
-    video: {
-      standard_resolution: {
-        url: "https://media-library.qa.stackla.com/25/fixtures/2023-07/6494ec5ff9ecf716ce2404c8_178ddb00-2c81-11ee-b9a3-f1f83da9715c.mp4"
-      }
-    },
     video_expire_at: 1690540741,
     claim_status: "approved",
     media_object_via: "rights_by_response",
@@ -558,162 +553,6 @@ export default [
     time_phrase: "23 Jun 23"
   },
   {
-    _id: { $id: "6545848428436e47075464ce" },
-    anonymous: false,
-    attrs: [],
-    claimed: false,
-    comments: [],
-    competitions: [],
-    content_only: false,
-    created_at: 1699054724,
-    disabled: false,
-    disabled_reason: [],
-    downs: [],
-    enable_click_through: 0,
-    enable_comments: true,
-    enable_downs: true,
-    enable_ups: true,
-    enable_votes: false,
-    featured_until: 0,
-    filters_pinned_on: [],
-    image: "https://pbs.twimg.com/ext_tw_video_thumb/1720585596928692224/pu/img/1L3MJy-tSraBfmEt.jpg",
-    imageHeight: 1280,
-    imageWidth: 720,
-    is_pin: false,
-    is_winner: false,
-    lang: "es",
-    media: "video",
-    message:
-      "*Pierde la presión de cumplir los sueños de otros\n*Pierde el miedo de enfrentar el mundo\n*Pierde el miedo de crear tus propias tradiciones\n*Pierde el miedo de armar tu propio equipo\n*Pierde todo lo que te impida ganar\nPiérdelo todo. Gánalo todo\n#Justdoit #nike #perder #ganar https://t.co/BC6EnF4EJ2",
-    name: "Rosalía Mendoza",
-    numComments: 0,
-    numDisabledComments: 0,
-    numDowns: 0,
-    numQueuedComments: 0,
-    numReportedComments: 0,
-    numUps: 0,
-    numVotes: 0,
-    original_url: "https://twitter.com/133499602/status/1720585703757586597",
-    page_post: false,
-    pending_review: false,
-    pin_until: 0,
-    process_image: false,
-    queued: false,
-    replies: [],
-    reviewed: false,
-    scheduled: false,
-    score: 12556.146,
-    source: "twitter",
-    source_created_at: 1699054573,
-    source_unique_id: "twitter:1720585703757586597",
-    stackla_sentiment_score: 0,
-    status: "published",
-    tags: [],
-    tags_meta: [],
-    term_meta: [{ term_id: 86920, term: "nike", source: "twitter", type: "hashtag" }],
-    terms: ["nike"],
-    updated_at: 1700029298,
-    ups: [],
-    user: "rosaliamendoza",
-    vd: true,
-    ve: true,
-    visible_on: [],
-    vm: true,
-    votes: [],
-    vw: true,
-    wordclashes: [],
-    avatar: "https://pbs.twimg.com/profile_images/1605943247406350338/zbdU34a2_normal.jpg",
-    entitlements: {
-      hashtags: [
-        { start: 245, end: 254, tag: "Justdoit" },
-        { start: 255, end: 260, tag: "nike" },
-        { start: 261, end: 268, tag: "perder" },
-        { start: 269, end: 275, tag: "ganar" }
-      ],
-      annotations: [
-        { start: 246, end: 253, probability: 0.3748, type: "Other", normalized_text: "Justdoit" },
-        { start: 256, end: 259, probability: 0.4176, type: "Organization", normalized_text: "nike" }
-      ],
-      urls: [
-        {
-          start: 276,
-          end: 299,
-          url: "https://t.co/BC6EnF4EJ2",
-          expanded_url: "https://twitter.com/rosaliamendoza/status/1720585703757586597/video/1",
-          display_url: "pic.twitter.com/BC6EnF4EJ2",
-          media_key: "7_1720585596928692224"
-        }
-      ]
-    },
-    followers_count: 838,
-    source_user_id: "133499602",
-    twitter_id: "1720585703757586597",
-    type: "fan",
-    user_extended: { verified: false },
-    video: {
-      standard_resolution: {
-        url: "https://video.twimg.com/ext_tw_video/1720585596928692224/pu/vid/avc1/720x1280/cLL0XMTNLx3rxkY-.mp4?tag=12",
-        content_type: "video/mp4"
-      }
-    },
-    attachments: [
-      {
-        type: "video",
-        width: 720,
-        height: 1280,
-        media_key: "7_1720585596928692224",
-        variants: [
-          {
-            bit_rate: 632000,
-            content_type: "video/mp4",
-            url: "https://video.twimg.com/ext_tw_video/1720585596928692224/pu/vid/avc1/320x568/VKQPhe0qtzdm3Co-.mp4?tag=12"
-          },
-          {
-            bit_rate: 950000,
-            content_type: "video/mp4",
-            url: "https://video.twimg.com/ext_tw_video/1720585596928692224/pu/vid/avc1/480x852/oeHLphQClELO438q.mp4?tag=12"
-          },
-          {
-            bit_rate: 2176000,
-            content_type: "video/mp4",
-            url: "https://video.twimg.com/ext_tw_video/1720585596928692224/pu/vid/avc1/720x1280/cLL0XMTNLx3rxkY-.mp4?tag=12"
-          },
-          {
-            content_type: "application/x-mpegURL",
-            url: "https://video.twimg.com/ext_tw_video/1720585596928692224/pu/pl/25v9DLC75toHYBFB.m3u8?tag=12&container=fmp4"
-          }
-        ],
-        preview_image_url: "https://pbs.twimg.com/ext_tw_video_thumb/1720585596928692224/pu/img/1L3MJy-tSraBfmEt.jpg"
-      }
-    ],
-    source_id: "1720585703757586597",
-    stack_id: 1451,
-    ingested_by: "v2",
-    original_link: "https://twitter.com/rosaliamendoza/status/1720585703757586597",
-    predictions: [],
-    previous_status: "queued",
-    process_statuses: [],
-    published_at: 1700029297,
-    last_visited_at: 1700029298,
-    touchpoints: ["widget", "event"],
-    tags_extended: [],
-    width_ratio: 0,
-    height_ratio: 0,
-    avatars: {
-      XL: "https://pbs.twimg.com/profile_images/1605943247406350338/zbdU34a2.jpg",
-      L: "https://pbs.twimg.com/profile_images/1605943247406350338/zbdU34a2.jpg",
-      M: "https://pbs.twimg.com/profile_images/1605943247406350338/zbdU34a2_bigger.jpg",
-      S: "https://pbs.twimg.com/profile_images/1605943247406350338/zbdU34a2_normal.jpg",
-      XS: "https://pbs.twimg.com/profile_images/1605943247406350338/zbdU34a2_mini.jpg"
-    },
-    original_image_url: "https://pbs.twimg.com/ext_tw_video_thumb/1720585596928692224/pu/img/1L3MJy-tSraBfmEt.jpg",
-    time_ago: "3 Nov 23",
-    image_thumbnail_url: "https://pbs.twimg.com/ext_tw_video_thumb/1720585596928692224/pu/img/1L3MJy-tSraBfmEt.jpg",
-    image_thumbnail_width: 720,
-    id: "6545848428436e47075464ce",
-    time_phrase: "3 Nov 23"
-  },
-  {
     _id: { $id: "6545848428436e47075464d0" },
     anonymous: false,
     attrs: [],
@@ -749,7 +588,7 @@ export default [
     numReportedComments: 0,
     numUps: 0,
     numVotes: 0,
-    original_url: "https://twitter.com/103629762/status/1720585411226136920",
+    original_url: "https://www.youtube.com/watch?v=OE-h6V5UGvU",
     page_post: false,
     pending_review: false,
     pin_until: 0,
@@ -759,9 +598,9 @@ export default [
     reviewed: false,
     scheduled: false,
     score: 12556.1444444,
-    source: "twitter",
+    source: "youtube",
     source_created_at: 1699054503,
-    source_unique_id: "twitter:1720585411226136920",
+    source_unique_id: "youtube:1720585411226136920",
     stackla_sentiment_score: 0,
     status: "published",
     tags: ["41"],
@@ -1072,7 +911,7 @@ export default [
     numReportedComments: 0,
     numUps: 0,
     numVotes: 0,
-    original_url: "https://twitter.com/8724612/status/1720570705031655598",
+    original_url: "https://www.tiktok.com/@scout2015/video/6718335390845095173",
     page_post: false,
     pending_review: false,
     pin_until: 0,
@@ -1082,9 +921,9 @@ export default [
     reviewed: false,
     scheduled: false,
     score: 12556.0665333,
-    source: "twitter",
+    source: "tiktok",
     source_created_at: 1699050997,
-    source_unique_id: "twitter:1720570705031655598",
+    source_unique_id: "tiktok:1720570705031655598",
     stackla_sentiment_score: 0,
     status: "published",
     tags: ["41", "42"],
