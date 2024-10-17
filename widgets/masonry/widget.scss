@@ -1,21 +1,49 @@
 @import "@styles/mixins.scss";
 @import "@templates/tags/tags.scss";
 
+.grid {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.grid-item {
+  color: white;
+  text-align: center;
+  border-radius: 5px;
+  position: relative;
+  background-size: cover;
+  background-position: center; 
+  background-repeat: no-repeat;
+  height: 200px;
+  margin: 5px;
+  box-sizing: border-box;
+  object-fit: cover;
+}
+
+.tile, .ugc-image {
+  width: 100%;
+  height: 100%;
+}
+
+
 #nosto-ugc-container {
+  :after {
+    content: '';
+    display: block;
+    clear: both;
+  }
   .ugc-tile {
-    $total-padding: 20px;
+    $total-padding: 10px;
     box-sizing: border-box;
     border-radius: 12px;
     overflow: hidden;
-
-    img {
-      width: 100%;
-      height: auto;
-    }
   }
 
   .tile {
     position: relative;
+    background-repeat: no-repeat;
+    background-size: cover;
 
     .play-icon {
       top: 43%;

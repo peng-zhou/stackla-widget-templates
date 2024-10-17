@@ -1,5 +1,5 @@
-{{#tile data-hash=@index}}
-<div class="tile">
+{{#tile data-hash=@index class="grid-item"}}
+<div class="tile" data-background-image="{{image_thumbnail_url}}">
   <div class="tile-loading"></div>
   <div class="tile-content hidden">
     <ul class="tile-tags">
@@ -13,10 +13,6 @@
     {{/ifequals}}
     <span class="tile-timephrase">{{time_ago}}</span>
     <shopspot-icon tile-id={{id}} />
-  </div>
-  <div class="tile-image">
-    {{#lazy image_thumbnail_url "120"}}{{/lazy}}
-    <div class="swiper-lazy-preloader"></div>
   </div>
 </div>
 {{/tile}}
