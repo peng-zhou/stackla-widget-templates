@@ -65,7 +65,15 @@ export const resizeAllUgcTiles = (() => {
     }
 
     const generateWidthBasedOnScreen = (minWidth: number, maxWidth: number) => {
-      return Array.from({ length: Math.floor(screenWidth / minWidth) }, (_, i) => minWidth + i * 50).filter(width => width <= maxWidth);
+      const numberOfWidths = Math.floor(screenWidth / minWidth);
+
+      const widthsArray = Array.from({ length: numberOfWidths }, (_, index) => {
+          return minWidth + index * 50;
+      });
+
+      const validWidths = widthsArray.filter(width => width <= maxWidth);
+
+      return validWidths;
     }
 
     ugcTiles.forEach((tile: HTMLElement) => {
