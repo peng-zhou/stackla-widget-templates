@@ -20,6 +20,14 @@ export function initializeMasonry() {
   })
 }
 
+export async function reinitialiseMasonryLayout() {
+  await preloadTileBackgroundImages()
+  resizeAllUgcTiles(true)
+  if (masonryInstance) {
+    masonryInstance.layout()
+  }
+}
+
 export async function refreshMasonryLayout(refresh = true) {
   await preloadTileBackgroundImages()
   if (refresh) {

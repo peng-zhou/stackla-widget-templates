@@ -102,11 +102,18 @@ export const resizeAllUgcTiles = (() => {
   let totalTilesWidth = 0
   let widths: number[] = []
   let screenWidth: number = 0
+  let executionCount = 0
 
-  return function () {
-    const ugcTiles = Array.from(sdk.querySelectorAll<HTMLElement>(".grid-item") ?? []).filter(
-      tile => tile.getAttribute("width-set") !== "true"
-    )
+  return function (reset = false) {
+    if (reset) {
+      totalTilesWidth = 0
+      widths = []
+      screenWidth = 0
+    }
+
+    executionCount += 1
+    const allTiles = Array.from(sdk.querySelectorAll<HTMLElement>(".grid-item") ?? [])
+    const ugcTiles = reset ? allTiles : allTiles.filter(tile => tile.getAttribute("width-set") !== "true")
 
     // If no unprocessed UGC tiles, exit
     if (!ugcTiles || ugcTiles.length === 0) {
@@ -123,7 +130,7 @@ export const resizeAllUgcTiles = (() => {
 
     const currentScreenWidth = ugcContainer.clientWidth! - 80
 
-    if (screenWidth !== currentScreenWidth) {
+    if (screenWidth == 0) {
       screenWidth = currentScreenWidth
       widths = generateRandomPartitions(screenWidth) // Generate new partitions based on the new screen size
       totalTilesWidth = 0 // Reset total width as we are reinitializing
@@ -143,6 +150,7 @@ export const resizeAllUgcTiles = (() => {
       // Apply the width to the tile and mark it as processed
       tile.style.width = `${randomWidth}px`
       tile.setAttribute("width-set", "true")
+      tile.setAttribute("execution-count", executionCount.toString())
 
       // Update the layout (assuming refreshMasonryLayout is used for layout updates)
       await refreshMasonryLayout(false)
