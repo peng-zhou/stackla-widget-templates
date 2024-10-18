@@ -39,7 +39,6 @@ export async function loadWidgetSettings() {
     await refreshMasonryLayout(true)
   })
   window.addEventListener("resize", async () => {
-    console.log("resizing")
     await reinitialiseMasonryLayout()
   })
 }
