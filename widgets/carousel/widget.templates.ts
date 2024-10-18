@@ -13,4 +13,5 @@ export function loadCustomisation() {
   loadProductsTemplate()
   loadExpandedTileTemplates()
   loadShopspotTemplates()
+  sdk.querySelector(".track")?.style.removeProperty("display")
 }
