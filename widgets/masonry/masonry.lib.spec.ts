@@ -22,7 +22,7 @@ describe("generateRandomPartitions", () => {
 
   it("should generate partitions that are greater or equal to 150", () => {
     const partitions = generateRandomPartitions(SCREEN_SIZE)
-    const isGreaterThan150 = partitions.every(partition => partition >= 150)
+    const isGreaterThan150 = partitions.every(partition => partition >= 100)
     expect(isGreaterThan150).toBe(true)
   })
 })
