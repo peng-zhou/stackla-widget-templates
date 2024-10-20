@@ -1,5 +1,19 @@
 import { BaseConfig } from "types/IBaseConfig"
 
+function getTileSizeByWidget(widgetSettings: BaseConfig): string {
+  const tileSizes: { [key: string]: string } = {
+    small: "173px",
+    medium: "265.5px",
+    large: "400px"
+  }
+
+  if (!widgetSettings.tile_size) {
+    return tileSizes["medium"]
+  }
+
+  return tileSizes[widgetSettings.tile_size]
+}
+
 export default function getCSSVariables<T extends BaseConfig>(widgetSettings: T): string {
   const cssVariables: { [key: string]: string } = {
     "--widget-background": `#${widgetSettings.widget_background}`,
@@ -26,7 +40,8 @@ export default function getCSSVariables<T extends BaseConfig>(widgetSettings: T)
     "--cta-button-background-color": `#${widgetSettings.cta_button_background_color}`,
     "--cta-button-font-color": `#${widgetSettings.cta_button_font_color}`,
     "--cta-button-font-size": `${widgetSettings.cta_button_font_size}px`,
-    "--expanded-tile-border-radius": `${widgetSettings.expanded_tile_border_radius}px`
+    "--expanded-tile-border-radius": `${widgetSettings.expanded_tile_border_radius}px`,
+    "--tile-size": getTileSizeByWidget(widgetSettings)
   }
 
   return Object.entries(cssVariables)
