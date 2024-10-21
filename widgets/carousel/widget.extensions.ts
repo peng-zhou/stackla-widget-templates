@@ -4,6 +4,7 @@ import { getConfig } from "./widget.config"
 import { waitForElm } from "widgets/libs/widget.features"
 import { disableSwiper, initializeSwiper, refreshSwiper } from "@widgets/libs/extensions/swiper/swiper.extension"
 import { registerExpandedTileShareMenuListeners } from "@widgets/libs/templates/share-menu/share-menu.listener"
+import { initializeSwiperForExpandedTiles } from "@widgets/libs/extensions/swiper/swiper.expanded-tile"
 
 declare const sdk: Sdk
 
@@ -43,29 +44,6 @@ function initializeSwiperForInlineTiles(widgetSettings: IWidgetSettings) {
     perView,
     prevButton: "swiper-inline-button-prev",
     nextButton: "swiper-inline-button-next"
-  })
-}
-
-function initializeSwiperForExpandedTiles(initialTileId: string) {
-  const expandedTile = sdk.querySelector("expanded-tiles")
-  if (!expandedTile?.shadowRoot) {
-    throw new Error("The expanded tile element not found")
-  }
-  const widgetSelector = expandedTile.shadowRoot.querySelector<HTMLElement>(".swiper-expanded")
-
-  if (!widgetSelector) {
-    throw new Error("Failed to find widget UI element. Failed to initialise Glide")
-  }
-
-  sdk.tiles.setVisibleTilesCount(2)
-
-  initializeSwiper({
-    widgetSelector,
-    perView: 1,
-    mode: "expanded",
-    prevButton: "swiper-expanded-button-prev",
-    nextButton: "swiper-expanded-button-next",
-    initialTileId
   })
 }
 
