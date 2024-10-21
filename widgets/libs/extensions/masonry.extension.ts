@@ -1,5 +1,5 @@
 import { Sdk } from "@stackla/ugc-widgets"
-import { preloadTileBackgroundImages, resizeAllUgcTiles } from "@widgets/masonry/masonry.lib"
+import { resizeAllUgcTiles } from "@widgets/masonry/masonry.lib"
 import Isotope from "isotope-layout"
 
 declare const sdk: Sdk
@@ -21,7 +21,6 @@ export function initializeMasonry() {
 }
 
 export async function reinitialiseMasonryLayout() {
-  await preloadTileBackgroundImages()
   resizeAllUgcTiles(true)
   if (masonryInstance) {
     masonryInstance.layout()
@@ -29,7 +28,6 @@ export async function reinitialiseMasonryLayout() {
 }
 
 export async function refreshMasonryLayout(refresh = true) {
-  await preloadTileBackgroundImages()
   if (refresh) {
     resizeAllUgcTiles()
   }

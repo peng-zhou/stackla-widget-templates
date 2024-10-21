@@ -4,7 +4,7 @@ export default [
   {
     _id: { $id: "65e16a0b5d7e676caec68f03" },
     anonymous: false,
-    attrs: ["src:graph"],
+    attrs: ["src:graph", "instagram.reel"],
     avatars: {},
     brands: [],
     categories: [],
