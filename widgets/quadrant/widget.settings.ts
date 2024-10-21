@@ -40,4 +40,5 @@ export function loadWidgetSettings() {
     refreshMasonryLayout()
   })
   sdk.addEventListener("tilesUpdated", refreshMasonryLayout)
+  sdk.tiles.hideBrokenTiles = false
 }

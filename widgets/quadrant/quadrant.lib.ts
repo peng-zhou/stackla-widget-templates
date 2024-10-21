@@ -12,9 +12,60 @@ const tileSizes: { [key: string]: string } = {
 
 const tilesContainer = sdk.querySelector(".ugc-tiles")!
 
+function checkForBrokenImages(tiles: Tile[]): Promise<Tile[]> {
+  return new Promise(resolve => {
+    const validTiles: Tile[] = []
+    let processedTiles = 0
+
+    tiles.forEach(tile => {
+      // Type narrowing: Ensure tile is an HTMLElement
+      if (!(tile instanceof HTMLElement)) {
+        processedTiles++
+        if (processedTiles === tiles.length) resolve(validTiles)
+        return
+      }
+
+      const image = tile.querySelector("img")
+
+      if (!image) {
+        processedTiles++
+        if (processedTiles === tiles.length) resolve(validTiles)
+        return
+      }
+
+      // Check for broken images using onerror
+      image.onerror = () => {
+        console.log("ERROR: Image failed to load for tile", tile)
+        tile.remove()
+        processedTiles++
+        if (processedTiles === tiles.length) resolve(validTiles) // Resolve after all tiles are processed
+      }
+
+      // If the image loads correctly, add it to validTiles
+      image.onload = () => {
+        validTiles.push(tile)
+        processedTiles++
+        if (processedTiles === tiles.length) resolve(validTiles) // Resolve after all tiles are processed
+      }
+
+      // Handle cached images that are already loaded
+      if (image.complete && image.naturalWidth !== 0) {
+        validTiles.push(tile)
+        processedTiles++
+        if (processedTiles === tiles.length) resolve(validTiles) // Resolve after all tiles are processed
+      }
+    })
+
+    // Resolve immediately if there are no tiles
+    if (tiles.length === 0) {
+      resolve(validTiles)
+    }
+  })
+}
+
 function createTileGroup(tiles: Tile[], groupStartIndex: number, tileSize: string) {
   if (tiles.length - groupStartIndex < 5) {
-    return
+    return null
   }
   const tileGroup = document.createElement("div")
   tileGroup.classList.add("tile-group")
@@ -48,7 +99,7 @@ export function addQuadrantTiles(tiles: Tile[], tileSize: string, startIndex: nu
   }
 }
 
-export function getQuadrantTiles() {
+export async function getQuadrantTiles() {
   const tiles = sdk.querySelectorAll(".ugc-tile") as unknown as Tile[]
 
   const widgetContainer = sdk.placement.getWidgetContainer()
@@ -58,14 +109,25 @@ export function getQuadrantTiles() {
   const totalTileWidth = (parseInt(tileSize) + tileGap) * 4
   tilesContainer.style.gridTemplateColumns = `repeat(auto-fit, ${totalTileWidth}px)`
 
-  if (tiles && tiles.length > 0) {
-    addQuadrantTiles(tiles, tileSize)
+  const validTiles = await checkForBrokenImages(tiles)
+  console.log("validTiles", validTiles)
+  if (validTiles && validTiles.length > 0) {
+    addQuadrantTiles(validTiles, tileSize)
   }
+
   sdk.addEventListener("moreLoad", () => {
-    waitForMultipleElements(tilesContainer, ".ugc-tile:not(.processed)", newTiles => {
-      if (newTiles && newTiles.length >= 5) {
-        addQuadrantTiles(newTiles as unknown as Tile[], tileSize)
-      }
-    })
+    setTimeout(() => {
+      waitForMultipleElements(tilesContainer, ".ugc-tile:not(.processed)", async newTiles => {
+        try {
+          const validNewTiles = await checkForBrokenImages(newTiles as unknown as Tile[])
+          console.log("validNewTiles", validNewTiles)
+          if (validNewTiles && validNewTiles.length >= 5) {
+            addQuadrantTiles(validNewTiles, tileSize)
+          }
+        } catch (e) {
+          console.log(e)
+        }
+      })
+    }, 500)
   })
 }
