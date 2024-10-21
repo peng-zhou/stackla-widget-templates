@@ -98,6 +98,10 @@
   height: 100px;
   margin-top: 25px;
 
+  &.hidden {
+    opacity: 0 !important;
+  }
+
   .loading {
     height: 50px !important;
     width: 50px !important;

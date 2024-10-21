@@ -18,6 +18,9 @@ export function loadWidgetSettings() {
   const widgetContainer = sdk.placement.getWidgetContainer()
   const widgetSettings = getConfig(widgetContainer)
 
+  sdk.tiles.preloadImages = false
+  sdk.tiles.hideBrokenTiles = false
+
   loadTitle()
   addCSSVariablesToPlacement(getCSSVariables(widgetSettings))
   addAutoAddTileFeature(widgetSettings)
@@ -40,5 +43,4 @@ export function loadWidgetSettings() {
     refreshMasonryLayout()
   })
   sdk.addEventListener("tilesUpdated", refreshMasonryLayout)
-  sdk.tiles.hideBrokenTiles = false
 }

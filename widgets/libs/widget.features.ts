@@ -164,8 +164,13 @@ export function addLoadMoreButtonFeature<T extends BaseConfig>(widgetSettings: T
 
   switch (loadMoreType) {
     case "button":
-      disableLoadMoreLoaderIfExists()
       attachLoadMoreButtonListener()
+
+      sdk.addEventListener("tilesUpdated", () => {
+        const loadMoreLoader = getLoadMoreLoader()
+        loadMoreLoader.classList.add("hidden")
+      })
+
       break
     case "scroll":
       disableLoadMoreButtonIfExists()
@@ -198,7 +203,7 @@ export function attachLoadMoreButtonListener() {
     throw new Error("Failed to find load more button")
   }
 
-  loadMoreButton.onclick = loadMore
+  loadMoreButton.onclick = loadMoreWrappedWithEasedLoader
 }
 
 export function disableLoadMoreButtonIfExists() {
@@ -260,16 +265,16 @@ export function waitForElm(parent: Element | ShadowRoot, targets: string[], call
 export function waitForMultipleElements(
   parent: Element | ShadowRoot,
   target: string,
-  callback: (elements: Element[]) => void
+  callback: (elements: NodeListOf<HTMLElement>) => void
 ) {
-  const elements = Array.from(parent.querySelectorAll(target))
+  const elements = parent.querySelectorAll<HTMLElement>(target)
 
   if (elements.length > 0) {
     callback(elements)
   }
 
   const observer = new MutationObserver(() => {
-    const newElements = Array.from(parent.querySelectorAll(target))
+    const newElements = parent.querySelectorAll<HTMLElement>(target)
     if (newElements.length > 0) {
       observer.disconnect()
       callback(newElements)
