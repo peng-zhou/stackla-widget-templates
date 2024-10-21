@@ -54,3 +54,12 @@ export function registerTilesUpdated(fn: Callback) {
 export function registerWidgetInitComplete(fn: Callback) {
   sdk.events.listenOrFindEvent("widgetInitComplete", () => setTimeout(fn, 200))
 }
+
+export function registerExpandedTileCrossSellersRendered(fn: (tileId: string, target: HTMLElement) => void = () => {}) {
+  sdk.events.addUgcEventListener("tileExpandCrossSellersRendered", (event: Event) => {
+    const customEvent = event as CustomEvent
+    const tileId = customEvent.detail.data as string
+    const element = customEvent.detail.target as HTMLElement
+    fn(tileId, element)
+  })
+}

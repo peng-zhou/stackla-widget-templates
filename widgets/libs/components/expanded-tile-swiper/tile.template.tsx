@@ -208,6 +208,7 @@ function VideoTemplate({ tile, parent }: { tile: Tile; parent?: string }) {
 
   return (
     <div class="video-content-wrapper">
+      <div class="image-filler" style={{ "background-image": `url('${tile.original_image_url}')` }}></div>
       <video
         tileid={tile.id}
         class="video-content"

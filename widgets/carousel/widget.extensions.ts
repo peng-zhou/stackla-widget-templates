@@ -39,6 +39,8 @@ function initializeSwiperForInlineTiles(widgetSettings: IWidgetSettings) {
   sdk.tiles.setVisibleTilesCount(perView * 2)
 
   initializeSwiper({
+    id: "inline",
+    mode: "inline",
     widgetSelector,
     perView,
     prevButton: "swiper-inline-button-prev",
@@ -60,6 +62,7 @@ function initializeSwiperForExpandedTiles(initialTileId: string) {
   sdk.tiles.setVisibleTilesCount(2)
 
   initializeSwiper({
+    id: "expanded",
     widgetSelector,
     perView: 1,
     mode: "expanded",
@@ -107,6 +110,23 @@ export function onTileRendered() {
   })
 }
 
+export function onExpandedTileCrossSellersRendered(tileId: string, target: HTMLElement) {
+  // initialize swiper for cross-sell products
+  if (target && target.shadowRoot) {
+    const swiperCrossSell = target.shadowRoot.querySelector<HTMLElement>(".swiper-expanded-product-recs")
+
+    if (swiperCrossSell) {
+      initializeSwiper({
+        id: `expanded-product-recs-${tileId}`,
+        mode: "expanded-product-recs",
+        widgetSelector: swiperCrossSell,
+        prevButton: "swiper-exp-product-recs-button-prev",
+        nextButton: "swiper-exp-product-recs-button-next"
+      })
+    }
+  }
+}
+
 export function onTileClosed() {
   const expandedTile = sdk.querySelector("expanded-tiles")
 
@@ -117,16 +137,4 @@ export function onTileClosed() {
   expandedTile.parentElement!.classList.remove("expanded-tile-overlay")
 
   disableSwiper("expanded")
-}
-
-export function hideSlidesWithInvisibleTilesBackup() {
-  const widgetSelectorWrapper = sdk.placement.querySelector(".swiper-wrapper")
-  const slides = widgetSelectorWrapper?.querySelectorAll<HTMLElement>(".swiper-slide")
-
-  slides?.forEach(slide => {
-    if (!slide.children.length || getComputedStyle(slide).display === "none") {
-      slide.remove()
-    }
-  })
-  refreshSwiper("inline")
 }

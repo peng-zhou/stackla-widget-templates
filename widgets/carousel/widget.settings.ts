@@ -1,5 +1,11 @@
-import { onTileExpand, initializeInlineSwiperListeners, onTileClosed, onTileRendered } from "./widget.extensions"
-import { registerWidgetInitComplete } from "widgets/libs/tile.listeners"
+import {
+  onTileExpand,
+  initializeInlineSwiperListeners,
+  onTileClosed,
+  onTileRendered,
+  onExpandedTileCrossSellersRendered
+} from "./widget.extensions"
+import { registerExpandedTileCrossSellersRendered, registerWidgetInitComplete } from "widgets/libs/tile.listeners"
 import {
   addAutoAddTileFeature,
   loadExpandedTileFeature,
@@ -25,4 +31,5 @@ export function loadSettings() {
   registerWidgetInitComplete(initializeInlineSwiperListeners)
   addAutoAddTileFeature(widgetSettings)
   loadExpandedTileFeature(widgetSettings, onTileExpand, onTileClosed, onTileRendered)
+  registerExpandedTileCrossSellersRendered(onExpandedTileCrossSellersRendered)
 }
