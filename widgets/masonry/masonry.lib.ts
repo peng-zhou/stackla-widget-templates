@@ -3,42 +3,6 @@ import { refreshMasonryLayout } from "@widgets/libs/extensions/masonry.extension
 
 declare const sdk: Sdk
 
-export const preloadTileBackgroundImages = async (): Promise<void> => {
-  const ugcTiles = sdk.querySelectorAll<HTMLElement>(".grid-item .tile[data-background-image]") ?? []
-
-  await Promise.all(
-    Array.from(ugcTiles).map((tile: HTMLElement) => {
-      return new Promise<void>((resolve, reject) => {
-        const image = tile.getAttribute("data-background-image")
-
-        if (!image) {
-          resolve()
-          return
-        }
-
-        const preload = new Image()
-        preload.src = image
-
-        preload.onload = () => {
-          tile.removeAttribute("data-background-image")
-          tile.style.backgroundImage = `url(${image})`
-          resolve()
-        }
-
-        preload.onerror = async () => {
-          const parent = tile.parentElement
-          if (parent) {
-            parent.remove()
-          }
-          await refreshMasonryLayout(true)
-          console.error(`Failed to load image ${image}`)
-          reject(new Error(`Failed to load image ${image}`))
-        }
-      })
-    })
-  )
-}
-
 /**
  * Partition the screen width into random partitions
  * @param screenWidth

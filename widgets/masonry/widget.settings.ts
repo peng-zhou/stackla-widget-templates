@@ -11,7 +11,7 @@ import { addCSSVariablesToPlacement } from "@widgets/libs/widget.layout"
 import { getConfig } from "./widget.config"
 import { onTileExpand, onTileClosed, onTileRendered } from "@widgets/libs/extensions/swiper/swiper.expanded-tile"
 import { refreshMasonryLayout, reinitialiseMasonryLayout } from "@widgets/libs/extensions/masonry.extension"
-import { preloadTileBackgroundImages, resizeAllUgcTiles } from "./masonry.lib"
+import { resizeAllUgcTiles } from "./masonry.lib"
 
 declare const sdk: Sdk
 
@@ -27,8 +27,6 @@ export async function loadWidgetSettings() {
   addLoadMoreButtonFeature(widgetSettings)
 
   window.refreshMasonryLayout = refreshMasonryLayout
-
-  await preloadTileBackgroundImages()
 
   await resizeAllUgcTiles()
 
