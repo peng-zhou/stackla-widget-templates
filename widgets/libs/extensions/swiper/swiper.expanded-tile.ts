@@ -26,7 +26,30 @@ export function initializeExtendedSwiper() {
   })
 }
 
-export function onTileExpand() {
+export function initializeSwiperForExpandedTiles(initialTileId: string) {
+  const expandedTile = sdk.querySelector("expanded-tiles")
+  if (!expandedTile?.shadowRoot) {
+    throw new Error("The expanded tile element not found")
+  }
+  const widgetSelector = expandedTile.shadowRoot.querySelector<HTMLElement>(".swiper-expanded")
+
+  if (!widgetSelector) {
+    throw new Error("Failed to find widget UI element. Failed to initialise Glide")
+  }
+
+  sdk.tiles.setVisibleTilesCount(2)
+
+  initializeSwiper({
+    widgetSelector,
+    perView: 1,
+    mode: "expanded",
+    prevButton: "swiper-expanded-button-prev",
+    nextButton: "swiper-expanded-button-next",
+    initialTileId
+  })
+}
+
+export function onTileExpand(tileId: string) {
   const expandedTile = sdk.querySelector("expanded-tiles")
 
   if (!expandedTile?.shadowRoot) {
@@ -37,7 +60,7 @@ export function onTileExpand() {
 
   disableSwiper("inline")
 
-  waitForElm(expandedTile.shadowRoot, [".swiper-expanded"], initializeExtendedSwiper)
+  waitForElm(expandedTile.shadowRoot, [".swiper-expanded"], () => initializeSwiperForExpandedTiles(tileId))
 }
 
 export function onTileRendered() {

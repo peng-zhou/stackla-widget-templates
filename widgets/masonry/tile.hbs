@@ -1,7 +1,15 @@
-{{#tile data-hash=@index}}
-<div class="tile">
+{{#tile data-hash=@index class="grid-item"}}
+<div class="tile" data-background-image="{{image_thumbnail_url}}">
   <div class="tile-loading"></div>
-  <div class="tile-content hidden">
+  <div class="tile-content">
+    {{#each attrs}}
+      {{#ifequals this "instagram.reel"}}
+        <div class="content-icon icon-reel"></div>
+      {{/ifequals}}
+    {{/each}}
+    {{#if tags_extended.length}}
+      <div class="shopping-icon icon-products"></div>
+    {{/if}}
     <ul class="tile-tags">
       {{#tags_extended}}
       <li class="tile-tag tag-inline"><a href="{{custom_url}}">{{tag}}</a></li>
@@ -13,10 +21,6 @@
     {{/ifequals}}
     <span class="tile-timephrase">{{time_ago}}</span>
     <shopspot-icon tile-id={{id}} />
-  </div>
-  <div class="tile-image">
-    {{#lazy image_thumbnail_url "120"}}{{/lazy}}
-    <div class="swiper-lazy-preloader"></div>
   </div>
 </div>
 {{/tile}}

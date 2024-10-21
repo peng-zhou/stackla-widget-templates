@@ -25,7 +25,7 @@ async function buildAll() {
   const WebSocket = require("ws")
 
   const isWatch = process.argv.includes("--watch")
-  const isDevelopment = env === "development"
+  const isDevelopment = env === "development" || env === 'staging'
 
   const preAndPostBuild = {
     name: "preAndPost",

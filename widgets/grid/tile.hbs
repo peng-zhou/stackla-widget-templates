@@ -2,6 +2,14 @@
 <div class="tile">
   <div class="tile-loading"></div>
   <div class="tile-content hidden">
+    {{#each attrs}}
+      {{#ifequals this "instagram.reel"}}
+        <div class="content-icon icon-reel"></div>
+      {{/ifequals}}
+    {{/each}}
+    {{#if tags_extended.length}}
+      <div class="shopping-icon icon-products"></div>
+    {{/if}}
     <ul class="tile-tags">
       {{#tags_extended}}
       <li class="tile-tag tag-inline"><a href="{{custom_url}}">{{tag}}</a></li>
