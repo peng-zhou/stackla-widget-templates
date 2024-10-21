@@ -2,12 +2,12 @@ import { Sdk } from "@stackla/ugc-widgets"
 
 declare const sdk: Sdk
 
-export function enableTileContent(slide: HTMLElement) {
+function enableTileContent(slide: HTMLElement) {
   slide.querySelector(".tile-loading")?.classList.add("hidden")
   slide.querySelector(".tile-content.hidden")?.classList.remove("hidden")
 }
 
-export function enableTileImage(slide: HTMLElement) {
+function enableTileImage(slide: HTMLElement) {
   const tileImage = slide.querySelector<HTMLImageElement>(".tile-image > img")
   if (tileImage) {
     if (tileImage.complete) {
