@@ -2,7 +2,7 @@ import type { Sdk } from "@stackla/ugc-widgets"
 import { IWidgetSettings } from "../../types/IWidgetSettings"
 import { getConfig } from "./widget.config"
 import { waitForElm } from "widgets/libs/widget.features"
-import { disableSwiper, initializeSwiper, refreshSwiper } from "@widgets/libs/extensions/swiper/swiper.extension"
+import { disableSwiper, initializeSwiper } from "@widgets/libs/extensions/swiper/swiper.extension"
 import { registerExpandedTileShareMenuListeners } from "@widgets/libs/templates/share-menu/share-menu.listener"
 
 declare const sdk: Sdk

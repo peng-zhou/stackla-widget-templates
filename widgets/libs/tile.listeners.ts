@@ -52,7 +52,7 @@ export function registerTilesUpdated(fn: Callback) {
 }
 
 export function registerWidgetInitComplete(fn: Callback) {
-  sdk.events.listenOrFindEvent("widgetInitComplete", () => setTimeout(fn, 200))
+  sdk.events.listenOrFindEvent("widgetInitComplete", () => setTimeout(fn, 1000))
 }
 
 export function registerExpandedTileCrossSellersRendered(fn: (tileId: string, target: HTMLElement) => void = () => {}) {

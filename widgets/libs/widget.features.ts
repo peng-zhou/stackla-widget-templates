@@ -143,31 +143,82 @@ function loadMore() {
   }, 500)
 }
 
-export function addLoadMoreButtonFeature<T extends BaseConfig>(widgetSettings: T) {
-  const loadMoreButton = sdk.querySelector("#load-more")
+const getLoadMoreLoader = () => {
   const loadMoreLoader = sdk.querySelector("#load-more-loader")
+
+  if (!loadMoreLoader) {
+    throw new Error("Failed to find load more loader")
+  }
+
+  return loadMoreLoader
+}
+
+const loadMoreWrappedWithEasedLoader = () => {
+  const loadMoreLoader = getLoadMoreLoader()
+  loadMoreLoader.classList.remove("hidden")
+  loadMore()
+}
+
+export function addLoadMoreButtonFeature<T extends BaseConfig>(widgetSettings: T) {
+  const loadMoreType = widgetSettings.load_more_type
+
+  switch (loadMoreType) {
+    case "button":
+      disableLoadMoreLoaderIfExists()
+      attachLoadMoreButtonListener()
+      break
+    case "scroll":
+      disableLoadMoreButtonIfExists()
+
+      sdk.addEventListener("tilesUpdated", () => {
+        const loadMoreLoader = getLoadMoreLoader()
+        loadMoreLoader.classList.add("hidden")
+      })
+
+      useInfiniteScroller(sdk, window, loadMoreWrappedWithEasedLoader)
+      break
+    case "static":
+      disableLoadMoreLoaderIfExists()
+      disableLoadMoreButtonIfExists()
+      break
+    default:
+      throw new Error("Invalid load more type")
+  }
+
+  if (!sdk.tiles.hasMorePages()) {
+    disableLoadMoreButtonIfExists()
+    disableLoadMoreLoaderIfExists()
+  }
+}
+
+export function attachLoadMoreButtonListener() {
+  const loadMoreButton = sdk.querySelector("#load-more")
 
   if (!loadMoreButton) {
     throw new Error("Failed to find load more button")
   }
 
-  const loadMoreType = widgetSettings.load_more_type
+  loadMoreButton.onclick = loadMore
+}
 
-  if (loadMoreType === "button") {
-    loadMoreButton.onclick = loadMore
-  } else if (loadMoreType === "scroll") {
-    loadMoreButton.style.display = "none"
-    useInfiniteScroller(sdk, window, loadMore)
-  } else if (loadMoreType === "static") {
-    loadMoreButton.style.display = "none"
+export function disableLoadMoreButtonIfExists() {
+  const loadMoreButton = sdk.querySelector("#load-more")
+
+  if (!loadMoreButton) {
+    throw new Error("Failed to find load more button")
   }
 
-  if (!sdk.tiles.hasMorePages()) {
-    loadMoreButton.style.display = "none"
-    if (loadMoreLoader) {
-      loadMoreLoader.style.display = "none"
-    }
+  loadMoreButton.style.display = "none"
+}
+
+export function disableLoadMoreLoaderIfExists() {
+  const loadMoreLoader = sdk.querySelector("#load-more-loader")
+
+  if (!loadMoreLoader) {
+    throw new Error("Failed to find load more loader")
   }
+
+  loadMoreLoader.style.display = "none"
 }
 
 export function addTilesPerPageFeature<T extends BaseConfig>(widgetSettings: T) {

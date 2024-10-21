@@ -1,6 +1,5 @@
 import { Sdk } from "@stackla/ugc-widgets"
 import getCSSVariables from "@widgets/libs/css-variables"
-import { MasonryLayout } from "@appnest/masonry-layout"
 import {
   loadTitle,
   addAutoAddTileFeature,
@@ -11,10 +10,12 @@ import {
 import { addCSSVariablesToPlacement } from "@widgets/libs/widget.layout"
 import { getConfig } from "./widget.config"
 import { onTileExpand, onTileClosed, onTileRendered } from "@widgets/libs/extensions/swiper/swiper.expanded-tile"
+import { refreshMasonryLayout, reinitialiseMasonryLayout } from "@widgets/libs/extensions/masonry.extension"
+import { resizeAllUgcTiles } from "./masonry.lib"
 
 declare const sdk: Sdk
 
-export function loadWidgetSettings() {
+export async function loadWidgetSettings() {
   const widgetContainer = sdk.placement.getWidgetContainer()
   const widgetSettings = getConfig(widgetContainer)
 
@@ -25,20 +26,21 @@ export function loadWidgetSettings() {
   addTilesPerPageFeature(widgetSettings)
   addLoadMoreButtonFeature(widgetSettings)
 
-  const refreshMasonryLayout = () => {
-    const masonryLayout = sdk.querySelector<MasonryLayout>("masonry-layout")
-    if (masonryLayout instanceof MasonryLayout) {
-      masonryLayout.layout()
-    }
-  }
-
   window.refreshMasonryLayout = refreshMasonryLayout
 
-  sdk.addEventListener("moreLoad", () => {
-    refreshMasonryLayout()
+  await resizeAllUgcTiles()
+
+  sdk.addEventListener("load", async () => {
+    await reinitialiseMasonryLayout()
   })
-  window.addEventListener("scroll", () => {
-    refreshMasonryLayout()
+
+  sdk.addEventListener("moreLoad", async () => {
+    await refreshMasonryLayout(true)
   })
-  sdk.addEventListener("tilesUpdated", refreshMasonryLayout)
+  sdk.addEventListener("tilesUpdated", async () => {
+    await refreshMasonryLayout(true)
+  })
+  window.addEventListener("resize", async () => {
+    await reinitialiseMasonryLayout()
+  })
 }
