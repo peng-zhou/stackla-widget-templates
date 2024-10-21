@@ -143,6 +143,22 @@ function loadMore() {
   }, 500)
 }
 
+const getLoadMoreLoader = () => {
+  const loadMoreLoader = sdk.querySelector("#load-more-loader")
+
+  if (!loadMoreLoader) {
+    throw new Error("Failed to find load more loader")
+  }
+
+  return loadMoreLoader
+}
+
+const loadMoreWrappedWithEasedLoader = () => {
+  const loadMoreLoader = getLoadMoreLoader()
+  loadMoreLoader.classList.remove("hidden")
+  loadMore()
+}
+
 export function addLoadMoreButtonFeature<T extends BaseConfig>(widgetSettings: T) {
   const loadMoreType = widgetSettings.load_more_type
 
@@ -153,7 +169,13 @@ export function addLoadMoreButtonFeature<T extends BaseConfig>(widgetSettings: T
       break
     case "scroll":
       disableLoadMoreButtonIfExists()
-      useInfiniteScroller(sdk, window, loadMore)
+
+      sdk.addEventListener("tilesUpdated", () => {
+        const loadMoreLoader = getLoadMoreLoader()
+        loadMoreLoader.classList.add("hidden")
+      })
+
+      useInfiniteScroller(sdk, window, loadMoreWrappedWithEasedLoader)
       break
     case "static":
       disableLoadMoreLoaderIfExists()

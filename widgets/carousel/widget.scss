@@ -1,5 +1,6 @@
 @import "@templates/tags/tags.scss";
 @import "@styles/inline-tile.scss";
+@import "@styles/expanded-tile.scss";
 @import "@styles/mixins.scss";
 
 #nosto-ugc-container {
@@ -13,23 +14,4 @@
 
 .hidden {
   display: none;
-}
-
-.expanded-tile-overlay {
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  inset: 0;
-  background-color: rgb(0 0 0 / 90%);
-  z-index: 10;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-@include breakpoint(tablet) {
-  .expanded-tile-overlay {
-    align-items: flex-start;
-  }
 }

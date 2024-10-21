@@ -30,6 +30,10 @@ export async function loadWidgetSettings() {
 
   await resizeAllUgcTiles()
 
+  sdk.addEventListener("load", async () => {
+    await reinitialiseMasonryLayout()
+  })
+
   sdk.addEventListener("moreLoad", async () => {
     await refreshMasonryLayout(true)
   })
