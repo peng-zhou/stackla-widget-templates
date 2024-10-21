@@ -48,7 +48,7 @@ export const preloadTileBackgroundImages = async (): Promise<void> => {
 export function generateRandomPartitions(screenWidth: number, minPartitionWidth = 100) {
   // Validate input
   if (screenWidth <= 0) {
-    throw new Error("Screen width must be greater than 0.")
+    return []
   }
 
   // List to hold the widths of the partitions
