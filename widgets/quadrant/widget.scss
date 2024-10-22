@@ -21,6 +21,10 @@
     border-radius: 12px;
     overflow: hidden;
 
+    &:not(.processed) {
+      display: none;
+    }
+
     img {
       width: 100%;
       height: auto;
