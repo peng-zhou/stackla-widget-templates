@@ -7,9 +7,6 @@
 
   .tile-group {
     display: grid;
-    grid-template-areas:
-      "large large small1 small2"
-      "large large small3 small4";
     gap: var(--margin);
     margin-bottom: var(--margin);
   }
@@ -34,19 +31,19 @@
     grid-area: large;
   }
 
-  .ugc-tile.small:nth-child(2) {
+  .ugc-tile.small.small1 {
     grid-area: small1;
   }
 
-  .ugc-tile.small:nth-child(3) {
+  .ugc-tile.small.small2 {
     grid-area: small2;
   }
 
-  .ugc-tile.small:nth-child(4) {
+  .ugc-tile.small.small3 {
     grid-area: small3;
   }
 
-  .ugc-tile.small:nth-child(5) {
+  .ugc-tile.small.small4 {
     grid-area: small4;
   }
 

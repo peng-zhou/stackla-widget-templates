@@ -11,6 +11,8 @@ const tileSizes: { [key: string]: string } = {
 }
 
 const tilesContainer = sdk.querySelector(".ugc-tiles")!
+const widgetContainer = sdk.placement.getWidgetContainer()
+const widgetSettings = getConfig(widgetContainer)
 
 function createTileGroup(tiles: HTMLElement[], groupStartIndex: number, tileSize: string) {
   if (tiles.length - groupStartIndex < 5) {
@@ -21,14 +23,33 @@ function createTileGroup(tiles: HTMLElement[], groupStartIndex: number, tileSize
   tileGroup.style.gridTemplateColumns = `repeat(4, ${tileSize}px)`
   tileGroup.style.gridTemplateRows = tileSize
 
-  const largeTile = tiles[groupStartIndex]
-  largeTile.classList.add("large", "processed")
-  tileGroup.appendChild(largeTile)
+  if (tileSize === tileSizes.large) {
+    tileGroup.style.gridTemplateAreas = `
+      "small1 small2 large large"
+      "small3 small4 large large"
+    `
+    for (let tileOffset = 0; tileOffset < 4; tileOffset++) {
+      const smallTile = tiles[groupStartIndex + tileOffset]
+      smallTile.classList.add("small", "processed")
+      tileGroup.appendChild(smallTile)
+    }
+    const largeTile = tiles[groupStartIndex + 4]
+    largeTile.classList.add("large", "processed")
+    tileGroup.appendChild(largeTile)
+  } else {
+    tileGroup.style.gridTemplateAreas = `
+      "large large small1 small2"
+      "large large small3 small4"
+    `
+    const largeTile = tiles[groupStartIndex]
+    largeTile.classList.add("large", "processed")
+    tileGroup.appendChild(largeTile)
 
-  for (let tileOffset = 1; tileOffset <= 4; tileOffset++) {
-    const smallTile = tiles[groupStartIndex + tileOffset]
-    smallTile.classList.add("small", "processed")
-    tileGroup.appendChild(smallTile)
+    for (let tileOffset = 1; tileOffset <= 4; tileOffset++) {
+      const smallTile = tiles[groupStartIndex + tileOffset]
+      smallTile.classList.add("small", "processed")
+      tileGroup.appendChild(smallTile)
+    }
   }
   return tileGroup
 }
@@ -67,9 +88,6 @@ export async function preloadTileImagesAndRemoveBrokenTiles(tiles: NodeListOf<HT
 
 export function getQuadrantTiles() {
   const tiles = Array.from(sdk.querySelectorAll<HTMLElement>(".ugc-tile") ?? [])
-
-  const widgetContainer = sdk.placement.getWidgetContainer()
-  const widgetSettings = getConfig(widgetContainer)
   const tileSize = tileSizes[widgetSettings.tile_size ?? "medium"]
   const tileGap = widgetSettings.margin ?? 10
   const totalTileWidth = (parseInt(tileSize) + tileGap) * 4
