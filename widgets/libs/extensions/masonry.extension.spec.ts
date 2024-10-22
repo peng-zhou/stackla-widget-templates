@@ -1,4 +1,4 @@
-import { generateRandomPartitions } from "./masonry.lib"
+import { generateRandomPartitions } from "./masonry.extension"
 
 const SCREEN_SIZE = 1000
 
