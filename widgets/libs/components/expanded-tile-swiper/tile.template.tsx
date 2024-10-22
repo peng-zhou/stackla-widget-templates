@@ -209,6 +209,7 @@ function VideoTemplate({ tile, parent }: { tile: Tile; parent?: string }) {
   return (
     <div class="video-content-wrapper">
       <video
+        muted={true}
         tileid={tile.id}
         class="video-content"
         controls
