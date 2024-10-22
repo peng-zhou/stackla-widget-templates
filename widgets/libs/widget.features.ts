@@ -262,7 +262,7 @@ export function waitForElm(parent: Element | ShadowRoot, targets: string[], call
   })
 }
 
-export function waitForMultipleElements(
+export function waitForElements(
   parent: Element | ShadowRoot,
   target: string,
   callback: (elements: NodeListOf<HTMLElement>) => void

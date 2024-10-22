@@ -1,6 +1,6 @@
 import { Sdk } from "@stackla/ugc-widgets"
 import { getConfig } from "./widget.config"
-import { waitForMultipleElements } from "@widgets/libs/widget.features"
+import { waitForElements } from "@widgets/libs/widget.features"
 
 declare const sdk: Sdk
 
@@ -98,7 +98,7 @@ export function getQuadrantTiles() {
   }
 
   sdk.addEventListener("moreLoad", () => {
-    waitForMultipleElements(tilesContainer, ".ugc-tile:not(.processed)", async newTiles => {
+    waitForElements(tilesContainer, ".ugc-tile:not(.processed)", async newTiles => {
       if (newTiles && newTiles.length >= 5) {
         const loadedTiles = await preloadTileImagesAndRemoveBrokenTiles(newTiles)
         addQuadrantTiles(loadedTiles, tileSize)
