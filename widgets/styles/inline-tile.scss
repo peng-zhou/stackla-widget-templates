@@ -72,3 +72,30 @@
   right: 8.4px;
   z-index: 2;
 }
+
+#buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  margin-top: 25px;
+
+  #load-more {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      color:#b9bab9;
+    }
+
+    .loading {
+      height: 30px !important;
+      width: 30px !important;
+    }
+  }
+}

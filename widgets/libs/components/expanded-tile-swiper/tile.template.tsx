@@ -107,7 +107,10 @@ function UserInfoTemplate({ tile }: { tile: Tile }) {
   const tileAvatar = tile.avatar ? (
     <span class="avatar-wrapper">
       <a class="avatar-link" href={tile.original_url} target="_blank">
-        <img src={tile.avatar} />
+        <img
+          src={tile.avatar}
+          onerror={`this.src = "https://web-assets.stackla.com/app.stackla.com/media/images/default-avatars/default-avatar.png";`}
+        />
       </a>
     </span>
   ) : (
@@ -209,6 +212,7 @@ function VideoTemplate({ tile, parent }: { tile: Tile; parent?: string }) {
   return (
     <div class="video-content-wrapper">
       <video
+        muted={true}
         tileid={tile.id}
         class="video-content"
         controls
@@ -224,7 +228,11 @@ function VideoTemplate({ tile, parent }: { tile: Tile; parent?: string }) {
 }
 
 function RenderTikTokTemplate({ tile }: { tile: Tile }) {
-  return <iframe class="video-frame" frameborder="0" allowfullscreen srcdoc={tile.full_embed_html} />
+  const tiktokId = tile.original_url.split("/")[5]
+
+  return (
+    <iframe class="video-frame" frameborder="0" allowfullscreen src={`https://www.tiktok.com/player/v1/${tiktokId}`} />
+  )
 }
 
 function RenderFacebookFallbackTemplate({ tile }: { tile: Tile }) {
