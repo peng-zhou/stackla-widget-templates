@@ -3,15 +3,37 @@
 @import "@styles/expanded-tile.scss";
 @import "@styles/mixins.scss";
 
-#nosto-ugc-container {
-  height: 210px;
+:host {
+  transition: ease all 0.5s;
+}
 
-  .tile {
-    width: 210px;
-    height: 210px;
+#nosto-ugc-container {
+  --inline-tile-width: 210px;
+  --inline-tile-height: 210px;
+  --inline-swiper-container-width: 90%;
+
+  height: var(--inline-tile-height);
+
+  .swiper {
+    width: var(--inline-swiper-container-width);
+    .tile {
+      width: var(--inline-tile-width);
+      height: var(--inline-tile-height);
+    }
   }
 }
 
 .hidden {
   display: none;
+}
+
+@include breakpoint(mobile) {
+  .swiper-inline {
+    width: 90% !important;
+    height: auto !important;
+  }
+  .tile {
+    width: 100% !important;
+    height: 100% !important;
+  }
 }

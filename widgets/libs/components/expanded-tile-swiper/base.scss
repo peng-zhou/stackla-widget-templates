@@ -44,7 +44,9 @@ html {
     }
 
     .video-content-wrapper {
+      width: 100%;
       height: 100%;
+      display: flex;
     }
 
     .video-fallback-content {
@@ -102,15 +104,18 @@ html {
 }
 
 .back {
+  display: none;
   background: var(--text-tile-background);
-  display: block;
   position: relative;
   height: 56px;
-  display: flex;
   align-items: center;
   padding-left: 16px;
   //TODO: change to a variable that is used for .swiper .swiper-slide too
   border-radius: 5px 5px 0 0;
+
+  @include media-query-target(tablet) {
+    display: flex;
+  }
 }
 
 @include breakpoint(tablet) {

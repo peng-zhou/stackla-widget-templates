@@ -247,7 +247,12 @@ function RenderTikTokTemplate({ tile }: { tile: Tile }) {
   const tiktokId = tile.original_url.split("/")[5]
 
   return (
-    <iframe class="video-frame" frameborder="0" allowfullscreen src={`https://www.tiktok.com/player/v1/${tiktokId}`} />
+    <iframe
+      class="video-content"
+      frameborder="0"
+      allowfullscreen
+      src={`https://www.tiktok.com/player/v1/${tiktokId}`}
+    />
   )
 }
 

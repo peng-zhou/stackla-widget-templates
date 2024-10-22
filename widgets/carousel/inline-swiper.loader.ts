@@ -33,7 +33,7 @@ function initializeSwiperForInlineTiles(widgetSettings: IWidgetSettings) {
     : widgetSettings.tiles_per_page
 
   const width = (tileWidth + 10) * perView
-  widgetSelector.style.width = `${width}px`
+  //widgetSelector.style.width = `${width}px`
 
   sdk.tiles.setVisibleTilesCount(perView * 2)
 
@@ -44,7 +44,7 @@ function initializeSwiperForInlineTiles(widgetSettings: IWidgetSettings) {
     prevButton: "swiper-inline-button-prev",
     nextButton: "swiper-inline-button-next",
     paramsOverrides: {
-      slidesPerView: perView,
+      slidesPerView: "auto",
       grabCursor: false,
       allowTouchMove: false,
       keyboard: {
