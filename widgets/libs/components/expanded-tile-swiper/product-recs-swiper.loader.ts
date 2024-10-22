@@ -13,7 +13,6 @@ export function onExpandedTileCrossSellersRendered(tileId: string, target: HTMLE
         prevButton: "swiper-exp-product-recs-button-prev",
         nextButton: "swiper-exp-product-recs-button-next",
         paramsOverrides: {
-          grabCursor: true,
           allowTouchMove: true,
           loop: true,
           on: {
