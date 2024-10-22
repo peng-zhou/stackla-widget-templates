@@ -13,7 +13,7 @@ const tileSizes: { [key: string]: string } = {
 const tilesContainer = sdk.querySelector(".ugc-tiles")!
 
 function createTileGroup(tiles: HTMLElement[], groupStartIndex: number, tileSize: string) {
-  if (tiles.length - groupStartIndex < tiles.length / 5) {
+  if (tiles.length - groupStartIndex < 5) {
     return
   }
   const tileGroup = document.createElement("div")
