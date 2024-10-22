@@ -9,7 +9,6 @@ import { ShareMenu } from "@libs/templates/share-menu/share-menu.lib"
 export type ExpandedTileProps = {
   sdk: Sdk
   tile: Tile
-  showAvatar: boolean
 }
 
 type ShopspotProps = {
@@ -18,7 +17,7 @@ type ShopspotProps = {
   tileId: string
 }
 
-export function ExpandedTile({ sdk, tile, showAvatar }: ExpandedTileProps) {
+export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
   const widgetContainer = sdk.placement.getWidgetContainer()
   const widgetSettings = getConfig(widgetContainer)
   const shopspotEnabled = sdk.isComponentLoaded("shopspots") && widgetSettings.expanded_tile_show_shopspots
@@ -72,7 +71,9 @@ export function ExpandedTile({ sdk, tile, showAvatar }: ExpandedTileProps) {
                 <span class="widget-icon icon-share" alt="Share button"></span>
               </button>
               {sharingToolsEnabled && <ShareMenu tile={tile} />}
-              <div class="user-info-wrapper">{showAvatar && <UserInfoTemplate tile={tile} />}</div>
+              <div class="user-info-wrapper">
+                <UserInfoTemplate tile={tile} />
+              </div>
               <div class="description">
                 {captionsEnabled && (
                   <div class="caption">
@@ -106,7 +107,10 @@ function UserInfoTemplate({ tile }: { tile: Tile }) {
   const tileAvatar = tile.avatar ? (
     <span class="avatar-wrapper">
       <a class="avatar-link" href={tile.original_url} target="_blank">
-        <img src={tile.avatar} />
+        <img
+          src={tile.avatar}
+          onerror={`this.src = "https://web-assets.stackla.com/app.stackla.com/media/images/default-avatars/default-avatar.png";`}
+        />
       </a>
     </span>
   ) : (

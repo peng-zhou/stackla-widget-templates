@@ -1,34 +1,10 @@
-import type { Sdk, Tile } from "@stackla/ugc-widgets"
+import type { Sdk } from "@stackla/ugc-widgets"
 import { ExpandedTile } from "./tile.template"
 import { createElement, createFragment } from "@stackla/ugc-widgets/src/ui/core/utils/jsx-html"
 import { getConfig } from "@widgets/carousel/widget.config"
 
-export async function shouldShowAvatar(tile: Tile) {
-  if (tile.avatar) {
-    const response = await fetch(tile.avatar)
-    return response.ok
-  }
-
-  return false
-}
-
-export async function getAllTiles(sdk: Sdk) {
-  const tiles = Promise.all(
-    Object.values(sdk.tiles.tiles).map(async tile => {
-      const avatar = tile.avatar
-      const showAvatar = avatar ? await shouldShowAvatar(tile) : false
-      return (
-        <div class="swiper-slide" data-id={tile.id}>
-          <ExpandedTile sdk={sdk} tile={tile} showAvatar={showAvatar} />
-        </div>
-      )
-    })
-  )
-
-  return tiles
-}
-
-export async function ExpandedTiles(sdk: Sdk) {
+export function ExpandedTiles(sdk: Sdk) {
+  const tiles = sdk.tiles.tiles
   const widgetContainer = sdk.placement.getWidgetContainer()
   const widgetSettings = getConfig(widgetContainer)
   const navigationArrowsEnabled = widgetSettings.expanded_tile_show_navigation_arrows
@@ -41,7 +17,13 @@ export async function ExpandedTiles(sdk: Sdk) {
       </a>
       <BackArrowIcon />
       <div class="swiper swiper-expanded">
-        <div class="swiper-wrapper">{await getAllTiles(sdk)}</div>
+        <div class="swiper-wrapper">
+          {Object.values(tiles).map(tile => (
+            <div class="swiper-slide" data-id={tile.id}>
+              <ExpandedTile sdk={sdk} tile={tile} />
+            </div>
+          ))}
+        </div>
       </div>
       <div
         class="swiper-expanded-button-prev swiper-button-prev"
