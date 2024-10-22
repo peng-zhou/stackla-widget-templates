@@ -9,6 +9,7 @@ import { ShareMenu } from "@libs/templates/share-menu/share-menu.lib"
 export type ExpandedTileProps = {
   sdk: Sdk
   tile: Tile
+  showAvatar: boolean
 }
 
 type ShopspotProps = {
@@ -17,7 +18,7 @@ type ShopspotProps = {
   tileId: string
 }
 
-export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
+export function ExpandedTile({ sdk, tile, showAvatar }: ExpandedTileProps) {
   const widgetContainer = sdk.placement.getWidgetContainer()
   const widgetSettings = getConfig(widgetContainer)
   const shopspotEnabled = sdk.isComponentLoaded("shopspots") && widgetSettings.expanded_tile_show_shopspots
@@ -71,9 +72,7 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
                 <span class="widget-icon icon-share" alt="Share button"></span>
               </button>
               {sharingToolsEnabled && <ShareMenu tile={tile} />}
-              <div class="user-info-wrapper">
-                <UserInfoTemplate tile={tile} />
-              </div>
+              <div class="user-info-wrapper">{showAvatar && <UserInfoTemplate tile={tile} />}</div>
               <div class="description">
                 {captionsEnabled && (
                   <div class="caption">
@@ -225,7 +224,11 @@ function VideoTemplate({ tile, parent }: { tile: Tile; parent?: string }) {
 }
 
 function RenderTikTokTemplate({ tile }: { tile: Tile }) {
-  return <iframe class="video-frame" frameborder="0" allowfullscreen srcdoc={tile.full_embed_html} />
+  const tiktokId = tile.original_url.split("/")[5]
+
+  return (
+    <iframe class="video-frame" frameborder="0" allowfullscreen src={`https://www.tiktok.com/player/v1/${tiktokId}`} />
+  )
 }
 
 function RenderFacebookFallbackTemplate({ tile }: { tile: Tile }) {
