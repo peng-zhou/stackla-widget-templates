@@ -17,6 +17,7 @@ export function initializeExtendedSwiper() {
   }
 
   initializeSwiper({
+    id: "expanded",
     widgetSelector,
     perView: 1,
     mode: "expanded",
@@ -40,6 +41,7 @@ export function initializeSwiperForExpandedTiles(initialTileId: string) {
   sdk.tiles.setVisibleTilesCount(2)
 
   initializeSwiper({
+    id: "expanded",
     widgetSelector,
     perView: 1,
     mode: "expanded",
