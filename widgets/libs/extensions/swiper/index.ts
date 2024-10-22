@@ -13,7 +13,11 @@ export function loadSwiperStyles() {
   sdk.addWidgetCustomStyles(swiperFont)
 
   // Swiper specific styles to be available for both carousel and expanded tile
-  sdk.addSharedCssCustomStyles("swiper-bundle", swiperBundleCss, [sdk.placement.getWidgetId(), "expanded-tiles"])
+  sdk.addSharedCssCustomStyles("swiper-bundle", swiperBundleCss, [
+    sdk.placement.getWidgetId(),
+    "expanded-tiles",
+    "ugc-products"
+  ])
   sdk.addSharedCssCustomStyles("swiper-overrides", swiperCommon, [sdk.placement.getWidgetId(), "expanded-tiles"])
   sdk.addSharedCssCustomStyles("swiper-expanded-tile", swiperExpandedTile, [
     sdk.placement.getWidgetId(),
