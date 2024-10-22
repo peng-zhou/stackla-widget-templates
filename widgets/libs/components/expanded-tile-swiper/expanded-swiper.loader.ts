@@ -21,19 +21,15 @@ function initializeSwiperForExpandedTiles(initialTileId: string) {
   initializeSwiper({
     id: "expanded",
     widgetSelector,
-    perView: 1,
     mode: "expanded",
     prevButton: "swiper-expanded-button-prev",
     nextButton: "swiper-expanded-button-next",
-    initialTileId,
     paramsOverrides: {
+      slidesPerView: 1,
       keyboard: {
         enabled: true,
         onlyInViewport: false
       },
-      grabCursor: true,
-      allowTouchMove: true,
-      loop: true,
       on: {
         beforeInit: swiper => {
           const tileIndex = initialTileId ? getSwiperIndexforTile(widgetSelector, initialTileId) : 0

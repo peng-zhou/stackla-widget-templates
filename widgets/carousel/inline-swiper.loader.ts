@@ -1,5 +1,5 @@
 import { IWidgetSettings, SdkSwiper } from "types"
-import { getConfig } from "../widget.config"
+import { getConfig } from "./widget.config"
 import { initializeSwiper, refreshSwiper } from "@libs/extensions/swiper/swiper.extension"
 import { enableTileImages } from "@libs/extensions/swiper/loader.extension"
 import Swiper from "swiper"
@@ -41,10 +41,12 @@ function initializeSwiperForInlineTiles(widgetSettings: IWidgetSettings) {
     id: "inline",
     mode: "inline",
     widgetSelector,
-    perView,
     prevButton: "swiper-inline-button-prev",
     nextButton: "swiper-inline-button-next",
     paramsOverrides: {
+      slidesPerView: perView,
+      grabCursor: false,
+      allowTouchMove: false,
       keyboard: {
         enabled: true,
         onlyInViewport: false

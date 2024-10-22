@@ -8,7 +8,6 @@ declare const sdk: SdkSwiper
 export function initializeSwiper({
   id,
   widgetSelector,
-  perView = "auto",
   prevButton = "swiper-button-prev",
   nextButton = "swiper-button-next",
   paramsOverrides
@@ -40,11 +39,9 @@ export function initializeSwiper({
   sdk[id]!.instance = new Swiper(widgetSelector, {
     modules: [Navigation, Manipulation, Keyboard],
     spaceBetween: 10,
-    slidesPerView: perView,
     observer: true,
-    grabCursor: false,
-    allowTouchMove: false,
-    lazyPreloadPrevNext: typeof perView === "number" ? perView : undefined,
+    grabCursor: true,
+    allowTouchMove: true,
     direction: "horizontal",
     watchSlidesProgress: true,
     normalizeSlideIndex: true,
@@ -56,8 +53,6 @@ export function initializeSwiper({
     resizeObserver: true,
     ...paramsOverrides
   })
-
-  sdk[id]!.perView = perView
 }
 
 export function refreshSwiper(id: string) {

@@ -13,8 +13,8 @@ export function onExpandedTileCrossSellersRendered(tileId: string, target: HTMLE
         prevButton: "swiper-exp-product-recs-button-prev",
         nextButton: "swiper-exp-product-recs-button-next",
         paramsOverrides: {
-          allowTouchMove: true,
-          loop: true,
+          slidesPerView: "auto",
+          grabCursor: false,
           on: {
             beforeInit: swiper => {
               swiper.slideToLoop(0, 0, false)

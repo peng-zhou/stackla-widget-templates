@@ -9,7 +9,7 @@ import { addCSSVariablesToPlacement } from "widgets/libs/widget.layout"
 import getCSSVariables from "widgets/libs/css-variables"
 import { Sdk } from "@stackla/ugc-widgets"
 import { getConfig } from "./widget.config"
-import { initializeInlineSwiperListeners } from "./components/inline-swiper.loader"
+import { initializeInlineSwiperListeners } from "./inline-swiper.loader"
 import {
   onTileClosed,
   onTileExpand,
