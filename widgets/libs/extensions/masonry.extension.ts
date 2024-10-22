@@ -2,22 +2,13 @@ import { Sdk } from "@stackla/ugc-widgets"
 
 declare const sdk: Sdk
 
-export let masonryInstance: Isotope
-
 export async function reinitialiseMasonryLayout() {
   resizeAllUgcTiles(true)
-  if (masonryInstance) {
-    masonryInstance.layout()
-  }
 }
 
 export async function refreshMasonryLayout(refresh = true) {
   if (refresh) {
     resizeAllUgcTiles()
-  }
-
-  if (masonryInstance) {
-    masonryInstance.layout()
   }
 }
 
@@ -103,7 +94,6 @@ export const resizeAllUgcTiles = (() => {
     }
 
     // If screenWidth is not stored or has changed, reinitialize the widths array
-
     const ugcContainer = sdk.querySelector("#nosto-ugc-container")
 
     if (!ugcContainer) {
@@ -133,9 +123,7 @@ export const resizeAllUgcTiles = (() => {
       tile.style.width = `${randomWidth}px`
       tile.setAttribute("width-set", "true")
       tile.setAttribute("execution-count", executionCount.toString())
-
-      // Update the layout (assuming refreshMasonryLayout is used for layout updates)
-      await refreshMasonryLayout(false)
+      tile.classList.add("processed")
     })
   }
 })()
