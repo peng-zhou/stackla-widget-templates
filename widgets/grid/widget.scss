@@ -1,6 +1,39 @@
 @import "@styles/mixins.scss";
 @import "@styles/expanded-tile.scss";
 @import "@templates/tags/tags.scss";
+@import "@styles/mixins.scss";
+
+.grid {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.grid-item {
+  color: white;
+  text-align: center;
+  border-radius: 5px;
+  position: relative;
+  background-size: cover;
+  background-position: center; 
+  background-repeat: no-repeat;
+  height: var(--tile-size);
+  width: var(--tile-size);
+  margin: 5px;
+  box-sizing: border-box;
+  object-fit: cover;
+
+  @include breakpoint(tablet) {
+    width: calc(50vw - 10px);
+    height: calc(50vw - 10px);
+  }
+
+  @include breakpoint(mobile) {
+    width: 100vw;
+    height: 100vw;
+  }
+}
 
 #nosto-ugc-container {
   .ugc-tile {
@@ -8,14 +41,13 @@
     box-sizing: border-box;
     border-radius: 12px;
     overflow: hidden;
-
-    img {
-      width: 100%;
-      height: auto;
-    }
   }
 
   .tile {
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    width: 100%;
     position: relative;
 
     .play-icon {
@@ -69,6 +101,6 @@
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 

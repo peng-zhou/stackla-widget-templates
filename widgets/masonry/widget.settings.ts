@@ -14,8 +14,11 @@ import {
   onTileClosed,
   onTileRendered
 } from "@libs/components/expanded-tile-swiper/expanded-swiper.loader"
-import { refreshMasonryLayout, reinitialiseMasonryLayout } from "@widgets/libs/extensions/masonry.extension"
-import { resizeAllUgcTiles } from "./masonry.lib"
+import {
+  refreshMasonryLayout,
+  reinitialiseMasonryLayout,
+  resizeAllUgcTiles
+} from "@widgets/libs/extensions/masonry.extension"
 
 declare const sdk: Sdk
 
