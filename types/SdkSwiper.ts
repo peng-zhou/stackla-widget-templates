@@ -9,10 +9,7 @@ export type SwiperProps = {
   widgetSelector: HTMLElement
   prevButton?: string
   nextButton?: string
-  perView?: number | "auto"
   mode: SwiperMode
-  initialIndex?: number
-  initialTileId?: string
   paramsOverrides?: SwiperOptions
 }
 

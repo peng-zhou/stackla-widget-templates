@@ -173,9 +173,15 @@ function ImageTemplate({
 }
 
 function VideoTemplate({ tile, parent }: { tile: Tile; parent?: string }) {
-  const additionalAttrs: Record<string, string> = {}
-  const sourceAttrs: Record<string, string> = {}
+  return (
+    <div class="video-content-wrapper">
+      <div class="image-filler" style={{ "background-image": `url('${tile.original_image_url}')` }}></div>
+      <SourceVideoContent tile={tile} parent={parent} />
+    </div>
+  )
+}
 
+function SourceVideoContent({ tile, parent }: { tile: Tile; parent?: string }) {
   // handle unplayable tiktok source
   // TODO handle vide_source "tiktok"
   if (tile.source === "tiktok" || tile.video_source === "tiktok") {
@@ -183,10 +189,7 @@ function VideoTemplate({ tile, parent }: { tile: Tile; parent?: string }) {
   }
 
   if (tile.source === "youtube") {
-    const youtubeId = tile.youtube_id as string
-    const src = `https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1`
-    const title = tile.title as string
-    return <RenderYoutubeTemplate src={src} title={title} />
+    return <RenderYoutubeTemplate tile={tile} />
   }
 
   if (tile.source === "facebook") {
@@ -194,38 +197,51 @@ function VideoTemplate({ tile, parent }: { tile: Tile; parent?: string }) {
     if (!tile.video_files?.length || !videoUrlPattern.test(tile.video_files[0].url)) {
       return <RenderVideoErrorFallbackTemplate tile={tile} parent={parent} defaultHidden={false} />
     }
-    return <RenderFacebookFallbackTemplate tile={tile} />
   }
 
   if (tile.source === "twitter") {
-    const { standard_resolution } = tile.video
-    sourceAttrs["src"] = standard_resolution.url
-  } else if (!tile.video_files?.length) {
-    return <></>
-  } else {
-    const { url, width, height, mime } = tile.video_files[0]
-    sourceAttrs["src"] = url
-    sourceAttrs["width"] = width.toString()
-    sourceAttrs["height"] = height.toString()
-    sourceAttrs["type"] = mime
+    return <RenderTwitterTemplate tile={tile} />
   }
 
+  if (tile.video_files?.length) {
+    return <RenderVideoTemplate tile={tile} />
+  }
+
+  return <RenderFacebookFallbackTemplate tile={tile} />
+}
+
+function RenderVideoTemplate({ tile }: { tile: Tile }) {
+  const { url, width, height, mime } = tile.video_files[0]
+
   return (
-    <div class="video-content-wrapper">
-      <div class="image-filler" style={{ "background-image": `url('${tile.original_image_url}')` }}></div>
-      <video
-        muted={true}
-        tileid={tile.id}
-        class="video-content"
-        controls
-        autoplay
-        preload="none"
-        playsinline="playsinline"
-        oncanplay="this.muted=true"
-        {...additionalAttrs}>
-        <source {...sourceAttrs} />
-      </video>
-    </div>
+    <video
+      muted={true}
+      tileid={tile.id}
+      class="video-content"
+      controls
+      autoplay
+      preload="none"
+      playsinline="playsinline"
+      oncanplay="this.muted=true">
+      <source src={url} width={width.toString()} height={height.toString()} type={mime} />
+    </video>
+  )
+}
+
+function RenderTwitterTemplate({ tile }: { tile: Tile }) {
+  const { standard_resolution } = tile.video
+
+  return (
+    <video
+      tileid={tile.id}
+      class="video-content"
+      controls
+      autoplay
+      preload="auto"
+      playsinline="playsinline"
+      oncanplay="this.muted=true">
+      <source src={standard_resolution.url} />
+    </video>
   )
 }
 
@@ -267,7 +283,11 @@ function RenderFacebookFallbackTemplate({ tile }: { tile: Tile }) {
   )
 }
 
-function RenderYoutubeTemplate({ src, title = "" }: { src: string; title?: string }) {
+function RenderYoutubeTemplate({ tile }: { tile: Tile }) {
+  const youtubeId = tile.youtube_id as string
+  const src = `https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1`
+  const title = tile.title as string
+
   return (
     <iframe
       loading="lazy"

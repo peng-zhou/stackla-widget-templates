@@ -1,33 +1,11 @@
-import type { Sdk } from "@stackla/ugc-widgets"
-import { initializeSwiper, getClickedIndex, disableSwiper, enableSwiper } from "./swiper.extension"
-import { waitForElm } from "@widgets/libs/widget.features"
-import { registerExpandedTileShareMenuListeners } from "@widgets/libs/templates/share-menu/share-menu.listener"
+import { disableSwiper, getSwiperIndexforTile, initializeSwiper } from "@libs/extensions/swiper/swiper.extension"
+import { waitForElm } from "@libs/widget.features"
+import { registerExpandedTileShareMenuListeners } from "@libs/templates/share-menu/share-menu.listener"
+import { SdkSwiper } from "types"
 
-declare const sdk: Sdk
+declare const sdk: SdkSwiper
 
-export function initializeExtendedSwiper() {
-  const expandedTile = sdk.querySelector("expanded-tiles")
-  if (!expandedTile?.shadowRoot) {
-    throw new Error("The expanded tile element not found")
-  }
-  const widgetSelector = expandedTile.shadowRoot.querySelector<HTMLElement>(".swiper-expanded")
-
-  if (!widgetSelector) {
-    throw new Error("Failed to find widget UI element. Failed to initialise Glide")
-  }
-
-  initializeSwiper({
-    id: "expanded",
-    widgetSelector,
-    perView: 1,
-    mode: "expanded",
-    initialIndex: getClickedIndex("inline"),
-    prevButton: "swiper-expanded-button-prev",
-    nextButton: "swiper-expanded-button-next"
-  })
-}
-
-export function initializeSwiperForExpandedTiles(initialTileId: string) {
+function initializeSwiperForExpandedTiles(initialTileId: string) {
   const expandedTile = sdk.querySelector("expanded-tiles")
   if (!expandedTile?.shadowRoot) {
     throw new Error("The expanded tile element not found")
@@ -43,11 +21,22 @@ export function initializeSwiperForExpandedTiles(initialTileId: string) {
   initializeSwiper({
     id: "expanded",
     widgetSelector,
-    perView: 1,
     mode: "expanded",
     prevButton: "swiper-expanded-button-prev",
     nextButton: "swiper-expanded-button-next",
-    initialTileId
+    paramsOverrides: {
+      slidesPerView: 1,
+      keyboard: {
+        enabled: true,
+        onlyInViewport: false
+      },
+      on: {
+        beforeInit: swiper => {
+          const tileIndex = initialTileId ? getSwiperIndexforTile(widgetSelector, initialTileId) : 0
+          swiper.slideToLoop(tileIndex, 0, false)
+        }
+      }
+    }
   })
 }
 
@@ -59,8 +48,6 @@ export function onTileExpand(tileId: string) {
   }
 
   expandedTile.parentElement!.classList.add("expanded-tile-overlay")
-
-  disableSwiper("inline")
 
   waitForElm(expandedTile.shadowRoot, [".swiper-expanded"], () => initializeSwiperForExpandedTiles(tileId))
 }
@@ -80,6 +67,14 @@ export function onTileRendered() {
       throw new Error(`Share button not found in expanded tile ${tile.getAttribute("data-id")}`)
     }
     registerExpandedTileShareMenuListeners(expandedTilesElement, shareButton, tile)
+
+    const videoSourceElement = tile.querySelector<HTMLVideoElement>("video.video-content > source")
+    if (videoSourceElement) {
+      videoSourceElement.addEventListener("error", () => {
+        videoSourceElement.closest(".video-content-wrapper")?.classList.add("hidden")
+        tile.querySelector(".video-fallback-content")?.classList.remove("hidden")
+      })
+    }
   })
 }
 
@@ -93,5 +88,4 @@ export function onTileClosed() {
   expandedTile.parentElement!.classList.remove("expanded-tile-overlay")
 
   disableSwiper("expanded")
-  enableSwiper("inline")
 }
