@@ -108,6 +108,7 @@ function UserInfoTemplate({ tile }: { tile: Tile }) {
     <span class="avatar-wrapper">
       <a class="avatar-link" href={tile.original_url} target="_blank">
         <img
+          loading="lazy"
           src={tile.avatar}
           onerror={`this.src = "https://web-assets.stackla.com/app.stackla.com/media/images/default-avatars/default-avatar.png";`}
         />
@@ -214,11 +215,12 @@ function RenderVideoTemplate({ tile }: { tile: Tile }) {
 
   return (
     <video
+      muted={true}
       tileid={tile.id}
       class="video-content"
       controls
       autoplay
-      preload="auto"
+      preload="none"
       playsinline="playsinline"
       oncanplay="this.muted=true">
       <source src={url} width={width.toString()} height={height.toString()} type={mime} />
@@ -247,7 +249,13 @@ function RenderTikTokTemplate({ tile }: { tile: Tile }) {
   const tiktokId = tile.original_url.split("/")[5]
 
   return (
-    <iframe class="video-frame" frameborder="0" allowfullscreen src={`https://www.tiktok.com/player/v1/${tiktokId}`} />
+    <iframe
+      loading="lazy"
+      class="video-frame"
+      frameborder="0"
+      allowfullscreen
+      src={`https://www.tiktok.com/player/v1/${tiktokId}`}
+    />
   )
 }
 
@@ -270,7 +278,9 @@ function RenderFacebookFallbackTemplate({ tile }: { tile: Tile }) {
       </div>
     </div>
   )
-  return <iframe class="video-content" frameborder="0" allowfullscreen srcdoc={embedBlock.innerHTML}></iframe>
+  return (
+    <iframe loading="lazy" class="video-frame" frameborder="0" allowfullscreen srcdoc={embedBlock.innerHTML}></iframe>
+  )
 }
 
 function RenderYoutubeTemplate({ tile }: { tile: Tile }) {
@@ -280,7 +290,8 @@ function RenderYoutubeTemplate({ tile }: { tile: Tile }) {
 
   return (
     <iframe
-      class="video-content"
+      loading="lazy"
+      class="video-frame"
       src={src}
       title={title}
       frameborder="0"

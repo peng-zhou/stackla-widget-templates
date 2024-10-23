@@ -126,11 +126,7 @@ function loadMore() {
   window.__isLoading = true
 
   const EVENT_LOAD_MORE = "moreLoad"
-  const loadMoreButton = sdk.querySelector("#load-more")
-
-  if (!loadMoreButton) {
-    throw new Error("Failed to find load more button")
-  }
+  const loadMoreButton = getLoadMoreButton()
 
   sdk.triggerEvent(EVENT_LOAD_MORE)
 
@@ -141,6 +137,16 @@ function loadMore() {
   setTimeout(() => {
     window.__isLoading = false
   }, 500)
+}
+
+const getLoadMoreButton = () => {
+  const loadMoreButton = sdk.querySelector("#load-more")
+
+  if (!loadMoreButton) {
+    throw new Error("Failed to find load more button")
+  }
+
+  return loadMoreButton
 }
 
 const getLoadMoreLoader = () => {
@@ -154,6 +160,8 @@ const getLoadMoreLoader = () => {
 }
 
 const loadMoreWrappedWithEasedLoader = () => {
+  const loadMoreButton = getLoadMoreButton()
+  loadMoreButton.style.display = "none"
   const loadMoreLoader = getLoadMoreLoader()
   loadMoreLoader.classList.remove("hidden")
   loadMore()
@@ -164,8 +172,15 @@ export function addLoadMoreButtonFeature<T extends BaseConfig>(widgetSettings: T
 
   switch (loadMoreType) {
     case "button":
-      disableLoadMoreLoaderIfExists()
       attachLoadMoreButtonListener()
+
+      sdk.addEventListener("tilesUpdated", () => {
+        const loadMoreLoader = getLoadMoreLoader()
+        const loadMoreButton = getLoadMoreButton()
+        loadMoreLoader.classList.add("hidden")
+        loadMoreButton.style.display = "block"
+      })
+
       break
     case "scroll":
       disableLoadMoreButtonIfExists()
@@ -198,7 +213,7 @@ export function attachLoadMoreButtonListener() {
     throw new Error("Failed to find load more button")
   }
 
-  loadMoreButton.onclick = loadMore
+  loadMoreButton.onclick = loadMoreWrappedWithEasedLoader
 }
 
 export function disableLoadMoreButtonIfExists() {
@@ -225,7 +240,7 @@ export function addTilesPerPageFeature<T extends BaseConfig>(widgetSettings: T) 
   if (widgetSettings.enable_custom_tiles_per_page) {
     sdk.tiles.setVisibleTilesCount(widgetSettings.tiles_per_page)
   } else {
-    sdk.tiles.setVisibleTilesCount(10 * widgetSettings.rows_per_page)
+    sdk.tiles.setVisibleTilesCount(40)
   }
 }
 
@@ -248,6 +263,31 @@ export function waitForElm(parent: Element | ShadowRoot, targets: string[], call
     if (targets.every(it => !!parent.querySelector(it))) {
       observer.disconnect()
       callback(targets.map(it => parent.querySelector(it)!))
+    }
+  })
+
+  observer.observe(parent, {
+    childList: true,
+    subtree: true
+  })
+}
+
+export function waitForElements(
+  parent: Element | ShadowRoot,
+  target: string,
+  callback: (elements: NodeListOf<HTMLElement>) => void
+) {
+  const elements = parent.querySelectorAll<HTMLElement>(target)
+
+  if (elements.length > 0) {
+    callback(elements)
+  }
+
+  const observer = new MutationObserver(() => {
+    const newElements = parent.querySelectorAll<HTMLElement>(target)
+    if (newElements.length > 0) {
+      observer.disconnect()
+      callback(newElements)
     }
   })
 

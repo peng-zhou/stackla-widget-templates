@@ -38,7 +38,6 @@ export function getConfig(widgetContainer: WidgetContainer): IWidgetSettings {
     unavailable_products_behaviour: widgetStyle?.unavailable_products_behaviour ?? "hide",
     enable_custom_tiles_per_page: widgetStyle?.enable_custom_tiles_per_page ?? false,
     show_inline_tags: widgetConfig?.lightbox?.show_tags ?? false,
-    rows_per_page: widgetStyle?.rows_per_page ?? 1,
     tiles_per_page: widgetStyle?.tiles_per_page ?? 4,
     widget_background: widgetStyle?.widget_background,
     enable_typekit: widgetStyle?.enable_typekit,

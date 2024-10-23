@@ -33,16 +33,16 @@
   height: 100%;
 }
 
-  :after {
-    content: '';
-    display: block;
-    clear: both;
-  }
   .ugc-tile {
     $total-padding: 10px;
     box-sizing: border-box;
     border-radius: 12px;
     overflow: hidden;
+    transition: opacity 0.5s ease;
+
+    &:not(.processed) {
+      opacity: 0;
+    }
   }
 
   .tile {
