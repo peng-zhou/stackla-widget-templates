@@ -12,7 +12,6 @@ export interface IWidgetSettings extends BaseConfig {
   minimal_tiles: number
   auto_refresh: boolean
   unavailable_products_behaviour: string
-  rows_per_page: number
   widget_background?: string
   text_tile_background?: string
   text_tile_font_size?: number
