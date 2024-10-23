@@ -126,11 +126,7 @@ function loadMore() {
   window.__isLoading = true
 
   const EVENT_LOAD_MORE = "moreLoad"
-  const loadMoreButton = sdk.querySelector("#load-more")
-
-  if (!loadMoreButton) {
-    throw new Error("Failed to find load more button")
-  }
+  const loadMoreButton = getLoadMoreButton()
 
   sdk.triggerEvent(EVENT_LOAD_MORE)
 
@@ -141,6 +137,16 @@ function loadMore() {
   setTimeout(() => {
     window.__isLoading = false
   }, 500)
+}
+
+const getLoadMoreButton = () => {
+  const loadMoreButton = sdk.querySelector("#load-more")
+
+  if (!loadMoreButton) {
+    throw new Error("Failed to find load more button")
+  }
+
+  return loadMoreButton
 }
 
 const getLoadMoreLoader = () => {
@@ -154,6 +160,8 @@ const getLoadMoreLoader = () => {
 }
 
 const loadMoreWrappedWithEasedLoader = () => {
+  const loadMoreButton = getLoadMoreButton()
+  loadMoreButton.style.display = "none"
   const loadMoreLoader = getLoadMoreLoader()
   loadMoreLoader.classList.remove("hidden")
   loadMore()
@@ -168,7 +176,9 @@ export function addLoadMoreButtonFeature<T extends BaseConfig>(widgetSettings: T
 
       sdk.addEventListener("tilesUpdated", () => {
         const loadMoreLoader = getLoadMoreLoader()
+        const loadMoreButton = getLoadMoreButton()
         loadMoreLoader.classList.add("hidden")
+        loadMoreButton.style.display = "block"
       })
 
       break
