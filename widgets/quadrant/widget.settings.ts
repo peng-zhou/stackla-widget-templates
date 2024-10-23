@@ -9,7 +9,11 @@ import {
 } from "@widgets/libs/widget.features"
 import { addCSSVariablesToPlacement } from "@widgets/libs/widget.layout"
 import { getConfig } from "./widget.config"
-import { onTileExpand, onTileClosed, onTileRendered } from "@widgets/libs/extensions/swiper/swiper.expanded-tile"
+import {
+  onTileExpand,
+  onTileClosed,
+  onTileRendered
+} from "@libs/components/expanded-tile-swiper/expanded-swiper.loader"
 
 declare const sdk: Sdk
 
