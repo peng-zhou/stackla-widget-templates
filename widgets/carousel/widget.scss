@@ -1,24 +1,22 @@
+@import "variables.scss";
+@import "@styles/mixins.scss";
+@import "@styles/icon-sections.scss";
 @import "@templates/tags/tags.scss";
 @import "@styles/inline-tile.scss";
 @import "@styles/expanded-tile.scss";
-@import "@styles/mixins.scss";
 
 :host {
   transition: ease all 0.5s;
 }
 
 #nosto-ugc-container {
-  --inline-tile-width: 210px;
-  --inline-tile-height: 210px;
-  --inline-swiper-container-width: 90%;
-
-  height: var(--inline-tile-height);
+  height: var(--inline-nosto-container-height);
 
   .swiper {
     width: var(--inline-swiper-container-width);
     .tile {
-      width: var(--inline-tile-width);
-      height: var(--inline-tile-height);
+      width: var(--default-tile-width);
+      height: var(--default-tile-height);
     }
   }
 }
@@ -28,12 +26,17 @@
 }
 
 @include breakpoint(mobile) {
-  .swiper-inline {
-    width: 90% !important;
-    height: auto !important;
-  }
-  .tile {
-    width: 100% !important;
-    height: 100% !important;
+  #nosto-ugc-container {
+    height: var(--inline-nosto-container-height) !important;
+    .swiper-inline {
+      width: var(--inline-mobile-swiper-container-width) !important;
+      .swiper-slide {
+        width: 100% !important;
+      }
+    }
+    .tile {
+      width: var(--mobile-tile-width) !important;
+      height: var(--mobile-tile-height) !important;
+    }
   }
 }

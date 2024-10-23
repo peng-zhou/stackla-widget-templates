@@ -1,8 +1,6 @@
 @import "@styles/mixins.scss";
 
 :host {
-  --expanded-swiper-container-max-width: 891px;
-  --expanded-swiper-container-max-height: 90vh;
   transition: ease all 0.5s;
 }
 

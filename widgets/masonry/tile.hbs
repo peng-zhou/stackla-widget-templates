@@ -1,14 +1,14 @@
 {{#tile data-hash=@index class="grid-item"}}
 <div class="tile" data-background-image="{{image_thumbnail_url}}">
   <div class="tile-loading"></div>
-  <div class="tile-content">
+  <div class="icon-section">
     {{#each attrs}}
-      {{#ifequals this "instagram.reel"}}
-        <div class="content-icon icon-reel"></div>
-      {{/ifequals}}
+    {{#ifequals this "instagram.reel"}}
+    <div class="content-icon icon-reel"></div>
+    {{/ifequals}}
     {{/each}}
     {{#if tags_extended.length}}
-      <div class="shopping-icon icon-products"></div>
+    <div class="shopping-icon icon-products"></div>
     {{/if}}
     <ul class="tile-tags">
       {{#tags_extended}}

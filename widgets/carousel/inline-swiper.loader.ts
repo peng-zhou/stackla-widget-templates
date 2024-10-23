@@ -97,7 +97,7 @@ async function loadTilesAsync(swiper: Swiper) {
 
 function updateLoadingStateInterval(swiperElem: HTMLElement) {
   const intervalId = setInterval(function () {
-    const elements = swiperElem.querySelectorAll<HTMLElement>(".swiper-slide:has(.tile-content.hidden)")
+    const elements = swiperElem.querySelectorAll<HTMLElement>(".swiper-slide:has(.icon-section.hidden)")
     if (elements.length === 0) {
       clearInterval(intervalId)
       sdk["inline"]!.isLoading = false

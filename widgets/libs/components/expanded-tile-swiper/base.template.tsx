@@ -17,9 +17,9 @@ export function ExpandedTiles(sdk: Sdk) {
       </a>
       <BackArrowIcon />
       <div class="swiper swiper-expanded">
-        <div class="swiper-wrapper">
+        <div class="swiper-wrapper ugc-tiles">
           {Object.values(tiles).map(tile => (
-            <div class="swiper-slide" data-id={tile.id}>
+            <div class="ugc-tile swiper-slide" data-id={tile.id}>
               <ExpandedTile sdk={sdk} tile={tile} />
             </div>
           ))}
