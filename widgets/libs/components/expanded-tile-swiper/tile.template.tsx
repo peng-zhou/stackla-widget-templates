@@ -108,7 +108,7 @@ function UserInfoTemplate({ tile }: { tile: Tile }) {
     <span class="avatar-wrapper">
       <a class="avatar-link" href={tile.original_url} target="_blank">
         <img
-          loading="lazyload"
+          loading="lazy"
           src={tile.avatar}
           onerror={`this.src = "https://web-assets.stackla.com/app.stackla.com/media/images/default-avatars/default-avatar.png";`}
         />
