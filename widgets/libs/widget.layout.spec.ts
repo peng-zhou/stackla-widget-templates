@@ -11,7 +11,6 @@ const sdk: {
 const defaultWidgetSettings: BaseConfig = {
   tiles_per_page: 10,
   enable_custom_tiles_per_page: false,
-  rows_per_page: 3,
   auto_refresh: false,
   expanded_tile_show_shopspots: false,
   expanded_tile_show_products: false,

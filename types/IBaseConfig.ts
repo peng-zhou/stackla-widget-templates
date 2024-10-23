@@ -2,7 +2,6 @@ export interface BaseConfig {
   enabled?: boolean
   tiles_per_page: number
   enable_custom_tiles_per_page: boolean
-  rows_per_page: number
   click_through_url?: string
   auto_refresh: boolean
   expanded_tile_show_shopspots: boolean
