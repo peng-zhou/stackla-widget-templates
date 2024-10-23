@@ -26,6 +26,9 @@ html {
 }
 
 .expanded-tile-wrapper {
+  overflow-y: scroll;
+  scrollbar-width: none;
+
   .panel-overlay {
     display: none;
   }
