@@ -38,21 +38,21 @@ export async function loadWidgetSettings() {
 
   window.refreshMasonryLayout = refreshWaterfallLayout
 
-  console.log(sdk.tiles.tiles)
+  const minmax: [number, number] = [260, 450]
 
-  await resizeAllUgcTilesHeight()
+  await resizeAllUgcTilesHeight(minmax)
 
   sdk.addEventListener("load", async () => {
-    await reinitialiseWaterfallLayout()
+    await reinitialiseWaterfallLayout(minmax)
   })
 
   sdk.addEventListener("moreLoad", async () => {
-    await refreshWaterfallLayout(true)
+    await refreshWaterfallLayout(minmax, true)
   })
   sdk.addEventListener("tilesUpdated", async () => {
-    await refreshWaterfallLayout(true)
+    await refreshWaterfallLayout(minmax, true)
   })
   window.addEventListener("resize", async () => {
-    await reinitialiseWaterfallLayout()
+    await reinitialiseWaterfallLayout(minmax)
   })
 }
