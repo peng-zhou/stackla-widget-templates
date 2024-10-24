@@ -42,10 +42,6 @@ export async function loadWidgetSettings() {
 
   await resizeAllUgcTilesHeight(minmax)
 
-  sdk.addEventListener("load", async () => {
-    await reinitialiseWaterfallLayout(minmax)
-  })
-
   sdk.addEventListener("moreLoad", async () => {
     await refreshWaterfallLayout(minmax, true)
   })
