@@ -10,7 +10,7 @@ export function onTagsRendered(tagId: string, target: HTMLElement) {
         mode: "tags",
         widgetSelector: swiperCrossSell,
         prevButton: "swiper-tags-button-prev",
-        nextButton: "swiper-tags-recs-button-next",
+        nextButton: "swiper-tags-button-next",
         paramsOverrides: {
           slidesPerView: "auto",
           grabCursor: false,
