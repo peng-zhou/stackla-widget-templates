@@ -50,7 +50,6 @@ export default {
     name: "NextGen Widget Sample 3.0",
     parent_page_secret_key: "",
     polling_frequency: 30,
-    rows_per_page: 3,
     show_powered_by_stackla: true,
     shopspot_btn_background: "0198CF",
     shopspot_btn_font_color: "ffffff",
