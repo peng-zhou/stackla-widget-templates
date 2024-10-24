@@ -97,7 +97,6 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
 
 function RenderIconSection({ tile, productsEnabled }: { tile: Tile; productsEnabled: boolean }) {
   const topSectionIconContent = []
-  let centerSectionIconContent = undefined
   const bottomSectionIconContent = []
 
   if (tile.attrs.includes("instagram.reel")) {
@@ -112,7 +111,6 @@ function RenderIconSection({ tile, productsEnabled }: { tile: Tile; productsEnab
   return (
     <div class="icon-section">
       <div class="top-section">{...topSectionIconContent}</div>
-      <div class="center-section">{centerSectionIconContent || <></>}</div>
       <div class="bottom-section">{...bottomSectionIconContent}</div>
     </div>
   )
