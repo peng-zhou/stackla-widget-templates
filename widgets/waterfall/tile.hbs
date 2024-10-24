@@ -1,4 +1,4 @@
-{{#tile}}
+{{#tile class="grid-item"}}
   <div class="tile">
     <div class="tile-top">
       <div class="tile-loading"></div>
@@ -23,16 +23,21 @@
         <div class="swiper-lazy-preloader"></div>
       </div>
     </div>
-    <div class="tile-bottom">
-      <ul class="tile-tags">
+    <div class="tile-bottom"> 
+      {{#if tags_extended.length}}
+        <ul class="tile-tags">
           {{#tags_extended}}
-            <li class="tile-tag tag-inline"><a href="{{custom_url}}">{{tag}}</a></li>
+            <li class="tile-tag{{#if id}}-{{id}}{{/if}} tag-inline"><a href="{{custom_url}}">{{tag}}</a></li>
           {{/tags_extended}}
-        </ul>
-      <div>{{user}}</div>
-      <div>{{time_ago}}</div>
-      <div>{{message}}</div>
-        <span class="widget-icon icon-share"></span>
+        </ul> 
+      {{/if}}
+      <div class="user-name">{{name}}</div>
+      <div class="user-handle">@{{user}}</div>
+      <div class="tile-timestamp">{{time_ago}}</div>
+      <div class="caption">
+        <div class="caption-paragraph">{{message}}</div>
+      </div>
+      <span class="widget-icon icon-share"></span>
     </div>
   </div>
 {{/tile}}

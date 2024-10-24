@@ -94,7 +94,7 @@ html {
 
         .user-handle {
           color: var(--text-tile-user-handle-font-color);
-          color: var(--text-tile-user-handle-font-size);
+          font-size: var(--text-tile-user-handle-font-size);
         }
       }
     }

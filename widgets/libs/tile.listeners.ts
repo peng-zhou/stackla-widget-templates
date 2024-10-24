@@ -63,3 +63,12 @@ export function registerExpandedTileCrossSellersRendered(fn: (tileId: string, ta
     fn(tileId, element)
   })
 }
+
+export function registerTagsRendered(fn: (tagId: string, target: HTMLElement) => void = () => {}) {
+  sdk.events.addUgcEventListener("tagsRendered", (event: Event) => {
+    const customEvent = event as CustomEvent
+    const tagId = customEvent.detail.data as string
+    const element = customEvent.detail.target as HTMLElement
+    fn(tagId, element)
+  })
+}

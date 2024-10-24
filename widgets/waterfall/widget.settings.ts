@@ -9,10 +9,18 @@ import {
 } from "@widgets/libs/widget.features"
 import { addCSSVariablesToPlacement } from "@widgets/libs/widget.layout"
 import { getConfig } from "./widget.config"
-import { onTileExpand, onTileClosed, onTileRendered } from "@widgets/libs/extensions/swiper/swiper.expanded-tile"
-import { resizeAllUgcTiles } from "./waterfall.lib"
-import { reinitialiseMasonryLayout } from "@widgets/libs/extensions/masonry.extension"
-import { MasonryLayout } from "@appnest/masonry-layout"
+import {
+  onTileExpand,
+  onTileClosed,
+  onTileRendered
+} from "@libs/components/expanded-tile-swiper/expanded-swiper.loader"
+import {
+  refreshWaterfallLayout,
+  reinitialiseWaterfallLayout,
+  resizeAllUgcTilesHeight
+} from "@widgets/libs/extensions/waterfall.extension"
+import { onTagsRendered } from "@widgets/libs/components/expanded-tile-swiper/tags-swiper.loader"
+import { registerTagsRendered } from "@widgets/libs/tile.listeners"
 
 declare const sdk: Sdk
 
@@ -26,43 +34,25 @@ export async function loadWidgetSettings() {
   loadExpandedTileFeature(widgetSettings, onTileExpand, onTileClosed, onTileRendered)
   addTilesPerPageFeature(widgetSettings)
   addLoadMoreButtonFeature(widgetSettings)
+  registerTagsRendered(onTagsRendered)
 
-  await resizeAllUgcTiles()
+  window.refreshMasonryLayout = refreshWaterfallLayout
 
-  const tileSizes: { [key: string]: string } = {
-    small: "127.8px",
-    medium: "210.4px",
-    large: "265.5px"
-  }
+  console.log(sdk.tiles.tiles)
 
-  const refreshMasonryLayout = () => {
-    const masonryLayout = sdk.querySelector<MasonryLayout>("masonry-layout")
-    if (masonryLayout instanceof MasonryLayout) {
-      masonryLayout.layout()
-      if (widgetSettings.margin) {
-        masonryLayout.setAttribute("gap", `${widgetSettings.margin}`)
-      }
-      if (widgetSettings.tile_size) {
-        masonryLayout.setAttribute("maxColWidth", tileSizes[widgetSettings.tile_size])
-      }
-    }
-  }
-
-  // window.refreshMasonryLayout = refreshMasonryLayout
-
-  await resizeAllUgcTiles()
+  await resizeAllUgcTilesHeight()
 
   sdk.addEventListener("load", async () => {
-    await reinitialiseMasonryLayout()
+    await reinitialiseWaterfallLayout()
   })
 
   sdk.addEventListener("moreLoad", async () => {
-    await refreshMasonryLayout()
+    await refreshWaterfallLayout(true)
   })
   sdk.addEventListener("tilesUpdated", async () => {
-    await refreshMasonryLayout()
+    await refreshWaterfallLayout(true)
   })
   window.addEventListener("resize", async () => {
-    await reinitialiseMasonryLayout()
+    await reinitialiseWaterfallLayout()
   })
 }
