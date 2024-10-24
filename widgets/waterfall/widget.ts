@@ -1,37 +1,7 @@
-import { getConfig } from "./widget.config"
-import {
-  addAutoAddTileFeature,
-  addLoadMoreButtonFeature,
-  addTilesPerPageFeature,
-  loadExpandedTileFeature,
-  loadTitle,
-  loadWidgetIsEnabled
-} from "widgets/libs/widget.features"
-import { addCSSVariablesToPlacement } from "widgets/libs/widget.layout"
-import expandedTileCSS from "./components/expanded-tile/base.scss"
-import productsCSS from "./components/products/base.scss"
-import shopspotStyle from "./components/shopspot-icon/base.scss"
-import customExpandedTileTemplate from "./components/expanded-tile/base.template"
-import getCSSVariables from "widgets/libs/css-variables"
-import { Sdk } from "@stackla/ugc-widgets"
+import { loadAllUnloadedTiles } from "@widgets/libs/extensions/swiper/loader.extension"
+import { loadWidgetSettings } from "./widget.settings"
+import { loadCustomisation } from "./widget.templates"
 
-declare const sdk: Sdk
-
-sdk.tiles.hideBrokenTiles = true
-sdk.tiles.preloadImages = true
-
-const widgetContainer = sdk.placement.getWidgetContainer()
-const widgetSettings = getConfig(widgetContainer)
-
-loadWidgetIsEnabled(widgetSettings)
-loadTitle()
-addAutoAddTileFeature(widgetSettings)
-loadExpandedTileFeature(widgetSettings)
-addTilesPerPageFeature(widgetSettings)
-addLoadMoreButtonFeature(widgetSettings)
-addCSSVariablesToPlacement(getCSSVariables(widgetSettings))
-
-sdk.addCSSToComponent(expandedTileCSS, "expanded-tile")
-sdk.addCSSToComponent(productsCSS, "ugc-products")
-sdk.addCSSToComponent(shopspotStyle, "shopspot-icon")
-sdk.addTemplateToComponent(customExpandedTileTemplate, "expanded-tile")
+loadCustomisation()
+loadWidgetSettings()
+loadAllUnloadedTiles()
