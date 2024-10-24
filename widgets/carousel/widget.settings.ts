@@ -1,4 +1,4 @@
-import { registerExpandedTileCrossSellersRendered, registerWidgetInitComplete } from "widgets/libs/tile.listeners"
+import { registerExpandedTileCrossSellersRendered, registerLoadListener } from "widgets/libs/tile.listeners"
 import {
   addAutoAddTileFeature,
   loadExpandedTileFeature,
@@ -28,7 +28,7 @@ export function loadSettings() {
   loadWidgetIsEnabled(widgetSettings)
   addCSSVariablesToPlacement(getCSSVariables(widgetSettings))
   loadTitle()
-  registerWidgetInitComplete(initializeInlineSwiperListeners)
+  registerLoadListener(initializeInlineSwiperListeners)
   addAutoAddTileFeature(widgetSettings)
   loadExpandedTileFeature(widgetSettings, onTileExpand, onTileClosed, onTileRendered)
   registerExpandedTileCrossSellersRendered(onExpandedTileCrossSellersRendered)
