@@ -15,29 +15,32 @@
         {{#ifequals media "video"}}
           <div class="play-icon"></div>
         {{/ifequals}}
-        <span class="tile-timephrase">{{time_ago}}</span>
-        <shopspot-icon tile-id={{id}} />
       </div>
       <div class="tile-image">
         {{#lazy image_thumbnail_url "120"}}{{/lazy}}
         <div class="swiper-lazy-preloader"></div>
+         {{#if options.tile_options.show_shopspots}}
+          <shopspot-icon tile-id={{id}} />
+        {{/if}}
       </div>
     </div>
-    <div class="tile-bottom"> 
+    <div class="tile-bottom">
       {{#if tags_extended.length}}
         <ul class="tile-tags">
           {{#tags_extended}}
             <li class="tile-tag tag-inline"><a href="{{custom_url}}">{{tag}}</a></li>
           {{/tags_extended}}
-        </ul> 
+        </ul>
       {{/if}}
-      <div class="user-name">{{name}}</div>
-      <div class="user-handle">@{{user}}</div>
-      <div class="tile-timestamp">{{time_ago}}</div>
-      <div class="caption">
-        <div class="caption-paragraph">{{message}}</div>
+      <div class="description">
+        <div class="user-name">{{name}}</div>
+        <div class="user-handle">@{{user}}</div>
+        <div class="tile-timestamp">{{time_ago}}</div>
+        <div class="caption">
+          <div class="caption-paragraph">{{message}}</div>
+        </div>
+        <span class="widget-icon icon-share"></span>
       </div>
-      <span class="widget-icon icon-share"></span>
     </div>
   </div>
 {{/tile}}
