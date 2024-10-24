@@ -1,6 +1,9 @@
 @import "mixins.scss";
 
+
 .tile {
+  --full-tile: 100%;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -8,19 +11,14 @@
   .tile-image,
   .tile-video {
     position: relative;
-    width: 100%;
+    width: var(--full-tile);
     display: flex;
   }
   .icon-section {
     display: flex;
-    width: var(--default-tile-width);
-    height: var(--default-tile-height);
+    width: var(--full-tile);
+    height: var(--full-tile);
     position: absolute;
-
-    @include media-query-target(tablet) {
-      width: var(--mobile-tile-width) !important;
-      height: var(--mobile-tile-height) !important;
-    }
   }
 }
 
