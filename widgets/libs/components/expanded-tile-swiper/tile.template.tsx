@@ -20,8 +20,10 @@ type ShopspotProps = {
 export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
   const widgetContainer = sdk.placement.getWidgetContainer()
   const widgetSettings = getConfig(widgetContainer)
-  const shopspotEnabled = sdk.isComponentLoaded("shopspots") && widgetSettings.expanded_tile_show_shopspots
-  const productsEnabled = sdk.isComponentLoaded("products") && widgetSettings.expanded_tile_show_products
+  const shopspotEnabled =
+    sdk.isComponentLoaded("shopspots") && widgetSettings.expanded_tile_show_shopspots && !!tile.hotspots?.length
+  const productsEnabled =
+    sdk.isComponentLoaded("products") && widgetSettings.expanded_tile_show_products && !!tile.tags_extended?.length
   const tagsEnabled = widgetSettings.expanded_tile_show_tags
   const sharingToolsEnabled = widgetSettings.expanded_tile_show_sharing
   const timestampEnabled = widgetSettings.expanded_tile_show_timestamp
@@ -33,21 +35,16 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
     <div class="panel">
       <div class="panel-overlay"></div>
       <div class="panel-left">
+        <RenderIconSection tile={tile} productsEnabled={productsEnabled} />
         <div class="image-wrapper">
           <div class="image-wrapper-inner">
             {tile.media === "video" ? (
               <>
                 <VideoTemplate tile={tile} parent={parent} />
-                <RenderVideoErrorFallbackTemplate tile={tile} parent={parent} />
+                <RenderVideoErrorFallbackTemplate tile={tile} />
               </>
             ) : tile.media === "image" ? (
-              <ImageTemplate
-                tile={tile}
-                image={tile.image}
-                productsEnabled={productsEnabled}
-                shopspotEnabled={shopspotEnabled}
-                parent={parent}
-              />
+              <ImageTemplate tile={tile} image={tile.image} shopspotEnabled={shopspotEnabled} parent={parent} />
             ) : tile.media === "text" ? (
               <span>{tile.message}</span>
             ) : tile.media === "html" ? (
@@ -89,16 +86,32 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
                     <ugc-products parent={parent} tile-id={tile.id} />
                   </>
                 )}
-                <div class="footer">
-                  <span class="base-v2 source source-instagram">
-                    <i class="fs fs-instagram"></i>
-                  </span>
-                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  )
+}
+
+function RenderIconSection({ tile, productsEnabled }: { tile: Tile; productsEnabled: boolean }) {
+  const topSectionIconContent = []
+  const bottomSectionIconContent = []
+
+  if (tile.attrs.includes("instagram.reel")) {
+    topSectionIconContent.push(<div class="content-icon icon-reel small"></div>)
+  }
+  if (productsEnabled) {
+    topSectionIconContent.push(<div class="shopping-icon icon-products small"></div>)
+  }
+
+  bottomSectionIconContent.push(<div class={`network-icon icon-${tile.source} small`}></div>)
+
+  return (
+    <div class="icon-section">
+      <div class="top-section">{...topSectionIconContent}</div>
+      <div class="bottom-section">{...bottomSectionIconContent}</div>
     </div>
   )
 }
@@ -146,24 +159,23 @@ function ShopSpotTemplate({ shopspotEnabled, parent, tileId }: ShopspotProps) {
 function ImageTemplate({
   tile,
   image,
-  productsEnabled,
-  shopspotEnabled,
+  shopspotEnabled = false,
   parent
 }: {
   tile: Tile
   image: string
-  productsEnabled: boolean
-  shopspotEnabled: ShopspotProps["shopspotEnabled"]
-  parent: ShopspotProps["parent"]
+  shopspotEnabled?: boolean
+  parent?: string
 }) {
   return image ? (
     <>
       <div class="image-filler" style={{ "background-image": `url('${image}')` }}></div>
       <div class="image">
-        <span class="youtube-reels-icon"></span>
-        <span class="instagram-icon"></span>
-        {productsEnabled ? <span class="product-bag-icon" aria-label="Product bag icon"></span> : <></>}
-        <ShopSpotTemplate shopspotEnabled={shopspotEnabled} parent={parent} tileId={tile.id} />
+        {shopspotEnabled ? (
+          <ShopSpotTemplate shopspotEnabled={shopspotEnabled} parent={parent} tileId={tile.id} />
+        ) : (
+          <></>
+        )}
         <img class="image-element" src={image} loading="lazy" alt={tile.description || "Image"} />
       </div>
     </>
@@ -251,7 +263,7 @@ function RenderTikTokTemplate({ tile }: { tile: Tile }) {
   return (
     <iframe
       loading="lazy"
-      class="video-frame"
+      class="video-content"
       frameborder="0"
       allowfullscreen
       src={`https://www.tiktok.com/player/v1/${tiktokId}`}
@@ -279,7 +291,7 @@ function RenderFacebookFallbackTemplate({ tile }: { tile: Tile }) {
     </div>
   )
   return (
-    <iframe loading="lazy" class="video-frame" frameborder="0" allowfullscreen srcdoc={embedBlock.innerHTML}></iframe>
+    <iframe loading="lazy" class="video-content" frameborder="0" allowfullscreen srcdoc={embedBlock.innerHTML}></iframe>
   )
 }
 
@@ -291,7 +303,7 @@ function RenderYoutubeTemplate({ tile }: { tile: Tile }) {
   return (
     <iframe
       loading="lazy"
-      class="video-frame"
+      class="video-content"
       src={src}
       title={title}
       frameborder="0"
@@ -303,7 +315,6 @@ function RenderYoutubeTemplate({ tile }: { tile: Tile }) {
 
 function RenderVideoErrorFallbackTemplate({
   tile,
-  parent,
   defaultHidden = true
 }: {
   tile: Tile
@@ -315,14 +326,11 @@ function RenderVideoErrorFallbackTemplate({
 
   return (
     <div class={fallbackCss}>
+      <div class="center-section">
+        <div class="play-icon"></div>
+      </div>
       <a href={tile.original_url || tile.original_link} target="_blank">
-        <ImageTemplate
-          parent={parent}
-          image={originalImageUrl}
-          tile={tile}
-          productsEnabled={false}
-          shopspotEnabled={false}
-        />
+        <ImageTemplate image={originalImageUrl} tile={tile} />
         <div class="play-icon"></div>
       </a>
     </div>

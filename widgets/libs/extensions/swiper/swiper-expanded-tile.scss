@@ -1,9 +1,13 @@
 @import "@styles/mixins.scss";
 
+:host {
+  transition: ease all 0.5s;
+}
+
 .swiper {
   .swiper-wrapper {
-    max-width: 891px;
-    max-height: 90vh;
+    max-width: var(--expanded-swiper-container-max-width);
+    max-height: var(--expanded-swiper-container-max-height);
     .swiper-slide {
       align-items: flex-start;
       height: auto;
@@ -25,5 +29,9 @@
   .swiper .swiper-wrapper {
     max-height: unset;
     height: auto;
+
+    .swiper-slide {
+      border-radius: 0;
+    }
   }
 }

@@ -1,6 +1,6 @@
 import type { Sdk } from "@stackla/ugc-widgets"
 import { ExpandedTile } from "./tile.template"
-import { createElement, createFragment } from "@stackla/ugc-widgets/src/ui/core/utils/jsx-html"
+import { createElement } from "@stackla/ugc-widgets/src/ui/core/utils/jsx-html"
 import { getConfig } from "@widgets/carousel/widget.config"
 
 export function ExpandedTiles(sdk: Sdk) {
@@ -17,9 +17,9 @@ export function ExpandedTiles(sdk: Sdk) {
       </a>
       <BackArrowIcon />
       <div class="swiper swiper-expanded">
-        <div class="swiper-wrapper">
+        <div class="swiper-wrapper ugc-tiles">
           {Object.values(tiles).map(tile => (
-            <div class="swiper-slide" data-id={tile.id}>
+            <div class="ugc-tile swiper-slide" data-id={tile.id}>
               <ExpandedTile sdk={sdk} tile={tile} />
             </div>
           ))}
@@ -40,12 +40,9 @@ export function ExpandedTiles(sdk: Sdk) {
 }
 
 function BackArrowIcon() {
-  const isDesktopScreen = window.innerWidth >= 1024
-  return !isDesktopScreen ? (
+  return (
     <a class="back" href="#">
       <span class="widget-icon back-arrow"></span>
     </a>
-  ) : (
-    <></>
   )
 }

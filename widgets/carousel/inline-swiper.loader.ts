@@ -32,9 +32,6 @@ function initializeSwiperForInlineTiles(widgetSettings: IWidgetSettings) {
     ? Math.floor(screenSize / (tileWidth + 10))
     : widgetSettings.tiles_per_page
 
-  const width = (tileWidth + 10) * perView
-  widgetSelector.style.width = `${width}px`
-
   sdk.tiles.setVisibleTilesCount(perView * 2)
 
   initializeSwiper({
@@ -44,7 +41,7 @@ function initializeSwiperForInlineTiles(widgetSettings: IWidgetSettings) {
     prevButton: "swiper-inline-button-prev",
     nextButton: "swiper-inline-button-next",
     paramsOverrides: {
-      slidesPerView: perView,
+      slidesPerView: "auto",
       grabCursor: false,
       allowTouchMove: false,
       keyboard: {
@@ -100,7 +97,7 @@ async function loadTilesAsync(swiper: Swiper) {
 
 function updateLoadingStateInterval(swiperElem: HTMLElement) {
   const intervalId = setInterval(function () {
-    const elements = swiperElem.querySelectorAll<HTMLElement>(".swiper-slide:has(.tile-content.hidden)")
+    const elements = swiperElem.querySelectorAll<HTMLElement>(".swiper-slide:has(.icon-section.hidden)")
     if (elements.length === 0) {
       clearInterval(intervalId)
       sdk["inline"]!.isLoading = false

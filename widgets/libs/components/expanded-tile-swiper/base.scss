@@ -1,4 +1,6 @@
+@import "variables.scss";
 @import "@styles/mixins.scss";
+@import "@styles/icon-sections.scss";
 
 html {
   background: var(--widget-background);
@@ -17,7 +19,6 @@ html {
 
 .ugc-tile {
   width: var(--max-tile-width) px;
-  background: var(--text-tile-background);
   margin: var(--margin) px;
 }
 
@@ -31,6 +32,7 @@ html {
   }
 
   .panel {
+    background: var(--text-tile-background);
     border-radius: var(--expanded-tile-border-radius);
   }
 
@@ -44,7 +46,9 @@ html {
     }
 
     .video-content-wrapper {
+      width: 100%;
       height: 100%;
+      display: flex;
     }
 
     .video-fallback-content {
@@ -56,6 +60,13 @@ html {
 
     .video-fallback-content.hidden {
       display: none;
+    }
+
+    .icon-section {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      position: absolute;
     }
   }
 
@@ -102,15 +113,18 @@ html {
 }
 
 .back {
+  display: none;
   background: var(--text-tile-background);
-  display: block;
   position: relative;
   height: 56px;
-  display: flex;
   align-items: center;
   padding-left: 16px;
   //TODO: change to a variable that is used for .swiper .swiper-slide too
   border-radius: 5px 5px 0 0;
+
+  @include media-query-target(tablet) {
+    display: flex;
+  }
 }
 
 @include breakpoint(tablet) {

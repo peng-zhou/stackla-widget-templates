@@ -1,17 +1,42 @@
+@import "variables.scss";
+@import "@styles/mixins.scss";
+@import "@styles/icon-sections.scss";
 @import "@templates/tags/tags.scss";
 @import "@styles/inline-tile.scss";
 @import "@styles/expanded-tile.scss";
-@import "@styles/mixins.scss";
+
+:host {
+  transition: ease all 0.5s;
+}
 
 #nosto-ugc-container {
-  height: 210px;
+  height: var(--inline-nosto-container-height);
 
-  .tile {
-    width: 210px;
-    height: 210px;
+  .swiper {
+    width: var(--inline-swiper-container-width);
+    .tile {
+      width: var(--default-tile-width);
+      height: var(--default-tile-height);
+    }
   }
 }
 
 .hidden {
   display: none;
+}
+
+@include breakpoint(mobile) {
+  #nosto-ugc-container {
+    height: var(--inline-nosto-container-height) !important;
+    .swiper-inline {
+      width: var(--inline-mobile-swiper-container-width) !important;
+      .swiper-slide {
+        width: 100% !important;
+      }
+    }
+    .tile {
+      width: var(--mobile-tile-width) !important;
+      height: var(--mobile-tile-height) !important;
+    }
+  }
 }

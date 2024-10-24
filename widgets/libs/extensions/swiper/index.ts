@@ -2,7 +2,6 @@ import { Sdk } from "@stackla/ugc-widgets"
 import swiperFont from "./swiper-font.scss"
 import swiperCommon from "./swiper-common.scss"
 import swiperBundleCss from "swiper/swiper-bundle.css"
-import swiperExpandedTile from "./expanded-tile.scss"
 
 declare const sdk: Sdk
 
@@ -19,8 +18,4 @@ export function loadSwiperStyles() {
     "ugc-products"
   ])
   sdk.addSharedCssCustomStyles("swiper-overrides", swiperCommon, [sdk.placement.getWidgetId(), "expanded-tiles"])
-  sdk.addSharedCssCustomStyles("swiper-expanded-tile", swiperExpandedTile, [
-    sdk.placement.getWidgetId(),
-    "expanded-tiles"
-  ])
 }

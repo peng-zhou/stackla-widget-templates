@@ -4,7 +4,7 @@ declare const sdk: Sdk
 
 function enableTileContent(slide: HTMLElement) {
   slide.querySelector(".tile-loading")?.classList.add("hidden")
-  slide.querySelector(".tile-content.hidden")?.classList.remove("hidden")
+  slide.querySelector(".icon-section.hidden")?.classList.remove("hidden")
 }
 
 function enableTileImage(slide: HTMLElement) {
@@ -18,7 +18,7 @@ function enableTileImage(slide: HTMLElement) {
 }
 
 export function enableTileImages(wrapper: HTMLElement) {
-  const elements = wrapper.querySelectorAll<HTMLElement>(".ugc-tile:has(.tile-content.hidden)")
+  const elements = wrapper.querySelectorAll<HTMLElement>(".ugc-tile:has(.icon-section.hidden)")
   elements.forEach(element => enableTileImage(element))
 }
 
