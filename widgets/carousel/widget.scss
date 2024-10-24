@@ -10,6 +10,8 @@
 }
 
 #nosto-ugc-container {
+  display: flex;
+  place-items: center;
   height: var(--inline-nosto-container-height);
 
   .swiper {

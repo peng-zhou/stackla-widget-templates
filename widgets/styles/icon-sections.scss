@@ -12,6 +12,7 @@
   justify-content: space-between;
   z-index: 1;
   width: 100%;
+  align-items: center;
 }
 .top-section {
   top: var(--icon-placement-top);
@@ -54,7 +55,7 @@
 
 .tile-tags {
   margin: 0;
-  width: max-content;
+  flex-grow: 1;
 
   .tag-inline {
     background: rgba(0, 0, 0, 0.4);

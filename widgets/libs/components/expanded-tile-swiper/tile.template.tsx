@@ -52,11 +52,6 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
             ) : (
               <></>
             )}
-            <div>
-              <span class="source">
-                <i class={"fs fs-" + tile.source}></i>
-              </span>
-            </div>
           </div>
         </div>
       </div>
@@ -100,13 +95,15 @@ function RenderIconSection({ tile, productsEnabled }: { tile: Tile; productsEnab
   const bottomSectionIconContent = []
 
   if (tile.attrs.includes("instagram.reel")) {
-    topSectionIconContent.push(<div class="content-icon icon-reel small"></div>)
+    topSectionIconContent.push(<div class="content-icon icon-reel"></div>)
+  } else if (tile.attrs.includes("youtube.short")) {
+    topSectionIconContent.push(<div class="content-icon icon-youtube-short"></div>)
   }
   if (productsEnabled) {
-    topSectionIconContent.push(<div class="shopping-icon icon-products small"></div>)
+    topSectionIconContent.push(<div class="shopping-icon icon-products"></div>)
   }
 
-  bottomSectionIconContent.push(<div class={`network-icon icon-${tile.source} small`}></div>)
+  bottomSectionIconContent.push(<div class={`network-icon icon-${tile.source}`}></div>)
 
   return (
     <div class="icon-section">
