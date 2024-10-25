@@ -10,6 +10,7 @@
   --half: 50%;
 
   .ugc-tiles {
+    min-height: 100vh;
     display: grid;
     grid-template-columns: var(--half) var(--half);
     gap: var(--margin);
@@ -24,6 +25,7 @@
     display: grid;
     gap: var(--margin);
     margin-bottom: var(--margin);
+    height: var(--tile-size);
     grid-template-columns: repeat(4, var(--tile-size-with-margin));
 
     @include breakpoint(tablet) {
@@ -37,6 +39,9 @@
 
   .tile, .tile-image {
     height: var(--full);
+    background-image: url(https://picsum.photos/id/10/400);
+    background-position: center;
+    background-size: cover;
   }
 
   .ugc-tile {
@@ -47,11 +52,6 @@
 
     &:not(.processed) {
       display: none;
-    }
-
-    img {
-      width: 100%;
-      height: var(--full);
     }
   }
 
