@@ -25,7 +25,7 @@
     display: grid;
     gap: var(--margin);
     margin-bottom: var(--margin);
-    height: var(--tile-size);
+    height: calc(var(--tile-size) * 1.5);
     grid-template-columns: repeat(4, var(--tile-size-with-margin));
 
     @include breakpoint(tablet) {
