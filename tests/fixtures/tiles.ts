@@ -50913,8 +50913,8 @@ export default [
 ].map((tile, index) => {
   if (index == 1) {
     // break tile
-    tile.image = 'blah';
-    tile.image_thumbnail_url = 'blah';
+    tile.image = "blah"
+    tile.image_thumbnail_url = "blah"
     return tile
   }
 
