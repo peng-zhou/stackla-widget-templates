@@ -1,7 +1,6 @@
-@import "@styles/mixins.scss";
-@import "@styles/expanded-tile.scss";
-@import "@templates/tags/tags.scss";
-@import "@styles/mixins.scss";
+@use "@styles/mixins";
+@use "@styles/tile-overlay";
+@use "@templates/tags/tags";
 
 .grid {
   width: 100%;
@@ -16,7 +15,7 @@
   border-radius: 5px;
   position: relative;
   background-size: cover;
-  background-position: center; 
+  background-position: center;
   background-repeat: no-repeat;
   height: var(--tile-size);
   width: var(--tile-size);
@@ -24,12 +23,12 @@
   box-sizing: border-box;
   object-fit: cover;
 
-  @include breakpoint(tablet) {
+  @include mixins.breakpoint(tablet) {
     width: calc(50vw - 10px);
     height: calc(50vw - 10px);
   }
 
-  @include breakpoint(mobile) {
+  @include mixins.breakpoint(mobile) {
     width: 100vw;
     height: 100vw;
   }
@@ -71,18 +70,6 @@
     .tile-tags {
       position: absolute;
       margin: 0 16.4px 8.4px 8px;
-
-      .tag-inline {
-        background: rgba(0, 0, 0, 0.4);
-        border-radius: 25px;
-        font-size: 14px;
-        padding: 4px;
-        font-weight: 400;
-
-        a {
-          color: #fff;
-        }
-      }
     }
   }
 }
@@ -95,12 +82,11 @@
   margin-top: 25px;
 
   .loading {
-      height: 50px !important;
-      width: 50px !important;
+    height: 50px !important;
+    width: 50px !important;
   }
 }
 
 .hidden {
   display: none !important;
 }
-

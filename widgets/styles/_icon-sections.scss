@@ -1,9 +1,7 @@
-:host {
-  --icon-placement-top: 8px;
-  --icon-placement-bottom: 8px;
-  --icon-placement-left: 8.67px;
-  --icon-placement-right: 8.67px;
-}
+$icon-placement-top: 8px;
+$icon-placement-bottom: 8px;
+$icon-placement-left: 8.67px;
+$icon-placement-right: 8.67px;
 
 .top-section,
 .bottom-section {
@@ -15,23 +13,23 @@
   align-items: center;
 }
 .top-section {
-  top: var(--icon-placement-top);
+  top: $icon-placement-top;
   .content-icon {
-    margin-left: var(--icon-placement-left);
+    margin-left: $icon-placement-left;
   }
   .shopping-icon {
     margin-left: auto;
-    margin-right: var(--icon-placement-right);
+    margin-right: $icon-placement-right;
   }
 }
 .bottom-section {
-  bottom: var(--icon-placement-bottom);
+  bottom: $icon-placement-bottom;
   .tile-tags {
-    margin-left: var(--icon-placement-left);
+    margin-left: $icon-placement-left;
   }
   .network-icon {
     margin-left: auto;
-    margin-right: var(--icon-placement-right);
+    margin-right: $icon-placement-right;
   }
 }
 
@@ -56,14 +54,4 @@
 .tile-tags {
   margin: 0;
   flex-grow: 1;
-
-  .tag-inline {
-    background: rgba(0, 0, 0, 0.4);
-    border-radius: 25px;
-    line-height: 12px;
-
-    a {
-      color: #fff;
-    }
-  }
 }

@@ -1,4 +1,4 @@
-@import "@styles/mixins.scss";
+@use "@styles/mixins";
 
 .share-socials-popup-wrapper {
   display: none;
@@ -101,7 +101,7 @@
   top: 0;
 }
 
-@include breakpoint(tablet) {
+@include mixins.breakpoint(tablet) {
   .share-socials-popup-wrapper {
     right: 30%;
     top: 30%;
@@ -114,7 +114,7 @@
   }
 }
 
-@include breakpoint(mobile) {
+@include mixins.breakpoint(mobile) {
   .share-socials-popup-wrapper {
     right: 15%;
   }

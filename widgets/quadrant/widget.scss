@@ -1,4 +1,4 @@
-@import "@templates/tags/tags.scss";
+@use "@templates/tags/tags";
 
 #nosto-ugc-container {
   .ugc-tiles {
@@ -71,18 +71,6 @@
     .tile-tags {
       position: absolute;
       margin: 0 16.4px 8.4px 8px;
-
-      .tag-inline {
-        background: rgba(0, 0, 0, 0.4);
-        border-radius: 25px;
-        font-size: 14px;
-        padding: 4px;
-        font-weight: 400;
-
-        a {
-          color: #fff;
-        }
-      }
     }
 
     .tile-image {
