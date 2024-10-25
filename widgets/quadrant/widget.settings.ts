@@ -1,6 +1,5 @@
 import { Sdk } from "@stackla/ugc-widgets"
 import getCSSVariables from "@widgets/libs/css-variables"
-import { MasonryLayout } from "@appnest/masonry-layout"
 import {
   loadTitle,
   addAutoAddTileFeature,
@@ -29,19 +28,4 @@ export function loadWidgetSettings() {
   addAutoAddTileFeature(widgetSettings)
   loadExpandedTileFeature(widgetSettings, onTileExpand, onTileClosed, onTileRendered)
   addLoadMoreButtonFeature(widgetSettings)
-
-  const refreshMasonryLayout = () => {
-    const masonryLayout = sdk.querySelector<MasonryLayout>("masonry-layout")
-    if (masonryLayout instanceof MasonryLayout) {
-      masonryLayout.layout()
-    }
-  }
-
-  sdk.addEventListener("moreLoad", () => {
-    refreshMasonryLayout()
-  })
-  window.addEventListener("scroll", () => {
-    refreshMasonryLayout()
-  })
-  sdk.addEventListener("tilesUpdated", refreshMasonryLayout)
 }

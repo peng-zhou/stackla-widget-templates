@@ -5,14 +5,36 @@
 @import "@styles/icon-sections.scss";
 
 #nosto-ugc-container {
+  --tile-size-with-margin: calc(var(--tile-size) - var(--margin) * 1px);
+
   .ugc-tiles {
     display: grid;
+    grid-template-columns: 32% 32% 32%;
+    gap: var(--margin);
+    justify-content: center;
+
+    @include breakpoint(tablet) {
+      grid-template-columns: 48% 48%;
+    }
+
+    @include breakpoint(mobile) {
+      grid-template-columns: 100%;
+    }
   }
 
   .tile-group {
     display: grid;
     gap: var(--margin);
     margin-bottom: var(--margin);
+    grid-template-columns: repeat(4, var(--tile-size-with-margin));
+
+    @include breakpoint(tablet) {
+      grid-template-columns: repeat(2, var(--tile-size-with-margin));
+    }
+
+    @include breakpoint(mobile) {
+      grid-template-columns: repeat(1, var(--tile-size-with-margin));
+    }
   }
 
   .ugc-tile {

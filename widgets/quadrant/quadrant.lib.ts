@@ -4,25 +4,22 @@ import { waitForElements } from "@widgets/libs/widget.features"
 
 declare const sdk: Sdk
 
-const tileSizes: { [key: string]: string } = {
-  small: "88.5",
-  medium: "133.5",
-  large: "269.2"
+const tileSizes: { [key: string]: number } = {
+  small: 88.5,
+  medium: 133.5,
+  large: 269.2
 }
 
 const tilesContainer = sdk.querySelector(".ugc-tiles")!
 const widgetContainer = sdk.placement.getWidgetContainer()
 const widgetSettings = getConfig(widgetContainer)
 
-function createTileGroup(tiles: HTMLElement[], groupStartIndex: number, tileSize: string) {
+function createTileGroup(tiles: HTMLElement[], groupStartIndex: number, tileSize: number) {
   if (tiles.length - groupStartIndex < 5) {
     return
   }
   const tileGroup = document.createElement("div")
   tileGroup.classList.add("tile-group")
-  tileGroup.style.gridTemplateColumns = `repeat(4, ${tileSize}px)`
-  tileGroup.style.gridTemplateRows = tileSize
-
   if (tileSize === tileSizes.large) {
     tileGroup.style.gridTemplateAreas = `
       "small1 small2 large large"
@@ -54,7 +51,7 @@ function createTileGroup(tiles: HTMLElement[], groupStartIndex: number, tileSize
   return tileGroup
 }
 
-export function addQuadrantTiles(tiles: HTMLElement[], tileSize: string, startIndex: number = 0) {
+export function addQuadrantTiles(tiles: HTMLElement[], tileSize: number, startIndex: number = 0) {
   if (tilesContainer) {
     for (let groupStartIndex = startIndex; groupStartIndex < tiles.length; groupStartIndex += 5) {
       const tileGroup = createTileGroup(tiles, groupStartIndex, tileSize)
@@ -89,9 +86,6 @@ export async function preloadTileImagesAndRemoveBrokenTiles(tiles: NodeListOf<HT
 export function getQuadrantTiles() {
   const tiles = Array.from(sdk.querySelectorAll<HTMLElement>(".ugc-tile") ?? [])
   const tileSize = tileSizes[widgetSettings.tile_size ?? "medium"]
-  const tileGap = widgetSettings.margin ?? 10
-  const totalTileWidth = (parseInt(tileSize) + tileGap) * 4
-  tilesContainer.style.gridTemplateColumns = `repeat(auto-fit, ${totalTileWidth}px)`
 
   if (tiles && tiles.length > 0) {
     addQuadrantTiles(tiles, tileSize)
