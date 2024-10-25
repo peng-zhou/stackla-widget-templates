@@ -50911,6 +50911,13 @@ export default [
     time_phrase: "28 Feb 23"
   }
 ].map((tile, index) => {
+  if (index == 1) {
+    // break tile
+    tile.image = 'blah';
+    tile.image_thumbnail_url = 'blah';
+    return tile
+  }
+
   tile.image = `https://picsum.photos/id/${index}/600`
   tile.image_thumbnail_url = `https://picsum.photos/id/${index}/400`
   return tile
