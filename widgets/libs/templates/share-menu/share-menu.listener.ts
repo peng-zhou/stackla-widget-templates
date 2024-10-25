@@ -91,7 +91,7 @@ export function registerExpandedTileShareMenuListeners(
     if (!wrapper) {
       throw new Error("Share menu wrapper not found")
     }
-    wrapper.style.display = "block"
+    wrapper.style.display = "flex"
     panelOverlay?.classList.add("active")
 
     if (panelRightWrapper) {

@@ -68,6 +68,13 @@ html {
       height: 100%;
       position: absolute;
     }
+
+    .content-text,
+    .content-html {
+      white-space: break-spaces;
+      mix-blend-mode: difference;
+      padding: 20px;
+    }
   }
 
   .panel-right {

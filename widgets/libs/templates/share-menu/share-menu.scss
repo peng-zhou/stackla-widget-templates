@@ -3,9 +3,9 @@
 .share-socials-popup-wrapper {
   display: none;
   position: absolute;
-  right: 75%;
-  top: 36%;
-  z-index: 3;
+  place-items: center;
+  height: 100%;
+  z-index: 5;
 
   .share-socials-popup {
     display: flex;

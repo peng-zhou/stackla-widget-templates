@@ -32,61 +32,63 @@ export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
   const parent = sdk.getNodeId()
 
   return (
-    <div class="panel">
-      <div class="panel-overlay"></div>
-      <div class="panel-left">
-        <RenderIconSection tile={tile} productsEnabled={productsEnabled} />
-        <div class="image-wrapper">
-          <div class="image-wrapper-inner">
-            {tile.media === "video" ? (
-              <>
-                <VideoTemplate tile={tile} parent={parent} />
-                <RenderVideoErrorFallbackTemplate tile={tile} />
-              </>
-            ) : tile.media === "image" ? (
-              <ImageTemplate tile={tile} image={tile.image} shopspotEnabled={shopspotEnabled} parent={parent} />
-            ) : tile.media === "text" ? (
-              <span>{tile.message}</span>
-            ) : tile.media === "html" ? (
-              <span>{tile.html}</span>
-            ) : (
-              <></>
-            )}
+    <>
+      {sharingToolsEnabled ? <ShareMenu tile={tile} /> : <></>}
+      <div class="panel">
+        <div class="panel-overlay"></div>
+        <div class="panel-left">
+          <RenderIconSection tile={tile} productsEnabled={productsEnabled} />
+          <div class="image-wrapper">
+            <div class="image-wrapper-inner">
+              {tile.media === "video" ? (
+                <>
+                  <VideoTemplate tile={tile} parent={parent} />
+                  <RenderVideoErrorFallbackTemplate tile={tile} />
+                </>
+              ) : tile.media === "image" ? (
+                <ImageTemplate tile={tile} image={tile.image} shopspotEnabled={shopspotEnabled} parent={parent} />
+              ) : tile.media === "text" ? (
+                <span class="content-text">{tile.message}</span>
+              ) : tile.media === "html" ? (
+                <span class="content-html">{tile.html}</span>
+              ) : (
+                <></>
+              )}
+            </div>
           </div>
         </div>
-      </div>
-      <div class="panel-right">
-        <div class="panel-right-wrapper">
-          <div class="content-wrapper">
-            <div class="content-inner-wrapper">
-              <button class="share-button">
-                <span class="widget-icon icon-share" alt="Share button"></span>
-              </button>
-              {sharingToolsEnabled && <ShareMenu tile={tile} />}
-              <div class="user-info-wrapper">
-                <UserInfoTemplate tile={tile} />
-              </div>
-              <div class="description">
-                {captionsEnabled && (
-                  <div class="caption">
-                    <p class="caption-paragraph">{tile.message}</p>
-                  </div>
-                )}
-                {timestampEnabled && (
-                  <div class="tile-timestamp">{tile.source_created_at && getTimephrase(tile.source_created_at)}</div>
-                )}
-                {tagsEnabled && <Tags tile={tile} />}
-                {productsEnabled && (
-                  <>
-                    <ugc-products parent={parent} tile-id={tile.id} />
-                  </>
-                )}
+        <div class="panel-right">
+          <div class="panel-right-wrapper">
+            <div class="content-wrapper">
+              <div class="content-inner-wrapper">
+                <button class="share-button">
+                  <span class="widget-icon icon-share" alt="Share button"></span>
+                </button>
+                <div class="user-info-wrapper">
+                  <UserInfoTemplate tile={tile} />
+                </div>
+                <div class="description">
+                  {captionsEnabled && (
+                    <div class="caption">
+                      <p class="caption-paragraph">{tile.message}</p>
+                    </div>
+                  )}
+                  {timestampEnabled && (
+                    <div class="tile-timestamp">{tile.source_created_at && getTimephrase(tile.source_created_at)}</div>
+                  )}
+                  {tagsEnabled && <Tags tile={tile} />}
+                  {productsEnabled && (
+                    <>
+                      <ugc-products parent={parent} tile-id={tile.id} />
+                    </>
+                  )}
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 
