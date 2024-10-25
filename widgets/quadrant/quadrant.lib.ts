@@ -62,8 +62,10 @@ export function addQuadrantTiles(tiles: HTMLElement[], tileSize: number, startIn
 }
 
 export async function preloadTileImagesAndRemoveBrokenTiles(tiles: NodeListOf<HTMLElement>): Promise<HTMLElement[]> {
+  console.log("tiles", tiles)
+
   const promises = Array.from(tiles).map(async tile => {
-    const tileElement = tile.querySelector(".tile")
+    const tileElement = tile.querySelector<HTMLElement>(".tile")
     const tileImage = tileElement?.getAttribute("data-background-image") ?? ""
     return new Promise(resolve => {
       const image = new Image()
@@ -76,6 +78,13 @@ export async function preloadTileImagesAndRemoveBrokenTiles(tiles: NodeListOf<HT
         resolve(null)
       }
       image.src = tileImage
+
+      if (!tileElement) {
+        resolve(null)
+        return
+      }
+
+      tileElement.style.backgroundImage = `url(${tileImage})`
     })
 
     return Promise.resolve(tile)
@@ -103,7 +112,7 @@ export function getQuadrantTiles() {
   })
 
   sdk.addEventListener("load", async () => {
-    const tiles = sdk.querySelectorAll<HTMLElement>(".ugc-tile:not(.processed)")
+    const tiles = sdk.querySelectorAll<HTMLElement>(".ugc-tile")
 
     if (!tiles || tiles.length === 0) {
       return
