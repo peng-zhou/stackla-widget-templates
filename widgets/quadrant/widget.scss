@@ -25,7 +25,6 @@
     display: grid;
     gap: var(--margin);
     margin-bottom: var(--margin);
-    height: calc(var(--tile-size) * 1.25);
     grid-template-columns: repeat(4, var(--tile-size-with-margin));
 
     @include breakpoint(tablet) {
@@ -38,9 +37,11 @@
   }
 
   .tile, .tile-image {
-    height: var(--full);
     background-position: center;
     background-size: cover;
+    width: 100%;
+    aspect-ratio: 1 / 1;  /* defining the aspect ratio of the image */
+    object-fit: cover; 
   }
 
   .ugc-tile {
