@@ -22,23 +22,27 @@
   }
 
   .tile-group {
+    --column-width: calc(25% - var(--margin));
+
     display: grid;
     gap: var(--margin);
     margin-bottom: var(--margin);
-    grid-template-columns: repeat(4, var(--tile-size-with-margin));
+    grid-template-columns: repeat(4, var(--column-width));
 
     @include breakpoint(tablet) {
-      grid-template-columns: repeat(2, var(--tile-size-with-margin));
+      grid-template-columns: repeat(2, var(--column-width));
     }
 
     @include breakpoint(mobile) {
-      grid-template-columns: repeat(1, var(--tile-size-with-margin));
+      grid-template-columns: var(--full);
+      gap: 0;
     }
   }
 
   .tile, .tile-image {
     background-position: center;
     background-size: cover;
+    height:100%;
     width: 100%;
     aspect-ratio: 1 / 1;
     object-fit: cover; 
