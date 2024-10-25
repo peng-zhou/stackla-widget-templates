@@ -6,19 +6,17 @@
 
 #nosto-ugc-container {
   --tile-size-with-margin: calc(var(--tile-size) - var(--margin) * 1px);
+  --full: 100%;
+  --half: 50%;
 
   .ugc-tiles {
     display: grid;
-    grid-template-columns: 32% 32% 32%;
+    grid-template-columns: var(--half) var(--half);
     gap: var(--margin);
     justify-content: center;
 
-    @include breakpoint(tablet) {
-      grid-template-columns: 48% 48%;
-    }
-
     @include breakpoint(mobile) {
-      grid-template-columns: 100%;
+      grid-template-columns: var(--full);
     }
   }
 
@@ -37,6 +35,10 @@
     }
   }
 
+  .tile, .tile-image {
+    height: var(--full);
+  }
+
   .ugc-tile {
     $total-padding: 20px;
     box-sizing: border-box;
@@ -49,7 +51,7 @@
 
     img {
       width: 100%;
-      height: auto;
+      height: var(--full);
     }
   }
 
