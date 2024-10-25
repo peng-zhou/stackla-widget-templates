@@ -18,36 +18,35 @@ function createTileGroup(tiles: HTMLElement[], groupStartIndex: number, tileSize
   if (tiles.length - groupStartIndex < 5) {
     return
   }
+
   const tileGroup = document.createElement("div")
   tileGroup.classList.add("tile-group")
-  if (tileSize === tileSizes.large) {
-    tileGroup.style.gridTemplateAreas = `
+
+  const isLargeFirst = tileSize === tileSizes.large
+
+  tileGroup.style.gridTemplateAreas = isLargeFirst
+    ? `
       "small1 small2 large large"
       "small3 small4 large large"
     `
-    for (let tileOffset = 0; tileOffset < 4; tileOffset++) {
-      const smallTile = tiles[groupStartIndex + tileOffset]
-      smallTile.classList.add("small", "processed")
-      tileGroup.appendChild(smallTile)
-    }
-    const largeTile = tiles[groupStartIndex + 4]
-    largeTile.classList.add("large", "processed")
-    tileGroup.appendChild(largeTile)
-  } else {
-    tileGroup.style.gridTemplateAreas = `
+    : `
       "large large small1 small2"
       "large large small3 small4"
     `
-    const largeTile = tiles[groupStartIndex]
-    largeTile.classList.add("large", "processed")
-    tileGroup.appendChild(largeTile)
 
-    for (let tileOffset = 1; tileOffset <= 4; tileOffset++) {
-      const smallTile = tiles[groupStartIndex + tileOffset]
-      smallTile.classList.add("small", "processed")
-      tileGroup.appendChild(smallTile)
-    }
+  const largeTileIndex = isLargeFirst ? 4 : 0
+
+  const largeTile = tiles[groupStartIndex + largeTileIndex]
+  largeTile.classList.add("large", "processed")
+  tileGroup.appendChild(largeTile)
+
+  const startOffset = isLargeFirst ? 0 : 1
+  for (let tileOffset = startOffset; tileOffset < startOffset + 4; tileOffset++) {
+    const smallTile = tiles[groupStartIndex + tileOffset]
+    smallTile.classList.add("small", "processed")
+    tileGroup.appendChild(smallTile)
   }
+
   return tileGroup
 }
 
