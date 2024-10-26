@@ -1,4 +1,5 @@
-@import "@styles/mixins.scss";
+@use "@styles/mixins";
+@use "dimens";
 
 :host {
   transition: ease all 0.5s;
@@ -6,8 +7,8 @@
 
 .swiper {
   .swiper-wrapper {
-    max-width: var(--expanded-swiper-container-max-width);
-    max-height: var(--expanded-swiper-container-max-height);
+    max-width: dimens.$container-max-width-lg;
+    max-height: dimens.$container-max-height-lg;
     .swiper-slide {
       align-items: flex-start;
       height: auto;
@@ -25,7 +26,7 @@
   }
 }
 
-@include breakpoint(tablet) {
+@include mixins.breakpoint(tablet) {
   .swiper .swiper-wrapper {
     max-height: unset;
     height: auto;
