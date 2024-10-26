@@ -15,6 +15,7 @@ import {
   onTileRendered
 } from "@libs/components/expanded-tile-swiper/expanded-swiper.loader"
 import {
+  handleAllTileImageRendered,
   refreshMasonryLayout,
   reinitialiseMasonryLayout,
   resizeAllUgcTiles
@@ -37,16 +38,17 @@ export async function loadWidgetSettings() {
 
   await resizeAllUgcTiles()
 
-  sdk.addEventListener("load", async () => {
-    await reinitialiseMasonryLayout()
-  })
-
   sdk.addEventListener("moreLoad", async () => {
     await refreshMasonryLayout(true)
   })
   sdk.addEventListener("tilesUpdated", async () => {
     await refreshMasonryLayout(true)
   })
+
+  sdk.addEventListener("tileBgImgRenderComplete", async () => {
+    await handleAllTileImageRendered()
+  })
+
   window.addEventListener("resize", async () => {
     await reinitialiseMasonryLayout()
   })
