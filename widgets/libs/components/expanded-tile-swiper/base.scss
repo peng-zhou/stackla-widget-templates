@@ -1,6 +1,7 @@
 @use "sass:map";
 @use "@styles/mixins";
 @use "@styles/icon-sections";
+@use "dimens";
 
 html {
   background: var(--widget-background);
