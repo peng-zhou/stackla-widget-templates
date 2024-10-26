@@ -1,6 +1,6 @@
 import Swiper from "swiper"
 import { SdkSwiper } from "types"
-import { Keyboard, Manipulation, Navigation } from "swiper/modules"
+import { Keyboard, Manipulation, Mousewheel, Navigation } from "swiper/modules"
 import { SwiperData, SwiperProps } from "types/SdkSwiper"
 
 declare const sdk: SdkSwiper
@@ -37,15 +37,21 @@ export function initializeSwiper({
   }
 
   sdk[id]!.instance = new Swiper(widgetSelector, {
-    modules: [Navigation, Manipulation, Keyboard],
+    modules: [Navigation, Manipulation, Keyboard, Mousewheel],
     spaceBetween: 10,
     observer: true,
     grabCursor: true,
     allowTouchMove: true,
     direction: "horizontal",
+    breakpointsBase: "container",
     watchSlidesProgress: true,
     normalizeSlideIndex: true,
     watchOverflow: true,
+    mousewheel: {
+      enabled: true,
+      releaseOnEdges: true,
+      thresholdDelta: 5
+    },
     navigation: {
       nextEl: next,
       prevEl: prev

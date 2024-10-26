@@ -8,6 +8,7 @@
   display: flex;
   place-items: center;
   height: styles.$nosto-container-height;
+  margin-top: styles.$nosto-container-mt;
 
   .swiper {
     width: styles.$swiper-container-width-lg;
