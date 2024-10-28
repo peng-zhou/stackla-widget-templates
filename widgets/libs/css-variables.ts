@@ -38,9 +38,9 @@ export default function getCSSVariables<T extends BaseConfig>(widgetSettings: T)
     "--tags-gap": `${widgetSettings.tags_gap ? widgetSettings.tags_gap : 4}px`,
     "--tile-tag-background": `#${widgetSettings.tile_tag_background}`,
     "--tile-tag-inline-background": `#${widgetSettings.tile_tag_inline_background}`,
-    "--cta-button-background-color": `#${widgetSettings.cta_button_background_color}`,
-    "--cta-button-font-color": `#${widgetSettings.cta_button_font_color}`,
-    "--cta-button-font-size": `${widgetSettings.cta_button_font_size}px`,
+    "--cta-button-background-color": `#${widgetSettings.cta_button_background_color ?? "#000000"}`,
+    "--cta-button-font-color": `#${widgetSettings.cta_button_font_color ?? "#ffffff"}`,
+    "--cta-button-font-size": `${widgetSettings.cta_button_font_size ?? "18"}px`,
     "--expanded-tile-border-radius": `${widgetSettings.expanded_tile_border_radius}px`,
     "--tile-size": getTileSizeByWidget(widgetSettings)
   }
