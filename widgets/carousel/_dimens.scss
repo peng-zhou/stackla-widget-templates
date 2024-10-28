@@ -17,14 +17,6 @@ $tile-height-md: 100%;
 // swiper element width for medium/small screens
 $swiper-container-width-md: auto;
 
-// tile loading icon
-$loading: (
-  "width": 30px,
-  "height": 30px
-);
-
 // video play icon
-$play-icon: (
-  "width": 30px,
-  "height": 30px
-);
+$play-icon_width: 30px;
+$play-icon_height: 30px;
