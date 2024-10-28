@@ -140,7 +140,13 @@ function loadMore() {
 }
 
 const getLoadMoreButton = () => {
-  const loadMoreButton = sdk.querySelector("#load-more")
+  const loadMoreComponent = sdk.querySelector("load-more")
+
+  if (!loadMoreComponent) {
+    throw new Error("Failed to find load more component")
+  }
+
+  const loadMoreButton = loadMoreComponent.shadowRoot?.querySelector<HTMLElement>("#load-more")
 
   if (!loadMoreButton) {
     throw new Error("Failed to find load more button")
@@ -207,33 +213,19 @@ export function addLoadMoreButtonFeature<T extends BaseConfig>(widgetSettings: T
 }
 
 export function attachLoadMoreButtonListener() {
-  const loadMoreButton = sdk.querySelector("#load-more")
-
-  if (!loadMoreButton) {
-    throw new Error("Failed to find load more button")
-  }
+  const loadMoreButton = getLoadMoreButton()
 
   loadMoreButton.onclick = loadMoreWrappedWithEasedLoader
 }
 
 export function disableLoadMoreButtonIfExists() {
-  const loadMoreButton = sdk.querySelector("#load-more")
-
-  if (!loadMoreButton) {
-    throw new Error("Failed to find load more button")
-  }
+  const loadMoreButton = getLoadMoreButton()
 
   loadMoreButton.classList.add("hidden")
 }
 
 export function disableLoadMoreLoaderIfExists() {
-  const loadMoreLoader = sdk.querySelector("#load-more-loader")
-
-  if (!loadMoreLoader) {
-    throw new Error("Failed to find load more loader")
-  }
-
-  loadMoreLoader.classList.add("hidden")
+  getLoadMoreLoader().classList.add("hidden")
 }
 
 export function addTilesPerPageFeature<T extends BaseConfig>(widgetSettings: T) {
