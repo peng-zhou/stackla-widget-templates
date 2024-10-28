@@ -1,6 +1,10 @@
 @use "sass:map";
 @use "styles";
 
+:host {
+  transition: ease all 0.5s;
+}
+
 #nosto-ugc-container {
   .grid {
     width: 100%;
