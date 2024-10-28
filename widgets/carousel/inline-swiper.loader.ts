@@ -44,7 +44,11 @@ function initializeSwiperForInlineTiles(widgetSettings: IWidgetSettings) {
       slidesPerView: "auto",
       grabCursor: false,
       allowTouchMove: false,
-      slidesOffsetBefore: 20,
+      breakpoints: {
+        577: {
+          slidesOffsetBefore: 20
+        }
+      },
       keyboard: {
         enabled: true,
         onlyInViewport: false

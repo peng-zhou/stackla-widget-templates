@@ -121,6 +121,7 @@ html {
   padding-left: 16px;
   //TODO: change to a variable that is used for .swiper .swiper-slide too
   border-radius: 5px 5px 0 0;
+  width: 100%;
 
   @include mixins.media-query-target(tablet) {
     display: flex;
@@ -133,5 +134,11 @@ html {
   }
   .expanded-tile-wrapper .swiper {
     max-width: unset;
+  }
+}
+
+@include mixins.media-query-target(tablet) {
+  .expanded-tile-wrapper {
+    flex-direction: column;
   }
 }
