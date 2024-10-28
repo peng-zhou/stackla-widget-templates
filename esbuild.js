@@ -34,17 +34,6 @@ async function buildAll() {
       })
 
       build.onEnd(() => {
-        // Include additional libraries in the final CSS
-        // These libraries are located in the `styles` folder
-        /*const additionalData = globSync("./widgets/styles/*.scss", { withFileTypes: true })
-          .map(path =>
-            sass.compile(path.relative(), {
-              style: env === "development" ? "expanded" : "compressed"
-            })
-          )
-          .map(scss => scss.css.toString())
-          .join("\n")*/
-
         globSync("./widgets/**/widget.scss", { withFileTypes: true }).forEach(item => {
           const result = sass.compile(item.relative(), {
             style: env === "development" ? "expanded" : "compressed",
