@@ -1,22 +1,19 @@
-@import "variables.scss";
-@import "@styles/mixins.scss";
-@import "@styles/icon-sections.scss";
-@import "@templates/tags/tags.scss";
-@import "@styles/inline-tile.scss";
-@import "@styles/expanded-tile.scss";
+@use "styles";
 
 :host {
   transition: ease all 0.5s;
 }
 
 #nosto-ugc-container {
-  height: var(--inline-nosto-container-height);
+  display: flex;
+  place-items: center;
+  height: styles.$nosto-container-height;
 
   .swiper {
-    width: var(--inline-swiper-container-width);
+    width: styles.$swiper-container-width-lg;
     .tile {
-      width: var(--default-tile-width);
-      height: var(--default-tile-height);
+      width: styles.$tile-width-lg;
+      height: styles.$tile-height-lg;
     }
   }
 }
@@ -25,18 +22,18 @@
   display: none;
 }
 
-@include breakpoint(mobile) {
+@include styles.breakpoint(mobile) {
   #nosto-ugc-container {
-    height: var(--inline-nosto-container-height) !important;
+    height: styles.$nosto-container-height !important;
     .swiper-inline {
-      width: var(--inline-mobile-swiper-container-width) !important;
+      width: styles.$swiper-container-width-md !important;
       .swiper-slide {
         width: 100% !important;
       }
     }
     .tile {
-      width: var(--mobile-tile-width) !important;
-      height: var(--mobile-tile-height) !important;
+      width: styles.$tile-width-md !important;
+      height: styles.$tile-height-md !important;
     }
   }
 }

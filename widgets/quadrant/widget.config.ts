@@ -26,7 +26,8 @@ export function getConfig(widgetContainer: WidgetContainer): IWidgetSettings {
     text_tile_user_handle_font_size: widgetStyle?.text_tile_user_handle_font_size ?? 12,
     text_tile_user_handle_font_color: widgetStyle?.text_tile_user_handle_font_color ?? "000000",
     text_tile_tag_font_color: widgetStyle?.text_tile_tag_font_color ?? "201C1F",
-    tile_tag_background: widgetStyle?.tile_tag_background ?? "D6D4D5"
+    tile_tag_background: widgetStyle?.tile_tag_background ?? "D6D4D5",
+    tile_tag_inline_background: widgetStyle?.tile_tag_inline_background ?? "00000066"
   }
 
   const widgetProperties = {

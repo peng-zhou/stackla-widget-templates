@@ -1,4 +1,5 @@
-@import "@styles/mixins.scss";
+@use "@styles/mixins";
+
 .swiper {
   display: flex;
   height: 100%;
@@ -38,6 +39,11 @@
   }
 }
 
+.swiper-button-next,
+.swiper-button-prev {
+  top: unset;
+}
+
 .loading {
   border-radius: 50% !important;
   -webkit-animation: spin 2s linear infinite; /* Safari */
@@ -60,21 +66,6 @@
   }
 }
 
-.swiper-button-next,
-.swiper-button-prev,
-.swiper-expanded-button-next,
-.swiper-expanded-button-prev {
-  border-radius: 100%;
-  box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.1);
-  z-index: 2;
-}
-
-.swiper-inline-button-next,
-.swiper-inline-button-prev {
-  box-shadow: none;
-  top: 45%;
-}
-
 .swiper-inline-button-next::after,
 .swiper-inline-button-prev::after,
 .swiper-expanded-button-next::after,
@@ -83,20 +74,20 @@
   --swiper-navigation-size: 20px;
 }
 
-@include breakpoint(mobile) {
+@include mixins.breakpoint(mobile) {
   .swiper .swiper-wrapper {
     max-height: 100vh;
   }
 }
 
-@include media-query-target(tablet) {
+@include mixins.media-query-target(tablet) {
   .swiper-button-next,
   .swiper-button-prev {
     display: none !important;
   }
 }
 
-@include breakpoint(desktop) {
+@include mixins.breakpoint(desktop) {
   .swiper-button-next,
   .swiper-button-prev {
     display: flex !important;

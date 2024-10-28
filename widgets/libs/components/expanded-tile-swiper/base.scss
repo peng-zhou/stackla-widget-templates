@@ -1,6 +1,5 @@
-@import "variables.scss";
-@import "@styles/mixins.scss";
-@import "@styles/icon-sections.scss";
+@use "@styles/mixins";
+@use "@styles/icon-sections";
 
 html {
   background: var(--widget-background);
@@ -47,7 +46,7 @@ html {
 
     .video-content-wrapper {
       width: 100%;
-      height: 100%;
+      height: 90%;
       display: flex;
     }
 
@@ -67,6 +66,13 @@ html {
       width: 100%;
       height: 100%;
       position: absolute;
+    }
+
+    .content-text,
+    .content-html {
+      white-space: break-spaces;
+      mix-blend-mode: difference;
+      padding: 20px;
     }
   }
 
@@ -122,12 +128,12 @@ html {
   //TODO: change to a variable that is used for .swiper .swiper-slide too
   border-radius: 5px 5px 0 0;
 
-  @include media-query-target(tablet) {
+  @include mixins.media-query-target(tablet) {
     display: flex;
   }
 }
 
-@include breakpoint(tablet) {
+@include mixins.breakpoint(tablet) {
   .expanded-tile-wrapper {
     height: 100%;
   }

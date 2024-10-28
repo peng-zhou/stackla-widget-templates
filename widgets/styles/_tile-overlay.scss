@@ -1,4 +1,4 @@
-@import "./mixins.scss";
+@use "mixins";
 
 .expanded-tile-overlay {
   position: fixed;
@@ -13,7 +13,7 @@
   justify-content: center;
 }
 
-@include breakpoint(tablet) {
+@include mixins.breakpoint(tablet) {
   .expanded-tile-overlay {
     align-items: flex-start;
   }
