@@ -1,6 +1,5 @@
-@use "@styles/mixins";
-@use "@templates/tags/tags";
-@use "@styles/tile-overlay";
+@use "sass:map";
+@use "styles";
 
 #nosto-ugc-container {
   .grid {
@@ -12,13 +11,13 @@
   .grid-item {
     color: white;
     text-align: center;
-    border-radius: 5px;
+    border-radius: styles.$border-radius;
     position: relative;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     height: var(--tile-size);
-    margin: 5px;
+    margin: var(--margin);
     box-sizing: border-box;
     object-fit: cover;
   }
@@ -26,6 +25,7 @@
   .tile {
     background-size: cover;
     background-position: center;
+    border-radius: styles.$border-radius;
   }
 
   .tile,
@@ -35,13 +35,11 @@
   }
 
   .ugc-tile {
-    $total-padding: 10px;
     box-sizing: border-box;
-    border-radius: 12px;
     overflow: hidden;
     transition: opacity 0.5s ease;
 
-    &:not(.processed) {
+    &:not([width-set*="true"]) {
       opacity: 0;
     }
   }
@@ -56,23 +54,24 @@
       left: 0;
       right: 0;
       margin: auto;
+      width: map.get(styles.$play-icon, "width");
+      height: map.get(styles.$play-icon, "height");
     }
 
-    .tile-timephrase {
+    .icon-section {
+      display: flex;
       position: absolute;
-      top: 0;
-      right: 0;
-      padding: 10px;
-      background-color: rgb(255 255 255 / 60%);
-      border-radius: 2px;
-      font-size: 12px;
-      display: var(--tile-timephrase-display);
+      width: 100%;
+      height: 100%;
     }
+  }
 
-    .tile-tags {
-      left: 0;
-      position: absolute;
-      margin: 0 16.4px 8.4px 8px;
+  #buttons {
+    display: flex;
+    place-content: center;
+    margin-top: styles.$load-more-margin;
+    .load-more {
+      display: flex;
     }
   }
 }
@@ -86,16 +85,12 @@
   opacity: 1;
   transition: opacity 0.5s ease;
 
-  &.hidden {
-    opacity: 0 !important;
-  }
-
   .loading {
-    height: 50px !important;
-    width: 50px !important;
+    height: map.get(styles.$loading, "height") !important;
+    width: map.get(styles.$loading, "width") !important;
   }
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }

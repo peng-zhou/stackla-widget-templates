@@ -5,25 +5,25 @@
     <div class="top-section">
       {{#each attrs}}
       {{#ifequals this "instagram.reel"}}
-        <div class="content-icon icon-reel small"></div>
+      <div class="content-icon icon-reel"></div>
       {{/ifequals}}
       {{/each}}
       {{#if tags_extended.length}}
-        <div class="shopping-icon icon-products small"></div>
+      <div class="shopping-icon icon-products"></div>
       {{/if}}
     </div>
     <div class="center-section">
       {{#ifequals media "video"}}
-        <div class="play-icon"></div>
+      <div class="play-icon"></div>
       {{/ifequals}}
     </div>
     <div class="bottom-section">
       <ul class="tile-tags">
         {{#tags_extended}}
-          <li class="tile-tag tag-inline"><a href="{{custom_url}}">{{tag}}</a></li>
+        <li class="tile-tag tag-inline"><a href="{{custom_url}}">{{tag}}</a></li>
         {{/tags_extended}}
       </ul>
-      <div class="network-icon icon-{{source}} small"></div>
+      <div class="network-icon icon-{{source}}"></div>
       <span class="tile-timephrase">{{time_ago}}</span>
     </div>
 

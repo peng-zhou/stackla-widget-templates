@@ -131,7 +131,7 @@ function loadMore() {
   sdk.triggerEvent(EVENT_LOAD_MORE)
 
   if (!sdk.tiles.hasMorePages()) {
-    loadMoreButton.style.display = "none"
+    loadMoreButton.classList.add("hidden")
   }
 
   setTimeout(() => {
@@ -161,7 +161,7 @@ const getLoadMoreLoader = () => {
 
 const loadMoreWrappedWithEasedLoader = () => {
   const loadMoreButton = getLoadMoreButton()
-  loadMoreButton.style.display = "none"
+  loadMoreButton.classList.add("hidden")
   const loadMoreLoader = getLoadMoreLoader()
   loadMoreLoader.classList.remove("hidden")
   loadMore()
@@ -178,7 +178,7 @@ export function addLoadMoreButtonFeature<T extends BaseConfig>(widgetSettings: T
         const loadMoreLoader = getLoadMoreLoader()
         const loadMoreButton = getLoadMoreButton()
         loadMoreLoader.classList.add("hidden")
-        loadMoreButton.style.display = "block"
+        loadMoreButton.classList.remove("hidden")
       })
 
       break
@@ -223,7 +223,7 @@ export function disableLoadMoreButtonIfExists() {
     throw new Error("Failed to find load more button")
   }
 
-  loadMoreButton.style.display = "none"
+  loadMoreButton.classList.add("hidden")
 }
 
 export function disableLoadMoreLoaderIfExists() {
@@ -233,7 +233,7 @@ export function disableLoadMoreLoaderIfExists() {
     throw new Error("Failed to find load more loader")
   }
 
-  loadMoreLoader.style.display = "none"
+  loadMoreLoader.classList.add("hidden")
 }
 
 export function addTilesPerPageFeature<T extends BaseConfig>(widgetSettings: T) {

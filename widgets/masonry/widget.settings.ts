@@ -15,9 +15,9 @@ import {
   onTileRendered
 } from "@libs/components/expanded-tile-swiper/expanded-swiper.loader"
 import {
-  refreshMasonryLayout,
-  reinitialiseMasonryLayout,
-  resizeAllUgcTiles
+  handleTileImageError,
+  handleAllTileImageRendered,
+  renderMasonryLayout
 } from "@widgets/libs/extensions/masonry.extension"
 
 declare const sdk: Sdk
@@ -33,21 +33,28 @@ export async function loadWidgetSettings() {
   addTilesPerPageFeature(widgetSettings)
   addLoadMoreButtonFeature(widgetSettings)
 
-  window.refreshMasonryLayout = refreshMasonryLayout
+  window.refreshMasonryLayout = () => renderMasonryLayout(widgetSettings)
 
-  await resizeAllUgcTiles()
-
-  sdk.addEventListener("load", async () => {
-    await reinitialiseMasonryLayout()
+  sdk.events.listenOrFindEvent("widgetInitComplete", () => {
+    setTimeout(() => renderMasonryLayout(widgetSettings), 1000)
   })
 
-  sdk.addEventListener("moreLoad", async () => {
-    await refreshMasonryLayout(true)
+  sdk.addEventListener("tilesUpdated", () => {
+    renderMasonryLayout(widgetSettings)
   })
-  sdk.addEventListener("tilesUpdated", async () => {
-    await refreshMasonryLayout(true)
+
+  sdk.addEventListener("tileBgImgRenderComplete", () => {
+    handleAllTileImageRendered()
+    setTimeout(handleAllTileImageRendered, 1000)
   })
-  window.addEventListener("resize", async () => {
-    await reinitialiseMasonryLayout()
+
+  sdk.addEventListener("tileBgImageError", (event: Event) => {
+    const customEvent = event as CustomEvent
+    const tileWithError = customEvent.detail.data.target as HTMLElement
+    handleTileImageError(widgetSettings, tileWithError)
+  })
+
+  window.addEventListener("resize", () => {
+    renderMasonryLayout(widgetSettings, false, true)
   })
 }
