@@ -1,18 +1,12 @@
 import { Sdk } from "@stackla/ugc-widgets"
+import { IWidgetSettings } from "types"
 
 declare const sdk: Sdk
 
 let widths: number[] = []
-
-export async function reinitialiseMasonryLayout() {
-  resizeAllUgcTiles(true)
-}
-
-export async function refreshMasonryLayout(refresh = true) {
-  if (refresh) {
-    resizeAllUgcTiles()
-  }
-}
+let rowIndex = 0
+let screenWidth = 0
+let previousWidthHandled = 0
 
 export function handleTileImageRendered(tileId?: string) {
   if (!tileId) {
@@ -24,17 +18,55 @@ export function handleTileImageRendered(tileId?: string) {
   tileLoadingElement?.classList.remove("loading")
 }
 
-export async function handleAllTileImageRendered() {
+export function handleAllTileImageRendered() {
   const tileLoadingElements = sdk.placement.getShadowRoot().querySelectorAll(".grid-item .tile-loading.loading")
   tileLoadingElements?.forEach(element => element.classList.remove("loading"))
 
   const loadMoreHiddenElement = sdk.placement.getShadowRoot().querySelector("#buttons > #load-more.hidden")
   loadMoreHiddenElement?.classList.remove(".hidden")
-
-  await reinitialiseMasonryLayout()
 }
 
-function getParitionWidth(min: number, max: number) {
+function getGridItemRowIds() {
+  const gridItems = sdk.placement.getShadowRoot().querySelectorAll(".grid-item:not(hidden)[row-id]")
+  const allRowIds = Array.from(gridItems)
+    .map(item => item.getAttribute("row-id"))
+    .filter(rowIdString => rowIdString && !Number.isNaN(+rowIdString))
+    .map(rowId => +rowId!)
+
+  return [...new Set(allRowIds)]
+}
+
+export function handleTileImageError(widgetSettings: IWidgetSettings, tileWithError: HTMLElement) {
+  const errorTileRowIdString = tileWithError.getAttribute("row-id")
+
+  tileWithError.classList.remove("grid-item")
+  tileWithError.classList.remove("ugc-tile")
+
+  // add class
+  tileWithError.classList.add("grid-item-error")
+  tileWithError.classList.add("ugc-tile-error")
+  tileWithError.classList.add("hidden")
+
+  if (!errorTileRowIdString || Number.isNaN(+errorTileRowIdString)) {
+    return
+  }
+
+  const errorTileRowId = +errorTileRowIdString
+  const uniqueRowIds = getGridItemRowIds()
+
+  const rowIdSelectors = uniqueRowIds.filter(rowId => rowId >= errorTileRowId).map(matched => `[row-id="${matched}"]`)
+
+  const matchedGridItems = Array.from(
+    sdk.placement.getShadowRoot().querySelectorAll<HTMLElement>(`.grid-item:is(${rowIdSelectors})`)
+  )
+
+  widths = []
+  rowIndex = errorTileRowId
+
+  resizeTiles(matchedGridItems, widgetSettings)
+}
+
+function getPartitionWidth(min: number, max: number) {
   const minCeiled = Math.ceil(min)
   const maxFloored = Math.floor(max)
   return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled)
@@ -63,38 +95,11 @@ function adjustWidthToLimit(screenWidth: number, partitions: number[], newWidth:
   return resultWidth
 }
 
-function adjustMarginFromPartitions(partitions: number[], minPartitionWidth: number) {
-  const totalAdjustments = partitions.length * 10
-  const candidates = partitions.filter(partition => partition - 10 > minPartitionWidth).length
+function adjustMarginFromPartitions(partitions: number[], margin: number) {
+  // adjust margin for both sides
+  const marginLeftRight = margin * 2
 
-  const calculated = (() => {
-    // when adjustment value division among candiadtes results in decimal value
-    if (totalAdjustments % candidates !== 0) {
-      const sharedValue = Math.floor(totalAdjustments / candidates)
-      const delta = totalAdjustments % candidates
-      return { sharedValue, delta }
-    }
-    return { sharedValue: totalAdjustments / candidates, delta: 0 }
-  })()
-
-  const marginAdjustedPartitions = partitions.map(partition => {
-    const value = partition - calculated.sharedValue
-    if (value > minPartitionWidth) {
-      return value
-    }
-    return partition
-  })
-
-  if (calculated.delta > 0) {
-    const maxPartition = Math.max(...marginAdjustedPartitions)
-    if (maxPartition - calculated.delta > minPartitionWidth) {
-      const maxPartitionIndex = marginAdjustedPartitions.indexOf(maxPartition)
-      marginAdjustedPartitions[maxPartitionIndex] = maxPartition - calculated.delta
-      return marginAdjustedPartitions
-    }
-  }
-
-  return marginAdjustedPartitions
+  return partitions.map(partition => partition - marginLeftRight)
 }
 
 /**
@@ -103,7 +108,7 @@ function adjustMarginFromPartitions(partitions: number[], minPartitionWidth: num
  * @param minPartitionWidth
  * @returns
  */
-export function generateRandomPartitions(screenWidth: number, minPartitionWidth = 100) {
+export function generateRandomPartitions(screenWidth: number, margin: number, minPartitionWidth = 100) {
   // Validate input
   if (screenWidth <= 0) {
     return []
@@ -118,67 +123,77 @@ export function generateRandomPartitions(screenWidth: number, minPartitionWidth 
   // Define the maximum width for any partition
   const maxPartitionWidth = 400
 
+  const minPartitionWidthWithMargin = minPartitionWidth + margin * 2
+
   while (remainingWidth > 0) {
-    const currentPartitionWidth = getParitionWidth(minPartitionWidth, maxPartitionWidth)
-    const adjustedWidth = adjustWidthToLimit(screenWidth, partitions, currentPartitionWidth, minPartitionWidth)
+    const currentPartitionWidth = getPartitionWidth(minPartitionWidthWithMargin, maxPartitionWidth)
+    const adjustedWidth = adjustWidthToLimit(
+      screenWidth,
+      partitions,
+      currentPartitionWidth,
+      minPartitionWidthWithMargin
+    )
     remainingWidth -= adjustedWidth
   }
 
   // adjust margin from partitions
-  return adjustMarginFromPartitions(partitions, minPartitionWidth)
+  return adjustMarginFromPartitions(partitions, margin)
 }
 
-export const resizeAllUgcTiles = (() => {
-  let screenWidth: number = 0
-  let executionCount = 0
-
-  return function (reset = false) {
-    if (reset) {
-      widths = []
-      screenWidth = 0
-    }
-
-    // If screenWidth is not stored or has changed, reinitialize the widths array
-    const ugcContainer = sdk.querySelector("#nosto-ugc-container")
-
-    if (!ugcContainer) {
-      throw new Error("Failed to find Nosto UGC container")
-    }
-
-    const currentScreenWidth = ugcContainer.clientWidth!
-
-    if (currentScreenWidth === 0) {
-      return
-    }
-
-    const allTiles = Array.from(sdk.querySelectorAll<HTMLElement>(".grid-item") ?? [])
-    const ugcTiles = reset ? allTiles : allTiles.filter(tile => tile.getAttribute("width-set") !== "true")
-
-    // If no unprocessed UGC tiles, exit
-    if (!ugcTiles || ugcTiles.length === 0) {
-      return
-    }
-
-    if (screenWidth == 0) {
-      screenWidth = currentScreenWidth
-    }
-
-    executionCount += 1
-
-    ugcTiles.forEach(async (tile: HTMLElement) => {
-      // If widths array is empty, regenerate new partitions
-      if (!widths.length) {
-        widths = generateRandomPartitions(screenWidth)
-      }
-
-      // Pop the next width from the array
-      const randomWidth = widths.pop()!
-
-      // Apply the width to the tile and mark it as processed
-      tile.style.width = `${randomWidth}px`
-      tile.setAttribute("width-set", "true")
-      tile.setAttribute("execution-count", executionCount.toString())
-      //tile.classList.add("processed")
-    })
+export function renderMasonryLayout(widgetSettings: IWidgetSettings, reset = false, resize = false) {
+  if (resize || reset) {
+    widths = []
+    rowIndex = 0
+    screenWidth = 0
   }
-})()
+
+  // If screenWidth is not stored or has changed, reinitialize the widths array
+  const ugcContainer = sdk.querySelector("#nosto-ugc-container")
+
+  if (!ugcContainer) {
+    throw new Error("Failed to find Nosto UGC container")
+  }
+
+  const currentScreenWidth = ugcContainer.clientWidth!
+
+  if (currentScreenWidth === 0) {
+    return
+  }
+
+  if (resize && previousWidthHandled === currentScreenWidth) {
+    return
+  }
+
+  if (screenWidth == 0) {
+    screenWidth = currentScreenWidth
+    previousWidthHandled = currentScreenWidth
+  }
+
+  const allTiles = Array.from(sdk.querySelectorAll<HTMLElement>(".grid-item") ?? [])
+  const ugcTiles = reset || resize ? allTiles : allTiles.filter(tile => tile.getAttribute("width-set") !== "true")
+
+  resizeTiles(ugcTiles, widgetSettings)
+}
+
+function resizeTiles(ugcTiles: HTMLElement[], widgetSettings: IWidgetSettings) {
+  // If no unprocessed UGC tiles, exit
+  if (!ugcTiles || ugcTiles.length === 0) {
+    return
+  }
+
+  ugcTiles.forEach((tile: HTMLElement) => {
+    // If widths array is empty, regenerate new partitions
+    if (!widths.length) {
+      rowIndex += 1
+      widths = generateRandomPartitions(screenWidth, widgetSettings.margin ?? 0)
+    }
+
+    // Pop the next width from the array
+    const randomWidth = widths.pop()!
+
+    // Apply the width to the tile and mark it as processed
+    tile.style.width = `${randomWidth}px`
+    tile.setAttribute("width-set", "true")
+    tile.setAttribute("row-id", rowIndex.toString())
+  })
+}
