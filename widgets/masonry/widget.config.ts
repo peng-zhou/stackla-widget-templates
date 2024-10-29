@@ -42,7 +42,7 @@ export function getConfig(widgetContainer: WidgetContainer): IWidgetSettings {
     widget_background: widgetStyle?.widget_background,
     enable_typekit: widgetStyle?.enable_typekit,
     max_tile_width: widgetStyle?.max_tile_width,
-    margin: widgetStyle?.margin,
+    margin: widgetStyle?.margin ?? 5,
     click_through_url: widgetStyle?.click_through_url,
     load_more_type: widgetStyle?.load_more_type,
     tags_gap: widgetStyle?.tags_gap ?? 4,

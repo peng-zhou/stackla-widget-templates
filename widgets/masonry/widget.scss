@@ -17,7 +17,7 @@
     background-position: center;
     background-repeat: no-repeat;
     height: var(--tile-size);
-    margin: 5px;
+    margin: var(--margin);
     box-sizing: border-box;
     object-fit: cover;
   }
