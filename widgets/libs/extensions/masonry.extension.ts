@@ -34,7 +34,7 @@ export async function handleAllTileImageRendered() {
   await reinitialiseMasonryLayout()
 }
 
-function getParitionWidth(min: number, max: number) {
+function getPartitionWidth(min: number, max: number) {
   const minCeiled = Math.ceil(min)
   const maxFloored = Math.floor(max)
   return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled)
@@ -119,7 +119,7 @@ export function generateRandomPartitions(screenWidth: number, minPartitionWidth 
   const maxPartitionWidth = 400
 
   while (remainingWidth > 0) {
-    const currentPartitionWidth = getParitionWidth(minPartitionWidth, maxPartitionWidth)
+    const currentPartitionWidth = getPartitionWidth(minPartitionWidth, maxPartitionWidth)
     const adjustedWidth = adjustWidthToLimit(screenWidth, partitions, currentPartitionWidth, minPartitionWidth)
     remainingWidth -= adjustedWidth
   }
@@ -178,7 +178,6 @@ export const resizeAllUgcTiles = (() => {
       tile.style.width = `${randomWidth}px`
       tile.setAttribute("width-set", "true")
       tile.setAttribute("execution-count", executionCount.toString())
-      //tile.classList.add("processed")
     })
   }
 })()
