@@ -108,7 +108,7 @@ function adjustMarginFromPartitions(partitions: number[], margin: number) {
  * @param minPartitionWidth
  * @returns
  */
-function generateRandomPartitions(screenWidth: number, margin: number, minPartitionWidth = 100) {
+export function generateRandomPartitions(screenWidth: number, margin: number, minPartitionWidth = 100) {
   // Validate input
   if (screenWidth <= 0) {
     return []
