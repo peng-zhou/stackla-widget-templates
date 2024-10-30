@@ -43,7 +43,6 @@ export function initializeSwiper({
     grabCursor: true,
     allowTouchMove: true,
     direction: "horizontal",
-    breakpointsBase: "container",
     watchSlidesProgress: true,
     normalizeSlideIndex: true,
     watchOverflow: true,

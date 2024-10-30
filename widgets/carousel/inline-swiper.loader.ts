@@ -26,14 +26,8 @@ function initializeSwiperForInlineTiles(widgetSettings: IWidgetSettings) {
     throw new Error("Failed to find widget UI element. Failed to initialise Swiper")
   }
 
-  const tileWidth = 210
-  const screenSize = window.innerWidth
-  const perView = !widgetSettings.enable_custom_tiles_per_page
-    ? Math.floor(screenSize / (tileWidth + 10))
-    : widgetSettings.tiles_per_page
-
-  sdk.tiles.setVisibleTilesCount(perView * 2)
-
+  // the responsive breakpoints defined below has a reduced value of 40 for nosto container margin
+  // TODO: need to introduce a variable for nosto container margin so that it can be automated
   initializeSwiper({
     id: "inline",
     mode: "inline",
@@ -44,9 +38,16 @@ function initializeSwiperForInlineTiles(widgetSettings: IWidgetSettings) {
       slidesPerView: "auto",
       grabCursor: false,
       allowTouchMove: false,
+      breakpointsBase: "container",
       breakpoints: {
-        577: {
-          slidesOffsetBefore: 20
+        0: {
+          slidesPerView: 1
+        },
+        537: {
+          slidesPerView: 3
+        },
+        952: {
+          slidesPerView: 7
         }
       },
       keyboard: {

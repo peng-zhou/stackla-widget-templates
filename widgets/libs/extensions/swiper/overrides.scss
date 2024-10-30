@@ -7,13 +7,10 @@
 
   .swiper-slide {
     align-items: center;
-    position: relative;
     display: flex;
     justify-content: center;
-    //change to a variable
-    border-radius: dimens.$border-radius;
+    border-radius: 5px;
     overflow: hidden;
-    width: auto;
 
     > .tile > .tile-loading {
       @extend .loading;
