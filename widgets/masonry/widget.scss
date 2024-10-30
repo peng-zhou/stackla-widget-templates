@@ -6,38 +6,6 @@
 }
 
 #nosto-ugc-container {
-  .grid {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .grid-item {
-    color: white;
-    text-align: center;
-    border-radius: styles.$border-radius;
-    position: relative;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: var(--tile-size);
-    margin: var(--margin);
-    box-sizing: border-box;
-    object-fit: cover;
-  }
-
-  .tile {
-    background-size: cover;
-    background-position: center;
-    border-radius: styles.$border-radius;
-  }
-
-  .tile,
-  .ugc-image {
-    width: 100%;
-    height: 100%;
-  }
-
   .ugc-tile {
     box-sizing: border-box;
     overflow: hidden;
@@ -52,14 +20,17 @@
     position: relative;
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100%;
 
     .play-icon {
       top: 43%;
       left: 0;
       right: 0;
       margin: auto;
-      width: map.get(styles.$play-icon, "width");
-      height: map.get(styles.$play-icon, "height");
+      width: styles.$play-icon-width;
+      height: styles.$play-icon-height;
     }
 
     .icon-section {
@@ -67,15 +38,6 @@
       position: absolute;
       width: 100%;
       height: 100%;
-    }
-  }
-
-  #buttons {
-    display: flex;
-    place-content: center;
-    margin-top: styles.$load-more-margin;
-    .load-more {
-      display: flex;
     }
   }
 }
@@ -90,8 +52,8 @@
   transition: opacity 0.5s ease;
 
   .loading {
-    height: map.get(styles.$loading, "height") !important;
-    width: map.get(styles.$loading, "width") !important;
+    height: styles.$loading-height !important;
+    width: styles.$loading-width !important;
   }
 }
 

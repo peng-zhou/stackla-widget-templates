@@ -13,17 +13,6 @@
     width: 100%;
     display: flex;
   }
-  .icon-section {
-    display: flex;
-    width: dimens.$tile-width-lg;
-    height: dimens.$tile-height-lg;
-    position: absolute;
-
-    @include mixins.media-query-target(tablet) {
-      width: dimens.$tile-width-md !important;
-      height: dimens.$tile-height-md !important;
-    }
-  }
 }
 
 .play-icon {
