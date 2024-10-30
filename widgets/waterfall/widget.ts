@@ -1,4 +1,3 @@
-import { getConfig } from "./widget.config"
 import {
   addAutoAddTileFeature,
   addLoadMoreButtonFeature,
@@ -20,16 +19,13 @@ declare const sdk: Sdk
 sdk.tiles.hideBrokenTiles = true
 sdk.tiles.preloadImages = true
 
-const widgetContainer = sdk.placement.getWidgetContainer()
-const widgetSettings = getConfig(widgetContainer)
-
-loadWidgetIsEnabled(widgetSettings)
+loadWidgetIsEnabled()
 loadTitle()
-addAutoAddTileFeature(widgetSettings)
-loadExpandedTileFeature(widgetSettings)
-addTilesPerPageFeature(widgetSettings)
-addLoadMoreButtonFeature(widgetSettings)
-addCSSVariablesToPlacement(getCSSVariables(widgetSettings))
+addAutoAddTileFeature()
+loadExpandedTileFeature()
+addTilesPerPageFeature()
+addLoadMoreButtonFeature()
+addCSSVariablesToPlacement(getCSSVariables())
 
 sdk.addCSSToComponent(expandedTileCSS, "expanded-tile")
 sdk.addCSSToComponent(productsCSS, "ugc-products")

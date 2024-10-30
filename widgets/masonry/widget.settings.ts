@@ -8,7 +8,6 @@ import {
   addLoadMoreButtonFeature
 } from "@widgets/libs/widget.features"
 import { addCSSVariablesToPlacement } from "@widgets/libs/widget.layout"
-import { getConfig } from "./widget.config"
 import {
   onTileExpand,
   onTileClosed,
@@ -23,15 +22,12 @@ import {
 declare const sdk: Sdk
 
 export async function loadWidgetSettings() {
-  const widgetContainer = sdk.placement.getWidgetContainer()
-  const widgetSettings = getConfig(widgetContainer)
-
   loadTitle()
-  addCSSVariablesToPlacement(getCSSVariables(widgetSettings))
-  addAutoAddTileFeature(widgetSettings)
-  loadExpandedTileFeature(widgetSettings, onTileExpand, onTileClosed, onTileRendered)
-  addTilesPerPageFeature(widgetSettings)
-  addLoadMoreButtonFeature(widgetSettings)
+  addCSSVariablesToPlacement(getCSSVariables())
+  addAutoAddTileFeature()
+  loadExpandedTileFeature(onTileExpand, onTileClosed, onTileRendered)
+  addTilesPerPageFeature()
+  addLoadMoreButtonFeature()
 
   window.refreshMasonryLayout = () => renderMasonryLayout(widgetSettings)
 

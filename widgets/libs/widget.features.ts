@@ -6,7 +6,6 @@ import {
   registerTileClosedListener,
   registerTileExpandListener
 } from "./tile.listeners"
-import { BaseConfig } from "../../types/IBaseConfig"
 import { isEnabled } from "./widget.layout"
 import { useInfiniteScroller } from "@stackla/ugc-widgets"
 
@@ -69,22 +68,27 @@ export const arrowClickListener = (e: Event) => {
   const tileData = {
     tileData: tilesStore.find(tile => tile.id === tileId),
     widgetId: sdk.placement.getWidgetId(),
-    filterId: sdk.placement.getWidgetContainer().widgetOptions?.filterId
+    filterId: sdk.placement.getWidgetContainer().widgetOptions?.filter_id
   }
 
   sdk.triggerEvent("expandedTileClose")
   sdk.triggerEvent("tileExpand", tileData)
 }
 
-export function addAutoAddTileFeature<T extends BaseConfig>(widgetSettings: T) {
-  if (widgetSettings.auto_refresh === true) {
+export function addAutoAddTileFeature() {
+  const {
+    auto_refresh
+  } = sdk.getStyleConfig()
+
+  // FIXME: Make auto_refresh boolean across the board
+  if (Boolean(auto_refresh) === true) {
     sdk.tiles.enableAutoAddNewTiles()
   }
 }
 
 // TODO - Move to ugc-widgets
-export function loadWidgetIsEnabled<T extends BaseConfig>(widgetSettings: T) {
-  if (isEnabled(widgetSettings)) {
+export function loadWidgetIsEnabled() {
+  if (isEnabled()) {
     return true
   }
 
@@ -99,22 +103,26 @@ export function loadWidgetIsEnabled<T extends BaseConfig>(widgetSettings: T) {
   throw new Error("Widget is not enabled")
 }
 
-export function loadExpandedTileFeature<T extends BaseConfig>(
-  widgetSettings: T,
+export function loadExpandedTileFeature(
   onTileExpand: (tileId: string) => void = () => {},
   onTileClosed: () => void = () => {},
   onTileRendered: () => void = () => {}
 ) {
-  if (widgetSettings.click_through_url === "[EXPAND]") {
-    loadExpandSettingComponents<T>(widgetSettings)
+  const widgetContainer = sdk.getStyleConfig()
+  const {
+    click_through_url
+  } = widgetContainer
+
+  if (click_through_url === "[EXPAND]") {
+    loadExpandSettingComponents()
     registerTileExpandListener(onTileExpand)
     registerTileClosedListener(onTileClosed)
     registerExpandedTileRenderedListener(onTileRendered)
   } else if (
-    widgetSettings.click_through_url === "[ORIGINAL_URL]" ||
-    /^https?:\/\/.+/.test(widgetSettings.click_through_url ?? "")
+    click_through_url === "[ORIGINAL_URL]" ||
+    /^https?:\/\/.+/.test(click_through_url ?? "")
   ) {
-    registerTileClickEventListeners(widgetSettings)
+    registerTileClickEventListeners()
   }
 }
 
@@ -173,8 +181,9 @@ const loadMoreWrappedWithEasedLoader = () => {
   loadMore()
 }
 
-export function addLoadMoreButtonFeature<T extends BaseConfig>(widgetSettings: T) {
-  const loadMoreType = widgetSettings.load_more_type
+export function addLoadMoreButtonFeature() {
+  const { load_more_type } = sdk.getStyleConfig();
+  const loadMoreType = load_more_type
 
   switch (loadMoreType) {
     case "button":
@@ -228,9 +237,15 @@ export function disableLoadMoreLoaderIfExists() {
   getLoadMoreLoader().classList.add("hidden")
 }
 
-export function addTilesPerPageFeature<T extends BaseConfig>(widgetSettings: T) {
-  if (widgetSettings.enable_custom_tiles_per_page) {
-    sdk.tiles.setVisibleTilesCount(widgetSettings.tiles_per_page)
+export function addTilesPerPageFeature() {
+  const {
+    enable_custom_tiles_per_page,
+    tiles_per_page
+  } = sdk.getStyleConfig()
+
+  if (enable_custom_tiles_per_page) {
+    // FIXME: Make tiles_per_page number across the board
+    sdk.tiles.setVisibleTilesCount(parseInt(tiles_per_page))
   } else {
     sdk.tiles.setVisibleTilesCount(40)
   }

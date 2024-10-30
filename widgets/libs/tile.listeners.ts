@@ -1,12 +1,12 @@
 import type { Sdk } from "@stackla/ugc-widgets"
 import { handleTileClick } from "./tile.lib"
-import { BaseConfig } from "../../types/IBaseConfig"
 
 declare const sdk: Sdk
 
 type Callback = (args: unknown) => void
 
-export function registerTileClickEventListeners<T extends BaseConfig>(widgetSettings: T) {
+export function registerTileClickEventListeners() {
+  const { click_through_url } = sdk.getStyleConfig()
   const urlPattern = /^https?:\/\/.+/
 
   const tiles = sdk.querySelectorAll(".ugc-tile")
@@ -16,7 +16,7 @@ export function registerTileClickEventListeners<T extends BaseConfig>(widgetSett
   }
 
   tiles.forEach((tile: HTMLElement) => {
-    const url = widgetSettings.click_through_url ?? ""
+    const url = click_through_url ?? ""
     const urlIsValid = urlPattern.test(url)
 
     if (urlIsValid) {

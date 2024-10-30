@@ -1,18 +1,24 @@
 import type { Sdk } from "@stackla/ugc-widgets"
-import { getConfig } from "../../widget.config"
 import { getTimephrase } from "widgets/libs/tile.lib"
 
 export default (sdk: Sdk) => {
-  const widgetContainer = sdk.placement.getWidgetContainer()
-  const widgetSettings = getConfig(widgetContainer)
   const tile = sdk.tiles.getTile()
+  const {
+    show_caption,
+    show_timestamp,
+  } = sdk.getExpandedTileConfig()
 
   if (!tile) {
     throw new Error("Failed to find expanded tile")
   }
 
-  const shopspotEnabled = sdk.isComponentLoaded("shopspots") && widgetSettings.expanded_tile_show_shopspots
-  const productsEnabled = sdk.isComponentLoaded("products") && widgetSettings.expanded_tile_show_products
+  const {
+    show_shopspots,
+    show_products,
+  } = sdk.getExpandedTileConfig()
+
+  const shopspotEnabled = sdk.isComponentLoaded("shopspots") && show_shopspots
+  const productsEnabled = sdk.isComponentLoaded("products") && show_products
   const parent = sdk.getNodeId()
   return `<div class="panel">
           <a class="exit" href="#">
@@ -67,10 +73,10 @@ export default (sdk: Sdk) => {
                                   }
                               </div>
                           </div>
-                          <div class="tile-timestamp">${tile.source_created_at && widgetSettings.expanded_tile_show_timestamp ? getTimephrase(tile.source_created_at) : ""}</div>
+                          <div class="tile-timestamp">${tile.source_created_at && show_timestamp ? getTimephrase(tile.source_created_at) : ""}</div>
                           <div class="caption">
                               <p class="caption-paragraph">${
-                                tile.message && widgetSettings.expanded_tile_show_caption ? tile.message : ""
+                                tile.message && show_caption ? tile.message : ""
                               }</p>
                               ${productsEnabled ? `<ugc-products parent="${parent}">` : ""}
                           </div>
