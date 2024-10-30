@@ -1,187 +1,159 @@
-.ugc-tiles {
-  flex-wrap: wrap;
-  display: grid;
-  gap: 10px; /* Space between blocks */
-  width: 100%; /* Fixed Width */
-  height: 600px; /* Fixed Height */
-  overflow-y: hidden;
+@use "styles";
+@use "responsive";
+
+:host {
+  transition: ease all 0.5s;
 }
 
-.tile-timephrase {
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 10px;
-  background-color: rgb(255 255 255 / 60%);
-  border-radius: 2px;
-  font-size: 12px;
-  display: var(--tile-timephrase-display);
-}
-
-.tile-image,
-.tile-video {
-  position: relative;
+#nosto-ugc-container {
   display: flex;
-  flex-flow: row nowrap;
-  justify-content: flex-start;
-  height: 220px;
-}
+  width: 100vw;
+  place-items: center;
 
-/* Style for individual blocks */
-.ugc-tile,
-.ugc-tile-wrapper {
-  align-items: center;
-  background-color: #000;
-  color: #fff;
-  border: 1px solid #ccc;
-  text-align: center;
-  font-size: 1.5em;
-  transition: transform 0.5s ease-in-out; /* Apply transition to all blocks */
-  height: 220px;
-  cursor: pointer;
-}
+  .track {
+    display: flex;
+    width: 100%;
+    place-items: center;
+    flex-direction: column;
 
-.ugc-tile img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-}
+    .container {
+      display: flex;
+      width: 80%;
+      flex-direction: column;
 
-.ugc-tile:nth-child(even) .ugc-tile-wrapper {
-  flex-direction: row-reverse; /* Swap image and text for even rows */
-}
+      .ugc-tiles {
+        display: grid;
+        gap: 10px; /* Space between blocks */
+        width: 100%; /* Fixed Width */
+        height: 600px; /* Fixed Height */
+        overflow-y: hidden;
 
-.tile-img {
-  width: 50%;
-  height: 220px;
-  position: relative;
-}
+        .ugc-tile {
+          display: grid;
+          width: 100%;
+          grid-template-columns: 50% 50%;
 
-.tile-caption {
-  height: 105px;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  width: 50%;
-  padding: 20px 10px;
-  font-size: 15px;
-  font-family: Oswald, sans-serif;
-  line-height: 1.4;
-}
+          .image-section {
+            display: flex;
+            width: 100%;
+            height: 100%;
+          }
 
-/* Small Screens: Stack all blocks vertically */
-@media (width <= 599px) {
-  .ugc-tiles {
-    grid-template-columns: 1fr;
+          .details-section {
+            display: flex;
+            flex-direction: column;
+            place-items: flex-start;
+            place-content: flex-start;
+            width: 100%;
+            height: 100%;
+            .tile-message-wrapper {
+              display: flex;
+              flex-direction: column;
+              margin: var(--margin, 10px);
+
+              > * {
+                margin-top: var(--margin, 10px);
+              }
+
+              .caption-paragraph {
+                color: #ffffff;
+                text-overflow: ellipsis;
+              }
+
+              .user-name {
+                color: #ffffff;
+                text-transform: uppercase;
+              }
+
+              .user-handle {
+                color: #ffffff;
+              }
+            }
+          }
+
+          img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+          }
+        }
+
+        /* Style for individual blocks */
+        .ugc-tile,
+        .ugc-tile-wrapper {
+          align-items: center;
+          background-color: #000;
+          color: #fff;
+          border: 1px solid #ccc;
+          font-size: 1.5em;
+          transition: transform 0.5s ease-in-out; /* Apply transition to all blocks */
+          height: 220px;
+          cursor: pointer;
+        }
+        .tile-image,
+        .tile-video {
+          position: relative;
+          flex-flow: row nowrap;
+          justify-content: flex-start;
+          height: 220px;
+        }
+      }
+
+      .ugc-tile:nth-child(even) .ugc-tile-wrapper {
+        flex-direction: row-reverse; /* Swap image and text for even rows */
+      }
+
+      /* Small Screens: Stack all blocks vertically */
+      @media (width <= 599px) {
+        .ugc-tiles {
+          grid-template-columns: 1fr;
+        }
+
+        .ugc-tile {
+          flex-direction: column; /* Stack image and text vertically on small screens */
+        }
+      }
+
+      /* Styles for Scroll Buttons */
+      .tiles-scroll-button {
+        width: 100%;
+        height: 50px;
+        display: flex;
+        place-items: center;
+        flex-direction: column;
+        cursor: pointer;
+
+        &#scrollUp,
+        &#scrollDown {
+          .widget-icon {
+            transform: rotate(90deg);
+          }
+        }
+      }
+
+      #load-more {
+        background: 0 0;
+        margin: auto;
+        padding: 12px 0;
+        text-transform: uppercase;
+        color: #525252;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0;
+        line-height: 24px;
+        text-align: center;
+        display: block;
+        cursor: pointer;
+        width: 100%;
+        border: none;
+      }
+
+      .close {
+        width: 24px;
+        height: 24px;
+        background-size: contain;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 -960 960 960' width='24'%3E%3Cpath d='m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z'/%3E%3C/svg%3E");
+      }
+    }
   }
-
-  .ugc-tile {
-    flex-direction: column; /* Stack image and text vertically on small screens */
-  }
-}
-
-/* Responsive Layout with Media Queries */
-@media (width >= 1600px) {
-  .ugc-tiles {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-@media (width >= 1400px) and (width <= 1599px) {
-  .ugc-tiles {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-@media (width >= 1200px) and (width <= 1399px) {
-  .ugc-tiles {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (width >= 992px) and (width <= 1199px) {
-  .ugc-tiles {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (width >= 768px) and (width <= 991px) {
-  .ugc-tiles {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (width >= 576px) and (width <= 767px) {
-  .ugc-tiles {
-    grid-template-columns: repeat(1, 1fr);
-  }
-}
-
-@media (width <= 575px) {
-  .ugc-tiles {
-    grid-template-columns: repeat(1, 1fr);
-  }
-}
-
-/* Styles for Scroll Buttons */
-.tiles-scroll-button {
-  border: none;
-  color: white;
-  cursor: pointer;
-  font-size: 20px;
-  margin: 10px;
-  width: 50px;
-  height: 50px;
-  background: rgb(0 0 0 / 20%);
-  border-radius: 100%;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-items: center;
-  display: inline-block;
-  line-height: 45px;
-  position: relative;
-}
-
-.tiles-scroll-button:hover {
-  background-color: #555;
-}
-
-.tiles-scroll-button .chevron-up,
-.tiles-scroll-button .chevron-down {
-  left: 12px;
-  top: 12px;
-  position: absolute;
-}
-
-.network-icon {
-  position: absolute;
-  right: 20px;
-  bottom: 20px;
-}
-
-.widget-icon {
-  display: block;
-}
-
-#load-more {
-  background: 0 0;
-  margin: auto;
-  padding: 12px 0;
-  text-transform: uppercase;
-  color: #525252;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0;
-  line-height: 24px;
-  text-align: center;
-  display: block;
-  cursor: pointer;
-  width: 100%;
-  border: none;
-}
-
-.close {
-  width: 24px;
-  height: 24px;
-  background-size: contain;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 -960 960 960' width='24'%3E%3Cpath d='m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z'/%3E%3C/svg%3E");
 }

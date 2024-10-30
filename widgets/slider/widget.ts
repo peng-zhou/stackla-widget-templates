@@ -1,11 +1,11 @@
 import { getConfig } from "./widget.config"
-import { addAutoAddTileFeature, loadExpandedTileFeature, loadTitle } from "widgets/libs/widget.features"
+import { addAutoAddTileFeature, loadTitle } from "widgets/libs/widget.features"
 import { Sdk } from "@stackla/ugc-widgets"
 import { addCSSVariablesToPlacement } from "widgets/libs/widget.layout"
-import expandedTileCSS from "./components/expanded-tile/base.scss"
 import productsCSS from "./components/products/base.scss"
-import customExpandedTileTemplate from "./components/expanded-tile/base.template"
 import getCSSVariables from "@widgets/libs/css-variables"
+import icons from "../../uikit/icon.scss"
+import { loadExpandedTileTemplates } from "@libs/components/expanded-tile-swiper"
 
 declare const sdk: Sdk
 
@@ -23,17 +23,11 @@ if (!showWidget) {
 loadTitle()
 addCSSVariablesToPlacement(getCSSVariables(widgetSettings))
 addAutoAddTileFeature(widgetSettings)
-loadExpandedTileFeature(widgetSettings, () => {
-  const ugcTilesElement = sdk.querySelector(".ugc-tiles")
+loadExpandedTileTemplates()
 
-  if (!ugcTilesElement) {
-    throw new Error("Failed to find arrows UI element")
-  }
+sdk.addEventListener("load", () => setTimeout(initListeners, 1000))
 
-  ugcTilesElement.style.display = "none"
-})
-
-sdk.addEventListener("load", () => {
+function initListeners() {
   const sliderScrollUpButton = sdk.querySelector("#scrollUp")
   const sliderScrollDownButton = sdk.querySelector("#scrollDown")
   const tileBlockElement = sdk.querySelector(".ugc-tile-wrapper")
@@ -55,7 +49,7 @@ sdk.addEventListener("load", () => {
     throw new Error("Slider Tiles Scroll Down Button not found")
   }
 
-  const blockHeight = tileBlockElement.offsetHeight ?? 220
+  const blockHeight = (tileBlockElement.offsetHeight ?? 220) + 20
 
   sliderScrollUpButton.addEventListener("click", () => {
     tilesContainer.scrollBy({
@@ -70,7 +64,7 @@ sdk.addEventListener("load", () => {
       behavior: "smooth"
     })
   })
-})
-sdk.addCSSToComponent(expandedTileCSS, "expanded-tile")
+}
+
 sdk.addCSSToComponent(productsCSS, "ugc-products")
-sdk.addTemplateToComponent(customExpandedTileTemplate, "expanded-tile")
+sdk.addSharedCssCustomStyles("icons", icons, [sdk.placement.getWidgetId(), "expanded-tiles"])
