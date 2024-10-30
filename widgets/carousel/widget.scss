@@ -25,7 +25,7 @@
 
 @include styles.breakpoint(mobile) {
   #nosto-ugc-container {
-    height: styles.$nosto-container-height !important;
+    height: auto;
     .swiper-inline {
       width: styles.$swiper-container-width-md !important;
       .swiper-slide {

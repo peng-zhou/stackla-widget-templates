@@ -26,9 +26,10 @@
   }
 }
 
-@include mixins.breakpoint(tablet) {
+@include mixins.media-query-target(tablet) {
   .swiper .swiper-wrapper {
     max-height: unset;
+    max-width: 100vw;
     height: auto;
 
     .swiper-slide {
