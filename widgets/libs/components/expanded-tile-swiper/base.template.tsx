@@ -4,10 +4,8 @@ import { createElement } from "@stackla/ugc-widgets/src/ui/core/utils/jsx-html"
 
 export function ExpandedTiles(sdk: Sdk) {
   const tiles = sdk.tiles.tiles
-  const {
-    show_nav
-  } = sdk.getExpandedTileConfig()
-  const navigationArrowsEnabled = show_nav;
+  const { show_nav } = sdk.getExpandedTileConfig()
+  const navigationArrowsEnabled = show_nav
   const isDesktopScreen = window.innerWidth > 992
 
   return (

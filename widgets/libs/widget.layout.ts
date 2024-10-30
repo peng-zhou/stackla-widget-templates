@@ -17,9 +17,7 @@ export function isEnabled() {
 }
 
 export function hasMinimumTilesRequired() {
-  const {
-    minimal_tiles
-  } = sdk.getStyleConfig()
+  const { minimal_tiles } = sdk.getStyleConfig()
   // FIXME: Make minimal_tiles number across the board
   const minimalTiles = parseInt(minimal_tiles)
 
@@ -30,9 +28,7 @@ export function hasMinimumTilesRequired() {
       return true
     }
 
-    throw new Error(
-      `Not enough tiles to render widget. Expected ${minimalTiles} but found ${tiles!.length}`
-    )
+    throw new Error(`Not enough tiles to render widget. Expected ${minimalTiles} but found ${tiles!.length}`)
   }
 
   // Feature is not enabled via user config, so we default to true.

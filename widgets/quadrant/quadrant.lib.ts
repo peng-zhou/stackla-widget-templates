@@ -90,9 +90,7 @@ export async function preloadTileImagesAndRemoveBrokenTiles(tiles: NodeListOf<HT
 }
 
 export function getQuadrantTiles() {
-  const {
-    inline_tile_size
-  } = sdk.getStyleConfig()
+  const { inline_tile_size } = sdk.getStyleConfig()
   sdk.addEventListener("moreLoad", () => {
     const tileSize = tileSizes[inline_tile_size ?? "medium"]
 

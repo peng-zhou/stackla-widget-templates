@@ -13,7 +13,7 @@ export default (sdk: Sdk) => {
 
   return (
     <Panel>
-      <PanelLeft tile={tile}/>
+      <PanelLeft tile={tile} />
       <PanelRight tile={tile} />
     </Panel>
   )

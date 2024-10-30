@@ -16,10 +16,7 @@ export function initializeInlineSwiperListeners() {
 }
 
 function initializeSwiperForInlineTiles() {
-  const {
-    enable_custom_tiles_per_page,
-    tiles_per_page
-  } = sdk.getStyleConfig();
+  const { enable_custom_tiles_per_page, tiles_per_page } = sdk.getStyleConfig()
   const widgetSelector = sdk.placement.querySelector<HTMLElement>(".swiper-inline")
 
   if (!widgetSelector) {
@@ -30,8 +27,8 @@ function initializeSwiperForInlineTiles() {
   const screenSize = window.innerWidth
   const perView = !enable_custom_tiles_per_page
     ? Math.floor(screenSize / (tileWidth + 10))
-    // FIXME: All numbers should be numbers across the board
-    : parseInt(tiles_per_page)
+    : // FIXME: All numbers should be numbers across the board
+      parseInt(tiles_per_page)
 
   sdk.tiles.setVisibleTilesCount(perView * 2)
 

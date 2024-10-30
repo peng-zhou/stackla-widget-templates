@@ -3,19 +3,13 @@ import { getTimephrase } from "widgets/libs/tile.lib"
 
 export default (sdk: Sdk) => {
   const tile = sdk.tiles.getTile()
-  const {
-    show_caption,
-    show_timestamp,
-  } = sdk.getExpandedTileConfig()
+  const { show_caption, show_timestamp } = sdk.getExpandedTileConfig()
 
   if (!tile) {
     throw new Error("Failed to find expanded tile")
   }
 
-  const {
-    show_shopspots,
-    show_products,
-  } = sdk.getExpandedTileConfig()
+  const { show_shopspots, show_products } = sdk.getExpandedTileConfig()
 
   const shopspotEnabled = sdk.isComponentLoaded("shopspots") && show_shopspots
   const productsEnabled = sdk.isComponentLoaded("products") && show_products
@@ -75,9 +69,7 @@ export default (sdk: Sdk) => {
                           </div>
                           <div class="tile-timestamp">${tile.source_created_at && show_timestamp ? getTimephrase(tile.source_created_at) : ""}</div>
                           <div class="caption">
-                              <p class="caption-paragraph">${
-                                tile.message && show_caption ? tile.message : ""
-                              }</p>
+                              <p class="caption-paragraph">${tile.message && show_caption ? tile.message : ""}</p>
                               ${productsEnabled ? `<ugc-products parent="${parent}">` : ""}
                           </div>
                           <div class="footer">

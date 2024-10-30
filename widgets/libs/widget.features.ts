@@ -76,9 +76,7 @@ export const arrowClickListener = (e: Event) => {
 }
 
 export function addAutoAddTileFeature() {
-  const {
-    auto_refresh
-  } = sdk.getStyleConfig()
+  const { auto_refresh } = sdk.getStyleConfig()
 
   // FIXME: Make auto_refresh boolean across the board
   if (Boolean(auto_refresh) === true) {
@@ -109,19 +107,14 @@ export function loadExpandedTileFeature(
   onTileRendered: () => void = () => {}
 ) {
   const widgetContainer = sdk.getStyleConfig()
-  const {
-    click_through_url
-  } = widgetContainer
+  const { click_through_url } = widgetContainer
 
   if (click_through_url === "[EXPAND]") {
     loadExpandSettingComponents()
     registerTileExpandListener(onTileExpand)
     registerTileClosedListener(onTileClosed)
     registerExpandedTileRenderedListener(onTileRendered)
-  } else if (
-    click_through_url === "[ORIGINAL_URL]" ||
-    /^https?:\/\/.+/.test(click_through_url ?? "")
-  ) {
+  } else if (click_through_url === "[ORIGINAL_URL]" || /^https?:\/\/.+/.test(click_through_url ?? "")) {
     registerTileClickEventListeners()
   }
 }
@@ -182,7 +175,7 @@ const loadMoreWrappedWithEasedLoader = () => {
 }
 
 export function addLoadMoreButtonFeature() {
-  const { load_more_type } = sdk.getStyleConfig();
+  const { load_more_type } = sdk.getStyleConfig()
   const loadMoreType = load_more_type
 
   switch (loadMoreType) {
@@ -238,10 +231,7 @@ export function disableLoadMoreLoaderIfExists() {
 }
 
 export function addTilesPerPageFeature() {
-  const {
-    enable_custom_tiles_per_page,
-    tiles_per_page
-  } = sdk.getStyleConfig()
+  const { enable_custom_tiles_per_page, tiles_per_page } = sdk.getStyleConfig()
 
   if (enable_custom_tiles_per_page) {
     // FIXME: Make tiles_per_page number across the board
