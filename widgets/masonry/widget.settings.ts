@@ -29,14 +29,14 @@ export async function loadWidgetSettings() {
   addTilesPerPageFeature()
   addLoadMoreButtonFeature()
 
-  window.refreshMasonryLayout = () => renderMasonryLayout(widgetSettings)
+  window.refreshMasonryLayout = () => renderMasonryLayout()
 
   sdk.events.listenOrFindEvent("widgetInitComplete", () => {
-    setTimeout(() => renderMasonryLayout(widgetSettings), 1000)
+    setTimeout(() => renderMasonryLayout(), 1000)
   })
 
   sdk.addEventListener("tilesUpdated", () => {
-    renderMasonryLayout(widgetSettings)
+    renderMasonryLayout()
   })
 
   sdk.addEventListener("tileBgImgRenderComplete", () => {
@@ -47,10 +47,10 @@ export async function loadWidgetSettings() {
   sdk.addEventListener("tileBgImageError", (event: Event) => {
     const customEvent = event as CustomEvent
     const tileWithError = customEvent.detail.data.target as HTMLElement
-    handleTileImageError(widgetSettings, tileWithError)
+    handleTileImageError(tileWithError)
   })
 
   window.addEventListener("resize", () => {
-    renderMasonryLayout(widgetSettings, false, true)
+    renderMasonryLayout(false, true)
   })
 }

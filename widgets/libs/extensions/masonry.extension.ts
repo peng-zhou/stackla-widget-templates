@@ -1,5 +1,4 @@
 import { Sdk } from "@stackla/ugc-widgets"
-import { IWidgetSettings } from "types"
 
 declare const sdk: Sdk
 
@@ -36,7 +35,7 @@ function getGridItemRowIds() {
   return [...new Set(allRowIds)]
 }
 
-export function handleTileImageError(widgetSettings: IWidgetSettings, tileWithError: HTMLElement) {
+export function handleTileImageError(tileWithError: HTMLElement) {
   const errorTileRowIdString = tileWithError.getAttribute("row-id")
 
   tileWithError.classList.remove("grid-item")
@@ -63,7 +62,7 @@ export function handleTileImageError(widgetSettings: IWidgetSettings, tileWithEr
   widths = []
   rowIndex = errorTileRowId
 
-  resizeTiles(matchedGridItems, widgetSettings)
+  resizeTiles(matchedGridItems)
 }
 
 function getPartitionWidth(min: number, max: number) {
@@ -140,7 +139,7 @@ export function generateRandomPartitions(screenWidth: number, margin: number, mi
   return adjustMarginFromPartitions(partitions, margin)
 }
 
-export function renderMasonryLayout(widgetSettings: IWidgetSettings, reset = false, resize = false) {
+export function renderMasonryLayout(reset = false, resize = false) {
   if (resize || reset) {
     widths = []
     rowIndex = 0
@@ -172,10 +171,14 @@ export function renderMasonryLayout(widgetSettings: IWidgetSettings, reset = fal
   const allTiles = Array.from(sdk.querySelectorAll<HTMLElement>(".grid-item") ?? [])
   const ugcTiles = reset || resize ? allTiles : allTiles.filter(tile => tile.getAttribute("width-set") !== "true")
 
-  resizeTiles(ugcTiles, widgetSettings)
+  resizeTiles(ugcTiles)
 }
 
-function resizeTiles(ugcTiles: HTMLElement[], widgetSettings: IWidgetSettings) {
+function resizeTiles(ugcTiles: HTMLElement[]) {
+  const {
+    margin
+  } = sdk.getStyleConfig()
+
   // If no unprocessed UGC tiles, exit
   if (!ugcTiles || ugcTiles.length === 0) {
     return
@@ -185,7 +188,8 @@ function resizeTiles(ugcTiles: HTMLElement[], widgetSettings: IWidgetSettings) {
     // If widths array is empty, regenerate new partitions
     if (!widths.length) {
       rowIndex += 1
-      widths = generateRandomPartitions(screenWidth, widgetSettings.margin ?? 0)
+      // FIXME: Make margin number across the board
+      widths = generateRandomPartitions(screenWidth, parseInt(margin) ?? 0)
     }
 
     // Pop the next width from the array
