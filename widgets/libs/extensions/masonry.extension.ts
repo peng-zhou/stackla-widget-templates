@@ -175,9 +175,7 @@ export function renderMasonryLayout(reset = false, resize = false) {
 }
 
 function resizeTiles(ugcTiles: HTMLElement[]) {
-  const {
-    margin
-  } = sdk.getStyleConfig()
+  const { margin } = sdk.getStyleConfig()
 
   // If no unprocessed UGC tiles, exit
   if (!ugcTiles || ugcTiles.length === 0) {
