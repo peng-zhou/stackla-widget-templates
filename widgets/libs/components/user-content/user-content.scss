@@ -1,3 +1,23 @@
+$load-more-margin: 20px;
+
+#buttons {
+  display: flex;
+  place-content: center;
+  margin-top: $load-more-margin;
+  margin-bottom: $load-more-margin;
+  .load-more {
+    display: flex;
+  }
+}
+
+.tile-timephrase {
+  color: #b9bab9;
+  border-radius: 2px;
+  font-size: 14px;
+  font-weight: 400;
+  display: var(--tile-timephrase-display);
+}
+
 .caption-paragraph {
   color: var(--text-tile-font-color);
   font-size: var(--text-tile-font-size);

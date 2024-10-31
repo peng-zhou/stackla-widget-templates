@@ -6,6 +6,9 @@ import productsCSS from "./components/products/base.scss"
 import getCSSVariables from "@widgets/libs/css-variables"
 import icons from "../../uikit/icon.scss"
 import { loadExpandedTileTemplates } from "@libs/components/expanded-tile-swiper"
+import userContentOverrides from "./user-content-overrides.scss"
+
+import "@libs/components/user-content"
 
 declare const sdk: Sdk
 

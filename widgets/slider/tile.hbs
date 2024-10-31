@@ -26,11 +26,8 @@
 </div>
 <div class="details-section">
     <div class="tile-message-wrapper">
-        <div class="user-name">{{name}}</div>
-        <span class="tile-timephrase">{{time_ago}}</span>
-        <div class="caption-paragraph">
-            {{message}}
-        </div>
+        <user-content avatar="{{avatar}}" user="{{user}}" original-url="{{original_url}}" message="{{message}}"
+            source-created-at="{{source_created_at}}" />
         <div class="tile">
             <ul class="tile-tags">
                 {{#tags_extended}}
