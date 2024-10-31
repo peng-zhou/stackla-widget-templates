@@ -1,4 +1,4 @@
-import { Sdk } from "@stackla/ugc-widgets"
+import { ISdk } from "@stackla/public-types"
 import getCSSVariables from "@widgets/libs/css-variables"
 import {
   loadTitle,
@@ -19,7 +19,7 @@ import {
   renderMasonryLayout
 } from "@widgets/libs/extensions/masonry.extension"
 
-declare const sdk: Sdk
+declare const sdk: ISdk
 
 export async function loadWidgetSettings() {
   loadTitle()

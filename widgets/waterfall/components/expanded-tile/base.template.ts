@@ -1,7 +1,7 @@
-import type { Sdk } from "@stackla/ugc-widgets"
+import type { ISdk } from "@stackla/public-types"
 import { getTimephrase } from "widgets/libs/tile.lib"
 
-export default (sdk: Sdk) => {
+export default (sdk: ISdk) => {
   const tile = sdk.tiles.getTile()
 
   if (!tile) {

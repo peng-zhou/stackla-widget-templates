@@ -1,12 +1,12 @@
 import { addAutoAddTileFeature, loadExpandedTileFeature, loadTitle } from "widgets/libs/widget.features"
-import { Sdk } from "@stackla/ugc-widgets"
+import { ISdk } from "@stackla/public-types"
 import { addCSSVariablesToPlacement } from "widgets/libs/widget.layout"
 import expandedTileCSS from "./components/expanded-tile/base.scss"
 import productsCSS from "./components/products/base.scss"
 import customExpandedTileTemplate from "./components/expanded-tile/base.template"
 import getCSSVariables from "@widgets/libs/css-variables"
 
-declare const sdk: Sdk
+declare const sdk: ISdk
 
 sdk.tiles.hideBrokenTiles = true
 sdk.tiles.preloadImages = true

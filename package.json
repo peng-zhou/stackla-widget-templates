@@ -61,7 +61,8 @@
     "stylelint-scss": "^6.5.0",
     "swc-loader": "^0.2.6",
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.0"
+    "typescript": "^5.5.0",
+    "@stackla/public-types": "^1.0.10"
   },
   "dependencies": {
     "@appnest/masonry-layout": "^2.2.3",

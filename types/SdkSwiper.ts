@@ -1,4 +1,4 @@
-import type { Sdk } from "@stackla/ugc-widgets"
+import type { ISdk } from "@stackla/public-types"
 import Swiper from "swiper"
 import { SwiperOptions } from "swiper/types"
 
@@ -20,6 +20,6 @@ export type SwiperData = {
   pageIndex: number
 }
 
-export type SdkSwiper = Sdk & {
+export type SdkSwiper = ISdk & {
   [id: string]: SwiperData | undefined
 }

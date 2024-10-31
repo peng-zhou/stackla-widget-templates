@@ -2,14 +2,14 @@ import { ExpandedTiles } from "./base.template"
 import expandedTileStyle from "./base.scss"
 import swiperExpandedStyles from "@libs/extensions/swiper/swiper-expanded.scss"
 import tileTagStyles from "@libs/templates/tags/tags.scss"
-import { Sdk } from "@stackla/ugc-widgets"
+import { ISdk } from "@stackla/public-types"
 import shareMenuStyle from "@libs/templates/share-menu/share-menu.scss"
 import addToCartStyleOverrides from "./add-to-cart.scss"
 import productStyleOverrides from "./products.scss"
 import { loadSwiperStyles } from "@widgets/libs/extensions/swiper"
 import icons from "../../../../uikit/icon.scss"
 
-declare const sdk: Sdk
+declare const sdk: ISdk
 
 export function loadExpandedTileTemplates() {
   sdk.addCSSToComponent(expandedTileStyle, "expanded-tiles")

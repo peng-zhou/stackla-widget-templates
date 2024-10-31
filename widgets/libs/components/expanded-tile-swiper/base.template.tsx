@@ -1,8 +1,8 @@
-import type { Sdk } from "@stackla/ugc-widgets"
+import type { ISdk } from "@stackla/public-types"
 import { ExpandedTile } from "./tile.template"
 import { createElement } from "@stackla/ugc-widgets/src/ui/core/utils/jsx-html"
 
-export function ExpandedTiles(sdk: Sdk) {
+export function ExpandedTiles(sdk: ISdk) {
   const tiles = sdk.tiles.tiles
   const { show_nav } = sdk.getExpandedTileConfig()
   const navigationArrowsEnabled = show_nav

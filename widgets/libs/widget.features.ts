@@ -1,4 +1,4 @@
-import type { Sdk, Tile } from "@stackla/ugc-widgets"
+import type { ISdk, Tile } from "@stackla/public-types"
 import { loadExpandSettingComponents } from "./widget.components"
 import {
   registerExpandedTileRenderedListener,
@@ -9,7 +9,7 @@ import {
 import { isEnabled } from "./widget.layout"
 import { useInfiniteScroller } from "@stackla/ugc-widgets"
 
-declare const sdk: Sdk
+declare const sdk: ISdk
 
 export const getNextNavigatedTile = (currentTile: Tile, enabledTiles: HTMLElement[], direction: string) => {
   const currentIndex = enabledTiles.findIndex((tile: HTMLElement) => tile.getAttribute("data-id") === currentTile.id)
@@ -198,6 +198,7 @@ export function addLoadMoreButtonFeature() {
         loadMoreLoader.classList.add("hidden")
       })
 
+      // @ts-expect-error useInfiniteScroller is currently using SDK interface, from ugc-widgets, but when we migrate it to hooks, it will be using ISDK
       useInfiniteScroller(sdk, window, loadMoreWrappedWithEasedLoader)
       break
     case "static":

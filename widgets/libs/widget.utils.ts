@@ -1,6 +1,6 @@
-import { Sdk } from "@stackla/ugc-widgets"
+import { ISdk } from "@stackla/public-types"
 
-declare const sdk: Sdk
+declare const sdk: ISdk
 
 export function waitForElement(selector: string, timeout: number = 5000): Promise<Element> {
   return new Promise((resolve, reject) => {

@@ -1,6 +1,6 @@
-import type { Sdk } from "@stackla/ugc-widgets"
+import type { ISdk } from "@stackla/public-types"
 
-declare const sdk: Sdk
+declare const sdk: ISdk
 
 export function loadExpandSettingComponents() {
   const { show_shopspots, show_products, show_add_to_cart } = sdk.getExpandedTileConfig()

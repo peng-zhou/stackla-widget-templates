@@ -1,6 +1,6 @@
-import type { Sdk, Tile } from "@stackla/ugc-widgets"
+import type { ISdk, Tile } from "@stackla/public-types"
 
-declare const sdk: Sdk
+declare const sdk: ISdk
 
 export function handleTileClick(e: Event, widgetUrl: string) {
   const ugcTiles = sdk.tiles.tiles

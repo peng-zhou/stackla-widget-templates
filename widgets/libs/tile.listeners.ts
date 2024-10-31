@@ -1,7 +1,7 @@
-import type { Sdk } from "@stackla/ugc-widgets"
+import type { ISdk } from "@stackla/public-types"
 import { handleTileClick } from "./tile.lib"
 
-declare const sdk: Sdk
+declare const sdk: ISdk
 
 type Callback = (args: unknown) => void
 

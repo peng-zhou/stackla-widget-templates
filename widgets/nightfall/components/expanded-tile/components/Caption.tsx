@@ -1,10 +1,10 @@
 import { createElement, createFragment } from "jsx-html"
-import { Sdk, Tile } from "@stackla/ugc-widgets"
 import { ExpandedTileProps } from "../../../types/ExpandedTileProps"
 import { Tags } from "@libs/templates/tags/tags.lib"
 import Timestamp from "./Timestamp"
+import { ISdk, Tile } from "@stackla/public-types"
 
-declare const sdk: Sdk
+declare const sdk: ISdk
 
 export function isCaptionEnabled(tile: Tile) {
   const { show_caption } = sdk.getExpandedTileConfig()

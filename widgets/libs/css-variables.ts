@@ -1,6 +1,6 @@
-import { Sdk } from "@stackla/ugc-widgets"
+import type { ISdk } from "@stackla/public-types"
 
-declare const sdk: Sdk
+declare const sdk: ISdk
 
 export function getTileSizeByWidget(): string {
   const style = sdk.getStyleConfig()

@@ -7,7 +7,7 @@ import {
 } from "widgets/libs/widget.features"
 import { addCSSVariablesToPlacement } from "widgets/libs/widget.layout"
 import getCSSVariables from "widgets/libs/css-variables"
-import { Sdk } from "@stackla/ugc-widgets"
+import { ISdk } from "@stackla/public-types"
 import { initializeInlineSwiperListeners } from "./inline-swiper.loader"
 import {
   onTileClosed,
@@ -16,7 +16,7 @@ import {
 } from "@libs/components/expanded-tile-swiper/expanded-swiper.loader"
 import { onExpandedTileCrossSellersRendered } from "@libs/components/expanded-tile-swiper/product-recs-swiper.loader"
 
-declare const sdk: Sdk
+declare const sdk: ISdk
 
 export function loadSettings() {
   sdk.tiles.preloadImages = true

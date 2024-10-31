@@ -1,5 +1,5 @@
 import Caption, { isCaptionEnabled } from "./Caption"
-import { Tile } from "@stackla/ugc-widgets"
+import { Tile } from "@stackla/public-types"
 import { createElement } from "jsx-html"
 import tiles from "../../../../../tests/fixtures/tiles"
 

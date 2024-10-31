@@ -1,9 +1,9 @@
-import { Sdk } from "@stackla/ugc-widgets"
+import { ISdk } from "@stackla/public-types"
 import swiperFont from "./font.scss"
 import swiperCommon from "./overrides.scss"
 import swiperBundleCss from "swiper/swiper-bundle.css"
 
-declare const sdk: Sdk
+declare const sdk: ISdk
 
 export function loadSwiperStyles() {
   // some of the css styles are inherited across the shadow DOM components

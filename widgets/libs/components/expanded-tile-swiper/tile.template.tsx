@@ -1,12 +1,12 @@
-import type { Sdk } from "@stackla/ugc-widgets"
-import { Tile } from "@stackla/ugc-widgets"
+import type { ISdk } from "@stackla/public-types"
+import { Tile } from "@stackla/public-types"
 import { getTimephrase } from "@libs/tile.lib"
 import { createElement, createFragment } from "jsx-html"
 import { Tags } from "@libs/templates/tags/tags.lib"
 import { ShareMenu } from "@libs/templates/share-menu/share-menu.lib"
 
 export type ExpandedTileProps = {
-  sdk: Sdk
+  sdk: ISdk
   tile: Tile
 }
 

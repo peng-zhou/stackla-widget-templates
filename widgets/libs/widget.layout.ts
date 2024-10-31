@@ -1,6 +1,6 @@
-import type { Sdk } from "@stackla/ugc-widgets"
+import type { ISdk } from "@stackla/public-types"
 
-declare const sdk: Sdk
+declare const sdk: ISdk
 export function addCSSVariablesToPlacement(cssVariables: string) {
   const shadowRoot = sdk.placement.getShadowRoot()
   const style = document.createElement("style")

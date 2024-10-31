@@ -12,9 +12,9 @@ import productsCSS from "./components/products/base.scss"
 import shopspotStyle from "./components/shopspot-icon/base.scss"
 import customExpandedTileTemplate from "./components/expanded-tile/base.template"
 import getCSSVariables from "widgets/libs/css-variables"
-import { Sdk } from "@stackla/ugc-widgets"
+import { ISdk } from "@stackla/public-types"
 
-declare const sdk: Sdk
+declare const sdk: ISdk
 
 sdk.tiles.hideBrokenTiles = true
 sdk.tiles.preloadImages = true

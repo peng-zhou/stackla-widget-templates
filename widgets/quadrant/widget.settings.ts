@@ -1,4 +1,4 @@
-import { Sdk } from "@stackla/ugc-widgets"
+import { ISdk } from "@stackla/public-types"
 import getCSSVariables from "@widgets/libs/css-variables"
 import {
   loadTitle,
@@ -13,7 +13,7 @@ import {
   onTileRendered
 } from "@libs/components/expanded-tile-swiper/expanded-swiper.loader"
 
-declare const sdk: Sdk
+declare const sdk: ISdk
 
 export function loadWidgetSettings() {
   sdk.tiles.preloadImages = false

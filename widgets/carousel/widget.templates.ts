@@ -1,8 +1,8 @@
 import { loadExpandedTileTemplates } from "@libs/components/expanded-tile-swiper"
 import { loadShopspotTemplates } from "./components/shopspot-icon"
-import { Sdk } from "@stackla/ugc-widgets"
+import { ISdk } from "@stackla/public-types"
 
-declare const sdk: Sdk
+declare const sdk: ISdk
 
 export function loadCustomisation() {
   loadExpandedTileTemplates()

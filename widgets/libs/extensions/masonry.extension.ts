@@ -1,6 +1,6 @@
-import { Sdk } from "@stackla/ugc-widgets"
+import { ISdk } from "@stackla/public-types"
 
-declare const sdk: Sdk
+declare const sdk: ISdk
 
 let widths: number[] = []
 let rowIndex = 0

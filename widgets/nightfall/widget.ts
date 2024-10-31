@@ -1,4 +1,4 @@
-declare const sdk: Sdk
+declare const sdk: ISdk
 
 import {
   addAutoAddTileFeature,
@@ -16,7 +16,7 @@ import shopspotStyle from "./components/shopspot-icon/base.scss"
 import getCSSVariables from "../libs/css-variables"
 import { addCSSVariablesToPlacement } from "widgets/libs/widget.layout"
 import { onTileClose } from "./widget.listeners"
-import { Sdk } from "@stackla/ugc-widgets"
+import { ISdk } from "@stackla/public-types"
 
 sdk.tiles.hideBrokenTiles = true
 sdk.tiles.preloadImages = true

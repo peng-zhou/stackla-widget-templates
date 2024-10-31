@@ -1,4 +1,4 @@
-import { Tile } from "@stackla/ugc-widgets"
+import { Tile } from "@stackla/public-types"
 import { createElement } from "jsx-html"
 
 export function ShareMenu({ tile }: { tile: Tile }) {
