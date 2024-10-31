@@ -3,7 +3,6 @@ import { Tile } from "@stackla/ugc-widgets"
 import { getTimephrase } from "@libs/tile.lib"
 import { createElement, createFragment } from "jsx-html"
 import { Tags } from "@libs/templates/tags/tags.lib"
-import { getConfig } from "@widgets/carousel/widget.config"
 import { ShareMenu } from "@libs/templates/share-menu/share-menu.lib"
 
 export type ExpandedTileProps = {
@@ -18,16 +17,15 @@ type ShopspotProps = {
 }
 
 export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
-  const widgetContainer = sdk.placement.getWidgetContainer()
-  const widgetSettings = getConfig(widgetContainer)
-  const shopspotEnabled =
-    sdk.isComponentLoaded("shopspots") && widgetSettings.expanded_tile_show_shopspots && !!tile.hotspots?.length
-  const productsEnabled =
-    sdk.isComponentLoaded("products") && widgetSettings.expanded_tile_show_products && !!tile.tags_extended?.length
-  const tagsEnabled = widgetSettings.expanded_tile_show_tags
-  const sharingToolsEnabled = widgetSettings.expanded_tile_show_sharing
-  const timestampEnabled = widgetSettings.expanded_tile_show_timestamp
-  const captionsEnabled = widgetSettings.expanded_tile_show_caption
+  const { show_shopspots, show_products, show_tags, show_sharing, show_timestamp, show_caption } =
+    sdk.getExpandedTileConfig()
+
+  const shopspotEnabled = sdk.isComponentLoaded("shopspots") && show_shopspots && !!tile.hotspots?.length
+  const productsEnabled = sdk.isComponentLoaded("products") && show_products && !!tile.tags_extended?.length
+  const tagsEnabled = show_tags
+  const sharingToolsEnabled = show_sharing
+  const timestampEnabled = show_timestamp
+  const captionsEnabled = show_caption
 
   const parent = sdk.getNodeId()
 

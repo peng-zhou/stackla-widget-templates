@@ -1,5 +1,6 @@
 export default {
-  widgetConfig: {
+  enabled: true,
+  config: {
     lightbox: {
       apply_custom_sharing_title_on_miss_title: false,
       disable_short_url: false,
@@ -40,7 +41,7 @@ export default {
       show_claim_button_on_tags: []
     }
   },
-  widgetStyle: {
+  style: {
     auto_refresh: "1",
     click_through_url: "[EXPAND]",
     enable_custom_tiles_per_page: false,

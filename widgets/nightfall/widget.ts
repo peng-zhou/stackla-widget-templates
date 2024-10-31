@@ -1,6 +1,5 @@
 declare const sdk: Sdk
 
-import { getConfig } from "./widget.config"
 import {
   addAutoAddTileFeature,
   addLoadMoreButtonFeature,
@@ -22,17 +21,14 @@ import { Sdk } from "@stackla/ugc-widgets"
 sdk.tiles.hideBrokenTiles = true
 sdk.tiles.preloadImages = true
 
-const widgetContainer = sdk.placement.getWidgetContainer()
-const widgetSettings = getConfig(widgetContainer)
-
-loadWidgetIsEnabled(widgetSettings)
+loadWidgetIsEnabled()
 loadTitle()
-loadExpandSettingComponents(widgetSettings)
-addAutoAddTileFeature(widgetSettings)
-loadExpandedTileFeature(widgetSettings, () => {}, onTileClose)
-addTilesPerPageFeature(widgetSettings)
-addLoadMoreButtonFeature(widgetSettings)
-addCSSVariablesToPlacement(getCSSVariables(widgetSettings))
+loadExpandSettingComponents()
+addAutoAddTileFeature()
+loadExpandedTileFeature(() => {}, onTileClose)
+addTilesPerPageFeature()
+addLoadMoreButtonFeature()
+addCSSVariablesToPlacement(getCSSVariables())
 
 sdk.addCSSToComponent(customExpandedTileCSS, "expanded-tile")
 sdk.addCSSToComponent(customProductsCSS, "ugc-products")

@@ -1,77 +1,63 @@
-import { BaseConfig } from "types/IBaseConfig"
-import getCSSVariables from "../libs/css-variables"
+import getCSSVariables, { getTileSizeByWidget } from "./css-variables" // Replace with the correct module path
 
-describe("getCSSVariables", () => {
-  it("should return CSS variables string with provided settings", () => {
-    const widgetSettings: BaseConfig = {
-      widget_background: "ffffff",
-      text_tile_background: "f0f0f0",
-      text_tile_font_color: "333333",
-      text_tile_link_color: "007acc",
-      text_tile_user_name_font_color: "444444",
-      text_tile_user_handle_font_color: "555555",
-      text_tile_tag_font_color: "201C1F",
-      shopspot_btn_background: "ff9900",
-      shopspot_btn_font_color: "000000",
-      max_tile_width: 500,
-      margin: 10,
-      text_tile_font_size: 14,
-      text_tile_user_name_font_size: 16,
-      text_tile_user_handle_font_size: 12,
-      tags_gap: 4,
-      show_caption: true,
-      shopspot_icon: "http://example.com/icon.png",
-      tiles_per_page: 4,
-      enable_custom_tiles_per_page: false,
-      click_through_url: undefined,
-      auto_refresh: true,
-      expanded_tile_show_add_to_cart: false,
-      expanded_tile_show_products: false,
-      expanded_tile_show_shopspots: false,
-      expanded_tile_show_navigation_arrows: true,
-      inline_tile_show_timestamps: false,
-      tile_tag_background: "D6D4D5",
-      tile_tag_inline_background: "00000066",
-      cta_button_background_color: "000000",
-      cta_button_font_color: "ffffff",
-      cta_button_font_size: 14,
-      expanded_tile_border_radius: 5
-    }
+// Mock sdk object globally
+const sdk = {
+  getStyleConfig: jest.fn(),
+  getInlineTileConfig: jest.fn()
+}
 
-    expect(getCSSVariables(widgetSettings)).toMatchSnapshot()
+// @ts-expect-error global properties are not typed
+global.sdk = sdk
+
+describe("Widget Functions", () => {
+  // Tests for getTileSizeByWidget
+  describe("getTileSizeByWidget", () => {
+    it("should return medium size when inline_tile_size is not defined", () => {
+      sdk.getStyleConfig.mockReturnValue({})
+
+      const result = getTileSizeByWidget()
+      expect(result).toBe("265.5px")
+    })
+
+    it("should return correct tile size based on inline_tile_size", () => {
+      sdk.getStyleConfig.mockReturnValue({ inline_tile_size: "small" })
+      expect(getTileSizeByWidget()).toBe("173px")
+
+      sdk.getStyleConfig.mockReturnValue({ inline_tile_size: "medium" })
+      expect(getTileSizeByWidget()).toBe("265.5px")
+
+      sdk.getStyleConfig.mockReturnValue({ inline_tile_size: "large" })
+      expect(getTileSizeByWidget()).toBe("400px")
+    })
   })
+  // Tests for getCSSVariables
+  describe("getCSSVariables", () => {
+    it("should return the correct CSS variables", () => {
+      sdk.getStyleConfig.mockReturnValue({
+        widget_background: "ffffff",
+        text_tile_background: "000000",
+        text_tile_font_color: "333333",
+        text_tile_link_color: "ff0000",
+        text_tile_user_name_font_color: "0000ff",
+        text_tile_user_handle_font_color: "00ff00",
+        shopspot_btn_background: "ff00ff",
+        shopspot_btn_font_color: "00ffff",
+        margin: 10,
+        text_tile_font_size: 16,
+        text_tile_user_name_font_size: 16,
+        text_tile_user_handle_font_size: null,
+        shopspot_icon: null,
+        expanded_tile_border_radius: 5
+      })
 
-  it("should return CSS variables string with default margin and show_caption as none", () => {
-    const widgetSettings: BaseConfig = {
-      widget_background: "ffffff",
-      text_tile_background: "f0f0f0",
-      text_tile_font_color: "333333",
-      text_tile_link_color: "007acc",
-      text_tile_user_name_font_color: "444444",
-      text_tile_user_handle_font_color: "555555",
-      text_tile_tag_font_color: "201C1F",
-      shopspot_btn_background: "ff9900",
-      shopspot_btn_font_color: "000000",
-      max_tile_width: 500,
-      text_tile_font_size: 14,
-      text_tile_user_name_font_size: 16,
-      tiles_per_page: 4,
-      enable_custom_tiles_per_page: false,
-      click_through_url: undefined,
-      auto_refresh: true,
-      expanded_tile_show_add_to_cart: false,
-      expanded_tile_show_products: false,
-      expanded_tile_show_shopspots: false,
-      expanded_tile_show_navigation_arrows: true,
-      inline_tile_show_timestamps: true,
-      tile_tag_background: "D6D4D5",
-      tile_tag_inline_background: "00000066",
-      cta_button_background_color: "000000",
-      cta_button_font_color: "ffffff",
-      cta_button_font_size: 14,
-      expanded_tile_border_radius: 5
-    }
+      sdk.getInlineTileConfig.mockReturnValue({
+        show_timestamp: true,
+        show_caption: false
+      })
 
-    expect(getCSSVariables(widgetSettings)).toMatchSnapshot()
+      // Check if the generated CSS variables match the snapshot
+      const cssVariables = getCSSVariables()
+      expect(cssVariables).toMatchSnapshot()
+    })
   })
 })

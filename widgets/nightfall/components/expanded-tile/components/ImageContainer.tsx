@@ -1,12 +1,12 @@
 import { createElement, createFragment } from "jsx-html"
 import { Sdk } from "@stackla/ugc-widgets"
 import { ExpandedTileProps } from "../../../types/ExpandedTileProps"
-import { IWidgetSettings } from "types/IWidgetSettings"
 
 declare const sdk: Sdk
 
-export function Shopspots({ widgetSettings }: { widgetSettings: IWidgetSettings }) {
-  const shopspotEnabled = sdk.isComponentLoaded("shopspots") && widgetSettings.expanded_tile_show_shopspots
+export function Shopspots() {
+  const { show_shopspots } = sdk.getExpandedTileConfig()
+  const shopspotEnabled = sdk.isComponentLoaded("shopspots") && show_shopspots
   const parent = sdk.getNodeId()
 
   if (!shopspotEnabled) {
@@ -21,13 +21,13 @@ export function Shopspots({ widgetSettings }: { widgetSettings: IWidgetSettings 
   )
 }
 
-export default ({ tile, widgetSettings }: ExpandedTileProps) => {
+export default ({ tile }: ExpandedTileProps) => {
   return (
     <>
       <div className="image-wrapper">
         <div className="image-wrapper-inner">
           <div className="image">
-            <Shopspots widgetSettings={widgetSettings} />
+            <Shopspots />
             {tile.image ? <img alt="UGC Image" className="image-element" src={tile.image} /> : <></>}
           </div>
         </div>

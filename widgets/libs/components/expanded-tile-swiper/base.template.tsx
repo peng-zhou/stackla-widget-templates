@@ -1,13 +1,11 @@
 import type { Sdk } from "@stackla/ugc-widgets"
 import { ExpandedTile } from "./tile.template"
 import { createElement } from "@stackla/ugc-widgets/src/ui/core/utils/jsx-html"
-import { getConfig } from "@widgets/carousel/widget.config"
 
 export function ExpandedTiles(sdk: Sdk) {
   const tiles = sdk.tiles.tiles
-  const widgetContainer = sdk.placement.getWidgetContainer()
-  const widgetSettings = getConfig(widgetContainer)
-  const navigationArrowsEnabled = widgetSettings.expanded_tile_show_navigation_arrows
+  const { show_nav } = sdk.getExpandedTileConfig()
+  const navigationArrowsEnabled = show_nav
   const isDesktopScreen = window.innerWidth > 992
 
   return (

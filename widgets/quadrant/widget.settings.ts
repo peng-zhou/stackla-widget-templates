@@ -7,7 +7,6 @@ import {
   addLoadMoreButtonFeature
 } from "@widgets/libs/widget.features"
 import { addCSSVariablesToPlacement } from "@widgets/libs/widget.layout"
-import { getConfig } from "./widget.config"
 import {
   onTileExpand,
   onTileClosed,
@@ -17,15 +16,12 @@ import {
 declare const sdk: Sdk
 
 export function loadWidgetSettings() {
-  const widgetContainer = sdk.placement.getWidgetContainer()
-  const widgetSettings = getConfig(widgetContainer)
-
   sdk.tiles.preloadImages = false
   sdk.tiles.hideBrokenTiles = false
 
   loadTitle()
-  addCSSVariablesToPlacement(getCSSVariables(widgetSettings))
-  addAutoAddTileFeature(widgetSettings)
-  loadExpandedTileFeature(widgetSettings, onTileExpand, onTileClosed, onTileRendered)
-  addLoadMoreButtonFeature(widgetSettings)
+  addCSSVariablesToPlacement(getCSSVariables())
+  addAutoAddTileFeature()
+  loadExpandedTileFeature(onTileExpand, onTileClosed, onTileRendered)
+  addLoadMoreButtonFeature()
 }

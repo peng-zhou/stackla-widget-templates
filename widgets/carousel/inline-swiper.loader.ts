@@ -1,5 +1,4 @@
-import { IWidgetSettings, SdkSwiper } from "types"
-import { getConfig } from "./widget.config"
+import { SdkSwiper } from "types"
 import { initializeSwiper, refreshSwiper } from "@libs/extensions/swiper/swiper.extension"
 import { enableTileImages } from "@libs/extensions/swiper/loader.extension"
 import Swiper from "swiper"
@@ -7,19 +6,17 @@ import Swiper from "swiper"
 declare const sdk: SdkSwiper
 
 export function initializeInlineSwiperListeners() {
-  const widgetContainer = sdk.placement.getWidgetContainer()
-  const widgetSettings = getConfig(widgetContainer)
-
   const swiper = sdk.querySelector(".swiper-inline")
 
   if (!swiper) {
     throw new Error("Failed to find swiper element")
   }
 
-  initializeSwiperForInlineTiles(widgetSettings)
+  initializeSwiperForInlineTiles()
 }
 
-function initializeSwiperForInlineTiles(widgetSettings: IWidgetSettings) {
+function initializeSwiperForInlineTiles() {
+  const { enable_custom_tiles_per_page, tiles_per_page } = sdk.getStyleConfig()
   const widgetSelector = sdk.placement.querySelector<HTMLElement>(".swiper-inline")
 
   if (!widgetSelector) {
@@ -28,9 +25,10 @@ function initializeSwiperForInlineTiles(widgetSettings: IWidgetSettings) {
 
   const tileWidth = 210
   const screenSize = window.innerWidth
-  const perView = !widgetSettings.enable_custom_tiles_per_page
+  const perView = !enable_custom_tiles_per_page
     ? Math.floor(screenSize / (tileWidth + 10))
-    : widgetSettings.tiles_per_page
+    : // FIXME: All numbers should be numbers across the board
+      parseInt(tiles_per_page)
 
   sdk.tiles.setVisibleTilesCount(perView * 2)
 

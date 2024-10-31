@@ -1,8 +1,6 @@
 import type { Sdk } from "@stackla/ugc-widgets"
-import { BaseConfig } from "types/IBaseConfig"
 
 declare const sdk: Sdk
-
 export function addCSSVariablesToPlacement(cssVariables: string) {
   const shadowRoot = sdk.placement.getShadowRoot()
   const style = document.createElement("style")
@@ -13,21 +11,24 @@ export function addCSSVariablesToPlacement(cssVariables: string) {
   shadowRoot.appendChild(style)
 }
 
-export function isEnabled<T extends BaseConfig>(widgetSettings: T) {
-  return widgetSettings.enabled && hasMinimumTilesRequired(widgetSettings)
+export function isEnabled() {
+  const { enabled } = sdk.getWidgetOptions()
+  return enabled && hasMinimumTilesRequired()
 }
 
-export function hasMinimumTilesRequired<T extends BaseConfig>(widgetSettings: T) {
-  if (widgetSettings.minimal_tiles && widgetSettings.minimal_tiles > 0) {
+export function hasMinimumTilesRequired() {
+  const { minimal_tiles } = sdk.getStyleConfig()
+  // FIXME: Make minimal_tiles number across the board
+  const minimalTiles = parseInt(minimal_tiles)
+
+  if (minimalTiles && minimalTiles > 0) {
     const tiles = sdk.querySelectorAll(".ugc-tile")
 
-    if (tiles && tiles.length >= widgetSettings.minimal_tiles) {
+    if (tiles && tiles.length >= minimalTiles) {
       return true
     }
 
-    throw new Error(
-      `Not enough tiles to render widget. Expected ${widgetSettings.minimal_tiles} but found ${tiles!.length}`
-    )
+    throw new Error(`Not enough tiles to render widget. Expected ${minimalTiles} but found ${tiles!.length}`)
   }
 
   // Feature is not enabled via user config, so we default to true.

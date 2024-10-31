@@ -1,11 +1,11 @@
 import { createElement, createFragment } from "jsx-html"
 import tiles from "../../../../../tests/fixtures/tiles"
-import { IWidgetSettings } from "types/IWidgetSettings"
 import ImageContainer, { Shopspots } from "./ImageContainer"
 
 const mockSdk = {
   isComponentLoaded: jest.fn(),
-  getNodeId: jest.fn()
+  getNodeId: jest.fn(),
+  getExpandedTileConfig: jest.fn(() => ({ show_shopspots: true }))
 }
 
 mockSdk.isComponentLoaded.mockReturnValue(true)
@@ -15,15 +15,15 @@ global.sdk = mockSdk
 
 describe("Test shopspot logic", () => {
   test("returns shopspot components when shopspot is enabled", () => {
-    const widgetSettings = { expanded_tile_show_shopspots: true } as IWidgetSettings
-    const shopspots = <Shopspots widgetSettings={widgetSettings} />
+    mockSdk.getExpandedTileConfig.mockReturnValue({ show_shopspots: true })
+    const shopspots = <Shopspots />
 
     expect(shopspots).not.toBeInstanceOf(DocumentFragment)
   })
 
   test("returns empty fragment when shopspot is disabled", () => {
-    const widgetSettings = { expanded_tile_show_shopspots: false } as IWidgetSettings
-    const shopspots = <Shopspots widgetSettings={widgetSettings} />
+    mockSdk.getExpandedTileConfig.mockReturnValue({ show_shopspots: false })
+    const shopspots = <Shopspots />
 
     expect(shopspots).toBeInstanceOf(DocumentFragment)
   })
@@ -35,8 +35,9 @@ describe("ImageContainer", () => {
   })
 
   it("should render image element when tile has image", () => {
-    const widgetSettings = { expanded_tile_show_shopspots: true } as IWidgetSettings
-    const imageContainer = <ImageContainer tile={tiles[0]} widgetSettings={widgetSettings} />
+    mockSdk.getExpandedTileConfig.mockReturnValue({ show_shopspots: true })
+
+    const imageContainer = <ImageContainer tile={tiles[0]} />
 
     const expected = (
       <>
@@ -67,8 +68,10 @@ describe("ImageContainer", () => {
   })
 
   it("should render shopspot components when shopspot is enabled", () => {
-    const widgetSettings = { expanded_tile_show_shopspots: true } as IWidgetSettings
-    const imageContainer = <ImageContainer tile={tiles[0]} widgetSettings={widgetSettings} />
+    const expandedTileSettings = { show_shopspots: true }
+    mockSdk.getExpandedTileConfig.mockReturnValue(expandedTileSettings)
+
+    const imageContainer = <ImageContainer tile={tiles[0]} />
 
     mockSdk.isComponentLoaded.mockReturnValue(true)
 
@@ -78,8 +81,9 @@ describe("ImageContainer", () => {
   })
 
   it("does not render shopspot components when shopspot is disabled", () => {
-    const widgetSettings = { expanded_tile_show_shopspots: false } as IWidgetSettings
-    const imageContainer = <ImageContainer tile={tiles[0]} widgetSettings={widgetSettings} />
+    const expandedTileSettings = { show_shopspots: false }
+    mockSdk.getExpandedTileConfig.mockReturnValue(expandedTileSettings)
+    const imageContainer = <ImageContainer tile={tiles[0]} />
 
     mockSdk.isComponentLoaded.mockReturnValue(false)
 

@@ -1,4 +1,3 @@
-import { getConfig } from "./widget.config"
 import { addAutoAddTileFeature, loadExpandedTileFeature, loadTitle } from "widgets/libs/widget.features"
 import { Sdk } from "@stackla/ugc-widgets"
 import { addCSSVariablesToPlacement } from "widgets/libs/widget.layout"
@@ -14,16 +13,15 @@ sdk.tiles.preloadImages = true
 sdk.tiles.setVisibleTilesCount(100)
 
 const widgetContainer = sdk.placement.getWidgetContainer()
-const widgetSettings = getConfig(widgetContainer)
 
 const showWidget = widgetContainer.enabled
 if (!showWidget) {
   throw new Error("Widget is not enabled")
 }
 loadTitle()
-addCSSVariablesToPlacement(getCSSVariables(widgetSettings))
-addAutoAddTileFeature(widgetSettings)
-loadExpandedTileFeature(widgetSettings, () => {
+addCSSVariablesToPlacement(getCSSVariables())
+addAutoAddTileFeature()
+loadExpandedTileFeature(() => {
   const ugcTilesElement = sdk.querySelector(".ugc-tiles")
 
   if (!ugcTilesElement) {

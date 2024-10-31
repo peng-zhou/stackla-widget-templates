@@ -8,7 +8,6 @@ import {
 import { addCSSVariablesToPlacement } from "widgets/libs/widget.layout"
 import getCSSVariables from "widgets/libs/css-variables"
 import { Sdk } from "@stackla/ugc-widgets"
-import { getConfig } from "./widget.config"
 import { initializeInlineSwiperListeners } from "./inline-swiper.loader"
 import {
   onTileClosed,
@@ -22,14 +21,11 @@ declare const sdk: Sdk
 export function loadSettings() {
   sdk.tiles.preloadImages = true
 
-  const widgetContainer = sdk.placement.getWidgetContainer()
-  const widgetSettings = getConfig(widgetContainer)
-
-  loadWidgetIsEnabled(widgetSettings)
-  addCSSVariablesToPlacement(getCSSVariables(widgetSettings))
+  loadWidgetIsEnabled()
+  addCSSVariablesToPlacement(getCSSVariables())
   loadTitle()
   registerLoadListener(initializeInlineSwiperListeners)
-  addAutoAddTileFeature(widgetSettings)
-  loadExpandedTileFeature(widgetSettings, onTileExpand, onTileClosed, onTileRendered)
+  addAutoAddTileFeature()
+  loadExpandedTileFeature(onTileExpand, onTileClosed, onTileRendered)
   registerExpandedTileCrossSellersRendered(onExpandedTileCrossSellersRendered)
 }

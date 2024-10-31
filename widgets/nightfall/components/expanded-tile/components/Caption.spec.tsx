@@ -2,7 +2,10 @@ import Caption, { isCaptionEnabled } from "./Caption"
 import { Tile } from "@stackla/ugc-widgets"
 import { createElement } from "jsx-html"
 import tiles from "../../../../../tests/fixtures/tiles"
-import { IWidgetSettings } from "types/IWidgetSettings"
+
+const defaultExpandedTileSettings = {
+  show_caption: true
+}
 
 const mockSdk = {
   isComponentLoaded: jest.fn(),
@@ -11,15 +14,14 @@ const mockSdk = {
     getWidgetContainer: () => {
       return {
         widgetOptions: {
-          widgetStyle: {
-            expanded_tile_show_caption: false
-          },
+          widgetStyle: {},
           widgetConfig: {}
         },
         enabled: true
       }
     }
-  }
+  },
+  getExpandedTileConfig: jest.fn(() => defaultExpandedTileSettings)
 }
 
 // @ts-expect-error global properties are not typed
@@ -28,32 +30,39 @@ global.sdk = mockSdk
 describe("isCaptionEnabled", () => {
   it("should return true when tile has a message and show_caption is true", () => {
     const tile = { message: "Sample caption" } as Tile
-    const widgetSettings = { expanded_tile_show_caption: true } as IWidgetSettings
-    expect(isCaptionEnabled(tile, widgetSettings)).toBe(true)
+    const widgetSettings = { ...defaultExpandedTileSettings, show_caption: true }
+    mockSdk.getExpandedTileConfig.mockReturnValue(widgetSettings)
+
+    expect(isCaptionEnabled(tile)).toBe(true)
   })
 
   it("should return false when tile has a message but show_caption is false", () => {
     const tile = { message: "Sample caption" } as Tile
-    const widgetSettings = { expanded_tile_show_caption: false } as IWidgetSettings
-    expect(isCaptionEnabled(tile, widgetSettings)).toBe(false)
+    const widgetSettings = { ...defaultExpandedTileSettings, show_caption: false }
+    mockSdk.getExpandedTileConfig.mockReturnValue(widgetSettings)
+    expect(isCaptionEnabled(tile)).toBe(false)
   })
 
   it("should return false when tile does not have a message but show_caption is true", () => {
     const tile = { message: "" } as Tile
-    const widgetSettings = { expanded_tile_show_caption: true } as IWidgetSettings
-    expect(isCaptionEnabled(tile, widgetSettings)).toBe(false)
+    const widgetSettings = { ...defaultExpandedTileSettings, show_caption: true }
+    mockSdk.getExpandedTileConfig.mockReturnValue(widgetSettings)
+    expect(isCaptionEnabled(tile)).toBe(false)
   })
 
   it("should return false when tile does not have a message and show_caption is false", () => {
     const tile = { message: "" } as Tile
-    const widgetSettings = { expanded_tile_show_caption: false } as IWidgetSettings
-    expect(isCaptionEnabled(tile, widgetSettings)).toBe(false)
+    const widgetSettings = { ...defaultExpandedTileSettings, show_caption: false }
+    mockSdk.getExpandedTileConfig.mockReturnValue(widgetSettings)
+    expect(isCaptionEnabled(tile)).toBe(false)
   })
 })
 
 describe("Caption Component", () => {
   const tile = { message: "Sample caption" } as Tile
-  const widgetSettings = { expanded_tile_show_caption: true } as IWidgetSettings
+  const widgetSettings = { ...defaultExpandedTileSettings, show_caption: true }
+
+  mockSdk.getExpandedTileConfig.mockReturnValue(widgetSettings)
 
   beforeEach(() => {
     mockSdk.isComponentLoaded.mockReturnValue(true)
@@ -63,15 +72,17 @@ describe("Caption Component", () => {
   })
 
   it("should render vital components", () => {
-    const caption = <Caption tile={tile} widgetSettings={widgetSettings} />
+    mockSdk.getExpandedTileConfig.mockReturnValue(widgetSettings)
+    const caption = <Caption tile={tile} />
     expect(caption.toString()).toBe(
       `<div class="caption"><p class="caption-paragraph">Sample caption</p><div class="tile-timestamp"></div><ugc-products parent="parent-id"></ugc-products></div>`
     )
   })
 
   it("should not render caption when disabled", () => {
-    const widgetSettings = { expanded_tile_show_caption: false } as IWidgetSettings
-    const caption = <Caption tile={tile} widgetSettings={widgetSettings} />
+    mockSdk.getExpandedTileConfig.mockReturnValue({ ...defaultExpandedTileSettings, show_caption: false })
+
+    const caption = <Caption tile={tile} />
     expect(caption.toString()).toBe(
       `<div class="caption"><p class="caption-paragraph"></p><div class="tile-timestamp"></div><ugc-products parent="parent-id"></ugc-products></div>`
     )
@@ -79,7 +90,7 @@ describe("Caption Component", () => {
 
   it("should render tags from tile", () => {
     const tile = tiles[0]
-    const caption = <Caption tile={tile} widgetSettings={widgetSettings} />
+    const caption = <Caption tile={tile} />
     const expectedLink1 = (
       <a href="http://localhost:4002/products/asus-tuf-f15-15-6-fhd-144hz-gaming-laptop-1tbgeforce-rtx-3050">
         Kathmandu 1
@@ -95,7 +106,8 @@ describe("Caption Component", () => {
 
   it("should not render ugc-products component when products are disabled", () => {
     mockSdk.isComponentLoaded.mockReturnValue(false)
-    const caption = <Caption tile={tile} widgetSettings={widgetSettings} />
+    mockSdk.getExpandedTileConfig.mockReturnValue(widgetSettings)
+    const caption = <Caption tile={tile} />
     const expected = (
       <div class="caption">
         <p class="caption-paragraph">Sample caption</p>
