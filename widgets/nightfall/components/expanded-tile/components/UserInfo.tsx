@@ -1,5 +1,4 @@
-import { createElement, createFragment } from "@stackla/widget-utils"
-import { Tile } from "@stackla/widget-utils"
+import { createElement, createFragment, Tile } from "@stackla/widget-utils"
 import { ExpandedTileProps } from "../../../types/ExpandedTileProps"
 
 function Avatar({ tile }: { tile: Tile }) {
