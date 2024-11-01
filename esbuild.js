@@ -109,7 +109,7 @@ async function buildAll() {
 
   if (env == "development") {
     config.minify = false
-    config.sourcemap = "inline"
+    config.sourcemap = "external"
 
     if (isWatch) {
       startWebSocketServer()

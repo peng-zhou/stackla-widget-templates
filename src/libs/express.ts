@@ -21,7 +21,7 @@ export interface IDraftRequest {
   }
   customCSS: string
   customJS: string,
-  widgetOptions: typeof widgetOptions.config
+  widgetOptions: typeof widgetOptions.widgetConfig
 }
 
 type PreviewContent = {
@@ -120,7 +120,7 @@ async function getHTML(content: PreviewContent, page: number = 1, limit: number 
       },
       customCSS: content.cssCode || "",
       customJS: content.jsCode || "",
-      widgetOptions: widgetOptions.config
+      widgetOptions: widgetOptions.widgetConfig
     },
     page,
     limit
@@ -194,7 +194,7 @@ expressApp.get("/preview", async (req, res) => {
   res.render("preview", {
     widgetRequest: JSON.stringify(widgetRequest),
     widgetType,
-    widgetOptions: JSON.stringify(widgetOptions.config),
+    widgetOptions: JSON.stringify(widgetOptions.widgetConfig),
     ...(await getContent(widgetType)),
     port: port
   })
