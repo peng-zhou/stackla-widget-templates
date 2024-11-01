@@ -1,7 +1,7 @@
 import UserInfo from "./UserInfo"
 import Caption from "./Caption"
 import Footer from "./Footer"
-import { createElement } from "@stackla/ugc-widgets/src/ui/core/utils/jsx-html"
+import { createElement } from "@stackla/widget-utils"
 import { ExpandedTileProps } from "widgets/nightfall/types/ExpandedTileProps"
 
 export default (props: ExpandedTileProps) => {

@@ -1,7 +1,7 @@
-import { Sdk } from "@stackla/ugc-widgets"
-import { waitForElements } from "@widgets/libs/widget.features"
+import type { ISdk } from "@stackla/widget-utils"
+import { waitForElements } from "@stackla/widget-utils/dist/libs/widget.features"
 
-declare const sdk: Sdk
+declare const sdk: ISdk
 
 const tileSizes: { [key: string]: number } = {
   small: 88.5,

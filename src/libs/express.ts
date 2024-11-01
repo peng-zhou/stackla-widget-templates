@@ -1,6 +1,5 @@
 import express from "express"
 import "hbs"
-import { WidgetRequest } from "@stackla/ugc-widgets"
 import cors from "cors"
 import path from "path"
 import { readFileSync } from "fs"
@@ -189,7 +188,7 @@ expressApp.get("/stackla/cs/image/disable", async (req, res) => {
 // Register preview route
 expressApp.get("/preview", async (req, res) => {
   const port = req.headers.host?.split(":")[1] || "4003"
-  const widgetRequest = req.query as WidgetRequest
+  const widgetRequest = req.query
   const widgetType = req.query.widgetType as string
 
   res.render("preview", {

@@ -1,17 +1,17 @@
-import getCSSVariables from "@widgets/libs/css-variables"
 import {
   loadTitle,
   addAutoAddTileFeature,
   loadExpandedTileFeature,
   addTilesPerPageFeature,
   addLoadMoreButtonFeature
-} from "@widgets/libs/widget.features"
-import { addCSSVariablesToPlacement } from "@widgets/libs/widget.layout"
+} from "@stackla/widget-utils/dist/libs/widget.features"
+import { addCSSVariablesToPlacement } from "@stackla/widget-utils/dist/libs"
 import {
   onTileExpand,
   onTileClosed,
   onTileRendered
-} from "@libs/components/expanded-tile-swiper/expanded-swiper.loader"
+} from "@stackla/widget-utils/dist/libs/components/expanded-tile-swiper/expanded-swiper.loader"
+import getCSSVariables from "@stackla/widget-utils/dist/libs/css-variables"
 
 export function loadWidgetSettings() {
   loadTitle()

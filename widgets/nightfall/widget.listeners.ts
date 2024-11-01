@@ -1,6 +1,6 @@
-import { Sdk } from "@stackla/ugc-widgets"
-import { waitForElement } from "widgets/libs/widget.utils"
-declare const sdk: Sdk
+import type { ISdk } from "@stackla/widget-utils"
+import { waitForElement } from "@stackla/widget-utils/dist/libs/widget.utils"
+declare const sdk: ISdk
 
 export async function onTileClose() {
   await waitForElement(".ugc-tiles", 3000)

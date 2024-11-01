@@ -1,4 +1,4 @@
-import { Tile } from "@stackla/ugc-widgets"
+import { Tile } from "@stackla/widget-utils"
 
 export default [
   {

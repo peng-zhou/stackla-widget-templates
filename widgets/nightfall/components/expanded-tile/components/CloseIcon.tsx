@@ -1,4 +1,4 @@
-import { createElement } from "@stackla/ugc-widgets/src/ui/core/utils/jsx-html"
+import { createElement } from "@stackla/widget-utils"
 
 export default () => (
   <a class="exit" href="#">

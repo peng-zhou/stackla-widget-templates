@@ -1,4 +1,4 @@
-import { createElement } from "@stackla/ugc-widgets/src/ui/core/utils/jsx-html"
+import { createElement } from "@stackla/widget-utils"
 import { ExpandedTileProps } from "../../../types/ExpandedTileProps"
 
 export default ({ tile }: ExpandedTileProps) => (

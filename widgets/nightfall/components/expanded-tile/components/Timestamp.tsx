@@ -1,9 +1,8 @@
-import { getTimephrase } from "../../../../libs/tile.lib"
-import { createElement, createFragment } from "@stackla/ugc-widgets/src/ui/core/utils/jsx-html"
-import { Sdk, Tile } from "@stackla/ugc-widgets"
+import { getTimephrase } from "@stackla/widget-utils/dist/libs/tile.lib"
+import { createElement, createFragment, ISdk, Tile } from "@stackla/widget-utils"
 import { ExpandedTileProps } from "../../../types/ExpandedTileProps"
 
-declare const sdk: Sdk
+declare const sdk: ISdk
 
 function timestampEnabled(tile: Tile) {
   const { show_timestamp } = sdk.getExpandedTileConfig()

@@ -1,8 +1,8 @@
-import { createElement, createFragment } from "jsx-html"
-import { Sdk } from "@stackla/ugc-widgets"
+import { createElement, createFragment } from "@stackla/widget-utils"
+import type { ISdk } from "@stackla/widget-utils"
 import { ExpandedTileProps } from "../../../types/ExpandedTileProps"
 
-declare const sdk: Sdk
+declare const sdk: ISdk
 
 export function Shopspots() {
   const { show_shopspots } = sdk.getExpandedTileConfig()

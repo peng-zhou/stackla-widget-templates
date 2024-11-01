@@ -1,10 +1,10 @@
-import type { Sdk } from "@stackla/ugc-widgets"
-import { createElement } from "jsx-html"
+import type { ISdk } from "@stackla/widget-utils"
+import { createElement } from "@stackla/widget-utils"
 import Panel from "./components/Panel"
 import PanelRight from "./components/PanelRight"
 import PanelLeft from "./components/PanelLeft"
 
-export default (sdk: Sdk) => {
+export default (sdk: ISdk) => {
   const tile = sdk.tiles.getTile()
 
   if (!tile) {

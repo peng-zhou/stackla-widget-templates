@@ -1,4 +1,4 @@
-declare const sdk: Sdk
+declare const sdk: ISdk
 
 import {
   addAutoAddTileFeature,
@@ -7,16 +7,16 @@ import {
   loadExpandedTileFeature,
   loadTitle,
   loadWidgetIsEnabled
-} from "widgets/libs/widget.features"
-import { loadExpandSettingComponents } from "widgets/libs/widget.components"
+} from "@stackla/widget-utils/dist/libs/widget.features"
+import { loadExpandSettingComponents } from "@stackla/widget-utils/dist/libs/widget.components"
 import customExpandedTileTemplate from "./components/expanded-tile/base.template"
 import customExpandedTileCSS from "./components/expanded-tile/base.scss"
 import customProductsCSS from "./components/products/base.scss"
 import shopspotStyle from "./components/shopspot-icon/base.scss"
-import getCSSVariables from "../libs/css-variables"
-import { addCSSVariablesToPlacement } from "widgets/libs/widget.layout"
+import getCSSVariables from "@stackla/widget-utils/dist/libs/css-variables"
+import { addCSSVariablesToPlacement } from "@stackla/widget-utils/dist/libs"
 import { onTileClose } from "./widget.listeners"
-import { Sdk } from "@stackla/ugc-widgets"
+import type { ISdk } from "@stackla/widget-utils"
 
 sdk.tiles.hideBrokenTiles = true
 sdk.tiles.preloadImages = true

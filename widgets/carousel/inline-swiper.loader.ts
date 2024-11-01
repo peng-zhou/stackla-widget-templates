@@ -1,6 +1,6 @@
 import { SdkSwiper } from "types"
-import { initializeSwiper, refreshSwiper } from "@libs/extensions/swiper/swiper.extension"
-import { enableTileImages } from "@libs/extensions/swiper/loader.extension"
+import { initializeSwiper, refreshSwiper } from "@stackla/widget-utils/dist/libs/extensions/swiper/swiper.extension"
+import { enableTileImages } from "@stackla/widget-utils/dist/libs/extensions/swiper/loader.extension"
 import Swiper from "swiper"
 
 declare const sdk: SdkSwiper
@@ -52,15 +52,15 @@ function initializeSwiperForInlineTiles() {
         onlyInViewport: false
       },
       on: {
-        beforeInit: swiper => {
+        beforeInit: (swiper: Swiper) => {
           enableLoadedTiles()
           swiper.slideToLoop(0, 0, false)
         },
-        afterInit: swiper => {
+        afterInit: (swiper: Swiper) => {
           sdk["inline"]!.isLoading = true
           void loadTilesAsync(swiper)
         },
-        activeIndexChange: swiper => {
+        activeIndexChange: (swiper: Swiper) => {
           if (swiper.navigation.prevEl) {
             if (swiper.realIndex === 0 && sdk["inline"]?.isLoading) {
               disblePrevNavigation(swiper)
@@ -76,8 +76,8 @@ function initializeSwiperForInlineTiles() {
 
 export function enableLoadedTiles() {
   sdk.placement
-    .querySelectorAll(".ugc-tiles > .ugc-tile[style*='display: none']")
-    ?.forEach(tileElement => (tileElement.style.display = ""))
+    .querySelectorAll<HTMLElement>(".ugc-tiles > .ugc-tile[style*='display: none']")
+    ?.forEach((tileElement: HTMLElement) => (tileElement.style.display = ""))
 }
 
 async function loadTilesAsync(swiper: Swiper) {
