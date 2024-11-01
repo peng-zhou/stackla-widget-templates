@@ -33,5 +33,5 @@
     "jsxFragmentFactory": "createFragment"
   },
   "include": ["widgets/**/*.ts", "widgets/**/*.tsx"],
-  "exclude": [],  
+  "exclude": [] 
 }
