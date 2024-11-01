@@ -43,7 +43,7 @@ async function buildAll() {
               {
                 findFileUrl(url) {
                   if (url.startsWith("@templates")) {
-                    const newUrl = pathToFileURL(url.replace("@", "widgets/libs/"))
+                    const newUrl = pathToFileURL(url.replace("@", "@stackla/widget-utils/dist/libs/"))
                     return new URL(newUrl)
                   }
 

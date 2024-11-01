@@ -1,5 +1,5 @@
-import { createElement, createFragment } from "jsx-html"
-import { Tile } from "@stackla/public-types"
+import { createElement, createFragment } from "@stackla/widget-utils"
+import { Tile } from "@stackla/widget-utils"
 import { ExpandedTileProps } from "../../../types/ExpandedTileProps"
 
 function Avatar({ tile }: { tile: Tile }) {

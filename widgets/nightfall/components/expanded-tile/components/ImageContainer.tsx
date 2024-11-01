@@ -1,5 +1,5 @@
-import { createElement, createFragment } from "jsx-html"
-import { ISdk } from "@stackla/public-types"
+import { createElement, createFragment } from "@stackla/widget-utils"
+import type { ISdk } from "@stackla/widget-utils"
 import { ExpandedTileProps } from "../../../types/ExpandedTileProps"
 
 declare const sdk: ISdk

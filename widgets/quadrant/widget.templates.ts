@@ -1,9 +1,9 @@
-import { loadSwiperStyles } from "@widgets/libs/extensions/swiper"
-import { loadExpandedTileTemplates } from "@libs/components/expanded-tile-swiper"
+import { loadSwiperStyles } from "@stackla/widget-utils/dist/libs/extensions/swiper"
+import { loadExpandedTileTemplates } from "@stackla/widget-utils/dist/libs/components/expanded-tile-swiper"
 import { loadProductsTemplate } from "./components/products"
 import { loadShopspotTemplates } from "./components/shopspot-icon"
 import icons from "../../uikit/icon.scss"
-import { ISdk } from "@stackla/public-types"
+import type { ISdk } from "@stackla/widget-utils"
 declare const sdk: ISdk
 
 export function loadCustomisation() {

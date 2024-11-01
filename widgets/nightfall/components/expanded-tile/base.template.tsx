@@ -1,5 +1,5 @@
-import type { ISdk } from "@stackla/public-types"
-import { createElement } from "jsx-html"
+import type { ISdk } from "@stackla/widget-utils"
+import { createElement } from "@stackla/widget-utils"
 import Panel from "./components/Panel"
 import PanelRight from "./components/PanelRight"
 import PanelLeft from "./components/PanelLeft"

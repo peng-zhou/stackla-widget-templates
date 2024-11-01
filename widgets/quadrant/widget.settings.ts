@@ -1,17 +1,17 @@
-import { ISdk } from "@stackla/public-types"
-import getCSSVariables from "@widgets/libs/css-variables"
+import type { ISdk } from "@stackla/widget-utils"
+import { addCSSVariablesToPlacement } from "@stackla/widget-utils/dist/libs"
 import {
   loadTitle,
   addAutoAddTileFeature,
   loadExpandedTileFeature,
   addLoadMoreButtonFeature
-} from "@widgets/libs/widget.features"
-import { addCSSVariablesToPlacement } from "@widgets/libs/widget.layout"
+} from "@stackla/widget-utils/dist/libs/widget.features"
 import {
   onTileExpand,
   onTileClosed,
   onTileRendered
-} from "@libs/components/expanded-tile-swiper/expanded-swiper.loader"
+} from "@stackla/widget-utils/dist/libs/components/expanded-tile-swiper/expanded-swiper.loader"
+import getCSSVariables from "@stackla/widget-utils/dist/libs/css-variables"
 
 declare const sdk: ISdk
 

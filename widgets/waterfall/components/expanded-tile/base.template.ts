@@ -1,5 +1,5 @@
-import type { ISdk } from "@stackla/public-types"
-import { getTimephrase } from "widgets/libs/tile.lib"
+import type { ISdk } from "@stackla/widget-utils"
+import { getTimephrase } from "@stackla/widget-utils/dist/libs/tile.lib"
 
 export default (sdk: ISdk) => {
   const tile = sdk.tiles.getTile()

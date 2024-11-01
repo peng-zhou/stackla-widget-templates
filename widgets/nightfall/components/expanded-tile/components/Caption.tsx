@@ -1,8 +1,7 @@
-import { createElement, createFragment } from "jsx-html"
+import { createElement, createFragment, ISdk, Tile } from "@stackla/widget-utils"
 import { ExpandedTileProps } from "../../../types/ExpandedTileProps"
-import { Tags } from "@libs/templates/tags/tags.lib"
+import { Tags } from "@stackla/widget-utils/dist/libs/templates/tags/tags.lib"
 import Timestamp from "./Timestamp"
-import { ISdk, Tile } from "@stackla/public-types"
 
 declare const sdk: ISdk
 

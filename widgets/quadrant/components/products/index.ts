@@ -1,4 +1,4 @@
-import { ISdk } from "@stackla/public-types"
+import type { ISdk } from "@stackla/widget-utils"
 import productsStyle from "./base.scss"
 
 declare const sdk: ISdk

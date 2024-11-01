@@ -5,14 +5,14 @@ import {
   loadExpandedTileFeature,
   loadTitle,
   loadWidgetIsEnabled
-} from "widgets/libs/widget.features"
-import { addCSSVariablesToPlacement } from "widgets/libs/widget.layout"
+} from "@stackla/widget-utils/dist/libs/widget.features"
+import { addCSSVariablesToPlacement } from "@stackla/widget-utils/dist/libs/widget.layout"
 import expandedTileCSS from "./components/expanded-tile/base.scss"
 import productsCSS from "./components/products/base.scss"
 import shopspotStyle from "./components/shopspot-icon/base.scss"
 import customExpandedTileTemplate from "./components/expanded-tile/base.template"
-import getCSSVariables from "widgets/libs/css-variables"
-import { ISdk } from "@stackla/public-types"
+import getCSSVariables from "@stackla/widget-utils/dist/libs/css-variables"
+import { ISdk } from "@stackla/widget-utils/dist/types"
 
 declare const sdk: ISdk
 

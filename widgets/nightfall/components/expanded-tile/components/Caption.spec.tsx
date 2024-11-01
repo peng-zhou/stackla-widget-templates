@@ -1,6 +1,5 @@
 import Caption, { isCaptionEnabled } from "./Caption"
-import { Tile } from "@stackla/public-types"
-import { createElement } from "jsx-html"
+import { Tile, createElement } from "@stackla/widget-utils"
 import tiles from "../../../../../tests/fixtures/tiles"
 
 const defaultExpandedTileSettings = {

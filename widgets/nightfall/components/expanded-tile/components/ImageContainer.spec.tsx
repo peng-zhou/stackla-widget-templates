@@ -1,4 +1,4 @@
-import { createElement, createFragment } from "jsx-html"
+import { createElement, createFragment } from "@stackla/widget-utils"
 import tiles from "../../../../../tests/fixtures/tiles"
 import ImageContainer, { Shopspots } from "./ImageContainer"
 

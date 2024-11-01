@@ -1,5 +1,5 @@
-import { ISdk } from "@stackla/public-types"
-import { waitForElement } from "widgets/libs/widget.utils"
+import type { ISdk } from "@stackla/widget-utils"
+import { waitForElement } from "@stackla/widget-utils/dist/libs/widget.utils"
 declare const sdk: ISdk
 
 export async function onTileClose() {

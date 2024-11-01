@@ -1,10 +1,13 @@
-import { addAutoAddTileFeature, loadExpandedTileFeature, loadTitle } from "widgets/libs/widget.features"
-import { ISdk } from "@stackla/public-types"
-import { addCSSVariablesToPlacement } from "widgets/libs/widget.layout"
+import {
+  addAutoAddTileFeature,
+  loadExpandedTileFeature,
+  loadTitle
+} from "@stackla/widget-utils/dist/libs/widget.features"
+import { addCSSVariablesToPlacement, type ISdk } from "@stackla/widget-utils"
 import expandedTileCSS from "./components/expanded-tile/base.scss"
 import productsCSS from "./components/products/base.scss"
 import customExpandedTileTemplate from "./components/expanded-tile/base.template"
-import getCSSVariables from "@widgets/libs/css-variables"
+import getCSSVariables from "@stackla/widget-utils/dist/libs/css-variables"
 
 declare const sdk: ISdk
 

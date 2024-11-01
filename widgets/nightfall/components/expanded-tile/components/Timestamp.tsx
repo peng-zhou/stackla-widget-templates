@@ -1,6 +1,5 @@
-import { getTimephrase } from "../../../../libs/tile.lib"
-import { createElement, createFragment } from "@stackla/ugc-widgets/src/ui/core/utils/jsx-html"
-import { ISdk, Tile } from "@stackla/public-types"
+import { getTimephrase } from "@stackla/widget-utils/dist/libs/tile.lib"
+import { createElement, createFragment, ISdk, Tile } from "@stackla/widget-utils"
 import { ExpandedTileProps } from "../../../types/ExpandedTileProps"
 
 declare const sdk: ISdk
