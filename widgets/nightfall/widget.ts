@@ -15,7 +15,6 @@ import customProductsCSS from "./components/products/base.scss"
 import shopspotStyle from "./components/shopspot-icon/base.scss"
 import getCSSVariables from "@stackla/widget-utils/dist/libs/css-variables"
 import { addCSSVariablesToPlacement } from "@stackla/widget-utils/dist/libs"
-import { onTileClose } from "./widget.listeners"
 import type { ISdk } from "@stackla/widget-utils"
 
 sdk.tiles.hideBrokenTiles = true
@@ -25,7 +24,7 @@ loadWidgetIsEnabled()
 loadTitle()
 loadExpandSettingComponents()
 addAutoAddTileFeature()
-loadExpandedTileFeature(() => {}, onTileClose)
+loadExpandedTileFeature()
 addTilesPerPageFeature()
 addLoadMoreButtonFeature()
 addCSSVariablesToPlacement(getCSSVariables())

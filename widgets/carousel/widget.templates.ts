@@ -4,7 +4,7 @@ import type { ISdk } from "@stackla/widget-utils"
 
 declare const sdk: ISdk
 
-export function loadCustomisation() {
+export function loadTemplates() {
   loadExpandedTileTemplates()
   loadShopspotTemplates()
   sdk.querySelector(".track")?.style.removeProperty("display")

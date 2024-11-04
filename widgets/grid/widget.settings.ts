@@ -1,23 +1,14 @@
-import {
-  loadTitle,
-  addAutoAddTileFeature,
-  loadExpandedTileFeature,
-  addTilesPerPageFeature,
-  addLoadMoreButtonFeature
-} from "@stackla/widget-utils/dist/libs/widget.features"
-import { addCSSVariablesToPlacement } from "@stackla/widget-utils/dist/libs"
-import {
-  onTileExpand,
-  onTileClosed,
-  onTileRendered
-} from "@stackla/widget-utils/dist/libs/components/expanded-tile-swiper/expanded-swiper.loader"
-import getCSSVariables from "@stackla/widget-utils/dist/libs/css-variables"
+import { loadWidget } from "@stackla/widget-utils"
 
-export function loadWidgetSettings() {
-  loadTitle()
-  addCSSVariablesToPlacement(getCSSVariables())
-  addAutoAddTileFeature()
-  loadExpandedTileFeature(onTileExpand, onTileClosed, onTileRendered)
-  addTilesPerPageFeature()
-  addLoadMoreButtonFeature()
+export function getSettings() {
+  return {
+    extensions: {},
+    features: {},
+    callbacks: {}
+  }
+}
+
+export function loadSettings() {
+  const settings = getSettings()
+  loadWidget(settings)
 }

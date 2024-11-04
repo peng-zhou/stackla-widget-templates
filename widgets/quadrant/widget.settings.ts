@@ -1,27 +1,14 @@
-import type { ISdk } from "@stackla/widget-utils"
-import { addCSSVariablesToPlacement } from "@stackla/widget-utils/dist/libs"
-import {
-  loadTitle,
-  addAutoAddTileFeature,
-  loadExpandedTileFeature,
-  addLoadMoreButtonFeature
-} from "@stackla/widget-utils/dist/libs/widget.features"
-import {
-  onTileExpand,
-  onTileClosed,
-  onTileRendered
-} from "@stackla/widget-utils/dist/libs/components/expanded-tile-swiper/expanded-swiper.loader"
-import getCSSVariables from "@stackla/widget-utils/dist/libs/css-variables"
+import { loadWidget, type MyWidgetSettings } from "@stackla/widget-utils"
 
-declare const sdk: ISdk
+export function loadSettings() {
+  const widgetSettings: MyWidgetSettings = {
+    extensions: {},
+    features: {
+      preloadImages: false,
+      hideBrokenImages: true
+    },
+    callbacks: {}
+  }
 
-export function loadWidgetSettings() {
-  sdk.tiles.preloadImages = false
-  sdk.tiles.hideBrokenTiles = false
-
-  loadTitle()
-  addCSSVariablesToPlacement(getCSSVariables())
-  addAutoAddTileFeature()
-  loadExpandedTileFeature(onTileExpand, onTileClosed, onTileRendered)
-  addLoadMoreButtonFeature()
+  loadWidget(widgetSettings)
 }
