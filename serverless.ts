@@ -47,7 +47,7 @@ const config = {
     hooks: env === "testing" ? testingHooks : defaultHooks
   },
   package: {
-    include: ["views/**/*", "dist/**/*", "build/**/*", "tests/**/*"],
+    include: ["views/**/*", "dist/**/*", "build/**/*"],
     exclude: ["node_modules/**/*"]
   },
   functions: {
