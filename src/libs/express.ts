@@ -125,7 +125,7 @@ async function getHTML(content: PreviewContent, page: number = 1, limit: number 
   )
 }
 
-expressApp.post("/widgets/668ca52ada8fb/draft", async (req, res) => {
+expressApp.post("/development/widgets/668ca52ada8fb/draft", async (req, res) => {
   const body = JSON.parse(req.body)
   const draft = body.draft as IDraftRequest
   const html = await renderTemplates(draft, body.page, body.limit)
@@ -144,7 +144,7 @@ expressApp.post("/widgets/668ca52ada8fb/draft", async (req, res) => {
   })
 })
 
-expressApp.get("/widgets/668ca52ada8fb", async (req, res) => {
+expressApp.get("/development/widgets/668ca52ada8fb", async (req, res) => {
   const content = await getContent(req.cookies.widgetType as string)
 
   res.json({
@@ -158,7 +158,7 @@ expressApp.get("/widgets/668ca52ada8fb", async (req, res) => {
   })
 })
 
-expressApp.get("/widgets/668ca52ada8fb/tiles", async (req, res) => {
+expressApp.get("/development/widgets/668ca52ada8fb/tiles", async (req, res) => {
   const page = (req.query.page ?? 0) as number
   const limit = (req.query.limit ?? 25) as number
   res.send({
@@ -166,11 +166,11 @@ expressApp.get("/widgets/668ca52ada8fb/tiles", async (req, res) => {
   })
 })
 
-expressApp.get("/widgets/668ca52ada8fb/tiles/:tid", async (req, res) => {
+expressApp.get("/development/widgets/668ca52ada8fb/tiles/:tid", async (req, res) => {
   res.json(tiles.find(tile => tile.id === req.params.tid))
 })
 
-expressApp.get("/widgets/668ca52ada8fb/rendered/tiles", async (req, res) => {
+expressApp.get("/development/widgets/668ca52ada8fb/rendered/tiles", async (req, res) => {
   const widgetType = req.cookies.widgetType as string
   const page = (req.query.page ?? 0) as number
   const limit = (req.query.limit ?? 25) as number
@@ -179,7 +179,7 @@ expressApp.get("/widgets/668ca52ada8fb/rendered/tiles", async (req, res) => {
   res.json(tileHtml)
 })
 
-expressApp.get("/stackla/cs/image/disable", async (req, res) => {
+expressApp.get("/development/stackla/cs/image/disable", async (req, res) => {
   res.json({ success: true })
 });
 
