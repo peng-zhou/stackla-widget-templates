@@ -1,0 +1,16 @@
+.ugc-tile,.tile {
+    display: inline-block;
+    vertical-align: top;
+    width: 19%;
+    margin: 0 auto;
+    text-align: center;
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    position: relative;
+}
+.ugc-tile img {
+    height: 250px;
+    width: 250px;
+}
+.ugc-tile p {
+    min-height: 15px;
+}

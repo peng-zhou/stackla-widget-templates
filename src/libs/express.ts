@@ -5,10 +5,10 @@ import path from "path"
 import { readFileSync } from "fs"
 import * as Handlebars from "hbs"
 import { getAndRenderTiles, getTilesToRender, renderTemplates } from "./tile.handlers"
-import { loadStaticFileRoutes } from "./static-files"
 import widgetOptions from "../../tests/fixtures/widget.options"
 import cookieParser from "cookie-parser"
 import tiles from "../../tests/fixtures/tiles"
+import { createMockRoutes } from "../../tests/libs/developer"
 
 export interface IDraftRequest {
   customTemplates: {
@@ -42,12 +42,10 @@ expressApp.set("view engine", "hbs")
 expressApp.use(cors())
 expressApp.use(cookieParser())
 
+createMockRoutes(expressApp)
+
 const stripSymbols = (str: string) => str.replace(/[^a-zA-Z0-9]/g, "")
 const stripSymbolsThatAreNotDash = (str: string) => str.replace(/[^a-zA-Z0-9-]/g, "")
-
-if (process.env.APP_ENV == "testing" || process.env.APP_ENV == "development") {
-  loadStaticFileRoutes(expressApp)
-}
 
 expressApp.use((req, res, next) => {
   const host = req.headers.host || "http://localhost:4003"
