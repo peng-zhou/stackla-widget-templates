@@ -193,6 +193,7 @@ expressApp.get("/preview", async (req, res) => {
     widgetRequest: JSON.stringify(widgetRequest),
     widgetType,
     widgetOptions: JSON.stringify(widgetOptions.widgetConfig),
+    environment: process.env.APP_ENV,
     ...(await getContent(widgetType)),
     port: port
   })

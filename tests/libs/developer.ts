@@ -26,6 +26,9 @@ const getMutatedTiles = (tiles: Tile[], page: string = "1", limit: number = 100)
 
 const getFile = (filePath: string) => {
   const filePathResolved = path.resolve(filePath)
+
+  console.log(filePathResolved)
+
   return fs.readFileSync(filePathResolved, "utf-8")
 }
 
@@ -55,7 +58,7 @@ export const createMockRoutes = (app: Express) => {
     }
 
     try {
-      const json = getJSON(`tiles.json`, limit)
+      const json = getJSON(`tiles-1.json`, limit)
       const mutatedJSON = getMutatedTiles(json, page, Number.parseInt(limit))
 
       res.json({
@@ -143,7 +146,11 @@ export const createMockRoutes = (app: Express) => {
       wid: "668ca52ada8fb",
       dev: true
     }
-    res.render("preview", { widgetRequest: JSON.stringify(widget) })
+
+    res.render("preview", {
+      widgetRequest: JSON.stringify(widget),
+      environment: process.env.APP_ENV
+    })
   })
 
   app.get("/test-preview/draft", (_req, res) => {
