@@ -29,7 +29,9 @@ module.exports = {
   coverageReporters: ["json", "lcov", "text", "clover", "html"],
   transform: {
     "^.+\\.js$": "babel-jest",
-    "^.+\\.(ts|tsx)$": "ts-jest"
+    "^.+\\.(ts|tsx)$": "ts-jest",
+    '^.+\\.mjs$': 'babel-jest'
   },
-  transformIgnorePatterns: ["/node_modules/(?!(@stackla)/)"]
-}
+  transformIgnorePatterns: [
+    '/node_modules/(?!swiper)', // Transpile the swiper module
+  ],}
