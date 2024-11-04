@@ -1,17 +1,40 @@
-@import "@templates/tags/tags.scss";
-@import "@styles/inline-tile.scss";
-@import "@styles/expanded-tile.scss";
-@import "@styles/mixins.scss";
+@use "styles";
+
+:host {
+  transition: ease all 0.5s;
+}
 
 #nosto-ugc-container {
-  height: 210px;
+  display: flex;
+  place-items: center;
+  height: styles.$nosto-container-height;
+  margin-top: styles.$nosto-container-mt;
 
-  .tile {
-    width: 210px;
-    height: 210px;
+  .swiper {
+    width: styles.$swiper-container-width-lg;
+    .tile {
+      width: styles.$tile-width-lg;
+      height: styles.$tile-height-lg;
+    }
   }
 }
 
 .hidden {
   display: none;
+}
+
+@include styles.breakpoint(mobile) {
+  #nosto-ugc-container {
+    height: auto;
+    .swiper-inline {
+      width: styles.$swiper-container-width-md !important;
+      .swiper-slide {
+        width: 100% !important;
+      }
+    }
+    .tile {
+      width: styles.$tile-width-md !important;
+      height: styles.$tile-height-md !important;
+    }
+  }
 }

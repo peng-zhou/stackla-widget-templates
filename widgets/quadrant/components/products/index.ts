@@ -1,7 +1,7 @@
-import { Sdk } from "@stackla/ugc-widgets"
+import type { ISdk } from "@stackla/widget-utils"
 import productsStyle from "./base.scss"
 
-declare const sdk: Sdk
+declare const sdk: ISdk
 
 export function loadProductsTemplate() {
   sdk.addCSSToComponent(productsStyle, "ugc-products")

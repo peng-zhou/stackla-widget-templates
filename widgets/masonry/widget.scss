@@ -1,46 +1,17 @@
-@import "@styles/mixins.scss";
-@import "@templates/tags/tags.scss";
-@import "@styles/expanded-tile.scss";
+@use "sass:map";
+@use "styles";
+
+:host {
+  transition: ease all 0.5s;
+}
 
 #nosto-ugc-container {
-.grid {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.grid-item {
-  color: white;
-  text-align: center;
-  border-radius: 5px;
-  position: relative;
-  background-size: cover;
-  background-position: center; 
-  background-repeat: no-repeat;
-  height: var(--tile-size);
-  margin: 5px;
-  box-sizing: border-box;
-  object-fit: cover;
-}
-
-.tile {
-    background-size: cover;
-    background-position: center;
-}
-
-.tile, .ugc-image {
-  width: 100%;
-  height: 100%;
-}
-
   .ugc-tile {
-    $total-padding: 10px;
     box-sizing: border-box;
-    border-radius: 12px;
     overflow: hidden;
     transition: opacity 0.5s ease;
 
-    &:not(.processed) {
+    &:not([width-set*="true"]) {
       opacity: 0;
     }
   }
@@ -49,41 +20,24 @@
     position: relative;
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100%;
 
     .play-icon {
       top: 43%;
       left: 0;
       right: 0;
       margin: auto;
+      width: styles.$play-icon-width;
+      height: styles.$play-icon-height;
     }
 
-    .tile-timephrase {
+    .icon-section {
+      display: flex;
       position: absolute;
-      top: 0;
-      right: 0;
-      padding: 10px;
-      background-color: rgb(255 255 255 / 60%);
-      border-radius: 2px;
-      font-size: 12px;
-      display: var(--tile-timephrase-display);
-    }
-
-    .tile-tags {
-      left: 0;
-      position: absolute;
-      margin: 0 16.4px 8.4px 8px;
-
-      .tag-inline {
-        background: rgba(0, 0, 0, 0.4);
-        border-radius: 25px;
-        font-size: 14px;
-        padding: 4px;
-        font-weight: 400;
-
-        a {
-          color: #fff;
-        }
-      }
+      width: 100%;
+      height: 100%;
     }
   }
 }
@@ -97,16 +51,12 @@
   opacity: 1;
   transition: opacity 0.5s ease;
 
-  &.hidden {
-    opacity: 0 !important;
-  }
-
   .loading {
-      height: 50px !important;
-      width: 50px !important;
+    height: styles.$loading-height !important;
+    width: styles.$loading-width !important;
   }
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }

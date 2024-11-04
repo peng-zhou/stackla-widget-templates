@@ -1,5 +1,6 @@
 export default {
-  widgetConfig: {
+  enabled: true,
+  config: {
     lightbox: {
       apply_custom_sharing_title_on_miss_title: false,
       disable_short_url: false,
@@ -42,7 +43,7 @@ export default {
       show_claim_button_on_tags: []
     }
   },
-  widgetStyle: {
+  style: {
     auto_refresh: "1",
     click_through_url: "[EXPAND]",
     enable_custom_tiles_per_page: false,
@@ -62,11 +63,12 @@ export default {
     text_tile_font_size: 12,
     text_tile_user_handle_font_color: "636062",
     text_tile_user_handle_font_size: 10,
-    text_tile_user_name_font_color: "#000000",
+    text_tile_user_name_font_color: "000000",
     text_tile_user_name_font_size: 14,
     text_tile_link_color: "00abf0",
     text_tile_tag_font_color: "201C1F",
     tile_tag_background: "D6D4D5",
+    tile_tag_inline_background: "00000066",
     tiles_per_page: 15,
     minimal_tiles: 1,
     type: "fluid",

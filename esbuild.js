@@ -21,11 +21,9 @@ async function buildAll() {
   const { globSync } = require("glob")
   const fs = require("fs")
   const env = process.env.APP_ENV || "development"
-  const http = require("http")
-  const WebSocket = require("ws")
 
   const isWatch = process.argv.includes("--watch")
-  const isDevelopment = env === "development" || env === 'staging'
+  const isDevelopment = env === "development" || env === "staging"
 
   const preAndPostBuild = {
     name: "preAndPost",
@@ -36,17 +34,6 @@ async function buildAll() {
       })
 
       build.onEnd(() => {
-        // Include additional libraries in the final CSS
-        // These libraries are located in the `styles` folder
-        const additionalData = globSync("./widgets/styles/*.scss", { withFileTypes: true })
-          .map(path =>
-            sass.compile(path.relative(), {
-              style: env === "development" ? "expanded" : "compressed"
-            })
-          )
-          .map(scss => scss.css.toString())
-          .join("\n")
-
         globSync("./widgets/**/widget.scss", { withFileTypes: true }).forEach(item => {
           const result = sass.compile(item.relative(), {
             style: env === "development" ? "expanded" : "compressed",
@@ -56,10 +43,10 @@ async function buildAll() {
               {
                 findFileUrl(url) {
                   if (url.startsWith("@templates")) {
-                    const newUrl = pathToFileURL(url.replace("@", "widgets/libs/"))
+                    const newUrl = pathToFileURL(url.replace("@", "widgets/styles/"))
                     return new URL(newUrl)
                   }
-
+ 
                   if (url.startsWith("@styles")) {
                     const newUrl = pathToFileURL(url.replace("@", "widgets/"))
                     return new URL(newUrl)
@@ -71,7 +58,7 @@ async function buildAll() {
             ] // refer https://sass-lang.com/documentation/js-api/classes/nodepackageimporter/
           })
 
-          const combined = `${result.css.toString()}\n${additionalData}`
+          const combined = `${result.css.toString()}`
           fs.writeFileSync(`dist/widgets/${item.parent.name}/widget.css`, combined)
         })
       })
@@ -97,6 +84,7 @@ async function buildAll() {
     })();`
         : ``
     },
+    jsx: "automatic",
     minify: true,
     plugins: [
       preAndPostBuild,
@@ -105,8 +93,7 @@ async function buildAll() {
         minify: true,
         importMapper: url => {
           return url.replace(/^@styles\//, path.join(__dirname, "widgets/styles/"))
-        },
-        importers: [new sass.NodePackageImporter()]
+        }
       }),
       copy({
         resolveFrom: "cwd",
@@ -122,7 +109,7 @@ async function buildAll() {
 
   if (env == "development") {
     config.minify = false
-    config.sourcemap = "inline"
+    config.sourcemap = "external"
 
     if (isWatch) {
       startWebSocketServer()

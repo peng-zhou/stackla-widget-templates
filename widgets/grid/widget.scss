@@ -1,45 +1,30 @@
-@import "@styles/mixins.scss";
-@import "@styles/expanded-tile.scss";
-@import "@templates/tags/tags.scss";
-@import "@styles/mixins.scss";
+@use "styles";
 
-.grid {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+:host {
+  transition: ease all 0.5s;
 }
 
-.grid-item {
-  color: white;
-  text-align: center;
-  border-radius: 5px;
-  position: relative;
-  background-size: cover;
-  background-position: center; 
-  background-repeat: no-repeat;
-  height: var(--tile-size);
-  width: var(--tile-size);
-  margin: 5px;
-  box-sizing: border-box;
-  object-fit: cover;
+.grid {
+  justify-content: center;
 
-  @include breakpoint(tablet) {
-    width: calc(50vw - 10px);
-    height: calc(50vw - 10px);
-  }
+  .grid-item {
+    width: var(--tile-size);
 
-  @include breakpoint(mobile) {
-    width: 100vw;
-    height: 100vw;
+    @include styles.breakpoint(tablet) {
+      width: calc(50vw - 10px);
+      height: calc(50vw - 10px);
+    }
+
+    @include styles.breakpoint(mobile) {
+      width: 100vw;
+      height: 100vw;
+    }
   }
 }
 
 #nosto-ugc-container {
   .ugc-tile {
-    $total-padding: 20px;
     box-sizing: border-box;
-    border-radius: 12px;
     overflow: hidden;
   }
 
@@ -56,35 +41,6 @@
       right: 0;
       margin: auto;
     }
-
-    .tile-timephrase {
-      position: absolute;
-      top: 0;
-      right: 0;
-      padding: 10px;
-      background-color: rgb(255 255 255 / 60%);
-      border-radius: 2px;
-      font-size: 12px;
-      display: var(--tile-timephrase-display);
-    }
-
-    .tile-tags {
-      position: absolute;
-      margin: 0 16.4px 8.4px 8px;
-      left: 0;
-
-      .tag-inline {
-        background: rgba(0, 0, 0, 0.4);
-        border-radius: 25px;
-        font-size: 14px;
-        padding: 4px;
-        font-weight: 400;
-
-        a {
-          color: #fff;
-        }
-      }
-    }
   }
 }
 
@@ -96,12 +52,11 @@
   margin-top: 25px;
 
   .loading {
-      height: 50px !important;
-      width: 50px !important;
+    height: 50px !important;
+    width: 50px !important;
   }
 }
 
 .hidden {
   display: none !important;
 }
-

@@ -1,25 +1,22 @@
-import { IWidgetSettings, SdkSwiper } from "types"
-import { getConfig } from "./widget.config"
-import { initializeSwiper, refreshSwiper } from "@libs/extensions/swiper/swiper.extension"
-import { enableTileImages } from "@libs/extensions/swiper/loader.extension"
+import { SdkSwiper } from "types"
+import { initializeSwiper, refreshSwiper } from "@stackla/widget-utils/dist/libs/extensions/swiper/swiper.extension"
+import { enableTileImages } from "@stackla/widget-utils/dist/libs/extensions/swiper/loader.extension"
 import Swiper from "swiper"
 
 declare const sdk: SdkSwiper
 
 export function initializeInlineSwiperListeners() {
-  const widgetContainer = sdk.placement.getWidgetContainer()
-  const widgetSettings = getConfig(widgetContainer)
-
   const swiper = sdk.querySelector(".swiper-inline")
 
   if (!swiper) {
     throw new Error("Failed to find swiper element")
   }
 
-  initializeSwiperForInlineTiles(widgetSettings)
+  initializeSwiperForInlineTiles()
 }
 
-function initializeSwiperForInlineTiles(widgetSettings: IWidgetSettings) {
+function initializeSwiperForInlineTiles() {
+  const { enable_custom_tiles_per_page, tiles_per_page } = sdk.getStyleConfig()
   const widgetSelector = sdk.placement.querySelector<HTMLElement>(".swiper-inline")
 
   if (!widgetSelector) {
@@ -28,12 +25,10 @@ function initializeSwiperForInlineTiles(widgetSettings: IWidgetSettings) {
 
   const tileWidth = 210
   const screenSize = window.innerWidth
-  const perView = !widgetSettings.enable_custom_tiles_per_page
+  const perView = !enable_custom_tiles_per_page
     ? Math.floor(screenSize / (tileWidth + 10))
-    : widgetSettings.tiles_per_page
-
-  const width = (tileWidth + 10) * perView
-  widgetSelector.style.width = `${width}px`
+    : // FIXME: All numbers should be numbers across the board
+      parseInt(tiles_per_page)
 
   sdk.tiles.setVisibleTilesCount(perView * 2)
 
@@ -44,23 +39,28 @@ function initializeSwiperForInlineTiles(widgetSettings: IWidgetSettings) {
     prevButton: "swiper-inline-button-prev",
     nextButton: "swiper-inline-button-next",
     paramsOverrides: {
-      slidesPerView: perView,
+      slidesPerView: "auto",
       grabCursor: false,
       allowTouchMove: false,
+      breakpoints: {
+        577: {
+          slidesOffsetBefore: 20
+        }
+      },
       keyboard: {
         enabled: true,
         onlyInViewport: false
       },
       on: {
-        beforeInit: swiper => {
+        beforeInit: (swiper: Swiper) => {
           enableLoadedTiles()
           swiper.slideToLoop(0, 0, false)
         },
-        afterInit: swiper => {
+        afterInit: (swiper: Swiper) => {
           sdk["inline"]!.isLoading = true
           void loadTilesAsync(swiper)
         },
-        activeIndexChange: swiper => {
+        activeIndexChange: (swiper: Swiper) => {
           if (swiper.navigation.prevEl) {
             if (swiper.realIndex === 0 && sdk["inline"]?.isLoading) {
               disblePrevNavigation(swiper)
@@ -76,8 +76,8 @@ function initializeSwiperForInlineTiles(widgetSettings: IWidgetSettings) {
 
 export function enableLoadedTiles() {
   sdk.placement
-    .querySelectorAll(".ugc-tiles > .ugc-tile[style*='display: none']")
-    ?.forEach(tileElement => (tileElement.style.display = ""))
+    .querySelectorAll<HTMLElement>(".ugc-tiles > .ugc-tile[style*='display: none']")
+    ?.forEach((tileElement: HTMLElement) => (tileElement.style.display = ""))
 }
 
 async function loadTilesAsync(swiper: Swiper) {
@@ -100,7 +100,7 @@ async function loadTilesAsync(swiper: Swiper) {
 
 function updateLoadingStateInterval(swiperElem: HTMLElement) {
   const intervalId = setInterval(function () {
-    const elements = swiperElem.querySelectorAll<HTMLElement>(".swiper-slide:has(.tile-content.hidden)")
+    const elements = swiperElem.querySelectorAll<HTMLElement>(".swiper-slide:has(.icon-section.hidden)")
     if (elements.length === 0) {
       clearInterval(intervalId)
       sdk["inline"]!.isLoading = false
