@@ -1,10 +1,25 @@
+// eslint-disable-next-line
 import nock from "nock"
-import { createURLParams } from "../../ui/core/utils/request"
-import { ITransformedWidgetRequest } from "../../ui/core/interfaces/widget-request"
 import { getWidget, prepareTilesAsHTML } from "../../tests/libs/developer"
 import path from "node:path"
 
-export function createTilesResponse(widgetRequest: ITransformedWidgetRequest, limit = 500, page = 1) {
+export function createURLParams(widgetRequest) {
+  const urlParams = new URLSearchParams()
+
+  Object.keys(widgetRequest).forEach(key => {
+    const parameterValue = widgetRequest[key]
+
+    if (!parameterValue) return
+
+    urlParams.append(key, parameterValue)
+  })
+
+  urlParams.delete("draft")
+
+  return urlParams
+}
+
+export function createTilesResponse(widgetRequest, limit = 500, page = 1) {
   const requestWithLimitAndPage = {
     ...widgetRequest,
     page: page,
@@ -56,14 +71,14 @@ export function createTilesResponse(widgetRequest: ITransformedWidgetRequest, li
     .reply(200, prepareTilesAsHTML(tiles, page.toString(), limit))
 }
 
-export function createTileResponse(widgetRequest: ITransformedWidgetRequest, tileId: string) {
+export function createTileResponse(widgetRequest, tileId: string) {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const tiles = require(path.resolve(`src/tests/mock/tiles-1.json`))
 
   nock("http://localhost:4001").persist().get(`/widgets/${widgetRequest.wid}/tiles/${tileId}`).reply(200, tiles[0])
 }
 
-export function createWidgetResponse(widgetRequest: ITransformedWidgetRequest) {
+export function createWidgetResponse(widgetRequest) {
   nock("http://localhost:4001")
     .persist()
     .get(`/widgets/${widgetRequest.wid}?${createURLParams(widgetRequest).toString()}`)

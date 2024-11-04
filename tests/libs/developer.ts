@@ -1,4 +1,4 @@
-import { Express } from "express"
+import type { Express } from "express"
 import tilesJSON from "../data/tiles"
 import nostoApiJS from "../data/nosto-api"
 import widgetOptions from "../data/widget-options"
@@ -83,7 +83,7 @@ export const createMockRoutes = (app: Express) => {
     const limit = req.query.limit as string
     try {
       const json = getJSON(`rendered-tiles.json`, limit)
-      const jsonWithMutatedImages = json.map((tile: any) => {
+      const jsonWithMutatedImages = json.map(tile => {
         const regex = /https:\/\/picsum.photos\/200/g
         tile = tile.replace(regex, `https://picsum.photos/200?${Math.random() * 100}`)
 
@@ -97,8 +97,7 @@ export const createMockRoutes = (app: Express) => {
     return
   })
 
-  //@ts-ignore - req is required but not used
-  app.post("/development/widgets/:wid/draft", (req, res) => {
+  app.post("/development/widgets/:wid/draft", (_req, res) => {
     res.json({
       html: getWidget().html,
       customCSS: getResource("custom.css"),
@@ -139,8 +138,7 @@ export const createMockRoutes = (app: Express) => {
     res.json(JSON.parse(fileData))
   })
 
-  // @ts-ignore - req is required but not used
-  app.get("/test-preview", (req, res) => {
+  app.get("/test-preview", (_req, res) => {
     const widget = {
       wid: "668ca52ada8fb",
       dev: true
@@ -148,8 +146,7 @@ export const createMockRoutes = (app: Express) => {
     res.render("preview", { widgetRequest: JSON.stringify(widget) })
   })
 
-  // @ts-ignore
-  app.get("/test-preview/draft", (req, res) => {
+  app.get("/test-preview/draft", (_req, res) => {
     const widget = {
       wid: "668ca52ada8fb",
       filter_id: 1,
