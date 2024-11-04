@@ -24,15 +24,7 @@ if (!showWidget) {
 loadTitle()
 addCSSVariablesToPlacement(getCSSVariables())
 addAutoAddTileFeature()
-loadExpandedTileFeature(() => {
-  const ugcTilesElement = sdk.querySelector(".ugc-tiles")
-
-  if (!ugcTilesElement) {
-    throw new Error("Failed to find arrows UI element")
-  }
-
-  ugcTilesElement.style.display = "none"
-})
+loadExpandedTileFeature()
 
 sdk.addEventListener("load", () => {
   const sliderScrollUpButton = sdk.querySelector("#scrollUp")
