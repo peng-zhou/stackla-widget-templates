@@ -4,9 +4,8 @@
 #nosto-ugc-container {
   .ugc-tiles {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(auto, 265px));
-    // grid-auto-rows: 10px; // Define a base grid row height
-    gap: 10px; //Replace with configurable setting
+    grid-template-columns: repeat(auto-fill, minmax(auto, var(--tile-size)));
+    gap: var(--margin);
     background: var(--widget-background);
   }
 
@@ -15,12 +14,7 @@
     box-sizing: border-box;
     border-radius: 5px;
     overflow: hidden;
-    transition: opacity 0.5s ease;
     max-width: 100%;
-
-    &:not(.processed) {
-      opacity: 0;
-    }
   }
 
   .tile {
@@ -110,6 +104,7 @@
   font-weight: 400;
   line-height: 16px;
   display: var(--tile-timephrase-display);
+  margin-bottom: 10px;
 }
 
 .caption {

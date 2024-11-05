@@ -36,7 +36,7 @@ export default {
       show_tags: true,
       show_votes: true,
       inline_tile_show_shopspots: true,
-      tile_size: "medium"
+      tile_size: "small"
     },
     claim_config: {
       show_claim_button: false,
@@ -85,7 +85,8 @@ export default {
     cta_button_background_color: "000000",
     cta_button_font_color: "ffffff",
     cta_button_font_size: 14,
-    expanded_tile_border_radius: 5
+    expanded_tile_border_radius: 5,
+    inline_tile_size: "large"
   },
   guid: "668ca52ada8fb",
   filterId: 10695,
