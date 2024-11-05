@@ -21,6 +21,7 @@ $breakpoints: (
 }
 
 // Can be utilised by using : @include breakpoint(mobile) { ... }
+
 @mixin breakpoint($point) {
   @if $point == mobile {
     @media (max-width: map-get($breakpoints, mobile)) {

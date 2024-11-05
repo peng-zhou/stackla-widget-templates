@@ -18,21 +18,27 @@ $icon-placement-right: 8.67px;
     width: 100%;
     align-items: center;
   }
+
   .top-section {
     top: $icon-placement-top;
+
     .content-icon {
       margin-left: $icon-placement-left;
     }
+
     .shopping-icon {
       margin-left: auto;
       margin-right: $icon-placement-right;
     }
   }
+
   .bottom-section {
     bottom: $icon-placement-bottom;
+
     .tile-tags {
       margin-left: $icon-placement-left;
     }
+
     .network-icon {
       margin-left: auto;
       margin-right: $icon-placement-right;
