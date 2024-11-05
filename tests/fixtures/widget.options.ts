@@ -19,7 +19,6 @@ export default {
       show_sharing: true,
       show_shopspots: true,
       show_products: true,
-      show_timestamps: true,
       show_tags: true,
       show_votes: true,
       show_cross_sellers: true,
