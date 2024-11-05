@@ -1,9 +1,5 @@
 import { ISdk, loadWidget } from "@stackla/widget-utils"
-import {
-  refreshWaterfallLayout,
-  reinitialiseWaterfallLayout,
-  resizeAllUgcTilesHeight
-} from "@widgets/libs/extensions/waterfall.extension"
+import { refreshWaterfallLayout, reinitialiseWaterfallLayout, resizeAllUgcTilesHeight } from "./waterfall.lib"
 
 declare const sdk: ISdk
 
