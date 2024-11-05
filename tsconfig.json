@@ -27,7 +27,7 @@
     "paths": {
       "@widgets/*": ["./widgets/*"],
       "types": ["./types"],
-      "@styles/*": ["./widgets/styles/*"],
+      "@styles/*": ["./widgets/styles/*"]
     },
     "jsx": "react",
     "jsxFactory": "createElement",
