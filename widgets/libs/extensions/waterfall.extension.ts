@@ -1,6 +1,6 @@
-import { Sdk } from "@stackla/ugc-widgets"
+import { ISdk } from "@stackla/widget-utils"
 
-declare const sdk: Sdk
+declare const sdk: ISdk
 
 export async function reinitialiseWaterfallLayout(minmax: [number, number]) {
   resizeAllUgcTilesHeight(minmax, true)
@@ -31,11 +31,13 @@ export function resizeAllUgcTilesHeight([minHeight, maxHeight]: [number, number]
   }
 
   const rowHeight = 10
+  const { margin } = sdk.getStyleConfig()
+  const gap = parseInt(margin)
 
   ugcTiles.forEach(async (tile: HTMLElement) => {
     const randomHeight = generateRandomHeights(minHeight, maxHeight)
 
-    const rowSpan = Math.ceil(randomHeight / rowHeight)
+    const rowSpan = Math.floor((randomHeight + gap) / (rowHeight + gap))
 
     tile.style.gridRowEnd = `span ${rowSpan}`
 

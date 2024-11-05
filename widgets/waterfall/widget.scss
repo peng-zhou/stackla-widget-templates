@@ -5,6 +5,7 @@
   .ugc-tiles {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(auto, var(--tile-size)));
+    grid-auto-rows: 10px;
     gap: var(--margin);
     background: var(--widget-background);
   }
