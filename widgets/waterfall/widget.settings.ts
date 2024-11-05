@@ -21,7 +21,7 @@ export async function loadSettings() {
   const { inline_tile_size } = sdk.getStyleConfig()
 
   const minmax: [number, number] =
-    inline_tile_size === "small" ? [70, 340] : inline_tile_size === "large" ? [350, 700] : [260, 450] //TODO: recheck values with the design team
+    inline_tile_size === "small" ? [150, 340] : inline_tile_size === "large" ? [350, 700] : [260, 450] //TODO: recheck values with the design team
 
   await resizeAllUgcTilesHeight(minmax)
   sdk.addEventListener("moreLoad", async () => {
