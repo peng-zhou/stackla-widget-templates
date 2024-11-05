@@ -36,7 +36,7 @@ export default {
       show_tags: true,
       show_votes: true,
       inline_tile_show_shopspots: true,
-      tile_size: "small"
+      tile_size: "medium"
     },
     claim_config: {
       show_claim_button: false,
