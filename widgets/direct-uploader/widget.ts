@@ -1,7 +1,22 @@
 import { loadAllUnloadedTiles } from "@stackla/widget-utils/dist/libs/extensions/swiper/loader.extension"
-import { loadSettings } from "./widget.settings"
-import { loadTemplates } from "./widget.templates"
+import { loadWidget } from "@stackla/widget-utils"
+import shopspotStyle from "./components/shopspot-icon/base.scss"
 
-loadTemplates()
-loadSettings()
+const settings = {
+  extensions: {},
+  features: {
+    handleLoadMore: false
+  },
+  callbacks: {},
+  templates: {
+    "expanded-tiles": {
+      style: {
+        css: shopspotStyle,
+        global: true
+      }
+    }
+  }
+}
+
+loadWidget(settings)
 loadAllUnloadedTiles()

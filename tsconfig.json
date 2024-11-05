@@ -26,7 +26,8 @@
     "resolveJsonModule": true,
     "paths": {
       "@widgets/*": ["./widgets/*"],
-      "types": ["./types"]
+      "types": ["./types"],
+      "@styles/*": ["./widgets/styles/*"],
     },
     "jsx": "react",
     "jsxFactory": "createElement",

@@ -1,5 +1,20 @@
-import { loadSettings } from "./widget.settings"
-import { loadCustomisation } from "./widget.templates"
+import { loadWidget } from "@stackla/widget-utils"
+import shopspotStyle from "./components/shopspot-icon/base.scss"
 
-loadCustomisation()
-loadSettings()
+const settings = {
+  extensions: {
+    masonry: true
+  },
+  features: {},
+  callbacks: {},
+  templates: {
+    "expanded-tiles": {
+      style: {
+        css: shopspotStyle,
+        global: true
+      }
+    }
+  }
+}
+
+loadWidget(settings)
