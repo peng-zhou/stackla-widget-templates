@@ -1,8 +1,7 @@
-@import "@styles/mixins.scss";
-@import "@templates/tags/tags.scss";
+@use "styles";
 
 #nosto-ugc-container {
-  .ugc-tiles {
+  .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(auto, var(--tile-size)));
     grid-auto-rows: 10px;
