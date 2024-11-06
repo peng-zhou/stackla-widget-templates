@@ -36,7 +36,6 @@ const widgetOptions: SharedWidgetOptions["widgetOptions"] = {
       show_timestamp: true,
       show_tags: true,
       show_votes: true,
-      show_timestamp: true,
       show_caption: true,
       show_products: true,
       show_add_to_cart: true
