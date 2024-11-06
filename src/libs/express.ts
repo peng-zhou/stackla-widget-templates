@@ -1,15 +1,14 @@
 import express from "express"
 import "hbs"
-import { WidgetRequest } from "@stackla/ugc-widgets"
 import cors from "cors"
 import path from "path"
 import { readFileSync } from "fs"
 import * as Handlebars from "hbs"
 import { getAndRenderTiles, getTilesToRender, renderTemplates } from "./tile.handlers"
-import { loadStaticFileRoutes } from "./static-files"
 import widgetOptions from "../../tests/fixtures/widget.options"
 import cookieParser from "cookie-parser"
 import tiles from "../../tests/fixtures/tiles"
+import { createMockRoutes } from "../../tests/libs/developer"
 
 export interface IDraftRequest {
   customTemplates: {
@@ -43,12 +42,10 @@ expressApp.set("view engine", "hbs")
 expressApp.use(cors())
 expressApp.use(cookieParser())
 
+createMockRoutes(expressApp)
+
 const stripSymbols = (str: string) => str.replace(/[^a-zA-Z0-9]/g, "")
 const stripSymbolsThatAreNotDash = (str: string) => str.replace(/[^a-zA-Z0-9-]/g, "")
-
-if (process.env.APP_ENV == "testing" || process.env.APP_ENV == "development") {
-  loadStaticFileRoutes(expressApp)
-}
 
 expressApp.use((req, res, next) => {
   const host = req.headers.host || "http://localhost:4003"
@@ -128,7 +125,7 @@ async function getHTML(content: PreviewContent, page: number = 1, limit: number 
   )
 }
 
-expressApp.post("/widgets/668ca52ada8fb/draft", async (req, res) => {
+expressApp.post("/development/widgets/668ca52ada8fb/draft", async (req, res) => {
   const body = JSON.parse(req.body)
   const draft = body.draft as IDraftRequest
   const html = await renderTemplates(draft, body.page, body.limit)
@@ -147,7 +144,7 @@ expressApp.post("/widgets/668ca52ada8fb/draft", async (req, res) => {
   })
 })
 
-expressApp.get("/widgets/668ca52ada8fb", async (req, res) => {
+expressApp.get("/development/widgets/668ca52ada8fb", async (req, res) => {
   const content = await getContent(req.cookies.widgetType as string)
 
   res.json({
@@ -161,7 +158,7 @@ expressApp.get("/widgets/668ca52ada8fb", async (req, res) => {
   })
 })
 
-expressApp.get("/widgets/668ca52ada8fb/tiles", async (req, res) => {
+expressApp.get("/development/widgets/668ca52ada8fb/tiles", async (req, res) => {
   const page = (req.query.page ?? 0) as number
   const limit = (req.query.limit ?? 25) as number
   res.send({
@@ -169,11 +166,11 @@ expressApp.get("/widgets/668ca52ada8fb/tiles", async (req, res) => {
   })
 })
 
-expressApp.get("/widgets/668ca52ada8fb/tiles/:tid", async (req, res) => {
+expressApp.get("/development/widgets/668ca52ada8fb/tiles/:tid", async (req, res) => {
   res.json(tiles.find(tile => tile.id === req.params.tid))
 })
 
-expressApp.get("/widgets/668ca52ada8fb/rendered/tiles", async (req, res) => {
+expressApp.get("/development/widgets/668ca52ada8fb/rendered/tiles", async (req, res) => {
   const widgetType = req.cookies.widgetType as string
   const page = (req.query.page ?? 0) as number
   const limit = (req.query.limit ?? 25) as number
@@ -182,20 +179,21 @@ expressApp.get("/widgets/668ca52ada8fb/rendered/tiles", async (req, res) => {
   res.json(tileHtml)
 })
 
-expressApp.get("/stackla/cs/image/disable", async (req, res) => {
+expressApp.get("/development/stackla/cs/image/disable", async (req, res) => {
   res.json({ success: true })
 });
 
 // Register preview route
 expressApp.get("/preview", async (req, res) => {
   const port = req.headers.host?.split(":")[1] || "4003"
-  const widgetRequest = req.query as WidgetRequest
+  const widgetRequest = req.query
   const widgetType = req.query.widgetType as string
 
   res.render("preview", {
     widgetRequest: JSON.stringify(widgetRequest),
     widgetType,
     widgetOptions: JSON.stringify(widgetOptions.widgetConfig),
+    environment: process.env.APP_ENV,
     ...(await getContent(widgetType)),
     port: port
   })

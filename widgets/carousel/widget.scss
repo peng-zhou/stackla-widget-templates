@@ -31,10 +31,12 @@
 
     .swiper-inline {
       width: styles.$swiper-container-width-md !important;
+
       .swiper-slide {
         width: 100% !important;
       }
     }
+
     .tile {
       width: styles.$tile-width-md !important;
       height: styles.$tile-height-md !important;

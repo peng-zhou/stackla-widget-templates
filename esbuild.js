@@ -43,10 +43,10 @@ async function buildAll() {
               {
                 findFileUrl(url) {
                   if (url.startsWith("@templates")) {
-                    const newUrl = pathToFileURL(url.replace("@", "widgets/libs/"))
+                    const newUrl = pathToFileURL(url.replace("@", "widgets/styles/"))
                     return new URL(newUrl)
                   }
-
+ 
                   if (url.startsWith("@styles")) {
                     const newUrl = pathToFileURL(url.replace("@", "widgets/"))
                     return new URL(newUrl)
@@ -84,6 +84,7 @@ async function buildAll() {
     })();`
         : ``
     },
+    jsx: "automatic",
     minify: true,
     plugins: [
       preAndPostBuild,
@@ -108,7 +109,7 @@ async function buildAll() {
 
   if (env == "development") {
     config.minify = false
-    config.sourcemap = "inline"
+    config.sourcemap = "external"
 
     if (isWatch) {
       startWebSocketServer()

@@ -1,8 +1,7 @@
-import { Sdk } from "@stackla/ugc-widgets"
-import { getConfig } from "./widget.config"
-import { waitForElements } from "@widgets/libs/widget.features"
+import type { ISdk } from "@stackla/widget-utils"
+import { waitForElements } from "@stackla/widget-utils/dist/libs/widget.features"
 
-declare const sdk: Sdk
+declare const sdk: ISdk
 
 const tileSizes: { [key: string]: number } = {
   small: 88.5,
@@ -11,8 +10,6 @@ const tileSizes: { [key: string]: number } = {
 }
 
 const tilesContainer = sdk.querySelector(".ugc-tiles")!
-const widgetContainer = sdk.placement.getWidgetContainer()
-const widgetSettings = getConfig(widgetContainer)
 
 function createTileGroup(tiles: HTMLElement[], groupStartIndex: number, tileSize: number) {
   if (tiles.length - groupStartIndex < 5) {
@@ -93,8 +90,9 @@ export async function preloadTileImagesAndRemoveBrokenTiles(tiles: NodeListOf<HT
 }
 
 export function getQuadrantTiles() {
+  const { inline_tile_size } = sdk.getStyleConfig()
   sdk.addEventListener("moreLoad", () => {
-    const tileSize = tileSizes[widgetSettings.tile_size ?? "medium"]
+    const tileSize = tileSizes[inline_tile_size ?? "medium"]
 
     waitForElements(tilesContainer, ".ugc-tile:not(.processed)", async newTiles => {
       if (newTiles && newTiles.length >= 5) {
@@ -112,7 +110,7 @@ export function getQuadrantTiles() {
     }
 
     const loadedTiles = await preloadTileImagesAndRemoveBrokenTiles(tiles)
-    const tileSize = tileSizes[widgetSettings.tile_size ?? "medium"]
+    const tileSize = tileSizes[inline_tile_size ?? "medium"]
 
     if (tiles && tiles.length > 0) {
       addQuadrantTiles(loadedTiles, tileSize)

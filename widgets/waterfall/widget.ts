@@ -1,37 +1,26 @@
-import { getConfig } from "./widget.config"
-import {
-  addAutoAddTileFeature,
-  addLoadMoreButtonFeature,
-  addTilesPerPageFeature,
-  loadExpandedTileFeature,
-  loadTitle,
-  loadWidgetIsEnabled
-} from "widgets/libs/widget.features"
-import { addCSSVariablesToPlacement } from "widgets/libs/widget.layout"
-import expandedTileCSS from "./components/expanded-tile/base.scss"
-import productsCSS from "./components/products/base.scss"
+import { loadAllUnloadedTiles } from "@stackla/widget-utils/dist/libs/extensions/swiper/loader.extension"
+import { loadWidget } from "@stackla/widget-utils"
 import shopspotStyle from "./components/shopspot-icon/base.scss"
-import customExpandedTileTemplate from "./components/expanded-tile/base.template"
-import getCSSVariables from "widgets/libs/css-variables"
-import { Sdk } from "@stackla/ugc-widgets"
+import { refreshWaterfallLayout, reinitialiseWaterfallLayout, resizeAllUgcTilesHeight } from "./waterfall.lib"
 
-declare const sdk: Sdk
+const settings = {
+  extensions: {},
+  features: {},
+  callbacks: {
+    onMoreLoad: [() => refreshWaterfallLayout()],
+    onTilesUpdated: [() => refreshWaterfallLayout()],
+    resize: [() => reinitialiseWaterfallLayout()]
+  },
+  templates: {
+    "expanded-tiles": {
+      style: {
+        css: shopspotStyle,
+        global: true
+      }
+    }
+  }
+}
 
-sdk.tiles.hideBrokenTiles = true
-sdk.tiles.preloadImages = true
-
-const widgetContainer = sdk.placement.getWidgetContainer()
-const widgetSettings = getConfig(widgetContainer)
-
-loadWidgetIsEnabled(widgetSettings)
-loadTitle()
-addAutoAddTileFeature(widgetSettings)
-loadExpandedTileFeature(widgetSettings)
-addTilesPerPageFeature(widgetSettings)
-addLoadMoreButtonFeature(widgetSettings)
-addCSSVariablesToPlacement(getCSSVariables(widgetSettings))
-
-sdk.addCSSToComponent(expandedTileCSS, "expanded-tile")
-sdk.addCSSToComponent(productsCSS, "ugc-products")
-sdk.addCSSToComponent(shopspotStyle, "shopspot-icon")
-sdk.addTemplateToComponent(customExpandedTileTemplate, "expanded-tile")
+loadWidget(settings)
+resizeAllUgcTilesHeight()
+loadAllUnloadedTiles()
