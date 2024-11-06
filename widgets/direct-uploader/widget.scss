@@ -99,12 +99,12 @@
 }
 
 .direct-uploader-load-more {
+  --direct-uploader-wrapper-size: 100%;
   position: absolute;
   inset: 0;
   margin: 0 auto;
-  inset-area: center;
-  height: 100%;
-  width: 100%;
+  height: var(--direct-uploader-wrapper-size);
+  width: var(--direct-uploader-wrapper-size);
   background-color: rgba(31 99 202 / 80%);
 
   div {
@@ -126,8 +126,8 @@
 
   .direct-uploader-container {
     position: relative;
-    height: 100%;
-    width: 100%;
+    height: var(--direct-uploader-wrapper-size);
+    width: var(--direct-uploader-wrapper-size);
   }
 }
 
