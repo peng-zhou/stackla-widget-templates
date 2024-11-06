@@ -12,6 +12,7 @@
 
   .swiper {
     width: styles.$swiper-container-width-lg;
+
     .tile {
       width: styles.$tile-width-lg;
       height: styles.$tile-height-lg;
@@ -26,12 +27,15 @@
 @include styles.breakpoint(mobile) {
   #nosto-ugc-container {
     height: auto;
+
     .swiper-inline {
       width: styles.$swiper-container-width-md !important;
+
       .swiper-slide {
         width: 100% !important;
       }
     }
+
     .tile {
       width: styles.$tile-width-md !important;
       height: styles.$tile-height-md !important;
