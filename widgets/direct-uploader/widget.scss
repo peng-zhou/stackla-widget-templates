@@ -141,19 +141,27 @@
   }
 
   .form-container {
-    background-color: white;
+    --form-background-color: white;
+    --form-shadow-opacity: 10%;
+    --form-exit-button-inset: -15px;
+    --form-insent: 10%;
+    --form-padding: 20px;
+    --form-max-height: 90vh;
+    --form-border-radius: 5px;
+
+    background-color: var(--form-background-color);
     position: fixed;
-    inset: 10%;
+    inset: var(--form-insent);
     z-index: 3;
-    padding: 20px;
-    max-height: 90vh;
-    border-radius: 5px;
-    box-shadow: 0 0 10px 0 rgba(0 0 0 / 10%);
+    padding: var(--form-padding);
+    max-height: var(--form-max-height);
+    border-radius: var(--form-border-radius);
+    box-shadow: 0 0 10px 0 rgba(0 0 0 / var(--form-shadow-opacity));
 
     .exit {
         position: absolute;
-        right: -15px;
-        top: -15px;
+        right: var(--form-exit-button-inset);
+        top: var(--form-exit-button-inset);
     }
   }
 }
