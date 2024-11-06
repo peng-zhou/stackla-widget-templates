@@ -107,15 +107,21 @@
   width: var(--direct-uploader-wrapper-size);
   background-color: rgba(31 99 202 / 80%);
 
+
+  --direct-uploader-container-inset: 0;
+  --direct-uploader-container-text-color: white;
+  --direct-uploader-container-font-size: 16px;
+  --direct-uploader-container-icon-weight: 500;
+
   div {
     position: absolute;
-    inset: 0;
+    inset: var(--direct-uploader-container-inset);
     inset-area: center;
 
     p {
-      font-size: 16px;
-      font-weight: 500;
-      color: white;
+      font-size: var(--direct-uploader-container-font-size);
+      font-weight: var(--direct-uploader-container-icon-weight);
+      color: var(--direct-uploader-container-text-color);
     }
 
     .icon-picture {
