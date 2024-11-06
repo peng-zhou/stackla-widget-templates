@@ -8,7 +8,6 @@ import addToCartStyleOverrides from "./add-to-cart.scss"
 import productStyleOverrides from "./products.scss"
 import { loadSwiperStyles } from "@widgets/libs/extensions/swiper"
 import icons from "../../../../uikit/icon.scss"
-import "@libs/components/user-content"
 
 declare const sdk: Sdk
 

@@ -6,9 +6,8 @@ import productsCSS from "./components/products/base.scss"
 import getCSSVariables from "@widgets/libs/css-variables"
 import icons from "../../uikit/icon.scss"
 import { loadExpandedTileTemplates } from "@libs/components/expanded-tile-swiper"
-import userContentOverrides from "./user-content-overrides.scss"
 
-import "@libs/components/user-content"
+import userContentStyleOverrides from "./user-content-overrides.scss"
 
 declare const sdk: Sdk
 
@@ -27,6 +26,8 @@ loadTitle()
 addCSSVariablesToPlacement(getCSSVariables(widgetSettings))
 addAutoAddTileFeature(widgetSettings)
 loadExpandedTileTemplates()
+
+sdk.addLoadedComponents(["user-content"])
 
 sdk.addEventListener("load", () => setTimeout(initListeners, 1000))
 
@@ -69,5 +70,6 @@ function initListeners() {
   })
 }
 
+sdk.addCSSToComponent(userContentStyleOverrides, "user-content")
 sdk.addCSSToComponent(productsCSS, "ugc-products")
 sdk.addSharedCssCustomStyles("icons", icons, [sdk.placement.getWidgetId(), "expanded-tiles"])

@@ -14,7 +14,9 @@ function getComponentFilePaths() {
     "google-analytics",
     "cross-sellers",
     "add-to-cart",
-    "products"
+    "products",
+    "load-more",
+    "user-content"
   ]
 
   return components.map(component => path.resolve(__dirname, `${WIDGET_PATH}/${component}.js`))

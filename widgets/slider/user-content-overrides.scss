@@ -2,13 +2,21 @@
   color: #ffffff;
 }
 
-.user-name {
-  color: #ffffff;
-  text-transform: uppercase;
-}
+.user-info {
+  .user-link {
+    .user-name {
+      color: #ffffff;
+      text-transform: uppercase;
+    }
 
-.user-handle {
-  color: #ffffff;
+    .user-handle {
+      color: #ffffff;
+    }
+  }
+
+  .avatar-wrapper {
+    display: none;
+  }
 }
 
 .tile-timephrase {
