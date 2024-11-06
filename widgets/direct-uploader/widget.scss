@@ -9,7 +9,6 @@
 
   .grid-item {
     display: inline-flex;
-    flex-grow: 1;
     flex: 0 0 23%;
 
     @include styles.breakpoint(tablet) {
@@ -58,6 +57,9 @@
 }
 
 #submit-more-content-btn {
+  cursor: pointer;
+  transition: background-color 0.3s;
+
   --button-padding: 8px 16px;
   --button-font-size: 14px;
   --button-outer-gap: 10px;
@@ -90,11 +92,6 @@
   &:hover {
     background-color: var(--button-hover-bg-color);
   }
-
-  & {
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
 }
 
 .hidden {
@@ -108,7 +105,7 @@
   inset-area: center;
   height: 100%;
   width: 100%;
-  background-color: rgba(31, 99, 202, 0.8);
+  background-color: rgba(31 99 202 / 80%);
 
   div {
     position: absolute;
@@ -137,10 +134,7 @@
 #direct-uploader-form {
   .overlay {
     position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
+    inset: 0;
     background-color: black;
     z-index: 2;
     opacity: 0.8;
@@ -149,15 +143,12 @@
   .form-container {
     background-color: white;
     position: fixed;
-    top: 10%;
-    left: 10%;
-    right: 10%;
-    bottom: 10%;
+    inset: 10%;
     z-index: 3;
     padding: 20px;
     max-height: 90vh;
     border-radius: 5px;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px 0 rgba(0 0 0 / 10%);
 
     .exit {
         position: absolute;
