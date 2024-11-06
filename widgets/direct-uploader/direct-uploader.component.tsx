@@ -1,4 +1,4 @@
-import { ISdk, createFragment, createElement } from "@stackla/widget-utils"
+import { ISdk, createElement } from "@stackla/widget-utils"
 
 declare const sdk: ISdk
 declare const WIDGET_ENDPOINT: string
