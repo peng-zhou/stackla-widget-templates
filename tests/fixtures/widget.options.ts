@@ -33,9 +33,9 @@ const widgetOptions: SharedWidgetOptions["widgetOptions"] = {
       show_nav: true,
       show_sharing: true,
       show_shopspots: true,
+      show_timestamp: true,
       show_tags: true,
       show_votes: true,
-      show_timestamp: true,
       show_caption: true,
       show_products: true,
       show_add_to_cart: true
@@ -69,7 +69,7 @@ const widgetOptions: SharedWidgetOptions["widgetOptions"] = {
     tiles_per_page: "15",
     minimal_tiles: "1",
     type: "fluid",
-    widget_background: "",
+    widget_background: "FBF9FB",
     widget_height: "210",
     widget_loading_image: "//assetscdn.stackla.com/media/images/widget/ajax-loader.gif",
     unavailable_products_behaviour: "always_show",
@@ -83,7 +83,7 @@ const widgetOptions: SharedWidgetOptions["widgetOptions"] = {
     plugin_instance_id: "0",
     rows_per_page: "",
     shopspot_btn_font_size: "",
-    inline_tile_size: "",
+    inline_tile_size: "medium",
     inline_tile_border_radius: ""
   },
   guid: "668ca52ada8fb",
