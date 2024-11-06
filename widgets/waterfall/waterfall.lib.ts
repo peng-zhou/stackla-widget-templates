@@ -2,12 +2,16 @@ import { ISdk } from "@stackla/widget-utils"
 
 declare const sdk: ISdk
 
-export function reinitialiseWaterfallLayout(minmax: [number, number]) {
-  resizeAllUgcTilesHeight(minmax, true)
+const { inline_tile_size } = sdk.getStyleConfig()
+const minmax: [number, number] =
+  inline_tile_size === "small" ? [200, 340] : inline_tile_size === "large" ? [350, 700] : [260, 450]
+
+export function reinitialiseWaterfallLayout() {
+  resizeAllUgcTilesHeight(true)
 }
 
-export function refreshWaterfallLayout(minmax: [number, number]) {
-  resizeAllUgcTilesHeight(minmax)
+export function refreshWaterfallLayout() {
+  resizeAllUgcTilesHeight()
 }
 
 /**
@@ -20,9 +24,10 @@ export function generateRandomHeights(minHeight: number, maxHeight: number) {
   return Math.floor(Math.random() * (maxHeight - minHeight)) + minHeight
 }
 
-export function resizeAllUgcTilesHeight([minHeight, maxHeight]: [number, number], reset = false) {
+export function resizeAllUgcTilesHeight(reset = false) {
   const allTiles = Array.from(sdk.querySelectorAll<HTMLElement>(".grid-item") ?? [])
   const ugcTiles = reset ? allTiles : allTiles.filter(tile => tile.getAttribute("height-set") !== "true")
+  const [minHeight, maxHeight] = minmax
 
   if (!ugcTiles || ugcTiles.length === 0) {
     return

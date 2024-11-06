@@ -84,7 +84,7 @@ const widgetOptions: SharedWidgetOptions["widgetOptions"] = {
     plugin_instance_id: "0",
     rows_per_page: "",
     shopspot_btn_font_size: "",
-    inline_tile_size: "",
+    inline_tile_size: "medium",
     inline_tile_border_radius: ""
   },
   guid: "668ca52ada8fb",
