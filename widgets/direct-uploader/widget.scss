@@ -8,15 +8,19 @@
   justify-content: center;
 
   .grid-item {
+    --grid-item-width-desktop: 23%;
+    --grid-item-width-tablet: 30%;
+    --grid-item-width-mobile: 100%;
+
     display: inline-flex;
-    flex: 0 0 23%;
+    flex: 0 0 var(--grid-item-width-desktop);
 
     @include styles.breakpoint(tablet) {
-      flex: 0 0 30%;
+      flex: 0 0 var(--grid-item-width-tablet);
     }
 
     @include styles.breakpoint(mobile) {
-      flex: 0 0 100%;
+      flex: 0 0 var(--grid-item-width-mobile);
     }
   }
 }
