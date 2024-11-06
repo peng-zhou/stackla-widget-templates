@@ -2,14 +2,12 @@ import { ISdk } from "@stackla/widget-utils"
 
 declare const sdk: ISdk
 
-export async function reinitialiseWaterfallLayout(minmax: [number, number]) {
+export function reinitialiseWaterfallLayout(minmax: [number, number]) {
   resizeAllUgcTilesHeight(minmax, true)
 }
 
-export async function refreshWaterfallLayout(minmax: [number, number], refresh = true) {
-  if (refresh) {
-    resizeAllUgcTilesHeight(minmax)
-  }
+export function refreshWaterfallLayout(minmax: [number, number]) {
+  resizeAllUgcTilesHeight(minmax)
 }
 
 /**
