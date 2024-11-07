@@ -2,10 +2,10 @@ import { ISdk, createElement } from "@stackla/widget-utils"
 
 declare const sdk: ISdk
 declare const WIDGET_ENDPOINT: string
-declare const DIRECT_UPLOAD_ENDPOINT: string
+declare const DIRECT_UPLOADER_ENDPOINT: string
 
 const createDUIFrame = (guid: string) => {
-  const directUploaderSource = `${DIRECT_UPLOAD_ENDPOINT}/widget/show?v=1&plugin_id=${guid}`
+  const directUploaderSource = `${DIRECT_UPLOADER_ENDPOINT}/widget/show?v=1&plugin_id=${guid}`
 
   return <iframe src={directUploaderSource} width="100%" height="100%" frameborder="0"></iframe>
 }

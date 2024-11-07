@@ -119,7 +119,7 @@ const getGoConnectEndpoint = () => {
     },
     define: {
       WIDGET_ENDPOINT: JSON.stringify(getWidgetEndpoint()),
-      DIRECT_UPLOAD_ENDPOINT: JSON.stringify(getGoConnectEndpoint())
+      DIRECT_UPLOADER_ENDPOINT: JSON.stringify(getGoConnectEndpoint())
     },
     jsx: "automatic",
     minify: true,
