@@ -35,10 +35,12 @@ const config = {
     environment: {
       APP_ENV: env
     },
+    stage: '${opt:stage, self:custom.defaultStage}',
     iam: '${file(./config/${self:provider.stage}.json):iam}',
   },
   plugins,
   custom: {
+    defaultStage: 'development',
     'serverless-offline': {
       httpPort: getPort()
     },
