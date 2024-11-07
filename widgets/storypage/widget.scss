@@ -8,9 +8,9 @@
   justify-content: center;
 
   .grid-item {
-    --grid-item-width-desktop: 23%;
-    --grid-item-width-tablet: 30%;
-    --grid-item-width-mobile: 100%;
+    --grid-item-width-desktop: #{calc(100vw / 4 - var(--margin) * 4)};
+    --grid-item-width-tablet: #{calc(100vw / 3 - var(--margin) * 3)};
+    --grid-item-width-mobile: #{calc(100vw - var(--margin) * 2)};
 
     display: inline-flex;
     flex: 0 0 var(--grid-item-width-desktop);
