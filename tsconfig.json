@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "target": "ES6",
-    "module": "ESNext",
+    "module": "es6",
     "lib": ["DOM"],
     "declaration": true,
     "declarationMap": true,
