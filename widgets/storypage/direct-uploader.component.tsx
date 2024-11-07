@@ -41,4 +41,8 @@ class DirectUploaderWidget extends HTMLElement {
   }
 }
 
-customElements.define("direct-uploader", DirectUploaderWidget)
+try {
+  customElements.define("direct-uploader", DirectUploaderWidget)
+} catch (error) {
+  // eslint-disable-next-line no-console
+}
