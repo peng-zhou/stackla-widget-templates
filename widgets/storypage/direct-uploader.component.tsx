@@ -19,11 +19,11 @@ const defaultTemplate = (
 class DirectUploaderWidget extends HTMLElement {
   constructor() {
     super()
-
-    this.appendChild(defaultTemplate)
   }
 
   async connectedCallback() {
+    this.appendChild(defaultTemplate)
+
     const widgetId = sdk.placement.getWidgetId()
     const settings = sdk.getStyleConfig()
     const { plugin_instance_id } = settings
