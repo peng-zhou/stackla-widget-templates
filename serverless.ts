@@ -34,7 +34,8 @@ const config = {
     name: "aws",
     environment: {
       APP_ENV: env
-    }
+    },
+    iam: '${file(./config/${self:provider.stage}.json):iam}',
   },
   plugins,
   custom: {
