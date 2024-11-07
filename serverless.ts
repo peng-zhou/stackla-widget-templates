@@ -37,6 +37,14 @@ const config = {
     },
     stage: '${opt:stage, self:custom.defaultStage}',
     iam: '${file(./config/${self:provider.stage}.json):iam}',
+    region: '${opt:region}',
+    deploymentBucket: {
+        name: 'stackla-serverless-${self:provider.stage}-deploys',
+        maxPreviousDeploymentArtifacts: 10,
+        blockPublicAccess: true,
+        skipPolicySetup: true,
+        versioning: true,
+    },
   },
   plugins,
   custom: {
