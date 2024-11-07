@@ -1,10 +1,10 @@
 describe("Should test the direct-uploader", () => {
   it("Should pass default tests", () => {
-    cy.widgetTests("direct-uploader")
+    cy.widgetTests("storypage")
   })
 
   it("Should display timephrase in the tile", () => {
-    cy.visitWidget("direct-uploader")
+    cy.visitWidget("storypage")
 
     cy.getFirstTile().find(".tile-timephrase").should("exist").invoke("text").should("not.be.empty")
   })
