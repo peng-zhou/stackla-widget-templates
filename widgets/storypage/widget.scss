@@ -5,23 +5,15 @@
 }
 
 .grid {
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 
-  .grid-item {
-    --grid-item-width-desktop: #{calc(100vw / 4 - var(--margin) * 4)};
-    --grid-item-width-tablet: #{calc(100vw / 3 - var(--margin) * 3)};
-    --grid-item-width-mobile: #{calc(100vw - var(--margin) * 2)};
+  @include styles.breakpoint(tablet) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 
-    display: inline-flex;
-    flex: 0 0 var(--grid-item-width-desktop);
-
-    @include styles.breakpoint(tablet) {
-      flex: 0 0 var(--grid-item-width-tablet);
-    }
-
-    @include styles.breakpoint(mobile) {
-      flex: 0 0 var(--grid-item-width-mobile);
-    }
+  @include styles.breakpoint(mobile) {
+    grid-template-columns: 1fr;
   }
 }
 

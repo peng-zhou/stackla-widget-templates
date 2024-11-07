@@ -10,6 +10,11 @@ loadWidget({
     handleLoadMore: false
   },
   callbacks: {
+    onLoad: [
+      () => {
+        loadDirectUploaderTileButton()
+      }
+    ],
     onTilesUpdated: [
       () => {
         loadDirectUploaderTileButton()
