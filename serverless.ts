@@ -7,8 +7,8 @@ const testingHooks = {
 };
 
 const defaultHooks = {
-  "before:package:initialize": [`APP_ENV=${env} npm run build`],
-  "before:webpack:compile:compile": [`APP_ENV=${env} npm run build`]
+  "before:package:initialize": [`npm run build:${env}`],
+  "before:webpack:compile:compile": [`npm run build:${env}`]
 };
 
 const plugins = [
