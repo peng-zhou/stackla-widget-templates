@@ -6,12 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Widget Preview</title>
   <!-- IMP: Please don't modify the port below. We don't need this file fetched from local server as we don't do any changes in this file here -->
-  <script type="text/javascript" src="http://localhost:4002/core.js?widgetType={{{widgetType}}}"></script>
+  <script type="text/javascript" src="https://widget-ui.stackla.com/{{{environment}}}/core.js?widgetType={{{widgetType}}}"></script>
 </head>
 
 <body style="margin: 0;">
   <div id="ugc-widget" data-wid='668ca52ada8fb'></div>
-  <script>
+  <script> 
     const cssTemplate = `{{{cssCode}}}`;
     const layoutTemplate = `{{{layoutCode}}}`;
     const tileTemplate = `{{{tileCode}}}`;
@@ -21,6 +21,7 @@
     var stackWidgetCustomData = {};
     const widgetParams = {
       "draft": {
+        "enabled": 1,
         "guid": "668ca52ada8fb",
         "filter_id": 10695,
         "enabled": 1,

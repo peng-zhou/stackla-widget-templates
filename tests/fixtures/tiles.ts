@@ -1,4 +1,4 @@
-import { Tile } from "@stackla/ugc-widgets"
+import { Tile } from "@stackla/widget-utils"
 
 export default [
   {
@@ -102,7 +102,8 @@ export default [
         auto_apply: 0,
         publicly_visible: 1,
         processed: 0,
-        custom_url: "http://localhost:4002/products/asus-tuf-f15-15-6-fhd-144hz-gaming-laptop-1tbgeforce-rtx-3050",
+        custom_url:
+          "http://widget-ui.stackla.com/development/products/asus-tuf-f15-15-6-fhd-144hz-gaming-laptop-1tbgeforce-rtx-3050",
         target: "_blank",
         system_tag: 0,
         priority: 0,
@@ -154,7 +155,7 @@ export default [
         auto_apply: 0,
         publicly_visible: 1,
         processed: 0,
-        custom_url: "http://localhost:4002/products/samsung-98-qn90d-neo-qled-4k-smart-tv-2024",
+        custom_url: "http://widget-ui.stackla.com/development/products/samsung-98-qn90d-neo-qled-4k-smart-tv-2024",
         target: "_blank",
         system_tag: 0,
         priority: 0,
@@ -241,7 +242,8 @@ export default [
           auto_apply: 0,
           publicly_visible: 1,
           processed: 0,
-          custom_url: "http://localhost:4002/products/asus-tuf-f15-15-6-fhd-144hz-gaming-laptop-1tbgeforce-rtx-3050",
+          custom_url:
+            "http://widget-ui.stackla.com/development/products/asus-tuf-f15-15-6-fhd-144hz-gaming-laptop-1tbgeforce-rtx-3050",
           target: "_blank",
           system_tag: 0,
           priority: 0,
@@ -298,7 +300,7 @@ export default [
           auto_apply: 0,
           publicly_visible: 1,
           processed: 0,
-          custom_url: "http://localhost:4002/products/samsung-98-qn90d-neo-qled-4k-smart-tv-2024",
+          custom_url: "http://widget-ui.stackla.com/development/products/samsung-98-qn90d-neo-qled-4k-smart-tv-2024",
           target: "_blank",
           system_tag: 0,
           priority: 0,
@@ -705,7 +707,8 @@ export default [
           auto_apply: 0,
           publicly_visible: 1,
           processed: 0,
-          custom_url: "http://localhost:4002/products/asus-tuf-f15-15-6-fhd-144hz-gaming-laptop-1tbgeforce-rtx-3050",
+          custom_url:
+            "http://widget-ui.stackla.com/development/products/asus-tuf-f15-15-6-fhd-144hz-gaming-laptop-1tbgeforce-rtx-3050",
           target: "_blank",
           system_tag: 0,
           priority: 0,
@@ -762,7 +765,7 @@ export default [
           auto_apply: 0,
           publicly_visible: 1,
           processed: 0,
-          custom_url: "http://localhost:4002/products/samsung-98-qn90d-neo-qled-4k-smart-tv-2024",
+          custom_url: "http://widget-ui.stackla.com/development/products/samsung-98-qn90d-neo-qled-4k-smart-tv-2024",
           target: "_blank",
           system_tag: 0,
           priority: 0,
@@ -817,7 +820,8 @@ export default [
         auto_apply: 0,
         publicly_visible: 1,
         processed: 0,
-        custom_url: "http://localhost:4002/products/asus-tuf-f15-15-6-fhd-144hz-gaming-laptop-1tbgeforce-rtx-3050",
+        custom_url:
+          "http://widget-ui.stackla.com/development/products/asus-tuf-f15-15-6-fhd-144hz-gaming-laptop-1tbgeforce-rtx-3050",
         target: "_blank",
         system_tag: 0,
         priority: 0,
@@ -1028,7 +1032,8 @@ export default [
         auto_apply: 0,
         publicly_visible: 1,
         processed: 0,
-        custom_url: "http://localhost:4002/products/asus-tuf-f15-15-6-fhd-144hz-gaming-laptop-1tbgeforce-rtx-3050",
+        custom_url:
+          "http://widget-ui.stackla.com/development/products/asus-tuf-f15-15-6-fhd-144hz-gaming-laptop-1tbgeforce-rtx-3050",
         target: "_blank",
         system_tag: 0,
         priority: 0,
@@ -1080,7 +1085,7 @@ export default [
         auto_apply: 0,
         publicly_visible: 1,
         processed: 0,
-        custom_url: "http://localhost:4002/products/samsung-98-qn90d-neo-qled-4k-smart-tv-2024",
+        custom_url: "http://widget-ui.stackla.com/development/products/samsung-98-qn90d-neo-qled-4k-smart-tv-2024",
         target: "_blank",
         system_tag: 0,
         priority: 0,

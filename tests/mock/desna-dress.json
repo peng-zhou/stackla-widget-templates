@@ -1,0 +1,191 @@
+{
+  "id": 7972239900912,
+  "title": "Desna Dress",
+  "handle": "desna-dress",
+  "description": "\u003cspan\u003eThe Desna Dress is an\u00a0excellent seasonal piece. Layering is optional with its lightweight\u003c/span\u003e\u003cspan\u003e, barely sheer body-con shape. Skirt reaches knee-length. Sew-in slip.\u00a0Crew\u00a0neckline.\u00a0\u003c/span\u003e\u003cspan\u003eColor Black. 100% Pima Cotton. Made in the U.S.A.\u00a0\u003c/span\u003e",
+  "published_at": "2022-05-24T12:00:04+03:00",
+  "created_at": "2022-05-24T12:00:07+03:00",
+  "vendor": "Drifter",
+  "type": "women's dresses",
+  "tags": ["arrivals", "AW15", "black", "Dresses", "drifter", "Shot 5/14", "signature", "spring8", "Woman"],
+  "price": 18800,
+  "price_min": 18800,
+  "price_max": 18800,
+  "available": true,
+  "price_varies": false,
+  "compare_at_price": null,
+  "compare_at_price_min": 0,
+  "compare_at_price_max": 0,
+  "compare_at_price_varies": false,
+  "variants": [
+    {
+      "id": 42871957946608,
+      "title": "Small / Black",
+      "option1": "Small",
+      "option2": "Black",
+      "option3": null,
+      "sku": "50051",
+      "requires_shipping": true,
+      "taxable": true,
+      "featured_image": null,
+      "available": false,
+      "name": "Desna Dress - Small / Black",
+      "public_title": "Small / Black",
+      "options": ["Small", "Black"],
+      "price": 18800,
+      "weight": 0,
+      "compare_at_price": null,
+      "inventory_management": "shopify",
+      "barcode": "50051",
+      "quantity_rule": { "min": 1, "max": null, "increment": 1 },
+      "quantity_price_breaks": [],
+      "requires_selling_plan": false,
+      "selling_plan_allocations": []
+    },
+    {
+      "id": 42871957979376,
+      "title": "Medium / Black",
+      "option1": "Medium",
+      "option2": "Black",
+      "option3": null,
+      "sku": "50052",
+      "requires_shipping": true,
+      "taxable": true,
+      "featured_image": null,
+      "available": true,
+      "name": "Desna Dress - Medium / Black",
+      "public_title": "Medium / Black",
+      "options": ["Medium", "Black"],
+      "price": 18800,
+      "weight": 0,
+      "compare_at_price": null,
+      "inventory_management": "shopify",
+      "barcode": "50052",
+      "quantity_rule": { "min": 1, "max": null, "increment": 1 },
+      "quantity_price_breaks": [],
+      "requires_selling_plan": false,
+      "selling_plan_allocations": []
+    },
+    {
+      "id": 42871958012144,
+      "title": "Large / Black",
+      "option1": "Large",
+      "option2": "Black",
+      "option3": null,
+      "sku": "50053",
+      "requires_shipping": true,
+      "taxable": true,
+      "featured_image": null,
+      "available": true,
+      "name": "Desna Dress - Large / Black",
+      "public_title": "Large / Black",
+      "options": ["Large", "Black"],
+      "price": 18800,
+      "weight": 0,
+      "compare_at_price": null,
+      "inventory_management": "shopify",
+      "barcode": "50053",
+      "quantity_rule": { "min": 1, "max": null, "increment": 1 },
+      "quantity_price_breaks": [],
+      "requires_selling_plan": false,
+      "selling_plan_allocations": []
+    }
+  ],
+  "images": [
+    "//cdn.shopify.com/s/files/1/0646/7115/4416/products/2015-05-14_Ashley_Look2_50051_21844.jpg?v=1653382808",
+    "//cdn.shopify.com/s/files/1/0646/7115/4416/products/2015-05-14_Ashley_Look2_50051_21850.jpg?v=1653382808",
+    "//cdn.shopify.com/s/files/1/0646/7115/4416/products/2015-05-14_Ashley_Look2_50051_21851.jpg?v=1653382808",
+    "//cdn.shopify.com/s/files/1/0646/7115/4416/products/2015-05-14_Ashley_Look2_50051_21854.jpg?v=1653382808",
+    "//cdn.shopify.com/s/files/1/0646/7115/4416/products/2015-05-14_Ashley_Look2_50051_21856.jpg?v=1653382808"
+  ],
+  "featured_image": "//cdn.shopify.com/s/files/1/0646/7115/4416/products/2015-05-14_Ashley_Look2_50051_21844.jpg?v=1653382808",
+  "options": [
+    { "name": "Size", "position": 1, "values": ["Small", "Medium", "Large"] },
+    { "name": "Color", "position": 2, "values": ["Black"] }
+  ],
+  "url": "/products/desna-dress",
+  "media": [
+    {
+      "alt": null,
+      "id": 30260558889200,
+      "position": 1,
+      "preview_image": {
+        "aspect_ratio": 0.714,
+        "height": 2048,
+        "width": 1462,
+        "src": "https://cdn.shopify.com/s/files/1/0646/7115/4416/products/2015-05-14_Ashley_Look2_50051_21844.jpg?v=1653382808"
+      },
+      "aspect_ratio": 0.714,
+      "height": 2048,
+      "media_type": "image",
+      "src": "https://cdn.shopify.com/s/files/1/0646/7115/4416/products/2015-05-14_Ashley_Look2_50051_21844.jpg?v=1653382808",
+      "width": 1462
+    },
+    {
+      "alt": null,
+      "id": 30260558921968,
+      "position": 2,
+      "preview_image": {
+        "aspect_ratio": 0.714,
+        "height": 2048,
+        "width": 1462,
+        "src": "https://cdn.shopify.com/s/files/1/0646/7115/4416/products/2015-05-14_Ashley_Look2_50051_21850.jpg?v=1653382808"
+      },
+      "aspect_ratio": 0.714,
+      "height": 2048,
+      "media_type": "image",
+      "src": "https://cdn.shopify.com/s/files/1/0646/7115/4416/products/2015-05-14_Ashley_Look2_50051_21850.jpg?v=1653382808",
+      "width": 1462
+    },
+    {
+      "alt": null,
+      "id": 30260558954736,
+      "position": 3,
+      "preview_image": {
+        "aspect_ratio": 0.714,
+        "height": 2048,
+        "width": 1462,
+        "src": "https://cdn.shopify.com/s/files/1/0646/7115/4416/products/2015-05-14_Ashley_Look2_50051_21851.jpg?v=1653382808"
+      },
+      "aspect_ratio": 0.714,
+      "height": 2048,
+      "media_type": "image",
+      "src": "https://cdn.shopify.com/s/files/1/0646/7115/4416/products/2015-05-14_Ashley_Look2_50051_21851.jpg?v=1653382808",
+      "width": 1462
+    },
+    {
+      "alt": null,
+      "id": 30260558987504,
+      "position": 4,
+      "preview_image": {
+        "aspect_ratio": 0.714,
+        "height": 2048,
+        "width": 1462,
+        "src": "https://cdn.shopify.com/s/files/1/0646/7115/4416/products/2015-05-14_Ashley_Look2_50051_21854.jpg?v=1653382808"
+      },
+      "aspect_ratio": 0.714,
+      "height": 2048,
+      "media_type": "image",
+      "src": "https://cdn.shopify.com/s/files/1/0646/7115/4416/products/2015-05-14_Ashley_Look2_50051_21854.jpg?v=1653382808",
+      "width": 1462
+    },
+    {
+      "alt": null,
+      "id": 30260559020272,
+      "position": 5,
+      "preview_image": {
+        "aspect_ratio": 0.714,
+        "height": 2048,
+        "width": 1462,
+        "src": "https://cdn.shopify.com/s/files/1/0646/7115/4416/products/2015-05-14_Ashley_Look2_50051_21856.jpg?v=1653382808"
+      },
+      "aspect_ratio": 0.714,
+      "height": 2048,
+      "media_type": "image",
+      "src": "https://cdn.shopify.com/s/files/1/0646/7115/4416/products/2015-05-14_Ashley_Look2_50051_21856.jpg?v=1653382808",
+      "width": 1462
+    }
+  ],
+  "requires_selling_plan": false,
+  "selling_plan_groups": []
+}

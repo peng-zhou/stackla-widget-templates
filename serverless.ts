@@ -1,56 +1,72 @@
-const { serverlessConfig } = require("@stackla/base-serverless")
-
-const env = process.env.APP_ENV || "development"
+const env = process.env.APP_ENV || "development";
 
 const testingHooks = {
   "before:package:initialize": ["npm run test:build"],
   "before:offline:start:init": ["npm run test:build"],
   "before:webpack:compile:compile": ["npm run test:build"]
-}
+};
 
 const defaultHooks = {
-  "before:package:initialize": [`APP_ENV=${env} npm run build`],
-  "before:webpack:compile:compile": [`APP_ENV=${env} npm run build`]
-}
+  "before:package:initialize": [`npm run build:${env}`],
+  "before:webpack:compile:compile": [`npm run build:${env}`]
+};
 
-const plugins: string[] = ["serverless-webpack", "serverless-offline", "serverless-hooks-plugin"]
+const plugins = [
+  "serverless-webpack",
+  "serverless-offline",
+  "serverless-hooks-plugin"
+];
 
 const getPort = () => {
   switch (env) {
     case "development":
-      return 4003
+      return 4003;
     case "testing":
-      return 4002
+      return 4002;
     default:
-      return 80
+      return 80;
   }
-}
+};
 
 const config = {
-  ...serverlessConfig({
-    plugins: plugins,
-    service: "widget-templates",
-    offlinePort: getPort(),
-    custom: {
-      esbuild: {
-        otherExternal: ["hbs"]
-      },
-      hooks: process.env.APP_ENV == "testing" ? testingHooks : defaultHooks
+  service: "widget-templates",
+  provider: {
+    name: "aws",
+    environment: {
+      APP_ENV: env
     },
-    package: {
-      include: ["views/**/*", "dist/**/*", "build/**/*"],
-      exclude: ["node_modules/**/*"]
-    }
-  }),
+    stage: '${opt:stage, self:custom.defaultStage}',
+    iam: '${file(./config/${self:provider.stage}.json):iam}',
+    region: '${opt:region}',
+    deploymentBucket: {
+        name: 'stackla-serverless-${self:provider.stage}-deploys',
+        maxPreviousDeploymentArtifacts: 10,
+        blockPublicAccess: true,
+        skipPolicySetup: true,
+        versioning: true,
+    },
+  },
+  plugins,
+  custom: {
+    defaultStage: 'development',
+    'serverless-offline': {
+      httpPort: getPort()
+    },
+    esbuild: {
+      otherExternal: ["hbs"]
+    },
+    hooks: env === "testing" ? testingHooks : defaultHooks
+  },
+  package: {
+    include: ["views/**/*", "dist/**/*", "build/**/*"],
+    exclude: ["node_modules/**/*"]
+  },
   functions: {
     main: {
-      environment: {
-        APP_ENV: env
-      },
-      handler: `./src/functions/main/handler.main`,
+      handler: "./src/functions/main/handler.main",
       timeout: 30,
       url: {
-        authorizer: "aws_iam" as const
+        authorizer: "aws_iam"
       },
       ...(process.env.NODE_ENV === "development" && {
         events: [
@@ -64,6 +80,6 @@ const config = {
       })
     }
   }
-}
+};
 
-module.exports = config
+module.exports = config;

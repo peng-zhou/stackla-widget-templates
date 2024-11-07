@@ -43,10 +43,10 @@ async function buildAll() {
               {
                 findFileUrl(url) {
                   if (url.startsWith("@templates")) {
-                    const newUrl = pathToFileURL(url.replace("@", "widgets/libs/"))
+                    const newUrl = pathToFileURL(url.replace("@", "widgets/styles/"))
                     return new URL(newUrl)
                   }
-
+ 
                   if (url.startsWith("@styles")) {
                     const newUrl = pathToFileURL(url.replace("@", "widgets/"))
                     return new URL(newUrl)
@@ -65,9 +65,42 @@ async function buildAll() {
     }
   }
 
+const TEST_SERVER = "http://localhost:4002/development"
+const DEV_SERVER = "http://localhost:4003/development"
+
+const getWidgetEndpoint = () => {
+  switch (process.env.APP_ENV) {
+    case "production":
+      return "https://widget-data.stackla.com"
+    case "staging":
+      return "https://widget-data.teaser.stackla.com"
+    case "testing":
+      return TEST_SERVER
+    case "development":
+      return DEV_SERVER
+    default:
+      return "http://localhost:5006"
+  }
+}
+
+const getGoConnectEndpoint = () => {
+  switch (process.env.APP_ENV) {
+    case "production":
+      return "https://goconnect.stackla.com"
+    case "staging":
+      return "https://goconnect.teaser.stackla.com"
+    case "testing":
+      return TEST_SERVER
+    case "development":
+      return DEV_SERVER
+    default:
+      return "http://localhost:5006"
+  }
+}
+
   /** @type {esbuild.BuildOptions} */
   const config = {
-    entryPoints: [...globSync("./widgets/**/widget.ts")],
+    entryPoints: [...globSync("./widgets/**/widget.tsx")],
     bundle: true,
     outdir: "dist/widgets",
     loader: {
@@ -84,6 +117,11 @@ async function buildAll() {
     })();`
         : ``
     },
+    define: {
+      WIDGET_ENDPOINT: JSON.stringify(getWidgetEndpoint()),
+      DIRECT_UPLOADER_ENDPOINT: JSON.stringify(getGoConnectEndpoint())
+    },
+    jsx: "automatic",
     minify: true,
     plugins: [
       preAndPostBuild,
@@ -108,7 +146,7 @@ async function buildAll() {
 
   if (env == "development") {
     config.minify = false
-    config.sourcemap = "inline"
+    config.sourcemap = "external"
 
     if (isWatch) {
       startWebSocketServer()
