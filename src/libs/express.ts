@@ -8,7 +8,16 @@ import { getAndRenderTiles, getTilesToRender, renderTemplates } from "./tile.han
 import widgetOptions from "../../tests/fixtures/widget.options"
 import cookieParser from "cookie-parser"
 import tiles from "../../tests/fixtures/tiles"
-import { createMockRoutes } from "../../tests/libs/developer"
+import { createMockRoutes, PRODUCTION_UI_URL } from "../../tests/libs/developer"
+
+export function getDomain(isDev: boolean) {
+  return process.env.APP_ENV === "production" ? 
+      PRODUCTION_UI_URL : 
+    isDev ?
+    "http://localhost:4002" :
+   `${PRODUCTION_UI_URL}/local` 
+   
+}
 
 export interface IDraftRequest {
   customTemplates: {
@@ -17,7 +26,7 @@ export interface IDraftRequest {
     }
     tile: {
       template: string
-    }
+    } 
   }
   customCSS: string
   customJS: string,
@@ -185,7 +194,6 @@ expressApp.get("/development/stackla/cs/image/disable", async (req, res) => {
 
 // Register preview route
 expressApp.get("/preview", async (req, res) => {
-  const port = req.headers.host?.split(":")[1] || "4003"
   const widgetRequest = req.query
   const widgetType = req.query.widgetType as string
 
@@ -193,9 +201,8 @@ expressApp.get("/preview", async (req, res) => {
     widgetRequest: JSON.stringify(widgetRequest),
     widgetType,
     widgetOptions: JSON.stringify(widgetOptions.widgetConfig),
-    environment: process.env.APP_ENV,
+    domain: getDomain(req.query.dev === "true"),
     ...(await getContent(widgetType)),
-    port: port
   })
 })
 
