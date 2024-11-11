@@ -1,19 +1,12 @@
 import { loadAllUnloadedTiles } from "@stackla/widget-utils/extensions/swiper"
 import { loadWidget } from "@stackla/widget-utils"
 import shopspotStyle from "./components/shopspot-icon/base.scss"
-import {
-  refreshWaterfallLayout,
-  reinitialiseWaterfallLayout,
-  resizeAllUgcTilesHeight
-} from "../waterfall/waterfall.lib"
 
 const settings = {
   extensions: {},
   features: {},
   callbacks: {
-    onMoreLoad: [() => refreshWaterfallLayout()],
-    onTilesUpdated: [() => refreshWaterfallLayout()],
-    resize: [() => reinitialiseWaterfallLayout()]
+    // oliver todo
   },
   templates: {
     "expanded-tiles": {
@@ -26,5 +19,4 @@ const settings = {
 }
 
 loadWidget(settings)
-resizeAllUgcTilesHeight()
 loadAllUnloadedTiles()
