@@ -2,7 +2,6 @@ import type { Express } from "express"
 import nostoApiJS from "../data/nosto-api"
 import * as path from "node:path"
 import * as fs from "node:fs"
-import { getContent, getDomain } from "../../src/libs/express"
 
 export const PRODUCTION_UI_URL = "https://widget-ui.stackla.com"
 
