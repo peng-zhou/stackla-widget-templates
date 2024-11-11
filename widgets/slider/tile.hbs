@@ -17,17 +17,13 @@
             <div class="play-icon"></div>
             {{/ifequals}}
         </div>
-        <div class="bottom-section">
-            <span class="tile-timephrase">{{time_ago}}</span>
-        </div>
         <shopspot-icon tile-id="{{id}}"></shopspot-icon>
     </div>
     {{#lazy image_thumbnail_url "120"}}{{/lazy}}
 </div>
 <div class="details-section">
     <div class="tile-message-wrapper">
-        <user-content avatar="{{avatar}}" user="{{user}}" original-url="{{original_url}}" message="{{message}}"
-            source-created-at="{{source_created_at}}"></user-content>
+        <tile-content tileId="{{id}}" mode="dark" context="slider-inline"></tile-content>
         <div class="tile">
             <ul class="tile-tags">
                 {{#tags_extended}}

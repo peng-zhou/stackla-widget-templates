@@ -1,21 +1,22 @@
 import loadSlider from "./load-slider"
 import { loadWidget } from "@stackla/widget-utils"
-import userContentStyles from "./components/user-content/overrides.scss"
+import userContentStyles from "./components/tile-content/overrides.scss"
 import shopspotStyle from "./components/shopspot-icon/base.scss"
 
 loadWidget({
   extensions: {},
   features: {
-    handleLoadMore: false
+    handleLoadMore: false,
+    addNewTilesAutomatically: true
   },
   callbacks: {
     onLoad: [loadSlider]
   },
   templates: {
-    "user-content": {
+    "tile-content": {
       style: {
         css: userContentStyles,
-        global: true
+        global: false
       }
     },
     "expanded-tiles": {

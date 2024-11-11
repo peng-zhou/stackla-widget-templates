@@ -1,6 +1,8 @@
 @use "styles";
 @use "responsive";
 
+$section-height: 220px;
+
 :host {
   transition: ease all 0.5s;
 }
@@ -32,11 +34,12 @@
           display: grid;
           width: 100%;
           grid-template-columns: 50% 50%;
+          grid-auto-rows: $section-height;
 
           .image-section {
             display: flex;
             width: 100%;
-            height: 100%;
+            position: relative;
           }
 
           .details-section {
@@ -44,20 +47,25 @@
             flex-direction: column;
             place-items: flex-start;
             place-content: flex-start;
-            width: 100%;
+            width: calc(100% - 10px);
+            margin: 10px 0 0 10px;
             height: 100%;
 
             .tile-message-wrapper {
               display: grid;
-              grid-template-columns: 1fr;
-              grid-gap: 10px;
-              grid-template-rows: auto;
+              grid-template-rows: 85% 15%;
+              grid-auto-columns: 1fr;
+              height: 100%;
+
+              .tile-tags .tile-tag {
+                --tile-tag-background: #bcbbbc;
+              }
             }
           }
 
           img {
             width: 100%;
-            height: 220px;
+            height: $section-height;
             object-fit: cover;
           }
         }
@@ -71,15 +79,14 @@
           border: 1px solid #ccc;
           font-size: 1.5em;
           transition: transform 0.5s ease-in-out; /* Apply transition to all blocks */
-          height: 220px;
+          height: $section-height;
           cursor: pointer;
         }
         .tile-image,
         .tile-video {
-          position: relative;
-          flex-flow: row nowrap;
           justify-content: flex-start;
-          height: 220px;
+          height: $section-height;
+          overflow: hidden;
         }
       }
 
