@@ -11,12 +11,15 @@ import tiles from "../../tests/fixtures/tiles"
 import { createMockRoutes, PRODUCTION_UI_URL } from "../../tests/libs/developer"
 
 export function getDomain(isDev: boolean) {
-  return process.env.APP_ENV === "production" ? 
-      PRODUCTION_UI_URL : 
-    isDev ?
-    "http://localhost:4002" :
-   `${PRODUCTION_UI_URL}/local` 
-   
+  if (isDev) {
+    return "http://localhost:4002/development"
+  }
+
+  if (process.env.APP_ENV === "production") {
+    return PRODUCTION_UI_URL
+  }
+
+  return `${PRODUCTION_UI_URL}/local`
 }
 
 export interface IDraftRequest {
