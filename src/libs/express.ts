@@ -14,6 +14,10 @@ export function getDomain(isDev: boolean) {
   if (isDev) {
     return "http://localhost:4002/development"
   }
+  
+  if (process.env.APP_ENV === "testing") {
+    return `${PRODUCTION_UI_URL}/testing`
+  }
 
   if (process.env.APP_ENV === "production") {
     return PRODUCTION_UI_URL
@@ -86,7 +90,7 @@ expressApp.use("/preview", (req, res, next) => {
   }
 })
 
-async function getContent(widgetType: string, retry = 0): Promise<PreviewContent> {
+export async function getContent(widgetType: string, retry = 0): Promise<PreviewContent> {
   if (retry > 3) {
     throw new Error(`Failed to get content, exiting after 3 retries, widgetType: ${widgetType}`)
   }

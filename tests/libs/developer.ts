@@ -2,7 +2,7 @@ import type { Express } from "express"
 import nostoApiJS from "../data/nosto-api"
 import * as path from "node:path"
 import * as fs from "node:fs"
-import { getDomain } from "../../src/libs/express"
+import { getContent, getDomain } from "../../src/libs/express"
 
 export const PRODUCTION_UI_URL = "https://widget-ui.stackla.com"
 
@@ -112,7 +112,8 @@ export const createMockRoutes = (app: Express) => {
     })
   })
 
-  app.get("/test-preview", (req, res) => {
+  app.get("/test-preview", async (req, res) => {
+    const widgetType = req.cookies.widgetType
     const widget = {
       wid: "668ca52ada8fb",
       dev: true
@@ -120,7 +121,9 @@ export const createMockRoutes = (app: Express) => {
 
     res.render("preview", {
       widgetRequest: JSON.stringify(widget),
-      domain: getDomain(req.query.dev === "true")
+      widgetType,
+      ...(await getContent(widgetType)),
+      domain: getDomain(false)
     })
   })
 }
