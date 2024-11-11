@@ -111,19 +111,4 @@ export const createMockRoutes = (app: Express) => {
       guid: "663acb8116377"
     })
   })
-
-  app.get("/test-preview", async (req, res) => {
-    const widgetType = req.cookies.widgetType
-    const widget = {
-      wid: "668ca52ada8fb",
-      dev: true
-    }
-
-    res.render("preview", {
-      widgetRequest: JSON.stringify(widget),
-      widgetType,
-      ...(await getContent(widgetType)),
-      domain: getDomain(false)
-    })
-  })
 }
