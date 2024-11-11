@@ -82,6 +82,7 @@ $section-height: 220px;
           height: $section-height;
           cursor: pointer;
         }
+
         .tile-image,
         .tile-video {
           justify-content: flex-start;
@@ -114,8 +115,8 @@ $section-height: 220px;
         flex-direction: column;
         cursor: pointer;
 
-        &#scrollUp,
-        &#scrollDown {
+        &#scroll-up,
+        &#scroll-down {
           .widget-icon {
             transform: rotate(90deg);
           }

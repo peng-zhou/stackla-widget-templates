@@ -3,8 +3,8 @@ import { SdkSwiper } from "types"
 declare const sdk: SdkSwiper
 
 export default function () {
-  const sliderScrollUpButton = sdk.querySelector("#scrollUp")
-  const sliderScrollDownButton = sdk.querySelector("#scrollDown")
+  const sliderScrollUpButton = sdk.querySelector("#scroll-up")
+  const sliderScrollDownButton = sdk.querySelector("#scroll-down")
   const tileBlockElement = sdk.querySelector(".ugc-tile-wrapper")
   const tilesContainer = sdk.querySelector(".ugc-tiles")
 
