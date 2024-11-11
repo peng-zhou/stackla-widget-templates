@@ -1,5 +1,7 @@
 @use "styles";
 
+$tile-background: #000;
+
 #nosto-ugc-container {
   .grid {
     display: grid;
@@ -13,9 +15,9 @@
     $total-padding: 10px;
     
     box-sizing: border-box;
+    border-radius: 5px;
     overflow: hidden;
     max-width: 100%;
-    grid-row-end: span 30;
   }
 
   .tile {
@@ -25,6 +27,11 @@
     height: 100%;
     padding: 0 5px;
     background: white;
+    width: 100%;
+  }
+
+  .tile-image {
+    grid-row-end: span 30;
   }
 
   .tile-top {
@@ -58,6 +65,7 @@
 .tile-bottom {
   padding: 16px 5px 12px;
   width: 100%;
+  background-color: $tile-background;
 }
 
 .tile-tags {
@@ -75,7 +83,6 @@
 }
 
 .tag-inline {
-  background: var(--tile-tag-background);
   border-radius: 3px !important;
   font-size: 10px;
   font-style: normal;
@@ -83,6 +90,7 @@
   padding: 0 4px;
   line-height: 16px;
   text-wrap: nowrap;
+  background-color: #BCBBBC !important;
 
   a {
     color: var(--text-tile-tag-font-color);
