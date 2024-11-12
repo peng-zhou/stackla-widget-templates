@@ -1,8 +1,6 @@
 @use "styles";
 @use "responsive";
 
-$section-height: 220px;
-
 :host {
   transition: ease all 0.5s;
 }
@@ -20,7 +18,7 @@ $section-height: 220px;
 
     .container {
       display: flex;
-      width: 80%;
+      width: 90%;
       flex-direction: column;
 
       .ugc-tiles {
@@ -29,17 +27,27 @@ $section-height: 220px;
         width: 100%; /* Fixed Width */
         height: 600px; /* Fixed Height */
         overflow-y: hidden;
+        justify-content: center;
 
         .ugc-tile {
           display: grid;
-          width: 100%;
-          grid-template-columns: 50% 50%;
-          grid-auto-rows: $section-height;
+          min-width: var(--tile-size);
+          justify-content: flex-start;
+          height: fit-content;
+          grid-column: span 2;
+
+          grid-template:
+            "image1 details1"
+            "details2 image2"
+            "image3 details4"
+            "details3 image4";
 
           .image-section {
             display: flex;
-            width: 100%;
+            width: var(--tile-size);
             position: relative;
+            grid-area: image1;
+            height: var(--tile-size);
           }
 
           .details-section {
@@ -49,7 +57,9 @@ $section-height: 220px;
             place-content: flex-start;
             width: calc(100% - 10px);
             margin: 10px 0 0 10px;
-            height: 100%;
+            height: var(--tile-size);
+            width: var(--tile-size);
+            grid-area: details1;
 
             .tile-message-wrapper {
               display: grid;
@@ -65,8 +75,38 @@ $section-height: 220px;
 
           img {
             width: 100%;
-            height: $section-height;
             object-fit: cover;
+          }
+
+          &:nth-child(2n) {
+            .image-section {
+              grid-area: image2;
+            }
+            .details-section {
+              grid-area: details2;
+            }
+          }
+
+          &:nth-child(4n-1) {
+            grid-column: auto;
+            grid-row: span 2;
+            .image-section {
+              grid-area: image3;
+            }
+            .details-section {
+              grid-area: details3;
+            }
+          }
+
+          &:nth-child(4n) {
+            grid-column: auto;
+            grid-row: span 2;
+            .image-section {
+              grid-area: image4;
+            }
+            .details-section {
+              grid-area: details4;
+            }
           }
         }
 
@@ -79,15 +119,7 @@ $section-height: 220px;
           border: 1px solid #ccc;
           font-size: 1.5em;
           transition: transform 0.5s ease-in-out; /* Apply transition to all blocks */
-          height: $section-height;
           cursor: pointer;
-        }
-
-        .tile-image,
-        .tile-video {
-          justify-content: flex-start;
-          height: $section-height;
-          overflow: hidden;
         }
       }
 
