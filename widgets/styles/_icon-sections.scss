@@ -3,6 +3,7 @@ $icon-placement-bottom: 8px;
 $icon-placement-left: 8.67px;
 $icon-placement-right: 8.67px;
 $icon-absolute-positioning-right: 0;
+$icon-absolute-positioning-bottom: 0;
 
 .tile-tags {
   margin: 0;
@@ -51,6 +52,7 @@ $icon-absolute-positioning-right: 0;
       margin-right: $icon-placement-right;
       position: absolute;
       right: $icon-absolute-positioning-right;
+      bottom: $icon-absolute-positioning-bottom;
     }
   }
 
