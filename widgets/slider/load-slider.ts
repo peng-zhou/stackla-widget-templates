@@ -1,4 +1,5 @@
 import { SdkSwiper } from "types"
+import { getTileSizeByWidget } from "@stackla/widget-utils"
 
 declare const sdk: SdkSwiper
 
@@ -7,6 +8,9 @@ export default function () {
   const sliderScrollDownButton = sdk.querySelector("#scroll-down")
   const tileBlockElement = sdk.querySelector(".ugc-tile-wrapper")
   const tilesContainer = sdk.querySelector(".ugc-tiles")
+  let scrollIndex = 0
+
+  const tileSizeConfig = getTileSizeByWidget()
 
   if (!tileBlockElement) {
     throw new Error("Slider Tiles Scroll Container not found")
@@ -24,18 +28,25 @@ export default function () {
     throw new Error("Slider Tiles Scroll Down Button not found")
   }
 
-  const blockHeight = tileBlockElement.offsetHeight || 220
+  const tileSizeUnitless = Number(tileSizeConfig["--tile-size-unitless"])
+  const blockHeight = isNaN(tileSizeUnitless) ? 220 : tileSizeUnitless
 
   sliderScrollUpButton.addEventListener("click", () => {
-    tilesContainer.scrollBy({
-      top: -blockHeight,
-      behavior: "smooth"
-    })
+    if (tilesContainer.scrollTop > 0 && scrollIndex > 0) {
+      scrollIndex--
+      tilesContainer.scrollTo({
+        top: blockHeight * scrollIndex,
+        left: 0,
+        behavior: "smooth"
+      })
+    }
   })
 
   sliderScrollDownButton.addEventListener("click", () => {
-    tilesContainer.scrollBy({
-      top: blockHeight,
+    scrollIndex++
+    tilesContainer.scrollTo({
+      top: blockHeight * scrollIndex,
+      left: 0,
       behavior: "smooth"
     })
   })

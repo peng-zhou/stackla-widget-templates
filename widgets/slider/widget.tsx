@@ -14,16 +14,20 @@ loadWidget({
   },
   templates: {
     "tile-content": {
-      style: {
-        css: userContentStyles,
-        global: false
-      }
+      styles: [
+        {
+          css: userContentStyles,
+          global: false
+        }
+      ]
     },
     "expanded-tiles": {
-      style: {
-        css: shopspotStyle,
-        global: true
-      }
+      styles: [
+        {
+          css: shopspotStyle,
+          global: true
+        }
+      ]
     }
   }
 })

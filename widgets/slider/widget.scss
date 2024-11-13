@@ -1,8 +1,14 @@
 @use "styles";
 @use "responsive";
+@use "sass:math";
+
+$space-between: 10px;
 
 :host {
   transition: ease all 0.5s;
+  --rendered-tile-size: var(--tile-size) * 2 + 20px;
+  --width-adjustment: rem(95%, var(--rendered-tile-size));
+  --container-width: calc(95% - var(--width-adjustment));
 }
 
 #nosto-ugc-container {
@@ -18,22 +24,23 @@
 
     .container {
       display: flex;
-      width: 90%;
+      width: var(--container-width);
       flex-direction: column;
 
       .ugc-tiles {
         display: grid;
-        gap: 10px; /* Space between blocks */
+        gap: $space-between; /* Space between blocks */
         width: 100%; /* Fixed Width */
         height: 600px; /* Fixed Height */
-        overflow-y: hidden;
+        overflow: hidden;
         justify-content: center;
 
         .ugc-tile {
           display: grid;
-          min-width: var(--tile-size);
+          //max-width: calc(var(--tile-size) * 2 + 10px);
           justify-content: flex-start;
           height: fit-content;
+          box-sizing: border-box;
           grid-column: span 2;
 
           grid-template:
@@ -41,7 +48,6 @@
             "details2 image2"
             "image3 details4"
             "details3 image4";
-
           .image-section {
             display: flex;
             width: var(--tile-size);
@@ -55,8 +61,7 @@
             flex-direction: column;
             place-items: flex-start;
             place-content: flex-start;
-            width: calc(100% - 10px);
-            margin: 10px 0 0 10px;
+            width: calc(100% - $space-between);
             height: var(--tile-size);
             width: var(--tile-size);
             grid-area: details1;
@@ -66,6 +71,7 @@
               grid-template-rows: 85% 15%;
               grid-auto-columns: 1fr;
               height: 100%;
+              padding: 10px 0 0 10px;
 
               .tile-tags .tile-tag {
                 --tile-tag-background: #bcbbbc;
@@ -87,9 +93,16 @@
             }
           }
 
-          &:nth-child(4n-1) {
+          &:nth-child(4n-1),
+          &:nth-child(4n) {
+            //max-width: calc(var(--tile-size) + $space-between);
+            min-width: initial;
             grid-column: auto;
             grid-row: span 2;
+            height: 100%;
+          }
+
+          &:nth-child(4n-1) {
             .image-section {
               grid-area: image3;
             }
@@ -99,8 +112,6 @@
           }
 
           &:nth-child(4n) {
-            grid-column: auto;
-            grid-row: span 2;
             .image-section {
               grid-area: image4;
             }
@@ -151,6 +162,10 @@
         &#scroll-down {
           .widget-icon {
             transform: rotate(90deg);
+          }
+
+          &.disabled {
+            pointer-events: none;
           }
         }
       }
