@@ -1,6 +1,6 @@
-import tiles from "../../../tests/fixtures/tiles"
+import { createElement } from "@stackla/widget-utils"
 import { ShareMenu } from "./share-menu.lib"
-import { createElement } from "../../"
+import tiles from "tests/fixtures/tiles"
 
 describe("Share menu rendering", () => {
   it("should render share menu for the provided tile", () => {

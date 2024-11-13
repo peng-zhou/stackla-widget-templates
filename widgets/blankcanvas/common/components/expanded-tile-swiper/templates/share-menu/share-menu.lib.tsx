@@ -1,4 +1,4 @@
-import { createElement, Tile } from "@stackla/widget-utils";
+import { createElement, Tile } from "@stackla/widget-utils"
 
 export function ShareMenu({ tile }: { tile: Tile }) {
   return (
