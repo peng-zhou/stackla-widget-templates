@@ -3,11 +3,12 @@ import { loadWidget } from "@stackla/widget-utils"
 import shopspotStyle from "./components/shopspot-icon/base.scss"
 import { reinitialiseWaterfallLayout, loadWaterfallLayout } from "./waterfall.lib"
 
-const settings = {
+loadWidget({
   extensions: {},
   features: {},
   callbacks: {
-    onMoreLoad: [() => loadWaterfallLayout()],
+    //TODO fix the event
+    //onMoreLoad: [() => loadWaterfallLayout()],
     onTilesUpdated: [() => loadWaterfallLayout()],
     resize: [() => reinitialiseWaterfallLayout()]
   },
@@ -21,8 +22,6 @@ const settings = {
       ]
     }
   }
-}
-
-loadWidget(settings)
+})
 loadWaterfallLayout()
 loadAllUnloadedTiles()

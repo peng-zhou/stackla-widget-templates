@@ -2,7 +2,7 @@ import { loadAllUnloadedTiles } from "@stackla/widget-utils/extensions/swiper"
 import { loadWidget } from "@stackla/widget-utils"
 import shopspotStyle from "./components/shopspot-icon/base.scss"
 
-const settings = {
+loadWidget({
   extensions: {},
   features: {},
   callbacks: {
@@ -18,7 +18,5 @@ const settings = {
       ]
     }
   }
-}
-
-loadWidget(settings)
+})
 loadAllUnloadedTiles()

@@ -1,7 +1,9 @@
 /* Responsive Layout with Media Queries */
 @media (width >= 1600px) {
   .ugc-tiles {
-    grid-template-columns: repeat(4, 1fr);
+    grid-auto-columns: var(--tile-size);
+    grid-template-columns: repeat(auto-fit, minmax(min-content, var(--tile-size)));
+    grid-auto-flow: row;
   }
 }
 
