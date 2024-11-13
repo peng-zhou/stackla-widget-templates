@@ -5,10 +5,11 @@
 $space-between: 10px;
 
 :host {
-  transition: ease all 0.5s;
   --rendered-tile-size: var(--tile-size) * 2 + 20px;
   --width-adjustment: rem(95%, var(--rendered-tile-size));
   --container-width: calc(95% - var(--width-adjustment));
+
+  transition: ease all 0.5s;
 }
 
 #nosto-ugc-container {
@@ -37,17 +38,16 @@ $space-between: 10px;
 
         .ugc-tile {
           display: grid;
-          //max-width: calc(var(--tile-size) * 2 + 10px);
           justify-content: flex-start;
           height: fit-content;
           box-sizing: border-box;
           grid-column: span 2;
-
           grid-template:
             "image1 details1"
             "details2 image2"
             "image3 details4"
             "details3 image4";
+
           .image-section {
             display: flex;
             width: var(--tile-size);
@@ -61,7 +61,6 @@ $space-between: 10px;
             flex-direction: column;
             place-items: flex-start;
             place-content: flex-start;
-            width: calc(100% - $space-between);
             height: var(--tile-size);
             width: var(--tile-size);
             grid-area: details1;
@@ -84,10 +83,23 @@ $space-between: 10px;
             object-fit: cover;
           }
 
+          /* Style for individual blocks */
+          .ugc-tile,
+          .ugc-tile-wrapper {
+            align-items: center;
+            background-color: #000;
+            color: #fff;
+            border: 1px solid #ccc;
+            font-size: 1.5em;
+            transition: transform 0.5s ease-in-out; /* Apply transition to all blocks */
+            cursor: pointer;
+          }
+
           &:nth-child(2n) {
             .image-section {
               grid-area: image2;
             }
+
             .details-section {
               grid-area: details2;
             }
@@ -95,7 +107,6 @@ $space-between: 10px;
 
           &:nth-child(4n-1),
           &:nth-child(4n) {
-            //max-width: calc(var(--tile-size) + $space-between);
             min-width: initial;
             grid-column: auto;
             grid-row: span 2;
@@ -106,6 +117,7 @@ $space-between: 10px;
             .image-section {
               grid-area: image3;
             }
+
             .details-section {
               grid-area: details3;
             }
@@ -115,22 +127,11 @@ $space-between: 10px;
             .image-section {
               grid-area: image4;
             }
+
             .details-section {
               grid-area: details4;
             }
           }
-        }
-
-        /* Style for individual blocks */
-        .ugc-tile,
-        .ugc-tile-wrapper {
-          align-items: center;
-          background-color: #000;
-          color: #fff;
-          border: 1px solid #ccc;
-          font-size: 1.5em;
-          transition: transform 0.5s ease-in-out; /* Apply transition to all blocks */
-          cursor: pointer;
         }
       }
 
