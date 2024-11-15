@@ -54,7 +54,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           start: npm run start:test
-          wait-on: 'http://localhost:4002?widgetType=carousel'
+          wait-on: 'http://localhost:4002/preview?widgetType=carousel'
           record: true
           parallel: true 
   trigger_deploy:
