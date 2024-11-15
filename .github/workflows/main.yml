@@ -8,6 +8,7 @@ permissions:
 
 env:
   GH_TOKEN: ${{ github.token }}
+  CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
 
 on:
   pull_request:
@@ -40,6 +41,25 @@ jobs:
         run: npm run typecheck
       - name: Test
         run: npm test
+  cypress-run:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        containers: [1, 2, 3]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          start: npm start:test
+          wait-on: 'http://localhost:4002'
+          record: true
+          parallel: true 
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   trigger_deploy:
     if: github.ref == 'refs/heads/master'
     needs: [build]
