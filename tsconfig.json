@@ -32,7 +32,7 @@
     "jsx": "react",
     "jsxFactory": "createElement",
     "jsxFragmentFactory": "createFragment",
-    "types": ["node", "jest", "cypress", "@simonsmith/cypress-image-snapshot/types"]
+    "types": ["node", "jest", "cypress"]
   },
   "include": ["widgets/**/*.ts", "widgets/**/*.tsx"],
   "exclude": [] 
