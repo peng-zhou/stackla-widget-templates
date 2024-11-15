@@ -8,6 +8,7 @@ permissions:
 
 env:
   GH_TOKEN: ${{ github.token }}
+  NODE_AUTH_TOKEN: ${{secrets.STACKLA_BOT_GITHUB_TOKEN}}
   CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
 
 on:
