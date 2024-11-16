@@ -57,6 +57,7 @@ jobs:
           wait-on: 'http://localhost:4002/preview?widgetType=carousel'
           record: true
           parallel: true 
+          browser: chrome
   trigger_deploy:
     if: github.ref == 'refs/heads/master'
     needs: [build]
