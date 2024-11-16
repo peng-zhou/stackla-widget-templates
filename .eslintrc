@@ -25,9 +25,9 @@
       "no-console": "warn",
       "@typescript-eslint/no-unused-vars": ["error", { "varsIgnorePattern": "create(Element|Fragment)" }],
       "import/no-extraneous-dependencies": ["error", {"devDependencies": false, "optionalDependencies": false, "peerDependencies": false}]
-
     },
     "ignorePatterns": [
+      "widget-utils/",
       "node_modules/", 
       "dist/", 
       "*.d.ts",

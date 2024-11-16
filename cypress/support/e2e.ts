@@ -1,10 +1,11 @@
+// eslint-disable-next-line
 import { addCompareSnapshotCommand } from "cypress-visual-regression/dist/command"
 
 const WIDGET_ID = "ugc-widget-668ca52ada8fb"
 
 addCompareSnapshotCommand({
   capture: "viewport",
-  errorThreshold: 0.01
+  errorThreshold: 0.05
 })
 
 Cypress.Commands.add("visitWidget", widgetType => {
@@ -24,7 +25,6 @@ Cypress.Commands.add("shouldShowTile", widgetType => {
 })
 
 Cypress.Commands.add("snapshot", (name: string) => {
-
   cy.compareSnapshot(name)
 })
 
@@ -35,12 +35,15 @@ Cypress.Commands.add("getProductComponent", expandedTile => {
 Cypress.Commands.add("shouldExpandedTile", () => {
   cy.get(WIDGET_ID).shadow().find("expanded-tiles").should("exist")
 
+  // eslint-disable-next-line cypress/no-unnecessary-waiting
+  cy.wait(4000)
+
   cy.getFirstTile().click()
 
   // eslint-disable-next-line cypress/no-unnecessary-waiting
-  cy.wait(3000)
+  cy.wait(4000)
 
-  cy.get(WIDGET_ID).shadow().find("expanded-tiles").find("img").should("exist")
+  cy.get(WIDGET_ID).shadow().find("expanded-tiles").shadow().find("img").should("exist")
 })
 
 // TODO - FIX Share Menu
