@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { addCompareSnapshotCommand } from "cypress-visual-regression/dist/command"
 
 const WIDGET_ID = "ugc-widget-668ca52ada8fb"
@@ -20,11 +19,12 @@ Cypress.Commands.add("shouldShowTile", widgetType => {
   cy.getFirstTile().should("exist")
   cy.getFirstTile().click()
   // eslint-disable-next-line cypress/no-unnecessary-waiting
-  cy.wait(3000)
+  cy.wait(5000)
   cy.snapshot(`${widgetType}-tile`)
 })
 
 Cypress.Commands.add("snapshot", (name: string) => {
+
   cy.compareSnapshot(name)
 })
 
@@ -32,7 +32,7 @@ Cypress.Commands.add("getProductComponent", expandedTile => {
   return expandedTile.shadow().find("ugc-products")
 })
 
-Cypress.Commands.add("expandedTileTest", () => {
+Cypress.Commands.add("shouldExpandedTile", () => {
   cy.get(WIDGET_ID).shadow().find("expanded-tiles").should("exist")
 
   cy.getFirstTile().click()
