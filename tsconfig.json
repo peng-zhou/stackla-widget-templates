@@ -35,5 +35,5 @@
     "types": ["node", "jest", "cypress"]
   },
   "include": ["widgets/**/*.ts", "widgets/**/*.tsx"],
-  "exclude": [] 
+  "exclude": ["widget-utils"]
 }
