@@ -9,7 +9,9 @@ addCompareSnapshotCommand({
 })
 
 Cypress.Commands.add("visitWidget", widgetType => {
+  cy.intercept("POST", "http://localhost:4002/development/widgets/668ca52ada8fb/draft?wid=668ca52ada8fb&limit=25&page=1").as("getWidget")
   cy.visit(`http://localhost:4002/preview?widgetType=${widgetType}`)
+  cy.wait("@getWidget")
 })
 
 Cypress.Commands.add("getFirstTile", () => {
