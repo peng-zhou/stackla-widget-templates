@@ -15,6 +15,9 @@ Cypress.Commands.add("visitWidget", widgetType => {
   ).as("getWidget")
   cy.visit(`http://localhost:4002/preview?widgetType=${widgetType}`)
   cy.wait("@getWidget")
+
+  // Wait for ugc-tile to be visible
+  cy.get(WIDGET_ID).shadow().find(".ugc-tile").should("be.visible", { timeout: 10000 })
 })
 
 Cypress.Commands.add("getFirstTile", () => {
