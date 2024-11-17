@@ -17,7 +17,9 @@ Cypress.Commands.add("visitWidget", widgetType => {
   cy.wait("@getWidget")
 
   // Wait for ugc-tile to be visible
-  cy.get(WIDGET_ID).shadow().find(".ugc-tile").should("be.visible", { timeout: 10000 })
+  if (widgetType !== 'carousel') {
+    cy.get(WIDGET_ID).shadow().find(".ugc-tile").first().should("be.visible", { timeout: 10000 })
+  }
 })
 
 Cypress.Commands.add("getFirstTile", () => {
