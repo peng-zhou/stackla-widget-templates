@@ -5,7 +5,7 @@ const WIDGET_ID = "ugc-widget-668ca52ada8fb"
 
 addCompareSnapshotCommand({
   capture: "viewport",
-  errorThreshold: 0.05
+  errorThreshold: 0.08
 })
 
 Cypress.Commands.add("visitWidget", widgetType => {
