@@ -14,8 +14,6 @@ Cypress.Commands.add("visitWidget", widgetType => {
     "http://localhost:4002/development/widgets/668ca52ada8fb/draft?wid=668ca52ada8fb&limit=25&page=1"
   ).as("getWidget")
 
-  cy.intercept("GET", "https://widget-ui.stackla.com/development/add-to-cart.js").as("getAddToCart")
-
   cy.intercept(
     "GET",
     "http://localhost:4002/development/widgets/668ca52ada8fb/tiles?wid=668ca52ada8fb&limit=25&page=1"
@@ -24,8 +22,6 @@ Cypress.Commands.add("visitWidget", widgetType => {
   cy.visit(`http://localhost:4002/preview?widgetType=${widgetType}`)
 
   cy.wait("@getWidget")
-  cy.wait("@getAddToCart")
-  cy.wait("@getTiles")
 
   cy.get(WIDGET_ID).shadow().find(".ugc-tile", { timeout: 10000 }).first().should("be.visible")
 })
