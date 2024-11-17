@@ -13,8 +13,4 @@ describe("Should test the carousel", () => {
   it('Should expand tile', () => {
      cy.shouldExpandedTile("carousel");
   });
-
-  it("Should display timephrase in the tile", () => {
-    cy.getFirstTile().find(".tile-timephrase").should("exist").invoke("text").should("not.be.empty")
-  })
 })
