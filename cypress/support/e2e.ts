@@ -60,23 +60,31 @@ Cypress.Commands.add("shouldExpandedTile", () => {
   cy.get(WIDGET_ID).shadow().find("expanded-tiles").shadow().find("img").should("exist")
 })
 
-// TODO - FIX Share Menu
-// Cypress.Commands.add("shouldLoadShareMenu", widgetType => {
-//   const expandedTileShadow = cy.getWidgetShadow().find("expanded-tiles").shadow()
+Cypress.Commands.add("getExpandedTile", () => {
+  return cy.get(WIDGET_ID).shadow().find("expanded-tiles").shadow()
+})
 
-//   const shareButton = expandedTileShadow.find(".share-button")
-//   shareButton.should("exist")
-//   shareButton.click();
+Cypress.Commands.add("shouldLoadShareMenu", () => {
+  cy.getFirstTile().should("exist").click()
 
-//   const shareMenuWrapper = shareButton.find(".share-socials-popup-wrapper")
-//   shareMenuWrapper.should("exist")
+  cy.getExpandedTile().find(".share-button").first().should("exist").click()
 
-//   const urlCopyElement = shareMenuWrapper.find(".url-copy")
-//   urlCopyElement.should("exist")
-//   urlCopyElement.find(".url-controls .copy-button").should('exist').click()
-//   urlCopyElement.find(".copy-button").contains("Copied")
+  cy.getExpandedTile()
+    .find(".share-socials-popup-wrapper")
+    .find(".url-copy")
+    .should("exist")
+    .find(".copy-button")
+    .first()
+    .should("exist")
+    .click()
 
-//   shareMenuWrapper.find(".exit").should("exist").click()
+  cy.getExpandedTile()
+    .find(".share-socials-popup-wrapper")
+    .first()
+    .should("exist")
+    .find(".share-modal-exit")
+    .should("exist")
+    .click()
 
-//   shareButton.find(".share-socials-popup-wrapper").should("not.exist")
-// });
+  cy.getExpandedTile().find(".share-socials-popup-wrapper").first().should("not.be.visible")
+})

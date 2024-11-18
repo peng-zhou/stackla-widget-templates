@@ -6,7 +6,7 @@ import { defineConfig } from "cypress"
 export default defineConfig({
   e2e: {
     env: {
-      visualRegressionType: process.env.VISUAL_REGRESSION_TYPE,
+      visualRegressionType: process.env.VISUAL_REGRESSION_TYPE ?? "regression",
       visualRegressionGenerateDiff: "always",
       visualRegressionFailSilently: false
     },
