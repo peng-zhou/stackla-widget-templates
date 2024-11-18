@@ -16,3 +16,4 @@ runs:
     - name: Mask sensitive AWS role details
       run: |
         echo "::add-mask::${{ steps.configure-aws-credentials.outputs.assumed-role-id }}"
+      shell: bash
