@@ -13,23 +13,6 @@ env:
     NODE_AUTH_TOKEN: ${{secrets.STACKLA_BOT_GITHUB_TOKEN}}
 
 jobs:
-    associate-release:
-        runs-on: ubuntu-latest
-        steps:
-            -   name: Logs
-                run: |
-                    echo "Release identifier: ${{ github.event.inputs.release_identifier }}"
-            -   name: Write inputs to file
-                if: github.event.inputs.release_identifier != ''
-                run: |
-                    echo "${{ github.event.inputs.release_identifier }}" > release.txt
-
-            -   name: Upload release identifier
-                uses: actions/upload-artifact@v4
-                if: github.event.inputs.release_identifier != ''
-                with:
-                    name: release
-                    path: release.txt
     e2e:
         runs-on: ubuntu-latest
         environment: staging
