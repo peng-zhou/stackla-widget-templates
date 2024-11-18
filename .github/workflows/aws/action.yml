@@ -13,3 +13,6 @@ runs:
         role-session-name: GitHub_to_AWS_via_FederatedOIDC
         aws-region: ${{ inputs.aws-region }}
         mask-aws-account-id: true
+    - name: Mask sensitive AWS role details
+      run: |
+        echo "::add-mask::${{ steps.configure-aws-credentials.outputs.assumed-role-id }}"
