@@ -78,6 +78,8 @@ jobs:
               SPLIT_INDEX: ${{ strategy.job-index }}
               DEBUG: cypress-split
           with:
+              start: npm run start:test
+              wait-on: 'http://localhost:4002/preview?widgetType=carousel'
               browser: chrome
               install: true
   trigger_deploy:
