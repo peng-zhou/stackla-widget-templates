@@ -6,13 +6,13 @@ describe("Should test the carousel", () => {
     cy.visitWidget("carousel")
   })
 
-  // it("Should show tile", () => {
-  //   cy.shouldShowTile("carousel")
-  // })
+  it("Should show tile", () => {
+    cy.shouldShowTile("carousel")
+  })
 
-  // it("Should expand tile", () => {
-  //   cy.shouldExpandedTile("carousel")
-  // })
+  it("Should expand tile", () => {
+    cy.shouldExpandedTile("carousel")
+  })
 
   it("Should load share icons", () => {
     cy.shouldLoadShareMenu()
