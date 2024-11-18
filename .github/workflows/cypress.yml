@@ -16,10 +16,6 @@ jobs:
     e2e:
         runs-on: ubuntu-latest
         environment: staging
-        defaults:
-            run:
-                shell: bash
-                working-directory: ./vendor
         strategy:
             fail-fast: false
             matrix:
