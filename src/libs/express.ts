@@ -143,27 +143,27 @@ async function getHTML(content: PreviewContent, page: number = 1, limit: number 
 }
 
   expressApp.get("/development/products/asus-tuf-f15-15-6-fhd-144hz-gaming-laptop-1tbgeforce-rtx-3050.js", (_req, res) => {
-    const fileData = fs.readFileSync(path.resolve("src/tests/mock/atc-laptop.json"), "utf-8")
+    const fileData = fs.readFileSync(path.resolve("./mock/atc-laptop.json"), "utf-8")
     res.json(JSON.parse(fileData))
   })
 
   expressApp.get("/development/products/samsung-98-qn90d-neo-qled-4k-smart-tv-2024.js", (_req, res) => {
-    const fileData = fs.readFileSync(path.resolve("src/tests/mock/atc-tv.json"), "utf-8")
+    const fileData = fs.readFileSync(path.resolve("./mock/atc-tv.json"), "utf-8")
     res.json(JSON.parse(fileData))
   })
 
   expressApp.get("/development/products/contrast-felted-sweater-black.js", (_req, res) => {
-    const fileData = fs.readFileSync(path.resolve("src/tests/mock/contrast-felted-sweater-black.json"), "utf-8")
+    const fileData = fs.readFileSync(path.resolve("./mock/contrast-felted-sweater-black.json"), "utf-8")
     res.json(JSON.parse(fileData))
   })
 
   expressApp.get("/development/products/desna-dress.js", (_req, res) => {
-    const fileData = fs.readFileSync(path.resolve("src/tests/mock/desna-dress.json"), "utf-8")
+    const fileData = fs.readFileSync(path.resolve("./mock/desna-dress.json"), "utf-8")
     res.json(JSON.parse(fileData))
   })
 
   expressApp.get("/development/products/pure-city-vintage-leather-saddle.js", (_req, res) => {
-    const fileData = fs.readFileSync(path.resolve("src/tests/mock/pure-city-vintage-leather-saddle.json"), "utf-8")
+    const fileData = fs.readFileSync(path.resolve("./mock/pure-city-vintage-leather-saddle.json"), "utf-8")
     res.json(JSON.parse(fileData))
   })
 
