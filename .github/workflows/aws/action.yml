@@ -12,3 +12,4 @@ runs:
         role-to-assume: arn:aws:iam::953585160895:role/GitHubAction-AssumeRoleWithAction
         role-session-name: GitHub_to_AWS_via_FederatedOIDC
         aws-region: ${{ inputs.aws-region }}
+        mask-aws-account-id: true
