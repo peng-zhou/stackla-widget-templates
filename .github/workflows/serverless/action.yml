@@ -33,12 +33,12 @@ runs:
   steps:
     - name: Install NPM
       if: inputs.install == 'true'
-      run: cd ${{ inputs.working-directory }} && npm ci
+      run: cd ${{ inputs.working-directory }} && npm install
       env:
         npm_config_arch: ${{ inputs.arch }}
         npm_config_platform: ${{ inputs.linux }}
       shell: bash
-    - uses: Stackla/stackla-github-actions/aws@master
+    - uses: ./.github/workflows/aws
       with:
         aws-region: ${{ inputs.aws-region }}
     - name: Do Build

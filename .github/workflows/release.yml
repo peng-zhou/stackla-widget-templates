@@ -27,8 +27,9 @@ jobs:
       ENV_VARS: ${inputs.env_vars}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
       - uses: ./.github/workflows/serverless
         with:
           aws-region: ${{ vars.AWS_REGION }}
