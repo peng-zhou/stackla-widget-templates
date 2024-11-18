@@ -1,16 +1,20 @@
 describe("Should test the carousel", () => {
   beforeEach(() => {
     cy.on("uncaught:exception", (err, runnable) => {
-      return false;
-    });
+      return false
+    })
     cy.visitWidget("carousel")
   })
 
   it("Should show tile", () => {
-      cy.shouldShowTile("carousel");
-  });
+    cy.shouldShowTile("carousel")
+  })
 
-  it('Should expand tile', () => {
-     cy.shouldExpandedTile("carousel");
-  });
+  it("Should expand tile", () => {
+    cy.shouldExpandedTile("carousel")
+  })
+
+  it("Should load share icons", () => {
+    cy.shouldLoadShareMenu()
+  })
 })
