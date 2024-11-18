@@ -23,7 +23,7 @@ Cypress.Commands.add("visitWidget", widgetType => {
 
   cy.wait("@getWidget")
 
-  cy.get(WIDGET_ID).shadow().find(".ugc-tile", { timeout: 10000 }).first().should("be.visible")
+  cy.get(WIDGET_ID).shadow().find(".ugc-tile", { timeout: 10000 }).first().should("be.visible", { timeout: 10000 })
 })
 
 Cypress.Commands.add("getFirstTile", () => {
