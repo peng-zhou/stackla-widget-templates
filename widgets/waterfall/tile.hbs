@@ -17,7 +17,13 @@
         {{/ifequals}}
       </div>
       <div class="tile-image">
-        {{#lazy image_thumbnail_url "120"}}{{/lazy}}
+        {{#ifequals media "video"}}
+          <video width="100%" height="100%" controls autoplay muted loop>
+            <source src={{video.standard_resolution.url}}>
+          </video>
+        {{else}}
+          {{#lazy image_thumbnail_url "120"}}{{/lazy}}
+        {{/ifequals}}
         <div class="swiper-lazy-preloader"></div>
         {{#if options.tile_options.show_shopspots}}
           <shopspot-icon tile-id={{id}} />
