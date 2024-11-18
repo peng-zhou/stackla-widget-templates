@@ -29,7 +29,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - uses: Stackla/stackla-github-actions/serverless@master
+        with:
+          submodules: recursive
+      - uses: ./release.yml
         with:
           aws-region: ${{ vars.AWS_REGION }}
           stage: ${{ inputs.environment }}
