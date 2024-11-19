@@ -16,11 +16,15 @@ export async function getAndRenderTiles(widgetContainer: IDraftRequest, page: nu
 export async function renderTemplates(widgetContainer: IDraftRequest, page: number = 1, limit: number = 25) {
   const tileTemplate = widgetContainer.customTemplates.tile.template
   const layoutTemplate = widgetContainer.customTemplates.layout.template
-
+  const widgetSettings = {
+    customCSS: widgetContainer.customCSS,
+    customJS: widgetContainer.customJS,
+    widgetOptions: widgetContainer.widgetOptions
+  }
   return renderHTMLWithTemplates(
     tileTemplate,
     layoutTemplate,
     getTilesToRender(page, limit),
-    widgetContainer.widgetOptions
+    widgetSettings
   )
 }
