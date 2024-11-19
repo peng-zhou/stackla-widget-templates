@@ -19,7 +19,7 @@ export async function renderTemplates(widgetContainer: IDraftRequest, page: numb
   const widgetSettings = {
     customCSS: widgetContainer.customCSS,
     customJS: widgetContainer.customJS,
-    widgetOptions: widgetContainer.widgetOptions
+    widgetOptions: JSON.parse(widgetContainer.widgetOptions)
   }
   return renderHTMLWithTemplates(tileTemplate, layoutTemplate, getTilesToRender(page, limit), widgetSettings)
 }

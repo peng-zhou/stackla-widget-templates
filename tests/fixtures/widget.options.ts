@@ -38,7 +38,8 @@ const widgetOptions: SharedWidgetOptions["widgetOptions"] = {
       show_votes: true,
       show_caption: true,
       show_products: true,
-      show_add_to_cart: true
+      show_add_to_cart: true,
+      auto_play_video: true
     },
     claim_config: {
       show_claim_button: false,
