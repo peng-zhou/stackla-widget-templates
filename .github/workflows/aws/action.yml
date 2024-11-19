@@ -7,6 +7,7 @@ runs:
   using: "composite"
   steps:
     - name: Configure AWS credentials
+      id: configure-aws
       uses: Stackla/configure-aws-credentials@master
       with:
         role-to-assume: arn:aws:iam::953585160895:role/GitHubAction-AssumeRoleWithAction
