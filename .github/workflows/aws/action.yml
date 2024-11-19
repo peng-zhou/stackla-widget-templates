@@ -14,13 +14,3 @@ runs:
         role-session-name: GitHub_to_AWS_via_FederatedOIDC
         aws-region: ${{ inputs.aws-region }}
         mask-aws-account-id: true
-
-    - name: Debug the assumed role ID output
-      run: |
-        echo "Assumed Role ID: ${{ steps.configure-aws.outputs.assumed-role-id }}"
-      shell: bash
-    - name: Mask sensitive information
-      run: |
-        echo "::add-mask::${{ steps.configure-aws.outputs.assumed-role-id }}"
-      shell: bash
-      if: ${{ steps.configure-aws.outputs.assumed-role-id != '' }} # Only mask if not empty
