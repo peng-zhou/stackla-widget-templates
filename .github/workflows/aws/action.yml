@@ -7,7 +7,7 @@ runs:
   using: "composite"
   steps:
     - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v4
+      uses: Stackla/configure-aws-credentials@master
       with:
         role-to-assume: arn:aws:iam::953585160895:role/GitHubAction-AssumeRoleWithAction
         role-session-name: GitHub_to_AWS_via_FederatedOIDC
