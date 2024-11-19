@@ -1,33 +1,40 @@
 {{#tile class="grid-item"}}
-<div class="tile" data-background-image="{{image_thumbnail_url}}">
-  <div class="tile-loading loading"></div>
-  <div class="icon-section">
-    <div class="top-section">
-      {{#each attrs}}
-      {{#ifequals this "instagram.reel"}}
-      <div class="content-icon icon-reel"></div>
-      {{/ifequals}}
-      {{/each}}
-      {{#if tags_extended.length}}
-      <div class="shopping-icon icon-products"></div>
-      {{/if}}
+  {{#ifAutoPlayVideo media options.tile_options.auto_play_video }}
+    <div class="tile">
+      <div class="tile-loading loading"></div>
+      {{playVideo source video.standard_resolution.url embedly "100%" "100%"}}
     </div>
-    <div class="center-section">
-      {{#ifequals media "video"}}
-      <div class="play-icon"></div>
-      {{/ifequals}}
-    </div>
-    <div class="bottom-section">
-      <ul class="tile-tags">
-        {{#tags_extended}}
-        <li class="tile-tag tag-inline"><a href="{{custom_url}}">{{tag}}</a></li>
-        {{/tags_extended}}
-      </ul>
-      <div class="network-icon icon-{{source}}"></div>
-      <span class="tile-timephrase">{{time_ago}}</span>
-    </div>
+  {{else}}
+    <div class="tile" data-background-image="{{image_thumbnail_url}}">
+      <div class="tile-loading loading"></div>
+      <div class="icon-section">
+        <div class="top-section">
+          {{#each attrs}}
+            {{#ifequals this "instagram.reel"}}
+              <div class="content-icon icon-reel"></div>
+            {{/ifequals}}
+          {{/each}}
+          {{#if tags_extended.length}}
+            <div class="shopping-icon icon-products"></div>
+          {{/if}}
+        </div>
+        <div class="center-section">
+          {{#ifequals media "video"}}
+            <div class="play-icon"></div>
+          {{/ifequals}}
+        </div>
+        <div class="bottom-section">
+          <ul class="tile-tags">
+            {{#tags_extended}}
+              <li class="tile-tag tag-inline"><a href="{{custom_url}}">{{tag}}</a></li>
+            {{/tags_extended}}
+          </ul>
+          <div class="network-icon icon-{{source}}"></div>
+          <span class="tile-timephrase">{{time_ago}}</span>
+        </div>
 
-    <shopspot-icon tile-id={{id}} />
-  </div>
-</div>
+        <shopspot-icon tile-id={{id}} />
+      </div>
+    </div>
+  {{/ifAutoPlayVideo}}
 {{/tile}}

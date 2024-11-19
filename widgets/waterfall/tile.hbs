@@ -17,8 +17,8 @@
         {{/ifequals}}
       </div>
       <div class="tile-image">
-        {{#ifAutoPlayVideo media ../options.widgetOptions.config.tile_options.auto_play_video }}
-          {{playVideo video.standard_resolution.url "100%" "100%"}}
+        {{#ifAutoPlayVideo media options.tile_options.auto_play_video }}
+          {{playVideo source video.standard_resolution.url embedly "100%" "100%"}}
         {{else}}
           {{#lazy image_thumbnail_url "120"}}{{/lazy}}
         {{/ifAutoPlayVideo}}
