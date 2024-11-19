@@ -207,7 +207,7 @@ expressApp.get("/preview", async (req, res) => {
   res.render("preview", {
     widgetRequest: JSON.stringify(widgetRequest),
     widgetType,
-    widgetOptions: JSON.stringify(widgetOptions.widgetConfig),
+    widgetOptions:  JSON.stringify(widgetOptions),
     domain: getDomain(req.query.dev === "true"),
     ...(await getContent(widgetType)),
   })
