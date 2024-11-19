@@ -92,8 +92,8 @@ expressApp.use("/preview", (req, res, next) => {
 })
 
 export async function getContent(widgetType: string, retry = 0): Promise<PreviewContent> {
-  if (retry > 3) {
-    throw new Error(`Failed to get content, exiting after 3 retries, widgetType: ${widgetType}`)
+  if (retry > 10) {
+    throw new Error(`Failed to get content, exiting after 10 retries, widgetType: ${widgetType}`)
   }
 
   const rootDir = path.resolve(__dirname, `../../../../../dist/widgets/${widgetType}`)
@@ -116,6 +116,7 @@ export async function getContent(widgetType: string, retry = 0): Promise<Preview
         .replace(/\t/g, "\\t")
     }
   } catch (e) {
+    console.log(e);
     await new Promise(resolve => setTimeout(resolve, 3000))
 
     return getContent(widgetType, retry + 1)
@@ -231,6 +232,19 @@ expressApp.get("/preview", async (req, res) => {
   const widgetType = req.query.widgetType as string
 
   res.render("preview", {
+    widgetRequest: JSON.stringify(widgetRequest),
+    widgetType,
+    widgetOptions: JSON.stringify(widgetOptions.config),
+    domain: getDomain(req.query.dev === "true"),
+    ...(await getContent(widgetType)),
+  })
+})
+
+expressApp.get("/staging", async (req, res) => {
+  const widgetRequest = req.query
+  const widgetType = req.query.widgetType as string
+
+  res.render("staging", {
     widgetRequest: JSON.stringify(widgetRequest),
     widgetType,
     widgetOptions: JSON.stringify(widgetOptions.config),
