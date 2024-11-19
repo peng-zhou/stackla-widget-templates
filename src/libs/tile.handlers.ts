@@ -21,10 +21,5 @@ export async function renderTemplates(widgetContainer: IDraftRequest, page: numb
     customJS: widgetContainer.customJS,
     widgetOptions: widgetContainer.widgetOptions
   }
-  return renderHTMLWithTemplates(
-    tileTemplate,
-    layoutTemplate,
-    getTilesToRender(page, limit),
-    widgetSettings
-  )
+  return renderHTMLWithTemplates(tileTemplate, layoutTemplate, getTilesToRender(page, limit), widgetSettings)
 }
