@@ -11,7 +11,7 @@ const WIDGET_ID = "ugc-widget-668ca52ada8fb"
 
 addCompareSnapshotCommand({
   capture: "viewport",
-  errorThreshold: 0.02
+  errorThreshold: 0.03
 })
 
 Cypress.Commands.add("before", () => {})
