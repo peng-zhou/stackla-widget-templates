@@ -9,6 +9,8 @@ $space-between: 10px;
   --width-adjustment: rem(95%, var(--rendered-tile-size));
   --container-width: calc(95% - var(--width-adjustment));
 
+  --text-caption-paragraph-font-size: 14px;
+
   transition: ease all 0.5s;
 }
 
@@ -48,6 +50,33 @@ $space-between: 10px;
             "image3 details4"
             "details3 image4";
 
+          .icon-section {
+            display: grid;
+            grid-template:
+              "type1 media1"
+              "media2 type2"
+              "type3 media4"
+              "media3 type4";
+            grid-column: image1-start / image1-end;
+            grid-row: image1-start / image1-end;
+            z-index: 10;
+            align-self: flex-start;
+            padding: 10px 0 0 5px;
+
+            > .network-icon {
+              background-color: #000;
+              grid-area: media1;
+              align-self: end;
+              justify-self: flex-end;
+            }
+
+            > .content-icon {
+              grid-area: type1;
+              align-self: start;
+              justify-self: flex-start;
+            }
+          }
+
           .image-section {
             display: flex;
             width: var(--tile-size);
@@ -67,13 +96,22 @@ $space-between: 10px;
 
             .tile-message-wrapper {
               display: grid;
-              grid-template-rows: 85% 15%;
+              grid-template-rows: 80% 20%;
               grid-auto-columns: 1fr;
               height: 100%;
               padding: 10px 0 0 10px;
 
-              .tile-tags .tile-tag {
-                --tile-tag-background: #bcbbbc;
+              .tile {
+                display: flex;
+
+                .tile-tags {
+                  width: 100%;
+                  margin: 0;
+
+                  .tile-tag {
+                    --tile-tag-background: #bcbbbc;
+                  }
+                }
               }
             }
           }
@@ -83,19 +121,22 @@ $space-between: 10px;
             object-fit: cover;
           }
 
-          /* Style for individual blocks */
-          .ugc-tile,
-          .ugc-tile-wrapper {
-            align-items: center;
-            background-color: #000;
-            color: #fff;
-            border: 1px solid #ccc;
-            font-size: 1.5em;
-            transition: transform 0.5s ease-in-out; /* Apply transition to all blocks */
-            cursor: pointer;
-          }
-
           &:nth-child(2n) {
+            .icon-section {
+              grid-column: image2-start / image2-end;
+              grid-row: image2-start / image2-end;
+              padding: 10px 10px 0 0;
+              > .network-icon {
+                grid-area: media2;
+                place-self: start;
+              }
+
+              > .content-icon {
+                grid-area: type2;
+                place-self: end;
+              }
+            }
+
             .image-section {
               grid-area: image2;
             }
@@ -114,6 +155,19 @@ $space-between: 10px;
           }
 
           &:nth-child(4n-1) {
+            .icon-section {
+              grid-column: image3-start / image3-end;
+              grid-row: image3-start / image3-end;
+              align-self: flex-end;
+              padding: 0px;
+              > .network-icon {
+                grid-area: media3;
+              }
+
+              > .content-icon {
+                grid-area: type3;
+              }
+            }
             .image-section {
               grid-area: image3;
             }
@@ -124,6 +178,19 @@ $space-between: 10px;
           }
 
           &:nth-child(4n) {
+            .icon-section {
+              grid-column: image4-start / image4-end;
+              grid-row: image4-start / image4-end;
+              padding: 0px;
+              > .network-icon {
+                grid-area: media4;
+              }
+
+              > .content-icon {
+                grid-area: type4;
+              }
+            }
+
             .image-section {
               grid-area: image4;
             }
@@ -132,6 +199,17 @@ $space-between: 10px;
               grid-area: details4;
             }
           }
+        }
+
+        .ugc-tile,
+        .ugc-tile-wrapper {
+          align-items: center;
+          background-color: #000;
+          color: #fff;
+          border: 1px solid #ccc;
+          font-size: 1.5em;
+          transition: transform 0.5s ease-in-out; /* Apply transition to all blocks */
+          cursor: pointer;
         }
       }
 
