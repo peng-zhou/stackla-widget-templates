@@ -13,7 +13,7 @@ export default defineConfig({
       visualRegressionFailSilently: false
     },
     baseUrl: "http://localhost:4002",
-    supportFile: "cypress/support/e2e.ts",
+    supportFile: "cypress/support/e2e.js",
     video: true,
     setupNodeEvents(on, config) {
       configureVisualRegression(on)

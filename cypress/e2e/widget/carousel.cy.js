@@ -2,7 +2,7 @@ const WIDGET_TYPE = "carousel"
 
 describe("Should test the carousel", () => {
   beforeEach(() => {
-    cy.on("uncaught:exception", (err, runnable) => {
+    cy.on("uncaught:exception", () => {
       return false
     })
     cy.visitWidget(WIDGET_TYPE)
