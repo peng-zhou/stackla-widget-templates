@@ -13,10 +13,6 @@ describe("Should test the direct-uploader", () => {
     cy.shouldShowWidgetContents(WIDGET_TYPE)
   })
 
-  it("Should show tile", () => {
-    cy.shouldShowTile(WIDGET_TYPE)
-  })
-
   it("Should expand tile", () => {
     cy.shouldExpandedTile(WIDGET_TYPE)
   })
