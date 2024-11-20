@@ -8,7 +8,6 @@ $space-between: 10px;
   --rendered-tile-size: var(--tile-size) * 2 + 20px;
   --width-adjustment: rem(95%, var(--rendered-tile-size));
   --container-width: calc(95% - var(--width-adjustment));
-
   --text-caption-paragraph-font-size: 14px;
 
   transition: ease all 0.5s;
@@ -38,6 +37,17 @@ $space-between: 10px;
         overflow: hidden;
         justify-content: center;
 
+        .ugc-tile,
+        .ugc-tile-wrapper {
+          align-items: center;
+          background-color: #000;
+          color: #fff;
+          border: 1px solid #ccc;
+          font-size: 1.5em;
+          transition: transform 0.5s ease-in-out; /* Apply transition to all blocks */
+          cursor: pointer;
+        }
+
         .ugc-tile {
           display: grid;
           justify-content: flex-start;
@@ -66,14 +76,12 @@ $space-between: 10px;
             > .network-icon {
               background-color: #000;
               grid-area: media1;
-              align-self: end;
-              justify-self: flex-end;
+              place-self: end;
             }
 
             > .content-icon {
               grid-area: type1;
-              align-self: start;
-              justify-self: flex-start;
+              place-self: start;
             }
           }
 
@@ -126,6 +134,7 @@ $space-between: 10px;
               grid-column: image2-start / image2-end;
               grid-row: image2-start / image2-end;
               padding: 10px 10px 0 0;
+
               > .network-icon {
                 grid-area: media2;
                 place-self: start;
@@ -159,7 +168,8 @@ $space-between: 10px;
               grid-column: image3-start / image3-end;
               grid-row: image3-start / image3-end;
               align-self: flex-end;
-              padding: 0px;
+              padding: 0;
+
               > .network-icon {
                 grid-area: media3;
               }
@@ -168,6 +178,7 @@ $space-between: 10px;
                 grid-area: type3;
               }
             }
+
             .image-section {
               grid-area: image3;
             }
@@ -181,7 +192,8 @@ $space-between: 10px;
             .icon-section {
               grid-column: image4-start / image4-end;
               grid-row: image4-start / image4-end;
-              padding: 0px;
+              padding: 0;
+
               > .network-icon {
                 grid-area: media4;
               }
@@ -199,17 +211,6 @@ $space-between: 10px;
               grid-area: details4;
             }
           }
-        }
-
-        .ugc-tile,
-        .ugc-tile-wrapper {
-          align-items: center;
-          background-color: #000;
-          color: #fff;
-          border: 1px solid #ccc;
-          font-size: 1.5em;
-          transition: transform 0.5s ease-in-out; /* Apply transition to all blocks */
-          cursor: pointer;
         }
       }
 
