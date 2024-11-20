@@ -116,7 +116,7 @@ export async function getContent(widgetType: string, retry = 0): Promise<Preview
         .replace(/\t/g, "\\t")
     }
   } catch (e) {
-    console.log(e);
+    console.error(e);
     await new Promise(resolve => setTimeout(resolve, 3000))
 
     return getContent(widgetType, retry + 1)
