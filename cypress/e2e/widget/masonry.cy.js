@@ -1,17 +1,24 @@
+const WIDGET_TYPE = "masonry"
+
 describe("Should test the masonry", () => {
   beforeEach(() => {
-    cy.on("uncaught:exception", (err, runnable) => {
+    cy.on("uncaught:exception", () => {
       return false
     })
-    cy.visitWidget("masonry")
+    cy.visitWidget(WIDGET_TYPE)
+    cy.before()
+  })
+
+  it("Should show widget contents", () => {
+    cy.shouldShowWidgetContents(WIDGET_TYPE)
   })
 
   it("Should show tile", () => {
-    cy.shouldShowTile("masonry")
+    cy.shouldShowTile(WIDGET_TYPE)
   })
 
   it("Should expand tile", () => {
-    cy.shouldExpandedTile("masonry")
+    cy.shouldExpandedTile(WIDGET_TYPE)
   })
 
   it("Should display timephrase in the tile", () => {

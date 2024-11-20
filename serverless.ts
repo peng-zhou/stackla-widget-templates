@@ -1,11 +1,5 @@
 const env = process.env.APP_ENV || "development";
 
-const testingHooks = {
-  "before:package:initialize": ["npm run test:build"],
-  "before:offline:start:init": ["npm run test:build"],
-  "before:webpack:compile:compile": ["npm run test:build"]
-};
-
 const defaultHooks = {
   "before:package:initialize": [`npm run build:${env}`],
   "before:webpack:compile:compile": [`npm run build:${env}`]
@@ -27,6 +21,8 @@ const getPort = () => {
       return 80;
   }
 };
+
+console.log("APP ENV IS ", process.env.APP_ENV)
 
 const config = {
   service: "widget-templates",
@@ -55,7 +51,7 @@ const config = {
     esbuild: {
       otherExternal: ["hbs"]
     },
-    hooks: env === "testing" ? testingHooks : defaultHooks
+    hooks: process.env.APP_ENV == 'testing' ? [] : defaultHooks
   },
   package: {
     include: ["views/**/*", "dist/**/*", "build/**/*"],
