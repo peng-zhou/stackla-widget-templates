@@ -1,6 +1,8 @@
 {{#tile class="swiper-slide" }}
 <div class="tile">
-  <div class="tile-loading"></div>
+  {{#ifequals media "image"}}
+    <div class="tile-loading"></div>
+  {{/ifequals}}
   <div class="icon-section hidden">
     <div class="top-section">
       {{#each attrs}}
@@ -17,7 +19,10 @@
     </div>
     <div class="center-section">
       {{#ifequals media "video"}}
-      <div class="play-icon"></div>
+        {{#ifAutoPlayVideo media options.tile_options.auto_play_video }}
+        {{else}}
+          <div class="play-icon"></div>
+        {{/ifAutoPlayVideo}}
       {{/ifequals}}
     </div>
     <div class="bottom-section">
