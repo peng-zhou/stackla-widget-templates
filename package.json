@@ -85,7 +85,7 @@
   "dependencies": {
     "@appnest/masonry-layout": "^2.2.3",
     "@glidejs/glide": "^3.6.1",
-    "@stackla/handlebars": "^0.1.4-20241120095611",
+    "@stackla/handlebars": "^0.1.4-20241120113507",
     "@stackla/widget-utils": "workspace:*",
     "cookie-parser": "^1.4.6",
     "happy-dom": "^14.12.3",
