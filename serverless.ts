@@ -22,8 +22,6 @@ const getPort = () => {
   }
 };
 
-console.log("APP ENV IS ", process.env.APP_ENV)
-
 const config = {
   service: "widget-templates",
   provider: {
