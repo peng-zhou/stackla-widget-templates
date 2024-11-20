@@ -1,7 +1,7 @@
 {{#tile data-hash=@index class="grid-item"}}
   {{#ifAutoPlayVideo media options.tile_options.auto_play_video }}
     <div class="tile">
-      {{playVideo source video.standard_resolution.url embedly "100%" "100%"}}
+      {{playVideo this "100%" "100%"}}
     </div>
   {{else}}
     <div class="tile" data-background-image="{{image_thumbnail_url}}">
