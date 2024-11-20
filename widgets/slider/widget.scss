@@ -50,7 +50,7 @@ $space-between: 10px;
 
         .ugc-tile {
           display: grid;
-          justify-content: flex-start;
+          place-content: flex-start;
           height: fit-content;
           box-sizing: border-box;
           grid-column: span 2;
@@ -59,31 +59,6 @@ $space-between: 10px;
             "details2 image2"
             "image3 details4"
             "details3 image4";
-
-          .icon-section {
-            display: grid;
-            grid-template:
-              "type1 media1"
-              "media2 type2"
-              "type3 media4"
-              "media3 type4";
-            grid-column: image1-start / image1-end;
-            grid-row: image1-start / image1-end;
-            z-index: 10;
-            align-self: flex-start;
-            padding: 10px 0 0 5px;
-
-            > .network-icon {
-              background-color: #000;
-              grid-area: media1;
-              place-self: end;
-            }
-
-            > .content-icon {
-              grid-area: type1;
-              place-self: start;
-            }
-          }
 
           .image-section {
             display: flex;
@@ -111,6 +86,7 @@ $space-between: 10px;
 
               .tile {
                 display: flex;
+                height: fit-content;
 
                 .tile-tags {
                   width: 100%;
@@ -129,11 +105,54 @@ $space-between: 10px;
             object-fit: cover;
           }
 
+          .icon-section {
+            display: grid;
+            grid-template:
+              "type1 media1"
+              "shop1 .";
+            grid-column: image1-start / image1-end;
+            grid-row: image1-start / image1-end;
+            z-index: 10;
+            align-self: flex-start;
+            //margin: 10px 0 0 5px;
+            height: 100%;
+
+            > .network-icon {
+              background-color: #000;
+              grid-area: media1;
+              justify-self: flex-end;
+              margin-top: 10px;
+            }
+
+            > .content-icon {
+              grid-area: type1;
+              place-self: flex-start;
+              margin: 10px 0 0 10px;
+            }
+
+            > .shopping-icon {
+              grid-area: shop1;
+              align-self: flex-end;
+              margin: 0 0 10px 10px;
+            }
+          }
+
           &:nth-child(2n) {
+            .image-section {
+              grid-area: image2;
+            }
+
+            .details-section {
+              grid-area: details2;
+            }
+
             .icon-section {
+              grid-template:
+                "media2 type2"
+                ". shop2";
               grid-column: image2-start / image2-end;
               grid-row: image2-start / image2-end;
-              padding: 10px 10px 0 0;
+              //margin: 10px 10px 0 0;
 
               > .network-icon {
                 grid-area: media2;
@@ -142,16 +161,15 @@ $space-between: 10px;
 
               > .content-icon {
                 grid-area: type2;
-                place-self: end;
+                justify-self: flex-end;
+                margin: 10px 10px 0 0;
               }
-            }
 
-            .image-section {
-              grid-area: image2;
-            }
-
-            .details-section {
-              grid-area: details2;
+              > .shopping-icon {
+                grid-area: shop2;
+                place-self: flex-end;
+                margin: 0 10px 10px 0;
+              }
             }
           }
 
@@ -164,21 +182,6 @@ $space-between: 10px;
           }
 
           &:nth-child(4n-1) {
-            .icon-section {
-              grid-column: image3-start / image3-end;
-              grid-row: image3-start / image3-end;
-              align-self: flex-end;
-              padding: 0;
-
-              > .network-icon {
-                grid-area: media3;
-              }
-
-              > .content-icon {
-                grid-area: type3;
-              }
-            }
-
             .image-section {
               grid-area: image3;
             }
@@ -186,29 +189,70 @@ $space-between: 10px;
             .details-section {
               grid-area: details3;
             }
-          }
 
-          &:nth-child(4n) {
             .icon-section {
-              grid-column: image4-start / image4-end;
-              grid-row: image4-start / image4-end;
-              padding: 0;
+              grid-template:
+                "type3 shop3"
+                "media3 .";
+              grid-column: image3-start / image3-end;
+              grid-row: image3-start / image3-end;
+              align-self: flex-end;
+              margin: 0;
 
               > .network-icon {
-                grid-area: media4;
+                grid-area: media3;
+                place-self: flex-end center;
+                grid-column: span 2;
               }
 
               > .content-icon {
-                grid-area: type4;
+                grid-area: type3;
+                place-self: flex-start;
+                margin: 10px 0 0 10px;
+              }
+
+              > .shopping-icon {
+                grid-area: shop3;
+                place-self: flex-start flex-end;
+                margin: 10px 10px 0 0;
               }
             }
+          }
 
+          &:nth-child(4n) {
             .image-section {
               grid-area: image4;
             }
 
             .details-section {
               grid-area: details4;
+            }
+
+            .icon-section {
+              grid-template:
+                "media4 ."
+                "type4 shop4";
+              grid-column: image4-start / image4-end;
+              grid-row: image4-start / image4-end;
+              margin: 0;
+
+              > .network-icon {
+                grid-area: media4;
+                place-self: flex-start center;
+                grid-column: span 2;
+                margin: 0;
+              }
+
+              > .content-icon {
+                grid-area: type4;
+                place-self: flex-end flex-start;
+                margin: 0 0 10px 10px;
+              }
+
+              > .shopping-icon {
+                grid-area: shop4;
+                margin: 0 10px 10px 0;
+              }
             }
           }
         }
