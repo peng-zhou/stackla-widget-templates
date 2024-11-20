@@ -70,7 +70,7 @@ Cypress.Commands.add("getProductComponent", expandedTile => {
 })
 
 Cypress.Commands.add("shouldExpandedTile", widgetType => {
-  cy.get(WIDGET_ID).shadow().find("expanded-tiles").should("exist")
+  cy.getExpandedTile().should("exist")
 
   // eslint-disable-next-line cypress/no-unnecessary-waiting
   cy.wait(4000)
@@ -80,7 +80,7 @@ Cypress.Commands.add("shouldExpandedTile", widgetType => {
   // eslint-disable-next-line cypress/no-unnecessary-waiting
   cy.wait(4000)
 
-  cy.get(WIDGET_ID).shadow().find("expanded-tiles").shadow().find("img").should("exist")
+  cy.getExpandedTile().should("exist")
 
   // Set visibility to hidden for all images
   cy.getExpandedTile().find(".image-element").should("exist").invoke("css", "visibility", "hidden")
@@ -92,7 +92,7 @@ Cypress.Commands.add("shouldExpandedTile", widgetType => {
 })
 
 Cypress.Commands.add("getExpandedTile", () => {
-  return cy.get(WIDGET_ID).shadow().find("expanded-tiles").shadow()
+  return cy.get(WIDGET_ID).shadow().find("expanded-tiles")
 })
 
 Cypress.Commands.add("shouldLoadShareMenu", () => {
