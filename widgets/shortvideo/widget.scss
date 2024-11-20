@@ -1,0 +1,49 @@
+@use "styles";
+
+:host {
+  transition: ease all 0.5s;
+}
+
+#nosto-ugc-container {
+  display: flex;
+  place-items: center;
+  margin: styles.$nosto-container-margin;
+  width: calc(100% - (styles.$nosto-container-margin * 2));
+
+  .swiper {
+    width: styles.$swiper-container-width-lg;
+  }
+
+  .icon-section {
+    display: flex;
+    position: absolute;
+    height: 100%;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+@include styles.breakpoint(mobile) {
+  #nosto-ugc-container {
+    height: auto;
+
+    .swiper-inline {
+      width: styles.$swiper-container-width-md !important;
+
+      .swiper-slide {
+        width: 100% !important;
+      }
+    }
+
+    .tile {
+      width: styles.$tile-width-md !important;
+      height: styles.$tile-height-md !important;
+
+      .icon-section {
+        width: styles.$tile-width-md;
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+// lg - large screens like Desktop/Ipad Pro
+// md - smaller screens like Tablet/Ipad/mobile phones
+
+// swiper slide / tile width for large screens
+$tile-width-lg: 210px;
+$tile-height-lg: 210px;
+
+// swiper element width for large screens
+$swiper-container-width-lg: 100%;
+
+// nosto-ugc-container styles
+$nosto-container-height: $tile-height-lg;
+$nosto-container-margin: 20px;
+
+// swiper slide / tile width for medium/small screens
+$tile-width-md: 95%;
+$tile-height-md: 100%;
+
+// swiper element width for medium/small screens
+$swiper-container-width-md: auto;
+
+// video play icon
+$play-icon-width: 30px;
+$play-icon-height: 30px;
