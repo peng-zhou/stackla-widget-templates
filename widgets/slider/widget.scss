@@ -54,17 +54,13 @@ $space-between: 10px;
           height: fit-content;
           box-sizing: border-box;
           grid-column: span 2;
-          grid-template:
-            "image1 details1"
-            "details2 image2"
-            "image3 details4"
-            "details3 image4";
+          grid-template: "image details";
 
           .image-section {
             display: flex;
             width: var(--tile-size);
             position: relative;
-            grid-area: image1;
+            grid-area: image;
             height: var(--tile-size);
           }
 
@@ -75,7 +71,7 @@ $space-between: 10px;
             place-content: flex-start;
             height: var(--tile-size);
             width: var(--tile-size);
-            grid-area: details1;
+            grid-area: details;
 
             .tile-message-wrapper {
               display: grid;
@@ -108,10 +104,10 @@ $space-between: 10px;
           .icon-section {
             display: grid;
             grid-template:
-              "type1 media1"
-              "shop1 .";
-            grid-column: image1-start / image1-end;
-            grid-row: image1-start / image1-end;
+              "type media"
+              "shop .";
+            grid-column: image-start / image-end;
+            grid-row: image-start / image-end;
             z-index: 10;
             align-self: flex-start;
             //margin: 10px 0 0 5px;
@@ -119,54 +115,43 @@ $space-between: 10px;
 
             > .network-icon {
               background-color: #000;
-              grid-area: media1;
+              grid-area: media;
               justify-self: flex-end;
               margin-top: 10px;
             }
 
             > .content-icon {
-              grid-area: type1;
+              grid-area: type;
               place-self: flex-start;
               margin: 10px 0 0 10px;
             }
 
             > .shopping-icon {
-              grid-area: shop1;
+              grid-area: shop;
               align-self: flex-end;
               margin: 0 0 10px 10px;
             }
           }
 
           &:nth-child(2n) {
-            .image-section {
-              grid-area: image2;
-            }
-
-            .details-section {
-              grid-area: details2;
-            }
+            grid-template: "details image";
 
             .icon-section {
               grid-template:
-                "media2 type2"
-                ". shop2";
-              grid-column: image2-start / image2-end;
-              grid-row: image2-start / image2-end;
+                "media type"
+                ". shop";
               //margin: 10px 10px 0 0;
 
               > .network-icon {
-                grid-area: media2;
                 place-self: start;
               }
 
               > .content-icon {
-                grid-area: type2;
                 justify-self: flex-end;
                 margin: 10px 10px 0 0;
               }
 
               > .shopping-icon {
-                grid-area: shop2;
                 place-self: flex-end;
                 margin: 0 10px 10px 0;
               }
@@ -182,37 +167,28 @@ $space-between: 10px;
           }
 
           &:nth-child(4n-1) {
-            .image-section {
-              grid-area: image3;
-            }
-
-            .details-section {
-              grid-area: details3;
-            }
+            grid-template:
+              "image"
+              "details";
 
             .icon-section {
               grid-template:
-                "type3 shop3"
-                "media3 .";
-              grid-column: image3-start / image3-end;
-              grid-row: image3-start / image3-end;
+                "type shop"
+                "media .";
               align-self: flex-end;
               margin: 0;
 
               > .network-icon {
-                grid-area: media3;
                 place-self: flex-end center;
                 grid-column: span 2;
               }
 
               > .content-icon {
-                grid-area: type3;
                 place-self: flex-start;
                 margin: 10px 0 0 10px;
               }
 
               > .shopping-icon {
-                grid-area: shop3;
                 place-self: flex-start flex-end;
                 margin: 10px 10px 0 0;
               }
@@ -220,37 +196,28 @@ $space-between: 10px;
           }
 
           &:nth-child(4n) {
-            .image-section {
-              grid-area: image4;
-            }
-
-            .details-section {
-              grid-area: details4;
-            }
+            grid-template:
+              "details"
+              "image";
 
             .icon-section {
               grid-template:
-                "media4 ."
-                "type4 shop4";
-              grid-column: image4-start / image4-end;
-              grid-row: image4-start / image4-end;
+                "media ."
+                "type shop";
               margin: 0;
 
               > .network-icon {
-                grid-area: media4;
                 place-self: flex-start center;
                 grid-column: span 2;
                 margin: 0;
               }
 
               > .content-icon {
-                grid-area: type4;
                 place-self: flex-end flex-start;
                 margin: 0 0 10px 10px;
               }
 
               > .shopping-icon {
-                grid-area: shop4;
                 margin: 0 10px 10px 0;
               }
             }
