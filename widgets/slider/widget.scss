@@ -110,7 +110,6 @@ $space-between: 10px;
             grid-row: image-start / image-end;
             z-index: 10;
             align-self: flex-start;
-            //margin: 10px 0 0 5px;
             height: 100%;
 
             > .network-icon {
@@ -140,10 +139,9 @@ $space-between: 10px;
               grid-template:
                 "media type"
                 ". shop";
-              //margin: 10px 10px 0 0;
 
               > .network-icon {
-                place-self: start;
+                place-self: flex-start;
               }
 
               > .content-icon {
@@ -175,8 +173,6 @@ $space-between: 10px;
               grid-template:
                 "type shop"
                 "media .";
-              align-self: flex-end;
-              margin: 0;
 
               > .network-icon {
                 place-self: flex-end center;
@@ -204,7 +200,6 @@ $space-between: 10px;
               grid-template:
                 "media ."
                 "type shop";
-              margin: 0;
 
               > .network-icon {
                 place-self: flex-start center;
@@ -218,6 +213,7 @@ $space-between: 10px;
               }
 
               > .shopping-icon {
+                place-self: flex-end;
                 margin: 0 10px 10px 0;
               }
             }
