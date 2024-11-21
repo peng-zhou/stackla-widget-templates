@@ -4,7 +4,7 @@ import { Tags } from "./tags.lib"
 
 describe("widgets/nightfall/components/expanded-tile/base.template.ts", () => {
   it("should return empty string if tile does not have extended tags", () => {
-    const rendered = <Tags tile={tiles[7]} />
+    const rendered = <Tags tile={tiles[14]} />
     const expected = <div className="tags"></div>
     expect(rendered.innerHTML).toEqual(expected.innerHTML)
   })
