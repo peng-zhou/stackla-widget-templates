@@ -219,6 +219,10 @@ expressApp.get("/development/widgets/668ca52ada8fb/rendered/tiles", async (req, 
   const limit = (req.query.limit ?? 25) as number
   const tileHtml = await getHTML(await getContent(widgetType), page, limit)
 
+  if (req.query.after_id) {
+    return []
+  }
+
   res.json(tileHtml)
 })
 
