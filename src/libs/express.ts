@@ -204,6 +204,15 @@ expressApp.get("/development/widgets/668ca52ada8fb", async (req, res) => {
 expressApp.get("/development/widgets/668ca52ada8fb/tiles", async (req, res) => {
   const page = (req.query.page ?? 0) as number
   const limit = (req.query.limit ?? 25) as number
+  
+  if (req.query.after_id) {
+    res.send({
+      tiles: []
+    })
+
+    return;
+  }
+
   res.send({
     tiles: getTilesToRender(page, limit)
   })
@@ -218,10 +227,6 @@ expressApp.get("/development/widgets/668ca52ada8fb/rendered/tiles", async (req, 
   const page = (req.query.page ?? 0) as number
   const limit = (req.query.limit ?? 25) as number
   const tileHtml = await getHTML(await getContent(widgetType), page, limit)
-
-  if (req.query.after_id) {
-    return []
-  }
 
   res.json(tileHtml)
 })
