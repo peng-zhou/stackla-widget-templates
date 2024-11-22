@@ -10,7 +10,8 @@
 </div>
 <div class="details-section">
     <div class="tile-message-wrapper">
-        <tile-content tileId="{{id}}" mode="dark" context="slider-inline" render-timephrase="false"></tile-content>
+        <tile-content tileId="{{id}}" mode="dark" context="slider-inline" render-timephrase="false"
+            trim-description="true"></tile-content>
         <div class="tile">
             <ul class="tile-tags">
                 {{#tags_extended}}
@@ -18,7 +19,7 @@
                 {{/tags_extended}}
             </ul>
         </div>
-        <timephrase source-created-at="{{source_created_at}}" trim-description="true"></timephrase>
+        <timephrase source-created-at="{{source_created_at}}"></timephrase>
     </div>
 </div>
 <div class="icon-section">
