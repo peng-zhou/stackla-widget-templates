@@ -1,6 +1,5 @@
 import { SdkSwiper } from "types"
 import { getTileSizeByWidget } from "@stackla/widget-utils"
-import { registerShareMenuListeners } from "@stackla/widget-utils"
 
 declare const sdk: SdkSwiper
 
@@ -9,9 +8,7 @@ export default function () {
   const sliderScrollDownButton = sdk.querySelector("#scroll-down")
   const tileBlockElement = sdk.querySelector(".ugc-tile-wrapper")
   const tilesContainer = sdk.querySelector(".ugc-tiles")
-  const shareButtons = sdk.querySelectorAll<HTMLDivElement>(
-    ".ugc-tiles > .ugc-tile-wrapper > .details-section .share-button"
-  )
+
   let scrollIndex = 0
 
   const tileSizeConfig = getTileSizeByWidget()
@@ -63,8 +60,6 @@ export default function () {
     })
     setTimeout(() => controlNavigationButtonVisibility(), 500)
   })
-
-  shareButtons.forEach(element => registerShareMenuListeners(element, element.parentElement!))
 
   function controlNavigationButtonVisibility() {
     if (tilesContainer.scrollTop > 0 && scrollIndex > 0) {

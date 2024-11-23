@@ -11,15 +11,12 @@
 <div class="details-section">
     <div class="tile-message-wrapper">
         <tile-content tileId="{{id}}" mode="dark" context="slider-inline" render-timephrase="false"
-            trim-description="true"></tile-content>
+            render-share-menu="false" trim-description="true"></tile-content>
         <div class="tile">
             <tile-tags tile-id="{{id}}" />
         </div>
         <div class="footer">
             <time-phrase source-created-at="{{source_created_at}}"></time-phrase>
-            <div class="share-button">
-                <span class="widget-icon icon-share" alt="Share button"></span>
-            </div>
             <share-menu tile-id="{{id}}"></ShareMenu>
         </div>
     </div>
