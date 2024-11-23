@@ -1,6 +1,5 @@
-@forward "@styles/mixins";
-@forward "@styles/tile-overlay";
-@forward "@templates/tags/tags";
-@forward "@styles/icon-sections";
-@forward "@styles/grid";
-@forward "@styles/uikit/icon";
+@forward "pkg:@stackla/widget-utils/mixins";
+@forward "pkg:@stackla/widget-utils/tile-overlay";
+@forward "pkg:@stackla/widget-utils/icon-sections";
+@forward "pkg:@stackla/widget-utils/grid";
+@forward "pkg:@stackla/widget-utils/icons";

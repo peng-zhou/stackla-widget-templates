@@ -1,6 +1,5 @@
 @forward "dimens";
-@forward "@styles/mixins";
+@forward "pkg:@stackla/widget-utils/mixins";
 @forward "inline-tile";
-@forward "@styles/icon-sections";
-@forward "@templates/tags/tags";
-@forward "@styles/tile-overlay";
+@forward "pkg:@stackla/widget-utils/icon-sections";
+@forward "pkg:@stackla/widget-utils/tile-overlay";

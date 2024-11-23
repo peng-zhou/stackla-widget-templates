@@ -13,13 +13,15 @@
         <tile-content tileId="{{id}}" mode="dark" context="slider-inline" render-timephrase="false"
             trim-description="true"></tile-content>
         <div class="tile">
-            <ul class="tile-tags">
-                {{#tags_extended}}
-                <li class='tile-tag'><a href="{{custom_url}}">{{tag}}</a></li>
-                {{/tags_extended}}
-            </ul>
+            <tile-tags tile-id="{{id}}" />
         </div>
-        <time-phrase source-created-at="{{source_created_at}}"></time-phrase>
+        <div class="footer">
+            <time-phrase source-created-at="{{source_created_at}}"></time-phrase>
+            <div class="share-button">
+                <span class="widget-icon icon-share" alt="Share button"></span>
+            </div>
+            <share-menu tile-id="{{id}}"></ShareMenu>
+        </div>
     </div>
 </div>
 <div class="icon-section">

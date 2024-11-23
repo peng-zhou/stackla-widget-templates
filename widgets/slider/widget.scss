@@ -34,7 +34,7 @@ $space-between: 10px;
         display: grid;
         gap: $space-between; /* Space between blocks */
         width: 100%; /* Fixed Width */
-        height: 600px; /* Fixed Height */
+        height: calc(100vh - 100px); /* Fixed Height */
         overflow: hidden;
         justify-content: center;
 
@@ -54,7 +54,9 @@ $space-between: 10px;
           height: fit-content;
           box-sizing: border-box;
           grid-column: span 2;
-          grid-template: "image details";
+          grid-template-areas: "image details";
+          grid-template-columns: subgrid;
+          gap: 0px;
 
           .image-section {
             display: flex;
@@ -101,6 +103,17 @@ $space-between: 10px;
                   margin: 0;
                 }
               }
+
+              .footer {
+                display: flex;
+                justify-content: space-between;
+
+                .share-button {
+                  display: flex;
+                  cursor: pointer;
+                  margin-left: auto;
+                }
+              }
             }
           }
 
@@ -111,7 +124,7 @@ $space-between: 10px;
 
           .icon-section {
             display: grid;
-            grid-template:
+            grid-template-areas:
               "type media"
               "shop .";
             grid-column: image-start / image-end;
@@ -141,10 +154,10 @@ $space-between: 10px;
           }
 
           &:nth-child(2n) {
-            grid-template: "details image";
+            grid-template-areas: "details image";
 
             .icon-section {
-              grid-template:
+              grid-template-areas:
                 "media type"
                 ". shop";
 
@@ -169,16 +182,20 @@ $space-between: 10px;
             min-width: initial;
             grid-column: auto;
             grid-row: span 2;
-            height: 100%;
+            gap: 10px;
           }
 
           &:nth-child(4n-1) {
-            grid-template:
+            grid-template-areas:
               "image"
               "details";
 
+            .tile-message-wrapper {
+              padding: 10px 5px 0 10px;
+            }
+
             .icon-section {
-              grid-template:
+              grid-template-areas:
                 "type shop"
                 "media .";
 
@@ -200,12 +217,16 @@ $space-between: 10px;
           }
 
           &:nth-child(4n) {
-            grid-template:
+            grid-template-areas:
               "details"
               "image";
 
+            .tile-message-wrapper {
+              padding: 10px 5px 0 10px;
+            }
+
             .icon-section {
-              grid-template:
+              grid-template-areas:
                 "media ."
                 "type shop";
 
