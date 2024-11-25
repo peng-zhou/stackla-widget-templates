@@ -13,11 +13,12 @@ $space-between: 10px;
 }
 
 #nosto-ugc-container {
+  --text-caption-paragraph-font-size: 14px;
+  --tile-timephrase-display: flex;
+
   display: flex;
   width: 100vw;
   place-items: center;
-  --text-caption-paragraph-font-size: 14px;
-  --tile-timephrase-display: flex;
 
   .track {
     display: flex;
@@ -56,7 +57,7 @@ $space-between: 10px;
           grid-column: span 2;
           grid-template-areas: "image details";
           grid-template-columns: subgrid;
-          gap: 0px;
+          gap: 0;
 
           .image-section {
             display: flex;
