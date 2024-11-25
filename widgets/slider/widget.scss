@@ -13,11 +13,12 @@ $space-between: 10px;
 }
 
 #nosto-ugc-container {
+  --text-caption-paragraph-font-size: 14px;
+  --tile-timephrase-display: flex;
+
   display: flex;
   width: 100vw;
   place-items: center;
-  --text-caption-paragraph-font-size: 14px;
-  --tile-timephrase-display: flex;
 
   .track {
     display: flex;
