@@ -5,7 +5,9 @@
         <div class="play-icon"></div>
         {{/ifequals}}
     </div>
+    {{#if options.tile_options.show_shopspots}}
     <shopspot-icon tile-id="{{id}}"></shopspot-icon>
+    {{/if}}
     {{#lazy image_thumbnail_url "120"}}{{/lazy}}
 </div>
 <div class="details-section">

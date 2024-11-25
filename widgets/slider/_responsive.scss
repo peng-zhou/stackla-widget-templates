@@ -1,44 +1,39 @@
-/* Responsive Layout with Media Queries */
-@media (width >= 1600px) {
-  .ugc-tiles {
-    grid-auto-columns: var(--tile-size);
-    grid-template-columns: repeat(auto-fit, minmax(min-content, var(--tile-size)));
-    grid-auto-flow: row;
-  }
-}
+@use "pkg:@stackla/widget-utils/mixins";
 
-@media (width >= 1400px) and (width <= 1599px) {
-  .ugc-tiles {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
+.slider-widget {
+  &.track {
+    @include mixins.breakpoint(mobile) {
+      .container {
+        width: var(--tile-size);
 
-@media (width >= 1200px) and (width <= 1399px) {
-  .ugc-tiles {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
+        &:has(.ugc-tiles[variation="medium"]),
+        &:has(.ugc-tiles[variation="large"]) {
+          > #scroll-up,
+          > #scroll-down {
+            display: none;
+          }
+        }
+      }
+      .ugc-tiles[variation="medium"],
+      .ugc-tiles[variation="large"] {
+        height: calc(var(--tile-size) * 2);
+        gap: 0;
 
-@media (width >= 992px) and (width <= 1199px) {
-  .ugc-tiles {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
+        .ugc-tile {
+          grid-column: auto;
+          grid-row: span 2;
+          grid-template-areas: "image" "details";
 
-@media (width >= 768px) and (width <= 991px) {
-  .ugc-tiles {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
+          &:nth-child(2n) {
+            grid-template-areas: "details" "image";
+          }
 
-@media (width >= 576px) and (width <= 767px) {
-  .ugc-tiles {
-    grid-template-columns: repeat(1, 1fr);
-  }
-}
-
-@media (width <= 575px) {
-  .ugc-tiles {
-    grid-template-columns: repeat(1, 1fr);
+          &:nth-child(4n-1),
+          &:nth-child(4n) {
+            gap: 0;
+          }
+        }
+      }
+    }
   }
 }
