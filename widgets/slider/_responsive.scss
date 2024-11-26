@@ -1,4 +1,5 @@
 @use "pkg:@stackla/widget-utils/mixins";
+@use "pkg:@stackla/widget-utils/tile-sizes" as ts;
 
 .slider-widget {
   &.track {
@@ -31,6 +32,24 @@
           &:nth-child(4n-1),
           &:nth-child(4n) {
             gap: 0;
+          }
+        }
+      }
+    }
+
+    @media (min-width: 577px) and (max-width: (ts.get-tile-size("large") * 2)) {
+      .container {
+        &:has(.ugc-tiles[variation="large"]) {
+          width: var(--large);
+
+          .ugc-tile {
+            grid-column: auto;
+            grid-row: span 2;
+            grid-template-areas: "image" "details";
+
+            &:nth-child(2n) {
+              grid-template-areas: "details" "image";
+            }
           }
         }
       }

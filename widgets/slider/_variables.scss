@@ -1,0 +1,3 @@
+@use "pkg:@stackla/widget-utils/tile-sizes" as ts;
+
+@include ts.load-css-variables(".slider-widget");
