@@ -2,6 +2,7 @@ import loadSlider from "./load-slider"
 import { loadWidget } from "@stackla/widget-utils"
 import userContentStyles from "./components/tile-content/overrides.scss"
 import shopspotStyle from "./components/shopspot-icon/base.scss"
+import timephraseStyles from "@styles/templates/time-phrase/styles.scss"
 
 loadWidget({
   extensions: {},
@@ -13,6 +14,14 @@ loadWidget({
     onLoad: [loadSlider]
   },
   templates: {
+    "expanded-tiles": {
+      styles: [
+        {
+          css: shopspotStyle,
+          global: true
+        }
+      ]
+    },
     "tile-content": {
       styles: [
         {
@@ -21,11 +30,11 @@ loadWidget({
         }
       ]
     },
-    "expanded-tiles": {
+    "time-phrase": {
       styles: [
         {
-          css: shopspotStyle,
-          global: true
+          css: timephraseStyles,
+          global: false
         }
       ]
     }
