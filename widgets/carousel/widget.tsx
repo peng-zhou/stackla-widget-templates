@@ -7,6 +7,7 @@ import { initializeInlineSwiperListeners } from "./inline-swiper.loader"
 import shopspotStyle from "./components/shopspot-icon/base.scss"
 
 loadWidget({
+  type: "carousel",
   extensions: {
     swiper: true
   },

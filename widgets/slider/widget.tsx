@@ -4,6 +4,7 @@ import userContentStyles from "./components/tile-content/overrides.scss"
 import shopspotStyle from "./components/shopspot-icon/base.scss"
 
 loadWidget({
+  type: "slider",
   extensions: {},
   features: {
     handleLoadMore: false,

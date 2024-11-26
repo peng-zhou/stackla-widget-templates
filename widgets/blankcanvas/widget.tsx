@@ -8,6 +8,7 @@ import tileTagStyles from "./common/styles/templates/tags/tags.scss"
 import shareMenuStyle from "./common/styles/templates/share-menu/share-menu.scss"
 
 loadWidget({
+  type: "blankcanvas",
   extensions: {},
   features: {
     expandedTileSettings: {

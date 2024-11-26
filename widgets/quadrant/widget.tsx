@@ -4,6 +4,7 @@ import shopspotStyle from "./components/shopspot-icon/base.scss"
 import productsStyle from "./components/products/base.scss"
 
 loadWidget({
+  type: "quadrant",
   extensions: {},
   features: {
     preloadImages: false,

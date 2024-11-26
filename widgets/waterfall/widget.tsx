@@ -4,6 +4,7 @@ import shopspotStyle from "./components/shopspot-icon/base.scss"
 import { reinitialiseWaterfallLayout, loadWaterfallLayout } from "./waterfall.lib"
 
 loadWidget({
+  type: "waterfall",
   extensions: {},
   features: {},
   callbacks: {

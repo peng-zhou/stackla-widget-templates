@@ -10,7 +10,7 @@ export default function () {
   const tilesContainer = sdk.querySelector(".ugc-tiles")
   let scrollIndex = 0
 
-  const tileSizeConfig = getTileSizeByWidget()
+  const tileSizeConfig = getTileSizeByWidget("slider")
 
   if (!tileBlockElement) {
     throw new Error("Slider Tiles Scroll Container not found")
