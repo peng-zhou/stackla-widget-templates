@@ -31,6 +31,7 @@ tile-content {
       flex-direction: column;
       overflow: hidden;
       gap: 10px;
+      flex: 1 1 auto;
 
       .caption {
         // intentional duplicate display props. When --webkit-box not supported, display with be flex
@@ -86,7 +87,6 @@ tile-content {
     .header {
       display: flex;
       flex-direction: row;
-      flex: 1 1 auto;
 
       share-menu {
         display: flex;

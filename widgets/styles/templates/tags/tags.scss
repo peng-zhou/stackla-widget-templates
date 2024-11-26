@@ -14,7 +14,7 @@ tile-tags {
     z-index: 2;
 
     .tile-tag {
-      background: var(--tile-tag-background);
+      background: var(--tile-tag-background, color(srgb 0.74 0.73 0.74));
       border-radius: 3px;
       font-size: 10px;
       font-style: normal;
@@ -27,15 +27,17 @@ tile-tags {
         color: var(--text-tile-tag-font-color);
         text-decoration: none;
       }
+    }
+  }
 
-      &.tag-inline {
-        background: var(--tile-tag-inline-background);
-        border-radius: 25px;
-        line-height: 12px;
+  &[variant="dark"] {
+    .tile-tags .tile-tag {
+      background: var(--tile-tag-inline-background, color(srgb 0 0 0 / 0.4));
+      border-radius: 25px;
+      line-height: 12px;
 
-        a {
-          color: #fff;
-        }
+      a {
+        color: #fff;
       }
     }
   }

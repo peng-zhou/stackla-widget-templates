@@ -1,5 +1,6 @@
 import { loadWidget } from "@stackla/widget-utils"
 import shopspotStyle from "../styles/templates/shopspot-icon/styles.scss"
+import tagsStyles from "../styles/templates/tags/tags.scss"
 
 loadWidget({
   extensions: {
@@ -13,6 +14,14 @@ loadWidget({
         {
           css: shopspotStyle,
           global: true
+        }
+      ]
+    },
+    "tile-tags": {
+      styles: [
+        {
+          css: tagsStyles,
+          global: false
         }
       ]
     }
