@@ -1,4 +1,5 @@
 import { loadWidget } from "@stackla/widget-utils"
+import shopspotStyle from "../styles/templates/shopspot-icon/styles.scss"
 
 loadWidget({
   extensions: {
@@ -6,5 +7,14 @@ loadWidget({
   },
   features: {},
   callbacks: {},
-  templates: {}
+  templates: {
+    "expanded-tiles": {
+      styles: [
+        {
+          css: shopspotStyle,
+          global: true
+        }
+      ]
+    }
+  }
 })

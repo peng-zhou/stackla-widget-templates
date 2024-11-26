@@ -3,6 +3,9 @@ import { loadWidget } from "@stackla/widget-utils"
 import { ExpandedTiles } from "./common/components/expanded-tile-swiper/base.template"
 import expandedTileStyle from "./common/styles/components/expanded-tile-swiper/base.scss"
 import swiperExpandedStyles from "./common/styles/components/expanded-tile-swiper/swiper-expanded.scss"
+import tileTagStyles from "../styles/templates/tags/tags.scss"
+import shareMenuStyle from "../styles/templates/share-menu/share-menu.scss"
+import shopspotStyle from "../styles/templates/shopspot-icon/styles.scss"
 
 loadWidget({
   extensions: {},
@@ -22,11 +25,23 @@ loadWidget({
     "expanded-tiles": {
       styles: [
         {
+          css: shopspotStyle,
+          global: true
+        },
+        {
           css: expandedTileStyle,
           global: false
         },
         {
           css: swiperExpandedStyles,
+          global: false
+        },
+        {
+          css: tileTagStyles,
+          global: false
+        },
+        {
+          css: shareMenuStyle,
           global: false
         }
       ],
