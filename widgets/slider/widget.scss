@@ -55,9 +55,8 @@ $space-between: 10px;
           height: fit-content;
           box-sizing: border-box;
           grid-column: span 2;
+          grid-template: subgrid / subgrid;
           grid-template-areas: "image details";
-          grid-template-columns: subgrid;
-          grid-template-rows: subgrid;
           gap: 0;
 
           .image-section {
