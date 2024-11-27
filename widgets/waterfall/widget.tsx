@@ -7,8 +7,8 @@ loadWidget({
   extensions: {},
   features: {},
   callbacks: {
-    onLoadMore: [() => loadWaterfallLayout()],
-    onTilesUpdated: [() => loadWaterfallLayout()],
+    onLoadMore: [() => reinitialiseWaterfallLayout()],
+    onTilesUpdated: [() => reinitialiseWaterfallLayout()],
     onResize: [() => reinitialiseWaterfallLayout()]
   },
   templates: {

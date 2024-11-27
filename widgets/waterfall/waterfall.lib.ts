@@ -18,17 +18,27 @@ export function loadWaterfallLayout(reset = false) {
   const { margin } = sdk.getStyleConfig()
   const gap = parseInt(margin)
 
-  ugcTiles.forEach(async (tile: HTMLElement) => {
-    const imageElement = tile.querySelector("img")
-    if (imageElement && imageElement.complete) {
-      const height = imageElement?.naturalHeight
+  ugcTiles.forEach((tile: HTMLElement) => {
+    const tileTop = tile.querySelector<HTMLElement>(".tile-top")
+    const tileBottom = tile.querySelector<HTMLElement>(".tile-bottom")
 
-      const rowSpan = Math.floor((height + gap) / (rowHeight + gap))
+    if (tileTop && tileBottom) {
+      const imageElement = tileTop.querySelector<HTMLImageElement>("img")
 
-      tile.style.gridRowEnd = `span ${rowSpan}`
+      const calculateHeight = () => {
+        const topHeight = tileTop.scrollHeight
+        const bottomHeight = tileBottom.scrollHeight
+        const totalHeight = topHeight + bottomHeight
 
-      tile.setAttribute("height-set", "true")
-      tile.classList.add("processed")
+        const rowSpan = Math.ceil(totalHeight / (rowHeight + gap))
+        tile.style.gridRowEnd = `span ${rowSpan}`
+      }
+
+      if (imageElement && !imageElement.complete) {
+        imageElement.onload = calculateHeight
+      } else {
+        calculateHeight()
+      }
     }
   })
 }
