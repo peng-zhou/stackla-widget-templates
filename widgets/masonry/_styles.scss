@@ -3,5 +3,7 @@
 @use "pkg:@stackla/widget-utils/icon-sections";
 @use "pkg:@stackla/widget-utils/tile-overlay";
 @use "pkg:@stackla/widget-utils/grid";
-@use "@styles/templates/shopspot-icon/styles";
+@use "pkg:@stackla/widget-utils/icons";
 @use "@styles/templates/tags/tags";
+@use "@styles/templates/shopspot-icon/styles" as shopspotIconStyles;
+@use "@styles/templates/time-phrase/styles" as timephraseStyles;

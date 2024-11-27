@@ -1,5 +1,8 @@
 @forward "pkg:@stackla/widget-utils/mixins";
 @use "pkg:@stackla/widget-utils/tile-overlay";
+@use "pkg:@stackla/widget-utils/icons";
 @use "@styles/templates/shopspot-icon/styles";
 @use "@styles/templates/tags/tags";
 @use "@styles/templates/share-menu/share-menu";
+@use "@styles/templates/shopspot-icon/styles" as shopspotIconStyles;
+@use "@styles/templates/time-phrase/styles" as timephraseStyles;
