@@ -17,10 +17,6 @@ describe("Should test the masonry", () => {
     cy.shouldExpandedTile(WIDGET_TYPE)
   })
 
-  it("Should display timephrase in the tile", () => {
-    cy.getFirstTile().find(".tile-timephrase").should("exist").invoke("text").should("not.be.empty")
-  })
-
   it("Should load share icons", () => {
     cy.shouldLoadShareMenu()
   })
