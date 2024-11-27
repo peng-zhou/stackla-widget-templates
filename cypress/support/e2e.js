@@ -86,7 +86,7 @@ Cypress.Commands.add("shouldExpandedTile", widgetType => {
   cy.getExpandedTile().find(".image-element").should("exist").invoke("css", "visibility", "hidden")
 
   // eslint-disable-next-line cypress/no-unnecessary-waiting
-  cy.wait(5000)
+  cy.wait(10000)
 
   cy.snapshot(`${widgetType}-tile`)
 })
