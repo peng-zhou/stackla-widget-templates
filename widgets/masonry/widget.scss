@@ -1,5 +1,5 @@
 @use "sass:map";
-@use "styles";
+@use "styles" as masonryStyles;
 
 :host {
   transition: ease all 0.5s;
@@ -31,8 +31,8 @@
       left: 0;
       right: 0;
       margin: auto;
-      width: styles.$play-icon-width;
-      height: styles.$play-icon-height;
+      width: masonryStyles.$play-icon-width;
+      height: masonryStyles.$play-icon-height;
     }
 
     .icon-section {
@@ -54,8 +54,8 @@
   transition: opacity 0.5s ease;
 
   .loading {
-    height: styles.$loading-height !important;
-    width: styles.$loading-width !important;
+    height: masonryStyles.$loading-height !important;
+    width: masonryStyles.$loading-width !important;
   }
 }
 
