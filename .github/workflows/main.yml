@@ -71,6 +71,10 @@ jobs:
           key: ${{ runner.OS }}-cypress-cache-${{ hashFiles('pnpm-lock.yaml') }}
       - name: Install cypress
         run: npx cypress install
+      - name: Get uuid
+        id: uuid-gen
+        run: |
+          echo "::set-output name=uuid::$(uuidgen)"
       - name: Cypress run e2e tests
         uses: cypress-io/github-action@v6
         env:
@@ -82,10 +86,11 @@ jobs:
           wait-on: "http://localhost:4002/preview?widgetType=carousel"
           browser: chrome
           install: true
-      - uses: actions/upload-artifact@v4
+      - name: Upload Cypress artifact
+        uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots-${{ github.run_id }}-${{ github.run_attempt }}
+          name: cypress-screenshots-${{ steps.uuid-gen.outputs.uuid }}
           path: cypress/screenshots
           if-no-files-found: ignore
       - uses: actions/upload-artifact@v4
