@@ -6,6 +6,7 @@
 @use "@styles/templates/shopspot-icon";
 @use "@styles/templates/time-phrase";
 @use "@styles/templates/share-menu";
+@forward "@styles/templates/load-more";
 @forward "@styles/templates/tile-content";
 
 #nosto-ugc-container {
@@ -88,7 +89,7 @@
   .tile {
     position: relative;
 
-    .play-icon {
+    .icon-play {
       top: 43%;
       left: 0;
       right: 0;
