@@ -75,7 +75,6 @@ jobs:
         id: uuid-gen
         run: |
           result=$(uuidgen)
-          echo "::set-output name=uuid::$(uuidgen)"
           echo "uuid=$result" >> $GITHUB_OUTPUT
       - name: Cypress run e2e tests
         uses: cypress-io/github-action@v6
