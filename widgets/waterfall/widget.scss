@@ -22,9 +22,9 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    height: 100%;
     padding: 0 5px;
-    //TODO: recheck
+
+    // TODO: recheck background
     background: white;
     box-sizing: border-box;
     overflow: hidden;
@@ -67,8 +67,9 @@
   }
 
   .tag-inline {
-    //TODO: this is only for testing, remove when --tile-tag-inline-background is available
+    // TODO: this is only for testing, remove when --tile-tag-inline-background is available
     background: #908e8f !important;
+    
     // background: var(--tile-tag-background);
     border-radius: 3px !important;
     font-size: 10px;
