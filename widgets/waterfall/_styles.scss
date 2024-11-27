@@ -1,2 +1,3 @@
 @forward "pkg:@stackla/widget-utils/mixins";
-@forward "pkg:@stackla/widget-utils/tile-overlay";
+@use "pkg:@stackla/widget-utils/tile-overlay";
+@use "@styles/templates/tags/tags";

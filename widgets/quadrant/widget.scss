@@ -1,6 +1,8 @@
 @use "pkg:@stackla/widget-utils/mixins";
 @use "pkg:@stackla/widget-utils/tile-overlay";
 @use "pkg:@stackla/widget-utils/icon-sections";
+@use "@styles/templates/shopspot-icon/styles";
+@use "@styles/templates/tags/tags";
 
 #nosto-ugc-container {
   --tile-size-with-margin: calc(var(--tile-size) - var(--margin) * 1px);
