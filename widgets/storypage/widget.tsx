@@ -1,5 +1,4 @@
 import { createElement, ISdk, loadWidget } from "@stackla/widget-utils"
-import shopspotStyle from "./components/shopspot-icon/base.scss"
 import "./direct-uploader.component"
 
 declare const sdk: ISdk
@@ -18,16 +17,7 @@ loadWidget({
     onLoad: [() => createSubmitMoreContentBtn()],
     onTilesUpdated: [() => createSubmitMoreContentBtn()]
   },
-  templates: {
-    "expanded-tiles": {
-      styles: [
-        {
-          css: shopspotStyle,
-          global: true
-        }
-      ]
-    }
-  }
+  templates: {}
 })
 
 function createSubmitMoreContentBtn() {
