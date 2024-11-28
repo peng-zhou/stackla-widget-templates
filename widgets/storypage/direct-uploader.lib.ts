@@ -1,4 +1,4 @@
-import { getTileSize, ISdk } from "@stackla/widget-utils"
+import { getTileSizeUnits, ISdk } from "@stackla/widget-utils"
 
 declare const sdk: ISdk
 
@@ -9,7 +9,7 @@ export const tileSettings = {
 }
 
 const styleOptions = sdk.getStyleConfig()
-const { margin } = styleOptions
+const { margin, inline_tile_size } = styleOptions
 export const marginAsInt = parseInt(margin)
 
 export function getRowsPerPage(tileSize: number, gap: number) {
@@ -28,7 +28,9 @@ export function registerResizeObserver() {
 export function calculateTilesToShow() {
   const screenWidth = sdk.placement.getElement().offsetWidth
 
-  const tileSize = parseInt(getTileSize(tileSettings).replace("px", ""))
+  const tileSizeUnits = getTileSizeUnits(tileSettings)
+
+  const tileSize = parseInt(tileSizeUnits[inline_tile_size || "medium"].replace("px", ""))
   const tilesByScreenWidth = Math.floor(screenWidth / (tileSize + marginAsInt))
   const rows = getRowsPerPage(tileSize, marginAsInt)
   const tilesPerPage = tilesByScreenWidth * rows

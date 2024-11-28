@@ -1,5 +1,5 @@
 import { SdkSwiper } from "types"
-import { getTileSizeByWidget } from "@stackla/widget-utils"
+import { getTileSizes } from "@stackla/widget-utils"
 
 declare const sdk: SdkSwiper
 
@@ -13,7 +13,7 @@ export default function () {
 
   let scrollIndex = 0
 
-  const tileSizeConfig = getTileSizeByWidget()
+  const tileSizeConfig = getTileSizes()
 
   if (!tileBlockElement) {
     throw new Error("Slider Tiles Scroll Container not found")
