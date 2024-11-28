@@ -14,6 +14,8 @@
   --full: 100%;
   --half: 50%;
 
+  background-color: var(--widget-background);
+
   .ugc-tiles {
     min-height: 100vh;
     display: grid;
