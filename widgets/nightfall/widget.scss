@@ -3,6 +3,8 @@
 $tile-background: #000;
 
 #nosto-ugc-container {
+  background-color: var(--widget-background);
+
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(auto, var(--tile-size)));

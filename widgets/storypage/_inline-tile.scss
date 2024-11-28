@@ -1,6 +1,9 @@
 @use "styles";
 
 #nosto-ugc-container {
+   background-color: var(--widget-background);
+   margin: var(--margin);
+
    @include styles.breakpoint(mobile) {
     margin: 16px;
   }

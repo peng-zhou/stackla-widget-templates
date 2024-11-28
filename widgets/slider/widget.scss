@@ -16,6 +16,7 @@ $space-between: 10px;
   --text-caption-paragraph-font-size: 14px;
   --tile-timephrase-display: flex;
 
+  background-color: var(--widget-background);
   display: flex;
   width: 100vw;
   place-items: center;

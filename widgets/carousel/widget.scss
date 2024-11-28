@@ -5,6 +5,7 @@
 }
 
 #nosto-ugc-container {
+  background-color: var(--widget-background);
   display: flex;
   place-items: center;
   margin: carouselStyles.$nosto-container-margin;
