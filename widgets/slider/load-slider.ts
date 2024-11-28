@@ -11,7 +11,7 @@ export default function () {
 
   let scrollIndex = 0
 
-  const tileSizeConfig = getTileSizeByWidget("slider")
+  const tileSizeConfig = getTileSizeByWidget()
 
   if (!tileBlockElement) {
     throw new Error("Slider Tiles Scroll Container not found")
