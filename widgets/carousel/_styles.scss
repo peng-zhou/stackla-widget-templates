@@ -4,7 +4,6 @@
 @forward "inline-tile";
 @forward "pkg:@stackla/widget-utils/icon-sections";
 @forward "pkg:@stackla/widget-utils/tile-overlay";
-
 @use "@styles/templates/tile-content" as tc;
 @use "@styles/templates/shopspot-icon" as sicon;
 @use "@styles/templates/time-phrase" as tphrase;
@@ -13,9 +12,9 @@
 
 .carousel-inline,
 expanded-tiles {
-  @include sicon.shopspot-icon-styles();
-  @include tphrase.time-phrase-styles();
-  @include smenu.share-menu-styles();
-  @include tags.tile-tags-styles();
-  @include tc.tile-content-styles();
+  @include sicon.shopspot-icon-styles;
+  @include tphrase.time-phrase-styles;
+  @include smenu.share-menu-styles;
+  @include tags.tile-tags-styles;
+  @include tc.tile-content-styles;
 }

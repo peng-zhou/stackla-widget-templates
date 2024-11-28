@@ -3,7 +3,6 @@
 @forward "pkg:@stackla/widget-utils/grid";
 @forward "pkg:@stackla/widget-utils/icons";
 @forward "./components/tile-content/overrides";
-
 @use "@styles/templates/shopspot-icon" as sicon;
 @use "@styles/templates/time-phrase" as tphrase;
 @use "@styles/templates/share-menu" as smenu;
@@ -11,8 +10,8 @@
 
 .slider-inline,
 expanded-tiles {
-  @include sicon.shopspot-icon-styles();
-  @include tphrase.time-phrase-styles();
-  @include smenu.share-menu-styles();
-  @include tags.tile-tags-styles();
+  @include sicon.shopspot-icon-styles;
+  @include tphrase.time-phrase-styles;
+  @include smenu.share-menu-styles;
+  @include tags.tile-tags-styles;
 }

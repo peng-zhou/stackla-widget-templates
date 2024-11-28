@@ -1,7 +1,7 @@
 @use "@styles/templates/tile-content" as tc;
 
 .slider-inline {
-  @include tc.tile-content-styles() {
+  @include tc.tile-content-styles {
     .tile-content-wrapper {
       .user-info {
         .user-link {
@@ -19,5 +19,5 @@
 }
 
 expanded-tiles {
-  @include tc.tile-content-styles();
+  @include tc.tile-content-styles;
 }

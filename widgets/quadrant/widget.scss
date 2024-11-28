@@ -2,7 +2,6 @@
 @use "pkg:@stackla/widget-utils/tile-overlay";
 @use "pkg:@stackla/widget-utils/icon-sections";
 @use "pkg:@stackla/widget-utils/icons";
-
 @use "@styles/templates/tags";
 @use "@styles/templates/load-more" as lm;
 @use "@styles/templates/tile-content" as tc;
@@ -12,12 +11,12 @@
 
 .quadrant-inline,
 expanded-tiles {
-  @include sicon.shopspot-icon-styles();
-  @include tphrase.time-phrase-styles();
-  @include smenu.share-menu-styles();
-  @include tags.tile-tags-styles();
-  @include tc.tile-content-styles();
-  @include lm.load-more-styles();
+  @include sicon.shopspot-icon-styles;
+  @include tphrase.time-phrase-styles;
+  @include smenu.share-menu-styles;
+  @include tags.tile-tags-styles;
+  @include tc.tile-content-styles;
+  @include lm.load-more-styles;
 }
 
 #nosto-ugc-container {

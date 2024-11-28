@@ -92,7 +92,11 @@ Cypress.Commands.add("shouldExpandedTile", widgetType => {
   // eslint-disable-next-line cypress/no-unnecessary-waiting
   cy.wait(5000)
 
-  cy.snapshot(`${widgetType}-tile`)
+  cy.getExpandedTile()
+    .find(".ugc-tile[data-id='65e16a0b5d7e676caec68f03']")
+    .first()
+    .should("exist")
+    .compareSnapshot(`${widgetType}-tile`)
 })
 
 Cypress.Commands.add("getExpandedTile", () => {
