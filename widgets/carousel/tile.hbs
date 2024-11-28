@@ -17,7 +17,7 @@
     </div>
     <div class="center-section">
       {{#ifequals media "video"}}
-      <div class="play-icon"></div>
+      <div class="icon-play"></div>
       {{/ifequals}}
     </div>
     <div class="bottom-section">
@@ -25,6 +25,7 @@
       <div class="network-icon icon-{{source}}"></div>
     </div>
   </div>
+  <shopspot-icon tile-id={{id}}></shopspot-icon>
   <div class="tile-image-wrapper">
     <shopspot-icon tile-id={{id}}></shopspot-icon>
     {{#lazy image_thumbnail_url }}{{/lazy}}
