@@ -3,15 +3,11 @@ import { loadWidget } from "@stackla/widget-utils"
 import { reinitialiseWaterfallLayout, loadWaterfallLayout } from "./waterfall.lib"
 
 loadWidget({
-  type: "waterfall",
-  extensions: {},
-  features: {},
   callbacks: {
     onLoadMore: [() => loadWaterfallLayout()],
     onTilesUpdated: [() => loadWaterfallLayout()],
     onResize: [() => reinitialiseWaterfallLayout()]
-  },
-  templates: {}
+  }
 })
 loadWaterfallLayout()
 loadAllUnloadedTiles()

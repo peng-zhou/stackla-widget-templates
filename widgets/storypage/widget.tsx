@@ -1,23 +1,19 @@
 import { createElement, ISdk, loadWidget } from "@stackla/widget-utils"
 import "./direct-uploader.component"
+import { calculateTilesToShow, registerResizeObserver, tileSettings } from "./direct-uploader.lib"
 
 declare const sdk: ISdk
 
-const style = document.createElement("style")
-
-sdk.placement.getShadowRoot().appendChild(style)
-
 loadWidget({
-  type: "direct-uploader",
-  extensions: {},
   features: {
-    handleLoadMore: false
+    handleLoadMore: false,
+    tileSizeSettings: tileSettings,
+    limitTilesPerPage: false
   },
   callbacks: {
-    onLoad: [() => createSubmitMoreContentBtn()],
-    onTilesUpdated: [() => createSubmitMoreContentBtn()]
-  },
-  templates: {}
+    onLoad: [() => createSubmitMoreContentBtn(), () => registerResizeObserver()],
+    onTileBgImageError: [calculateTilesToShow]
+  }
 })
 
 function createSubmitMoreContentBtn() {

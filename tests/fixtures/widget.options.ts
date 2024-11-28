@@ -87,7 +87,7 @@ const widgetOptions: SharedWidgetOptions["widgetOptions"] = {
     shopspot_btn_font_size: "12",
     inline_tile_size: "medium",
     inline_tile_border_radius: "5",
-    tile_tag_background: "000000",
+    tile_tag_background: "D6D4D5",
     map_content_feed_filter_id: "",
     map_content_feed_filter_name: "",
     // Unfortunately these are legacy options that were not cased correctly in backend config (circa 2020)
@@ -96,7 +96,11 @@ const widgetOptions: SharedWidgetOptions["widgetOptions"] = {
     providerApiKey: "",
     providerLayer: "",
     connectedContentWidgetId: "",
-    defaultBounds: ""
+    defaultBounds: "",
+    rows_per_page: "",
+    text_caption_paragraph_font_size: "",
+    pinColor: "",
+    pinTextColor: ""
   },
   guid: "668ca52ada8fb",
   filter_id: "10695"

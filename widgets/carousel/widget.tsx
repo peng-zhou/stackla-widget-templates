@@ -6,7 +6,6 @@ import { loadWidget } from "@stackla/widget-utils"
 import { initializeInlineSwiperListeners } from "./inline-swiper.loader"
 
 loadWidget({
-  type: "carousel",
   extensions: {
     swiper: true
   },
@@ -15,8 +14,7 @@ loadWidget({
   },
   callbacks: {
     onLoad: [initializeInlineSwiperListeners]
-  },
-  templates: {}
+  }
 })
 
 sdk.querySelector(".track")?.style.removeProperty("display")
