@@ -90,7 +90,7 @@ Cypress.Commands.add("shouldExpandedTile", widgetType => {
   cy.get(WIDGET_ID).shadow().find(".expanded-tile-overlay").should("exist").invoke("css", "background-color", "#000")
 
   // eslint-disable-next-line cypress/no-unnecessary-waiting
-  cy.wait(10000)
+  cy.wait(5000)
 
   cy.snapshot(`${widgetType}-tile`)
 })
