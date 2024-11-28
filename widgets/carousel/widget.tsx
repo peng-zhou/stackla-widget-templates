@@ -14,8 +14,7 @@ loadWidget({
   },
   callbacks: {
     onLoad: [initializeInlineSwiperListeners]
-  },
-  templates: {}
+  }
 })
 
 sdk.querySelector(".track")?.style.removeProperty("display")

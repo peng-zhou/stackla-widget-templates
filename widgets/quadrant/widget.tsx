@@ -3,13 +3,10 @@ import { loadWidget } from "@stackla/widget-utils"
 import { getQuadrantTiles } from "./quadrant.lib"
 
 loadWidget({
-  extensions: {},
   features: {
     preloadImages: false,
     hideBrokenImages: true
-  },
-  callbacks: {},
-  templates: {}
+  }
 })
 
 loadAllUnloadedTiles()
