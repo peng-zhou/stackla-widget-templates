@@ -6,8 +6,17 @@
 }
 
 #nosto-ugc-container {
+  margin: var(--margin);
+
   .grid {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--margin);
+
     .ugc-tile {
+      height: var(--tile-size);
+      border-radius: 5px;
       box-sizing: border-box;
       overflow: hidden;
       transition: opacity 0.5s ease;
@@ -15,8 +24,19 @@
       &:not([width-set*="true"]) {
         opacity: 0;
       }
+
+      max-width: 25%;
+
+      @include masonryStyles.breakpoint(tablet) {
+        max-width: 50%;
+      }
+
+      @include masonryStyles.breakpoint(mobile) {
+        max-width: 100%;
+      }
     }
   }
+
 
   .tile {
     position: relative;
@@ -26,7 +46,7 @@
     width: 100%;
     height: 100%;
 
-    .play-icon {
+    .icon-play {
       top: 43%;
       left: 0;
       right: 0;
@@ -56,6 +76,13 @@
   .loading {
     height: masonryStyles.$loading-height !important;
     width: masonryStyles.$loading-width !important;
+  }
+}
+
+load-more {
+  #buttons {
+    margin-top: 30px;
+    margin-bottom: 30px;
   }
 }
 
