@@ -1,4 +1,5 @@
 @use "styles" as carouselStyles;
+@use "@styles/partials/media-queries";
 
 :host {
   transition: ease all 0.5s;
@@ -27,7 +28,7 @@
   display: none;
 }
 
-@include carouselStyles.breakpoint(mobile) {
+@include media-queries.breakpoint(mobile) {
   #nosto-ugc-container {
     height: auto;
 
