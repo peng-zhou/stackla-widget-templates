@@ -1,22 +1,70 @@
-@use "pkg:@stackla/widget-utils/mixins";
-@use "pkg:@stackla/widget-utils/tile-sizes" as ts;
+@use "@styles/partials/media-queries";
 
-.slider-widget {
+@mixin responsiveness-template {
   &.track {
-    @include mixins.breakpoint(mobile) {
-      .container {
-        width: var(--tile-size);
+    @include media-queries.breakpoint(mobile) {
+      --render-mode: mobile;
 
-        &:has(.ugc-tiles[variation="medium"]),
-        &:has(.ugc-tiles[variation="large"]) {
-          > #scroll-up,
-          > #scroll-down {
-            display: none;
+      .container {
+        width: 100vw;
+
+        .tiles-scroll-button {
+          display: none;
+        }
+
+        .ugc-tiles {
+          grid-template-columns: 1fr;
+          height: 100vh;
+          grid-template-rows: 60% 40%;
+          gap: 0;
+          grid-auto-columns: auto;
+
+          .ugc-tile {
+            &,
+            &.ugc-tile:nth-child(2n),
+            &.ugc-tile:nth-child(4n-1),
+            &.ugc-tile:nth-child(4n) {
+              max-height: 100vh;
+              grid-template-areas: "image" "details";
+              min-width: initial;
+              grid-column: auto;
+              gap: 10px;
+              height: 100vh;
+              grid-row: span 2;
+              grid-template-rows: 60% calc(40% - 10px);
+
+              .image-section,
+              .details-section {
+                width: 100%;
+                height: 100%;
+              }
+
+              .icon-section {
+                grid-template-areas:
+                  "type shop"
+                  "media .";
+
+                > .network-icon {
+                  place-self: flex-end center;
+                  grid-column: span 2;
+                }
+
+                > .content-icon {
+                  place-self: flex-start;
+                  margin: 10px 0 0 10px;
+                }
+
+                > .shopping-icon {
+                  place-self: flex-start flex-end;
+                  margin: 10px 10px 0 0;
+                }
+              }
+            }
           }
         }
       }
 
-      .ugc-tiles[variation="medium"],
+      /* .ugc-tiles[variation="medium"],
       .ugc-tiles[variation="large"] {
         height: calc(var(--tile-size) * 2);
         gap: 0;
@@ -35,10 +83,10 @@
             gap: 0;
           }
         }
-      }
+      } */
     }
 
-    @media (min-width: 577px) and (max-width: (ts.get-tile-size("large") * 2)) {
+    /* @media (min-width: 577px) {
       .container {
         &:has(.ugc-tiles[variation="large"]) {
           width: var(--large);
@@ -54,6 +102,6 @@
           }
         }
       }
-    }
+    } */
   }
 }

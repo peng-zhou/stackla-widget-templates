@@ -12,15 +12,16 @@ $space-between: 10px;
   transition: ease all 0.5s;
 }
 
-.slider-widget {
+.slider-inline {
   --text-caption-paragraph-font-size: 14px;
   --tile-timephrase-display: flex;
 
   display: flex;
-  width: 100vw;
   place-items: center;
 
   &.track {
+    --render-mode: desktop;
+
     display: flex;
     width: 100%;
     place-items: center;
@@ -68,6 +69,21 @@ $space-between: 10px;
             position: relative;
             grid-area: image;
             height: var(--tile-size);
+
+            .center-section {
+              position: absolute;
+              display: flex;
+              z-index: 1;
+              justify-content: center;
+              width: 100%;
+              align-items: center;
+              height: 100%;
+
+              .icon-play {
+                top: calc(50% - 1em);
+                left: calc(50% - 1em);
+              }
+            }
           }
 
           .details-section {
@@ -290,4 +306,6 @@ $space-between: 10px;
       }
     }
   }
+
+  @include responsive.responsiveness-template;
 }

@@ -1,19 +1,25 @@
 import { SdkSwiper } from "types"
-import { getTileSizes } from "@stackla/widget-utils"
+import { Features, getTileSizeByWidget } from "@stackla/widget-utils"
 
 declare const sdk: SdkSwiper
 
 type SwiperDirection = "none" | "left" | "right" | "up" | "down"
 
-export default function () {
+export default function (settings: Features["tileSizeSettings"]) {
   const sliderScrollUpButton = sdk.querySelector("#scroll-up")
   const sliderScrollDownButton = sdk.querySelector("#scroll-down")
   const tileBlockElement = sdk.querySelector(".ugc-tile-wrapper")
-  const tilesContainer = sdk.querySelector(".ugc-tiles")
+  const sliderInline = sdk.querySelector(".slider-inline")
+
+  const tilesContainer = sliderInline.querySelector<HTMLElement>(".ugc-tiles")
 
   let scrollIndex = 0
 
-  const tileSizeConfig = getTileSizes()
+  const tileSizeConfig = getTileSizeByWidget(settings)
+
+  if (!sliderInline) {
+    throw new Error("Slider inline container not found")
+  }
 
   if (!tileBlockElement) {
     throw new Error("Slider Tiles Scroll Container not found")
@@ -37,9 +43,21 @@ export default function () {
   tilesContainer.setAttribute("variation", inline_tile_size)
 
   const tileSizeUnitless = Number(tileSizeConfig["--tile-size-unitless"])
-  const blockHeight = isNaN(tileSizeUnitless) ? 220 : tileSizeUnitless
+  let blockHeight = 0
 
-  //addCSSResponsiveVariables()
+  const resizeObserver = new ResizeObserver(() =>
+    requestAnimationFrame(() => {
+      const renderMode = getComputedStyle(sliderInline).getPropertyValue("--render-mode")
+      blockHeight = renderMode === "mobile" ? window.screen.height : isNaN(tileSizeUnitless) ? 220 : tileSizeUnitless
+      scrollIndex = 0
+      tilesContainer.scrollTop = 0
+      if (renderMode === "desktop") {
+        controlNavigationButtonVisibility()
+      }
+    })
+  )
+
+  resizeObserver.observe(sliderInline)
 
   controlNavigationButtonVisibility()
 
@@ -58,7 +76,7 @@ export default function () {
 
   function scrollUp() {
     scrollIndex--
-    tilesContainer.scrollTo({
+    tilesContainer!.scrollTo({
       top: blockHeight * scrollIndex,
       left: 0,
       behavior: "smooth"
@@ -68,7 +86,7 @@ export default function () {
 
   function scrollDown() {
     scrollIndex++
-    tilesContainer.scrollTo({
+    tilesContainer!.scrollTo({
       top: blockHeight * scrollIndex,
       left: 0,
       behavior: "smooth"
@@ -85,15 +103,15 @@ export default function () {
   })
 
   function controlNavigationButtonVisibility() {
-    if (tilesContainer.scrollTop > 0 && scrollIndex > 0) {
+    if (tilesContainer!.scrollTop > 0 && scrollIndex > 0) {
       sliderScrollUpButton.style.visibility = "visible"
     } else {
       sliderScrollUpButton.style.visibility = "hidden"
     }
 
-    const offset = tilesContainer.scrollHeight - tilesContainer.scrollTop - tilesContainer.offsetHeight
+    const offset = tilesContainer!.scrollHeight - tilesContainer!.scrollTop - tilesContainer!.offsetHeight
 
-    if (offset === 0 || (tilesContainer.scrollHeight > 0 && offset >= blockHeight / 2)) {
+    if (offset === 0 || (tilesContainer!.scrollHeight > 0 && offset >= blockHeight / 2)) {
       sliderScrollDownButton.style.visibility = "visible"
     } else {
       sliderScrollDownButton.style.visibility = "hidden"
