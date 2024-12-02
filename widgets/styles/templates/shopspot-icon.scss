@@ -1,4 +1,8 @@
-shopspot-icon {
+@use "sass:string";
+@use "@styles/partials/media-queries";
+
+// style placeholder
+%shopspot-icon-styles-ph {
   .stacklapopup-shopspot-badge {
     background: #fff;
     border-radius: 50%;
@@ -56,4 +60,21 @@ shopspot-icon {
       border-color: transparent transparent #000;
     }
   }
+}
+
+@mixin shopspot-icon-styles($parent: null) {
+  /* if parent selector is supplied use it */
+  @if $parent {
+    #{string.unquote($parent) shopspot-icon} {
+      @extend %shopspot-icon-styles-ph;
+    }
+  } @else {
+    /* dynamically determine the parent selector if available */
+    #{if(&, "& shopspot-icon", "shopspot-icon")} {
+      @extend %shopspot-icon-styles-ph;
+    }
+  }
+
+  /* any style overrides */
+  @content;
 }

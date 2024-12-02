@@ -1,6 +1,8 @@
-@use "pkg:@stackla/widget-utils/mixins";
+@use "sass:string";
+@use "@styles/partials/media-queries";
 
-share-menu {
+// style placeholder
+%share-menu-styles-ph {
   .share-button {
     display: flex;
     cursor: pointer;
@@ -122,7 +124,7 @@ share-menu {
     }
   }
 
-  @include mixins.breakpoint(tablet) {
+  @include media-queries.breakpoint(tablet) {
     .share-socials-popup-wrapper {
       right: 30%;
       top: 30%;
@@ -135,9 +137,26 @@ share-menu {
     }
   }
 
-  @include mixins.breakpoint(mobile) {
+  @include media-queries.breakpoint(mobile) {
     .share-socials-popup-wrapper {
       right: 15%;
     }
   }
+}
+
+@mixin share-menu-styles($parent: null) {
+  /* if parent selector is supplied use it */
+  @if $parent {
+    #{string.unquote($parent) share-menu} {
+      @extend %share-menu-styles-ph;
+    }
+  } @else {
+    /* dynamically determine the parent selector if available */
+    #{if(&, "& share-menu", "share-menu")} {
+      @extend %share-menu-styles-ph;
+    }
+  }
+
+  /* any style overrides */
+  @content;
 }

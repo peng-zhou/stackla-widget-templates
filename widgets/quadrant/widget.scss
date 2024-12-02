@@ -1,13 +1,5 @@
-@use "pkg:@stackla/widget-utils/mixins";
-@use "pkg:@stackla/widget-utils/tile-overlay";
-@use "pkg:@stackla/widget-utils/icon-sections";
-@use "pkg:@stackla/widget-utils/icons";
-@use "@styles/templates/tags";
-@use "@styles/templates/shopspot-icon";
-@use "@styles/templates/time-phrase";
-@use "@styles/templates/share-menu";
-@forward "@styles/templates/load-more";
-@forward "@styles/templates/tile-content";
+@use "styles";
+@use "@styles/partials/media-queries";
 
 #nosto-ugc-container {
   --tile-size-with-margin: calc(var(--tile-size) - var(--margin) * 1px);
@@ -23,7 +15,7 @@
     gap: var(--margin);
     justify-content: center;
 
-    @include mixins.breakpoint(mobile) {
+    @include media-queries.breakpoint(mobile) {
       grid-template-columns: var(--full);
     }
   }
@@ -36,11 +28,11 @@
     margin-bottom: var(--margin);
     grid-template-columns: repeat(4, var(--column-width));
 
-    @include mixins.breakpoint(tablet) {
+    @include media-queries.breakpoint(tablet) {
       grid-template-columns: repeat(2, var(--column-width));
     }
 
-    @include mixins.breakpoint(mobile) {
+    @include media-queries.breakpoint(mobile) {
       grid-template-columns: var(--full);
       gap: 0;
     }

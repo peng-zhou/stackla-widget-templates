@@ -1,9 +1,10 @@
 @use "sass:math";
+@use "sass:string";
+@use "@styles/partials/media-queries";
 
-tile-content {
-  :host {
-    height: 100%;
-  }
+// style placeholder
+%tile-content-styles-ph {
+  display: flex;
 
   .tile-content-wrapper {
     --max-lines: 7;
@@ -31,6 +32,7 @@ tile-content {
         line-height: 1.2rem;
 
         .caption-paragraph {
+          display: flex;
           font-size: var(--text-caption-paragraph-font-size);
         }
       }
@@ -122,4 +124,21 @@ tile-content {
       }
     }
   }
+}
+
+@mixin tile-content-styles($parent: null) {
+  /* if parent selector is supplied use it */
+  @if $parent {
+    #{string.unquote($parent) tile-content} {
+      @extend %tile-content-styles-ph;
+    }
+  } @else {
+    /* dynamically determine the parent selector if available */
+    #{if(&, "& tile-content", "tile-content")} {
+      @extend %tile-content-styles-ph;
+    }
+  }
+
+  /* any style overrides */
+  @content;
 }
