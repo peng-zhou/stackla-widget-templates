@@ -221,6 +221,7 @@ expanded-tiles {
             display: flex;
             flex-direction: column;
             height: 100%;
+            place-items: center;
 
             a {
               color: var(--text-tile-tag-font-color);
