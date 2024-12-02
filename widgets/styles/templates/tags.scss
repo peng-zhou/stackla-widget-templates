@@ -17,6 +17,7 @@
     padding: 0;
     scrollbar-width: none;
     z-index: 2;
+    flex-wrap: wrap;
 
     .tile-tag {
       background: var(--tile-tag-background, color(srgb 0.74 0.73 0.74));
