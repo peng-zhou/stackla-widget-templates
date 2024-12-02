@@ -76,7 +76,7 @@
 .swiper-inline-button-prev::after,
 .swiper-expanded-button-next::after,
 .swiper-expanded-button-prev::after {
-  content: unset;
+  content: unset !important;
 
   --swiper-navigation-size: 20px;
 }
