@@ -2,19 +2,28 @@
   <div class="tile">
     <div class="tile-top">
       <div class="tile-loading"></div>
-      <div class="tile-content hidden">
-        {{#each attrs}}
-          {{#ifequals this "instagram.reel"}}
-            <div class="content-icon icon-reel"></div>
+      <div class="icon-section">
+        <div class="top-section">
+          {{#each attrs}}
+            {{#ifequals this "instagram.reel"}}
+              <div class="content-icon icon-reel"></div>
+            {{/ifequals}}
+            {{#ifequals this "youtube.short"}}
+              <div class="content-icon icon-youtube-short"></div>
+            {{/ifequals}}
+          {{/each}}
+          {{#if tags_extended.length}}
+            <div class="shopping-icon icon-products"></div>
+          {{/if}}
+        </div>
+        <div class="center-section">
+          {{#ifequals media "video"}}
+            <div class="icon-play"></div>
           {{/ifequals}}
-        {{/each}}
-        {{#if tags_extended.length}}
-          <div class="shopping-icon icon-products"></div>
-        {{/if}}
-        <div class="network-icon icon-{{source}}"></div>
-        {{#ifequals media "video"}}
-          <div class="icon-play"></div>
-        {{/ifequals}}
+        </div>
+        <div class="bottom-section">
+          <div class="network-icon icon-{{source}}"></div>
+        </div>
       </div>
       <div class="tile-image-wrapper">
         {{#lazy image_thumbnail_url "120"}}{{/lazy}}
@@ -26,15 +35,24 @@
     </div>
     <div class="tile-bottom">
       {{#if tags_extended.length}}
-        <tile-tags tile-id="{{id}}" ></tile-tags>
+        <tile-tags tile-id="{{id}}"></tile-tags>
       {{/if}}
       <div class="description">
         <div class="waterfall-widget">
+          {{#if name}}
+            <div class="user-name">{{name}}</div>
+          {{/if}}
+          {{#if user}}
+            <div class="user-handle">@{{user}}</div>
+          {{/if}}
+          <time-phrase source-created-at="{{source_created_at}}"></time-phrase>
           <tile-content
             tile-id="{{id}}"
             context="waterfall-inline"
             render-avatar-image="false"
+            render-user-info="false"
             render-timephrase="false"
+            render-user-title="false"
             trim-description="true"
           ></tile-content>
         </div>
