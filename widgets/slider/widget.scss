@@ -34,9 +34,9 @@ $space-between: 10px;
 
       .ugc-tiles {
         display: grid;
-        gap: $space-between; /* Space between blocks */
-        width: 100%; /* Fixed Width */
-        height: calc(100vh - 100px); /* Fixed Height */
+        gap: $space-between;
+        width: 100%;
+        height: calc(100vh - 100px);
         overflow: hidden;
         justify-content: center;
         grid-auto-columns: var(--tile-size);
@@ -49,7 +49,7 @@ $space-between: 10px;
           background-color: #000;
           color: #fff;
           font-size: 1.5em;
-          transition: transform 0.5s ease-in-out; /* Apply transition to all blocks */
+          transition: transform 0.5s ease-in-out;
           cursor: pointer;
         }
 
@@ -258,10 +258,10 @@ $space-between: 10px;
       }
 
       .ugc-tile:nth-child(even) .ugc-tile-wrapper {
-        flex-direction: row-reverse; /* Swap image and text for even rows */
+        flex-direction: row-reverse;
       }
 
-      /* Styles for Scroll Buttons */
+      // Styles for Scroll Buttons
       .tiles-scroll-button {
         width: 100%;
         display: flex;

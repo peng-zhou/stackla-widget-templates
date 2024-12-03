@@ -39,6 +39,12 @@
                 height: 100%;
               }
 
+              .details-section {
+                .footer share-menu {
+                  display: none;
+                }
+              }
+
               .icon-section {
                 grid-template-areas:
                   "type shop"
@@ -63,45 +69,6 @@
           }
         }
       }
-
-      /* .ugc-tiles[variation="medium"],
-      .ugc-tiles[variation="large"] {
-        height: calc(var(--tile-size) * 2);
-        gap: 0;
-
-        .ugc-tile {
-          grid-column: auto;
-          grid-row: span 2;
-          grid-template-areas: "image" "details";
-
-          &:nth-child(2n) {
-            grid-template-areas: "details" "image";
-          }
-
-          &:nth-child(4n-1),
-          &:nth-child(4n) {
-            gap: 0;
-          }
-        }
-      } */
     }
-
-    /* @media (min-width: 577px) {
-      .container {
-        &:has(.ugc-tiles[variation="large"]) {
-          width: var(--large);
-
-          .ugc-tile {
-            grid-column: auto;
-            grid-row: span 2;
-            grid-template-areas: "image" "details";
-
-            &:nth-child(2n) {
-              grid-template-areas: "details" "image";
-            }
-          }
-        }
-      }
-    } */
   }
 }
