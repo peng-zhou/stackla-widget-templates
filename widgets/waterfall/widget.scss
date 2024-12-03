@@ -73,18 +73,16 @@
 
   .tile-tags.mask-left {
     mask-image: linear-gradient(to right, transparent 0%, black 20%);
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 20%);
   }
   
   .tile-tags.mask-right {
     mask-image: linear-gradient(to left, transparent 0%, black 20%);
-    -webkit-mask-image: linear-gradient(to left, transparent 0%, black 20%);
   }
   
   .tile-tags.mask-both {
     mask-image: linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%);
   }
+  
   .tag-inline {
     background: var(--tile-tag-background);
     border-radius: 3px !important;
