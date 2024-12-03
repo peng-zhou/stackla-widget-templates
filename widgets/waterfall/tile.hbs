@@ -12,9 +12,11 @@
               <div class="content-icon icon-youtube-short"></div>
             {{/ifequals}}
           {{/each}}
-          {{#if tags_extended.length}}
-            <div class="shopping-icon icon-products"></div>
-          {{/if}}
+          <div>
+            {{#if tags_extended.length}}
+              <div class="shopping-icon icon-products"></div>
+            {{/if}}
+          </div>
         </div>
         <div class="center-section">
           {{#ifequals media "video"}}
@@ -34,9 +36,17 @@
       </div>
     </div>
     <div class="tile-bottom">
-      {{#if tags_extended.length}}
-        <tile-tags tile-id="{{id}}"></tile-tags>
-      {{/if}}
+      <div class="tag-slider">
+        {{#if tags_extended.length}}
+          <button class="tag-slider-arrow left-arrow" style="display: none;">‹</button>
+          <ul class="tile-tags">
+            {{#tags_extended}}
+              <li class="tile-tag tag-inline"><a href="{{custom_url}}">{{tag}}</a></li>
+            {{/tags_extended}}
+          </ul>
+          <button class="tag-slider-arrow right-arrow" style="display: none;">›</button>
+        {{/if}}
+      </div>
       <div class="description">
         <div class="waterfall-widget">
           {{#if name}}

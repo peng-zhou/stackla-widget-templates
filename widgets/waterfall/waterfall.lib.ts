@@ -1,4 +1,4 @@
-import { ISdk } from "@stackla/widget-utils"
+import { ISdk, waitForElements } from "@stackla/widget-utils"
 
 declare const sdk: ISdk
 
@@ -36,5 +36,85 @@ export function loadWaterfallLayout(reset = false) {
         calculateHeight()
       }
     }
+  })
+}
+
+export function initializeTagSlider() {
+  const tilesContainer = sdk.querySelector(".ugc-tiles")
+
+  waitForElements(tilesContainer, ".tag-slider", () => {
+    const tagSliders = sdk.querySelectorAll<HTMLElement>(".tag-slider")
+
+    if (!tagSliders.length) {
+      return
+    }
+
+    tagSliders.forEach(tagSlider => {
+      const tagList = tagSlider.querySelector<HTMLElement>(".tile-tags")
+      const leftArrow = tagSlider.querySelector<HTMLButtonElement>(".left-arrow")
+      const rightArrow = tagSlider.querySelector<HTMLButtonElement>(".right-arrow")
+
+      if (!tagList || !leftArrow || !rightArrow) {
+        console.warn("Tag list or arrows not found in the tag slider")
+        return
+      }
+
+      const scrollAmount = 100 // Pixels to scroll on arrow click
+
+      const updateArrowVisibility = () => {
+        const tagListWidth = tagList.offsetWidth
+        const tagListScrollWidth = tagList.scrollWidth
+
+        if (tagListWidth === 0 || tagListScrollWidth === 0) {
+          return
+        }
+
+        const isScrollable = tagListScrollWidth > tagListWidth
+
+        leftArrow.style.display = tagList.scrollLeft > 0 ? "block" : "none"
+
+        rightArrow.style.display =
+          isScrollable && tagList.scrollLeft + tagListWidth < tagListScrollWidth ? "block" : "none"
+
+        // Update mask classes
+        if (tagList.scrollLeft > 0 && tagList.scrollLeft + tagListWidth < tagListScrollWidth) {
+          tagList.classList.add("mask-both")
+          tagList.classList.remove("mask-left", "mask-right")
+        } else if (leftArrow.style.display === "block" && tagList.scrollLeft > 0) {
+          tagList.classList.add("mask-left")
+          tagList.classList.remove("mask-right", "mask-both")
+        } else if (tagList.scrollLeft + tagListWidth < tagListScrollWidth) {
+          tagList.classList.add("mask-right")
+          tagList.classList.remove("mask-left", "mask-both")
+        } else {
+          tagList.classList.remove("mask-left", "mask-right", "mask-both")
+        }
+      }
+
+      const ensureDimensions = () => {
+        const interval = setInterval(() => {
+          const tagListWidth = tagList.offsetWidth
+          const tagListScrollWidth = tagList.scrollWidth
+
+          if (tagListWidth > 0 && tagListScrollWidth > 0) {
+            clearInterval(interval)
+            updateArrowVisibility()
+          }
+        }, 50) // Check every 50ms
+      }
+
+      // Event listeners for arrows and scrolling
+      leftArrow.addEventListener("click", () => {
+        tagList.scrollBy({ left: -scrollAmount, behavior: "smooth" })
+      })
+
+      rightArrow.addEventListener("click", () => {
+        tagList.scrollBy({ left: scrollAmount, behavior: "smooth" })
+      })
+
+      tagList.addEventListener("scroll", updateArrowVisibility)
+
+      ensureDimensions() // Ensure dimensions are valid before updating visibility
+    })
   })
 }
