@@ -42,14 +42,12 @@
     height: auto;
   }
 
-    .icon-play {
-      top: 43%;
-      left: 0;
-      right: 0;
-      margin: auto;
-    }
-
-}
+  .icon-play {
+    top: 43%;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
 
   .tile-bottom {
     padding: 16px 5px 12px;
@@ -74,15 +72,15 @@
   .tile-tags.mask-left {
     mask-image: linear-gradient(to right, transparent 0%, black 20%);
   }
-  
+
   .tile-tags.mask-right {
     mask-image: linear-gradient(to left, transparent 0%, black 20%);
   }
-  
+
   .tile-tags.mask-both {
     mask-image: linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%);
   }
-  
+
   .tag-inline {
     background: var(--tile-tag-background);
     border-radius: 3px !important;
@@ -101,6 +99,41 @@
 
   .tag-inline:last-child {
     margin-right: 10px;
+  }
+
+  .tag-slider {
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tag-slider-arrow {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0 5px;
+    z-index: 10;
+    display: none;
+  }
+
+  .tag-slider-arrow.left-arrow,
+  .tag-slider-arrow.right-arrow {
+    position: absolute;
+    top: -4px;
+  }
+
+  .tag-slider-arrow.left-arrow {
+    left: 0;
+  }
+
+  .tag-slider-arrow.right-arrow {
+    right: 0;
+  }
+
+  .tile-tags::-webkit-scrollbar {
+    display: none;
   }
 
   .description {
@@ -184,38 +217,4 @@
     gap: 0 !important;
     padding-right: 17px !important;
   }
-
-  .tag-slider {
-    display: flex;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .tag-slider-arrow {
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    padding: 0 5px;
-    z-index: 10;
-    display: none;
-  }
-
-  .tag-slider-arrow.left-arrow,
-  .tag-slider-arrow.right-arrow {
-    position: absolute;
-    top: -4px;
-  }
-  
-  .tag-slider-arrow.left-arrow {
-    left: 0;
-  }
-  
-  .tag-slider-arrow.right-arrow {
-    right: 0;
-  }
-  
-  .tile-tags::-webkit-scrollbar {
-    display: none;
-  }
+}
