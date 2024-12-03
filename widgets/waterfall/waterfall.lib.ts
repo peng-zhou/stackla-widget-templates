@@ -59,8 +59,6 @@ export function initializeTagSlider() {
         return
       }
 
-      const scrollAmount = 100 // Pixels to scroll on arrow click
-
       const updateArrowVisibility = () => {
         const tagListWidth = tagList.offsetWidth
         const tagListScrollWidth = tagList.scrollWidth
@@ -69,26 +67,16 @@ export function initializeTagSlider() {
           return
         }
 
+        const atStart = tagList.scrollLeft <= 0
+        const atEnd = tagList.scrollLeft + tagListWidth >= tagListScrollWidth
         const isScrollable = tagListScrollWidth > tagListWidth
 
-        leftArrow.style.display = tagList.scrollLeft > 0 ? "block" : "none"
+        leftArrow.style.display = atStart ? "none" : "block"
+        rightArrow.style.display = atEnd || !isScrollable ? "none" : "block"
 
-        rightArrow.style.display =
-          isScrollable && tagList.scrollLeft + tagListWidth < tagListScrollWidth ? "block" : "none"
-
-        // Update mask classes
-        if (tagList.scrollLeft > 0 && tagList.scrollLeft + tagListWidth < tagListScrollWidth) {
-          tagList.classList.add("mask-both")
-          tagList.classList.remove("mask-left", "mask-right")
-        } else if (leftArrow.style.display === "block" && tagList.scrollLeft > 0) {
-          tagList.classList.add("mask-left")
-          tagList.classList.remove("mask-right", "mask-both")
-        } else if (tagList.scrollLeft + tagListWidth < tagListScrollWidth) {
-          tagList.classList.add("mask-right")
-          tagList.classList.remove("mask-left", "mask-both")
-        } else {
-          tagList.classList.remove("mask-left", "mask-right", "mask-both")
-        }
+        tagList.classList.toggle("mask-left", !atStart)
+        tagList.classList.toggle("mask-right", !atEnd)
+        tagList.classList.toggle("mask-both", !atStart && !atEnd)
       }
 
       const ensureDimensions = () => {
@@ -100,21 +88,20 @@ export function initializeTagSlider() {
             clearInterval(interval)
             updateArrowVisibility()
           }
-        }, 50) // Check every 50ms
+        }, 50)
       }
 
-      // Event listeners for arrows and scrolling
       leftArrow.addEventListener("click", () => {
-        tagList.scrollBy({ left: -scrollAmount, behavior: "smooth" })
+        tagList.scrollBy({ left: -100, behavior: "smooth" })
       })
 
       rightArrow.addEventListener("click", () => {
-        tagList.scrollBy({ left: scrollAmount, behavior: "smooth" })
+        tagList.scrollBy({ left: 100, behavior: "smooth" })
       })
 
       tagList.addEventListener("scroll", updateArrowVisibility)
 
-      ensureDimensions() // Ensure dimensions are valid before updating visibility
+      ensureDimensions()
     })
   })
 }
