@@ -4,12 +4,7 @@ import { loadWaterfallLayout, initializeTagSlider } from "./waterfall.lib"
 loadWidget({
   callbacks: {
     onLoadMore: [() => loadWaterfallLayout()],
-    onTilesUpdated: [
-      () => {
-        loadWaterfallLayout()
-        initializeTagSlider
-      }
-    ],
+    onTilesUpdated: [() => loadWaterfallLayout()],
     onResize: [() => loadWaterfallLayout()]
   },
   templates: {},
