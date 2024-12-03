@@ -70,5 +70,55 @@
         }
       }
     }
+
+    @include media-queries.breakpoint(tablet) {
+      --render-mode: tablet;
+
+      .container {
+        width: calc(100vw - 10px);
+        margin-top: 5px;
+
+        .tiles-scroll-button {
+          display: none;
+        }
+
+        .ugc-tiles {
+          grid-template-columns: repeat(auto-fill, 50%);
+          grid-auto-columns: auto;
+
+          .ugc-tile {
+            .image-section,
+            .details-section {
+              width: 100%;
+              height: 100%;
+            }
+
+            .image-section {
+              height: auto;
+
+              img {
+                aspect-ratio: 1 / 1;
+              }
+            }
+
+            &:nth-child(4n-1) {
+              grid-template-rows: 2fr fit-content(var(--tile-size));
+
+              .details-section {
+                height: var(--tile-size);
+              }
+            }
+
+            &:nth-child(4n) {
+              grid-template-rows: fit-content(var(--tile-size)) 2fr;
+
+              .details-section {
+                height: var(--tile-size);
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }

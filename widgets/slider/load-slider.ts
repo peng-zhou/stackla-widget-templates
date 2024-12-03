@@ -13,6 +13,8 @@ export default function (settings: Features["tileSizeSettings"]) {
 
   const tilesContainer = sliderInline.querySelector<HTMLElement>(".ugc-tiles")
 
+  const scrollHistory: Array<number> = [0]
+
   let scrollIndex = 0
 
   const tileSizeConfig = getTileSizeByWidget(settings)
@@ -37,21 +39,61 @@ export default function (settings: Features["tileSizeSettings"]) {
     throw new Error("Slider Tiles Scroll Down Button not found")
   }
 
+  function gridGap() {
+    const parsed = parseInt(getComputedStyle(tilesContainer!).gap)
+    return isNaN(parsed) ? 0 : parsed
+  }
+
   const style = sdk.getStyleConfig()
   const { inline_tile_size } = style
 
   tilesContainer.setAttribute("variation", inline_tile_size)
 
   const tileSizeUnitless = Number(tileSizeConfig["--tile-size-unitless"])
-  let blockHeight = 0
+  const defaultBlockHeight = isNaN(tileSizeUnitless) ? 220 : tileSizeUnitless
+
+  function getTopElementHeight() {
+    const elements = Array.from(tilesContainer!.querySelectorAll<HTMLElement>(".ugc-tile"))
+    const topElement = elements.find(element => {
+      const top = element.getBoundingClientRect().top
+      return top > 0 && top < 50
+    })
+    return topElement?.getBoundingClientRect().height || defaultBlockHeight
+  }
+
+  function calcHeightAndRecordHistory(value: number) {
+    if (scrollHistory.length === 1) {
+      scrollHistory.push(value + gridGap())
+      return value + gridGap()
+    } else {
+      const totalHeight = scrollHistory.slice(-1)[0] + value + gridGap()
+      scrollHistory.push(totalHeight)
+      return totalHeight
+    }
+  }
+
+  function getBlockHeight() {
+    switch (getRenderMode()) {
+      case "mobile": {
+        return calcHeightAndRecordHistory(window.screen.height ?? defaultBlockHeight)
+      }
+      case "tablet": {
+        return calcHeightAndRecordHistory(getTopElementHeight())
+      }
+      default:
+        return calcHeightAndRecordHistory(defaultBlockHeight)
+    }
+  }
+
+  function getRenderMode() {
+    return getComputedStyle(sliderInline).getPropertyValue("--render-mode")
+  }
 
   const resizeObserver = new ResizeObserver(() =>
     requestAnimationFrame(() => {
-      const renderMode = getComputedStyle(sliderInline).getPropertyValue("--render-mode")
-      blockHeight = renderMode === "mobile" ? window.screen.height : isNaN(tileSizeUnitless) ? 220 : tileSizeUnitless
       scrollIndex = 0
       tilesContainer.scrollTop = 0
-      if (renderMode === "desktop") {
+      if (getRenderMode() === "desktop") {
         controlNavigationButtonVisibility()
       }
     })
@@ -77,7 +119,7 @@ export default function (settings: Features["tileSizeSettings"]) {
   function scrollUp() {
     scrollIndex--
     tilesContainer!.scrollTo({
-      top: blockHeight * scrollIndex,
+      top: scrollHistory.pop(),
       left: 0,
       behavior: "smooth"
     })
@@ -87,7 +129,7 @@ export default function (settings: Features["tileSizeSettings"]) {
   function scrollDown() {
     scrollIndex++
     tilesContainer!.scrollTo({
-      top: blockHeight * scrollIndex,
+      top: getBlockHeight(),
       left: 0,
       behavior: "smooth"
     })
@@ -103,6 +145,10 @@ export default function (settings: Features["tileSizeSettings"]) {
   })
 
   function controlNavigationButtonVisibility() {
+    if (getRenderMode() !== "desktop") {
+      return
+    }
+
     if (tilesContainer!.scrollTop > 0 && scrollIndex > 0) {
       sliderScrollUpButton.style.visibility = "visible"
     } else {
@@ -111,7 +157,7 @@ export default function (settings: Features["tileSizeSettings"]) {
 
     const offset = tilesContainer!.scrollHeight - tilesContainer!.scrollTop - tilesContainer!.offsetHeight
 
-    if (offset === 0 || (tilesContainer!.scrollHeight > 0 && offset >= blockHeight / 2)) {
+    if (offset === 0 || (tilesContainer!.scrollHeight > 0 && offset >= defaultBlockHeight / 2)) {
       sliderScrollDownButton.style.visibility = "visible"
     } else {
       sliderScrollDownButton.style.visibility = "hidden"
@@ -129,32 +175,35 @@ export default function (settings: Features["tileSizeSettings"]) {
 
     el.addEventListener(
       "touchstart",
-      (event: TouchEvent) => {
-        const touchObject = event.changedTouches[0]
-        startX = touchObject.pageX
-        startY = touchObject.pageY
-        startTime = new Date().getTime()
-        event.preventDefault()
-      },
+      (event: TouchEvent) =>
+        requestAnimationFrame(() => {
+          const touchObject = event.changedTouches[0]
+          startX = touchObject.pageX
+          startY = touchObject.pageY
+          startTime = new Date().getTime()
+          event.preventDefault()
+        }),
       false
     )
 
     el.addEventListener("touchmove", (event: TouchEvent) => event.preventDefault())
 
-    el.addEventListener("touchend", (event: TouchEvent) => {
-      const touchObject = event.changedTouches[0]
-      const distX = touchObject.pageX - startX
-      const distY = touchObject.pageY - startY
-      const elapsedTime = new Date().getTime() - startTime
+    el.addEventListener("touchend", (event: TouchEvent) =>
+      requestAnimationFrame(() => {
+        const touchObject = event.changedTouches[0]
+        const distX = touchObject.pageX - startX
+        const distY = touchObject.pageY - startY
+        const elapsedTime = new Date().getTime() - startTime
 
-      if (elapsedTime <= allowedTime) {
-        if (Math.abs(distX) >= threshold && Math.abs(distY) <= restraint) {
-          callback(distX < 0 ? "left" : "right")
-        } else if (Math.abs(distY) >= threshold && Math.abs(distX) <= restraint) {
-          callback(distY < 0 ? "up" : "down")
+        if (elapsedTime <= allowedTime) {
+          if (Math.abs(distX) >= threshold && Math.abs(distY) <= restraint) {
+            callback(distX < 0 ? "left" : "right")
+          } else if (Math.abs(distY) >= threshold && Math.abs(distX) <= restraint) {
+            callback(distY < 0 ? "up" : "down")
+          }
         }
-      }
-      event.preventDefault()
-    })
+        event.preventDefault()
+      })
+    )
   }
 }
