@@ -15,6 +15,18 @@ export function loadWaterfallLayout(reset = false) {
   const gap = parseInt(margin)
 
   ugcTiles.forEach((tile: HTMLElement) => {
+    const hasUserHandle = tile.querySelector(".user-handle") !== null
+    const hasTimePhrase = tile.querySelector(".tile-timephrase") !== null
+    const caption = tile.querySelector(".caption")
+
+    if (caption) {
+      if (hasUserHandle || hasTimePhrase) {
+        caption.classList.add("lines-4")
+      } else {
+        caption.classList.add("lines-5")
+      }
+    }
+
     const tileTop = tile.querySelector<HTMLElement>(".tile-top")
     const tileBottom = tile.querySelector<HTMLElement>(".tile-bottom")
 

@@ -138,6 +138,8 @@
 
   .description {
     position: relative;
+    min-height: 70px;
+    padding-right: 10px;
   }
 
   .tile-timestamp {
@@ -152,10 +154,20 @@
   .caption {
     font-size: var(--text-tile-font-size);
     color: var(--text-tile-font-color);
-    overflow-y: scroll;
-    scrollbar-width: none;
     -ms-overflow-style: none;
-    max-height: 63px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .caption.lines-4 {
+    -webkit-line-clamp: 4;
+    max-height: 70px;
+  }
+  
+  .caption.lines-5 {
+    -webkit-line-clamp: 5;
+    max-height: 80px;
   }
 
   .caption-paragraph {
@@ -205,6 +217,18 @@
     position: absolute;
     top: 10%;
     right: 8px;
+  }
+
+  .bottom-section {
+    bottom: 3px;
+  }
+
+  .network-icon {
+    margin: 0 8px 8px auto;
+  }
+
+  .shopping-icon {
+    margin-right: 8px;
   }
 
   .tile-image-wrapper {

@@ -12,11 +12,9 @@
               <div class="content-icon icon-youtube-short"></div>
             {{/ifequals}}
           {{/each}}
-          <div>
-            {{#if tags_extended.length}}
-              <div class="shopping-icon icon-products"></div>
-            {{/if}}
-          </div>
+          {{#if tags_extended.length}}
+            <div class="shopping-icon icon-products"></div>
+          {{/if}}
         </div>
         <div class="center-section">
           {{#ifequals media "video"}}
@@ -56,15 +54,11 @@
             <div class="user-handle">@{{user}}</div>
           {{/if}}
           <time-phrase source-created-at="{{source_created_at}}"></time-phrase>
-          <tile-content
-            tile-id="{{id}}"
-            context="waterfall-inline"
-            render-avatar-image="false"
-            render-user-info="false"
-            render-timephrase="false"
-            render-user-title="false"
-            trim-description="true"
-          ></tile-content>
+          {{#if message}}
+            <div class="caption">
+              <div class="caption-paragraph">{{message}}</div>
+            </div>
+          {{/if}}
         </div>
       </div>
     </div>
