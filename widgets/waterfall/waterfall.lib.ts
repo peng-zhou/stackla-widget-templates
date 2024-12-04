@@ -86,9 +86,18 @@ export function initializeTagSlider() {
         leftArrow.style.display = atStart ? "none" : "block"
         rightArrow.style.display = atEnd || !isScrollable ? "none" : "block"
 
-        tagList.classList.toggle("mask-left", !atStart)
-        tagList.classList.toggle("mask-right", !atEnd)
-        tagList.classList.toggle("mask-both", !atStart && !atEnd)
+        tagList.classList.remove("mask-left", "mask-right", "mask-both")
+
+        if (!atStart && !atEnd) {
+          tagList.classList.add("mask-both")
+        } else {
+          if (!atStart) {
+            tagList.classList.add("mask-left")
+          }
+          if (!atEnd) {
+            tagList.classList.add("mask-right")
+          }
+        }
       }
 
       const ensureDimensions = () => {

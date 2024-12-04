@@ -70,15 +70,15 @@
   }
 
   .tile-tags.mask-left {
-    mask-image: linear-gradient(to right, transparent 0%, black 20%);
+    mask-image: linear-gradient(to right, transparent 7%, black 20%);
   }
 
   .tile-tags.mask-right {
-    mask-image: linear-gradient(to left, transparent 0%, black 20%);
+    mask-image: linear-gradient(to left, transparent 7%, black 20%);
   }
 
   .tile-tags.mask-both {
-    mask-image: linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 7%, black 20%, black 80%, transparent 90%);
   }
 
   .tag-inline {
@@ -129,7 +129,7 @@
   }
 
   .tag-slider-arrow.right-arrow {
-    right: 0;
+    right: 7px;
   }
 
   .tile-tags::-webkit-scrollbar {
@@ -215,7 +215,7 @@
 
   .widget-icon {
     position: absolute;
-    top: 30%;
+    top: 10px;
     right: 8px;
   }
 
