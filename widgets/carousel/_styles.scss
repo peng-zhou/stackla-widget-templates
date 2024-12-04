@@ -16,6 +16,20 @@ expanded-tiles {
   @include sicon.shopspot-icon-styles;
   @include tphrase.time-phrase-styles;
   @include smenu.share-menu-styles;
-  @include tags.tile-tags-styles;
   @include tc.tile-content-styles;
+}
+
+.carousel-inline {
+  @include tags.tile-tags-styles;
+}
+
+expanded-tiles {
+  @include tags.tile-tags-styles {
+    width: 95%;
+    margin-bottom: 10px;
+
+    .swiper-tags {
+      width: 100%;
+    }
+  }
 }

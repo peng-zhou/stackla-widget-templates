@@ -83,10 +83,6 @@ expanded-tiles:not(:empty) {
       }
     }
 
-    .swiper-expanded-button-next {
-      right: 0;
-    }
-
     .exit {
       position: absolute;
       display: flex;
@@ -207,10 +203,11 @@ expanded-tiles:not(:empty) {
       .panel-right {
         display: flex;
         padding: dimens.$panel-padding;
-        max-width: dimens.$panel-right-width-lg;
+        overflow: hidden auto;
 
         .panel-right-wrapper {
           display: flex;
+          overflow: hidden auto;
         }
 
         .content-wrapper {
@@ -221,6 +218,7 @@ expanded-tiles:not(:empty) {
             display: flex;
             flex-direction: column;
             height: 100%;
+            max-width: dimens.$panel-right-width-lg;
 
             a {
               color: var(--text-tile-tag-font-color);

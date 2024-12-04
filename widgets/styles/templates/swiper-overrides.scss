@@ -90,13 +90,13 @@
 @include media-queries.media-query-target(tablet) {
   .swiper-button-next.btn-lg,
   .swiper-button-prev.btn-lg {
-    display: none !important;
+    display: none;
   }
 }
 
 @include media-queries.breakpoint(desktop) {
   .swiper-button-next,
   .swiper-button-prev {
-    display: flex !important;
+    display: flex;
   }
 }
