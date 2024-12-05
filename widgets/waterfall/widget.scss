@@ -229,12 +229,21 @@
   }
 
   .tag-slider tile-tags {
-    width: calc(100% - 10px);
+    width: 100%;
+    margin-bottom: 12.75px;
+  }
+
+  .tag-slider .swiper-tags {
+    margin: 0;
   }
 
   .tag-slider .swiper-button-prev,
   .tag-slider .swiper-button-next {
     height: 100%;
+  }
+
+  .tag-slider .swiper-button-next {
+    right: 8px;
   }
 
   .tag-slider .swiper-nav-icon {
