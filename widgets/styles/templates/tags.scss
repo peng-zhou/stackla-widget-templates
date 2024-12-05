@@ -8,7 +8,7 @@
 
   .tile-tags {
     bottom: 0;
-    display: flex;
+    display: var(--tags-display);
     align-items: center;
     gap: var(--tags-gap);
     list-style: none;
