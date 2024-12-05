@@ -14,7 +14,7 @@
   left: calc(50% - dimens.$loading-width);
 }
 
-> .tile > .tile-loading,
+.tile > .tile-loading,
 .loading {
   @extend %loading;
 }
