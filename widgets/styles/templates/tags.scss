@@ -10,7 +10,9 @@
   position: relative;
   width: calc(90% - 15px);
 
+
   .swiper-tags {
+    display: var(--tags-display);
     max-width: calc(100% - 10px);
   }
 
@@ -26,7 +28,7 @@
   }
 
   .tile-tags-wapper {
-    display: flex;
+    display: var(--tags-display);
     flex-direction: column;
     width: 100%;
 
