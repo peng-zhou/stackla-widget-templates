@@ -100,29 +100,24 @@ export function initializeTagSlider() {
         }
       }
 
-      const ensureDimensions = () => {
-        const interval = setInterval(() => {
-          const tagListWidth = tagList.offsetWidth
-          const tagListScrollWidth = tagList.scrollWidth
-
-          if (tagListWidth > 0 && tagListScrollWidth > 0) {
-            clearInterval(interval)
-            updateArrowVisibility()
-          }
-        }, 50)
+      const attachArrowScroll = (arrow: HTMLButtonElement, amount: number) => {
+        arrow.addEventListener("click", () => {
+          tagList.scrollBy({ left: amount, behavior: "smooth" })
+        })
       }
 
-      leftArrow.addEventListener("click", () => {
-        tagList.scrollBy({ left: -100, behavior: "smooth" })
+      const observer = new ResizeObserver(() => {
+        updateArrowVisibility()
       })
 
-      rightArrow.addEventListener("click", () => {
-        tagList.scrollBy({ left: 100, behavior: "smooth" })
-      })
+      observer.observe(tagList)
+
+      attachArrowScroll(leftArrow, -100)
+      attachArrowScroll(rightArrow, 100)
 
       tagList.addEventListener("scroll", updateArrowVisibility)
 
-      ensureDimensions()
+      updateArrowVisibility()
     })
   })
 }
