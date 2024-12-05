@@ -8,7 +8,7 @@
 
 #nosto-ugc-container {
   background-color: var(--widget-background);
-  margin: var(--margin);
+  padding: var(--margin);
 
   .grid {
     width: 100%;
@@ -18,7 +18,7 @@
 
     .ugc-tile {
       height: var(--tile-size);
-      border-radius: 5px;
+      border-radius: var(--inline-tile-border-radius);
       box-sizing: border-box;
       overflow: hidden;
       transition: opacity 0.5s ease;
