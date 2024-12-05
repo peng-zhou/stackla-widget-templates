@@ -1,13 +1,15 @@
-import { loadAllUnloadedTiles } from "@stackla/widget-utils/extensions/swiper"
 import { loadWidget } from "@stackla/widget-utils"
-import { reinitialiseWaterfallLayout, loadWaterfallLayout } from "./waterfall.lib"
+import { loadWaterfallLayout, initializeTagSlider } from "./waterfall.lib"
 
 loadWidget({
   callbacks: {
     onLoadMore: [() => loadWaterfallLayout()],
     onTilesUpdated: [() => loadWaterfallLayout()],
-    onResize: [() => reinitialiseWaterfallLayout()]
-  }
+    onResize: [() => loadWaterfallLayout()]
+  },
+  templates: {},
+  features: {},
+  extensions: {}
 })
 loadWaterfallLayout()
-loadAllUnloadedTiles()
+initializeTagSlider()

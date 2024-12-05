@@ -1,5 +1,6 @@
 @use "styles" as gridStyles;
 @use "@styles/partials/media-queries";
+@use "@styles/partials/inline-dimens" as dimens;
 
 :host {
   transition: ease all 0.5s;
