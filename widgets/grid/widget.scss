@@ -1,5 +1,6 @@
 @use "styles" as gridStyles;
 @use "@styles/partials/media-queries";
+@use "@styles/partials/inline-dimens" as dimens;
 
 :host {
   transition: ease all 0.5s;
@@ -17,7 +18,7 @@
   .ugc-tile {
     color: white;
     text-align: center;
-    border-radius: 5px;
+    border-radius: dimens.$border-radius;
     position: relative;
     background-size: cover;
     background-position: center;

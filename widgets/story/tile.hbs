@@ -1,0 +1,35 @@
+{{#tile class="swiper-slide" }}
+<div class="tile">
+  <div class="tile-loading"></div>
+  <div class="icon-section hidden">
+    <div class="top-section">
+      {{#each attrs}}
+      {{#ifequals this "instagram.reel"}}
+      <div class="content-icon icon-reel"></div>
+      {{/ifequals}}
+      {{#ifequals this "youtube.short"}}
+      <div class="content-icon icon-youtube-short"></div>
+      {{/ifequals}}
+      {{/each}}
+      {{#if tags_extended.length}}
+      <div class="shopping-icon icon-products"></div>
+      {{/if}}
+    </div>
+    <div class="center-section">
+      {{#ifequals media "video"}}
+      <div class="icon-play"></div>
+      {{/ifequals}}
+    </div>
+    <div class="bottom-section">
+      <tile-tags tile-id="{{id}}" variant="dark" mode="swiper" context="story-inline"></tile-tags>
+      <div class="network-icon icon-{{source}}"></div>
+    </div>
+  </div>
+  <shopspot-icon tile-id={{id}}></shopspot-icon>
+  <div class="tile-image-wrapper">
+    <shopspot-icon tile-id={{id}}></shopspot-icon>
+    {{#lazy image_thumbnail_url }}{{/lazy}}
+    <div class="swiper-lazy-preloader"></div>
+  </div>
+</div>
+{{/tile}}
