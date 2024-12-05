@@ -106,9 +106,7 @@ export function initializeTagSlider() {
         })
       }
 
-      const observer = new ResizeObserver(() => {
-        updateArrowVisibility()
-      })
+      const observer = new ResizeObserver(() => updateArrowVisibility())
 
       observer.observe(tagList)
 
