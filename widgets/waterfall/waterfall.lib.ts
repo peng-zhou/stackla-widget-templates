@@ -59,43 +59,27 @@ export function updateTagListMask() {
     const arrowRight = sdk.querySelector<HTMLElement>(".swiper-tags-button-next")
     const arrowLeft = sdk.querySelector<HTMLElement>(".swiper-tags-button-prev")
 
+    if (!container || !arrowRight || !arrowLeft) return
+
     const updateMask = () => {
-      if (container) {
-        container.classList.remove("mask-left", "mask-right", "mask-both")
+      container.className = container.className.replace(/mask-\w+/g, "").trim()
 
-        const isArrowRightEnabled = arrowRight && !arrowRight.classList.contains("swiper-button-disabled")
-        const isArrowLeftEnabled = arrowLeft && !arrowLeft.classList.contains("swiper-button-disabled")
+      const isArrowRightEnabled = !arrowRight.classList.contains("swiper-button-disabled")
+      const isArrowLeftEnabled = !arrowLeft.classList.contains("swiper-button-disabled")
 
-        if (isArrowLeftEnabled && isArrowRightEnabled) {
-          container.classList.add("mask-both")
-        } else if (isArrowLeftEnabled) {
-          container.classList.add("mask-left")
-        } else if (isArrowRightEnabled) {
-          container.classList.add("mask-right")
-        }
+      if (isArrowRightEnabled && isArrowLeftEnabled) {
+        container.classList.add("mask-both")
+      } else if (isArrowLeftEnabled) {
+        container.classList.add("mask-left")
+      } else if (isArrowRightEnabled) {
+        container.classList.add("mask-right")
       }
     }
 
-    const observer = new MutationObserver(() => {
-      updateMask()
-    })
-
-    if (arrowRight) {
-      observer.observe(arrowRight, { attributes: true, attributeFilter: ["class"] })
-    }
-    if (arrowLeft) {
-      observer.observe(arrowLeft, { attributes: true, attributeFilter: ["class"] })
-    }
+    const observer = new MutationObserver(updateMask)
+    observer.observe(arrowRight, { attributes: true, attributeFilter: ["class"] })
+    observer.observe(arrowLeft, { attributes: true, attributeFilter: ["class"] })
 
     updateMask()
-
-    const cleanupObserver = new MutationObserver(() => {
-      if (!document.body.contains(tilesContainer)) {
-        observer.disconnect()
-        cleanupObserver.disconnect()
-      }
-    })
-
-    cleanupObserver.observe(document.body, { childList: true, subtree: true })
   })
 }
