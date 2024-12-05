@@ -7,8 +7,8 @@
   --swiper-navigation-top-offset: 0;
 
   display: flex;
-  width: 90%;
   position: relative;
+  width: calc(90% - 15px);
 
   .swiper-tags {
     max-width: calc(100% - 10px);
@@ -55,6 +55,11 @@
     a {
       color: var(--text-tile-tag-font-color);
       text-decoration: none;
+
+      .tag-title {
+        margin: 0 6px;
+        display: flex;
+      }
     }
   }
 
@@ -84,6 +89,11 @@
   // if parent selector is supplied use it
   @if $parent {
     #{string.unquote($parent) tile-tags} {
+      &[context="expanded"] {
+        width: 95%;
+        margin-bottom: 10px;
+      }
+
       @extend %tags-styles-ph;
 
       // any style overrides
@@ -92,6 +102,11 @@
   } @else {
     // dynamically determine the parent selector if available
     #{if(&, "& tile-tags", "tile-tags")} {
+      &[context="expanded"] {
+        width: 95%;
+        margin-bottom: 10px;
+      }
+
       @extend %tags-styles-ph;
 
       // any style overrides
