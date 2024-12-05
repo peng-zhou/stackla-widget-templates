@@ -54,19 +54,6 @@
     width: 100%;
   }
 
-
-  .mask-left {
-    mask-image: linear-gradient(to right, transparent 5%, black 15%);
-  }
-
-  .mask-right {
-    mask-image: linear-gradient(to left, transparent 5%, black 15%);
-  }
-
-  .mask-both {
-    mask-image: linear-gradient(to right, transparent 5%, black 15%, black 85%, transparent 95%)
-  }
-
   .tag-inline {
     background: var(--tile-tag-background);
     border-radius: 3px !important;

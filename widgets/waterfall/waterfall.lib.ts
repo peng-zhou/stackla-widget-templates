@@ -1,4 +1,4 @@
-import { ISdk, waitForElements } from "@stackla/widget-utils"
+import { ISdk } from "@stackla/widget-utils"
 
 declare const sdk: ISdk
 
@@ -48,38 +48,5 @@ export function loadWaterfallLayout(reset = false) {
         calculateHeight()
       }
     }
-  })
-}
-
-export function updateTagListMask() {
-  const tilesContainer = sdk.querySelector(".ugc-tiles")
-
-  waitForElements(tilesContainer, ".swiper-tags", () => {
-    const container = sdk.querySelector(".swiper-tags")
-    const arrowRight = sdk.querySelector<HTMLElement>(".swiper-tags-button-next")
-    const arrowLeft = sdk.querySelector<HTMLElement>(".swiper-tags-button-prev")
-
-    if (!container || !arrowRight || !arrowLeft) return
-
-    const updateMask = () => {
-      container.className = container.className.replace(/mask-\w+/g, "").trim()
-
-      const isArrowRightEnabled = !arrowRight.classList.contains("swiper-button-disabled")
-      const isArrowLeftEnabled = !arrowLeft.classList.contains("swiper-button-disabled")
-
-      if (isArrowRightEnabled && isArrowLeftEnabled) {
-        container.classList.add("mask-both")
-      } else if (isArrowLeftEnabled) {
-        container.classList.add("mask-left")
-      } else if (isArrowRightEnabled) {
-        container.classList.add("mask-right")
-      }
-    }
-
-    const observer = new MutationObserver(updateMask)
-    observer.observe(arrowRight, { attributes: true, attributeFilter: ["class"] })
-    observer.observe(arrowLeft, { attributes: true, attributeFilter: ["class"] })
-
-    updateMask()
   })
 }

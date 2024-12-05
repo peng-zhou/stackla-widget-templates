@@ -10,7 +10,20 @@
   position: relative;
   width: calc(90% - 15px);
 
+  .mask-left {
+    mask-image: linear-gradient(to right, transparent 5%, black 15%);
+  }
+
+  .mask-right {
+    mask-image: linear-gradient(to left, transparent 5%, black 15%);
+  }
+
+  .mask-both {
+    mask-image: linear-gradient(to right, transparent 5%, black 15%, black 85%, transparent 95%)
+  }
+
   .swiper-tags {
+    display: var(--tags-display);
     max-width: calc(100% - 10px);
   }
 
@@ -26,7 +39,7 @@
   }
 
   .tile-tags-wapper {
-    display: flex;
+    display: var(--tags-display);
     flex-direction: column;
     width: 100%;
 
