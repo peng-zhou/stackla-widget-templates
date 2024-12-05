@@ -1,6 +1,6 @@
-import { SdkSwiper } from "types"
+import { Sdk } from "types"
 
-declare const sdk: SdkSwiper
+declare const sdk: Sdk
 
 import { loadWidget } from "@stackla/widget-utils"
 import { initializeInlineSwiperListeners } from "./inline-swiper.loader"

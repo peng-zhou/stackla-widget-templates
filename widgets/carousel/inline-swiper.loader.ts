@@ -1,8 +1,15 @@
-import { SdkSwiper } from "types"
-import { initializeSwiper, refreshSwiper, enableTileImages } from "@stackla/widget-utils/extensions/swiper"
+import { Sdk, SwiperData } from "types"
+import {
+  initializeSwiper,
+  refreshSwiper,
+  enableTileImages,
+  setSwiperLoadingStatus,
+  isSwiperLoading,
+  updateSwiperInstance
+} from "@stackla/widget-utils/extensions"
 import Swiper from "swiper"
 
-declare const sdk: SdkSwiper
+declare const sdk: Sdk
 
 export function initializeInlineSwiperListeners() {
   const swiper = sdk.querySelector(".swiper-inline")
@@ -64,12 +71,12 @@ function initializeSwiperForInlineTiles() {
           swiper.slideToLoop(0, 0, false)
         },
         afterInit: (swiper: Swiper) => {
-          sdk["inline"]!.isLoading = true
+          setSwiperLoadingStatus("inline", true)
           void loadTilesAsync(swiper)
         },
         activeIndexChange: (swiper: Swiper) => {
           if (swiper.navigation.prevEl) {
-            if (swiper.realIndex === 0 && sdk["inline"]?.isLoading) {
+            if (swiper.realIndex === 0 && isSwiperLoading("inline")) {
               disblePrevNavigation(swiper)
             } else {
               enablePrevNavigation(swiper)
@@ -110,12 +117,16 @@ function updateLoadingStateInterval(swiperElem: HTMLElement) {
     const elements = swiperElem.querySelectorAll<HTMLElement>(".swiper-slide:has(.icon-section.hidden)")
     if (elements.length === 0) {
       clearInterval(intervalId)
-      sdk["inline"]!.isLoading = false
-      sdk["inline"]!.instance!.off("activeIndexChange")
-      sdk["inline"]!.instance!.setGrabCursor()
-      sdk["inline"]!.instance!.allowTouchMove = true
-      sdk["inline"]!.instance!.params.loop = true
-      enablePrevNavigation(sdk["inline"]!.instance!)
+      updateSwiperInstance("inline", (swiperData: SwiperData) => {
+        swiperData.isLoading = false
+        if (swiperData.instance) {
+          swiperData.instance.off("activeIndexChange")
+          swiperData.instance.setGrabCursor()
+          swiperData.instance.allowTouchMove = true
+          swiperData.instance.params.loop = true
+          enablePrevNavigation(swiperData.instance)
+        }
+      })
       refreshSwiper("inline")
     }
   }, 200)

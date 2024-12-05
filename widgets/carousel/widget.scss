@@ -14,10 +14,6 @@
   width: calc(100% - (dimens.$nosto-container-margin * 2));
   height: var(--tile-size);
 
-  .swiper {
-    width: dimens.$swiper-container-width-lg;
-  }
-
   .icon-section {
     display: flex;
     position: absolute;
