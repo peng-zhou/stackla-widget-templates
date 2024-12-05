@@ -35,15 +35,7 @@
   </div>
   <div class="tile-bottom">
     <div class="tag-slider">
-      {{#if tags_extended.length}}
-      <button class="tag-slider-arrow left-arrow" style="display: none;">‹</button>
-      <ul class="tile-tags">
-        {{#tags_extended}}
-        <li class="tile-tag tag-inline"><a href="{{custom_url}}">{{tag}}</a></li>
-        {{/tags_extended}}
-      </ul>
-      <button class="tag-slider-arrow right-arrow" style="display: none;">›</button>
-      {{/if}}
+      <tile-tags tile-id="{{id}}" mode="swiper" context="slider-inline" navigation-arrows="true" />
     </div>
     <div class="description">
       <div class="waterfall-widget">

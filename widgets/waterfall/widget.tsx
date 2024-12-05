@@ -1,5 +1,5 @@
 import { loadWidget } from "@stackla/widget-utils"
-import { loadWaterfallLayout, initializeTagSlider } from "./waterfall.lib"
+import { loadWaterfallLayout, updateTagListMask } from "./waterfall.lib"
 
 loadWidget({
   callbacks: {
@@ -12,4 +12,4 @@ loadWidget({
   extensions: {}
 })
 loadWaterfallLayout()
-initializeTagSlider()
+updateTagListMask()

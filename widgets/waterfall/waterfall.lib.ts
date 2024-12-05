@@ -51,71 +51,51 @@ export function loadWaterfallLayout(reset = false) {
   })
 }
 
-export function initializeTagSlider() {
+export function updateTagListMask() {
   const tilesContainer = sdk.querySelector(".ugc-tiles")
 
-  waitForElements(tilesContainer, ".tag-slider", () => {
-    const tagSliders = sdk.querySelectorAll<HTMLElement>(".tag-slider")
+  waitForElements(tilesContainer, ".swiper-tags", () => {
+    const container = sdk.querySelector(".swiper-tags")
+    const arrowRight = sdk.querySelector<HTMLElement>(".swiper-tags-button-next")
+    const arrowLeft = sdk.querySelector<HTMLElement>(".swiper-tags-button-prev")
 
-    if (!tagSliders.length) {
-      return
+    const updateMask = () => {
+      if (container) {
+        container.classList.remove("mask-left", "mask-right", "mask-both")
+
+        const isArrowRightEnabled = arrowRight && !arrowRight.classList.contains("swiper-button-disabled")
+        const isArrowLeftEnabled = arrowLeft && !arrowLeft.classList.contains("swiper-button-disabled")
+
+        if (isArrowLeftEnabled && isArrowRightEnabled) {
+          container.classList.add("mask-both")
+        } else if (isArrowLeftEnabled) {
+          container.classList.add("mask-left")
+        } else if (isArrowRightEnabled) {
+          container.classList.add("mask-right")
+        }
+      }
     }
 
-    tagSliders.forEach(tagSlider => {
-      const tagList = tagSlider.querySelector<HTMLElement>(".tile-tags")
-      const leftArrow = tagSlider.querySelector<HTMLButtonElement>(".left-arrow")
-      const rightArrow = tagSlider.querySelector<HTMLButtonElement>(".right-arrow")
-
-      if (!tagList || !leftArrow || !rightArrow) {
-        console.warn("Tag list or arrows not found in the tag slider")
-        return
-      }
-
-      const updateArrowVisibility = () => {
-        const tagListWidth = tagList.offsetWidth
-        const tagListScrollWidth = tagList.scrollWidth
-
-        if (tagListWidth === 0 || tagListScrollWidth === 0) {
-          return
-        }
-
-        const atStart = tagList.scrollLeft <= 0
-        const atEnd = tagList.scrollLeft + tagListWidth >= tagListScrollWidth
-        const isScrollable = tagListScrollWidth > tagListWidth
-
-        leftArrow.style.display = atStart ? "none" : "block"
-        rightArrow.style.display = atEnd || !isScrollable ? "none" : "block"
-
-        tagList.classList.remove("mask-left", "mask-right", "mask-both")
-
-        if (!atStart && !atEnd) {
-          tagList.classList.add("mask-both")
-        } else {
-          if (!atStart) {
-            tagList.classList.add("mask-left")
-          }
-          if (!atEnd) {
-            tagList.classList.add("mask-right")
-          }
-        }
-      }
-
-      const attachArrowScroll = (arrow: HTMLButtonElement, amount: number) => {
-        arrow.addEventListener("click", () => {
-          tagList.scrollBy({ left: amount, behavior: "smooth" })
-        })
-      }
-
-      const observer = new ResizeObserver(() => updateArrowVisibility())
-
-      observer.observe(tagList)
-
-      attachArrowScroll(leftArrow, -100)
-      attachArrowScroll(rightArrow, 100)
-
-      tagList.addEventListener("scroll", updateArrowVisibility)
-
-      updateArrowVisibility()
+    const observer = new MutationObserver(() => {
+      updateMask()
     })
+
+    if (arrowRight) {
+      observer.observe(arrowRight, { attributes: true, attributeFilter: ["class"] })
+    }
+    if (arrowLeft) {
+      observer.observe(arrowLeft, { attributes: true, attributeFilter: ["class"] })
+    }
+
+    updateMask()
+
+    const cleanupObserver = new MutationObserver(() => {
+      if (!document.body.contains(tilesContainer)) {
+        observer.disconnect()
+        cleanupObserver.disconnect()
+      }
+    })
+
+    cleanupObserver.observe(document.body, { childList: true, subtree: true })
   })
 }
