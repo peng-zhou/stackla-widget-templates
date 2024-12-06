@@ -35,10 +35,8 @@
   }
 }
 
-.swiper-inline-button-next::after,
-.swiper-inline-button-prev::after,
-.swiper-expanded-button-next::after,
-.swiper-expanded-button-prev::after {
+.swiper-button-prev::after,
+.swiper-button-next::after {
   content: unset !important;
 
   --swiper-navigation-size: 20px;
