@@ -3,7 +3,7 @@ import { Sdk } from "types"
 declare const sdk: Sdk
 
 import { loadWidget } from "@stackla/widget-utils"
-import { initializeInlineSwiperListeners } from "./inline-swiper.loader"
+import { initializeInlineSwiperListeners } from "./inline-carousel-swiper.loader"
 
 loadWidget({
   extensions: {

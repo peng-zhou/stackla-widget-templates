@@ -18,7 +18,7 @@ $tile-background: #000;
     $total-padding: 10px;
 
     box-sizing: border-box;
-    border-radius: dimens.$border-radius;
+    border-radius: dimens.$inline-tile-border-radius;
     overflow: hidden;
     max-width: 100%;
   }

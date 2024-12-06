@@ -1,9 +1,7 @@
 @use "sass:string";
+@use "./inline-dimens" as dimens;
 
 %grid-styles-ph {
-  // standard border radius
-  $border-radius: 5px;
-
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -11,7 +9,7 @@
   .grid-item {
     color: white;
     text-align: center;
-    border-radius: $border-radius;
+    border-radius: dimens.$inline-tile-border-radius;
     position: relative;
     background-size: cover;
     background-position: center;

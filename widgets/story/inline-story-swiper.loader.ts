@@ -11,19 +11,19 @@ import Swiper from "swiper"
 
 declare const sdk: Sdk
 
-export function initializeInlineSwiperListeners() {
-  const swiper = sdk.querySelector(".swiper-inline")
+export function initializeInlineStorySwiperListeners() {
+  const swiper = sdk.querySelector(".story-inline.swiper-inline")
 
   if (!swiper) {
     throw new Error("Failed to find swiper element")
   }
 
-  initializeSwiperForInlineTiles()
+  initializeSwiperForInlineStoryTiles()
 }
 
-function initializeSwiperForInlineTiles() {
-  const { enable_custom_tiles_per_page, tiles_per_page } = sdk.getStyleConfig()
-  const widgetSelector = sdk.placement.querySelector<HTMLElement>(".swiper-inline")
+function initializeSwiperForInlineStoryTiles() {
+  const { enable_custom_tiles_per_page, tiles_per_page, inline_tile_size } = sdk.getStyleConfig()
+  const widgetSelector = sdk.placement.querySelector<HTMLElement>(".story-inline.swiper-inline")
 
   if (!widgetSelector) {
     throw new Error("Failed to find widget UI element. Failed to initialise Swiper")
@@ -40,13 +40,14 @@ function initializeSwiperForInlineTiles() {
   sdk.tiles.setVisibleTilesCount(perView * 2)
 
   initializeSwiper({
-    id: "inline",
+    id: "inline-story",
     mode: "inline",
     widgetSelector,
-    prevButton: "swiper-inline-button-prev",
-    nextButton: "swiper-inline-button-next",
+    prevButton: "swiper-inline-story-button-prev",
+    nextButton: "swiper-inline-story-button-next",
     paramsOverrides: {
       slidesPerView: "auto",
+      spaceBetween: 30,
       grabCursor: false,
       allowTouchMove: false,
       breakpointsBase: "container",
@@ -58,7 +59,7 @@ function initializeSwiperForInlineTiles() {
           slidesPerView: 3
         },
         952: {
-          slidesPerView: 7
+          slidesPerView: inline_tile_size === "medium" ? 12 : 7
         }
       },
       keyboard: {
@@ -71,12 +72,12 @@ function initializeSwiperForInlineTiles() {
           swiper.slideToLoop(0, 0, false)
         },
         afterInit: (swiper: Swiper) => {
-          setSwiperLoadingStatus("inline", true)
+          setSwiperLoadingStatus("inline-story", true)
           void loadTilesAsync(swiper)
         },
         activeIndexChange: (swiper: Swiper) => {
           if (swiper.navigation.prevEl) {
-            if (swiper.realIndex === 0 && isSwiperLoading("inline")) {
+            if (swiper.realIndex === 0 && isSwiperLoading("inline-story")) {
               disblePrevNavigation(swiper)
             } else {
               enablePrevNavigation(swiper)
@@ -117,7 +118,7 @@ function updateLoadingStateInterval(swiperElem: HTMLElement) {
     const elements = swiperElem.querySelectorAll<HTMLElement>(".swiper-slide:has(.icon-section.hidden)")
     if (elements.length === 0) {
       clearInterval(intervalId)
-      updateSwiperInstance("inline", (swiperData: SwiperData) => {
+      updateSwiperInstance("inline-story", (swiperData: SwiperData) => {
         swiperData.isLoading = false
         if (swiperData.instance) {
           swiperData.instance.off("activeIndexChange")

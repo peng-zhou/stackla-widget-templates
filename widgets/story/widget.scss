@@ -2,22 +2,16 @@
 @use "@styles/partials/media-queries";
 @use "dimens";
 
-:host {
-  transition: ease all 0.5s;
-}
-
 #nosto-ugc-container {
+  transition: ease all 0.5s;
   background-color: var(--widget-background);
   display: flex;
   place-items: center;
   margin: dimens.$nosto-container-margin;
-  width: calc(100% - (dimens.$nosto-container-margin * 2));
-  height: var(--tile-size);
+  height: calc(var(--tile-size) + 30px);
 
-  .icon-section {
-    display: flex;
-    position: absolute;
-    height: 100%;
+  .story-inline.swiper-inline {
+    width: 95%;
   }
 }
 
@@ -29,7 +23,7 @@
   #nosto-ugc-container {
     height: auto;
 
-    .swiper-inline {
+    .story-inline.swiper-inline {
       width: dimens.$swiper-container-width-md !important;
 
       .swiper-slide {
