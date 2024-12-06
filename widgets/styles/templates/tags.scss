@@ -109,7 +109,6 @@
     #{string.unquote($parent) tile-tags} {
       &[context="expanded"] {
         width: 95%;
-        margin-bottom: 10px;
       }
 
       @extend %tags-styles-ph;
@@ -122,8 +121,6 @@
     #{if(&, "& tile-tags", "tile-tags")} {
       &[context="expanded"] {
         width: 95%;
-        margin-bottom: 10px;
-        margin-top: 10px;
       }
 
       @extend %tags-styles-ph;

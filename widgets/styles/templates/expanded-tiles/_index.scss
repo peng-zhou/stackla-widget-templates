@@ -215,6 +215,7 @@ expanded-tiles:not(:empty) {
           height: 100%;
 
           .content-inner-wrapper {
+            gap: 10px;
             display: flex;
             flex-direction: column;
             height: 100%;
