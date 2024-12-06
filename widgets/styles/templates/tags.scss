@@ -22,9 +22,14 @@
     mask-image: linear-gradient(to right, transparent 5%, black 15%, black 85%, transparent 95%)
   }
 
+  &[context="grid-inline"] {
+    .swiper-tags {
+      max-width: calc(100% - 10px);
+    }
+  }
+
   .swiper-tags {
     display: var(--tags-display);
-    max-width: calc(100% - 10px);
   }
 
   :has(.swiper-tags-button-prev:not([style*="display: none"])) {
@@ -118,6 +123,7 @@
       &[context="expanded"] {
         width: 95%;
         margin-bottom: 10px;
+        margin-top: 10px;
       }
 
       @extend %tags-styles-ph;
