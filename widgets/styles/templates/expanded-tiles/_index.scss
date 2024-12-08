@@ -208,6 +208,7 @@ expanded-tiles:not(:empty) {
         .panel-right-wrapper {
           display: flex;
           overflow: hidden auto;
+          scrollbar-width: none;
         }
 
         .content-wrapper {
