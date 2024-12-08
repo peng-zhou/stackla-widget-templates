@@ -6,7 +6,7 @@
   --swiper-navigation-sides-offset: 0;
   --swiper-navigation-top-offset: 0;
 
-  display: flex;
+  display: var(--tags-display);
   position: relative;
   width: calc(90% - 15px);
 
@@ -28,10 +28,6 @@
     }
   }
 
-  .swiper-tags {
-    display: var(--tags-display);
-  }
-
   :has(.swiper-tags-button-prev:not([style*="display: none"])) {
     .swiper-tags {
       max-width: calc(100% - 30px);
@@ -44,7 +40,6 @@
   }
 
   .tile-tags-wapper {
-    display: var(--tags-display);
     flex-direction: column;
     width: 100%;
 
