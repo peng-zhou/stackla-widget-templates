@@ -73,6 +73,38 @@
 
     .tile-bottom-container {
       padding: 0 0 16px 11px;
+
+      .description {
+        margin: 13px 13px 0 0;
+        min-height: 70px;
+      }
+
+      tile-tags {
+        margin-top: 16.25px;
+        width: 100%;
+    
+        .swiper-tags {
+          margin: 0;
+        }
+    
+        .swiper-button-prev,
+        .swiper-button-next {
+          height: 100%;
+        }
+    
+        .swiper-button-next {
+          right: 8px;
+        }
+    
+        .swiper-nav-icon {
+          height: 10px;
+          width: 10px;
+        }
+    
+        .swiper-button-disabled {
+          display: none;
+        }
+      }
     }
 
     .tile-bottom-container.small {
@@ -153,11 +185,6 @@
 
   .tile-tags::-webkit-scrollbar {
     display: none;
-  }
-
-  .description {
-    margin: 13px 13px 0 0;
-    min-height: 70px;
   }
 
   .tile-timestamp {
@@ -282,32 +309,5 @@
   .tile-content-wrapper {
     gap: 0 !important;
     padding-right: 17px !important;
-  }
-
-  tile-tags {
-    margin-top: 16.25px;
-    width: 100%;
-
-    .swiper-tags {
-      margin: 0;
-    }
-
-    .swiper-button-prev,
-    .swiper-button-next {
-      height: 100%;
-    }
-
-    .swiper-button-next {
-      right: 8px;
-    }
-
-    .swiper-nav-icon {
-      height: 10px;
-      width: 10px;
-    }
-
-    .swiper-button-disabled {
-      display: none;
-    }
   }
 }
