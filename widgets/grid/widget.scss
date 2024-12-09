@@ -17,11 +17,7 @@
   .ugc-tile {
     color: white;
     text-align: center;
-<<<<<<< HEAD
-    border-radius: var(--inline-tile-border-radius);
-=======
-    border-radius: dimens.$inline-tile-border-radius;
->>>>>>> master
+    border-radius: var(--inline-tile-border-radius, dimens.$inline-tile-border-radius);
     position: relative;
     background-size: cover;
     background-position: center;
