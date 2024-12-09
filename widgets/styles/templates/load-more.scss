@@ -4,7 +4,7 @@
 $load-more-margin: 20px;
 
 // style placeholder
-%load-more-styles-ph {
+load-more {
   #buttons {
     display: flex;
     place-content: center;
@@ -13,26 +13,6 @@ $load-more-margin: 20px;
 
     .load-more {
       display: flex;
-    }
-  }
-}
-
-@mixin load-more-styles($parent: null) {
-  // if parent selector is supplied use it
-  @if $parent {
-    #{string.unquote($parent) load-more} {
-      @extend %load-more-styles-ph;
-
-      // any style overrides
-      @content;
-    }
-  } @else {
-    // dynamically determine the parent selector if available
-    #{if(&, "& load-more", "load-more")} {
-      @extend %load-more-styles-ph;
-
-      // any style overrides
-      @content;
     }
   }
 }
