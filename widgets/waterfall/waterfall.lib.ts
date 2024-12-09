@@ -44,6 +44,7 @@ export function loadWaterfallLayout(reset = false) {
 
       if (imageElement && !imageElement.complete) {
         imageElement.onload = calculateHeight
+        imageElement.onerror = () => imageElement.parentElement?.remove()
       } else {
         calculateHeight()
       }
