@@ -133,10 +133,7 @@
     }
 
     .panel-overlay-active {
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      inset: 0;
     }
   }
 
@@ -206,6 +203,7 @@
   .tile-share-content {
     display: flex;
     justify-content: space-between;
+
     .icon-share {
       display: var(--share-icon-display);
     }
