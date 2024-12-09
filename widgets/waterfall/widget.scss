@@ -16,7 +16,6 @@
     $total-padding: 10px;
 
     box-sizing: border-box;
-    overflow: hidden;
     max-width: 100%;
     grid-row-end: span 30;
   }
@@ -27,7 +26,6 @@
     justify-content: flex-start;
     background: var(--text-tile-background);
     box-sizing: border-box;
-    overflow: hidden;
     height: 100%;
     border-radius: var(--inline-tile-border-radius);
   }
@@ -112,7 +110,6 @@
   }
 
   .description {
-    position: relative;
     min-height: 70px;
     padding-right: 10px;
   }
@@ -128,6 +125,19 @@
 
   time-phrase {
     display: var(--timephrase-display);
+  }
+
+  share-menu {
+    .share-socials-popup-wrapper {
+      position: fixed;
+    }
+
+    .panel-overlay-active {
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
   }
 
   .caption {
@@ -193,10 +203,12 @@
     display: none;
   }
 
-  .widget-icon {
-    position: absolute;
-    top: 10px;
-    right: 8px;
+  .tile-share-content {
+    display: flex;
+    justify-content: space-between;
+    .icon-share {
+      display: var(--share-icon-display);
+    }
   }
 
   .bottom-section {
