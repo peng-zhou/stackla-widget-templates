@@ -12,7 +12,7 @@ import Swiper from "swiper"
 declare const sdk: Sdk
 
 export function initializeInlineSwiperListeners() {
-  const swiper = sdk.querySelector(".swiper-inline")
+  const swiper = sdk.querySelector(".carousel-inline.swiper-inline")
 
   if (!swiper) {
     throw new Error("Failed to find swiper element")
@@ -23,7 +23,7 @@ export function initializeInlineSwiperListeners() {
 
 function initializeSwiperForInlineTiles() {
   const { enable_custom_tiles_per_page, tiles_per_page } = sdk.getStyleConfig()
-  const widgetSelector = sdk.placement.querySelector<HTMLElement>(".swiper-inline")
+  const widgetSelector = sdk.placement.querySelector<HTMLElement>(".carousel-inline.swiper-inline")
 
   if (!widgetSelector) {
     throw new Error("Failed to find widget UI element. Failed to initialise Swiper")
@@ -40,11 +40,11 @@ function initializeSwiperForInlineTiles() {
   sdk.tiles.setVisibleTilesCount(perView * 2)
 
   initializeSwiper({
-    id: "inline",
+    id: "inline-carousel",
     mode: "inline",
     widgetSelector,
-    prevButton: "swiper-inline-button-prev",
-    nextButton: "swiper-inline-button-next",
+    prevButton: "swiper-inline-carousel-button-prev",
+    nextButton: "swiper-inline-carousel-button-next",
     paramsOverrides: {
       slidesPerView: "auto",
       grabCursor: false,
@@ -71,12 +71,12 @@ function initializeSwiperForInlineTiles() {
           swiper.slideToLoop(0, 0, false)
         },
         afterInit: (swiper: Swiper) => {
-          setSwiperLoadingStatus("inline", true)
+          setSwiperLoadingStatus("inline-carousel", true)
           void loadTilesAsync(swiper)
         },
         activeIndexChange: (swiper: Swiper) => {
           if (swiper.navigation.prevEl) {
-            if (swiper.realIndex === 0 && isSwiperLoading("inline")) {
+            if (swiper.realIndex === 0 && isSwiperLoading("inline-carousel")) {
               disblePrevNavigation(swiper)
             } else {
               enablePrevNavigation(swiper)
@@ -117,7 +117,7 @@ function updateLoadingStateInterval(swiperElem: HTMLElement) {
     const elements = swiperElem.querySelectorAll<HTMLElement>(".swiper-slide:has(.icon-section.hidden)")
     if (elements.length === 0) {
       clearInterval(intervalId)
-      updateSwiperInstance("inline", (swiperData: SwiperData) => {
+      updateSwiperInstance("inline-carousel", (swiperData: SwiperData) => {
         swiperData.isLoading = false
         if (swiperData.instance) {
           swiperData.instance.off("activeIndexChange")
@@ -127,7 +127,7 @@ function updateLoadingStateInterval(swiperElem: HTMLElement) {
           enablePrevNavigation(swiperData.instance)
         }
       })
-      refreshSwiper("inline")
+      refreshSwiper("inline-carousel")
     }
   }, 200)
 }

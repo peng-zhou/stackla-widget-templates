@@ -3,8 +3,7 @@
 @use "dimens";
 
 .carousel-inline {
-  .tile-image,
-  .tile-video {
+  .ugc-tile {
     position: relative;
     width: 100%;
     display: flex;
@@ -25,7 +24,7 @@
           width: 100%;
           object-fit: cover;
           overflow: hidden;
-          border-radius: dimens.$border-radius;
+          border-radius: dimens.$inline-tile-border-radius;
           position: relative;
           opacity: 1;
         }

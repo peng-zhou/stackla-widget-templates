@@ -19,7 +19,7 @@
 
     .ugc-tile {
       height: var(--tile-size);
-      border-radius: var(--inline-tile-border-radius);
+      border-radius: var(--inline-tile-border-radius, dimens.$inline-tile-border-radius);
       box-sizing: border-box;
       overflow: hidden;
       transition: opacity 0.5s ease;

@@ -3,7 +3,7 @@ import { Sdk } from "types"
 declare const sdk: Sdk
 
 import { loadWidget } from "@stackla/widget-utils"
-import { initializeInlineSwiperListeners } from "./inline-swiper.loader"
+import { initializeInlineStorySwiperListeners } from "./inline-story-swiper.loader"
 
 // dimensions from Figma design
 const tileSizeSettings = {
@@ -19,9 +19,10 @@ loadWidget({
   features: {
     handleLoadMore: false,
     tileSizeSettings
+  },
+  callbacks: {
+    onLoad: [initializeInlineStorySwiperListeners]
   }
 })
 
 sdk.querySelector(".track")?.style.removeProperty("display")
-
-initializeInlineSwiperListeners()
