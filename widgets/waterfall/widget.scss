@@ -28,7 +28,7 @@
     background: var(--text-tile-background);
     box-sizing: border-box;
     overflow: hidden;
-    height: auto;
+    height: 100%;
     border-radius: var(--inline-tile-border-radius);
   }
 
@@ -49,8 +49,11 @@
   }
 
   .tile-bottom {
-    padding: 16px 8px 12px;
     width: 100%;
+
+    .tile-bottom-container {
+      padding: 8px;
+    }
   }
 
   .tag-inline {
