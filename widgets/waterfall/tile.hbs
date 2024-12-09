@@ -32,22 +32,22 @@
     </div>
   </div>
   <div class="tile-bottom">
-    <div class="tag-slider">
-      <tile-tags tile-id="{{id}}" mode="swiper" context="slider-inline" navigation-arrows="true" />
-    </div>
-    <div class="description">
-      <div class="waterfall-widget">
-        {{#if name}}
-        <div class="user-name">{{name}}</div>
-        {{/if}}
-        {{#if user}}
-        <div class="user-handle">@{{user}}</div>
-        {{/if}}
-        <time-phrase source-created-at="{{source_created_at}}"></time-phrase>
-        <span class="widget-icon icon-share"></span>
-        <div class="caption">
-          <div class="caption-paragraph">{{message}}</div>
-        </div>
+    <div class="tile-bottom-container">
+      <tile-tags tile-id="{{id}}" mode="swiper" context="slider-inline" navigation-arrows="true"></tile-tags>
+      <div class="description">
+          {{#if name}}
+          <div class="user-name">{{name}}</div>
+          {{/if}}
+          {{#if user}}
+          <div class="user-handle">@{{user}}</div>
+          {{/if}}
+          <div class="tile-share-content">
+            <time-phrase source-created-at="{{source_created_at}}"></time-phrase>
+            <share-menu tile-id="{{id}}"></share-menu>
+          </div>
+          <div class="caption">
+            <div class="caption-paragraph">{{message}}</div>
+          </div>
       </div>
     </div>
   </div>
