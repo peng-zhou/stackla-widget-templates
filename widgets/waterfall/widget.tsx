@@ -5,10 +5,12 @@ loadWidget({
   callbacks: {
     onLoadMore: [() => loadWaterfallLayout()],
     onTilesUpdated: [() => loadWaterfallLayout()],
-    onResize: [() => loadWaterfallLayout()]
+    onResize: [() => loadWaterfallLayout()],
+    onLoad: [() => loadWaterfallLayout()]
   },
   templates: {},
   features: {},
   extensions: {}
 })
+
 loadWaterfallLayout()

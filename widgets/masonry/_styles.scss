@@ -4,6 +4,7 @@
 @forward "@styles/templates/expanded-tiles";
 @forward "@styles/templates/swiper-overrides";
 @use "@styles/templates/tags";
+@use "@styles/templates/load-more";
 @use "@styles/templates/load-more" as lm;
 @use "@styles/templates/tile-content" as tc;
 @use "@styles/templates/shopspot-icon" as sicon;
@@ -19,5 +20,4 @@ expanded-tiles {
   @include smenu.share-menu-styles;
   @include tags.tile-tags-styles;
   @include tc.tile-content-styles;
-  @include lm.load-more-styles;
 }
