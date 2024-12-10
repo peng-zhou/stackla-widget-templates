@@ -5,6 +5,123 @@ declare const sdk: Sdk
 
 type SwiperDirection = "none" | "left" | "right" | "up" | "down"
 
+function getTileSize(settings: Features["tileSizeSettings"]) {
+  const hostElement = sdk.placement.getElement()
+  const tileSizeUnitless = hostElement.style.getPropertyValue("--tile-size-unitless")
+  const tileSizeConfig = getTileSizeByWidget(settings)
+  return Number(tileSizeUnitless || tileSizeConfig["--tile-size-unitless"])
+}
+
+function getColumnCount(settings: Features["tileSizeSettings"]) {
+  // using only 95% of available width
+  const availableWidth = (window.screen.availWidth * 95) / 100
+  const tileRenderingWidth = getTileSize(settings) * 2 + 20
+  return Math.floor(availableWidth / tileRenderingWidth)
+}
+
+export function addColumnIndex(settings: Features["tileSizeSettings"]) {
+  const targetColumnCount = getColumnCount(settings)
+  const totalExpectedIndentedColumns = Math.floor(targetColumnCount / 2)
+  const sliderInline = sdk.querySelector(".slider-inline")
+  const tilesContainer = sliderInline.querySelector<HTMLElement>(".ugc-tiles")
+
+  const tiles = tilesContainer!.querySelectorAll(".ugc-tile")
+  let skipNext = false
+  let indentedRowCounter = 0
+  let columnCounter = 0
+  let columnCount = targetColumnCount
+  let verticalTileCounter = 0
+  const indentedOffsets: number[] = []
+  const leftOffset = tiles[0].getBoundingClientRect().left
+  const totalTileWidth = getTileSize(settings) * 2 + 20
+
+  tiles.forEach((tile: Element) => {
+    const isRowSpanCurrent = getComputedStyle(tile).gridRow === "span 2"
+    const isRowSpanNext = tile.nextElementSibling
+      ? getComputedStyle(tile.nextElementSibling).gridRow === "span 2"
+      : false
+    const verticalRender = isRowSpanCurrent && isRowSpanNext
+
+    if (skipNext) {
+      skipNext = false
+      return
+    }
+
+    if (columnCounter === 0) {
+      columnCount = targetColumnCount - verticalTileCounter
+      verticalTileCounter = 0
+    }
+
+    columnCounter++
+
+    // handle row
+    if (
+      columnCounter > 0 &&
+      (columnCounter % 2 === 0 || indentedOffsets.length === totalExpectedIndentedColumns) &&
+      columnCounter <= columnCount
+    ) {
+      if (isRowSpanCurrent && !isRowSpanNext) {
+        return
+      }
+
+      if (!skipNext) {
+        indentedRowCounter++
+        const actualLeft = tile.getBoundingClientRect().left
+        const expectedLeft = leftOffset + totalTileWidth * (columnCounter - 1)
+
+        if (indentedOffsets.length === totalExpectedIndentedColumns) {
+          if (indentedOffsets.includes(actualLeft)) {
+            tile.setAttribute("grid-column-center", "true")
+
+            if (verticalRender) {
+              tile.nextElementSibling?.setAttribute("grid-column-center", "true")
+            }
+          } else {
+            tile.removeAttribute("grid-column-center")
+
+            if (verticalRender) {
+              tile.nextElementSibling?.removeAttribute("grid-column-center")
+            }
+          }
+        } else if (actualLeft === expectedLeft) {
+          tile.setAttribute("grid-column-center", "true")
+
+          if (indentedOffsets.length < totalExpectedIndentedColumns) {
+            indentedOffsets.push(actualLeft)
+          }
+
+          if (verticalRender) {
+            tile.nextElementSibling?.setAttribute("grid-column-center", "true")
+          }
+        } else {
+          tile.removeAttribute("grid-column-center")
+
+          if (verticalRender) {
+            tile.nextElementSibling?.removeAttribute("grid-column-center")
+          }
+        }
+      }
+    } else {
+      tile.removeAttribute("grid-column-center")
+
+      if (verticalRender) {
+        tile.nextElementSibling?.removeAttribute("grid-column-center")
+      }
+    }
+
+    if (verticalRender) {
+      skipNext = true
+      verticalTileCounter++
+    }
+
+    // reset counter when all columns are rendered
+    if (columnCounter === columnCount) {
+      columnCounter = 0
+      indentedRowCounter = 0
+    }
+  })
+}
+
 export default function (settings: Features["tileSizeSettings"]) {
   const sliderScrollUpButton = sdk.querySelector("#scroll-up")
   const sliderScrollDownButton = sdk.querySelector("#scroll-down")
@@ -13,11 +130,7 @@ export default function (settings: Features["tileSizeSettings"]) {
 
   const tilesContainer = sliderInline.querySelector<HTMLElement>(".ugc-tiles")
 
-  const scrollHistory: Array<number> = [0]
-
-  let scrollIndex = 0
-
-  const tileSizeConfig = getTileSizeByWidget(settings)
+  const scrollHistory: Array<number> = []
 
   if (!sliderInline) {
     throw new Error("Slider inline container not found")
@@ -39,6 +152,14 @@ export default function (settings: Features["tileSizeSettings"]) {
     throw new Error("Slider Tiles Scroll Down Button not found")
   }
 
+  const swipeDetectHanlder = swipeDetect(tilesContainer!, direction => {
+    if (direction === "up") {
+      scrollDown()
+    } else if (direction === "down") {
+      scrollUp()
+    }
+  })
+
   function gridGap() {
     const parsed = parseInt(getComputedStyle(tilesContainer!).gap)
     return isNaN(parsed) ? 0 : parsed
@@ -49,8 +170,56 @@ export default function (settings: Features["tileSizeSettings"]) {
 
   tilesContainer.setAttribute("variation", inline_tile_size)
 
-  const tileSizeUnitless = Number(tileSizeConfig["--tile-size-unitless"])
+  const tileSizeUnitless = getTileSize(settings)
   const defaultBlockHeight = isNaN(tileSizeUnitless) ? 220 : tileSizeUnitless
+
+  sliderScrollUpButton.addEventListener("click", (event: Event) => {
+    event.preventDefault()
+    event.stopImmediatePropagation()
+    event.stopPropagation()
+    if (tilesContainer.scrollTop > 0) {
+      scrollUp()
+    }
+  })
+
+  sliderScrollDownButton.addEventListener("click", (event: Event) => {
+    event.preventDefault()
+    event.stopImmediatePropagation()
+    event.stopPropagation()
+    scrollDown()
+  })
+
+  controlNavigationButtonVisibility()
+
+  const containerResizeObserver = new ResizeObserver(() =>
+    requestAnimationFrame(() => {
+      if (getRenderMode() === "desktop") {
+        tilesContainer.scrollTop = 0
+        addColumnIndex(settings)
+      } else {
+        registerSwipeDetect()
+      }
+    })
+  )
+  containerResizeObserver.observe(tilesContainer)
+
+  const screenResizeObserver = new ResizeObserver(() =>
+    requestAnimationFrame(() => {
+      tilesContainer.scrollTop = 0
+      if (getRenderMode() === "desktop") {
+        controlNavigationButtonVisibility()
+        swipeDetectHanlder.unregister()
+      } else {
+        swipeDetectHanlder.register()
+      }
+    })
+  )
+
+  screenResizeObserver.observe(sliderInline)
+
+  addColumnIndex(settings)
+
+  function registerSwipeDetect() {}
 
   function getTopElementHeight() {
     const elements = Array.from(tilesContainer!.querySelectorAll<HTMLElement>(".ugc-tile"))
@@ -62,12 +231,12 @@ export default function (settings: Features["tileSizeSettings"]) {
   }
 
   function calcHeightAndRecordHistory(value: number) {
-    if (scrollHistory.length === 1) {
-      scrollHistory.push(value + gridGap())
+    if (!scrollHistory.length) {
+      scrollHistory.push(0)
       return value + gridGap()
     } else {
-      const totalHeight = scrollHistory.slice(-1)[0] + value + gridGap()
-      scrollHistory.push(totalHeight)
+      const totalHeight = tilesContainer!.scrollTop + value + gridGap()
+      scrollHistory.push(tilesContainer!.scrollTop)
       return totalHeight
     }
   }
@@ -89,35 +258,7 @@ export default function (settings: Features["tileSizeSettings"]) {
     return getComputedStyle(sliderInline).getPropertyValue("--render-mode")
   }
 
-  const resizeObserver = new ResizeObserver(() =>
-    requestAnimationFrame(() => {
-      scrollIndex = 0
-      tilesContainer.scrollTop = 0
-      if (getRenderMode() === "desktop") {
-        controlNavigationButtonVisibility()
-      }
-    })
-  )
-
-  resizeObserver.observe(sliderInline)
-
-  controlNavigationButtonVisibility()
-
-  tilesContainer.addEventListener("scroll", () => {
-    sliderScrollUpButton.style.pointerEvents = "none"
-    sliderScrollDownButton.style.pointerEvents = "none"
-  })
-
-  sliderScrollUpButton.addEventListener("click", () => {
-    if (tilesContainer.scrollTop > 0 && scrollIndex > 0) {
-      scrollUp()
-    }
-  })
-
-  sliderScrollDownButton.addEventListener("click", () => scrollDown())
-
   function scrollUp() {
-    scrollIndex--
     tilesContainer!.scrollTo({
       top: scrollHistory.pop(),
       left: 0,
@@ -127,7 +268,6 @@ export default function (settings: Features["tileSizeSettings"]) {
   }
 
   function scrollDown() {
-    scrollIndex++
     tilesContainer!.scrollTo({
       top: getBlockHeight(),
       left: 0,
@@ -136,20 +276,12 @@ export default function (settings: Features["tileSizeSettings"]) {
     setTimeout(() => controlNavigationButtonVisibility(), 500)
   }
 
-  swipeDetect(tilesContainer, direction => {
-    if (direction === "up") {
-      scrollDown()
-    } else if (direction === "down") {
-      scrollUp()
-    }
-  })
-
   function controlNavigationButtonVisibility() {
     if (getRenderMode() !== "desktop") {
       return
     }
 
-    if (tilesContainer!.scrollTop > 0 && scrollIndex > 0) {
+    if (tilesContainer!.scrollTop > 0 && scrollHistory.length > 0) {
       sliderScrollUpButton.style.visibility = "visible"
     } else {
       sliderScrollUpButton.style.visibility = "hidden"
@@ -173,22 +305,17 @@ export default function (settings: Features["tileSizeSettings"]) {
       restraint = 100
     let startX: number, startY: number, startTime: number
 
-    el.addEventListener(
-      "touchstart",
-      (event: TouchEvent) =>
-        requestAnimationFrame(() => {
-          const touchObject = event.changedTouches[0]
-          startX = touchObject.pageX
-          startY = touchObject.pageY
-          startTime = new Date().getTime()
-          event.preventDefault()
-        }),
-      false
-    )
+    function registerTouchStart(event: TouchEvent) {
+      requestAnimationFrame(() => {
+        const touchObject = event.changedTouches[0]
+        startX = touchObject.pageX
+        startY = touchObject.pageY
+        startTime = new Date().getTime()
+        event.preventDefault()
+      })
+    }
 
-    el.addEventListener("touchmove", (event: TouchEvent) => event.preventDefault())
-
-    el.addEventListener("touchend", (event: TouchEvent) =>
+    function registerTouchEnd(event: TouchEvent) {
       requestAnimationFrame(() => {
         const touchObject = event.changedTouches[0]
         const distX = touchObject.pageX - startX
@@ -204,6 +331,20 @@ export default function (settings: Features["tileSizeSettings"]) {
         }
         event.preventDefault()
       })
-    )
+    }
+
+    return {
+      register: () => {
+        el.addEventListener("touchstart", registerTouchStart, false)
+        el.addEventListener("touchmove", (event: TouchEvent) => event.preventDefault())
+        el.addEventListener("touchend", registerTouchEnd)
+      },
+
+      unregister: () => {
+        el.removeEventListener("touchstart", registerTouchStart, false)
+        el.removeEventListener("touchmove", (event: TouchEvent) => event.preventDefault())
+        el.removeEventListener("touchend", registerTouchEnd)
+      }
+    }
   }
 }

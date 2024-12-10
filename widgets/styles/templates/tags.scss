@@ -4,11 +4,11 @@
 // style placeholder
 %tags-styles-ph {
   --swiper-navigation-sides-offset: 0;
-  --swiper-navigation-top-offset: 0;
+  --swiper-navigation-top-offset: 3px;
 
   display: var(--tags-display);
   position: relative;
-  width: calc(90% - 15px);
+  width: 100%;
   height: fit-content;
 
   .mask-left {
@@ -23,14 +23,15 @@
     mask-image: linear-gradient(to right, transparent 5%, black 15%, black 85%, transparent 95%);
   }
 
-  .swiper-tags {
-    display: flex;
-    max-width: calc(100% - 10px);
+  .swiper-button-disabled {
+    display: none;
   }
 
-  :has(.swiper-tags-button-prev:not([style*="display: none"])) {
-    .swiper-tags {
-      max-width: calc(100% - 30px);
+  .swiper-tags-button-prev,
+  .swiper-tags-button-next {
+    .swiper-nav-icon {
+      width: 12px;
+      height: 12px;
     }
   }
 
@@ -63,7 +64,7 @@
     padding: 2px 4px;
     line-height: 16px;
     text-wrap: nowrap;
-    min-width: fit-content;
+    max-width: fit-content;
 
     a {
       color: var(--text-tile-tag-font-color);
@@ -102,10 +103,6 @@
   // if parent selector is supplied use it
   @if $parent {
     #{string.unquote($parent) tile-tags} {
-      &[context="expanded"] {
-        width: 95%;
-      }
-
       @extend %tags-styles-ph;
 
       // any style overrides
@@ -114,10 +111,6 @@
   } @else {
     // dynamically determine the parent selector if available
     #{if(&, "& tile-tags", "tile-tags")} {
-      &[context="expanded"] {
-        width: 95%;
-      }
-
       @extend %tags-styles-ph;
 
       // any style overrides

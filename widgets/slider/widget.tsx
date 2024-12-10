@@ -1,4 +1,4 @@
-import loadSlider from "./load-slider"
+import loadSlider, { addColumnIndex } from "./load-slider"
 import { loadWidget } from "@stackla/widget-utils"
 
 // dimensions from Figma design
@@ -15,6 +15,7 @@ loadWidget({
     tileSizeSettings
   },
   callbacks: {
-    onLoad: [() => loadSlider(tileSizeSettings)]
+    onLoad: [() => loadSlider(tileSizeSettings)],
+    onTilesUpdated: [() => addColumnIndex(tileSizeSettings)]
   }
 })

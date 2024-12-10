@@ -258,6 +258,11 @@ $space-between: 10px;
             }
           }
         }
+
+        .ugc-tile[grid-column-center] {
+          position: relative;
+          top: calc(var(--tile-size) / 2);
+        }
       }
 
       .ugc-tile:nth-child(even) .ugc-tile-wrapper {
