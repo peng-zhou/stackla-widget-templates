@@ -16,7 +16,7 @@ export default function (
 
   const scrollerHandler = scroller(sliderElement)
 
-  const swipeDetectHanlder = swipeDetect(tilesContainerElement, direction => {
+  const swipeDetectHandler = swipeDetect(tilesContainerElement, direction => {
     if (direction === "up") {
       scrollDown()
     } else if (direction === "down") {
@@ -29,10 +29,10 @@ export default function (
       tilesContainerElement.scrollTop = 0
       if (getRenderMode(sliderElement) === "desktop") {
         controlNavigationButtonVisibility()
-        swipeDetectHanlder.unregister()
+        swipeDetectHandler.unregister()
         scrollerHandler.register()
       } else {
-        swipeDetectHanlder.register()
+        swipeDetectHandler.register()
         scrollerHandler.unregister()
       }
     })
