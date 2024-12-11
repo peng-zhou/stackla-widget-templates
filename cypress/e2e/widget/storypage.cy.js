@@ -18,6 +18,6 @@ describe("Should test the direct-uploader", () => {
   })
 
   it("Should load share icons", () => {
-    cy.shouldLoadShareMenu()
+    cy.shouldLoadShareMenu(WIDGET_TYPE)
   })
 })

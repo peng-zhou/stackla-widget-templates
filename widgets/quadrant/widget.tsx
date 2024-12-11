@@ -1,13 +1,19 @@
-import { loadAllUnloadedTiles } from "@stackla/widget-utils/extensions/swiper"
 import { loadWidget } from "@stackla/widget-utils"
-import { getQuadrantTiles } from "./quadrant.lib"
+import { getQuadrantTiles, getTileRowHeight } from "./quadrant.lib"
 
 loadWidget({
   features: {
     preloadImages: false,
-    hideBrokenImages: true
+    hideBrokenImages: true,
+    tileSizeSettings: {
+      small: "1fr 1fr 1fr",
+      medium: "1fr 1fr",
+      large: "1fr"
+    },
+    cssVariables: {
+      "--tile-size-column-height": getTileRowHeight()
+    }
   }
 })
 
-loadAllUnloadedTiles()
 getQuadrantTiles()
