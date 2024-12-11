@@ -12,6 +12,10 @@ $space-between: 10px;
   transition: ease all 0.5s;
 }
 
+.hidden {
+  display: none;
+}
+
 .slider-inline {
   --text-caption-paragraph-font-size: 14px;
   --tile-timephrase-display: flex;
@@ -42,6 +46,9 @@ $space-between: 10px;
         grid-auto-columns: var(--tile-size);
         grid-template-columns: repeat(auto-fill, minmax(min-content, var(--tile-size)));
         grid-auto-flow: row;
+        opacity: 0;
+        visibility: hidden;
+        transition: all ease-in 500ms;
 
         .ugc-tile,
         .ugc-tile-wrapper {
@@ -120,6 +127,7 @@ $space-between: 10px;
               gap: 10px;
               place-content: flex-start;
               width: calc(100% - 15px);
+              grid-template-columns: 1fr;
 
               tile-content {
                 .description p {
@@ -257,6 +265,18 @@ $space-between: 10px;
               }
             }
           }
+        }
+
+        .ugc-tile[grid-column-indent] {
+          position: relative;
+          top: calc(var(--tile-size) / 2);
+        }
+      }
+
+      &:has(.slider-loading.loading.hidden) {
+        .ugc-tiles {
+          opacity: 1;
+          visibility: visible;
         }
       }
 
