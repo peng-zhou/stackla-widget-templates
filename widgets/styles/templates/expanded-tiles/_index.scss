@@ -40,7 +40,7 @@ expanded-tiles:not(:empty) {
 
   .back {
     display: none;
-    background: #FFFFFF;
+    background: #FFF;
     position: relative;
     height: dimens.$back-icon-height;
     align-items: center;
@@ -99,7 +99,7 @@ expanded-tiles:not(:empty) {
       position: relative;
       max-width: 879px;
       max-height: 701px;
-      background: #FFFFFF;
+      background: #FFF;
       border-radius: var(--expanded-tile-border-radius);
       grid-template-columns: minmax(0, dimens.$panel-left-width-lg) minmax(0, dimens.$panel-right-width-lg);
       grid-template-rows: 1fr;
