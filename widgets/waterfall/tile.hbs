@@ -33,7 +33,9 @@
   </div>
   <div class="tile-bottom">
     <div class="tile-bottom-container">
-      <tile-tags tile-id="{{id}}" mode="swiper" context="slider-inline" navigation-arrows="true"></tile-tags>
+      {{#if tags_extended}}
+      <tile-tags tile-id="{{id}}" mode="swiper" context="waterfall-inline" navigation-arrows="true"></tile-tags>
+      {{/if}}
       <div class="description">
           {{#if name}}
           <div class="user-name">{{name}}</div>
@@ -43,7 +45,7 @@
           {{/if}}
           <div class="tile-share-content">
             <time-phrase source-created-at="{{source_created_at}}"></time-phrase>
-            <share-menu tile-id="{{id}}"></share-menu>
+            <share-menu tile-id="{{id}}" theme="light"></share-menu>
           </div>
           <div class="caption">
             <div class="caption-paragraph">{{message}}</div>

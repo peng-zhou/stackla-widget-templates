@@ -1,5 +1,4 @@
-import type { ISdk } from "@stackla/widget-utils"
-import { waitForElements } from "@stackla/widget-utils/libs"
+import { waitForElements, type ISdk } from "@stackla/widget-utils"
 
 declare const sdk: ISdk
 
@@ -11,6 +10,32 @@ const tileSizes: { [key: string]: number } = {
 
 const tilesContainer = sdk.querySelector(".ugc-tiles")!
 
+export function removeEmptyTileGroups() {
+  const tileGroups = sdk.querySelectorAll<HTMLElement>(".tile-group")
+  tileGroups.forEach(tileGroup => {
+    if (tileGroup.children.length === 0) {
+      tileGroup.remove()
+    }
+  })
+}
+
+export function getTileRowHeight() {
+  const style = sdk.getStyleConfig()
+  const { inline_tile_size } = style
+
+  const tileSizes: { [key: string]: string } = {
+    small: "15vw",
+    medium: "25vw",
+    large: "50vw"
+  }
+
+  if (!inline_tile_size) {
+    return tileSizes["medium"]
+  }
+
+  return tileSizes[inline_tile_size]
+}
+
 function createTileGroup(tiles: HTMLElement[], groupStartIndex: number, tileSize: number) {
   if (tiles.length - groupStartIndex < 5) {
     return
@@ -20,16 +45,6 @@ function createTileGroup(tiles: HTMLElement[], groupStartIndex: number, tileSize
   tileGroup.classList.add("tile-group")
 
   const isLargeFirst = tileSize === tileSizes.large
-
-  tileGroup.style.gridTemplateAreas = isLargeFirst
-    ? `
-      "small1 small2 large large"
-      "small3 small4 large large"
-    `
-    : `
-      "large large small1 small2"
-      "large large small3 small4"
-    `
 
   const largeTileIndex = isLargeFirst ? 4 : 0
 
@@ -59,6 +74,9 @@ export function addQuadrantTiles(tiles: HTMLElement[], tileSize: number, startIn
 }
 
 export async function preloadTileImagesAndRemoveBrokenTiles(tiles: NodeListOf<HTMLElement>): Promise<HTMLElement[]> {
+  sdk.querySelector("#load-more").style.opacity = "0"
+  sdk.querySelector("#load-more-loader").classList.remove("hidden")
+
   const promises = Array.from(tiles).map(async tile => {
     const tileElement = tile.querySelector<HTMLElement>(".tile")
     const tileImage = tileElement?.getAttribute("data-background-image") ?? ""
@@ -81,11 +99,13 @@ export async function preloadTileImagesAndRemoveBrokenTiles(tiles: NodeListOf<HT
 
       tileElement.style.backgroundImage = `url(${tileImage})`
     })
-
-    return Promise.resolve(tile)
   })
 
   const loadedTiles = await Promise.all(promises)
+
+  sdk.querySelector("#load-more").style.opacity = "1"
+  sdk.querySelector("#load-more-loader").classList.add("hidden")
+
   return loadedTiles.filter(tile => tile !== null) as HTMLElement[]
 }
 
@@ -98,6 +118,7 @@ export function getQuadrantTiles() {
       if (newTiles && newTiles.length >= 5) {
         const loadedTiles = await preloadTileImagesAndRemoveBrokenTiles(newTiles)
         addQuadrantTiles(loadedTiles, tileSize)
+        removeEmptyTileGroups()
       }
     })
   })

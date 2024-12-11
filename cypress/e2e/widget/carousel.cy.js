@@ -18,6 +18,6 @@ describe("Should test the carousel", () => {
   })
 
   it("Should load share icons", () => {
-    cy.shouldLoadShareMenu()
+    cy.shouldLoadShareMenu(WIDGET_TYPE)
   })
 })

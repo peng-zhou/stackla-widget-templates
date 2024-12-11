@@ -4,19 +4,25 @@
 #nosto-ugc-container {
   --tile-size-with-margin: calc(var(--tile-size) - var(--margin) * 1px);
   --full: 100%;
-  --half: 50%;
 
+  padding: var(--margin);
   background-color: var(--widget-background);
 
   .ugc-tiles {
-    min-height: 100vh;
     display: grid;
-    grid-template-columns: var(--half) var(--half);
-    gap: var(--margin);
+    grid-template-columns: var(--tile-size);
     justify-content: center;
+    column-gap: var(--margin);
+    grid-auto-rows: var(--tile-size-column-height);
+
+    @include media-queries.breakpoint(tablet) {
+      grid-template-columns: auto;
+      grid-auto-rows: auto;
+    }
 
     @include media-queries.breakpoint(mobile) {
-      grid-template-columns: var(--full);
+      grid-template-columns: auto;
+      grid-auto-rows: auto;
     }
   }
 
@@ -26,15 +32,13 @@
     display: grid;
     gap: var(--margin);
     margin-bottom: var(--margin);
-    grid-template-columns: repeat(4, var(--column-width));
-
-    @include media-queries.breakpoint(tablet) {
-      grid-template-columns: repeat(2, var(--column-width));
-    }
+    grid-template-areas:  "large large small1 small2"
+      "large large small3 small4";
 
     @include media-queries.breakpoint(mobile) {
-      grid-template-columns: var(--full);
-      gap: 0;
+      grid-template-areas: "large large"
+        "small1 small2"
+        "small3 small4";
     }
   }
 
@@ -44,7 +48,6 @@
     background-size: cover;
     height: 100%;
     width: 100%;
-    aspect-ratio: 1 / 1;
     object-fit: cover;
   }
 
@@ -52,7 +55,7 @@
     $total-padding: 20px;
 
     box-sizing: border-box;
-    border-radius: 12px;
+    border-radius: var(--inline-tile-border-radius);
     overflow: hidden;
 
     &:not(.processed) {
@@ -62,6 +65,26 @@
 
   .ugc-tile.large {
     grid-area: large;
+
+    @include media-queries.breakpoint(tablet) {
+      aspect-ratio: 1 / 1;
+      width: #{calc(50vw - var(--margin) * 2)};
+    }
+
+    @include media-queries.breakpoint(mobile) {
+      aspect-ratio: 1 / 1;
+      width: #{calc(100vw - var(--margin) * 2)};
+    }
+  }
+
+  .ugc-tile.small {
+    @include media-queries.breakpoint(mobile) {
+       aspect-ratio: 1 / 1;
+    }
+
+    @include media-queries.breakpoint(tablet) {
+       aspect-ratio: 1 / 1;
+    }
   }
 
   .ugc-tile.small.small1 {
@@ -113,6 +136,7 @@
 }
 
 #load-more-loader {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -120,12 +144,8 @@
   margin-top: 25px;
 
   &.hidden {
+    display: none;
     opacity: 0 !important;
-  }
-
-  .loading {
-    height: 50px !important;
-    width: 50px !important;
   }
 }
 

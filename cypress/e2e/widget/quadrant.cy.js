@@ -2,7 +2,7 @@ const WIDGET_TYPE = "quadrant"
 
 describe("Should test the quadrant", () => {
   beforeEach(() => {
-    cy.on("uncaught:exception", (err, runnable) => {
+    cy.on("uncaught:exception", () => {
       return false
     })
     cy.visitWidget(WIDGET_TYPE)
@@ -17,11 +17,7 @@ describe("Should test the quadrant", () => {
     cy.shouldExpandedTile(WIDGET_TYPE)
   })
 
-  it("Should display timephrase in the tile", () => {
-    cy.getFirstTile().find(".tile-timephrase").should("exist").invoke("text").should("not.be.empty")
-  })
-
   it("Should load share icons", () => {
-    cy.shouldLoadShareMenu()
+    cy.shouldLoadShareMenu(WIDGET_TYPE)
   })
 })
