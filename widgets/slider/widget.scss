@@ -127,6 +127,7 @@ $space-between: 10px;
               gap: 10px;
               place-content: flex-start;
               width: calc(100% - 15px);
+              grid-template-columns: 1fr;
 
               tile-content {
                 .description p {
