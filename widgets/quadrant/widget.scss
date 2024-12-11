@@ -4,6 +4,7 @@
 #nosto-ugc-container {
   --tile-size-with-margin: calc(var(--tile-size) - var(--margin) * 1px);
   --full: 100%;
+
   padding: var(--margin);
   background-color: var(--widget-background);
 
@@ -33,6 +34,7 @@
     margin-bottom: var(--margin);
     grid-template-areas:  "large large small1 small2"
       "large large small3 small4";
+
     @include media-queries.breakpoint(mobile) {
       grid-template-areas: "large large"
         "small1 small2"
@@ -63,6 +65,7 @@
 
   .ugc-tile.large {
     grid-area: large;
+
     @include media-queries.breakpoint(tablet) {
       aspect-ratio: 1 / 1;
       width: #{calc(50vw - var(--margin) * 2)};
