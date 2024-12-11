@@ -5,6 +5,7 @@ $load-more-margin: 20px;
 
 // style placeholder
 load-more {
+  cursor: pointer;
   #buttons {
     display: flex;
     place-content: center;
