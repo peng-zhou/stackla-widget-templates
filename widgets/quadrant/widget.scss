@@ -55,7 +55,7 @@
     $total-padding: 20px;
 
     box-sizing: border-box;
-    border-radius: 12px;
+    border-radius: var(--inline-tile-border-radius);
     overflow: hidden;
 
     &:not(.processed) {
