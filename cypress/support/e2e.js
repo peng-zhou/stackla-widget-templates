@@ -7,7 +7,16 @@
 
 import { addCompareSnapshotCommand } from "cypress-visual-regression/dist/command"
 
-const WIDGET_ID = "ugc-widget-668ca52ada8fb"
+export const WIDGET_ID = "ugc-widget-668ca52ada8fb"
+
+function getUgcTileSelectorByWidgetType(widgetType) {
+  switch (widgetType) {
+    case "quadrant":
+      return ".ugc-tile.processed"
+    default:
+      return ".ugc-tile"
+  }
+}
 
 addCompareSnapshotCommand({
   capture: "viewport",
@@ -48,7 +57,11 @@ Cypress.Commands.add("visitWidget", widgetType => {
 
   cy.wait("@getWidget")
 
-  cy.get(WIDGET_ID).shadow().find(".ugc-tile", { timeout: 10000 }).first().should("be.visible", { timeout: 10000 })
+  cy.get(WIDGET_ID)
+    .shadow()
+    .find(getUgcTileSelectorByWidgetType(widgetType), { timeout: 10000 })
+    .first()
+    .should("be.visible", { timeout: 10000 })
 
   cy.waitAndDisableImages()
 })
@@ -57,8 +70,8 @@ Cypress.Commands.add("shouldShowWidgetContents", widgetType => {
   cy.snapshot(`${widgetType}-widget`)
 })
 
-Cypress.Commands.add("getFirstTile", () => {
-  return cy.get(WIDGET_ID).shadow().find(".ugc-tile").first()
+Cypress.Commands.add("getFirstTile", widgetType => {
+  return cy.get(WIDGET_ID).shadow().find(getUgcTileSelectorByWidgetType(widgetType)).first()
 })
 
 Cypress.Commands.add("snapshot", name => {
@@ -75,7 +88,7 @@ Cypress.Commands.add("shouldExpandedTile", widgetType => {
   // eslint-disable-next-line cypress/no-unnecessary-waiting
   cy.wait(4000)
 
-  cy.getFirstTile().click()
+  cy.getFirstTile(widgetType).click()
 
   // eslint-disable-next-line cypress/no-unnecessary-waiting
   cy.wait(4000)
@@ -103,8 +116,8 @@ Cypress.Commands.add("getExpandedTile", () => {
   return cy.get(WIDGET_ID).shadow().find("expanded-tiles")
 })
 
-Cypress.Commands.add("shouldLoadShareMenu", () => {
-  cy.getFirstTile().should("exist").click({ force: true })
+Cypress.Commands.add("shouldLoadShareMenu", widgetType => {
+  cy.getFirstTile(widgetType).should("exist").click({ force: true })
 
   cy.wait(1000)
 
