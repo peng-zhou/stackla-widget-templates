@@ -1,8 +1,8 @@
 import { Sdk } from "types"
 import { Features } from "@stackla/widget-utils"
-import { getRenderMode } from "./utils"
 import { markColumnsForIndent } from "./slider-design"
 import navigator from "./navigator"
+import { gridAlignmentObserver } from "./observers"
 
 declare const sdk: Sdk
 
@@ -30,16 +30,9 @@ export function loadSlider(settings: Features["tileSizeSettings"]) {
 
   tilesContainer.setAttribute("variation", inline_tile_size)
 
-  navigator(settings, sliderInline, tilesContainer)
+  navigator(settings)
 
-  const observerForGridAlignment = new ResizeObserver(() =>
-    requestAnimationFrame(() => {
-      if (getRenderMode(sliderInline) === "desktop") {
-        markColumnsForIndent(settings)
-      }
-    })
-  )
-  observerForGridAlignment.observe(tilesContainer)
+  gridAlignmentObserver(settings).initObserve()
 
   markColumnsForIndent(settings)
   loadingElement?.classList.add("hidden")

@@ -1,13 +1,19 @@
 import { Features } from "@stackla/widget-utils"
-import { getRenderMode, getTileSizeUnitless, getTopElementHeight, gridGap } from "./utils"
+import {
+  getRenderMode,
+  getSliderElement,
+  getTileContainerElement,
+  getTileSizeUnitless,
+  getTopElementHeight,
+  gridGap
+} from "./utils"
+import { tilesIntersectionObserver } from "./observers"
 
 type SwiperDirection = "none" | "left" | "right" | "up" | "down"
 
-export default function (
-  settings: Features["tileSizeSettings"],
-  sliderElement: HTMLElement,
-  tilesContainerElement: HTMLElement
-) {
+export default function (settings: Features["tileSizeSettings"]) {
+  const sliderElement = getSliderElement()
+  const tilesContainerElement = getTileContainerElement()
   const scrollHistory: Array<number> = []
   const tileSizeUnitless = getTileSizeUnitless(settings)
   const defaultBlockHeight = isNaN(tileSizeUnitless) ? 220 : tileSizeUnitless
@@ -39,6 +45,8 @@ export default function (
   screenResizeObserver.observe(tilesContainerElement)
 
   controlNavigationButtonVisibility()
+
+  tilesIntersectionObserver().initObserve()
 
   function scroller(el: HTMLElement) {
     const sliderScrollUpButton = el.querySelector<HTMLElement>("#scroll-up")

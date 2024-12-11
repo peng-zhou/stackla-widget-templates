@@ -1,6 +1,7 @@
 import { loadSlider } from "./load-slider"
 import { loadWidget } from "@stackla/widget-utils"
 import { markColumnsForIndent } from "./slider-design"
+import { tilesIntersectionObserver } from "./observers"
 
 // dimensions from Figma design
 const tileSizeSettings = {
@@ -21,6 +22,11 @@ loadWidget({
         setTimeout(() => loadSlider(tileSizeSettings), 500)
       }
     ],
-    onTilesUpdated: [() => markColumnsForIndent(tileSizeSettings)]
+    onTilesUpdated: [
+      () => {
+        markColumnsForIndent(tileSizeSettings)
+        tilesIntersectionObserver().initObserve()
+      }
+    ]
   }
 })

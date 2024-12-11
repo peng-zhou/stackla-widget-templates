@@ -16,6 +16,36 @@ $space-between: 10px;
   display: none;
 }
 
+.partially-visible {
+  filter: opacity(0.5);
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateY(100px);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-to {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(100px);
+  }
+}
+
+.tile-animate {
+  animation:
+    3s linear 100ms slide-in,
+    3s ease-out 100ms slide-out;
+}
+
 .slider-inline {
   --text-caption-paragraph-font-size: 14px;
   --tile-timephrase-display: flex;
@@ -48,7 +78,10 @@ $space-between: 10px;
         grid-auto-flow: row;
         opacity: 0;
         visibility: hidden;
-        transition: all ease-in 500ms;
+
+        @media (prefers-reduced-motion: no-preference) {
+          transition: all ease-in 500ms;
+        }
 
         .ugc-tile,
         .ugc-tile-wrapper {
