@@ -1,7 +1,5 @@
-import { Features, Sdk } from "@stackla/widget-utils"
+import { Features } from "@stackla/widget-utils"
 import { getRenderMode, getTileSizeUnitless, getTopElementHeight, gridGap } from "./utils"
-
-declare const sdk: Sdk
 
 type SwiperDirection = "none" | "left" | "right" | "up" | "down"
 
