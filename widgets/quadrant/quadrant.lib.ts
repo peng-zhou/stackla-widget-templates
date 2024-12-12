@@ -114,12 +114,11 @@ export function getQuadrantTiles() {
   sdk.addEventListener("moreLoad", () => {
     const tileSize = tileSizes[inline_tile_size ?? "medium"]
 
-    const observer = waitForElements(tilesContainer, ".ugc-tile:not(.processed)", async newTiles => {
+    waitForElements(tilesContainer, ".ugc-tile:not(.processed)", async newTiles => {
       if (newTiles && newTiles.length >= 5) {
         const loadedTiles = await preloadTileImagesAndRemoveBrokenTiles(newTiles)
         addQuadrantTiles(loadedTiles, tileSize)
         removeEmptyTileGroups()
-        observer.disconnect()
       }
     })
   })
