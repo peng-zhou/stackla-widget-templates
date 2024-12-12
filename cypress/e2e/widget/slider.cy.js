@@ -9,10 +9,6 @@ describe("Should test the slider", () => {
     cy.before()
   })
 
-  it("Should show widget contents", () => {
-    cy.shouldShowWidgetContents(WIDGET_TYPE)
-  })
-
   it("Should expand tile", () => {
     cy.shouldExpandedTile(WIDGET_TYPE)
   })

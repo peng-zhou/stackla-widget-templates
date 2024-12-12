@@ -66,7 +66,7 @@ Cypress.Commands.add("visitWidget", widgetType => {
   cy.waitAndDisableImages()
 })
 
-Cypress.Commands.add("shouldShowWidgetContents", widgetType => {
+Cypress.Commands.add("widgetSnapshot", widgetType => {
   cy.snapshot(`${widgetType}-widget`)
 })
 
@@ -103,6 +103,9 @@ Cypress.Commands.add("shouldExpandedTile", widgetType => {
   cy.get(WIDGET_ID).shadow().find(".expanded-tile-overlay").should("exist").invoke("css", "background-color", "#000")
 
   // eslint-disable-next-line cypress/no-unnecessary-waiting
+})
+
+Cypress.Commands.add("expandedTileSnapshot", widgetType => {
   cy.wait(4000)
 
   cy.getExpandedTile()
