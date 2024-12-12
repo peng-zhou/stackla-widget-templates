@@ -75,7 +75,6 @@ Cypress.Commands.add("getFirstTile", widgetType => {
 })
 
 Cypress.Commands.add("snapshot", name => {
-  cy.viewport(1920, 1080)
   cy.compareSnapshot(name)
 })
 
