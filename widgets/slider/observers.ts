@@ -3,21 +3,61 @@ import { getRenderMode, getSliderElement, getTileContainerElement, getTileElemen
 import { markColumnsForIndent } from "./slider-design"
 
 export function tilesIntersectionObserver() {
+  const animationClasses = { up: "tile-animate-up", down: "tile-animate-down" }
+  const partiallyVisibleClass = "partially-visible"
   const tilesContainerElement = getTileContainerElement()
+  let previousPosition = tilesContainerElement.scrollTop
 
   const observer = new IntersectionObserver(
     (entries: IntersectionObserverEntry[]) => {
-      entries.forEach(entry => {
-        entry.target.classList.add("tile-animate")
-        if (entry.isIntersecting && entry.intersectionRatio > 0.95) {
-          entry.target.classList.remove("partially-visible")
-          return
+      filterRecentEntries(entries).forEach(entry => {
+        if (entry.isIntersecting) {
+          if (entry.target.classList.contains(partiallyVisibleClass)) {
+            if (entry.intersectionRatio === 1) {
+              enableAnimation(entry.target)
+              entry.target.classList.remove(partiallyVisibleClass)
+            }
+          }
+        } else if (!entry.target.classList.contains(partiallyVisibleClass)) {
+          entry.target.classList.add(partiallyVisibleClass)
         }
-        entry.target.classList.add("partially-visible")
       })
+      previousPosition = tilesContainerElement.scrollTop
     },
     { root: tilesContainerElement, rootMargin: "0px", threshold: 1 }
   )
+
+  function filterRecentEntries(entries: IntersectionObserverEntry[]) {
+    const uniqueEntries = []
+
+    for (const entry of entries) {
+      const existingIndex = uniqueEntries.findIndex(uniqEntry => uniqEntry.target.isSameNode(entry.target))
+      if (existingIndex >= 0) {
+        uniqueEntries.splice(existingIndex, 1, entry)
+      } else {
+        uniqueEntries.push(entry)
+      }
+    }
+
+    return uniqueEntries
+  }
+
+  function enableAnimation(element: Element) {
+    if (previousPosition === tilesContainerElement.scrollTop) {
+      return
+    }
+
+    const animationClass =
+      previousPosition < tilesContainerElement.scrollTop ? animationClasses.up : animationClasses.down
+
+    const removeClass = animationClass === animationClasses.up ? animationClasses.down : animationClasses.up
+
+    element.classList.remove(removeClass)
+
+    if (!element.classList.contains(animationClass)) {
+      element.classList.add(animationClass)
+    }
+  }
 
   function initObserve() {
     getTileElements().forEach(tile => observer.observe(tile))
@@ -27,7 +67,7 @@ export function tilesIntersectionObserver() {
     observer.disconnect()
   }
 
-  return { initObserve, unobserve }
+  return { initObserve, unobserve, updateObserver: initObserve }
 }
 
 export function gridAlignmentObserver(settings: Features["tileSizeSettings"]) {

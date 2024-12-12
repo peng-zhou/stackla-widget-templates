@@ -8,21 +8,15 @@ $space-between: 10px;
   --rendered-tile-size: var(--tile-size) * 2 + 20px;
   --width-adjustment: rem(95%, var(--rendered-tile-size));
   --container-width: calc(95% - var(--width-adjustment));
-
-  transition: ease all 0.5s;
 }
 
 .hidden {
   display: none;
 }
 
-.partially-visible {
-  filter: opacity(0.5);
-}
-
-@keyframes slide-in {
+@keyframes slide-up {
   from {
-    transform: translateY(100px);
+    transform: translateY(var(--tile-size-prop));
   }
 
   to {
@@ -30,20 +24,24 @@ $space-between: 10px;
   }
 }
 
-@keyframes slide-to {
+@keyframes slide-down {
   from {
-    transform: translateY(0);
+    transform: translateY(calc(-1 * var(--tile-size-prop)));
   }
 
   to {
-    transform: translateY(100px);
+    transform: translateY(0);
   }
 }
 
-.tile-animate {
-  animation:
-    3s linear 100ms slide-in,
-    3s ease-out 100ms slide-out;
+@media (prefers-reduced-motion: no-preference) {
+  .tile-animate-up {
+    animation: slide-up 200ms ease-in;
+  }
+
+  .tile-animate-down {
+    animation: slide-down 200ms ease-in;
+  }
 }
 
 .slider-inline {
@@ -55,6 +53,10 @@ $space-between: 10px;
 
   &.track {
     --render-mode: desktop;
+
+    .partially-visible {
+      opacity: 0.3;
+    }
 
     display: flex;
     width: 100%;
@@ -79,17 +81,12 @@ $space-between: 10px;
         opacity: 0;
         visibility: hidden;
 
-        @media (prefers-reduced-motion: no-preference) {
-          transition: all ease-in 500ms;
-        }
-
         .ugc-tile,
         .ugc-tile-wrapper {
           align-items: center;
           background-color: #000;
           color: #fff;
           font-size: 1.5em;
-          transition: transform 0.5s ease-in-out;
           cursor: pointer;
         }
 
@@ -102,6 +99,7 @@ $space-between: 10px;
           grid-template-areas: "image details";
           grid-template-columns: subgrid;
           gap: 0;
+          transition: opacity 200ms ease;
 
           .image-section {
             display: flex;

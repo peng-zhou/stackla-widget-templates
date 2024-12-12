@@ -5,6 +5,10 @@
     @include media-queries.breakpoint(mobile) {
       --render-mode: mobile;
 
+      .partially-visible {
+        opacity: 1;
+      }
+
       .container {
         width: 100vw;
 
@@ -71,6 +75,10 @@
 
     @include media-queries.breakpoint(tablet) {
       --render-mode: tablet;
+
+      .partially-visible {
+        opacity: 1;
+      }
 
       .container {
         width: calc(100vw - 10px);
