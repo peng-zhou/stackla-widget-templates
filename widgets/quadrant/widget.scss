@@ -52,55 +52,59 @@
   }
 
   .ugc-tile {
-    $total-padding: 20px;
+      $total-padding: 20px;
 
-    box-sizing: border-box;
-    border-radius: var(--inline-tile-border-radius);
-    overflow: hidden;
+      box-sizing: border-box;
+      border-radius: var(--inline-tile-border-radius);
+      overflow: hidden;
 
-    &:not(.processed) {
-      display: none;
+      &:not(.processed) {
+        display: none;
+      }
+
+      &.large {
+        grid-area: large;
+
+        @include media-queries.breakpoint(tablet) {
+          aspect-ratio: 1 / 1;
+          width: #{calc(50vw - var(--margin) * 2)};
+        }
+
+        @include media-queries.breakpoint(mobile) {
+          aspect-ratio: 1 / 1;
+          width: #{calc(100vw - var(--margin) * 2)};
+        }
+      }
+
+      &.small {
+        @include media-queries.breakpoint(mobile) {
+          aspect-ratio: 1 / 1;
+        }
+
+        @include media-queries.breakpoint(tablet) {
+          aspect-ratio: 1 / 1;
+        }
+
+        &.small1 {
+          grid-area: small1;
+        }
+
+        &.small2 {
+          grid-area: small2;
+        }
+
+        &.small3 {
+          grid-area: small3;
+        }
+
+        &.small4 {
+          grid-area: small4;
+        }
     }
   }
 
-  .ugc-tile.large {
-    grid-area: large;
-
-    @include media-queries.breakpoint(tablet) {
-      aspect-ratio: 1 / 1;
-      width: #{calc(50vw - var(--margin) * 2)};
-    }
-
-    @include media-queries.breakpoint(mobile) {
-      aspect-ratio: 1 / 1;
-      width: #{calc(100vw - var(--margin) * 2)};
-    }
-  }
-
-  .ugc-tile.small {
-    @include media-queries.breakpoint(mobile) {
-       aspect-ratio: 1 / 1;
-    }
-
-    @include media-queries.breakpoint(tablet) {
-       aspect-ratio: 1 / 1;
-    }
-  }
-
-  .ugc-tile.small.small1 {
-    grid-area: small1;
-  }
-
-  .ugc-tile.small.small2 {
-    grid-area: small2;
-  }
-
-  .ugc-tile.small.small3 {
-    grid-area: small3;
-  }
-
-  .ugc-tile.small.small4 {
-    grid-area: small4;
+  tile-tags {
+    padding: 0 5px;
   }
 
   .tile {
