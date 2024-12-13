@@ -167,8 +167,6 @@ async function buildAll() {
         importMapper: url => {
           return url.replace(/^@styles\//, path.join(__dirname, "widgets/styles/"))
         },
-        // add relative path, i.e. templates.stackla.com/ for all svg
-
         importers: [new sass.NodePackageImporter()]
       }),
       copy({
