@@ -5,8 +5,13 @@
 %tags-styles-ph {
   --swiper-navigation-sides-offset: 0;
   --swiper-navigation-top-offset: 3px;
+  display: var(--tags-display-inline);
 
-  display: var(--tags-display);
+
+  &[context="expanded"] {
+    display: var(--tags-display-expanded);
+  }
+
   position: relative;
   width: 100%;
   height: fit-content;
@@ -67,7 +72,7 @@
     max-width: fit-content;
 
     a {
-      color: var(--text-tile-tag-font-color);
+      color: #000000;
       text-decoration: none;
 
       .tag-title {
