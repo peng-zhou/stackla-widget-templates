@@ -175,6 +175,10 @@ expressApp.post("/development/widgets/668ca52ada8fb/draft", async (req, res) => 
   const customCss = draft.customCSS
   const customJs = draft.customJS
 
+  if (req.cookies.widgetType === 'nightfall') {
+    widgetOptions.style.text_tile_background = "000000";
+  }
+
   res.send({
     html,
     customCSS: customCss,
@@ -189,6 +193,10 @@ expressApp.post("/development/widgets/668ca52ada8fb/draft", async (req, res) => 
 
 expressApp.get("/development/widgets/668ca52ada8fb", async (req, res) => {
   const content = await getContent(req.cookies.widgetType as string)
+
+  if (req.cookies.widgetType === 'nightfall') {
+    widgetOptions.style.text_tile_background = "000000";
+  }
 
   res.json({
     html: await getHTML(content),

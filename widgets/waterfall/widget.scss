@@ -80,6 +80,7 @@
       }
 
       tile-tags {
+        display: flex;
         margin-top: 16.25px;
         width: 100%;
     
@@ -116,6 +117,7 @@
       }
 
       tile-tags {
+        display: flex;
         margin-top: 8px;
       }
 
@@ -218,7 +220,7 @@
   .caption {
     display: var(--show-caption-webkit);
     font-size: var(--text-tile-font-size);
-    color: var(--text-tile-font-color);
+    color: #000000;
     -ms-overflow-style: none;
     -webkit-box-orient: vertical;
     overflow: hidden;
@@ -235,7 +237,7 @@
   }
 
   .caption-paragraph {
-    color: var(--text-tile-font-color);
+    color: #000000;
     font-size: var(--text-tile-font-size);
   }
 
@@ -244,7 +246,7 @@
   }
 
   .user-name {
-    color: var(--text-tile-user-name-font-color);
+    color: #000000;
     font-size: var(--text-tile-user-name-font-size);
     font-weight: 600;
   }
