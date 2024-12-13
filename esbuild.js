@@ -47,7 +47,6 @@ async function buildAll() {
   const { globSync } = require("glob")
   const fs = require("fs")
   const env = process.env.APP_ENV || "development"
-
   const isWatch = process.argv.includes("--watch")
   const isDevelopment = env === "development" || env === "staging"
 
@@ -55,10 +54,13 @@ async function buildAll() {
     name: "preAndPost",
     setup(build) {
       // Cleanup dist before build
-      // Temporarily removed, will need to remap the paths
-      // build.onStart(() => {
-      //   fs.rmSync("./public", { recursive: true, force: true })
-      // })
+      build.onStart(() => {
+        fs.readdirSync("./public").forEach(file => {
+          if (file !== "assets") {
+            fs.rmSync(`./public/${file}`, { recursive: true, force: true })
+          }
+        });
+      })
 
       build.onEnd(() => {
         globSync("./widgets/**/widget.scss", { withFileTypes: true }).forEach(async item => {
