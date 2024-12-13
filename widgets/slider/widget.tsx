@@ -1,33 +1,26 @@
-import loadSlider from "./load-slider"
+import { loadSlider } from "./load-slider"
 import { loadWidget } from "@stackla/widget-utils"
-import userContentStyles from "./components/tile-content/overrides.scss"
-import shopspotStyle from "./components/shopspot-icon/base.scss"
+import { markColumnsForIndent } from "./slider-design"
+
+// dimensions from Figma design
+const tileSizeSettings = {
+  small: "148.34px",
+  medium: "225px",
+  large: "435px"
+}
 
 loadWidget({
-  extensions: {},
   features: {
     handleLoadMore: false,
-    addNewTilesAutomatically: true
+    addNewTilesAutomatically: true,
+    tileSizeSettings
   },
   callbacks: {
-    onLoad: [loadSlider]
-  },
-  templates: {
-    "tile-content": {
-      styles: [
-        {
-          css: userContentStyles,
-          global: false
-        }
-      ]
-    },
-    "expanded-tiles": {
-      styles: [
-        {
-          css: shopspotStyle,
-          global: true
-        }
-      ]
-    }
+    onLoad: [
+      () => {
+        setTimeout(() => loadSlider(tileSizeSettings), 500)
+      }
+    ],
+    onTilesUpdated: [() => markColumnsForIndent(tileSizeSettings)]
   }
 })

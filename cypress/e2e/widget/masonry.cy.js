@@ -10,18 +10,15 @@ describe("Should test the masonry", () => {
   })
 
   it("Should show widget contents", () => {
-    cy.shouldShowWidgetContents(WIDGET_TYPE)
+    cy.widgetSnapshot(WIDGET_TYPE)
   })
 
   it("Should expand tile", () => {
     cy.shouldExpandedTile(WIDGET_TYPE)
-  })
-
-  it("Should display timephrase in the tile", () => {
-    cy.getFirstTile().find(".tile-timephrase").should("exist").invoke("text").should("not.be.empty")
+    cy.expandedTileSnapshot(WIDGET_TYPE)
   })
 
   it("Should load share icons", () => {
-    cy.shouldLoadShareMenu()
+    cy.shouldLoadShareMenu(WIDGET_TYPE)
   })
 })

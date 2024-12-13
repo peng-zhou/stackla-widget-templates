@@ -1,0 +1,34 @@
+@use "sass:string";
+@use "./inline-dimens" as dimens;
+
+%grid-styles-ph {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+
+  .grid-item {
+    color: white;
+    text-align: center;
+    border-radius: dimens.$inline-tile-border-radius;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: var(--tile-size);
+    margin: var(--margin);
+    box-sizing: border-box;
+    object-fit: cover;
+  }
+}
+
+@mixin grid-styles($parent: null) {
+  @if $parent {
+    #{string.unquote($parent) ".grid"} {
+      @extend %grid-styles-ph;
+    }
+  } @else {
+    #{if(&, "&.grid", ".grid")} {
+      @extend %grid-styles-ph;
+    }
+  }
+}

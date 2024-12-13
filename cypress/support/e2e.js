@@ -7,7 +7,16 @@
 
 import { addCompareSnapshotCommand } from "cypress-visual-regression/dist/command"
 
-const WIDGET_ID = "ugc-widget-668ca52ada8fb"
+export const WIDGET_ID = "ugc-widget-668ca52ada8fb"
+
+function getUgcTileSelectorByWidgetType(widgetType) {
+  switch (widgetType) {
+    case "quadrant":
+      return ".ugc-tile.processed"
+    default:
+      return ".ugc-tile"
+  }
+}
 
 addCompareSnapshotCommand({
   capture: "viewport",
@@ -48,17 +57,21 @@ Cypress.Commands.add("visitWidget", widgetType => {
 
   cy.wait("@getWidget")
 
-  cy.get(WIDGET_ID).shadow().find(".ugc-tile", { timeout: 10000 }).first().should("be.visible", { timeout: 10000 })
+  cy.get(WIDGET_ID)
+    .shadow()
+    .find(getUgcTileSelectorByWidgetType(widgetType), { timeout: 10000 })
+    .first()
+    .should("be.visible", { timeout: 10000 })
 
   cy.waitAndDisableImages()
 })
 
-Cypress.Commands.add("shouldShowWidgetContents", widgetType => {
+Cypress.Commands.add("widgetSnapshot", widgetType => {
   cy.snapshot(`${widgetType}-widget`)
 })
 
-Cypress.Commands.add("getFirstTile", () => {
-  return cy.get(WIDGET_ID).shadow().find(".ugc-tile").first()
+Cypress.Commands.add("getFirstTile", widgetType => {
+  return cy.get(WIDGET_ID).shadow().find(getUgcTileSelectorByWidgetType(widgetType)).first()
 })
 
 Cypress.Commands.add("snapshot", name => {
@@ -75,7 +88,7 @@ Cypress.Commands.add("shouldExpandedTile", widgetType => {
   // eslint-disable-next-line cypress/no-unnecessary-waiting
   cy.wait(4000)
 
-  cy.getFirstTile().click()
+  cy.getFirstTile(widgetType).click()
 
   // eslint-disable-next-line cypress/no-unnecessary-waiting
   cy.wait(4000)
@@ -85,18 +98,31 @@ Cypress.Commands.add("shouldExpandedTile", widgetType => {
   // Set visibility to hidden for all images
   cy.getExpandedTile().find(".image-element").should("exist").invoke("css", "visibility", "hidden")
 
-  // eslint-disable-next-line cypress/no-unnecessary-waiting
-  cy.wait(5000)
+  cy.wait(1000)
 
-  cy.snapshot(`${widgetType}-tile`)
+  cy.get(WIDGET_ID).shadow().find(".expanded-tile-overlay").should("exist").invoke("css", "background-color", "#000")
+
+  // eslint-disable-next-line cypress/no-unnecessary-waiting
+})
+
+Cypress.Commands.add("expandedTileSnapshot", widgetType => {
+  cy.wait(4000)
+
+  cy.getExpandedTile()
+    .find(".ugc-tile[data-id='65e16a0b5d7e676caec68f03']")
+    .first()
+    .should("exist")
+    .compareSnapshot(`${widgetType}-tile`)
 })
 
 Cypress.Commands.add("getExpandedTile", () => {
   return cy.get(WIDGET_ID).shadow().find("expanded-tiles")
 })
 
-Cypress.Commands.add("shouldLoadShareMenu", () => {
-  cy.getFirstTile().should("exist").click({ force: true })
+Cypress.Commands.add("shouldLoadShareMenu", widgetType => {
+  cy.getFirstTile(widgetType).should("exist").click({ force: true })
+
+  cy.wait(1000)
 
   cy.getExpandedTile().find(".share-button").first().should("exist").click({ force: true })
 

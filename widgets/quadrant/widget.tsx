@@ -1,32 +1,19 @@
-import { loadAllUnloadedTiles } from "@stackla/widget-utils/extensions/swiper"
 import { loadWidget } from "@stackla/widget-utils"
-import shopspotStyle from "./components/shopspot-icon/base.scss"
-import productsStyle from "./components/products/base.scss"
+import { getQuadrantTiles, getTileRowHeight } from "./quadrant.lib"
 
 loadWidget({
-  extensions: {},
   features: {
     preloadImages: false,
-    hideBrokenImages: true
-  },
-  callbacks: {},
-  templates: {
-    "expanded-tiles": {
-      styles: [
-        {
-          css: shopspotStyle,
-          global: true
-        }
-      ]
+    hideBrokenImages: true,
+    tileSizeSettings: {
+      small: "1fr 1fr 1fr",
+      medium: "1fr 1fr",
+      large: "1fr"
     },
-    "ugc-products": {
-      styles: [
-        {
-          css: productsStyle,
-          global: false
-        }
-      ]
+    cssVariables: {
+      "--tile-size-column-height": getTileRowHeight()
     }
   }
 })
-loadAllUnloadedTiles()
+
+getQuadrantTiles()

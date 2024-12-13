@@ -1,29 +1,19 @@
-import { SdkSwiper } from "types"
+import { Sdk } from "types"
 
-declare const sdk: SdkSwiper
+declare const sdk: Sdk
 
 import { loadWidget } from "@stackla/widget-utils"
-import { initializeInlineSwiperListeners } from "./inline-swiper.loader"
-import shopspotStyle from "./components/shopspot-icon/base.scss"
+import { initializeInlineSwiperListeners } from "./inline-carousel-swiper.loader"
 
 loadWidget({
-  extensions: {},
+  extensions: {
+    swiper: true
+  },
   features: {
     handleLoadMore: false
-  },
-  callbacks: {
-    onLoad: [initializeInlineSwiperListeners]
-  },
-  templates: {
-    "expanded-tiles": {
-      styles: [
-        {
-          css: shopspotStyle,
-          global: true
-        }
-      ]
-    }
   }
 })
 
 sdk.querySelector(".track")?.style.removeProperty("display")
+
+initializeInlineSwiperListeners()

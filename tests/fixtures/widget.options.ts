@@ -24,7 +24,7 @@ const widgetOptions: SharedWidgetOptions["widgetOptions"] = {
       show_tags: true,
       show_votes: true,
       show_cross_sellers: true,
-      show_add_to_cart: true
+      show_add_to_cart: false
     },
     tile_options: {
       show_comments: true,
@@ -39,7 +39,9 @@ const widgetOptions: SharedWidgetOptions["widgetOptions"] = {
       show_caption: true,
       show_products: true,
       show_add_to_cart: true,
-      auto_play_video: false
+      auto_play_video: false,
+      show_inline_tiles: false,
+      show_carousel: false
     },
     claim_config: {
       show_claim_button: false,
@@ -54,7 +56,7 @@ const widgetOptions: SharedWidgetOptions["widgetOptions"] = {
     margin: "10",
     name: "NextGen Widget Sample 3.0",
     polling_frequency: "30",
-    shopspot_btn_background: "0198CF",
+    shopspot_btn_background: "000000",
     shopspot_btn_font_color: "ffffff",
     shopspot_icon: "",
     style: "base_carousel_v3",
@@ -82,11 +84,23 @@ const widgetOptions: SharedWidgetOptions["widgetOptions"] = {
     },
     expanded_tile_border_radius: "5",
     plugin_instance_id: "0",
-    rows_per_page: "",
-    shopspot_btn_font_size: "",
+    shopspot_btn_font_size: "12",
     inline_tile_size: "medium",
-    inline_tile_border_radius: "",
-    tile_tag_background: ""
+    inline_tile_border_radius: "5",
+    tile_tag_background: "D6D4D5",
+    map_content_feed_filter_id: "",
+    map_content_feed_filter_name: "",
+    // Unfortunately these are legacy options that were not cased correctly in backend config (circa 2020)
+    displayMode: "",
+    isScrollZoomDisabled: false,
+    providerApiKey: "",
+    providerLayer: "",
+    connectedContentWidgetId: "",
+    defaultBounds: "",
+    rows_per_page: "",
+    text_caption_paragraph_font_size: "",
+    pinColor: "",
+    pinTextColor: ""
   },
   guid: "668ca52ada8fb",
   filter_id: "10695"

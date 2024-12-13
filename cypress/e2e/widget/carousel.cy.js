@@ -10,14 +10,15 @@ describe("Should test the carousel", () => {
   })
 
   it("Should show widget contents", () => {
-    cy.shouldShowWidgetContents(WIDGET_TYPE)
+    cy.widgetSnapshot(WIDGET_TYPE)
   })
 
   it("Should expand tile", () => {
     cy.shouldExpandedTile(WIDGET_TYPE)
+    cy.expandedTileSnapshot(WIDGET_TYPE)
   })
 
   it("Should load share icons", () => {
-    cy.shouldLoadShareMenu()
+    cy.shouldLoadShareMenu(WIDGET_TYPE)
   })
 })

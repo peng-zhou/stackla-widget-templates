@@ -24,28 +24,21 @@
         {{#ifAutoPlayVideo media options.tile_options.auto_play_video }}
           <div></div>
         {{else}}
-          <div class="play-icon"></div>
+          <div class="icon-play"></div>
         {{/ifAutoPlayVideo}}
       {{/ifequals}}
     </div>
     <div class="bottom-section">
-      <ul class="tile-tags">
-        {{#tags_extended}}
-        <li class="tile-tag tag-inline"><a href="{{custom_url}}">{{tag}}</a></li>
-        {{/tags_extended}}
-      </ul>
+      <tile-tags tile-id="{{id}}" variant="dark" mode="swiper" context="carousel-inline"></tile-tags>
       <div class="network-icon icon-{{source}}"></div>
-      <span class="tile-timephrase">{{time_ago}}</span>
     </div>
-
-    <shopspot-icon tile-id={{id}} />
   </div>
-  <div class="tile-image">
+  <div class="tile-image-wrapper">
     {{#ifAutoPlayVideo media options.tile_options.auto_play_video }}
       {{playVideo this "100%" "100%"}}
     {{else}}
-      {{#lazy image_thumbnail_url "120"}}{{/lazy}}
-    {{/ifAutoPlayVideo}}
+      <shopspot-icon tile-id={{id}}></shopspot-icon>
+      {{#lazy image_thumbnail_url }}{{/lazy}}    {{/ifAutoPlayVideo}}
     <div class="swiper-lazy-preloader"></div>
   </div>
 </div>

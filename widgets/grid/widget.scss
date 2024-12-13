@@ -1,32 +1,51 @@
-@use "styles";
+@use "styles" as gridStyles;
+@use "@styles/partials/media-queries";
+@use "@styles/partials/inline-dimens" as dimens;
 
 :host {
   transition: ease all 0.5s;
 }
 
 .grid {
+  display: grid;
   justify-content: center;
+  gap: var(--margin);
+  grid-template-columns: repeat(auto-fit, minmax(var(--tile-size), 1fr));
+  grid-auto-flow: row;
+  margin-bottom: 20px;
 
-  .grid-item {
-    width: var(--tile-size);
+  .ugc-tile {
+    color: white;
+    text-align: center;
+    border-radius: var(--inline-tile-border-radius, dimens.$inline-tile-border-radius);
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+    box-sizing: border-box;
+    object-fit: cover;
+    overflow: hidden;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+  }
 
-    @include styles.breakpoint(tablet) {
-      width: calc(50vw - 10px);
-      height: calc(50vw - 10px);
+  @include media-queries.breakpoint(mobile) {
+    grid-template-columns: repeat(auto-fit, minmax(min-content, 100%));
+
+    .ugc-tile {
+      height: auto;
     }
 
-    @include styles.breakpoint(mobile) {
-      width: 100vw;
-      height: 100vw;
+    .tile {
+      aspect-ratio: 1 / 1;
     }
   }
 }
 
 #nosto-ugc-container {
-  .ugc-tile {
-    box-sizing: border-box;
-    overflow: hidden;
-  }
+  background-color: var(--widget-background);
+  padding: var(--margin);
 
   .tile {
     background-size: cover;
@@ -35,28 +54,11 @@
     width: 100%;
     position: relative;
 
-    .play-icon {
+    .icon-play {
       top: 43%;
       left: 0;
       right: 0;
       margin: auto;
     }
   }
-}
-
-#load-more-loader {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100px;
-  margin-top: 25px;
-
-  .loading {
-    height: 50px !important;
-    width: 50px !important;
-  }
-}
-
-.hidden {
-  display: none !important;
 }

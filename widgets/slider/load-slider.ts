@@ -1,16 +1,21 @@
-import { SdkSwiper } from "types"
-import { getTileSizeByWidget } from "@stackla/widget-utils"
+import { Sdk } from "types"
+import { Features } from "@stackla/widget-utils"
+import { getRenderMode } from "./utils"
+import { markColumnsForIndent } from "./slider-design"
+import navigator from "./navigator"
 
-declare const sdk: SdkSwiper
+declare const sdk: Sdk
 
-export default function () {
-  const sliderScrollUpButton = sdk.querySelector("#scroll-up")
-  const sliderScrollDownButton = sdk.querySelector("#scroll-down")
+export function loadSlider(settings: Features["tileSizeSettings"]) {
   const tileBlockElement = sdk.querySelector(".ugc-tile-wrapper")
-  const tilesContainer = sdk.querySelector(".ugc-tiles")
-  let scrollIndex = 0
+  const sliderInline = sdk.querySelector(".slider-inline")
+  const loadingElement = sliderInline.querySelector(".slider-loading.loading")
 
-  const tileSizeConfig = getTileSizeByWidget()
+  const tilesContainer = sliderInline.querySelector<HTMLElement>(".ugc-tiles")
+
+  if (!sliderInline) {
+    throw new Error("Slider inline container not found")
+  }
 
   if (!tileBlockElement) {
     throw new Error("Slider Tiles Scroll Container not found")
@@ -20,34 +25,22 @@ export default function () {
     throw new Error("Slider Tiles Scroll Container not found")
   }
 
-  if (!sliderScrollUpButton) {
-    throw new Error("Slider Tiles Scroll Up Button not found")
-  }
+  const style = sdk.getStyleConfig()
+  const { inline_tile_size } = style
 
-  if (!sliderScrollDownButton) {
-    throw new Error("Slider Tiles Scroll Down Button not found")
-  }
+  tilesContainer.setAttribute("variation", inline_tile_size)
 
-  const tileSizeUnitless = Number(tileSizeConfig["--tile-size-unitless"])
-  const blockHeight = isNaN(tileSizeUnitless) ? 220 : tileSizeUnitless
+  navigator(settings, sliderInline, tilesContainer)
 
-  sliderScrollUpButton.addEventListener("click", () => {
-    if (tilesContainer.scrollTop > 0 && scrollIndex > 0) {
-      scrollIndex--
-      tilesContainer.scrollTo({
-        top: blockHeight * scrollIndex,
-        left: 0,
-        behavior: "smooth"
-      })
-    }
-  })
-
-  sliderScrollDownButton.addEventListener("click", () => {
-    scrollIndex++
-    tilesContainer.scrollTo({
-      top: blockHeight * scrollIndex,
-      left: 0,
-      behavior: "smooth"
+  const observerForGridAlignment = new ResizeObserver(() =>
+    requestAnimationFrame(() => {
+      if (getRenderMode(sliderInline) === "desktop") {
+        markColumnsForIndent(settings)
+      }
     })
-  })
+  )
+  observerForGridAlignment.observe(tilesContainer)
+
+  markColumnsForIndent(settings)
+  loadingElement?.classList.add("hidden")
 }
