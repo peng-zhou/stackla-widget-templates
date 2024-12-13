@@ -54,7 +54,7 @@ module.exports = {
     "!**/types/**",
     "!**/interfaces/**"
   ],
-  testPathIgnorePatterns: ["/node_modules/", "/dist/", "/.serverless/", "/packages/"],
+  testPathIgnorePatterns: ["/node_modules/", "/public/", "/.serverless/", "/packages/"],
   coverageDirectory: "<rootDir>/coverage",
   coverageReporters: ["json", "lcov", "text", "clover", "html"],
   transform: {

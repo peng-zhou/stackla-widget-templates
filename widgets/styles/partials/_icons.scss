@@ -1,0 +1,352 @@
+.widget-icon {
+  display: block;
+}
+
+.close {
+  width: 24px;
+  height: 24px;
+  background-image: url("assets/svg/close-black.svg");
+}
+
+.close-white {
+  width: 26px;
+  height: 26px;
+  background-image: url("assets/svg/close-white.svg");
+}
+
+.chevron-left {
+  width: 40px;
+  height: 40px;
+  background-image: url("assets/svg/chevron-left.svg");
+}
+
+.chevron-left-inline {
+  width: 36px;
+  height: 36px;
+  background-image: url("assets/svg/chevron-left-inline.svg");
+}
+
+.chevron-right {
+  width: 40px;
+  height: 40px;
+  background-image: url("assets/svg/chevron-right.svg");
+}
+
+.chevron-right-inline {
+  width: 36px;
+  height: 36px;
+  background-image: url("assets/svg/chevron-right-inline.svg");
+}
+
+.icon-share {
+  width: 20px;
+  height: 20px;
+  background-size: contain;
+  background-image: url("assets/svg/share-white.svg");
+  &.light {
+    background: url("assets/svg/share-black.svg");
+    height: 13px;
+    width: 13px;
+    background-repeat: no-repeat;
+  }
+}
+
+.icon-instagram-share {
+  width: 34px;
+  height: 34px;
+  background-size: contain;
+  background-image: url("assets/svg/instagram-share.svg");
+}
+
+.icon-x-share {
+  align-items: center;
+  background-color: #000;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  height: 34px;
+  position: relative;
+  width: 34px;
+}
+
+.icon-x-share::after {
+  content: "";
+  position: absolute;
+  width: 19px;
+  height: 19px;
+  background-size: contain;
+  background-image: url("assets/svg/x-share.svg");
+}
+
+.icon-linkedin-share {
+  width: 34px;
+  height: 34px;
+  background-size: contain;
+  background-image: url("assets/svg/linkedin-share.svg");
+}
+
+.icon-facebook-share {
+  width: 34px;
+  height: 34px;
+  background-size: contain;
+  background-image: url("assets/svg/facebook-share.svg");
+}
+
+.icon-pinterest-share {
+  width: 34px;
+  height: 34px;
+  background-size: contain;
+  background-image: url("assets/svg/pinterest-share.svg");
+}
+
+.icon-email-share {
+  width: 37px;
+  height: 30px;
+  background-size: contain;
+  background-image: url("assets/svg/email-share.svg");
+}
+
+.chevron-up {
+  width: 24px;
+  height: 24px;
+  background-size: contain;
+  background-image: url("assets/svg/chevron-up.svg");
+}
+
+.chevron-down {
+  width: 24px;
+  height: 24px;
+  background-size: contain;
+  background-image: url("assets/svg/chevron-down.svg");
+}
+
+.back-arrow {
+  width: 24px;
+  height: 24px;
+  background-size: contain;
+  background-image: url("assets/svg/back-arrow.svg");
+}
+
+.icon-vimeo {
+  width: 16px;
+  height: 16px;
+  background-size: contain;
+  background-image: url("assets/svg/vimeo.svg");
+
+  &.small {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+.icon-instagram {
+  width: 16px;
+  height: 16px;
+  background-size: contain;
+  background-image: url("assets/svg/instagram.svg");
+  &.small {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+.icon-twitter {
+  display: flex;
+  width: 18px;
+  height: 18px;
+  background-size: contain;
+  background-image: url("assets/svg/twitter.svg");
+}
+
+.icon-linkedin {
+  width: 18px;
+  height: 18px;
+  background-size: contain;
+  background-image: url("assets/svg/linkedin.svg");
+}
+
+.icon-tiktok {
+  width: 18px;
+  height: 18px;
+  background-size: contain;
+  background-image: url("assets/svg/tiktok.svg");
+}
+
+.icon-facebook {
+  width: 16px;
+  height: 16px;
+  background-size: contain;
+  background-image: url("assets/svg/facebook.svg");
+}
+
+.icon-reel {
+  width: 12px;
+  height: 12px;
+  background-size: contain;
+  background-image: url("assets/svg/reel.svg");
+}
+
+.icon-products {
+  width: 12px;
+  height: 12px;
+  background-size: contain;
+  background-image: url("assets/svg/products.svg");
+}
+
+.icon-products-bg {
+  width: 24px;
+  height: 24px;
+  background-size: contain;
+  background-image: url("assets/svg/products-bg.svg");
+}
+
+.icon-youtube {
+  width: 22px;
+  height: 16px;
+  background-size: contain;
+  background-image: url("assets/svg/youtube.svg");
+}
+
+.icon-youtube-short {
+  width: 16px;
+  height: 16px;
+  background-size: contain;
+  background-image: url("assets/svg/youtube-short.svg");
+}
+
+.icon-flickr {
+  width: 16px;
+  height: 16px;
+  background-size: contain;
+  background-image: url("assets/svg/flickr.svg");
+}
+
+.icon-weibo {
+  width: 16px;
+  height: 16px;
+  background-size: contain;
+  background-image: url("assets/svg/weibo.svg");
+}
+
+.icon-pinterest {
+  width: 18px;
+  height: 18px;
+  background-size: contain;
+  background-image: url("assets/svg/pinterest.svg");
+}
+
+.icon-rss {
+  width: 16px;
+  height: 16px;
+  background-size: contain;
+  background-image: url("assets/svg/rss.svg");
+}
+
+.icon-tumblr {
+  width: 16px;
+  height: 16px;
+  background-size: contain;
+  background-image: url("assets/svg/tumblr.svg");
+}
+
+.icon-stackla,
+.icon-sta_feed {
+  width: 18px;
+  height: 18px;
+  background-size: contain;
+  background-image: url("assets/svg/stackla.svg");
+}
+
+.icon-snapchat {
+  width: 16px;
+  height: 16px;
+  background-size: contain;
+  background-image: url("assets/svg/snapchat.svg");
+}
+
+.icon-spotify {
+  width: 16px;
+  height: 16px;
+  background-size: contain;
+  background-image: url("assets/svg/spotify.svg");
+}
+
+.icon-hootsuite {
+  width: 16px;
+  height: 16px;
+  background-size: contain;
+  background-image: url("assets/svg/hootsuite.svg");
+}
+
+.icon-prev {
+  width: 16px;
+  height: 16px;
+  background-size: contain;
+  background-image: url("assets/svg/prev.svg");
+}
+
+.icon-prev-white {
+  width: 16px;
+  height: 16px;
+  background-size: contain;
+  background-image: url("assets/svg/prev-white.svg");
+}
+
+.icon-prev-circle {
+  width: 40px;
+  height: 40px;
+  background-size: contain;
+  background-image: url("assets/svg/prev-circle.svg");
+}
+
+.icon-next {
+  width: 16px;
+  height: 16px;
+  background-size: contain;
+  background-image: url("assets/svg/next.svg");
+}
+
+.icon-next-white {
+  width: 16px;
+  height: 16px;
+  background-size: contain;
+  background-image: url("assets/svg/next-white.svg");
+}
+
+.icon-next-circle {
+  width: 40px;
+  height: 40px;
+  background-size: contain;
+  background-image: url("assets/svg/next-circle.svg");
+}
+
+.icon-play {
+  width: 2em;
+  height: 2em;
+  background-size: contain;
+  background-image: url("assets/svg/play.svg");
+}
+
+.icon-upload {
+  background-image: url("assets/svg/upload.svg");
+  height: 15px;
+  width: 15px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.icon-picture {
+  background-image: url("assets/svg/picture.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 18px;
+  width: 18px;
+  position: absolute;
+}
+
+.icon-tag {
+  width: 24px;
+  height: 24px;
+  background-size: contain;
+  background-image: url("assets/svg/tag.svg");
+}

@@ -1,6 +1,5 @@
 node_modules
 .idea
-dist
 .esbuild
 cypress/videos
 cypress/screenshots
@@ -12,3 +11,12 @@ server
 .vscode/settings.json
 .DS_Store
 cypress/snapshots/diff
+public/carousel
+public/grid
+public/masonry
+public/quadrant
+public/nightfall
+public/slider
+public/story-line
+public/storypage
+public/waterfall

@@ -52,7 +52,7 @@ const config = {
     hooks: process.env.APP_ENV == 'testing' ? [] : defaultHooks
   },
   package: {
-    include: ["views/**/*", "dist/**/*", "build/**/*"],
+    include: ["views/**/*", "public/**/*", "build/**/*"],
     exclude: ["node_modules/**/*"]
   },
   functions: {
