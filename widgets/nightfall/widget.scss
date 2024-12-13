@@ -124,11 +124,11 @@
       .swiper-tags {
         max-width: 100%;
       }
+
       a {
         color: #000;
         text-decoration: none;
       }
-    }
 
       .swiper-tags-button-next {
         right: 0;
@@ -149,11 +149,6 @@
     padding: 0 4px;
     line-height: 16px;
     text-wrap: nowrap;
-
-    a {
-      color: var(--text-tile-tag-font-color);
-      text-decoration: none;
-    }
   }
 
   .tag-inline:last-child {
@@ -225,7 +220,7 @@
   .caption {
     display: var(--show-caption-webkit);
     font-size: var(--text-tile-font-size);
-    color: #000000;
+    color: #000;
     -ms-overflow-style: none;
     -webkit-box-orient: vertical;
     overflow: hidden;
@@ -251,7 +246,7 @@
   }
 
   .user-name {
-    color: #ffffff;
+    color: #fff;
     font-size: var(--text-tile-user-name-font-size);
     font-weight: 600;
   }
@@ -301,16 +296,16 @@
     }
   }
 
+  .network-icon {
+    margin: 0 8px 8px auto;
+  }
+
   .bottom-section {
     bottom: 3px;
 
     .network-icon {
       display: none;
     }
-  }
-
-  .network-icon {
-    margin: 0 8px 8px auto;
   }
 
   .shopping-icon {

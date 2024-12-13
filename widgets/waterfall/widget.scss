@@ -220,7 +220,7 @@
   .caption {
     display: var(--show-caption-webkit);
     font-size: var(--text-tile-font-size);
-    color: #000000;
+    color: #000;
     -ms-overflow-style: none;
     -webkit-box-orient: vertical;
     overflow: hidden;
@@ -237,7 +237,7 @@
   }
 
   .caption-paragraph {
-    color: #000000;
+    color: #000;
     font-size: var(--text-tile-font-size);
   }
 
@@ -246,7 +246,7 @@
   }
 
   .user-name {
-    color: #000000;
+    color: #000;
     font-size: var(--text-tile-user-name-font-size);
     font-weight: 600;
   }
