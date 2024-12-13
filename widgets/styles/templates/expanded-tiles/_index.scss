@@ -222,10 +222,6 @@ expanded-tiles:not(:empty) {
             height: 100%;
             max-width: dimens.$panel-right-width-lg;
 
-            a {
-              color: var(--text-tile-tag-font-color);
-            }
-
             .tile-tags {
               display: flex;
               margin: 0 16.4px 8.4px 0;
