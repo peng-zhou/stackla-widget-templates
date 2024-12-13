@@ -5,6 +5,7 @@
 %tags-styles-ph {
   --swiper-navigation-sides-offset: 0;
   --swiper-navigation-top-offset: 3px;
+
   display: var(--tags-display-inline);
 
 
@@ -72,7 +73,7 @@
     max-width: fit-content;
 
     a {
-      color: #000000;
+      color: #000;
       text-decoration: none;
 
       .tag-title {
