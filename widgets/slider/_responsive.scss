@@ -5,6 +5,10 @@
     @include media-queries.breakpoint(mobile) {
       --render-mode: mobile;
 
+      .partially-visible {
+        opacity: 1;
+      }
+
       .container {
         width: 100vw;
 
@@ -65,12 +69,20 @@
               }
             }
           }
+
+          .ugc-tile[grid-column-indent] {
+            top: unset;
+          }
         }
       }
     }
 
     @include media-queries.breakpoint(tablet) {
       --render-mode: tablet;
+
+      .partially-visible {
+        opacity: 1;
+      }
 
       .container {
         width: calc(100vw - 10px);
@@ -83,6 +95,7 @@
         .ugc-tiles {
           grid-template-columns: repeat(auto-fill, 50%);
           grid-auto-columns: auto;
+          height: 100vh;
 
           .ugc-tile {
             .image-section,
@@ -114,6 +127,10 @@
                 height: var(--tile-size);
               }
             }
+          }
+
+          .ugc-tile[grid-column-indent] {
+            top: unset;
           }
         }
       }

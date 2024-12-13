@@ -1,8 +1,9 @@
 import { Sdk } from "types"
 import { Features } from "@stackla/widget-utils"
-import { getRenderMode } from "./utils"
 import { markColumnsForIndent } from "./slider-design"
 import navigator from "./navigator"
+import { getTileSizeUnitless } from "./utils"
+import { initObservers } from "./observers"
 
 declare const sdk: Sdk
 
@@ -30,17 +31,24 @@ export function loadSlider(settings: Features["tileSizeSettings"]) {
 
   tilesContainer.setAttribute("variation", inline_tile_size)
 
-  navigator(settings, sliderInline, tilesContainer)
+  window.CSS.registerProperty({
+    name: "--tile-size-prop",
+    syntax: "<length>",
+    inherits: false,
+    initialValue: `${getTileSizeUnitless(settings)}px`
+  })
 
-  const observerForGridAlignment = new ResizeObserver(() =>
-    requestAnimationFrame(() => {
-      if (getRenderMode(sliderInline) === "desktop") {
-        markColumnsForIndent(settings)
-      }
-    })
-  )
-  observerForGridAlignment.observe(tilesContainer)
+  const observers = initObservers(settings)
+
+  navigator(settings)
 
   markColumnsForIndent(settings)
   loadingElement?.classList.add("hidden")
+
+  function tilesUpdatedEventHandler() {
+    markColumnsForIndent(settings)
+    observers.configTileIntersectionTargets()
+  }
+
+  return { tilesUpdatedEventHandler }
 }
