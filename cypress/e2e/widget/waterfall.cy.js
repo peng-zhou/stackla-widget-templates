@@ -1,6 +1,6 @@
-const WIDGET_TYPE = "quadrant"
+const WIDGET_TYPE = "waterfall"
 
-describe("Should test the quadrant", () => {
+describe("Should test the waterfall", () => {
   beforeEach(() => {
     cy.on("uncaught:exception", () => {
       return false
