@@ -45,7 +45,6 @@ $space-between: 10px;
 }
 
 .slider-inline {
-  --text-caption-paragraph-font-size: 14px;
   --tile-timephrase-display: flex;
 
   display: flex;
@@ -80,6 +79,16 @@ $space-between: 10px;
         grid-auto-flow: row;
         opacity: 0;
         visibility: hidden;
+
+        &[variation="small"] {
+          --text-caption-paragraph-font-size: 12px;
+          --text-tile-user-name-font-size: 12px;
+        }
+
+        &[variation="medium"],
+        &[variation="large"] {
+          --text-caption-paragraph-font-size: 14px;
+        }
 
         .ugc-tile,
         .ugc-tile-wrapper {

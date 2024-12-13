@@ -85,7 +85,7 @@ const widgetOptions: SharedWidgetOptions["widgetOptions"] = {
     expanded_tile_border_radius: "5",
     plugin_instance_id: "0",
     shopspot_btn_font_size: "12",
-    inline_tile_size: "medium",
+    inline_tile_size: "small",
     inline_tile_border_radius: "5",
     tile_tag_background: "D6D4D5",
     map_content_feed_filter_id: "",
