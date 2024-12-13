@@ -22,6 +22,8 @@ const getTemplatesEndpoint = () => {
       return "https://templates.teaser.stackla.com"
     case "development":
       return "http://localhost:4003"
+    case "testing":
+      return "http://localhost:4002"
     default:
       return "http://localhost:4003"
   }
