@@ -2,13 +2,24 @@ import { Features } from "packages/widget-utils"
 import { getRenderMode, getSliderElement, getTileContainerElement, getTileElements } from "./utils"
 import { markColumnsForIndent } from "./slider-design"
 
-export function tilesIntersectionObserver() {
+export function initObservers(settings: Features["tileSizeSettings"]) {
   const animationClasses = { up: "tile-animate-up", down: "tile-animate-down" }
   const partiallyVisibleClass = "partially-visible"
   const tilesContainerElement = getTileContainerElement()
+  const sliderInlineElement = getSliderElement()
   let previousPosition = tilesContainerElement.scrollTop
 
-  const observer = new IntersectionObserver(
+  const resizeObserver = new ResizeObserver(() =>
+    requestAnimationFrame(() => {
+      if (getRenderMode(sliderInlineElement) === "desktop") {
+        markColumnsForIndent(settings)
+      } else {
+        tilesIntersectionObserver.disconnect()
+      }
+    })
+  )
+
+  const tilesIntersectionObserver = new IntersectionObserver(
     (entries: IntersectionObserverEntry[]) => {
       filterRecentEntries(entries).forEach(entry => {
         if (entry.isIntersecting) {
@@ -26,6 +37,8 @@ export function tilesIntersectionObserver() {
     },
     { root: tilesContainerElement, rootMargin: "0px", threshold: 1 }
   )
+
+  configObserverTargets()
 
   function filterRecentEntries(entries: IntersectionObserverEntry[]) {
     const uniqueEntries = []
@@ -59,39 +72,21 @@ export function tilesIntersectionObserver() {
     }
   }
 
-  function initObserve() {
-    getTileElements().forEach(tile => observer.observe(tile))
+  function configObserverTargets() {
+    configTileIntersectionTargets()
+    resizeObserver.observe(tilesContainerElement)
   }
 
-  function unobserve() {
-    observer.disconnect()
+  function configTileIntersectionTargets() {
+    if (getRenderMode(sliderInlineElement) === "desktop") {
+      getTileElements().forEach(tile => tilesIntersectionObserver.observe(tile))
+    }
   }
 
-  return { initObserve, unobserve, updateObserver: initObserve }
-}
-
-export function gridAlignmentObserver(settings: Features["tileSizeSettings"]) {
-  const sliderInlineElement = getSliderElement()
-  const tilesContainerElement = getTileContainerElement()
-
-  const observer = new ResizeObserver(() =>
-    requestAnimationFrame(() => {
-      if (getRenderMode(sliderInlineElement) === "desktop") {
-        markColumnsForIndent(settings)
-      }
-    })
-  )
-
-  function initObserve() {
-    observer.observe(tilesContainerElement)
+  function disconnect() {
+    tilesIntersectionObserver.disconnect()
+    resizeObserver.disconnect()
   }
 
-  function unobserve() {
-    observer.disconnect()
-  }
-
-  return {
-    initObserve,
-    unobserve
-  }
+  return { configObserverTargets, configTileIntersectionTargets, disconnect }
 }

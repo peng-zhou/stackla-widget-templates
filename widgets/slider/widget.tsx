@@ -1,7 +1,5 @@
 import { loadSlider } from "./load-slider"
 import { loadWidget } from "@stackla/widget-utils"
-import { markColumnsForIndent } from "./slider-design"
-import { gridAlignmentObserver, tilesIntersectionObserver } from "./observers"
 
 // dimensions from Figma design
 const tileSizeSettings = {
@@ -10,10 +8,7 @@ const tileSizeSettings = {
   large: "435px"
 }
 
-const observers = {
-  alignmentObserver: gridAlignmentObserver(tileSizeSettings),
-  tilesIntersectionObserver: tilesIntersectionObserver()
-}
+let sliderCallbacks: ReturnType<typeof loadSlider>
 
 loadWidget({
   features: {
@@ -23,15 +18,11 @@ loadWidget({
   },
   callbacks: {
     onLoad: [
-      () => {
-        setTimeout(() => loadSlider(tileSizeSettings, observers), 500)
-      }
+      () =>
+        void setTimeout(() => {
+          sliderCallbacks = loadSlider(tileSizeSettings)
+        }, 500)
     ],
-    onTilesUpdated: [
-      () => {
-        markColumnsForIndent(tileSizeSettings)
-        observers.tilesIntersectionObserver.updateObserver()
-      }
-    ]
+    onTilesUpdated: [() => sliderCallbacks?.tilesUpdatedEventHandler()]
   }
 })

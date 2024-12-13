@@ -7,7 +7,6 @@ import {
   getTopElementHeight,
   gridGap
 } from "./utils"
-import { tilesIntersectionObserver } from "./observers"
 
 type SwiperDirection = "none" | "left" | "right" | "up" | "down"
 
@@ -45,8 +44,6 @@ export default function (settings: Features["tileSizeSettings"]) {
   screenResizeObserver.observe(tilesContainerElement)
 
   controlNavigationButtonVisibility()
-
-  tilesIntersectionObserver().initObserve()
 
   function scroller(el: HTMLElement) {
     const sliderScrollUpButton = el.querySelector<HTMLElement>("#scroll-up")

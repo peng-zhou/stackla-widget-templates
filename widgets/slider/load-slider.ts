@@ -2,17 +2,12 @@ import { Sdk } from "types"
 import { Features } from "@stackla/widget-utils"
 import { markColumnsForIndent } from "./slider-design"
 import navigator from "./navigator"
-import { gridAlignmentObserver, tilesIntersectionObserver } from "./observers"
 import { getTileSizeUnitless } from "./utils"
+import { initObservers } from "./observers"
 
 declare const sdk: Sdk
 
-type Observers = {
-  tilesIntersectionObserver: ReturnType<typeof tilesIntersectionObserver>
-  alignmentObserver: ReturnType<typeof gridAlignmentObserver>
-}
-
-export function loadSlider(settings: Features["tileSizeSettings"], observers: Observers) {
+export function loadSlider(settings: Features["tileSizeSettings"]) {
   const tileBlockElement = sdk.querySelector(".ugc-tile-wrapper")
   const sliderInline = sdk.querySelector(".slider-inline")
   const loadingElement = sliderInline.querySelector(".slider-loading.loading")
@@ -43,10 +38,17 @@ export function loadSlider(settings: Features["tileSizeSettings"], observers: Ob
     initialValue: `${getTileSizeUnitless(settings)}px`
   })
 
-  navigator(settings)
+  const observers = initObservers(settings)
 
-  observers.alignmentObserver.initObserve()
+  navigator(settings)
 
   markColumnsForIndent(settings)
   loadingElement?.classList.add("hidden")
+
+  function tilesUpdatedEventHandler() {
+    markColumnsForIndent(settings)
+    observers.configTileIntersectionTargets()
+  }
+
+  return { tilesUpdatedEventHandler }
 }

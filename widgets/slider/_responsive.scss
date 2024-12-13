@@ -69,6 +69,10 @@
               }
             }
           }
+
+          .ugc-tile[grid-column-indent] {
+            top: unset;
+          }
         }
       }
     }
@@ -91,6 +95,7 @@
         .ugc-tiles {
           grid-template-columns: repeat(auto-fill, 50%);
           grid-auto-columns: auto;
+          height: 100vh;
 
           .ugc-tile {
             .image-section,
@@ -122,6 +127,10 @@
                 height: var(--tile-size);
               }
             }
+          }
+
+          .ugc-tile[grid-column-indent] {
+            top: unset;
           }
         }
       }
