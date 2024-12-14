@@ -31,6 +31,8 @@ export function loadSlider(settings: Features["tileSizeSettings"]) {
 
   tilesContainer.setAttribute("variation", inline_tile_size)
 
+  sliderInline.parentElement?.style.setProperty("--container-width", calculateContainerWidth())
+
   window.CSS.registerProperty({
     name: "--tile-size-prop",
     syntax: "<length>",
@@ -38,12 +40,22 @@ export function loadSlider(settings: Features["tileSizeSettings"]) {
     initialValue: `${getTileSizeUnitless(settings)}px`
   })
 
-  const observers = initObservers(settings)
+  const observers = initObservers({ settings, resizeCb: () => calculateContainerWidth() })
 
   navigator(settings)
 
   markColumnsForIndent(settings)
   loadingElement?.classList.add("hidden")
+
+  function calculateContainerWidth() {
+    const renderedTileSize = getTileSizeUnitless(settings) * 2 + 20
+    const availableWidth = (window.screen.width * 95) / 100
+    const widthAdjusted = availableWidth - (availableWidth % renderedTileSize)
+    const possibleColumns = Math.round(availableWidth / renderedTileSize)
+    const veriticalColumnsAdjustment = 10 * Math.round(possibleColumns / 3)
+
+    return `${widthAdjusted - veriticalColumnsAdjustment}px`
+  }
 
   function tilesUpdatedEventHandler() {
     markColumnsForIndent(settings)
