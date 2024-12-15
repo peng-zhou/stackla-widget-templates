@@ -29,7 +29,7 @@
     "ignorePatterns": [
       "packages/widget-utils/",
       "node_modules/", 
-      "public/", 
+      "dist/", 
       "*.d.ts",
       "jest.config.js",
       "cypress.config.js",

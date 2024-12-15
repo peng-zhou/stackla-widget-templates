@@ -53,7 +53,7 @@ expressApp.use((_req, res, next) => {
   res.set("Cache-Control", "public, max-age=300")
   next()
 })
-expressApp.use(express.static("public", { redirect: false }))
+expressApp.use(express.static("dist", { redirect: false }))
 expressApp.engine("hbs", Handlebars.__express)
 expressApp.set("view engine", "hbs")
 expressApp.use(cors())
@@ -96,7 +96,7 @@ export async function getContent(widgetType: string, retry = 0): Promise<Preview
     throw new Error(`Failed to get content, exiting after 10 retries, widgetType: ${widgetType}`)
   }
 
-  const rootDir = path.resolve(__dirname, `../../../../../public/${widgetType}`)
+  const rootDir = path.resolve(__dirname, `../../../../../dist/${widgetType}`)
 
   const layout = `${rootDir}/layout.hbs`
   const tile = `${rootDir}/tile.hbs`
@@ -279,7 +279,7 @@ expressApp.get("/autoload", (req, res) => {
 
   const resourceWithoutSymbols = stripSymbols(resource)
   const widgetTypeWithoutSymbols = stripSymbols(widget)
-  const widgetSrc = `public/${widgetTypeWithoutSymbols}/widget.${resourceWithoutSymbols}`
+  const widgetSrc = `dist/${widgetTypeWithoutSymbols}/widget.${resourceWithoutSymbols}`
   const code = readFileSync(widgetSrc, "utf8")
 
   if (resourceWithoutSymbols === "css") {

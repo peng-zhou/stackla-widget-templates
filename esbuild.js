@@ -57,9 +57,9 @@ async function buildAll() {
     setup(build) {
       // Cleanup dist before build
       build.onStart(() => {
-        fs.readdirSync("./public").forEach(file => {
+        fs.readdirSync("./dist").forEach(file => {
           if (file !== "assets") {
-            fs.rmSync(`./public/${file}`, { recursive: true, force: true })
+            fs.rmSync(`./dist/${file}`, { recursive: true, force: true })
           }
         });
       })
@@ -95,7 +95,7 @@ async function buildAll() {
           const postCssCombined = postCssResult.css;
 
 
-          fs.writeFileSync(`public/${item.parent.name}/widget.css`, postCssCombined)
+          fs.writeFileSync(`dist/${item.parent.name}/widget.css`, postCssCombined)
         })
       })
     }
@@ -138,7 +138,7 @@ async function buildAll() {
   const config = {
     entryPoints: [...globSync("./widgets/**/widget.tsx")],
     bundle: true,
-    outdir: "public",
+    outdir: "dist",
     loader: {
       ".hbs": "text",
       ".css": "text"
@@ -174,7 +174,7 @@ async function buildAll() {
         assets: [
           {
             from: ["./widgets/**/*.hbs"],
-            to: ["./public"]
+            to: ["./dist"]
           }
         ]
       })

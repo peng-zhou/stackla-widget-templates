@@ -29,7 +29,7 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [
         { from: "views", to: "views" },
-        { from: "public", to: "public" }
+        { from: "dist", to: "dist" }
       ]
     })
   ],
