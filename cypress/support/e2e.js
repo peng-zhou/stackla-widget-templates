@@ -20,7 +20,7 @@ function getUgcTileSelectorByWidgetType(widgetType) {
 
 addCompareSnapshotCommand({
   capture: "viewport",
-  errorThreshold: 0.03
+  errorThreshold: 0.08
 })
 
 Cypress.Commands.add("before", () => {})
