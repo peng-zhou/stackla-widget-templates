@@ -18,11 +18,11 @@
   height: fit-content;
 
   .mask-left {
-    mask-image: linear-gradient(to right, transparent 10%, black 50%)
+    mask-image: linear-gradient(to right, transparent 10%, black 25%)
   }
 
   .mask-right {
-    mask-image: linear-gradient(to left, transparent 10%, black 50%)
+    mask-image: linear-gradient(to left, transparent 10%, black 25%)
   }
 
   .mask-both {

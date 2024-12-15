@@ -1,4 +1,6 @@
-import { Features, getTileSizeByWidget } from "@stackla/widget-utils"
+import { Features, getTileSizeByWidget, Sdk } from "@stackla/widget-utils"
+
+declare const sdk: Sdk
 
 /**
  * gets the configured tile size
@@ -26,4 +28,16 @@ export function getTopElementHeight(containerElement: HTMLElement, defaultValue:
 
 export function getRenderMode(element: HTMLElement) {
   return getComputedStyle(element).getPropertyValue("--render-mode")
+}
+
+export function getSliderElement() {
+  return sdk.querySelector(".slider-inline")
+}
+
+export function getTileContainerElement() {
+  return sdk.querySelector(".slider-inline .ugc-tiles")
+}
+
+export function getTileElements() {
+  return sdk.querySelectorAll(".slider-inline .ugc-tiles > .ugc-tile")
 }

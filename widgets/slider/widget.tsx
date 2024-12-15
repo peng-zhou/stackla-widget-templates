@@ -1,6 +1,5 @@
 import { loadSlider } from "./load-slider"
 import { loadWidget } from "@stackla/widget-utils"
-import { markColumnsForIndent } from "./slider-design"
 
 // dimensions from Figma design
 const tileSizeSettings = {
@@ -8,6 +7,8 @@ const tileSizeSettings = {
   medium: "225px",
   large: "435px"
 }
+
+let sliderCallbacks: ReturnType<typeof loadSlider>
 
 loadWidget({
   features: {
@@ -17,10 +18,11 @@ loadWidget({
   },
   callbacks: {
     onLoad: [
-      () => {
-        setTimeout(() => loadSlider(tileSizeSettings), 500)
-      }
+      () =>
+        void setTimeout(() => {
+          sliderCallbacks = loadSlider(tileSizeSettings)
+        }, 500)
     ],
-    onTilesUpdated: [() => markColumnsForIndent(tileSizeSettings)]
+    onTilesUpdated: [() => sliderCallbacks?.tilesUpdatedEventHandler()]
   }
 })
