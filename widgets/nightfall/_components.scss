@@ -1,0 +1,49 @@
+#nosto-ugc-container {
+    time-phrase {
+        display: var(--timephrase-display);
+    }
+
+    share-menu {
+        margin-top: 5px;
+        margin-left: 5px;
+        
+        .share-socials-popup-wrapper {
+            position: fixed;
+        }
+
+        .panel-overlay-active {
+            inset: 0;
+        }
+
+        .popup-text {
+            color: white;
+        }
+
+        .share-socials-popup {
+            background-color: black;
+        }
+
+        .icon-email-share {
+            background: url('assets/svg/email-share-yellow.svg') no-repeat;
+            height: 33px;
+        }
+    }
+}
+
+expanded-tiles {
+    --expanded-tiles-background: #000;
+
+    ugc-products {
+        .stacklapopup-products-item-price {
+            --product-price-font-color: #fff;
+        }
+
+        .stacklapopup-products-item-title {
+            --product-title-font-color: #fff;
+        }
+
+        .stacklapopup-products-item-description {
+            --product-description-font-color: #fff;
+        }
+    }
+}

@@ -28,6 +28,12 @@
   $prod-img-wrapper-mw: 100%;
   $breakpoint-md: 992px;
 
+  &{
+    --product-price-font-color: $black;
+    --product-title-font-color: $white;
+    --product-description-font-color: $black;
+  }
+
   display: flex;
   flex-direction: column;
 
@@ -47,7 +53,7 @@
       }
 
       .stacklapopup-products-item-price {
-        color: $black;
+        color: var(--product-price-font-color);
         font-size: 14px;
         font-weight: 400;
         line-height: 12px;
@@ -55,7 +61,7 @@
       }
 
       .stacklapopup-products-item-title {
-        color: $white;
+        color: var(--product-title-font-color);
         font-size: 14px;
         font-weight: 500;
         line-height: 16px;
@@ -205,7 +211,7 @@
       width: 100%;
 
       .stacklapopup-products-item-description {
-        color: $black;
+        color: var(--product-description-font-color);
         font-size: 12px;
         font-weight: 300;
         height: 41px;

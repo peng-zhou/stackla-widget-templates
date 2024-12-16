@@ -55,6 +55,7 @@
     background: url("assets/svg/share-black.svg");
     height: 13px;
     width: 13px;
+    background-repeat: no-repeat;
   }
 }
 
@@ -163,6 +164,10 @@
   background-image: url("assets/svg/instagram.svg");
   background-repeat: no-repeat;
 
+  &.black {
+    background-image: url("assets/svg/instagram-black.svg");
+  }
+
   &.small {
     width: 12px;
     height: 12px;
@@ -176,6 +181,10 @@
   background-size: contain;
   background-image: url("assets/svg/twitter.svg");
   background-repeat: no-repeat;
+
+  &.black {
+    background-image: url("assets/svg/x-black.svg");
+  }
 }
 
 .icon-linkedin {
@@ -184,6 +193,10 @@
   background-size: contain;
   background-image: url("assets/svg/linkedin.svg");
   background-repeat: no-repeat;
+
+  &.black {
+    background-image: url("assets/svg/linkedin-black.svg");
+  }
 }
 
 .icon-tiktok {
@@ -192,6 +205,10 @@
   background-size: contain;
   background-image: url("assets/svg/tiktok.svg");
   background-repeat: no-repeat;
+
+  &.black {
+    background-image: url("assets/svg/tiktok-black.svg");
+  }
 }
 
 .icon-facebook {
@@ -200,6 +217,10 @@
   background-size: contain;
   background-image: url("assets/svg/facebook.svg");
   background-repeat: no-repeat;
+
+  &.black {
+    background-image: url("assets/svg/facebook-black.svg");
+  }
 }
 
 .icon-reel {
@@ -232,6 +253,10 @@
   background-size: contain;
   background-image: url("assets/svg/youtube.svg");
   background-repeat: no-repeat;
+
+  &.black {
+    background-image: url("assets/svg/youtube-black.svg");
+  }
 }
 
 .icon-youtube-short {
@@ -248,6 +273,10 @@
   background-size: contain;
   background-image: url("assets/svg/flickr.svg");
   background-repeat: no-repeat;
+
+  &.black {
+    background-image: url("assets/svg/flickr-black.svg");
+  }
 }
 
 .icon-weibo {
@@ -256,6 +285,10 @@
   background-size: contain;
   background-image: url("assets/svg/weibo.svg");
   background-repeat: no-repeat;
+
+  &.black {
+    background-image: url("assets/svg/weibo-black.svg");
+  }
 }
 
 .icon-pinterest {
@@ -264,6 +297,10 @@
   background-size: contain;
   background-image: url("assets/svg/pinterest.svg");
   background-repeat: no-repeat;
+
+  &.black {
+    background-image: url("assets/svg/pinterest-black.svg");
+  }
 }
 
 .icon-rss {
@@ -272,6 +309,10 @@
   background-size: contain;
   background-image: url("assets/svg/rss.svg");
   background-repeat: no-repeat;
+
+  &.black {
+    background-image: url("assets/svg/rss-black.svg");
+  }
 }
 
 .icon-tumblr {
