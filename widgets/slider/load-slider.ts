@@ -2,7 +2,7 @@ import { Sdk } from "types"
 import { Features } from "@stackla/widget-utils"
 import { markColumnsForIndent } from "./slider-design"
 import navigator from "./navigator"
-import { getTileSizeUnitless } from "./utils"
+import { getTileSizeUnitless, inlineTileGap, inlineTileSize } from "./utils"
 import { initObservers } from "./observers"
 
 declare const sdk: Sdk
@@ -26,10 +26,7 @@ export function loadSlider(settings: Features["tileSizeSettings"]) {
     throw new Error("Slider Tiles Scroll Container not found")
   }
 
-  const style = sdk.getStyleConfig()
-  const { inline_tile_size, inline_tile_margin } = style
-
-  tilesContainer.setAttribute("variation", inline_tile_size)
+  tilesContainer.setAttribute("variation", inlineTileSize())
 
   sliderInline.parentElement?.style.setProperty("--container-width", calculateContainerWidth())
 
@@ -46,11 +43,6 @@ export function loadSlider(settings: Features["tileSizeSettings"]) {
 
   markColumnsForIndent(settings)
   loadingElement?.classList.add("hidden")
-
-  function inlineTileGap() {
-    const value = Number(inline_tile_margin)
-    return isNaN(value) ? 10 : value
-  }
 
   function calculateContainerWidth() {
     const tileGap = inlineTileGap()

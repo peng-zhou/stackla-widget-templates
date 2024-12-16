@@ -7,7 +7,7 @@
 
 @keyframes slide-up {
   from {
-    transform: translateY(var(--tile-size-prop));
+    transform: translateY(100%);
   }
 
   to {
@@ -17,7 +17,7 @@
 
 @keyframes slide-down {
   from {
-    transform: translateY(calc(-1 * var(--tile-size-prop)));
+    transform: translateY(-100%);
   }
 
   to {
@@ -27,11 +27,11 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .tile-animate-up {
-    animation: slide-up 200ms ease-in;
+    animation: slide-up 500ms linear forwards;
   }
 
   .tile-animate-down {
-    animation: slide-down 200ms ease-in;
+    animation: slide-down 500ms linear forwards;
   }
 }
 

@@ -1652,7 +1652,7 @@ expanded-tiles:not(:empty) tile-tags[variant=dark] .swiper-tags .swiper-slide a 
 
 @keyframes slide-up {
   from {
-    transform: translateY(var(--tile-size-prop));
+    transform: translateY(100%);
   }
   to {
     transform: translateY(0);
@@ -1660,7 +1660,7 @@ expanded-tiles:not(:empty) tile-tags[variant=dark] .swiper-tags .swiper-slide a 
 }
 @keyframes slide-down {
   from {
-    transform: translateY(calc(-1 * var(--tile-size-prop)));
+    transform: translateY(-100%);
   }
   to {
     transform: translateY(0);
@@ -1668,10 +1668,10 @@ expanded-tiles:not(:empty) tile-tags[variant=dark] .swiper-tags .swiper-slide a 
 }
 @media (prefers-reduced-motion: no-preference) {
   .tile-animate-up {
-    animation: slide-up 200ms ease-in;
+    animation: slide-up 500ms linear forwards;
   }
   .tile-animate-down {
-    animation: slide-down 200ms ease-in;
+    animation: slide-down 500ms linear forwards;
   }
 }
 #nosto-ugc-container {
@@ -1979,6 +1979,13 @@ expanded-tiles:not(:empty) tile-tags[variant=dark] .swiper-tags .swiper-slide a 
     height: 100vh;
     grid-row: span 2;
     grid-template-rows: 60% calc(40% - 10px);
+    border-radius: 0;
+  }
+  #nosto-ugc-container .slider-inline.track .container .ugc-tiles .ugc-tile .image-section img,
+  #nosto-ugc-container .slider-inline.track .container .ugc-tiles .ugc-tile:nth-child(2n) .image-section img,
+  #nosto-ugc-container .slider-inline.track .container .ugc-tiles .ugc-tile:nth-child(4n-1) .image-section img,
+  #nosto-ugc-container .slider-inline.track .container .ugc-tiles .ugc-tile:nth-child(4n) .image-section img {
+    border-radius: 0;
   }
   #nosto-ugc-container .slider-inline.track .container .ugc-tiles .ugc-tile .image-section,
   #nosto-ugc-container .slider-inline.track .container .ugc-tiles .ugc-tile .details-section,

@@ -12,16 +12,11 @@ export function initObservers({ settings, resizeCb, intersectionCb }: SliderObse
   const animationClasses = { up: "tile-animate-up", down: "tile-animate-down" }
   const partiallyVisibleClass = "partially-visible"
   const tilesContainerElement = getTileContainerElement()
-  const sliderInlineElement = getSliderElement()
   let previousPosition = tilesContainerElement.scrollTop
 
   const resizeObserver = new ResizeObserver(() =>
     requestAnimationFrame(() => {
-      if (getRenderMode(sliderInlineElement) === "desktop") {
-        markColumnsForIndent(settings)
-      } else {
-        tilesIntersectionObserver.disconnect()
-      }
+      markColumnsForIndent(settings)
       resizeCb?.()
     })
   )
@@ -29,10 +24,11 @@ export function initObservers({ settings, resizeCb, intersectionCb }: SliderObse
   const tilesIntersectionObserver = new IntersectionObserver(
     (entries: IntersectionObserverEntry[]) => {
       filterRecentEntries(entries).forEach(entry => {
+        const htmlElement = entry.target as HTMLElement
+        enableAnimation(htmlElement)
         if (entry.isIntersecting) {
           if (entry.target.classList.contains(partiallyVisibleClass)) {
-            if (entry.intersectionRatio === 1) {
-              enableAnimation(entry.target)
+            if (entry.intersectionRatio > 0.9) {
               entry.target.classList.remove(partiallyVisibleClass)
             }
           }
@@ -43,10 +39,12 @@ export function initObservers({ settings, resizeCb, intersectionCb }: SliderObse
       intersectionCb?.()
       previousPosition = tilesContainerElement.scrollTop
     },
-    { root: tilesContainerElement, rootMargin: "0px", threshold: 1 }
+    { root: tilesContainerElement, rootMargin: "0px", threshold: [0.5, 0.7, 1] }
   )
 
   configObserverTargets()
+
+  getTileElements()[0].classList.add(animationClasses.up)
 
   function filterRecentEntries(entries: IntersectionObserverEntry[]) {
     const uniqueEntries = []
@@ -63,7 +61,7 @@ export function initObservers({ settings, resizeCb, intersectionCb }: SliderObse
     return uniqueEntries
   }
 
-  function enableAnimation(element: Element) {
+  function enableAnimation(element: HTMLElement) {
     if (previousPosition === tilesContainerElement.scrollTop) {
       return
     }
@@ -71,11 +69,9 @@ export function initObservers({ settings, resizeCb, intersectionCb }: SliderObse
     const animationClass =
       previousPosition < tilesContainerElement.scrollTop ? animationClasses.up : animationClasses.down
 
-    const removeClass = animationClass === animationClasses.up ? animationClasses.down : animationClasses.up
+    Object.values(animationClasses).forEach(item => element.classList.remove(item))
 
-    element.classList.remove(removeClass)
-
-    if (!element.classList.contains(animationClass)) {
+    if (getRenderMode(getSliderElement()) !== "mobile" || element.classList.contains(partiallyVisibleClass)) {
       element.classList.add(animationClass)
     }
   }
@@ -86,9 +82,7 @@ export function initObservers({ settings, resizeCb, intersectionCb }: SliderObse
   }
 
   function configTileIntersectionTargets() {
-    if (getRenderMode(sliderInlineElement) === "desktop") {
-      getTileElements().forEach(tile => tilesIntersectionObserver.observe(tile))
-    }
+    getTileElements().forEach(tile => tilesIntersectionObserver.observe(tile))
   }
 
   function disconnect() {
