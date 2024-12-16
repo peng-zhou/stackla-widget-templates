@@ -12,9 +12,23 @@ export function getTileSizeUnitless(settings: Features["tileSizeSettings"]) {
   return Number(tileSizeConfig["--tile-size-unitless"])
 }
 
-export function gridGap(containerElement: HTMLElement) {
-  const parsed = parseInt(getComputedStyle(containerElement).gap)
-  return isNaN(parsed) ? 0 : parsed
+/**
+ * Fetch the inline tile grid gap from configuration
+ * @returns the gap value for slider inline tile grid
+ */
+export function inlineTileGap() {
+  const { inline_tile_margin } = sdk.getStyleConfig()
+  const value = Number(inline_tile_margin)
+  return isNaN(value) ? 10 : value
+}
+
+/**
+ * Fetch the inline tile grid gap from configuration
+ * @returns the gap value for slider inline tile grid
+ */
+export function inlineTileSize() {
+  const { inline_tile_size } = sdk.getStyleConfig()
+  return inline_tile_size
 }
 
 export function getTopElementHeight(containerElement: HTMLElement, defaultValue: number) {

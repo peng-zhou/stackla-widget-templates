@@ -1,10 +1,6 @@
 @use "../partials/inline-dimens" as dimens;
 
 %loading {
-  .hidden {
-    display: none;
-  }
-
   border-radius: 50% !important;
   animation: spin 2s linear infinite;
   position: absolute;
@@ -16,6 +12,10 @@
   height: dimens.$loading-width !important;
   top: calc(50% - dimens.$loading-width);
   left: calc(50% - dimens.$loading-width);
+
+  .hidden {
+    display: none;
+  }
 }
 
 .tile > .tile-loading,

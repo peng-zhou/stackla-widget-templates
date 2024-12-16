@@ -35,6 +35,11 @@
             height: 100vh;
             grid-row: span 2;
             grid-template-rows: 60% calc(40% - 10px);
+            border-radius: 0;
+
+            .image-section img {
+              border-radius: 0;
+            }
 
             .image-section,
             .details-section {
