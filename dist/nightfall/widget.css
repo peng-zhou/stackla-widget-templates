@@ -1860,7 +1860,7 @@ expanded-tiles ugc-products .recommendations-text {
   max-height: 80px;
 }
 #nosto-ugc-container .caption-paragraph {
-  color: #FFF;
+  color: #fff;
   font-size: var(--text-tile-font-size);
 }
 #nosto-ugc-container .user-name {
@@ -1940,6 +1940,7 @@ expanded-tiles ugc-products .recommendations-text {
 }
 #nosto-ugc-container .tile-image-wrapper img {
   width: 100%;
+  border-radius: var(--inline-tile-border-radius) var(--inline-tile-border-radius) 0 0;
 }
 #nosto-ugc-container .tile-content-wrapper {
   gap: 0 !important;
