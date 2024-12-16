@@ -2,7 +2,9 @@
 <div class="image-section">
     <div class="center-section">
         {{#ifequals media "video"}}
-        <div class="icon-play"></div>
+          {{#unless options.tile_options.auto_play_video }}
+            <div class="icon-play"></div>
+          {{/unless}}
         {{/ifequals}}
     </div>
     {{#if options.tile_options.show_shopspots}}
