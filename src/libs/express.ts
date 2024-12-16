@@ -171,13 +171,18 @@ async function getHTML(content: PreviewContent, page: number = 1, limit: number 
 function mutateStylesForCustomWidgets(widgetType: string) {
   const widgetOptionsMutated = {...widgetOptions}
 
-  if (widgetType === "nightfall") {
+  switch (widgetType) {
+  case "nightfall":
     widgetOptionsMutated.style.text_tile_background = "000000";
     widgetOptionsMutated.style.text_tile_font_color = "fff";
     widgetOptionsMutated.style.text_tile_user_name_font_color = "fff";
     widgetOptionsMutated.style.shopspot_btn_background = "fff";
     widgetOptionsMutated.style.shopspot_btn_font_color = "000000";
     // @TODO: Peng to add cta_background_color and cta_font_color
+    break;
+  case "slider":
+    widgetOptionsMutated.style.text_tile_user_name_font_color = "fff";
+    break;
   }
 
   return widgetOptionsMutated;
