@@ -11,5 +11,5 @@ server
 .vscode/settings.json
 .DS_Store
 cypress/snapshots/diff
-dist/widgets/
-dist/types
+dist/*
+!dist/assets/
