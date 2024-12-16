@@ -761,7 +761,7 @@ html {
 }
 
 expanded-tiles {
-  --expanded-tiles-background: #FFF;
+  --expanded-tiles-background: #fff;
 }
 
 expanded-tiles:not(:empty) {
@@ -792,7 +792,7 @@ expanded-tiles:not(:empty) .hidden {
 }
 expanded-tiles:not(:empty) .back {
   display: none;
-  background: #FFF;
+  background: #fff;
   position: relative;
   height: 56px;
   align-items: center;
@@ -941,13 +941,14 @@ expanded-tiles:not(:empty) .expanded-tile-wrapper .panel .panel-right .panel-rig
 expanded-tiles:not(:empty) .expanded-tile-wrapper .panel .panel-right .content-wrapper {
   display: flex;
   height: 100%;
+  width: 100%;
 }
 expanded-tiles:not(:empty) .expanded-tile-wrapper .panel .panel-right .content-wrapper .content-inner-wrapper {
   gap: 10px;
   display: flex;
   flex-direction: column;
   height: 100%;
-  max-width: 363px;
+  width: 100%;
 }
 expanded-tiles:not(:empty) .expanded-tile-wrapper .panel .panel-right .content-wrapper .content-inner-wrapper .tile-tags {
   display: flex;
