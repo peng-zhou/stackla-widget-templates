@@ -9,6 +9,10 @@ html {
   background: var(--widget-background);
 }
 
+expanded-tiles {
+  --expanded-tiles-background: #FFF;
+}
+
 expanded-tiles:not(:empty) {
   :host {
     transition: ease all 0.5s;
@@ -99,7 +103,7 @@ expanded-tiles:not(:empty) {
       position: relative;
       max-width: 879px;
       max-height: 701px;
-      background: #FFF;
+      background: var(--expanded-tiles-background);
       border-radius: var(--expanded-tile-border-radius);
       grid-template-columns: minmax(0, dimens.$panel-left-width-lg) minmax(0, dimens.$panel-right-width-lg);
       grid-template-rows: 1fr;
@@ -221,10 +225,6 @@ expanded-tiles:not(:empty) {
             flex-direction: column;
             height: 100%;
             max-width: dimens.$panel-right-width-lg;
-
-            a {
-              color: var(--text-tile-tag-font-color);
-            }
 
             .tile-tags {
               display: flex;

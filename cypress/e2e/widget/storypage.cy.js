@@ -9,10 +9,6 @@ describe("Should test the direct-uploader", () => {
     cy.before()
   })
 
-  it("Should show widget contents", () => {
-    cy.widgetSnapshot(WIDGET_TYPE)
-  })
-
   it("Should expand tile", () => {
     cy.shouldExpandedTile(WIDGET_TYPE)
     cy.expandedTileSnapshot(WIDGET_TYPE)

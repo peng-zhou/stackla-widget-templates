@@ -14,6 +14,10 @@
     height: 100%;
     gap: 10px;
 
+    .user-name {
+      color: var(--text-tile-user-name-font-color);
+    }
+
     .description {
       display: flex;
       flex-direction: column;
@@ -31,10 +35,11 @@
           display: flex;
           display: -webkit-box;
           -webkit-line-clamp: var(--lines);
+          color: var(--text-tile-font-color);
           line-clamp: 7;
           -webkit-box-orient: vertical;
           overflow: hidden;
-          font-size: var(--text-caption-paragraph-font-size);
+          font-size: var(--text-tile-font-size);
           -webkit-box-pack: end;
           height: fit-content;
         }
@@ -89,17 +94,9 @@
     }
 
     &.light {
-      .caption .caption-paragraph {
-        color: var(--text-tile-font-color);
-      }
-
       .user-info {
         .user-link {
-          color: var(--text-tile-font-color);
-
-          .user-name {
-            color: var(--text-tile-user-name-font-color);
-          }
+          color: #000;
 
           .user-handle {
             color: var(--text-tile-user-handle-font-color);
@@ -116,11 +113,6 @@
       .user-info {
         .user-link {
           color: #fff;
-
-          .user-name {
-            color: #fff;
-            text-transform: uppercase;
-          }
 
           .user-handle {
             color: #fff;

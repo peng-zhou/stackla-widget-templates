@@ -1,4 +1,6 @@
 const { pathToFileURL } = require("node:url")
+const postcssUrl = require("postcss-url")
+const postcss = require("postcss")
 
 function startWebSocketServer() {
   const { spawn } = require("node:child_process")
@@ -12,6 +14,32 @@ function startWebSocketServer() {
   return server
 }
 
+const getTemplatesEndpoint = () => {
+  switch (process.env.APP_ENV) {
+    case "production":
+      return "https://templates.stackla.com"
+    case "staging":
+      return "https://templates.teaser.stackla.com"
+    case "development":
+      return "http://localhost:4003"
+    case "testing":
+      return "http://localhost:4002"
+    default:
+      return "http://localhost:4003"
+  }
+}  
+
+const postcssPlugins = [
+  postcssUrl({
+    url: (asset) => {
+      if (asset.url.endsWith('.svg')) {
+        return `${getTemplatesEndpoint()}/${asset.url}`;
+      }
+      return asset.url; 
+    }
+  })
+];
+
 async function buildAll() {
   const esbuild = require("esbuild")
   const { sassPlugin } = require("esbuild-sass-plugin")
@@ -21,7 +49,6 @@ async function buildAll() {
   const { globSync } = require("glob")
   const fs = require("fs")
   const env = process.env.APP_ENV || "development"
-
   const isWatch = process.argv.includes("--watch")
   const isDevelopment = env === "development" || env === "staging"
 
@@ -30,11 +57,15 @@ async function buildAll() {
     setup(build) {
       // Cleanup dist before build
       build.onStart(() => {
-        fs.rmSync("./dist", { recursive: true, force: true })
+        fs.readdirSync("./dist").forEach(file => {
+          if (file !== "assets") {
+            fs.rmSync(`./dist/${file}`, { recursive: true, force: true })
+          }
+        });
       })
 
       build.onEnd(() => {
-        globSync("./widgets/**/widget.scss", { withFileTypes: true }).forEach(item => {
+        globSync("./widgets/**/widget.scss", { withFileTypes: true }).forEach(async item => {
           const result = sass.compile(item.relative(), {
             style: env === "development" ? "expanded" : "compressed",
             loadPaths: [path.join(__dirname, "./widgets/libs")],
@@ -59,7 +90,12 @@ async function buildAll() {
           })
 
           const combined = `${result.css.toString()}`
-          fs.writeFileSync(`dist/widgets/${item.parent.name}/widget.css`, combined)
+
+          const postCssResult = await postcss(postcssPlugins).process(combined, { from: item.relative() });
+          const postCssCombined = postCssResult.css;
+
+
+          fs.writeFileSync(`dist/${item.parent.name}/widget.css`, postCssCombined)
         })
       })
     }
@@ -102,7 +138,7 @@ async function buildAll() {
   const config = {
     entryPoints: [...globSync("./widgets/**/widget.tsx")],
     bundle: true,
-    outdir: "dist/widgets",
+    outdir: "dist",
     loader: {
       ".hbs": "text",
       ".css": "text"
@@ -138,7 +174,7 @@ async function buildAll() {
         assets: [
           {
             from: ["./widgets/**/*.hbs"],
-            to: ["./dist/widgets"]
+            to: ["./dist"]
           }
         ]
       })
