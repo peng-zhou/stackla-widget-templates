@@ -6,8 +6,7 @@
   --swiper-navigation-sides-offset: 0;
   --swiper-navigation-top-offset: 3px;
 
-  display: var(--tags-display-inline);
-
+  display: var(--tags-display);
 
   &[context="expanded"] {
     display: var(--tags-display-expanded);
@@ -16,17 +15,38 @@
   position: relative;
   width: 100%;
   height: fit-content;
+  place-items: flex-start;
 
   .mask-left {
-    mask-image: linear-gradient(to right, transparent 10%, black 25%)
+    mask-image: linear-gradient(to right, transparent 10%, black 25%);
   }
 
   .mask-right {
-    mask-image: linear-gradient(to left, transparent 10%, black 25%)
+    mask-image: linear-gradient(to left, transparent 10%, black 25%);
   }
 
   .mask-both {
     mask-image: linear-gradient(to right, transparent 5%, black 15%, black 85%, transparent 95%);
+  }
+
+  &:has(.swiper-tags-button-prev:not(.swiper-button-disabled)) {
+    .swiper-tags {
+      mask-image: linear-gradient(to right, transparent 5%, black 50%);
+    }
+  }
+
+  &:has(.swiper-tags-button-next:not(.swiper-button-disabled)) {
+    .swiper-tags {
+      mask-image: linear-gradient(to left, transparent 5%, black 50%);
+    }
+  }
+
+  &:has(.swiper-tags-button-prev:not(.swiper-button-disabled)):has(
+      .swiper-tags-button-next:not(.swiper-button-disabled)
+    ) {
+    .swiper-tags {
+      mask-image: linear-gradient(to right, transparent 5%, black 15%, black 85%, transparent 95%);
+    }
   }
 
   .swiper-button-disabled {
@@ -35,6 +55,8 @@
 
   .swiper-tags-button-prev,
   .swiper-tags-button-next {
+    position: relative;
+
     .swiper-nav-icon {
       width: 12px;
       height: 12px;
@@ -80,6 +102,19 @@
         margin: 0 6px;
         display: flex;
       }
+    }
+  }
+
+  &[variation="small"][context*="inline"] {
+    .swiper-tags .swiper-slide {
+      max-width: 100%;
+    }
+  }
+
+  &[context*="inline"] {
+    .swiper-tags {
+      margin-left: initial;
+      width: calc(100% - 30px);
     }
   }
 

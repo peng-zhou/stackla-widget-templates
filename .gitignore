@@ -11,13 +11,5 @@ server
 .vscode/settings.json
 .DS_Store
 cypress/snapshots/diff
-dist/carousel
-dist/grid
-dist/masonry
-dist/quadrant
-dist/nightfall
-dist/slider
-dist/story-line
-dist/storypage
-dist/waterfall
+dist/widgets/
 dist/types
