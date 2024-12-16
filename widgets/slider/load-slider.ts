@@ -27,7 +27,7 @@ export function loadSlider(settings: Features["tileSizeSettings"]) {
   }
 
   const style = sdk.getStyleConfig()
-  const { inline_tile_size } = style
+  const { inline_tile_size, inline_tile_margin } = style
 
   tilesContainer.setAttribute("variation", inline_tile_size)
 
@@ -47,14 +47,21 @@ export function loadSlider(settings: Features["tileSizeSettings"]) {
   markColumnsForIndent(settings)
   loadingElement?.classList.add("hidden")
 
+  function inlineTileGap() {
+    const value = Number(inline_tile_margin)
+    return isNaN(value) ? 10 : value
+  }
+
   function calculateContainerWidth() {
-    const renderedTileSize = getTileSizeUnitless(settings) * 2 + 20
+    const tileGap = inlineTileGap()
+    const renderedTileSize = getTileSizeUnitless(settings) * 2 + tileGap * 2
     const availableWidth = (window.screen.width * 95) / 100
     const widthAdjusted = availableWidth - (availableWidth % renderedTileSize)
     const possibleColumns = Math.round(availableWidth / renderedTileSize)
-    const veriticalColumnsAdjustment = 10 * Math.round(possibleColumns / 3)
+    const veriticalColumnsAdjustment = tileGap * Math.round(possibleColumns / 3)
 
-    return `${widthAdjusted - veriticalColumnsAdjustment}px`
+    // adjusting the grid gap of 10 for the last grid element in the row
+    return `${widthAdjusted + tileGap - veriticalColumnsAdjustment}px`
   }
 
   function tilesUpdatedEventHandler() {

@@ -6,7 +6,7 @@
   --swiper-navigation-sides-offset: 0;
   --swiper-navigation-top-offset: 3px;
 
-  display: var(--tags-display);
+  display: var(--tags-display-inline);
 
   &[context="expanded"] {
     display: var(--tags-display-expanded);
@@ -31,13 +31,13 @@
 
   &:has(.swiper-tags-button-prev:not(.swiper-button-disabled)) {
     .swiper-tags {
-      mask-image: linear-gradient(to right, transparent 5%, black 50%);
+      mask-image: linear-gradient(to right, transparent 5%, black 25%);
     }
   }
 
   &:has(.swiper-tags-button-next:not(.swiper-button-disabled)) {
     .swiper-tags {
-      mask-image: linear-gradient(to left, transparent 5%, black 50%);
+      mask-image: linear-gradient(to left, transparent 5%, black 25%);
     }
   }
 
