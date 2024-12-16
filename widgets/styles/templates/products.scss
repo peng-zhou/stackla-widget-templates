@@ -32,10 +32,9 @@
     --product-price-font-color: $black;
     --product-title-font-color: $white;
     --product-description-font-color: $black;
+    display: flex;
+    flex-direction: column;
   }
-
-  display: flex;
-  flex-direction: column;
 
   .stacklapopup-products-header {
     display: flex;

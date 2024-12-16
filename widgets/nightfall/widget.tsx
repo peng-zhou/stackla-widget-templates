@@ -1,5 +1,6 @@
 import { loadWidget } from "@stackla/widget-utils"
 import { loadWaterfallLayout } from "./waterfall.lib"
+import ProductsTemplate from "./products.template"
 
 loadWidget({
   callbacks: {
@@ -8,7 +9,11 @@ loadWidget({
     onResize: [() => loadWaterfallLayout()],
     onLoad: [() => loadWaterfallLayout()]
   },
-  templates: {},
+  templates: {
+    "ugc-products": {
+      template: ProductsTemplate
+    }
+  },
   features: {},
   extensions: {}
 })
