@@ -1,5 +1,6 @@
 import { loadWidget } from "@stackla/widget-utils"
 import { createToast, getMyMoodBorder } from "./starter-project.lib"
+import { ExpandedTiles } from "./expanded-tile.template"
 
 loadWidget({
   features: {
@@ -20,5 +21,9 @@ loadWidget({
     onTileExpand: [() => createToast("Tile expanded!")],
     onTileClose: [() => createToast("Tile closed!")]
   },
-  templates: {}
+  templates: {
+    "expanded-tiles": {
+      template: ExpandedTiles
+    }
+  }
 })
