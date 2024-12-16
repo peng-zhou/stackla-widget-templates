@@ -2,46 +2,57 @@
 <div class="tile">
   <div class="tile-top">
     <div class="tile-loading"></div>
-    <div class="tile-content hidden">
-      {{#each attrs}}
-      {{#ifequals this "instagram.reel"}}
-      <div class="content-icon icon-reel"></div>
-      {{/ifequals}}
-      {{/each}}
-      {{#if tags_extended.length}}
-      <div class="shopping-icon icon-products"></div>
-      {{/if}}
-      <div class="network-icon icon-{{source}}"></div>
-      {{#ifequals media "video"}}
-      <div class="icon-play"></div>
-      {{/ifequals}}
+    <div class="icon-section">
+      <div class="top-section">
+        {{#each attrs}}
+        {{#ifequals this "instagram.reel"}}
+        <div class="content-icon icon-reel"></div>
+        {{/ifequals}}
+        {{#ifequals this "youtube.short"}}
+        <div class="content-icon icon-youtube-short"></div>
+        {{/ifequals}}
+        {{/each}}
+        {{#if tags_extended.length}}
+        <div class="shopping-icon icon-products"></div>
+        {{/if}}
+      </div>
+      <div class="center-section">
+        {{#ifequals media "video"}}
+        <div class="icon-play"></div>
+        {{/ifequals}}
+      </div>
     </div>
     <div class="tile-image-wrapper">
       {{#lazy image_thumbnail_url "120"}}{{/lazy}}
       <div class="swiper-lazy-preloader"></div>
-      {{#if options.tile_options.show_shopspots}}
       <shopspot-icon tile-id={{id}} />
-      {{/if}}
     </div>
   </div>
   <div class="tile-bottom">
-    {{#if tags_extended.length}}
-    <tile-tags tile-id="{{id}}" mode="swiper" context="nightfall-inline"></tile-tags>
-    {{/if}}
-    <div class="description">
-      {{#if name}}
-      <div class="user-name">{{name}}</div>
+    <div class="tile-bottom-container">
+      {{#if tags_extended}}
+      <tile-tags tile-id="{{id}}" mode="swiper" context="nightfall-inline" navigation-arrows="true" theme="light"></tile-tags>
       {{/if}}
-      {{#if user}}
-      <div class="user-handle">@{{user}}</div>
-      {{/if}}
-      <div class="tile-timestamp">{{time_ago}}</div>
-      {{#if message}}
-      <div class="caption">
-        <div class="caption-paragraph">{{message}}</div>
+      <div class="description">
+          {{#if name}}
+          <div class="user-name">{{name}}</div>
+          {{/if}}
+          {{#if user}}
+          <div class="user-handle">@{{user}}</div>
+          {{/if}}
+          <div class="tile-share-content">
+            <time-phrase source-created-at="{{source_created_at}}"></time-phrase>
+            <div class="tile-share-right">
+              <share-menu tile-id="{{id}}" theme="light"></share-menu>
+              <div class="network-icon-circle">
+                <div class="network-icon black icon-{{source}}"></div>
+              </div>
+            </div>
+          </div>
+          <div class="caption">
+            <div class="caption-paragraph">{{message}}</div>
+          </div>
       </div>
-      {{/if}}
-      <span class="widget-icon icon-share"></span>
     </div>
   </div>
 </div>

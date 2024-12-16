@@ -53,7 +53,7 @@ expressApp.use((_req, res, next) => {
   res.set("Cache-Control", "public, max-age=300")
   next()
 })
-expressApp.use(express.static("dist/widgets", { redirect: false }))
+expressApp.use(express.static("dist", { redirect: false }))
 expressApp.engine("hbs", Handlebars.__express)
 expressApp.set("view engine", "hbs")
 expressApp.use(cors())
@@ -96,7 +96,7 @@ export async function getContent(widgetType: string, retry = 0): Promise<Preview
     throw new Error(`Failed to get content, exiting after 10 retries, widgetType: ${widgetType}`)
   }
 
-  const rootDir = path.resolve(__dirname, `../../../../../dist/widgets/${widgetType}`)
+  const rootDir = path.resolve(__dirname, `../../../../../dist/${widgetType}`)
 
   const layout = `${rootDir}/layout.hbs`
   const tile = `${rootDir}/tile.hbs`
@@ -168,6 +168,26 @@ async function getHTML(content: PreviewContent, page: number = 1, limit: number 
     res.json(JSON.parse(fileData))
   })
 
+function mutateStylesForCustomWidgets(widgetType: string) {
+  const widgetOptionsMutated = {...widgetOptions}
+
+  switch (widgetType) {
+  case "nightfall":
+    widgetOptionsMutated.style.text_tile_background = "000000";
+    widgetOptionsMutated.style.text_tile_font_color = "fff";
+    widgetOptionsMutated.style.text_tile_user_name_font_color = "fff";
+    widgetOptionsMutated.style.shopspot_btn_background = "fff";
+    widgetOptionsMutated.style.shopspot_btn_font_color = "000000";
+    // @TODO: Peng to add cta_background_color and cta_font_color
+    break;
+  case "slider":
+    widgetOptionsMutated.style.text_tile_user_name_font_color = "fff";
+    break;
+  }
+
+  return widgetOptionsMutated;
+}
+
 expressApp.post("/development/widgets/668ca52ada8fb/draft", async (req, res) => {
   const body = JSON.parse(req.body)
   const draft = body.draft as IDraftRequest
@@ -175,11 +195,13 @@ expressApp.post("/development/widgets/668ca52ada8fb/draft", async (req, res) => 
   const customCss = draft.customCSS
   const customJs = draft.customJS
 
+  const widgetOptionsMutated = mutateStylesForCustomWidgets(req.cookies.widgetType as string)
+
   res.send({
     html,
     customCSS: customCss,
     customJS: customJs,
-    widgetOptions: widgetOptions,
+    widgetOptions: widgetOptionsMutated,
     stackId: 1451,
     merchantId: "shopify-64671154416",
     tileCount: tiles.length,
@@ -190,11 +212,13 @@ expressApp.post("/development/widgets/668ca52ada8fb/draft", async (req, res) => 
 expressApp.get("/development/widgets/668ca52ada8fb", async (req, res) => {
   const content = await getContent(req.cookies.widgetType as string)
 
+  const widgetOptionsMutated = mutateStylesForCustomWidgets(req.cookies.widgetType as string)
+
   res.json({
     html: await getHTML(content),
     customCSS: content.cssCode,
     customJS: content.jsCode,
-    widgetOptions: widgetOptions,
+    widgetOptions: widgetOptionsMutated,
     merchantId: "shopify-64671154416",
     stackId: 1451,
     tileCount: tiles.length
@@ -279,7 +303,7 @@ expressApp.get("/autoload", (req, res) => {
 
   const resourceWithoutSymbols = stripSymbols(resource)
   const widgetTypeWithoutSymbols = stripSymbols(widget)
-  const widgetSrc = `dist/widgets/${widgetTypeWithoutSymbols}/widget.${resourceWithoutSymbols}`
+  const widgetSrc = `dist/${widgetTypeWithoutSymbols}/widget.${resourceWithoutSymbols}`
   const code = readFileSync(widgetSrc, "utf8")
 
   if (resourceWithoutSymbols === "css") {
