@@ -1,10 +1,10 @@
 {{#tile class="swiper-slide" }}
 <div class="tile">
-  {{#ifAutoPlayVideo media options.tile_options.auto_play_video }}
-    <div></div>
-  {{else}}
-    <div class="tile-loading"></div>
-  {{/ifAutoPlayVideo}}
+  {{#ifequals media "video"}}
+    {{#unless options.tile_options.auto_play_video }}
+      <div class="tile-loading"></div>
+    {{/unless}}
+  {{/ifequals}}
   <div class="icon-section hidden">
     <div class="top-section">
       {{#each attrs}}
@@ -21,11 +21,9 @@
     </div>
     <div class="center-section">
       {{#ifequals media "video"}}
-        {{#ifAutoPlayVideo media options.tile_options.auto_play_video }}
-          <div></div>
-        {{else}}
+        {{#unless options.tile_options.auto_play_video }}
           <div class="icon-play"></div>
-        {{/ifAutoPlayVideo}}
+        {{/unless}}
       {{/ifequals}}
     </div>
     <div class="bottom-section">
