@@ -246,7 +246,7 @@
   }
 
   .user-name {
-    color: #000;
+    color: var(--text-tile-user-name-font-color);
     font-size: var(--text-tile-user-name-font-size);
     font-weight: 600;
   }

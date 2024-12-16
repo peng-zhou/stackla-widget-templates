@@ -21,9 +21,6 @@
         <div class="icon-play"></div>
         {{/ifequals}}
       </div>
-      <div class="bottom-section">
-        <div class="network-icon icon-{{source}}"></div>
-      </div>
     </div>
     <div class="tile-image-wrapper">
       {{#lazy image_thumbnail_url "120"}}{{/lazy}}
@@ -45,7 +42,12 @@
           {{/if}}
           <div class="tile-share-content">
             <time-phrase source-created-at="{{source_created_at}}"></time-phrase>
-            <share-menu tile-id="{{id}}" theme="light"></share-menu>
+            <div class="tile-share-right">
+              <share-menu tile-id="{{id}}" theme="light"></share-menu>
+              <div class="network-icon-circle">
+                <div class="network-icon black icon-{{source}}"></div>
+              </div>
+            </div>
           </div>
           <div class="caption">
             <div class="caption-paragraph">{{message}}</div>

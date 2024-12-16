@@ -168,6 +168,26 @@ async function getHTML(content: PreviewContent, page: number = 1, limit: number 
     res.json(JSON.parse(fileData))
   })
 
+function mutateStylesForCustomWidgets(widgetType: string) {
+  const widgetOptionsMutated = {...widgetOptions}
+
+  switch (widgetType) {
+  case "nightfall":
+    widgetOptionsMutated.style.text_tile_background = "000000";
+    widgetOptionsMutated.style.text_tile_font_color = "fff";
+    widgetOptionsMutated.style.text_tile_user_name_font_color = "fff";
+    widgetOptionsMutated.style.shopspot_btn_background = "fff";
+    widgetOptionsMutated.style.shopspot_btn_font_color = "000000";
+    // @TODO: Peng to add cta_background_color and cta_font_color
+    break;
+  case "slider":
+    widgetOptionsMutated.style.text_tile_user_name_font_color = "fff";
+    break;
+  }
+
+  return widgetOptionsMutated;
+}
+
 expressApp.post("/development/widgets/668ca52ada8fb/draft", async (req, res) => {
   const body = JSON.parse(req.body)
   const draft = body.draft as IDraftRequest
@@ -175,15 +195,13 @@ expressApp.post("/development/widgets/668ca52ada8fb/draft", async (req, res) => 
   const customCss = draft.customCSS
   const customJs = draft.customJS
 
-  if (req.cookies.widgetType === 'nightfall') {
-    widgetOptions.style.text_tile_background = "000000";
-  }
+  const widgetOptionsMutated = mutateStylesForCustomWidgets(req.cookies.widgetType as string)
 
   res.send({
     html,
     customCSS: customCss,
     customJS: customJs,
-    widgetOptions: widgetOptions,
+    widgetOptions: widgetOptionsMutated,
     stackId: 1451,
     merchantId: "shopify-64671154416",
     tileCount: tiles.length,
@@ -194,15 +212,13 @@ expressApp.post("/development/widgets/668ca52ada8fb/draft", async (req, res) => 
 expressApp.get("/development/widgets/668ca52ada8fb", async (req, res) => {
   const content = await getContent(req.cookies.widgetType as string)
 
-  if (req.cookies.widgetType === 'nightfall') {
-    widgetOptions.style.text_tile_background = "000000";
-  }
+  const widgetOptionsMutated = mutateStylesForCustomWidgets(req.cookies.widgetType as string)
 
   res.json({
     html: await getHTML(content),
     customCSS: content.cssCode,
     customJS: content.jsCode,
-    widgetOptions: widgetOptions,
+    widgetOptions: widgetOptionsMutated,
     merchantId: "shopify-64671154416",
     stackId: 1451,
     tileCount: tiles.length
