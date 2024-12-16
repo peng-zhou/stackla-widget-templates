@@ -2,7 +2,13 @@ import { Features } from "packages/widget-utils"
 import { getRenderMode, getSliderElement, getTileContainerElement, getTileElements } from "./utils"
 import { markColumnsForIndent } from "./slider-design"
 
-export function initObservers(settings: Features["tileSizeSettings"]) {
+type SliderObserverProps = {
+  settings: Features["tileSizeSettings"]
+  resizeCb?: () => void
+  intersectionCb?: () => void
+}
+
+export function initObservers({ settings, resizeCb, intersectionCb }: SliderObserverProps) {
   const animationClasses = { up: "tile-animate-up", down: "tile-animate-down" }
   const partiallyVisibleClass = "partially-visible"
   const tilesContainerElement = getTileContainerElement()
@@ -16,6 +22,7 @@ export function initObservers(settings: Features["tileSizeSettings"]) {
       } else {
         tilesIntersectionObserver.disconnect()
       }
+      resizeCb?.()
     })
   )
 
@@ -33,6 +40,7 @@ export function initObservers(settings: Features["tileSizeSettings"]) {
           entry.target.classList.add(partiallyVisibleClass)
         }
       })
+      intersectionCb?.()
       previousPosition = tilesContainerElement.scrollTop
     },
     { root: tilesContainerElement, rootMargin: "0px", threshold: 1 }

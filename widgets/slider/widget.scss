@@ -1,14 +1,7 @@
 @use "styles";
 @use "responsive";
-@use "sass:math";
 
 $space-between: 10px;
-
-:host {
-  --rendered-tile-size: var(--tile-size) * 2 + 20px;
-  --width-adjustment: rem(95%, var(--rendered-tile-size));
-  --container-width: calc(95% - var(--width-adjustment));
-}
 
 .hidden {
   display: none;
@@ -71,7 +64,7 @@ $space-between: 10px;
         display: grid;
         gap: $space-between;
         width: 100%;
-        height: calc(100vh - 100px);
+        height: calc(100vh - 125px);
         overflow: hidden;
         justify-content: center;
         grid-auto-columns: var(--tile-size);
@@ -107,12 +100,12 @@ $space-between: 10px;
           grid-column: span 2;
           grid-template-areas: "image details";
           grid-template-columns: subgrid;
-          gap: 0;
           transition: opacity 200ms ease;
+          column-gap: 0;
 
           .image-section {
             display: flex;
-            width: var(--tile-size);
+            width: 100%;
             position: relative;
             grid-area: image;
             height: var(--tile-size);
@@ -139,7 +132,7 @@ $space-between: 10px;
             place-items: flex-start;
             place-content: flex-start;
             height: var(--tile-size);
-            width: var(--tile-size);
+            width: 100%;
             grid-area: details;
 
             .tile {
@@ -160,14 +153,15 @@ $space-between: 10px;
 
             .tile-message-wrapper {
               display: grid;
-              grid-template-rows: calc(100% - 70px) 20px 1fr;
+              grid-template-rows: calc(100% - 60px) 20px 1fr;
               grid-auto-columns: 1fr;
               height: calc(100% - 10px);
-              padding: 10px 0 0 10px;
               gap: 10px;
               place-content: flex-start;
               width: calc(100% - 15px);
               grid-template-columns: 1fr;
+              place-self: center;
+              margin-top: 5px;
 
               tile-content {
                 .description p {
@@ -334,6 +328,8 @@ $space-between: 10px;
 
         &#scroll-up,
         &#scroll-down {
+          margin: 10px 0;
+
           .widget-icon {
             transform: rotate(90deg);
           }
