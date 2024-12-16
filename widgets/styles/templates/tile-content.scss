@@ -90,15 +90,15 @@
 
     &.light {
       .caption .caption-paragraph {
-        color: var(--text-tile-font-color);
+        color: #000;
       }
 
       .user-info {
         .user-link {
-          color: var(--text-tile-font-color);
+          color: #000;
 
           .user-name {
-            color: var(--text-tile-user-name-font-color);
+            color: #000;
           }
 
           .user-handle {
