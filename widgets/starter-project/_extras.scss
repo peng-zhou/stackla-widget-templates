@@ -18,7 +18,7 @@
     transform: translateY(-20px);
     transition: opacity 0.3s ease, transform 0.3s ease;
 
-    .show {
+    &.show {
         opacity: 1;
         transform: translateY(0);
     }

@@ -12,6 +12,7 @@ This project has been created with the sole purpose of:
 3) Why is the widget in a circle? Please remove the circle and ensure it is in a grid format, covering all sides of the screen.
 4) The border of the circle is based on the mood given to the method. Please update it so that it is using 'nosto' mood with a pink border to represent Nosto.
 5) Every time I expand a tile, a dog appears. Please change this to the actual tile image.
+6) Every time an event is emitted, an annoying toast appears, please remove this!
 
 A successful attempt at this activity will be something like the following.
 ![alt text](image.png)
