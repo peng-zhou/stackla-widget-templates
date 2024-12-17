@@ -70,7 +70,7 @@ expanded-tiles:not(:empty) {
 
         .swiper-slide {
           align-items: flex-start;
-          height: auto;
+          height: fit-content;
 
           ugc-products {
             max-width: calc(dimens.$panel-right-width-lg - (dimens.$panel-padding * 2));
