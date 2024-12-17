@@ -16,10 +16,15 @@ git clone https://your-github-repo-here
 NOTE: If you would like to use your own widget utilities fork, you can also update the .gitmodules file and place the URL to your git repository there.
 
 Execute the following;
-git submodule init && git submodule update
-4) Install all packages by executing: npm install
+
+```git submodule init && git submodule update```
+
+4) Install all packages by executing: ```npm install```
 5) Execute npm run start to see our gallery of widgets in action.
 6) Access the following URL, substituting the widgetType with any widget you wish to preview.
 
+http://localhost:4003/preview?widgetType=carousel
+
 Congratulations! You are now ready to start developing your first widget. 
+
 Lets get started.
