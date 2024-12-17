@@ -13,7 +13,8 @@
   }
 
   position: relative;
-  width: 100%;
+  flex: 1;
+  overflow: hidden;
   height: fit-content;
   place-items: flex-start;
 
@@ -32,6 +33,12 @@
   &[context*="inline"] {
     .swiper-tags {
       margin-left: initial;
+      width: 100%;
+    }
+  }
+
+  &[context*="inline"][navigation-arrows="true"] {
+    .swiper-tags {
       width: calc(100% - 30px);
     }
   }

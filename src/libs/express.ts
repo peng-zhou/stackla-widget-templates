@@ -184,7 +184,7 @@ function mutateStylesForCustomWidgets(widgetType: string) {
       // @TODO: Peng to add cta_background_color and cta_font_color
       break
     case "slider":
-      widgetOptionsMutated.style.tile_background = "000000"
+      widgetOptionsMutated.style.text_tile_background = "000000"
       widgetOptionsMutated.style.text_tile_user_name_font_color = "fff"
       break
   }
