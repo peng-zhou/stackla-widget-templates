@@ -29,6 +29,13 @@
     mask-image: linear-gradient(to right, transparent 5%, black 15%, black 85%, transparent 95%);
   }
 
+  &[context*="inline"] {
+    .swiper-tags {
+      margin-left: initial;
+      width: calc(100% - 30px);
+    }
+  }
+
   &:has(.swiper-tags-button-prev:not(.swiper-button-disabled)) {
     .swiper-tags {
       mask-image: linear-gradient(to right, transparent 5%, black 25%);
@@ -108,13 +115,6 @@
   &[variation="small"][context*="inline"] {
     .swiper-tags .swiper-slide {
       max-width: 100%;
-    }
-  }
-
-  &[context*="inline"] {
-    .swiper-tags {
-      margin-left: initial;
-      width: calc(100% - 30px);
     }
   }
 
