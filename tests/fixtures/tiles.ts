@@ -633,6 +633,11 @@ export default [
         duration: 6.7
       }
     ],
+    video: {
+      standard_resolution: {
+        url: "https://media-library.stackla.com/10/whogivesacrap/2024-06/665f4be0faf1961f3878ded5/ae5444d1-2cac-11ef-bf5b-7d8e9529e970.mp4"
+      }
+    },
     custom_fields: [],
     workflow_status: "",
     instagram_media_type: "VIDEO",
