@@ -5,6 +5,10 @@ This project has been created with the sole purpose of:
 1) Allowing you to see what is possible with widgets
 2) A space for you to follow the activity provided to learn about how you can customise widgets with ease
 
+Please read documentation here before getting started with this activity, it will make sure that you have correctly setup your environment
+
+https://docs.nosto.com/ugc/widgets-nextgen/getting-started/creating-your-first-widget/creating-a-widget-from-blank-canvas/creating-a-development-space-for-your-team
+
 ## What you will learn
 1) How to adjust styles for inline tiles & expanded tiles
 2) How to adjust templates for inline tiles & expanded tiles.
