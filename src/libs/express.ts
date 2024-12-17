@@ -15,7 +15,7 @@ export function getDomain(isDev: boolean) {
   if (isDev) {
     return "http://localhost:4002/development"
   }
-  
+
   if (process.env.APP_ENV === "testing") {
     return `${STAGING_UI_URL}/external-testing`
   }
@@ -34,10 +34,10 @@ export interface IDraftRequest {
     }
     tile: {
       template: string
-    } 
+    }
   }
   customCSS: string
-  customJS: string,
+  customJS: string
   widgetOptions: typeof widgetOptions.config
 }
 
@@ -116,7 +116,7 @@ export async function getContent(widgetType: string, retry = 0): Promise<Preview
         .replace(/\t/g, "\\t")
     }
   } catch (e) {
-    console.error(e);
+    console.error(e)
     await new Promise(resolve => setTimeout(resolve, 3000))
 
     return getContent(widgetType, retry + 1)
@@ -143,49 +143,53 @@ async function getHTML(content: PreviewContent, page: number = 1, limit: number 
   )
 }
 
-  expressApp.get("/development/products/asus-tuf-f15-15-6-fhd-144hz-gaming-laptop-1tbgeforce-rtx-3050.js", (_req, res) => {
+expressApp.get(
+  "/development/products/asus-tuf-f15-15-6-fhd-144hz-gaming-laptop-1tbgeforce-rtx-3050.js",
+  (_req, res) => {
     const fileData = fs.readFileSync(path.resolve("./mock/atc-laptop.json"), "utf-8")
     res.json(JSON.parse(fileData))
-  })
+  }
+)
 
-  expressApp.get("/development/products/samsung-98-qn90d-neo-qled-4k-smart-tv-2024.js", (_req, res) => {
-    const fileData = fs.readFileSync(path.resolve("./mock/atc-tv.json"), "utf-8")
-    res.json(JSON.parse(fileData))
-  })
+expressApp.get("/development/products/samsung-98-qn90d-neo-qled-4k-smart-tv-2024.js", (_req, res) => {
+  const fileData = fs.readFileSync(path.resolve("./mock/atc-tv.json"), "utf-8")
+  res.json(JSON.parse(fileData))
+})
 
-  expressApp.get("/development/products/contrast-felted-sweater-black.js", (_req, res) => {
-    const fileData = fs.readFileSync(path.resolve("./mock/contrast-felted-sweater-black.json"), "utf-8")
-    res.json(JSON.parse(fileData))
-  })
+expressApp.get("/development/products/contrast-felted-sweater-black.js", (_req, res) => {
+  const fileData = fs.readFileSync(path.resolve("./mock/contrast-felted-sweater-black.json"), "utf-8")
+  res.json(JSON.parse(fileData))
+})
 
-  expressApp.get("/development/products/desna-dress.js", (_req, res) => {
-    const fileData = fs.readFileSync(path.resolve("./mock/desna-dress.json"), "utf-8")
-    res.json(JSON.parse(fileData))
-  })
+expressApp.get("/development/products/desna-dress.js", (_req, res) => {
+  const fileData = fs.readFileSync(path.resolve("./mock/desna-dress.json"), "utf-8")
+  res.json(JSON.parse(fileData))
+})
 
-  expressApp.get("/development/products/pure-city-vintage-leather-saddle.js", (_req, res) => {
-    const fileData = fs.readFileSync(path.resolve("./mock/pure-city-vintage-leather-saddle.json"), "utf-8")
-    res.json(JSON.parse(fileData))
-  })
+expressApp.get("/development/products/pure-city-vintage-leather-saddle.js", (_req, res) => {
+  const fileData = fs.readFileSync(path.resolve("./mock/pure-city-vintage-leather-saddle.json"), "utf-8")
+  res.json(JSON.parse(fileData))
+})
 
 function mutateStylesForCustomWidgets(widgetType: string) {
-  const widgetOptionsMutated = {...widgetOptions}
+  const widgetOptionsMutated = { ...widgetOptions }
 
   switch (widgetType) {
-  case "nightfall":
-    widgetOptionsMutated.style.text_tile_background = "000000";
-    widgetOptionsMutated.style.text_tile_font_color = "fff";
-    widgetOptionsMutated.style.text_tile_user_name_font_color = "fff";
-    widgetOptionsMutated.style.shopspot_btn_background = "fff";
-    widgetOptionsMutated.style.shopspot_btn_font_color = "000000";
-    // @TODO: Peng to add cta_background_color and cta_font_color
-    break;
-  case "slider":
-    widgetOptionsMutated.style.text_tile_user_name_font_color = "fff";
-    break;
+    case "nightfall":
+      widgetOptionsMutated.style.text_tile_background = "000000"
+      widgetOptionsMutated.style.text_tile_font_color = "fff"
+      widgetOptionsMutated.style.text_tile_user_name_font_color = "fff"
+      widgetOptionsMutated.style.shopspot_btn_background = "fff"
+      widgetOptionsMutated.style.shopspot_btn_font_color = "000000"
+      // @TODO: Peng to add cta_background_color and cta_font_color
+      break
+    case "slider":
+      widgetOptionsMutated.style.tile_background = "000000"
+      widgetOptionsMutated.style.text_tile_user_name_font_color = "fff"
+      break
   }
 
-  return widgetOptionsMutated;
+  return widgetOptionsMutated
 }
 
 expressApp.post("/development/widgets/668ca52ada8fb/draft", async (req, res) => {
@@ -228,13 +232,13 @@ expressApp.get("/development/widgets/668ca52ada8fb", async (req, res) => {
 expressApp.get("/development/widgets/668ca52ada8fb/tiles", async (req, res) => {
   const page = (req.query.page ?? 0) as number
   const limit = (req.query.limit ?? 25) as number
-  
+
   if (req.query.after_id) {
     res.send({
       tiles: []
     })
 
-    return;
+    return
   }
 
   res.send({
@@ -257,7 +261,7 @@ expressApp.get("/development/widgets/668ca52ada8fb/rendered/tiles", async (req, 
 
 expressApp.get("/development/stackla/cs/image/disable", async (req, res) => {
   res.json({ success: true })
-});
+})
 
 // Register preview route
 expressApp.get("/preview", async (req, res) => {
@@ -267,9 +271,9 @@ expressApp.get("/preview", async (req, res) => {
   res.render("preview", {
     widgetRequest: JSON.stringify(widgetRequest),
     widgetType,
-    widgetOptions:  JSON.stringify(widgetOptions),
+    widgetOptions: JSON.stringify(widgetOptions),
     domain: getDomain(req.query.dev === "true"),
-    ...(await getContent(widgetType)),
+    ...(await getContent(widgetType))
   })
 })
 
@@ -282,7 +286,7 @@ expressApp.get("/staging", async (req, res) => {
     widgetType,
     widgetOptions: JSON.stringify(widgetOptions.config),
     domain: getDomain(req.query.dev === "true"),
-    ...(await getContent(widgetType)),
+    ...(await getContent(widgetType))
   })
 })
 

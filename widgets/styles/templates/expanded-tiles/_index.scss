@@ -10,7 +10,7 @@ html {
 }
 
 expanded-tiles {
-  --expanded-tiles-background: #FFF;
+  --expanded-tiles-background: #fff;
 }
 
 expanded-tiles:not(:empty) {
@@ -44,7 +44,7 @@ expanded-tiles:not(:empty) {
 
   .back {
     display: none;
-    background: #FFF;
+    background: #fff;
     position: relative;
     height: dimens.$back-icon-height;
     align-items: center;
@@ -218,13 +218,14 @@ expanded-tiles:not(:empty) {
         .content-wrapper {
           display: flex;
           height: 100%;
+          width: 100%;
 
           .content-inner-wrapper {
             gap: 10px;
             display: flex;
             flex-direction: column;
             height: 100%;
-            max-width: dimens.$panel-right-width-lg;
+            width: 100%;
 
             .tile-tags {
               display: flex;
