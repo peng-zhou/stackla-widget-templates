@@ -5,7 +5,7 @@ import {
   getTileContainerElement,
   getTileSizeUnitless,
   getTopElementHeight,
-  gridGap
+  inlineTileGap
 } from "./utils"
 
 type SwiperDirection = "none" | "left" | "right" | "up" | "down"
@@ -153,19 +153,17 @@ export default function (settings: Features["tileSizeSettings"]) {
   }
 
   function scrollUp() {
-    tilesContainerElement.scrollTo({
+    tilesContainerElement.scroll({
       top: scrollHistory.pop(),
-      left: 0,
-      behavior: "smooth"
+      left: 0
     })
     setTimeout(() => controlNavigationButtonVisibility(), 500)
   }
 
   function scrollDown() {
-    tilesContainerElement.scrollTo({
+    tilesContainerElement.scroll({
       top: getBlockHeight(),
-      left: 0,
-      behavior: "smooth"
+      left: 0
     })
     setTimeout(() => controlNavigationButtonVisibility(), 500)
   }
@@ -191,12 +189,12 @@ export default function (settings: Features["tileSizeSettings"]) {
     }
   }
 
-  function calcHeightAndRecordHistory(value: number) {
+  function calcHeightAndRecordHistory(value: number, tileGap = 0) {
     if (!scrollHistory.length) {
       scrollHistory.push(0)
-      return value + gridGap(tilesContainerElement)
+      return value + tileGap
     } else {
-      const totalHeight = tilesContainerElement.scrollTop + value + gridGap(tilesContainerElement)
+      const totalHeight = tilesContainerElement.scrollTop + value + tileGap
       scrollHistory.push(tilesContainerElement.scrollTop)
       return totalHeight
     }
@@ -208,10 +206,23 @@ export default function (settings: Features["tileSizeSettings"]) {
         return calcHeightAndRecordHistory(window.screen.height ?? defaultBlockHeight)
       }
       case "tablet": {
-        return calcHeightAndRecordHistory(getTopElementHeight(tilesContainerElement, defaultBlockHeight))
+        return calcHeightAndRecordHistory(
+          getTopElementHeight(tilesContainerElement, defaultBlockHeight),
+          inlineTileGap()
+        )
       }
-      default:
-        return calcHeightAndRecordHistory(defaultBlockHeight)
+      default: {
+        // scroll two tiles with grid margin
+        const verticalHeight = (() => {
+          const heightValue = defaultBlockHeight * 2 + inlineTileGap()
+          if (heightValue > tilesContainerElement.clientHeight) {
+            return defaultBlockHeight
+          }
+          return defaultBlockHeight * 2
+        })()
+
+        return calcHeightAndRecordHistory(verticalHeight, inlineTileGap())
+      }
     }
   }
 }
