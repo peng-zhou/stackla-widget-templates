@@ -11,7 +11,7 @@
 @use "@styles/partials/icon-sections" as is;
 @use "@styles/templates/tags";
 
-.carousel-inline,
+.shortvideo-inline,
 expanded-tiles {
   @include is.icon-sections-styles;
   @include sicon.shopspot-icon-styles;
