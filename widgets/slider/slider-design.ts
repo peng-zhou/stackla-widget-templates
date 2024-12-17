@@ -1,5 +1,5 @@
 import { Features, Sdk } from "@stackla/widget-utils"
-import { getTileSizeUnitless } from "./utils"
+import { getTileSizeUnitless, getWidgetDimension } from "./utils"
 
 declare const sdk: Sdk
 
@@ -12,7 +12,7 @@ const COLUMN_INDENT_CLASS = "grid-column-indent"
  * @returns the possible number of grid columns based on screen size
  */
 function getColumnCount(settings: Features["tileSizeSettings"]) {
-  const availableWidth = (window.screen.availWidth * 95) / 100
+  const availableWidth = (getWidgetDimension().containerWidth * 95) / 100
   const tileRenderingWidth = getTileSizeUnitless(settings) * 2 + 20
   return Math.floor(availableWidth / tileRenderingWidth)
 }

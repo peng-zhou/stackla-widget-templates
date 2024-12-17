@@ -2,7 +2,7 @@ import { Sdk } from "types"
 import { Features } from "@stackla/widget-utils"
 import { markColumnsForIndent } from "./slider-design"
 import navigator from "./navigator"
-import { getTileSizeUnitless, inlineTileGap, inlineTileSize } from "./utils"
+import { getTileSizeUnitless, getWidgetDimension, inlineTileGap, inlineTileSize } from "./utils"
 import { initObservers } from "./observers"
 
 declare const sdk: Sdk
@@ -47,7 +47,7 @@ export function loadSlider(settings: Features["tileSizeSettings"]) {
   function calculateContainerWidth() {
     const tileGap = inlineTileGap()
     const renderedTileSize = getTileSizeUnitless(settings) * 2 + tileGap * 2
-    const availableWidth = (window.screen.width * 95) / 100
+    const availableWidth = (getWidgetDimension().containerWidth * 95) / 100
     const widthAdjusted = availableWidth - (availableWidth % renderedTileSize)
     const possibleColumns = Math.round(availableWidth / renderedTileSize)
     const veriticalColumnsAdjustment = tileGap * Math.round(possibleColumns / 3)
