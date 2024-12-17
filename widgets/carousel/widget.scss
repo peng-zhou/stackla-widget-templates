@@ -18,6 +18,12 @@
     display: flex;
     position: absolute;
     height: 100%;
+
+    .bottom-section {
+      tile-tags {
+        margin-left: 5px;
+      }
+    }
   }
 }
 
