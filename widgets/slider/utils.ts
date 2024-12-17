@@ -55,3 +55,8 @@ export function getTileContainerElement() {
 export function getTileElements() {
   return sdk.querySelectorAll(".slider-inline .ugc-tiles > .ugc-tile")
 }
+
+export function getWidgetDimension() {
+  const ugcComponentElement = sdk.placement.getElement()
+  return { containerWidth: ugcComponentElement.clientWidth, containerHeight: ugcComponentElement.clientHeight }
+}

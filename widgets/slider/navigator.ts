@@ -5,6 +5,7 @@ import {
   getTileContainerElement,
   getTileSizeUnitless,
   getTopElementHeight,
+  getWidgetDimension,
   inlineTileGap
 } from "./utils"
 
@@ -203,7 +204,7 @@ export default function (settings: Features["tileSizeSettings"]) {
   function getBlockHeight() {
     switch (getRenderMode(sliderElement)) {
       case "mobile": {
-        return calcHeightAndRecordHistory(window.screen.height ?? defaultBlockHeight)
+        return calcHeightAndRecordHistory(getWidgetDimension().containerHeight ?? defaultBlockHeight)
       }
       case "tablet": {
         return calcHeightAndRecordHistory(
