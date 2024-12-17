@@ -13,6 +13,7 @@ export function initObservers({ settings, resizeCb, intersectionCb }: SliderObse
   const partiallyVisibleClass = "partially-visible"
   const tilesContainerElement = getTileContainerElement()
   let previousPosition = tilesContainerElement.scrollTop
+  let latestEntries: Element[] = []
 
   const resizeObserver = new ResizeObserver(() =>
     requestAnimationFrame(() => {
@@ -23,34 +24,38 @@ export function initObservers({ settings, resizeCb, intersectionCb }: SliderObse
 
   const tilesIntersectionObserver = new IntersectionObserver(
     (entries: IntersectionObserverEntry[]) => {
-      filterRecentEntries(entries).forEach(entry => {
+      entries.forEach(entry => {
         const htmlElement = entry.target as HTMLElement
         enableAnimation(htmlElement)
         if (entry.isIntersecting) {
           if (entry.target.classList.contains(partiallyVisibleClass)) {
-            if (entry.intersectionRatio > 0.9) {
+            if (entry.intersectionRatio === 1) {
               entry.target.classList.remove(partiallyVisibleClass)
+              return
             }
           }
-        } else if (!entry.target.classList.contains(partiallyVisibleClass)) {
-          entry.target.classList.add(partiallyVisibleClass)
         }
+
+        if (entry.intersectionRatio > 0 && entry.intersectionRatio < 1) {
+          latestEntries.push(entry.target)
+        }
+        entry.target.classList.add(partiallyVisibleClass)
       })
       intersectionCb?.()
       previousPosition = tilesContainerElement.scrollTop
     },
-    { root: tilesContainerElement, rootMargin: "0px", threshold: [0.5, 0.7, 1] }
+    { root: tilesContainerElement, rootMargin: "0px", threshold: [0.1, 0.25, 0.5, 0.75, 1] }
   )
 
   configObserverTargets()
 
   getTileElements()[0].classList.add(animationClasses.up)
 
-  function filterRecentEntries(entries: IntersectionObserverEntry[]) {
+  function getNextTilePosition() {
     const uniqueEntries = []
 
-    for (const entry of entries) {
-      const existingIndex = uniqueEntries.findIndex(uniqEntry => uniqEntry.target.isSameNode(entry.target))
+    for (const entry of latestEntries) {
+      const existingIndex = uniqueEntries.findIndex(uniqEntry => uniqEntry.isSameNode(entry))
       if (existingIndex >= 0) {
         uniqueEntries.splice(existingIndex, 1, entry)
       } else {
@@ -58,7 +63,20 @@ export function initObservers({ settings, resizeCb, intersectionCb }: SliderObse
       }
     }
 
-    return uniqueEntries
+    const positions = uniqueEntries
+      .filter(target => target.classList.contains(partiallyVisibleClass))
+      .map(partialTile => partialTile.getBoundingClientRect())
+      .map(rect => rect.y)
+      .filter(value => value > 0)
+
+    latestEntries = []
+
+    /* setTimeout(() => {
+      latestEntries.forEach(entry => Object.values(animationClasses).forEach(item => entry.classList.remove(item)))
+      latestEntries = []
+    }, 500) */
+
+    return Math.min(...positions)
   }
 
   function enableAnimation(element: HTMLElement) {
@@ -90,5 +108,5 @@ export function initObservers({ settings, resizeCb, intersectionCb }: SliderObse
     resizeObserver.disconnect()
   }
 
-  return { configObserverTargets, configTileIntersectionTargets, disconnect }
+  return { configObserverTargets, configTileIntersectionTargets, getNextTilePosition, disconnect }
 }

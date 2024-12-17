@@ -8,10 +8,11 @@ import {
   getWidgetDimension,
   inlineTileGap
 } from "./utils"
+import { initObservers } from "./observers"
 
 type SwiperDirection = "none" | "left" | "right" | "up" | "down"
 
-export default function (settings: Features["tileSizeSettings"]) {
+export default function (settings: Features["tileSizeSettings"], observers: ReturnType<typeof initObservers>) {
   const sliderElement = getSliderElement()
   const tilesContainerElement = getTileContainerElement()
   const scrollHistory: Array<number> = []
@@ -154,16 +155,17 @@ export default function (settings: Features["tileSizeSettings"]) {
   }
 
   function scrollUp() {
-    tilesContainerElement.scroll({
-      top: scrollHistory.pop(),
+    const scrollPosition = scrollHistory.pop()
+    tilesContainerElement.scrollBy({
+      top: scrollPosition ? -scrollPosition : 0,
       left: 0
     })
     setTimeout(() => controlNavigationButtonVisibility(), 500)
   }
 
   function scrollDown() {
-    tilesContainerElement.scroll({
-      top: getBlockHeight(),
+    tilesContainerElement.scrollBy({
+      top: getNextScrollPosition(),
       left: 0
     })
     setTimeout(() => controlNavigationButtonVisibility(), 500)
@@ -199,6 +201,13 @@ export default function (settings: Features["tileSizeSettings"]) {
       scrollHistory.push(tilesContainerElement.scrollTop)
       return totalHeight
     }
+  }
+
+  function getNextScrollPosition() {
+    const nextTarget = observers.getNextTilePosition()
+    const nextPosition = nextTarget - tilesContainerElement.getBoundingClientRect().top
+    scrollHistory.push(nextPosition)
+    return nextPosition
   }
 
   function getBlockHeight() {
