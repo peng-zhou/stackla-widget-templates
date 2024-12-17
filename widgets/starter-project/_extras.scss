@@ -13,7 +13,7 @@
     color: #fff;
     padding: 1rem;
     border-radius: 0.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgb(0 0 0 / 10%);
     opacity: 0;
     transform: translateY(-20px);
     transition: opacity 0.3s ease, transform 0.3s ease;
@@ -38,6 +38,7 @@
         0%, 100% {
             transform: translateY(0);
         }
+
         50% {
             transform: translateY(-50px);
         }
