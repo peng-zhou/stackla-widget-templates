@@ -8,10 +8,11 @@ import {
   getWidgetDimension,
   inlineTileGap
 } from "./utils"
+import { initObservers } from "./observers"
 
 type SwiperDirection = "none" | "left" | "right" | "up" | "down"
 
-export default function (settings: Features["tileSizeSettings"]) {
+export default function (settings: Features["tileSizeSettings"], observers: ReturnType<typeof initObservers>) {
   const sliderElement = getSliderElement()
   const tilesContainerElement = getTileContainerElement()
   const scrollHistory: Array<number> = []
@@ -75,7 +76,7 @@ export default function (settings: Features["tileSizeSettings"]) {
     }
 
     function register() {
-      toggleScrollUp("visible")
+      toggleScrollUp("hidden")
       toggleScrollDown("visible")
       sliderScrollUpButton!.addEventListener("click", scrollUpEventHandler)
       sliderScrollDownButton!.addEventListener("click", scrollDownEventHandler)
@@ -154,19 +155,33 @@ export default function (settings: Features["tileSizeSettings"]) {
   }
 
   function scrollUp() {
-    tilesContainerElement.scroll({
-      top: scrollHistory.pop(),
-      left: 0
-    })
-    setTimeout(() => controlNavigationButtonVisibility(), 500)
+    const scrollPosition = scrollHistory.pop()
+    if (!scrollPosition) {
+      tilesContainerElement.scrollTo({
+        top: 0,
+        left: 0
+      })
+    } else {
+      tilesContainerElement.scrollBy({
+        top: scrollPosition ? -scrollPosition : 0,
+        left: 0
+      })
+    }
+
+    setTimeout(() => {
+      observers.cleanupStyles()
+      controlNavigationButtonVisibility()
+    }, 500)
   }
 
   function scrollDown() {
-    tilesContainerElement.scroll({
+    tilesContainerElement.scrollBy({
       top: getBlockHeight(),
       left: 0
     })
-    setTimeout(() => controlNavigationButtonVisibility(), 500)
+    setTimeout(() => {
+      controlNavigationButtonVisibility()
+    }, 500)
   }
 
   function controlNavigationButtonVisibility() {
@@ -180,10 +195,7 @@ export default function (settings: Features["tileSizeSettings"]) {
       scrollerHandler.toggleScrollUp("hidden")
     }
 
-    const offset =
-      tilesContainerElement.scrollHeight - tilesContainerElement.scrollTop - tilesContainerElement.offsetHeight
-
-    if (offset === 0 || (tilesContainerElement.scrollHeight > 0 && offset >= defaultBlockHeight / 2)) {
+    if (tilesContainerElement.scrollTop + tilesContainerElement.offsetHeight < tilesContainerElement.scrollHeight) {
       scrollerHandler.toggleScrollDown("visible")
     } else {
       scrollerHandler.toggleScrollDown("hidden")
@@ -201,29 +213,44 @@ export default function (settings: Features["tileSizeSettings"]) {
     }
   }
 
-  function getBlockHeight() {
-    switch (getRenderMode(sliderElement)) {
-      case "mobile": {
-        return calcHeightAndRecordHistory(getWidgetDimension().containerHeight ?? defaultBlockHeight)
-      }
-      case "tablet": {
+  function getNextScrollPosition() {
+    const nextTarget = observers.getNextTilePosition()
+    if (isFinite(nextTarget)) {
+      const nextPosition = nextTarget - tilesContainerElement.getBoundingClientRect().top - inlineTileGap() / 2
+      scrollHistory.push(nextPosition)
+      return nextPosition
+    }
+    scrollHistory.push(tilesContainerElement.clientHeight)
+    return tilesContainerElement.clientHeight
+  }
+
+  function getBlockHeight(useLegacy = false) {
+    const renderMode = getRenderMode(sliderElement)
+
+    if (renderMode === "mobile") {
+      return calcHeightAndRecordHistory(getWidgetDimension().containerHeight ?? defaultBlockHeight)
+    }
+
+    if (useLegacy) {
+      if (renderMode === "tablet") {
         return calcHeightAndRecordHistory(
           getTopElementHeight(tilesContainerElement, defaultBlockHeight),
           inlineTileGap()
         )
       }
-      default: {
-        // scroll two tiles with grid margin
-        const verticalHeight = (() => {
-          const heightValue = defaultBlockHeight * 2 + inlineTileGap()
-          if (heightValue > tilesContainerElement.clientHeight) {
-            return defaultBlockHeight
-          }
-          return defaultBlockHeight * 2
-        })()
 
-        return calcHeightAndRecordHistory(verticalHeight, inlineTileGap())
-      }
+      // scroll two tiles with grid margin
+      const verticalHeight = (() => {
+        const heightValue = defaultBlockHeight * 2 + inlineTileGap()
+        if (heightValue > tilesContainerElement.clientHeight) {
+          return defaultBlockHeight
+        }
+        return defaultBlockHeight * 2
+      })()
+
+      return calcHeightAndRecordHistory(verticalHeight, inlineTileGap())
     }
+
+    return getNextScrollPosition()
   }
 }

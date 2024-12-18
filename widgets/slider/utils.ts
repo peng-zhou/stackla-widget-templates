@@ -60,3 +60,15 @@ export function getWidgetDimension() {
   const ugcComponentElement = sdk.placement.getElement()
   return { containerWidth: ugcComponentElement.clientWidth, containerHeight: ugcComponentElement.clientHeight }
 }
+
+export function calculateContainerWidth(settings: Features["tileSizeSettings"]) {
+  const tileGap = inlineTileGap()
+  const renderedTileSize = getTileSizeUnitless(settings) * 2 + tileGap * 2
+  const availableWidth = (getWidgetDimension().containerWidth * 95) / 100
+  const widthAdjusted = availableWidth - (availableWidth % renderedTileSize)
+  const possibleColumns = Math.round(availableWidth / renderedTileSize)
+  const veriticalColumnsAdjustment = tileGap * Math.round(possibleColumns / 3)
+
+  // adjusting the grid gap of 10 for the last grid element in the row
+  return `${widthAdjusted + tileGap - veriticalColumnsAdjustment}px`
+}

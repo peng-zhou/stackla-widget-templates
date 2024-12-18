@@ -1,5 +1,7 @@
 import { loadSlider } from "./load-slider"
 import { loadWidget } from "@stackla/widget-utils"
+import { initObservers } from "./observers"
+import { calculateContainerWidth } from "./utils"
 
 // dimensions from Figma design
 const tileSizeSettings = {
@@ -9,6 +11,16 @@ const tileSizeSettings = {
 }
 
 let sliderCallbacks: ReturnType<typeof loadSlider>
+
+const observers = initObservers({
+  settings: tileSizeSettings,
+  resizeCb: () => {
+    calculateContainerWidth(tileSizeSettings)
+    observers.configTileIntersectionTargets()
+  }
+})
+
+observers.configTileIntersectionTargets()
 
 loadWidget({
   features: {
@@ -20,8 +32,9 @@ loadWidget({
     onLoad: [
       () =>
         void setTimeout(() => {
-          sliderCallbacks = loadSlider(tileSizeSettings)
-        }, 500)
+          observers.configResizeObserverTargets()
+          sliderCallbacks = loadSlider(tileSizeSettings, observers)
+        }, 1000)
     ],
     onTilesUpdated: [() => sliderCallbacks?.tilesUpdatedEventHandler()]
   }
