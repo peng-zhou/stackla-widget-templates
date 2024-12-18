@@ -39,6 +39,10 @@ function initializeSwiperForInlineStoryTiles() {
 
   sdk.tiles.setVisibleTilesCount(perView * 2)
 
+  const spacing = inline_tile_size === "small" ? 5 : inline_tile_size === "medium" ? 15 : 25
+  widgetSelector.setAttribute("variation", inline_tile_size)
+  widgetSelector.parentElement!.style.setProperty("--spacing", `${spacing}`)
+
   initializeSwiper({
     id: "inline-story",
     mode: "inline",
@@ -47,21 +51,10 @@ function initializeSwiperForInlineStoryTiles() {
     nextButton: "swiper-inline-story-button-next",
     paramsOverrides: {
       slidesPerView: "auto",
-      spaceBetween: 30,
+      spaceBetween: spacing,
       grabCursor: false,
       allowTouchMove: false,
       breakpointsBase: "container",
-      breakpoints: {
-        0: {
-          slidesPerView: 1
-        },
-        537: {
-          slidesPerView: 3
-        },
-        952: {
-          slidesPerView: inline_tile_size === "medium" ? 12 : 7
-        }
-      },
       keyboard: {
         enabled: true,
         onlyInViewport: false
