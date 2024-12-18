@@ -14,8 +14,13 @@ let sliderCallbacks: ReturnType<typeof loadSlider>
 
 const observers = initObservers({
   settings: tileSizeSettings,
-  resizeCb: () => calculateContainerWidth(tileSizeSettings)
+  resizeCb: () => {
+    calculateContainerWidth(tileSizeSettings)
+    observers.configTileIntersectionTargets()
+  }
 })
+
+observers.configTileIntersectionTargets()
 
 loadWidget({
   features: {
@@ -27,8 +32,9 @@ loadWidget({
     onLoad: [
       () =>
         void setTimeout(() => {
+          observers.configResizeObserverTargets()
           sliderCallbacks = loadSlider(tileSizeSettings, observers)
-        }, 500)
+        }, 1000)
     ],
     onTilesUpdated: [() => sliderCallbacks?.tilesUpdatedEventHandler()]
   }

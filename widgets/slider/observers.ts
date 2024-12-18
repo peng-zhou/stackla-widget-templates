@@ -13,7 +13,7 @@ export function initObservers({ settings, resizeCb, intersectionCb }: SliderObse
   const partiallyVisibleClass = "partially-visible"
   const tilesContainerElement = getTileContainerElement()
   let previousPosition = tilesContainerElement.scrollTop
-  let latestEntries: Element[] = []
+  let latestEntries: IntersectionObserverEntry[] = []
 
   const resizeObserver = new ResizeObserver(() =>
     requestAnimationFrame(() => {
@@ -36,25 +36,26 @@ export function initObservers({ settings, resizeCb, intersectionCb }: SliderObse
           }
         }
 
-        if (entry.intersectionRatio > 0 && entry.intersectionRatio < 1) {
-          latestEntries.push(entry.target)
-        }
+        latestEntries.push(entry)
+
         entry.target.classList.add(partiallyVisibleClass)
       })
       intersectionCb?.()
       previousPosition = tilesContainerElement.scrollTop
     },
-    { root: tilesContainerElement, rootMargin: "0px", threshold: [0.1, 0.25, 0.5, 0.75, 1] }
+    { root: tilesContainerElement, rootMargin: "0px", threshold: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1] }
   )
-
-  configObserverTargets()
 
   getTileElements()[0].classList.add(animationClasses.up)
 
   function getNextTilePosition() {
     const uniqueEntries = []
 
-    for (const entry of latestEntries) {
+    const partialTiles = latestEntries
+      .filter(entry => entry.intersectionRatio < 1 && !entry.isIntersecting)
+      .map(partialEntry => partialEntry.target)
+
+    for (const entry of partialTiles) {
       const existingIndex = uniqueEntries.findIndex(uniqEntry => uniqEntry.isSameNode(entry))
       if (existingIndex >= 0) {
         uniqueEntries.splice(existingIndex, 1, entry)
@@ -69,14 +70,15 @@ export function initObservers({ settings, resizeCb, intersectionCb }: SliderObse
       .map(rect => rect.y)
       .filter(value => value > 0)
 
+    cleanupStyles()
+
     latestEntries = []
 
-    /* setTimeout(() => {
-      latestEntries.forEach(entry => Object.values(animationClasses).forEach(item => entry.classList.remove(item)))
-      latestEntries = []
-    }, 500) */
-
     return Math.min(...positions)
+  }
+
+  function cleanupStyles() {
+    latestEntries.forEach(entry => Object.values(animationClasses).forEach(item => entry.target.classList.remove(item)))
   }
 
   function enableAnimation(element: HTMLElement) {
@@ -94,8 +96,7 @@ export function initObservers({ settings, resizeCb, intersectionCb }: SliderObse
     }
   }
 
-  function configObserverTargets() {
-    configTileIntersectionTargets()
+  function configResizeObserverTargets() {
     resizeObserver.observe(tilesContainerElement)
   }
 
@@ -108,5 +109,5 @@ export function initObservers({ settings, resizeCb, intersectionCb }: SliderObse
     resizeObserver.disconnect()
   }
 
-  return { configObserverTargets, configTileIntersectionTargets, getNextTilePosition, disconnect }
+  return { configResizeObserverTargets, configTileIntersectionTargets, getNextTilePosition, cleanupStyles, disconnect }
 }
