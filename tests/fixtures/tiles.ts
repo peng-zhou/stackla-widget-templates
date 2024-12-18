@@ -1428,6 +1428,7 @@ export default [
     modified: "2024-10-02 01:44:51"
   },
   {
+    _id: { $id: "67346b758eec5d8fd9a720e1" },
     attrs: [],
     status: "published",
     source: "tiktok",
@@ -1696,6 +1697,7 @@ export default [
     modified: "2023-06-06 04:59:50"
   },
   {
+    _id: { $id: "67346b758eec5d8fd9a720e8" },
     attrs: [],
     status: "queued",
     source: "twitter",
@@ -1750,7 +1752,7 @@ export default [
     lang: "ja",
     page_post: false,
     stackla_sentiment_score: 0,
-    _id: "67346b758eec5d8fd9a720e8",
+    id: "67346b758eec5d8fd9a720e8",
     stack_id: 1451,
     source_id: "1856623620271009870",
     original_url: "https://twitter.com/1708713249204817920/status/1856623620271009870",
