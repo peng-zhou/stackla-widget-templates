@@ -1243,7 +1243,7 @@ export default [
   },
   {
     _id: { $id: "66fca44f768cb52740f8ba60" },
-    id: '66fca44f768cb52740f8ba60',
+    id: "66fca44f768cb52740f8ba60",
     attrs: ["src:graph", "instagram.reel"],
     status: "published",
     source: "instagram",
@@ -1430,7 +1430,7 @@ export default [
   },
   {
     _id: { $id: "67346b758eec5d8fd9a720e1" },
-    id: '67346b758eec5d8fd9a720e1',
+    id: "67346b758eec5d8fd9a720e1",
     attrs: [],
     status: "published",
     source: "tiktok",
@@ -1916,7 +1916,7 @@ export default [
   },
   {
     _id: { $id: "673d97e9f0cc6f9265e201b3" },
-    id: '673d97e9f0cc6f9265e201b3',
+    id: "673d97e9f0cc6f9265e201b3",
     attrs: [],
     status: "queued",
     source: "facebook",
