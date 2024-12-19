@@ -1,0 +1,45 @@
+@use "sass:map";
+@use "@styles/partials/media-queries";
+@use "dimens";
+
+.shortvideo-inline {
+  .ugc-tile {
+    position: relative;
+    width: 100%;
+    display: flex;
+
+    .tile {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+
+      .tile-image-wrapper {
+        display: flex;
+        width: 100%;
+        height: var(--tile-size) !important;
+
+        img {
+          aspect-ratio: auto;
+          width: 100%;
+          object-fit: cover;
+          overflow: hidden;
+          border-radius: dimens.$inline-tile-border-radius;
+          position: relative;
+          opacity: 1;
+        }
+
+        video {
+          object-fit: fill;
+        }
+      }
+    }
+  }
+
+  & ~ .swiper-button-next,
+  & ~ .swiper-button-prev {
+    --swiper-navigation-sides-offset: 0px;
+
+    top: calc(var(--swiper-navigation-top-offset, 50%) - dimens.$nosto-container-margin + 10);
+  }
+}
