@@ -13,7 +13,8 @@
   }
 
   position: relative;
-  width: 100%;
+  flex: 1;
+  overflow: hidden;
   height: fit-content;
   place-items: flex-start;
 
@@ -27,6 +28,19 @@
 
   .mask-both {
     mask-image: linear-gradient(to right, transparent 5%, black 15%, black 85%, transparent 95%);
+  }
+
+  &[context*="inline"] {
+    .swiper-tags {
+      margin-left: initial;
+      width: 100%;
+    }
+  }
+
+  &[context*="inline"][navigation-arrows="true"] {
+    .swiper-tags {
+      width: calc(100% - 30px);
+    }
   }
 
   &:has(.swiper-tags-button-prev:not(.swiper-button-disabled)) {
@@ -108,13 +122,6 @@
   &[variation="small"][context*="inline"] {
     .swiper-tags .swiper-slide {
       max-width: 100%;
-    }
-  }
-
-  &[context*="inline"] {
-    .swiper-tags {
-      margin-left: initial;
-      width: calc(100% - 30px);
     }
   }
 
