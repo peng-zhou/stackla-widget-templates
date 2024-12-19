@@ -18,7 +18,9 @@
       </div>
       <div class="center-section">
         {{#ifequals media "video"}}
-        <div class="icon-play"></div>
+          {{#unless options.tile_options.auto_play_video }}
+            <div class="icon-play"></div>
+          {{/unless}}
         {{/ifequals}}
       </div>
       <div class="bottom-section">
@@ -26,7 +28,11 @@
       </div>
     </div>
     <div class="tile-image-wrapper">
-      {{#lazy image_thumbnail_url "120"}}{{/lazy}}
+      {{#ifAutoPlayVideo media options.tile_options.auto_play_video }}
+        {{playVideo this "100%" "100%"}}
+      {{else}}
+        {{#lazy image_thumbnail_url "120"}}{{/lazy}}
+      {{/ifAutoPlayVideo}}
       <div class="swiper-lazy-preloader"></div>
       <shopspot-icon tile-id={{id}} />
     </div>

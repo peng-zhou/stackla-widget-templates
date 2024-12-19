@@ -28,6 +28,10 @@
     overflow: hidden;
     width: 100%;
     aspect-ratio: 1 / 1;
+
+    video {
+      object-fit: fill;
+    }
   }
 
   @include media-queries.breakpoint(mobile) {

@@ -31,6 +31,10 @@
       @include media-queries.breakpoint(mobile) {
         max-width: 100%;
       }
+
+      video {
+        object-fit: fill;
+      }
     }
   }
 

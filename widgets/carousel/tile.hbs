@@ -1,6 +1,10 @@
 {{#tile class="swiper-slide" }}
 <div class="tile">
-  <div class="tile-loading"></div>
+  {{#ifequals media "video"}}
+    {{#unless options.tile_options.auto_play_video }}
+      <div class="tile-loading"></div>
+    {{/unless}}
+  {{/ifequals}}
   <div class="icon-section hidden">
     <div class="top-section">
       {{#each attrs}}
@@ -17,7 +21,9 @@
     </div>
     <div class="center-section">
       {{#ifequals media "video"}}
-      <div class="icon-play"></div>
+        {{#unless options.tile_options.auto_play_video }}
+          <div class="icon-play"></div>
+        {{/unless}}
       {{/ifequals}}
     </div>
     <div class="bottom-section">
@@ -26,8 +32,12 @@
     </div>
   </div>
   <div class="tile-image-wrapper">
-    <shopspot-icon tile-id={{id}}></shopspot-icon>
-    {{#lazy image_thumbnail_url }}{{/lazy}}
+    {{#ifAutoPlayVideo media options.tile_options.auto_play_video }}
+      {{playVideo this "100%" "100%"}}
+    {{else}}
+      <shopspot-icon tile-id={{id}}></shopspot-icon>
+      {{#lazy image_thumbnail_url }}{{/lazy}}
+    {{/ifAutoPlayVideo}}
     <div class="swiper-lazy-preloader"></div>
   </div>
 </div>

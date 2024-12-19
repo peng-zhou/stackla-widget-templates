@@ -1,35 +1,41 @@
 {{#tile data-hash=@index class="grid-item"}}
-<div class="tile" data-background-image="{{image_thumbnail_url}}">
-  <div class="direct-uploader-load-more">
-    <div class="direct-uploader-container">
-      <div>
-        <span class="icon-picture"></span>
-        <p>View all</p>
+  {{#ifAutoPlayVideo media options.tile_options.auto_play_video }}
+    <div class="tile">
+      {{playVideo this "100%" "100%"}}
+    </div>
+  {{else}}
+    <div class="tile" data-background-image="{{image_thumbnail_url}}">
+      <div class="direct-uploader-load-more">
+        <div class="direct-uploader-container">
+          <div>
+            <span class="icon-picture"></span>
+            <p>View all</p>
+          </div>
+        </div>
+      </div>
+      <div class="icon-section">
+        <div class="top-section">
+          {{#each attrs}}
+            {{#ifequals this "instagram.reel"}}
+              <div class="content-icon icon-reel"></div>
+            {{/ifequals}}
+          {{/each}}
+          {{#if tags_extended.length}}
+            <div class="shopping-icon icon-products"></div>
+          {{/if}}
+        </div>
+        <div class="center-section">
+          {{#ifequals media "video"}}
+            <div class="icon-play"></div>
+          {{/ifequals}}
+        </div>
+        <div class="bottom-section">
+          <tile-tags variant="dark" tile-id="{{id}}" mode="swiper" context="storypage-inline"></tile-tags>
+          <div class="network-icon icon-{{source}}"></div>
+        </div>
+
+        <shopspot-icon tile-id={{id}}></shopspot-icon>
       </div>
     </div>
-  </div>
-  <div class="icon-section">
-    <div class="top-section">
-      {{#each attrs}}
-      {{#ifequals this "instagram.reel"}}
-      <div class="content-icon icon-reel"></div>
-      {{/ifequals}}
-      {{/each}}
-      {{#if tags_extended.length}}
-      <div class="shopping-icon icon-products"></div>
-      {{/if}}
-    </div>
-    <div class="center-section">
-      {{#ifequals media "video"}}
-      <div class="icon-play"></div>
-      {{/ifequals}}
-    </div>
-    <div class="bottom-section">
-      <tile-tags variant="dark" tile-id="{{id}}" mode="swiper" context="storypage-inline"></tile-tags>
-      <div class="network-icon icon-{{source}}"></div>
-    </div>
-
-    <shopspot-icon tile-id={{id}}></shopspot-icon>
-  </div>
-</div>
+  {{/ifAutoPlayVideo}}
 {{/tile}}

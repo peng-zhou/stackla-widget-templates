@@ -2,13 +2,19 @@
 <div class="image-section">
     <div class="center-section">
         {{#ifequals media "video"}}
-        <div class="icon-play"></div>
+          {{#unless options.tile_options.auto_play_video }}
+            <div class="icon-play"></div>
+          {{/unless}}
         {{/ifequals}}
     </div>
     {{#if options.tile_options.show_shopspots}}
     <shopspot-icon tile-id="{{id}}"></shopspot-icon>
     {{/if}}
-    {{#lazy image_thumbnail_url "120"}}{{/lazy}}
+    {{#ifAutoPlayVideo media options.tile_options.auto_play_video }}
+      {{playVideo this "100%" "100%"}}
+    {{else}}
+      {{#lazy image_thumbnail_url "120"}}{{/lazy}}
+    {{/ifAutoPlayVideo}}
 </div>
 <div class="details-section">
     <div class="tile-message-wrapper">
