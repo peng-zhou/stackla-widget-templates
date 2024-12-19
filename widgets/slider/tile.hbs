@@ -7,6 +7,9 @@
           {{/unless}}
         {{/ifequals}}
     </div>
+    {{#if options.tile_options.show_shopspots}}
+    <shopspot-icon tile-id="{{id}}"></shopspot-icon>
+    {{/if}}
     {{#ifAutoPlayVideo media options.tile_options.auto_play_video }}
       {{playVideo this "100%" "100%"}}
     {{else}}
