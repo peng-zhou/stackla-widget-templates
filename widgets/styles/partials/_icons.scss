@@ -157,7 +157,9 @@
   }
 }
 
-.icon-instagram {
+.icon-instagram,
+.icon-instagram.large,
+.icon-instagram.medium {
   width: 16px;
   height: 16px;
   background-size: contain;
@@ -174,7 +176,9 @@
   }
 }
 
-.icon-twitter {
+.icon-twitter,
+.icon-twitter.large,
+.icon-twitter.medium {
   display: flex;
   width: 18px;
   height: 18px;
@@ -185,9 +189,16 @@
   &.black {
     background-image: url("assets/svg/x-black.svg");
   }
+
+  &.small {
+    width: 12px;
+    height: 12px;
+  }
 }
 
-.icon-linkedin {
+.icon-linkedin,
+.icon-linkedin.large,
+.icon-linkedin.medium {
   width: 18px;
   height: 18px;
   background-size: contain;
@@ -197,9 +208,16 @@
   &.black {
     background-image: url("assets/svg/linkedin-black.svg");
   }
+
+  &.small {
+    width: 12px;
+    height: 12px;
+  }
 }
 
-.icon-tiktok {
+.icon-tiktok,
+.icon-tiktok.large,
+.icon-tiktok.medium {
   width: 18px;
   height: 18px;
   background-size: contain;
@@ -209,9 +227,16 @@
   &.black {
     background-image: url("assets/svg/tiktok-black.svg");
   }
+
+  &.small {
+    width: 12px;
+    height: 12px;
+  }
 }
 
-.icon-facebook {
+.icon-facebook,
+.icon-facebook.large,
+.icon-facebook.medium {
   width: 16px;
   height: 16px;
   background-size: contain;
@@ -221,33 +246,59 @@
   &.black {
     background-image: url("assets/svg/facebook-black.svg");
   }
+
+  &.small {
+    width: 12px;
+    height: 12px;
+  }
 }
 
-.icon-reel {
+.icon-reel,
+.icon-reel.large,
+.icon-reel.medium {
   width: 12px;
   height: 12px;
   background-size: contain;
   background-image: url("assets/svg/reel.svg");
   background-repeat: no-repeat;
+
+  &.small {
+    width: 12px;
+    height: 12px;
+  }
 }
 
 .icon-products {
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   background-size: contain;
   background-image: url("assets/svg/products.svg");
   background-repeat: no-repeat;
+
+  &.small {
+    width: 10px;
+    height: 10px;
+  }
 }
 
-.icon-products-bg {
+.icon-products-bg,
+.icon-products-bg.large,
+.icon-products-bg.medium {
   width: 24px;
   height: 24px;
   background-size: contain;
   background-image: url("assets/svg/products-bg.svg");
   background-repeat: no-repeat;
+
+  &.small {
+    width: 18px;
+    height: 18px;
+  }
 }
 
-.icon-youtube {
+.icon-youtube,
+.icon-youtube.large,
+.icon-youtube.medium {
   width: 22px;
   height: 16px;
   background-size: contain;
@@ -257,17 +308,31 @@
   &.black {
     background-image: url("assets/svg/youtube-black.svg");
   }
+
+  &.small {
+    width: 12px;
+    height: 12px;
+  }
 }
 
-.icon-youtube-short {
+.icon-youtube-short,
+.icon-youtube-short.large,
+.icon-youtube-short.medium {
   width: 16px;
   height: 16px;
   background-size: contain;
   background-image: url("assets/svg/youtube-short.svg");
   background-repeat: no-repeat;
+
+  &.small {
+    width: 12px;
+    height: 12px;
+  }
 }
 
-.icon-flickr {
+.icon-flickr,
+.icon-flickr.large,
+.icon-flickr.medium {
   width: 16px;
   height: 16px;
   background-size: contain;
@@ -277,9 +342,16 @@
   &.black {
     background-image: url("assets/svg/flickr-black.svg");
   }
+
+  &.small {
+    width: 12px;
+    height: 12px;
+  }
 }
 
-.icon-weibo {
+.icon-weibo,
+.icon-weibo.large,
+.icon-weibo.medium {
   width: 16px;
   height: 16px;
   background-size: contain;
@@ -289,9 +361,16 @@
   &.black {
     background-image: url("assets/svg/weibo-black.svg");
   }
+
+  &.small {
+    width: 12px;
+    height: 12px;
+  }
 }
 
-.icon-pinterest {
+.icon-pinterest,
+.icon-pinterest.large,
+.icon-pinterest.medium {
   width: 18px;
   height: 18px;
   background-size: contain;
@@ -301,9 +380,16 @@
   &.black {
     background-image: url("assets/svg/pinterest-black.svg");
   }
+
+  &.small {
+    width: 12px;
+    height: 12px;
+  }
 }
 
-.icon-rss {
+.icon-rss,
+.icon-rss.large,
+.icon-rss.medium {
   width: 16px;
   height: 16px;
   background-size: contain;
@@ -313,47 +399,89 @@
   &.black {
     background-image: url("assets/svg/rss-black.svg");
   }
+
+  &.small {
+    width: 12px;
+    height: 12px;
+  }
 }
 
-.icon-tumblr {
+.icon-tumblr,
+.icon-tumblr.large,
+.icon-tumblr.medium {
   width: 16px;
   height: 16px;
   background-size: contain;
   background-image: url("assets/svg/tumblr.svg");
   background-repeat: no-repeat;
+
+  &.small {
+    width: 12px;
+    height: 12px;
+  }
 }
 
 .icon-stackla,
-.icon-sta_feed {
+.icon-stackla.large,
+.icon-stackla.medium,
+.icon-sta_feed,
+.icon-sta_feed.large,
+.icon-sta_feed.medium {
   width: 18px;
   height: 18px;
   background-size: contain;
   background-image: url("assets/svg/stackla.svg");
   background-repeat: no-repeat;
+
+  &.small {
+    width: 12px;
+    height: 12px;
+  }
 }
 
-.icon-snapchat {
+.icon-snapchat,
+.icon-snapchat.large,
+.icon-snapchat.medium {
   width: 16px;
   height: 16px;
   background-size: contain;
   background-image: url("assets/svg/snapchat.svg");
   background-repeat: no-repeat;
+
+  &.small {
+    width: 12px;
+    height: 12px;
+  }
 }
 
-.icon-spotify {
+.icon-spotify,
+.icon-spotify.large,
+.icon-spotify.medium {
   width: 16px;
   height: 16px;
   background-size: contain;
   background-image: url("assets/svg/spotify.svg");
   background-repeat: no-repeat;
+
+  &.small {
+    width: 12px;
+    height: 12px;
+  }
 }
 
-.icon-hootsuite {
+.icon-hootsuite,
+.icon-hootsuite.large,
+.icon-hootsuite.medium {
   width: 16px;
   height: 16px;
   background-size: contain;
   background-image: url("assets/svg/hootsuite.svg");
   background-repeat: no-repeat;
+
+  &.small {
+    width: 12px;
+    height: 12px;
+  }
 }
 
 .icon-prev {
@@ -435,4 +563,9 @@
   background-size: contain;
   background-image: url("assets/svg/tag.svg");
   background-repeat: no-repeat;
+
+  &.small {
+    width: 18px;
+    height: 18px;
+  }
 }

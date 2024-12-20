@@ -35,31 +35,59 @@ export function initializeSwiperForInlineStoryTiles() {
     nextButton: "swiper-inline-story-button-next",
     paramsOverrides: {
       slidesPerView: "auto",
-      grabCursor: false,
+      spaceBetween: 10,
+      grabCursor: true,
+      slidesOffsetBefore: 0,
+      allowTouchMove: true,
       shortSwipes: false,
       longSwipes: false,
-      fadeEffect: {
-        crossFade: true
-      },
-      slidesOffsetBefore: 5,
-      allowTouchMove: true,
-      breakpointsBase: "container",
-      allowSlideNext: false,
-      allowSlidePrev: false,
       breakpoints: {
-        0: {
-          slidesPerView: getSlidesPerView()
+        300: {
+          allowTouchMove: true,
+          followFinger: true,
+          spaceBetween: 10,
+          slidesPerView: getSlidesPerView(300)
+        },
+        400: {
+          allowTouchMove: true,
+          followFinger: true,
+          spaceBetween: 10,
+          slidesPerView: getSlidesPerView(400)
+        },
+        500: {
+          allowTouchMove: true,
+          followFinger: true,
+          spaceBetween: 10,
+          slidesPerView: getSlidesPerView(500)
+        },
+        800: {
+          allowTouchMove: true,
+          followFinger: true,
+          spaceBetween: 10,
+          slidesPerView: getSlidesPerView(800)
         },
         993: {
-          allowSlideNext: true,
-          allowSlidePrev: true,
+          spaceBetween: 5,
           allowTouchMove: false,
           followFinger: false,
+          slidesPerView: getSlidesPerView(993),
           navigation: {
             enabled: !!(prev && next),
             prevEl: prev,
             nextEl: next
           }
+        },
+        1300: {
+          spaceBetween: 5,
+          slidesPerView: getSlidesPerView(1300)
+        },
+        1500: {
+          spaceBetween: 5,
+          slidesPerView: getSlidesPerView(1500)
+        },
+        2000: {
+          spaceBetween: 5,
+          slidesPerView: getSlidesPerView(2000)
         }
       },
       keyboard: {

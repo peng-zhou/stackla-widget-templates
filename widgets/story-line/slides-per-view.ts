@@ -2,57 +2,51 @@ import { Sdk } from "types"
 
 declare const sdk: Sdk
 
-const screenDimention = {
-  mobileL: 300,
-  mobileXXL: 400,
-  tablet: 557,
-  miniPc: 993,
-  desktop: 1500,
-  wideScreen: 2000
-} as const
+type Key = keyof typeof slidesPerViewByDimension
 
-type TileSize = "small" | "medium" | "large"
+const slidesPerViewByDimension = {
+  // widescreen monitors
+  "2000-small": 25,
+  "2000-medium": 15,
+  "2000-large": 12,
 
-type TileSizeConfig = { [k1 in TileSize]: number }
+  // desktop monitors
+  "1500-small": 20,
+  "1500-medium": 13,
+  "1500-large": 9,
 
-type SlidesPerView = {
-  [key: number]: TileSizeConfig
+  // mini desktop landscape modes
+  "1300-small": 14,
+  "1300-medium": 10,
+  "1300-large": 7,
+
+  // mini desktop pcs or Ipad pros
+  "993-small": 11,
+  "993-medium": 7,
+  "993-large": 5,
+
+  // mid size screens
+  "800-small": 11,
+  "800-medium": 7,
+  "800-large": 5,
+
+  // tablet screens
+  "500-small": 9,
+  "500-medium": 6,
+  "500-large": 4,
+
+  // max pro or ultra mobile devices
+  "400-small": 6,
+  "400-medium": 3,
+  "400-large": 2,
+
+  // regular mobile devices
+  "300-small": 5,
+  "300-medium": 3,
+  "300-large": 2
 }
 
-const slidesPerViewByDimension: SlidesPerView = {
-  [screenDimention["wideScreen"]]: {
-    small: 25,
-    medium: 15,
-    large: 12
-  },
-  [screenDimention["desktop"]]: {
-    small: 20,
-    medium: 13,
-    large: 9
-  },
-  [screenDimention["miniPc"]]: {
-    small: 12,
-    medium: 7,
-    large: 5
-  },
-  [screenDimention["tablet"]]: {
-    small: 9,
-    medium: 6,
-    large: 4
-  },
-  [screenDimention["mobileXXL"]]: {
-    small: 6,
-    medium: 3,
-    large: 2
-  },
-  [screenDimention["mobileL"]]: {
-    small: 4,
-    medium: 2,
-    large: 1
-  }
-}
-
-export function getSlidesPerView() {
+export function getSlidesPerView(dimen: number) {
   const {
     enable_custom_tiles_per_page: isCustomTilesPerPageEnabled,
     tiles_per_page: tilesPerPage,
@@ -63,14 +57,10 @@ export function getSlidesPerView() {
     return parseInt(tilesPerPage)
   }
 
-  const screenWidth = window.innerWidth
+  const key = `${dimen}-${tileSize}` as Key
 
-  const matches = Object.values(screenDimention).filter(v => screenWidth >= v)
-
-  const match = Math.max(...matches)
-
-  if (slidesPerViewByDimension[match]) {
-    return slidesPerViewByDimension[match][tileSize as TileSize]
+  if (key in slidesPerViewByDimension) {
+    return slidesPerViewByDimension[key]
   }
   return "auto"
 }
