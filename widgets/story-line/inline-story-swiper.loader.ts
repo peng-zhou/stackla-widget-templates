@@ -38,6 +38,9 @@ export function initializeSwiperForInlineStoryTiles() {
       grabCursor: false,
       shortSwipes: false,
       longSwipes: false,
+      fadeEffect: {
+        crossFade: true
+      },
       slidesOffsetBefore: 5,
       allowTouchMove: true,
       breakpointsBase: "container",

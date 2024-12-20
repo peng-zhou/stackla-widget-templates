@@ -9,8 +9,7 @@ describe("Should test the direct-uploader", () => {
     cy.before()
   })
 
-  // skipping this as the test is unstable
-  it.skip("Should expand tile", () => {
+  it("Should expand tile", () => {
     cy.shouldExpandedTile(WIDGET_TYPE)
     cy.expandedTileSnapshot(WIDGET_TYPE)
   })
