@@ -53,7 +53,7 @@ export function getSlidesPerView(dimen: number) {
     inline_tile_size: tileSize
   } = sdk.getStyleConfig()
 
-  if (isCustomTilesPerPageEnabled) {
+  if (isCustomTilesPerPageEnabled && tilesPerPage) {
     return parseInt(tilesPerPage)
   }
 

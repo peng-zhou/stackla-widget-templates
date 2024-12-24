@@ -1,3 +1,4 @@
+@forward "@styles/partials/swiper";
 @forward "@styles/partials/icons";
 @forward "@styles/partials/loading";
 @forward "@styles/partials/tile-overlay";
@@ -10,6 +11,7 @@
 @use "@styles/templates/time-phrase" as tphrase;
 @use "@styles/templates/share-menu" as smenu;
 @use "@styles/partials/icon-sections" as is;
+@use "@styles/partials/swiper-expanded" as se;
 
 .nightfall-inline,
 expanded-tiles {
@@ -19,4 +21,5 @@ expanded-tiles {
   @include smenu.share-menu-styles;
   @include tags.tile-tags-styles;
   @include tc.tile-content-styles;
+  @include se.swiper-expanded-styles;
 }

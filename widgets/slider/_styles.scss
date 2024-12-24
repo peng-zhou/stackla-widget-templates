@@ -1,3 +1,4 @@
+@forward "@styles/partials/swiper";
 @forward "@styles/partials/icons";
 @forward "@styles/partials/loading";
 @forward "@styles/partials/tile-overlay";
@@ -10,6 +11,7 @@
 @use "@styles/templates/share-menu" as smenu;
 @use "@styles/partials/grid";
 @use "@styles/templates/tags";
+@use "@styles/partials/swiper-expanded" as se;
 
 .slider-inline,
 expanded-tiles:not(:empty) {
@@ -18,4 +20,5 @@ expanded-tiles:not(:empty) {
   @include tphrase.time-phrase-styles;
   @include smenu.share-menu-styles;
   @include tags.tile-tags-styles;
+  @include se.swiper-expanded-styles;
 }

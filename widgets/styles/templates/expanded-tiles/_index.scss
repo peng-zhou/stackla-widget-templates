@@ -109,6 +109,7 @@ expanded-tiles:not(:empty) {
       border-radius: var(--expanded-tile-border-radius);
       grid-template-columns: minmax(0, dimens.$panel-left-width-lg) minmax(0, dimens.$panel-right-width-lg);
       grid-template-rows: 1fr;
+      min-height: 80vh;
 
       .panel-left {
         display: flex;
