@@ -15,10 +15,6 @@
     gap: 10px;
     width: 100%;
 
-    .user-name {
-      color: var(--text-tile-user-name-font-color);
-    }
-
     .description {
       display: flex;
       flex-direction: column;
@@ -75,8 +71,8 @@
           display: flex;
 
           > img {
-            width: 40px !important;
-            height: 40px !important;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
           }
         }
@@ -100,7 +96,7 @@
           color: #000;
 
           .user-handle {
-            color: var(--text-tile-user-handle-font-color);
+            color: #000;
           }
         }
       }
@@ -122,6 +118,18 @@
       }
     }
   }
+
+  &[orientation="vertical"] {
+    .tile-content-wrapper .user-info {
+      flex-direction: column;
+      gap: 10px;
+
+      .avatar-wrapper,
+      .user-link {
+        margin-right: unset;
+      }
+    }
+  }
 }
 
 @mixin tile-content-styles($parent: null) {
@@ -129,17 +137,12 @@
   @if $parent {
     #{string.unquote($parent) tile-content} {
       @extend %tile-content-styles-ph;
-
-      // any style overrides
-      @content;
     }
   } @else {
     // dynamically determine the parent selector if available
     #{if(&, "& tile-content", "tile-content")} {
       @extend %tile-content-styles-ph;
-
-      // any style overrides
-      @content;
     }
   }
+  @content;
 }

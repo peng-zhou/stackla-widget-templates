@@ -18,6 +18,7 @@ loadWidget({
   },
   features: {
     handleLoadMore: false,
+    story: true,
     tileSizeSettings
   },
   callbacks: {

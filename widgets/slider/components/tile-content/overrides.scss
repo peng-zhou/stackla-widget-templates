@@ -3,7 +3,7 @@
 
 .slider-inline {
   @include tc.tile-content-styles {
-    .tile-content-wrapper {
+    tile-content .tile-content-wrapper {
       .header {
         share-menu {
           display: none;
