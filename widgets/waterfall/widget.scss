@@ -200,7 +200,7 @@
   }
 
   time-phrase {
-    display: var(--timephrase-display);
+    display: var(--timephrase-display-inline);
   }
 
   share-menu {
@@ -218,7 +218,7 @@
   }
 
   .caption {
-    display: var(--show-caption-webkit);
+    display: var(--show-caption-inline-webkit);
     font-size: var(--text-tile-font-size);
     color: #000;
     -ms-overflow-style: none;
@@ -288,7 +288,7 @@
     position: relative;
 
     .icon-share {
-      display: var(--share-icon-display);
+      display: var(--share-icon-display-inline);
     }
 
     .icon-share.small {
