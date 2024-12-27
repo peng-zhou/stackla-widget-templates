@@ -1,14 +1,14 @@
-@forward "@styles/partials/icons";
-@forward "@styles/partials/loading";
-@forward "inline-tile";
-@forward "@styles/partials/tile-overlay";
-@forward "@styles/templates/story-line-expanded";
-@forward "@styles/templates/swiper-overrides";
-@use "@styles/templates/tile-content" as tc;
+@use "@styles/partials/icons";
+@use "@styles/partials/loading";
+@use "inline-tile";
+@use "@styles/partials/tile-overlay";
+@use "@styles/templates/swiper-overrides";
+@use "@styles/templates/story-line-expanded";
 @use "@styles/templates/shopspot-icon" as sicon;
 @use "@styles/templates/time-phrase" as tphrase;
 @use "@styles/templates/share-menu" as smenu;
 @use "icon-sections-override";
+@use "tile-content-override";
 @use "@styles/templates/tags";
 
 .story-inline,
@@ -16,6 +16,5 @@ expanded-tiles {
   @include sicon.shopspot-icon-styles;
   @include tphrase.time-phrase-styles;
   @include smenu.share-menu-styles;
-  @include tc.tile-content-styles;
   @include tags.tile-tags-styles;
 }
