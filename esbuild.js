@@ -27,18 +27,18 @@ const getTemplatesEndpoint = () => {
     default:
       return "http://localhost:4003"
   }
-}  
+}
 
 const postcssPlugins = [
   postcssUrl({
-    url: (asset) => {
-      if (asset.url.endsWith('.svg')) {
-        return `${getTemplatesEndpoint()}/${asset.url}`;
+    url: asset => {
+      if (asset.url.endsWith(".svg")) {
+        return `${getTemplatesEndpoint()}/${asset.url}`
       }
-      return asset.url; 
+      return asset.url
     }
   })
-];
+]
 
 async function buildAll() {
   const esbuild = require("esbuild")
@@ -57,11 +57,13 @@ async function buildAll() {
     setup(build) {
       // Cleanup dist before build
       build.onStart(() => {
-        fs.readdirSync("./dist").forEach(file => {
-          if (file !== "assets") {
-            fs.rmSync(`./dist/${file}`, { recursive: true, force: true })
-          }
-        });
+        if (fs.existsSync("./dist")) {
+          fs.readdirSync("./dist").forEach(file => {
+            if (file !== "assets") {
+              fs.rmSync(`./dist/${file}`, { recursive: true, force: true })
+            }
+          })
+        }
       })
 
       build.onEnd(() => {
@@ -91,9 +93,8 @@ async function buildAll() {
 
           const combined = `${result.css.toString()}`
 
-          const postCssResult = await postcss(postcssPlugins).process(combined, { from: item.relative() });
-          const postCssCombined = postCssResult.css;
-
+          const postCssResult = await postcss(postcssPlugins).process(combined, { from: item.relative() })
+          const postCssCombined = postCssResult.css
 
           fs.writeFileSync(`dist/${item.parent.name}/widget.css`, postCssCombined)
         })
