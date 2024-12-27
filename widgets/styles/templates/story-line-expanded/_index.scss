@@ -1,4 +1,4 @@
-@use "sass:map";
+@use "sass:color";
 @use "dimens";
 @use "../add-to-cart";
 @use "../products";
@@ -64,6 +64,37 @@ expanded-tiles:not(:empty) {
     flex-direction: column;
     position: relative;
 
+    .story-progress-wrapper {
+      box-sizing: border-box;
+      z-index: 50;
+      width: 100%;
+      display: flex;
+      padding: 2px;
+      justify-content: center;
+      margin-top: 15px;
+
+      .story-autoplay-progress {
+        display: flex;
+        width: 95%;
+        justify-content: flex-start;
+        font-weight: bold;
+        border-radius: 30px;
+        background: rgba(0 0 0 / 25%);
+        box-shadow:
+          inset 0 1px 2px rgba(0 0 0 / 25%),
+          0 1px rgba(255 255 255 / 8%);
+
+        .progress-content {
+          height: 3px;
+          border-radius: 30px;
+          background-image: linear-gradient(to bottom, rgba(255 255 255 / 3%), rgba(255 255 255 / 5%));
+          transition: 0.4s linear;
+          transition-property: width, background-color;
+          background-color: #fff;
+        }
+      }
+    }
+
     .story-controls {
       display: flex;
       flex-direction: row;
@@ -93,7 +124,90 @@ expanded-tiles:not(:empty) {
       .swiper-wrapper {
         .swiper-slide {
           align-items: flex-start;
-          height: fit-content;
+          width: dimens.$width;
+          height: dimens.$height;
+
+          .panel {
+            overflow: hidden;
+            display: flex;
+            position: relative;
+            background: var(--expanded-tiles-background);
+            border-radius: var(--expanded-tile-border-radius);
+            flex-direction: column;
+            height: 100vh;
+            width: 100vw;
+
+            tile-content {
+              margin: 10px;
+              flex: 1;
+            }
+
+            .image-wrapper {
+              display: flex;
+              position: relative;
+              height: 100%;
+              width: 100%;
+
+              .image-wrapper-inner {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: 100%;
+
+                div.image {
+                  display: flex;
+                  position: relative;
+
+                  img.image-element {
+                    display: flex;
+                    width: 100%;
+                    height: 100%;
+                    margin-bottom: 0;
+                  }
+                }
+
+                &:has(> .video-content) {
+                  align-items: stretch;
+                }
+
+                .video-content {
+                  display: flex;
+                  flex-grow: 1;
+                  border: none;
+                  margin: 0;
+                  padding: 0;
+                  z-index: 1;
+                }
+              }
+
+              video {
+                display: flex;
+                width: 100%;
+                height: 100%;
+                z-index: 10;
+                position: relative;
+              }
+
+              .video-content-wrapper {
+                display: flex;
+                width: 100%;
+                height: 100%;
+                place-items: center;
+              }
+
+              .video-fallback-content {
+                display: flex;
+                height: 100%;
+                justify-content: center;
+                align-items: center;
+
+                &.hidden {
+                  display: none;
+                }
+              }
+            }
+          }
 
           div.image-filler {
             background-position: center;
@@ -103,88 +217,6 @@ expanded-tiles:not(:empty) {
             filter: blur(50px) brightness(0.5);
             inset: 0;
             transform: scale(1.2);
-          }
-        }
-      }
-    }
-
-    .panel {
-      overflow: hidden;
-      display: flex;
-      position: relative;
-      background: var(--expanded-tiles-background);
-      border-radius: var(--expanded-tile-border-radius);
-      width: dimens.$width;
-      height: dimens.$height;
-      flex-direction: column;
-
-      tile-content {
-        margin: 40px 10px 10px;
-        flex: 1;
-      }
-
-      .image-wrapper {
-        display: flex;
-        position: relative;
-        height: 100%;
-        width: 100%;
-
-        .image-wrapper-inner {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 100%;
-          height: 100%;
-
-          div.image {
-            display: flex;
-            position: relative;
-
-            img.image-element {
-              display: flex;
-              width: 100%;
-              height: 100%;
-              margin-bottom: 0;
-            }
-          }
-
-          &:has(> .video-content) {
-            align-items: stretch;
-          }
-
-          .video-content {
-            display: flex;
-            flex-grow: 1;
-            border: none;
-            margin: 0;
-            padding: 0;
-            z-index: 1;
-          }
-        }
-
-        video {
-          display: flex;
-          width: 100%;
-          height: 100%;
-          z-index: 10;
-          position: relative;
-        }
-
-        .video-content-wrapper {
-          display: flex;
-          width: 100%;
-          height: 100%;
-          place-items: center;
-        }
-
-        .video-fallback-content {
-          display: flex;
-          height: 100%;
-          justify-content: center;
-          align-items: center;
-
-          &.hidden {
-            display: none;
           }
         }
       }
