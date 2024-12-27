@@ -3,6 +3,12 @@
 
 // style placeholder
 %shopspot-icon-styles-ph {
+  &[mode="expanded"] {
+    .fs-tag {
+      display: var(--shopspots-display-expanded);
+    }
+  }
+
   .stacklapopup-shopspot-badge {
     background: #fff;
     border-radius: 50%;
@@ -20,7 +26,7 @@
     height: 13px;
     background: var(--shopspot-icon);
     color: white;
-    display: var(--shopspots-display);
+    display: var(--shopspots-display-inline);
     background-size: 70%;
     border: solid #fff 1px;
     border-radius: 50%;
