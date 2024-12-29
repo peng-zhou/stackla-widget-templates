@@ -1,4 +1,5 @@
-@forward "@styles/partials/swiper";
+@forward "pkg:swiper/swiper-bundle.css";
+@forward "@styles/partials/fonts";
 @forward "@styles/partials/icons";
 @forward "@styles/partials/loading";
 @forward "inline-tile";
@@ -11,7 +12,7 @@
 @use "@styles/templates/share-menu" as smenu;
 @use "@styles/partials/icon-sections" as is;
 @use "@styles/templates/tags";
-@use "@styles/partials/swiper-expanded" as se;
+@use "@styles/partials/expanded-swiper" as es;
 
 .shortvideo-inline,
 expanded-tiles {
@@ -21,5 +22,5 @@ expanded-tiles {
   @include smenu.share-menu-styles;
   @include tc.tile-content-styles;
   @include tags.tile-tags-styles;
-  @include se.swiper-expanded-styles;
+  @include es.swiper-expanded-styles;
 }
