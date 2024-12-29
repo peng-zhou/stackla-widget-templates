@@ -1703,6 +1703,7 @@ export default [
     attrs: [],
     status: "queued",
     source: "twitter",
+    source_created_at: 1698114503,
     type: "fan",
     media: "video",
     queued: true,
