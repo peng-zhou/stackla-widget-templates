@@ -6,7 +6,7 @@ import {
   setSwiperLoadingStatus,
   isSwiperLoading,
   updateSwiperInstance
-} from "@stackla/widget-utils/extensions"
+} from "@stackla/widget-utils/extensions/swiper"
 import Swiper from "swiper"
 
 declare const sdk: Sdk
