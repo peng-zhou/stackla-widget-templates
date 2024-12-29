@@ -1,3 +1,5 @@
+@forward "pkg:swiper/swiper-bundle.css";
+@use "@styles/partials/fonts";
 @forward "@styles/partials/icons";
 @forward "@styles/partials/loading";
 @forward "@styles/partials/tile-overlay";
@@ -10,6 +12,7 @@
 @use "@styles/templates/time-phrase" as tphrase;
 @use "@styles/templates/share-menu" as smenu;
 @use "@styles/partials/icon-sections" as is;
+@use "@styles/partials/expanded-swiper" as es;
 
 .quadrant-inline,
 expanded-tiles {
@@ -19,4 +22,5 @@ expanded-tiles {
   @include smenu.share-menu-styles;
   @include tags.tile-tags-styles;
   @include tc.tile-content-styles;
+  @include es.swiper-expanded-styles;
 }

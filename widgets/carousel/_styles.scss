@@ -1,3 +1,5 @@
+@use "@styles/partials/fonts";
+@forward "pkg:swiper/swiper-bundle.css";
 @forward "@styles/partials/icons";
 @forward "@styles/partials/loading";
 @forward "inline-tile";
@@ -9,6 +11,7 @@
 @use "@styles/templates/time-phrase" as tphrase;
 @use "@styles/templates/share-menu" as smenu;
 @use "@styles/partials/icon-sections" as is;
+@use "@styles/partials/expanded-swiper" as es;
 @use "@styles/templates/tags";
 
 .carousel-inline,
@@ -19,4 +22,5 @@ expanded-tiles {
   @include smenu.share-menu-styles;
   @include tc.tile-content-styles;
   @include tags.tile-tags-styles;
+  @include es.swiper-expanded-styles;
 }
