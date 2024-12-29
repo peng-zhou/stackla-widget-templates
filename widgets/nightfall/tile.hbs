@@ -37,23 +37,27 @@
   <div class="tile-bottom">
     <div class="tile-bottom-container">
       {{#if tags_extended}}
-      <tile-tags tile-id="{{id}}" mode="swiper" context="nightfall-inline" navigation-arrows="true" theme="light"></tile-tags>
+      <tile-tags tile-id="{{id}}" mode="swiper" context="nightfall-inline" navigation-arrows="true" theme="dark"></tile-tags>
       {{/if}}
       <div class="description">
-          {{#if name}}
-          <div class="user-name">{{name}}</div>
-          {{/if}}
-          {{#if user}}
-          <div class="user-handle">@{{user}}</div>
-          {{/if}}
+          <div class="flex-full">
+            <div class="user-info">
+            {{#if name}}
+            <div class="user-name">{{name}}</div>
+            {{/if}}
+            {{#if user}}
+            <div class="user-handle">@{{user}}</div>
+            {{/if}}
+            </div>
+            <div class="tile-share-right">
+                <share-menu tile-id="{{id}}" theme="light"></share-menu>
+                <div class="network-icon-circle">
+                  <div class="network-icon black icon-{{source}}"></div>
+                </div>
+            </div>
+          </div>
           <div class="tile-share-content">
             <time-phrase source-created-at="{{source_created_at}}"></time-phrase>
-            <div class="tile-share-right">
-              <share-menu tile-id="{{id}}" theme="light"></share-menu>
-              <div class="network-icon-circle">
-                <div class="network-icon black icon-{{source}}"></div>
-              </div>
-            </div>
           </div>
           <div class="caption">
             <div class="caption-paragraph">{{message}}</div>
