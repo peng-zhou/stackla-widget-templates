@@ -1,5 +1,5 @@
 @forward "pkg:swiper/swiper-bundle.css";
-@forward "@styles/partials/fonts";
+@use "@styles/partials/fonts";
 @forward "@styles/partials/icons";
 @forward "@styles/partials/loading";
 @forward "@styles/partials/tile-overlay";

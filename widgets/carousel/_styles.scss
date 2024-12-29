@@ -1,4 +1,4 @@
-@forward "@styles/partials/fonts";
+@use "@styles/partials/fonts";
 @forward "pkg:swiper/swiper-bundle.css";
 @forward "@styles/partials/icons";
 @forward "@styles/partials/loading";
