@@ -1,12 +1,11 @@
+import { createElement, createFragment, Tile } from "@stackla/widget-utils"
+
 import {
   VideoContainer,
   VideoErrorFallbackTemplate,
   ExpandedTileProps,
-  ShopspotProps,
-  createElement,
-  createFragment,
-  Tile
-} from "@stackla/widget-utils"
+  ShopspotProps
+} from "@stackla/widget-utils/components"
 
 export function ExpandedTile({ sdk, tile }: ExpandedTileProps) {
   const { show_shopspots, show_products, show_tags, show_sharing, show_caption, show_timestamp } =
