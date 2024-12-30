@@ -32,7 +32,7 @@ const getTemplatesEndpoint = () => {
 const postcssPlugins = [
   postcssUrl({
     url: asset => {
-      if (asset.includes("assets/")) {
+      if (asset.url.includes("assets/")) {
         return `${getTemplatesEndpoint()}/${asset.url}`
       }
       return asset.url
