@@ -10,6 +10,7 @@ import cookieParser from "cookie-parser"
 import tiles from "../../tests/fixtures/tiles"
 import { createMockRoutes, STAGING_UI_URL } from "../../tests/libs/developer"
 import fs from "fs"
+import { Request, Response } from 'express';
 
 export function getDomain(isDev: boolean) {
   if (isDev) {
@@ -81,7 +82,7 @@ expressApp.use((req, res, next) => {
   next()
 })
 
-expressApp.use("/preview", (req, res, next) => {
+expressApp.use("/preview", (req : Request, res : Response, next) => {
   const widgetType = req.query.widgetType
   if (!widgetType) {
     res.status(400).send("widgetType query parameter is required")
@@ -123,7 +124,7 @@ export async function getContent(widgetType: string, retry = 0): Promise<Preview
   }
 }
 
-async function getHTML(content: PreviewContent, request) {
+async function getHTML(content: PreviewContent, request: Request) {
   return await getAndRenderTiles(
     {
       customTemplates: {
@@ -258,7 +259,7 @@ expressApp.get("/development/stackla/cs/image/disable", async (req, res) => {
 })
 
 // Register preview route
-expressApp.get("/preview", async (req, res) => {
+expressApp.get("/preview", async (req : Request, res: Response) => {
   const widgetRequest = req.query
   const widgetType = req.query.widgetType as string
 
@@ -271,7 +272,7 @@ expressApp.get("/preview", async (req, res) => {
   })
 })
 
-expressApp.get("/staging", async (req, res) => {
+expressApp.get("/staging", async (req : Request, res : Response) => {
   const widgetRequest = req.query
   const widgetType = req.query.widgetType as string
 
@@ -284,19 +285,23 @@ expressApp.get("/staging", async (req, res) => {
   })
 })
 
-expressApp.get("/autoload", (req, res) => {
+
+expressApp.get("/autoload", (req : Request, res : Response) => {
   const { selector, widget, resource } = req.query as { selector: string; widget: string; resource: string }
 
   if (!selector) {
-    return res.status(400).send("selector is required")
+    res.status(400).send("selector is required")
+    return;
   }
 
   if (!widget) {
-    return res.status(400).send("widget is required")
+    res.status(400).send("widget is required")
+    return;
   }
 
   if (!resource) {
-    return res.status(400).send("resource is required")
+    res.status(400).send("resource is required")
+    return;
   }
 
   const resourceWithoutSymbols = stripSymbols(resource)
