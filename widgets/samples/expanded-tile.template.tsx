@@ -1,5 +1,6 @@
 import { ExpandedTile } from "./tile.template"
-import { createElement, ISdk } from "@stackla/widget-utils"
+import type { ISdk } from "@stackla/widget-utils"
+import { createElement } from "@stackla/widget-utils/jsx"
 
 export function ExpandedTiles(sdk: ISdk) {
   const tiles = sdk.tiles.tiles

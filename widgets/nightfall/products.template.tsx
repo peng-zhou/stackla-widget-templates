@@ -1,4 +1,5 @@
-import { createElement, createFragment, Sdk, TagExtended, IProductsComponent } from "@stackla/widget-utils"
+import type { Sdk, TagExtended, IProductsComponent } from "@stackla/widget-utils"
+import { createElement, createFragment } from "@stackla/widget-utils/jsx"
 
 export function ProductHeader({ product }: { product: TagExtended }) {
   if (!product) return <></>

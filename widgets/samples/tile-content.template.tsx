@@ -1,4 +1,5 @@
-import { createElement, createFragment, Sdk, Tile, ITileContentComponent } from "@stackla/widget-utils"
+import type { Sdk, Tile, ITileContentComponent } from "@stackla/widget-utils"
+import { createElement, createFragment } from "@stackla/widget-utils/jsx"
 
 type RenderConfig = {
   renderUserInfo: boolean

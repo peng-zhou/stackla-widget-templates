@@ -1,4 +1,5 @@
-import { createElement, ISdk } from "@stackla/widget-utils"
+import { ISdk } from "@stackla/widget-utils"
+import { createElement } from "@stackla/widget-utils/jsx"
 import { ExpandedTile } from "./tile.template"
 
 export function ExpandedTiles(sdk: ISdk) {
