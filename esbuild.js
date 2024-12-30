@@ -144,6 +144,7 @@ async function buildAll() {
       ".hbs": "text",
       ".css": "text"
     },
+    treeShaking: true,
     banner: {
       js: isDevelopment
         ? `(() => {

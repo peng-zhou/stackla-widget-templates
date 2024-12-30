@@ -1,6 +1,7 @@
-import { createElement, ISdk, loadWidget } from "@stackla/widget-utils"
+import { ISdk, loadWidget } from "@stackla/widget-utils"
 import "./direct-uploader.component"
 import { calculateTilesToShow, registerResizeObserver, tileSettings } from "./direct-uploader.lib"
+import { createElement } from "@stackla/widget-utils/jsx"
 
 declare const sdk: ISdk
 

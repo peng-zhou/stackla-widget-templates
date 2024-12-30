@@ -2,11 +2,11 @@ import { Sdk, SwiperData } from "types"
 import {
   initializeSwiper,
   refreshSwiper,
-  enableTileImages,
   setSwiperLoadingStatus,
   isSwiperLoading,
   updateSwiperInstance
-} from "@stackla/widget-utils/extensions"
+} from "@stackla/widget-utils/extensions/swiper"
+import { enableTileImages } from "@stackla/widget-utils/libs"
 import Swiper from "swiper"
 import { getSlidesPerView } from "./slides-per-view"
 

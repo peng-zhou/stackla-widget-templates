@@ -1,4 +1,5 @@
-import { ISdk, createElement } from "@stackla/widget-utils"
+import { ISdk } from "@stackla/widget-utils"
+import { createElement } from "@stackla/widget-utils/jsx"
 
 declare const sdk: ISdk
 declare const WIDGET_ENDPOINT: string
