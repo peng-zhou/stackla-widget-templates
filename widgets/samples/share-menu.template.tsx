@@ -1,4 +1,5 @@
-import { createElement, createFragment, ISdk, IShareMenuComponent, Tile } from "@stackla/widget-utils"
+import type { ISdk, IShareMenuComponent, Tile } from "@stackla/widget-utils"
+import { createElement, createFragment } from "@stackla/widget-utils/jsx"
 
 export function ShareMenuTemplate(_sdk: ISdk, component: IShareMenuComponent) {
   const tile = component.tile

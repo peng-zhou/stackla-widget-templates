@@ -1,4 +1,4 @@
-@use "../../partials/expanded-tile-dimens" as dimens;
+@use "dimens";
 @use "../../partials/media-queries";
 
 @mixin common-panel {

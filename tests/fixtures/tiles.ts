@@ -1703,6 +1703,7 @@ export default [
     attrs: [],
     status: "queued",
     source: "twitter",
+    source_created_at: 1698114503,
     type: "fan",
     media: "video",
     queued: true,
@@ -52740,9 +52741,7 @@ export default [
     tile.image_thumbnail_url = "blah"
     return tile
   }
-  const getRandomSize = (min: number, max: number) => Math.floor(Math.random() * (max - min)) + min
-  const height = getRandomSize(250, 800)
-  tile.image = `https://picsum.photos/id/${index}/600`
-  tile.image_thumbnail_url = `https://picsum.photos/id/${index}/400/${height}`
+  tile.image = `https://templates.teaser.stackla.com/assets/sample-images/${index}.jpg`
+  tile.image_thumbnail_url = `https://templates.teaser.stackla.com/assets/sample-images/${index}.jpg`
   return tile
 }) as unknown as Tile[]

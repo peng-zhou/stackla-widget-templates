@@ -1,4 +1,5 @@
-import { getTileSize, ISdk } from "@stackla/widget-utils"
+import { ISdk } from "@stackla/widget-utils"
+import { getTileSize } from "@stackla/widget-utils/libs"
 
 declare const sdk: ISdk
 
