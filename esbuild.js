@@ -150,7 +150,9 @@ async function buildAll() {
         ? `(() => {
       const ws = new WebSocket("ws://localhost:3001");
       ws.onmessage = () => {
-        location.reload();
+        setTimeout(() => {
+          location.reload();
+        }, 1000);
       };
     })();`
         : ``
@@ -202,10 +204,15 @@ async function buildUtils() {
 
   console.log(`Building utils... for ${process.env.APP_ENV}`)
 
+  if (process.env.APP_ENV === "development") {
+    await execPromise("npm run build:utils:dev")
+    return
+  }
   await execPromise("npm run build:utils")
 }
 
 async function buildAllWithErrorHandling(retries = 0) {
+  const args = process.argv.length ? process.argv[process.argv.length - 1] : null
   if (!process.env.APP_ENV) {
     console.error("APP_ENV is not set. Exiting.")
     return
@@ -217,7 +224,10 @@ async function buildAllWithErrorHandling(retries = 0) {
   }
 
   try {
-    await buildUtils()
+    if (args && args.includes('widget-utils')) {
+      await buildUtils()
+    }
+    console.log(`Building... for ${process.env.APP_ENV}`)
     await buildAll()
   } catch (e) {
     console.error("Error building. Retrying.", e)

@@ -1,5 +1,5 @@
 import { Sdk } from "types"
-import { Features } from "@stackla/widget-utils"
+import { EVENT_TILES_UPDATED, Features } from "@stackla/widget-utils"
 import { markColumnsForIndent } from "./slider-design"
 import navigator from "./navigator"
 import { calculateContainerWidth, getTileSizeUnitless, inlineTileSize } from "./utils"
@@ -37,7 +37,13 @@ export function loadSlider(settings: Features["tileSizeSettings"], observers: Re
     initialValue: `${getTileSizeUnitless(settings)}px`
   })
 
-  navigator(settings, observers)
+  const nav = navigator(settings, observers)
+
+  sdk.addEventListener(EVENT_TILES_UPDATED, () => {
+    setTimeout(() => {
+      nav.controlNavigationButtonVisibility()
+    }, 500)
+  })
 
   markColumnsForIndent(settings)
   loadingElement?.classList.add("hidden")

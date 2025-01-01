@@ -6,7 +6,8 @@ import {
   isSwiperLoading,
   updateSwiperInstance
 } from "@stackla/widget-utils/extensions/swiper"
-import { enableTileImages } from "@stackla/widget-utils/libs"
+import { enableTileImages, loadAllUnloadedTiles } from "@stackla/widget-utils/libs"
+import { EVENT_LOAD_MORE } from "@stackla/widget-utils/events"
 import Swiper from "swiper"
 import { getSlidesPerView } from "./slides-per-view"
 
@@ -99,15 +100,19 @@ export function initializeSwiperForInlineStoryTiles() {
           enableLoadedTiles()
           swiper.slideToLoop(0, 0, false)
         },
+        reachEnd: (swiper: Swiper) => {
+          sdk.triggerEvent(EVENT_LOAD_MORE)
+          swiper.update()
+        },
         afterInit: (swiper: Swiper) => {
           setSwiperLoadingStatus("inline-story", true)
-          disblePrevNavigation(swiper)
+          disablePrevNavigation(swiper)
           void loadTilesAsync(swiper)
         },
         activeIndexChange: (swiper: Swiper) => {
           if (swiper.navigation.prevEl) {
             if (swiper.realIndex === 0 && isSwiperLoading("inline-story")) {
-              disblePrevNavigation(swiper)
+              disablePrevNavigation(swiper)
             } else {
               enablePrevNavigation(swiper)
             }
@@ -128,6 +133,7 @@ function getRenderMode(hostElement?: HTMLElement) {
 
 export function onTilesUpdated() {
   refreshSwiper("inline-story")
+  loadAllUnloadedTiles()
 }
 
 export function enableLoadedTiles() {
@@ -138,16 +144,9 @@ export function enableLoadedTiles() {
 
 async function loadTilesAsync(swiper: Swiper) {
   const observer = registerObserver(swiper)
-  let pageIndex = 1
-  while (sdk.tiles.hasMoreTiles()) {
-    pageIndex++
-    if (sdk.tiles.page < pageIndex) {
-      sdk.tiles.page = pageIndex
-    }
-    await sdk.tiles.fetchTiles(pageIndex)
-    enableLoadedTiles()
-    swiper.update()
-  }
+
+  loadAllUnloadedTiles()
+  swiper.update()
 
   observer.disconnect()
   enableNextNavigation(swiper)
@@ -186,7 +185,7 @@ function enablePrevNavigation(swiper: Swiper) {
   }
 }
 
-function disblePrevNavigation(swiper: Swiper) {
+function disablePrevNavigation(swiper: Swiper) {
   if (getRenderMode() === "desktop") {
     swiper.allowSlidePrev = false
     swiper.navigation.prevEl.classList.add("swiper-button-disabled")

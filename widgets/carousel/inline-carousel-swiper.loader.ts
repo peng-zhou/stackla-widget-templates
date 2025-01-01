@@ -6,7 +6,7 @@ import {
   isSwiperLoading,
   updateSwiperInstance
 } from "@stackla/widget-utils/extensions/swiper"
-import { enableTileImages } from "@stackla/widget-utils/libs"
+import { enableTileImages, loadAllUnloadedTiles } from "@stackla/widget-utils/libs"
 import Swiper from "swiper"
 
 declare const sdk: Sdk
@@ -77,7 +77,7 @@ function initializeSwiperForInlineTiles() {
         activeIndexChange: (swiper: Swiper) => {
           if (swiper.navigation.prevEl) {
             if (swiper.realIndex === 0 && isSwiperLoading("inline-carousel")) {
-              disblePrevNavigation(swiper)
+              disablePrevNavigation(swiper)
             } else {
               enablePrevNavigation(swiper)
             }
@@ -96,16 +96,9 @@ export function enableLoadedTiles() {
 
 async function loadTilesAsync(swiper: Swiper) {
   const observer = registerObserver(swiper)
-  let pageIndex = 1
-  while (sdk.tiles.hasMoreTiles()) {
-    pageIndex++
-    if (sdk.tiles.page < pageIndex) {
-      sdk.tiles.page = pageIndex
-    }
-    await sdk.tiles.fetchTiles(pageIndex)
-    enableLoadedTiles()
-    swiper.update()
-  }
+
+  loadAllUnloadedTiles()
+  swiper.update()
 
   observer.disconnect()
   swiper.navigation.nextEl.classList.remove("swiper-button-hidden")
@@ -137,7 +130,7 @@ function enablePrevNavigation(swiper: Swiper) {
   swiper.navigation.prevEl.classList.remove("swiper-button-hidden")
 }
 
-function disblePrevNavigation(swiper: Swiper) {
+function disablePrevNavigation(swiper: Swiper) {
   swiper.allowSlidePrev = false
   swiper.navigation.prevEl.classList.add("swiper-button-hidden")
 }

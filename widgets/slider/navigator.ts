@@ -1,4 +1,4 @@
-import { Features } from "@stackla/widget-utils"
+import { EVENT_LOAD_MORE, Features, ISdk } from "@stackla/widget-utils"
 import {
   getRenderMode,
   getSliderElement,
@@ -11,6 +11,8 @@ import {
 import { initObservers } from "./observers"
 
 type SwiperDirection = "none" | "left" | "right" | "up" | "down"
+
+declare const sdk: ISdk
 
 export default function (settings: Features["tileSizeSettings"], observers: ReturnType<typeof initObservers>) {
   const sliderElement = getSliderElement()
@@ -195,10 +197,20 @@ export default function (settings: Features["tileSizeSettings"], observers: Retu
       scrollerHandler.toggleScrollUp("hidden")
     }
 
-    if (tilesContainerElement.scrollTop + tilesContainerElement.offsetHeight < tilesContainerElement.scrollHeight) {
+    const lastTile = sdk.querySelector(".ugc-tiles > .ugc-tile:last-child")
+
+    if (
+      lastTile.classList.contains("partially-visible") &&
+      tilesContainerElement.scrollTop + tilesContainerElement.offsetHeight < tilesContainerElement.scrollHeight
+    ) {
       scrollerHandler.toggleScrollDown("visible")
+      return
     } else {
       scrollerHandler.toggleScrollDown("hidden")
+    }
+
+    if (sdk.tiles.hasMoreTiles()) {
+      sdk.triggerEvent(EVENT_LOAD_MORE)
     }
   }
 
@@ -252,5 +264,9 @@ export default function (settings: Features["tileSizeSettings"], observers: Retu
     }
 
     return getNextScrollPosition()
+  }
+
+  return {
+    controlNavigationButtonVisibility
   }
 }
