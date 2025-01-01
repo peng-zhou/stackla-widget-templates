@@ -13,3 +13,4 @@ server
 cypress/snapshots/diff
 dist/*
 !dist/assets/
+!dist/fonts/

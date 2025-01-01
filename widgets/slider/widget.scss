@@ -27,11 +27,11 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .tile-animate-up {
-    animation: slide-up 500ms linear forwards;
+    animation: slide-up 100ms linear forwards;
   }
 
   .tile-animate-down {
-    animation: slide-down 500ms linear forwards;
+    animation: slide-down 100ms linear forwards;
   }
 }
 
@@ -247,15 +247,15 @@
             &:nth-child(4n-1),
             &:nth-child(4n) {
               min-width: initial;
-              grid-column: auto;
-              grid-row: span 2;
+              grid-column: span 2;
+              grid-template-areas: "image details";
+              grid-template-columns: subgrid;
               gap: 10px;
             }
 
             &:nth-child(4n-1) {
               grid-template-areas:
-                "image"
-                "details";
+                "image details";
 
               .image-section img {
                 border-radius: var(--inline-tile-border-radius) var(--inline-tile-border-radius) 0 0;
@@ -285,8 +285,7 @@
 
             &:nth-child(4n) {
               grid-template-areas:
-                "details"
-                "image";
+                "details image";
 
               .image-section img {
                 border-radius: 0 0 var(--inline-tile-border-radius) var(--inline-tile-border-radius);

@@ -28,9 +28,14 @@ const notifyClients = async filePath => {
     }
 
     console.log(`${filePath} changed, waiting for build to complete`)
-    buildProcess = spawn("npm", ["run", "dev"], {
-      shell: true,
-      stdio: "inherit"
+
+    const args = filePath ? [`"${filePath}"`] : []
+
+    buildProcess = spawn("npm run dev", args, {
+      stdio: "inherit",
+      shell: true
+    }).on("error", e => {
+      console.error(e)
     })
 
     wss.clients.forEach(client => {
@@ -44,13 +49,17 @@ const notifyClients = async filePath => {
   }
 }
 
-chokidar
-  .watch(["./widgets", "./packages/widget-utils/src"], {
-    ignoreInitial: true,
-    persistent: true
-  })
-  .on("change", notifyClients)
+const startChokidar = () => {
+  chokidar
+    .watch(["./widgets", "./packages/widget-utils/src"], {
+      ignoreInitial: true,
+      persistent: true
+    })
+    .on("change", notifyClients)
 
-server.listen(PORT, () => {
-  console.log(`WebSocket server is running on ws://localhost:${PORT}`)
-})
+  server.listen(PORT, () => {
+    console.log(`WebSocket server is running on ws://localhost:${PORT}`)
+  })
+}
+
+startChokidar()
