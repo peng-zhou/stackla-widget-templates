@@ -7,6 +7,12 @@
   transition: ease all 0.5s;
 }
 
+.color-blue {
+  background-color: blue;
+  padding: 10px;
+  border-radius: 50%;  
+}
+
 .grid {
   display: grid;
   justify-content: center;
