@@ -60,8 +60,7 @@ export function markColumnsForIndent(settings: Features["tileSizeSettings"]) {
   const sliderInline = sdk.querySelector(".slider-inline")
   const tilesContainer = sliderInline.querySelector<HTMLElement>(".ugc-tiles")
   const tiles = tilesContainer!.querySelectorAll(".ugc-tile")
-  const leftOffset = tiles[0].getBoundingClientRect().left
-  const { targetColumnCount, totalExpectedIndentedColumns, totalTileWidth } = getIndentationProps(settings)
+  const { targetColumnCount, totalExpectedIndentedColumns } = getIndentationProps(settings)
   const indentedOffsets: number[] = []
 
   let skipNext = false
@@ -102,18 +101,15 @@ export function markColumnsForIndent(settings: Features["tileSizeSettings"]) {
 
       if (!skipNext) {
         const actualLeft = Math.floor(tileElement.getBoundingClientRect().left)
-        const expectedLeft = Math.floor(leftOffset + totalTileWidth * (columnCounter - 1))
 
         if (indentedOffsets.length === totalExpectedIndentedColumns) {
           markTileFromInitialRowOffsets(tileElement, indentedOffsets, verticalRender)
-        } else if (actualLeft === expectedLeft) {
+        } else {
           toggleIndentAttribute(tileElement, true, verticalRender)
 
           if (indentedOffsets.length < totalExpectedIndentedColumns) {
             indentedOffsets.push(actualLeft)
           }
-        } else {
-          toggleIndentAttribute(tileElement, false, verticalRender)
         }
       }
     } else {

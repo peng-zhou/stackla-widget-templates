@@ -13,10 +13,10 @@
   }
 
   position: relative;
-  flex: 1;
   overflow: hidden;
   height: fit-content;
   place-items: flex-start;
+  width: 100%;
 
   .mask-left {
     mask-image: linear-gradient(to right, transparent 10%, black 25%);
