@@ -60,8 +60,7 @@ export function markColumnsForIndent(settings: Features["tileSizeSettings"]) {
   const sliderInline = sdk.querySelector(".slider-inline")
   const tilesContainer = sliderInline.querySelector<HTMLElement>(".ugc-tiles")
   const tiles = tilesContainer!.querySelectorAll(".ugc-tile")
-  const leftOffset = tiles[0].getBoundingClientRect().left
-  const { targetColumnCount, totalExpectedIndentedColumns, totalTileWidth } = getIndentationProps(settings)
+  const { targetColumnCount, totalExpectedIndentedColumns } = getIndentationProps(settings)
   const indentedOffsets: number[] = []
 
   let skipNext = false
