@@ -1,6 +1,7 @@
 import { loadWidget } from "@stackla/widget-utils"
 import { createToast, getMyMoodBorder } from "./starter-project.lib"
 import { ExpandedTiles } from "./expanded-tile.template"
+import ProductsTemplate from "./products.template"
 
 loadWidget({
   features: {
@@ -24,6 +25,9 @@ loadWidget({
   templates: {
     "expanded-tiles": {
       template: ExpandedTiles
+    },
+    "ugc-products": {
+      template: ProductsTemplate
     }
   }
 })

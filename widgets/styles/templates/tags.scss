@@ -5,7 +5,8 @@
 %tags-styles-ph {
   --swiper-navigation-sides-offset: 0;
   --swiper-navigation-top-offset: 3px;
-
+  
+  align-items: center;
   display: var(--tags-display-inline);
 
   &[context="expanded"] {
@@ -15,7 +16,6 @@
   position: relative;
   overflow: hidden;
   height: fit-content;
-  place-items: flex-start;
   width: 100%;
 
   .mask-left {
@@ -39,7 +39,7 @@
 
   &[context*="inline"][navigation-arrows="true"] {
     .swiper-tags {
-      width: calc(100% - 30px);
+      width: 100%;
     }
   }
 

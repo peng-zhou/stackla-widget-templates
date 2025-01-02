@@ -18,11 +18,12 @@ https://docs.nosto.com/ugc/widgets-nextgen/getting-started/creating-your-first-w
 ## Getting started with the activity
 
 1) Run npm run start & access http://localhost:4003/preview?widgetType=starter-project
-2) You will notice this widget is bouncing without end! Its driving us mad. Please put it to an end.
+2) You will notice this widget is bouncing without end. Please stop the widget from bouncing.
 3) Why is the widget in a circle? Please remove the circle and ensure it is in a grid format, covering all sides of the screen.
 4) The border of the circle is based on the mood given to the method. Please update it so that it is using 'nosto' mood with a pink border to represent Nosto.
 5) Every time I expand a tile, a dog appears. Please change this to the actual tile image.
-6) Every time an event is emitted, an annoying toast appears, please remove this!
+6) Every time an event is emitted, an annoying toast appears, please remove this.
+7) Fix up the left and right arrows for the products template.
 
 A successful attempt at this activity will be something like the following.
 ![alt text](image.png)

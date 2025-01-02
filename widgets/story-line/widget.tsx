@@ -4,6 +4,7 @@ declare const sdk: Sdk
 
 import { loadWidget } from "@stackla/widget-utils"
 import { initializeSwiperForInlineStoryTiles, onTilesUpdated } from "./inline-story-swiper.loader"
+import { StoryExpandedTiles } from "./templates/base.template"
 
 // dimensions from Figma design
 const tileSizeSettings = {
@@ -18,12 +19,16 @@ loadWidget({
   },
   features: {
     handleLoadMore: false,
-    story: true,
     tileSizeSettings
   },
   callbacks: {
     onLoad: [initializeSwiperForInlineStoryTiles],
     onTilesUpdated: [onTilesUpdated]
+  },
+  templates: {
+    "expanded-tiles": {
+      template: StoryExpandedTiles
+    }
   }
 })
 

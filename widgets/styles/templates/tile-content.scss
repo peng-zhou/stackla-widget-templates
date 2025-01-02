@@ -20,6 +20,7 @@
       flex-direction: column;
       overflow: hidden;
       flex: 1 1 auto;
+      width: 100%;
 
       .caption {
         // intentional duplicate display props. When --webkit-box not supported, display with be flex
