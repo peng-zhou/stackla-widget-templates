@@ -102,18 +102,15 @@ export function markColumnsForIndent(settings: Features["tileSizeSettings"]) {
 
       if (!skipNext) {
         const actualLeft = Math.floor(tileElement.getBoundingClientRect().left)
-        const expectedLeft = Math.floor(leftOffset + totalTileWidth * (columnCounter - 1))
 
         if (indentedOffsets.length === totalExpectedIndentedColumns) {
           markTileFromInitialRowOffsets(tileElement, indentedOffsets, verticalRender)
-        } else if (actualLeft === expectedLeft) {
+        } else {
           toggleIndentAttribute(tileElement, true, verticalRender)
 
           if (indentedOffsets.length < totalExpectedIndentedColumns) {
             indentedOffsets.push(actualLeft)
           }
-        } else {
-          toggleIndentAttribute(tileElement, false, verticalRender)
         }
       }
     } else {
