@@ -1,7 +1,6 @@
 import { loadSlider } from "./load-slider"
 import { loadWidget } from "@stackla/widget-utils"
 import { initObservers } from "./observers"
-// import { calculateContainerWidth } from "./utils"
 
 // dimensions from Figma design
 const tileSizeSettings = {
