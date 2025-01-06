@@ -34,13 +34,23 @@ export function loadSlider(settings: Features["tileSizeSettings"], observers: Re
     const innerWidth = window.innerWidth
     if (innerWidth < 544) {
       return "mobile"
-    } else if (innerWidth <= 700 && innerWidth >= 544) {
+    } else if (innerWidth >= 544 && innerWidth < 700) {
       return "small-tablet"
-    } else if (innerWidth < 1024 && innerWidth >= 700) {
+    } else if (innerWidth >= 700 && innerWidth < 1024) {
       return "tablet"
+    } else if (innerWidth >= 1024 && innerWidth < 1080) {
+      return "x-small-desktop"
+    } else if (innerWidth >= 1080 && innerWidth < 1160) {
+      return "small-desktop"
+    } else if (innerWidth >= 1160 && innerWidth < 1400) {
+      return "medium-desktop"
     } else {
       return "desktop"
     }
+  }
+
+  function getMediumDesktopIndents() {
+    return [1, 3, 6, 8]
   }
 
   function getDesktopIndents() {
@@ -65,6 +75,42 @@ export function loadSlider(settings: Features["tileSizeSettings"], observers: Re
       "pattern-vertical",
       "pattern-vertical-reversed",
       "pattern-horizontal-reversed"
+    ]
+  }
+
+  function getSmallDesktopPattern() {
+    return [
+      "pattern-horizontal",
+      "pattern-vertical",
+      "pattern-vertical-reversed",
+      "pattern-horizontal",
+      "pattern-horizontal-reversed"
+    ]
+  }
+
+  function getMediumDesktopPattern() {
+    return [
+      "pattern-vertical",
+      "pattern-horizontal",
+      "pattern-horizontal-reversed",
+      "pattern-horizontal-reversed",
+      "pattern-horizontal",
+      "pattern-vertical-reversed",
+      "pattern-horizontal",
+      "pattern-horizontal-reversed",
+      "pattern-horizontal-reversed",
+      "pattern-horizontal"
+    ]
+  }
+
+  function getExtraSmallDesktopPattern() {
+    return [
+      "pattern-vertical",
+      "pattern-horizontal",
+      "pattern-vertical",
+      "pattern-horizontal-reversed",
+      "pattern-vertical-reversed",
+      "pattern-horizontal"
     ]
   }
 
@@ -100,6 +146,18 @@ export function loadSlider(settings: Features["tileSizeSettings"], observers: Re
       return getSmallTabletPattern()
     }
 
+    if (getDeviceType() === "medium-desktop") {
+      return getMediumDesktopPattern()
+    }
+
+    if (getDeviceType() === "small-desktop") {
+      return getSmallDesktopPattern()
+    }
+
+    if (getDeviceType() === "x-small-desktop") {
+      return getExtraSmallDesktopPattern()
+    }
+
     return getDesktopPattern()
   }
 
@@ -127,6 +185,13 @@ export function loadSlider(settings: Features["tileSizeSettings"], observers: Re
 
       if (getDeviceType() === "tablet") {
         const indents = getTabletIndents()
+        if (indents.includes(sequenceIndex)) {
+          tile.classList.add("grid-column-indent")
+        }
+      }
+
+      if (getDeviceType() === "medium-desktop") {
+        const indents = getMediumDesktopIndents()
         if (indents.includes(sequenceIndex)) {
           tile.classList.add("grid-column-indent")
         }
