@@ -33,9 +33,9 @@ export default function (settings: Features["tileSizeSettings"], observers: Retu
 
   const screenResizeObserver = new ResizeObserver(() =>
     requestAnimationFrame(() => {
+      scrollerHandler.setPage(1)
       tilesContainerElement.scrollTop = 0
       if (getRenderMode(sliderElement) === "desktop") {
-        controlNavigationButtonVisibility()
         swipeDetectHandler.unregister()
         scrollerHandler.register()
       } else {
@@ -47,11 +47,10 @@ export default function (settings: Features["tileSizeSettings"], observers: Retu
 
   screenResizeObserver.observe(tilesContainerElement)
 
-  controlNavigationButtonVisibility()
-
   function scroller(el: HTMLElement) {
     const sliderScrollUpButton = el.querySelector<HTMLElement>("#scroll-up")
     const sliderScrollDownButton = el.querySelector<HTMLElement>("#scroll-down")
+    let page = 1
 
     if (!sliderScrollUpButton) {
       throw new Error("Slider Tiles Scroll Up Button not found")
@@ -99,11 +98,46 @@ export default function (settings: Features["tileSizeSettings"], observers: Retu
       sliderScrollDownButton!.style.visibility = visibility
     }
 
+    function setPage(value: number) {
+      page = value
+    }
+
+    function incrementPage() {
+      setPage(page + 1)
+
+      const hasMoreTiles = sdk.tiles.hasMoreTiles()
+
+      if (
+        tilesContainerElement.scrollTop + tilesContainerElement.clientHeight + 200 >=
+        tilesContainerElement.scrollHeight
+      ) {
+        if (hasMoreTiles) {
+          sdk.triggerEvent(EVENT_LOAD_MORE)
+        } else {
+          toggleScrollDown("hidden")
+        }
+      }
+    }
+
+    function decrementPage() {
+      setPage(page - 1)
+
+      if (page === 1) {
+        toggleScrollUp("hidden")
+      }
+
+      toggleScrollDown("visible")
+    }
+
     return {
       register,
       unregister,
       toggleScrollUp,
-      toggleScrollDown
+      toggleScrollDown,
+      page,
+      incrementPage,
+      decrementPage,
+      setPage
     }
   }
 
@@ -157,61 +191,27 @@ export default function (settings: Features["tileSizeSettings"], observers: Retu
   }
 
   function scrollUp() {
-    const scrollPosition = scrollHistory.pop()
-    if (!scrollPosition) {
-      tilesContainerElement.scrollTo({
-        top: 0,
-        left: 0
-      })
-    } else {
-      tilesContainerElement.scrollBy({
-        top: scrollPosition ? -scrollPosition : 0,
-        left: 0
-      })
-    }
+    scrollerHandler.toggleScrollDown("visible")
+    scrollerHandler.decrementPage()
+
+    tilesContainerElement.scrollTo({
+      top: scrollHistory.pop(),
+      left: 0
+    })
 
     setTimeout(() => {
       observers.cleanupStyles()
-      controlNavigationButtonVisibility()
     }, 500)
   }
 
   function scrollDown() {
+    scrollerHandler.toggleScrollUp("visible")
+    scrollerHandler.incrementPage()
+
     tilesContainerElement.scrollBy({
       top: getBlockHeight(),
       left: 0
     })
-    setTimeout(() => {
-      controlNavigationButtonVisibility()
-    }, 500)
-  }
-
-  function controlNavigationButtonVisibility() {
-    if (getRenderMode(sliderElement) !== "desktop") {
-      return
-    }
-
-    if (tilesContainerElement.scrollTop > 0 && scrollHistory.length > 0) {
-      scrollerHandler.toggleScrollUp("visible")
-    } else {
-      scrollerHandler.toggleScrollUp("hidden")
-    }
-
-    const lastTile = sdk.querySelector(".ugc-tiles > .ugc-tile:last-child")
-
-    if (
-      lastTile.classList.contains("partially-visible") &&
-      tilesContainerElement.scrollTop + tilesContainerElement.offsetHeight < tilesContainerElement.scrollHeight
-    ) {
-      scrollerHandler.toggleScrollDown("visible")
-      return
-    } else {
-      scrollerHandler.toggleScrollDown("hidden")
-    }
-
-    if (sdk.tiles.hasMoreTiles()) {
-      sdk.triggerEvent(EVENT_LOAD_MORE)
-    }
   }
 
   function calcHeightAndRecordHistory(value: number, tileGap = 0) {
@@ -226,14 +226,9 @@ export default function (settings: Features["tileSizeSettings"], observers: Retu
   }
 
   function getNextScrollPosition() {
+    scrollHistory.push(tilesContainerElement.scrollTop)
     const nextTarget = observers.getNextTilePosition()
-    if (isFinite(nextTarget)) {
-      const nextPosition = nextTarget - tilesContainerElement.getBoundingClientRect().top - inlineTileGap() / 2
-      scrollHistory.push(nextPosition)
-      return nextPosition
-    }
-    scrollHistory.push(tilesContainerElement.clientHeight)
-    return tilesContainerElement.clientHeight
+    return nextTarget
   }
 
   function getBlockHeight(useLegacy = false) {
@@ -250,23 +245,8 @@ export default function (settings: Features["tileSizeSettings"], observers: Retu
           inlineTileGap()
         )
       }
-
-      // scroll two tiles with grid margin
-      const verticalHeight = (() => {
-        const heightValue = defaultBlockHeight * 2 + inlineTileGap()
-        if (heightValue > tilesContainerElement.clientHeight) {
-          return defaultBlockHeight
-        }
-        return defaultBlockHeight * 2
-      })()
-
-      return calcHeightAndRecordHistory(verticalHeight, inlineTileGap())
     }
 
     return getNextScrollPosition()
-  }
-
-  return {
-    controlNavigationButtonVisibility
   }
 }

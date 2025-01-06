@@ -1,6 +1,5 @@
 import { Sdk } from "types"
-import { EVENT_TILES_UPDATED, Features } from "@stackla/widget-utils"
-import { markColumnsForIndent } from "./slider-design"
+import { Features } from "@stackla/widget-utils"
 import navigator from "./navigator"
 import { inlineTileSize } from "./utils"
 import { initObservers } from "./observers"
@@ -27,21 +26,56 @@ export function loadSlider(settings: Features["tileSizeSettings"], observers: Re
 
   tilesContainer.setAttribute("variation", inlineTileSize())
 
-  const nav = navigator(settings, observers)
+  navigator(settings, observers)
 
-  sdk.addEventListener(EVENT_TILES_UPDATED, () => {
-    setTimeout(() => {
-      nav.controlNavigationButtonVisibility()
-    }, 500)
-  })
-
-  markColumnsForIndent(settings)
   loadingElement?.classList.add("hidden")
 
+  function generatePatterns() {
+    const patternSequence = [
+      "pattern-horizontal",
+      "pattern-vertical",
+      "pattern-vertical-reversed",
+      "pattern-horizontal",
+      "pattern-horizontal-reversed",
+      "pattern-horizontal-reversed",
+      "pattern-vertical",
+      "pattern-vertical-reversed",
+      "pattern-horizontal",
+      "pattern-vertical",
+      "pattern-vertical-reversed",
+      "pattern-horizontal-reversed"
+    ]
+    let sequenceIndex = 0
+
+    sdk.querySelectorAll(".ugc-tile").forEach(tile => {
+      tile.classList.remove(
+        "pattern-horizontal",
+        "pattern-vertical",
+        "pattern-vertical-reversed",
+        "pattern-horizontal-reversed",
+        "grid-column-indent"
+      )
+
+      // Apply the current pattern in the sequence
+      const currentPattern = patternSequence[sequenceIndex]
+      tile.classList.add(currentPattern)
+      tile.dataset.patternId = sequenceIndex.toString()
+
+      // Move to the next pattern in the sequence, cycling back to the start
+      sequenceIndex = (sequenceIndex + 1) % patternSequence.length
+    })
+  }
+
   function tilesUpdatedEventHandler() {
-    markColumnsForIndent(settings)
+    generatePatterns()
     observers.configTileIntersectionTargets()
   }
 
-  return { tilesUpdatedEventHandler }
+  function widgetLoadedEventHandler() {
+    generatePatterns()
+  }
+
+  generatePatterns()
+
+  return { tilesUpdatedEventHandler, widgetLoadedEventHandler }
 }
