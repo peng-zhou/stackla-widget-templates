@@ -16,11 +16,7 @@
 
       .container {
         width: 100vw;
-
-        .tiles-scroll-button {
-          display: none;
-        }
-
+        
         .ugc-tiles {
           grid-template-columns: 1fr;
           height: 100%;
@@ -94,10 +90,6 @@
       .container {
         width: calc(100vw - 10px);
         margin-top: 5px;
-
-        .tiles-scroll-button {
-          display: none;
-        }
 
         .ugc-tiles {
           height: 100%;
