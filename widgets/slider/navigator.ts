@@ -225,8 +225,7 @@ export default function (_settings: Features["tileSizeSettings"], observers: Ret
 
   function getNextScrollPosition() {
     scrollHistory.push(tilesContainerElement.scrollTop)
-    const nextTarget = observers.getNextTilePosition()
-    return nextTarget
+    return observers.getNextTilePosition()
   }
 
   function getBlockHeight() {

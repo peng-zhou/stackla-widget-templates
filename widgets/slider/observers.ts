@@ -1,7 +1,5 @@
-import { Features, ISdk } from "@stackla/widget-utils"
+import { Features } from "@stackla/widget-utils"
 import { getRenderMode, getSliderElement, getTileContainerElement, getTileElements } from "./utils"
-
-declare const sdk: ISdk
 
 type SliderObserverProps = {
   settings: Features["tileSizeSettings"]
