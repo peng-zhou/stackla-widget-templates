@@ -30,6 +30,10 @@ function getDesktopIndents() {
   return [1, 2, 8, 11]
 }
 
+function getSmallDesktopIndents() {
+  return [1, 2, 5, 8, 9]
+}
+
 function getTabletIndents() {
   return [1]
 }
@@ -53,6 +57,11 @@ function getDesktopPattern() {
 
 function getSmallDesktopPattern() {
   return [
+    PATTERN_HORIZONTAL,
+    PATTERN_VERTICAL,
+    PATTERN_VERTICAL_REVERSED,
+    PATTERN_HORIZONTAL,
+    PATTERN_HORIZONTAL_REVERSED,
     PATTERN_HORIZONTAL,
     PATTERN_VERTICAL,
     PATTERN_VERTICAL_REVERSED,
@@ -139,6 +148,7 @@ export {
   getMediumDesktopIndents,
   getDesktopIndents,
   getTabletIndents,
+  getSmallDesktopIndents,
   getDesktopPattern,
   getSmallDesktopPattern,
   getMediumDesktopPattern,

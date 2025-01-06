@@ -1,13 +1,5 @@
 import { EVENT_LOAD_MORE, Features, ISdk } from "@stackla/widget-utils"
-import {
-  getRenderMode,
-  getSliderElement,
-  getTileContainerElement,
-  getTileSizeUnitless,
-  getTopElementHeight,
-  getWidgetDimension,
-  inlineTileGap
-} from "./utils"
+import { getRenderMode, getSliderElement, getTileContainerElement } from "./utils"
 import { initObservers } from "./observers"
 
 type SwiperDirection = "none" | "left" | "right" | "up" | "down"
@@ -18,9 +10,6 @@ export default function (settings: Features["tileSizeSettings"], observers: Retu
   const sliderElement = getSliderElement()
   const tilesContainerElement = getTileContainerElement()
   const scrollHistory: Array<number> = []
-  const tileSizeUnitless = getTileSizeUnitless(settings)
-  const defaultBlockHeight = isNaN(tileSizeUnitless) ? 220 : tileSizeUnitless
-
   const scrollerHandler = scroller(sliderElement)
 
   const swipeDetectHandler = swipeDetect(tilesContainerElement, direction => {
@@ -214,39 +203,13 @@ export default function (settings: Features["tileSizeSettings"], observers: Retu
     })
   }
 
-  function calcHeightAndRecordHistory(value: number, tileGap = 0) {
-    if (!scrollHistory.length) {
-      scrollHistory.push(0)
-      return value + tileGap
-    } else {
-      const totalHeight = tilesContainerElement.scrollTop + value + tileGap
-      scrollHistory.push(tilesContainerElement.scrollTop)
-      return totalHeight
-    }
-  }
-
   function getNextScrollPosition() {
     scrollHistory.push(tilesContainerElement.scrollTop)
-    const nextTarget = observers.getNextTilePosition(scrollHistory)
+    const nextTarget = observers.getNextTilePosition()
     return nextTarget
   }
 
-  function getBlockHeight(useLegacy = false) {
-    const renderMode = getRenderMode(sliderElement)
-
-    if (renderMode === "mobile") {
-      return calcHeightAndRecordHistory(getWidgetDimension().containerHeight ?? defaultBlockHeight)
-    }
-
-    if (useLegacy) {
-      if (renderMode === "tablet") {
-        return calcHeightAndRecordHistory(
-          getTopElementHeight(tilesContainerElement, defaultBlockHeight),
-          inlineTileGap()
-        )
-      }
-    }
-
+  function getBlockHeight() {
     return getNextScrollPosition()
   }
 }
