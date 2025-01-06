@@ -85,7 +85,7 @@
 
     @include media-queries.breakpoint(tablet) {
       --render-mode: tablet;
-      
+
       .container {
         width: calc(100vw - 10px);
         margin-top: 5px;
@@ -98,6 +98,7 @@
           height: 100vh;
           grid-template-columns: min-content;
           justify-content: center;
+          grid-template-columns: 1fr 1fr;
 
           .ugc-tile {
             .image-section,
