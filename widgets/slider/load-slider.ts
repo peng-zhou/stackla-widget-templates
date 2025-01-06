@@ -8,6 +8,7 @@ import {
   getDeviceType,
   getMediumDesktopIndents,
   getPatternByDeviceType,
+  getSmallDesktopIndents,
   getTabletIndents
 } from "./components/responsive-patterns"
 
@@ -68,6 +69,13 @@ export function loadSlider(settings: Features["tileSizeSettings"], observers: Re
 
       if (getDeviceType() === "medium-desktop") {
         const indents = getMediumDesktopIndents()
+        if (indents.includes(sequenceIndex)) {
+          tile.classList.add("grid-column-indent")
+        }
+      }
+
+      if (getDeviceType() == "small-desktop") {
+        const indents = getSmallDesktopIndents()
         if (indents.includes(sequenceIndex)) {
           tile.classList.add("grid-column-indent")
         }

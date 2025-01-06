@@ -1,7 +1,5 @@
-import { Features, ISdk } from "@stackla/widget-utils"
+import { Features } from "@stackla/widget-utils"
 import { getRenderMode, getSliderElement, getTileContainerElement, getTileElements } from "./utils"
-
-declare const sdk: ISdk
 
 type SliderObserverProps = {
   settings: Features["tileSizeSettings"]
@@ -48,17 +46,8 @@ export function initObservers({ resizeCb, intersectionCb }: SliderObserverProps)
 
   getTileElements()[0].classList.add(animationClasses.up)
 
-  function getNextTilePosition(scrollHistory: number[]) {
-    const currentScrollPosition = scrollHistory[scrollHistory.length - 1]
-    const nextScrollableTiles = Array.from(sdk.querySelectorAll(".ugc-tile.partially-visible")).filter(item => {
-      return item.getBoundingClientRect().top >= currentScrollPosition
-    })
-
-    if (!nextScrollableTiles.length) {
-      return self.innerHeight * 0.4
-    }
-
-    return nextScrollableTiles[0].getBoundingClientRect().top - 80
+  function getNextTilePosition() {
+    return getTileElements()[0].getBoundingClientRect().height
   }
 
   function cleanupStyles() {

@@ -96,13 +96,14 @@
         display: flex;
         width: 100vw;
         flex-direction: column;
-        height: 100vh;
+        min-height: 1000px;
+        max-height: 100vh;
 
         .ugc-tiles {
           display: grid;
           gap: var(--inline-tile-margin);
           width: 100%;
-          height: calc(100vh);
+          height: 100%;
           overflow: hidden;
           grid-auto-columns: var(--tile-size);
           grid-template-columns: repeat(auto-fit, minmax(var(--tile-size), 1fr));
