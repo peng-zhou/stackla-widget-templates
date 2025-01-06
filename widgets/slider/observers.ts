@@ -1,6 +1,7 @@
-import { Features } from "packages/widget-utils"
+import { Features, ISdk } from "@stackla/widget-utils"
 import { getRenderMode, getSliderElement, getTileContainerElement, getTileElements } from "./utils"
-import { markColumnsForIndent } from "./slider-design"
+
+declare const sdk: ISdk
 
 type SliderObserverProps = {
   settings: Features["tileSizeSettings"]
@@ -8,16 +9,15 @@ type SliderObserverProps = {
   intersectionCb?: () => void
 }
 
-export function initObservers({ settings, resizeCb, intersectionCb }: SliderObserverProps) {
+export function initObservers({ resizeCb, intersectionCb }: SliderObserverProps) {
   const animationClasses = { up: "tile-animate-up", down: "tile-animate-down" }
   const partiallyVisibleClass = "partially-visible"
   const tilesContainerElement = getTileContainerElement()
   let previousPosition = tilesContainerElement.scrollTop
-  let latestEntries: IntersectionObserverEntry[] = []
+  const latestEntries: IntersectionObserverEntry[] = []
 
   const resizeObserver = new ResizeObserver(() =>
     requestAnimationFrame(() => {
-      markColumnsForIndent(settings)
       resizeCb?.()
     })
   )
@@ -43,38 +43,22 @@ export function initObservers({ settings, resizeCb, intersectionCb }: SliderObse
       intersectionCb?.()
       previousPosition = tilesContainerElement.scrollTop
     },
-    { root: tilesContainerElement, rootMargin: "0px", threshold: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1] }
+    { root: tilesContainerElement, rootMargin: "0px", threshold: [1] }
   )
 
   getTileElements()[0].classList.add(animationClasses.up)
 
-  function getNextTilePosition() {
-    const uniqueEntries = []
+  function getNextTilePosition(scrollHistory: number[]) {
+    const currentScrollPosition = scrollHistory[scrollHistory.length - 1]
+    const nextScrollableTiles = Array.from(sdk.querySelectorAll(".ugc-tile.partially-visible")).filter(item => {
+      return item.getBoundingClientRect().top >= currentScrollPosition
+    })
 
-    const partialTiles = latestEntries
-      .filter(entry => entry.intersectionRatio < 1 && !entry.isIntersecting)
-      .map(partialEntry => partialEntry.target)
-
-    for (const entry of partialTiles) {
-      const existingIndex = uniqueEntries.findIndex(uniqEntry => uniqEntry.isSameNode(entry))
-      if (existingIndex >= 0) {
-        uniqueEntries.splice(existingIndex, 1, entry)
-      } else {
-        uniqueEntries.push(entry)
-      }
+    if (!nextScrollableTiles.length) {
+      return self.innerHeight * 0.4
     }
 
-    const positions = uniqueEntries
-      .filter(target => target.classList.contains(partiallyVisibleClass))
-      .map(partialTile => partialTile.getBoundingClientRect())
-      .map(rect => rect.y)
-      .filter(value => value > 0)
-
-    cleanupStyles()
-
-    latestEntries = []
-
-    return Math.min(...positions)
+    return nextScrollableTiles[0].getBoundingClientRect().top - 80
   }
 
   function cleanupStyles() {

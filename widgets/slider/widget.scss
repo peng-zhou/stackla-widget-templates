@@ -6,37 +6,71 @@
 }
 
 @keyframes slide-up {
-  from {
+  0% {
     transform: translateY(100%);
   }
 
-  to {
+  80% {
+    transform: translateY(-5%);
+  }
+
+  100% {
     transform: translateY(0);
   }
 }
 
 @keyframes slide-down {
-  from {
+  0% {
     transform: translateY(-100%);
   }
 
-  to {
+  80% {
+    transform: translateY(5%);
+  }
+
+  100% {
     transform: translateY(0);
   }
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .tile-animate-up {
-    animation: slide-up 500ms linear forwards;
+    animation: slide-up 600ms linear forwards;
   }
 
   .tile-animate-down {
-    animation: slide-down 500ms linear forwards;
+    animation: slide-down 600ms linear forwards;
   }
 }
 
+// Slider patterns
+.pattern-horizontal {
+   grid-template-areas: "image details";
+   grid-column: span 2;
+   grid-row: span 1;
+  grid-template-columns: subgrid;
+}
+
+.pattern-horizontal-reversed {
+  grid-template-areas: "details image";
+  grid-column: span 2;
+  grid-row: span 1;
+  grid-template-columns: subgrid;
+}
+
+.pattern-vertical {
+  grid-template-areas: "image" "details";
+  grid-column: auto;
+  grid-row: span 2;
+}
+
+.pattern-vertical-reversed {
+  grid-template-areas: "details" "image";
+  grid-column: auto;
+  grid-row: span 2;
+}
+
 #nosto-ugc-container {
-  padding: var(--margin);
   background-color: var(--widget-background);
 
   .slider-inline {
@@ -50,6 +84,7 @@
 
       .partially-visible {
         opacity: 0.3;
+        filter: blur(2px);
       }
 
       display: flex;
@@ -59,16 +94,16 @@
 
       .container {
         display: flex;
-        width: 100%;
+        width: 100vw;
         flex-direction: column;
+        height: 100vh;
 
         .ugc-tiles {
           display: grid;
           gap: var(--inline-tile-margin);
           width: 100%;
-          height: calc(100vh - 125px);
+          height: calc(100vh);
           overflow: hidden;
-          justify-content: center;
           grid-auto-columns: var(--tile-size);
           grid-template-columns: repeat(auto-fit, minmax(var(--tile-size), 1fr));
           grid-auto-flow: row;
@@ -96,14 +131,8 @@
 
           .ugc-tile {
             display: grid;
-            place-content: flex-start;
-            height: fit-content;
             box-sizing: border-box;
-            grid-column: span 2;
-            grid-template-areas: "image details";
-            grid-template-columns: subgrid;
-            transition: opacity 200ms ease;
-            column-gap: 0;
+            transition: opacity 300ms ease-in;
             border-radius: var(--inline-tile-border-radius);
 
             .image-section {
@@ -111,9 +140,12 @@
               width: 100%;
               position: relative;
               grid-area: image;
-              height: var(--tile-size);
+              height: 100%;
+              border-radius: var(--inline-tile-border-radius);
+              overflow: hidden;
 
               img {
+                aspect-ratio: 1 / 1;
                 width: 100%;
                 object-fit: cover;
                 border-radius: var(--inline-tile-border-radius) 0 0 var(--inline-tile-border-radius);
@@ -140,13 +172,12 @@
               flex-direction: column;
               place-items: flex-start;
               place-content: flex-start;
-              height: var(--tile-size);
+              aspect-ratio: 1 / 1;
               width: 100%;
               grid-area: details;
 
               .tile {
                 display: flex;
-                height: fit-content;
                 width: 100%;
                 overflow: hidden;
 
@@ -173,6 +204,8 @@
                 margin-top: 5px;
 
                 tile-content {
+                  padding-top: 5px;
+
                   .description p {
                     margin: 0;
                   }
@@ -216,107 +249,9 @@
                 margin: 0 0 10px 10px;
               }
             }
-
-            &:nth-child(2n) {
-              grid-template-areas: "details image";
-
-              .image-section img {
-                border-radius: 0 var(--inline-tile-border-radius) var(--inline-tile-border-radius) 0;
-              }
-
-              .icon-section {
-                grid-template-areas:
-                  "media type"
-                  ". shop";
-
-                > .network-icon {
-                  place-self: flex-start;
-                }
-
-                > .content-icon {
-                  justify-self: flex-end;
-                  margin: 10px 10px 0 0;
-                }
-
-                > .shopping-icon {
-                  place-self: flex-end;
-                  margin: 0 10px 10px 0;
-                }
-              }
-            }
-
-            &:nth-child(4n-1),
-            &:nth-child(4n) {
-              min-width: initial;
-              grid-column: span 2;
-              grid-template-areas: "image details";
-              grid-template-columns: subgrid;
-              gap: 10px;
-            }
-
-            &:nth-child(4n-1) {
-              grid-template-areas:
-                "image details";
-
-              .image-section img {
-                border-radius: var(--inline-tile-border-radius) var(--inline-tile-border-radius) 0 0;
-              }
-
-              .icon-section {
-                grid-template-areas:
-                  "type shop"
-                  "media .";
-
-                > .network-icon {
-                  place-self: flex-end center;
-                  grid-column: span 2;
-                }
-
-                > .content-icon {
-                  place-self: flex-start;
-                  margin: 10px 0 0 10px;
-                }
-
-                > .shopping-icon {
-                  place-self: flex-start flex-end;
-                  margin: 10px 10px 0 0;
-                }
-              }
-            }
-
-            &:nth-child(4n) {
-              grid-template-areas:
-                "details image";
-
-              .image-section img {
-                border-radius: 0 0 var(--inline-tile-border-radius) var(--inline-tile-border-radius);
-              }
-
-              .icon-section {
-                grid-template-areas:
-                  "media ."
-                  "type shop";
-
-                > .network-icon {
-                  place-self: flex-start center;
-                  grid-column: span 2;
-                  margin: 0;
-                }
-
-                > .content-icon {
-                  place-self: flex-end flex-start;
-                  margin: 0 0 10px 10px;
-                }
-
-                > .shopping-icon {
-                  place-self: flex-end;
-                  margin: 0 10px 10px 0;
-                }
-              }
-            }
           }
 
-          .ugc-tile[grid-column-indent] {
+          .ugc-tile.grid-column-indent {
             position: relative;
             top: calc(var(--tile-size) / 2);
           }
@@ -340,6 +275,15 @@
           place-items: center;
           flex-direction: column;
           cursor: pointer;
+          z-index: 99;
+
+          &#scroll-up {
+            top: 0;
+          }
+
+          &#scroll-down {
+            bottom: 0;
+          }
 
           &#scroll-up,
           &#scroll-down {

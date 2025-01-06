@@ -34,6 +34,11 @@ loadWidget({
           sliderCallbacks = loadSlider(tileSizeSettings, observers)
         }, 1000)
     ],
+    onResize: [
+      () => {
+        sliderCallbacks.resizeHandler()
+      }
+    ],
     onTilesUpdated: [() => sliderCallbacks?.tilesUpdatedEventHandler()],
     onTileBgImageError: [() => sliderCallbacks?.tilesUpdatedEventHandler()]
   }
