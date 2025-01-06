@@ -227,7 +227,7 @@ export default function (settings: Features["tileSizeSettings"], observers: Retu
 
   function getNextScrollPosition() {
     scrollHistory.push(tilesContainerElement.scrollTop)
-    const nextTarget = observers.getNextTilePosition()
+    const nextTarget = observers.getNextTilePosition(scrollHistory)
     return nextTarget
   }
 

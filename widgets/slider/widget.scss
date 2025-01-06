@@ -145,6 +145,7 @@
               overflow: hidden;
 
               img {
+                aspect-ratio: 1 / 1;
                 width: 100%;
                 object-fit: cover;
                 border-radius: var(--inline-tile-border-radius) 0 0 var(--inline-tile-border-radius);

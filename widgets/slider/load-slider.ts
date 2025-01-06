@@ -30,8 +30,29 @@ export function loadSlider(settings: Features["tileSizeSettings"], observers: Re
 
   loadingElement?.classList.add("hidden")
 
-  function generatePatterns() {
-    const patternSequence = [
+  function getDeviceType() {
+    const innerWidth = window.innerWidth
+    if (innerWidth < 544) {
+      return "mobile"
+    } else if (innerWidth <= 700 && innerWidth >= 544) {
+      return "small-tablet"
+    } else if (innerWidth < 1024 && innerWidth >= 700) {
+      return "tablet"
+    } else {
+      return "desktop"
+    }
+  }
+
+  function getDesktopIndents() {
+    return [1, 2, 8, 11]
+  }
+
+  function getTabletIndents() {
+    return [1]
+  }
+
+  function getDesktopPattern() {
+    return [
       "pattern-horizontal",
       "pattern-vertical",
       "pattern-vertical-reversed",
@@ -45,6 +66,46 @@ export function loadSlider(settings: Features["tileSizeSettings"], observers: Re
       "pattern-vertical-reversed",
       "pattern-horizontal-reversed"
     ]
+  }
+
+  function getMobilePattern() {
+    return ["pattern-horizontal", "pattern-vertical", "pattern-horizontal-reversed"]
+  }
+
+  function getTabletPattern() {
+    return ["pattern-horizontal", "pattern-vertical", "pattern-horizontal-reversed"]
+  }
+
+  function getSmallTabletPattern() {
+    return [
+      "pattern-horizontal",
+      "pattern-vertical",
+      "pattern-vertical-reversed",
+      "pattern-horizontal-reversed",
+      "pattern-vertical-reversed",
+      "pattern-vertical"
+    ]
+  }
+
+  function getPatternByDeviceType() {
+    if (getDeviceType() === "mobile") {
+      return getMobilePattern()
+    }
+
+    if (getDeviceType() === "tablet") {
+      return getTabletPattern()
+    }
+
+    if (getDeviceType() === "small-tablet") {
+      return getSmallTabletPattern()
+    }
+
+    return getDesktopPattern()
+  }
+
+  function generatePatterns() {
+    const patternSequence = getPatternByDeviceType()
+
     let sequenceIndex = 0
 
     sdk.querySelectorAll(".ugc-tile").forEach(tile => {
@@ -55,6 +116,21 @@ export function loadSlider(settings: Features["tileSizeSettings"], observers: Re
         "pattern-horizontal-reversed",
         "grid-column-indent"
       )
+      // indents for 1 vertical,2 vertical reversed, 8 - horizontal, 11-horizontal reversed
+
+      if (getDeviceType() === "desktop") {
+        const indents = getDesktopIndents()
+        if (indents.includes(sequenceIndex)) {
+          tile.classList.add("grid-column-indent")
+        }
+      }
+
+      if (getDeviceType() === "tablet") {
+        const indents = getTabletIndents()
+        if (indents.includes(sequenceIndex)) {
+          tile.classList.add("grid-column-indent")
+        }
+      }
 
       // Apply the current pattern in the sequence
       const currentPattern = patternSequence[sequenceIndex]
@@ -64,6 +140,10 @@ export function loadSlider(settings: Features["tileSizeSettings"], observers: Re
       // Move to the next pattern in the sequence, cycling back to the start
       sequenceIndex = (sequenceIndex + 1) % patternSequence.length
     })
+  }
+
+  function resizeHandler() {
+    generatePatterns()
   }
 
   function tilesUpdatedEventHandler() {
@@ -77,5 +157,5 @@ export function loadSlider(settings: Features["tileSizeSettings"], observers: Re
 
   generatePatterns()
 
-  return { tilesUpdatedEventHandler, widgetLoadedEventHandler }
+  return { tilesUpdatedEventHandler, widgetLoadedEventHandler, resizeHandler }
 }

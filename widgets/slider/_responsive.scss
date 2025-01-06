@@ -83,6 +83,16 @@
       }
     }
 
+    //innerWidth <= 700 && innerWidth >= 544
+    @media (min-width: 544px) and (max-width: 700px) {
+      --render-mode: small-tablet;
+
+      .partially-visible {
+        opacity: 1;
+        filter: none;
+      }
+    }
+
     @include media-queries.breakpoint(tablet) {
       --render-mode: tablet;
 
@@ -98,7 +108,7 @@
           height: 100vh;
           grid-template-columns: min-content;
           justify-content: center;
-          grid-template-columns: 1fr 1fr;
+          grid-template-columns: repeat(auto-fit, minmax(var(--tile-size), 1fr));
 
           .ugc-tile {
             .image-section,
