@@ -106,7 +106,6 @@
 
         .ugc-tiles {
           height: 100vh;
-          grid-template-columns: min-content;
           justify-content: center;
           grid-template-columns: repeat(auto-fit, minmax(var(--tile-size), 1fr));
 
