@@ -104,6 +104,7 @@
           width: 100%;
           height: calc(100vh);
           overflow: hidden;
+
           // TODO : use var(--tile-size) when ready to maintain
           grid-auto-columns: var(--tile-size);
           grid-template-columns: repeat(auto-fit, minmax(var(--tile-size), 1fr));
@@ -253,6 +254,7 @@
 
           .ugc-tile.grid-column-indent {
             position: relative;
+
             // TODO : use var(--tile-size) when ready to maintain
             top: calc(var(--tile-size) / 2);
           }
