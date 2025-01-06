@@ -3,6 +3,13 @@ import { Features } from "@stackla/widget-utils"
 import navigator from "./navigator"
 import { inlineTileSize } from "./utils"
 import { initObservers } from "./observers"
+import {
+  getDesktopIndents,
+  getDeviceType,
+  getMediumDesktopIndents,
+  getPatternByDeviceType,
+  getTabletIndents
+} from "./components/responsive-patterns"
 
 declare const sdk: Sdk
 
@@ -29,137 +36,6 @@ export function loadSlider(settings: Features["tileSizeSettings"], observers: Re
   navigator(settings, observers)
 
   loadingElement?.classList.add("hidden")
-
-  function getDeviceType() {
-    const innerWidth = window.innerWidth
-    if (innerWidth < 544) {
-      return "mobile"
-    } else if (innerWidth >= 544 && innerWidth < 700) {
-      return "small-tablet"
-    } else if (innerWidth >= 700 && innerWidth < 1024) {
-      return "tablet"
-    } else if (innerWidth >= 1024 && innerWidth < 1080) {
-      return "x-small-desktop"
-    } else if (innerWidth >= 1080 && innerWidth < 1160) {
-      return "small-desktop"
-    } else if (innerWidth >= 1160 && innerWidth < 1400) {
-      return "medium-desktop"
-    } else {
-      return "desktop"
-    }
-  }
-
-  function getMediumDesktopIndents() {
-    return [1, 3, 6, 8]
-  }
-
-  function getDesktopIndents() {
-    return [1, 2, 8, 11]
-  }
-
-  function getTabletIndents() {
-    return [1]
-  }
-
-  function getDesktopPattern() {
-    return [
-      "pattern-horizontal",
-      "pattern-vertical",
-      "pattern-vertical-reversed",
-      "pattern-horizontal",
-      "pattern-horizontal-reversed",
-      "pattern-horizontal-reversed",
-      "pattern-vertical",
-      "pattern-vertical-reversed",
-      "pattern-horizontal",
-      "pattern-vertical",
-      "pattern-vertical-reversed",
-      "pattern-horizontal-reversed"
-    ]
-  }
-
-  function getSmallDesktopPattern() {
-    return [
-      "pattern-horizontal",
-      "pattern-vertical",
-      "pattern-vertical-reversed",
-      "pattern-horizontal",
-      "pattern-horizontal-reversed"
-    ]
-  }
-
-  function getMediumDesktopPattern() {
-    return [
-      "pattern-vertical",
-      "pattern-horizontal",
-      "pattern-horizontal-reversed",
-      "pattern-horizontal-reversed",
-      "pattern-horizontal",
-      "pattern-vertical-reversed",
-      "pattern-horizontal",
-      "pattern-horizontal-reversed",
-      "pattern-horizontal-reversed",
-      "pattern-horizontal"
-    ]
-  }
-
-  function getExtraSmallDesktopPattern() {
-    return [
-      "pattern-vertical",
-      "pattern-horizontal",
-      "pattern-vertical",
-      "pattern-horizontal-reversed",
-      "pattern-vertical-reversed",
-      "pattern-horizontal"
-    ]
-  }
-
-  function getMobilePattern() {
-    return ["pattern-horizontal", "pattern-vertical", "pattern-horizontal-reversed"]
-  }
-
-  function getTabletPattern() {
-    return ["pattern-horizontal", "pattern-vertical", "pattern-horizontal-reversed"]
-  }
-
-  function getSmallTabletPattern() {
-    return [
-      "pattern-horizontal",
-      "pattern-vertical",
-      "pattern-vertical-reversed",
-      "pattern-horizontal-reversed",
-      "pattern-vertical-reversed",
-      "pattern-vertical"
-    ]
-  }
-
-  function getPatternByDeviceType() {
-    if (getDeviceType() === "mobile") {
-      return getMobilePattern()
-    }
-
-    if (getDeviceType() === "tablet") {
-      return getTabletPattern()
-    }
-
-    if (getDeviceType() === "small-tablet") {
-      return getSmallTabletPattern()
-    }
-
-    if (getDeviceType() === "medium-desktop") {
-      return getMediumDesktopPattern()
-    }
-
-    if (getDeviceType() === "small-desktop") {
-      return getSmallDesktopPattern()
-    }
-
-    if (getDeviceType() === "x-small-desktop") {
-      return getExtraSmallDesktopPattern()
-    }
-
-    return getDesktopPattern()
-  }
 
   function generatePatterns() {
     const patternSequence = getPatternByDeviceType()
