@@ -49,8 +49,7 @@ function getDesktopIndents() {
 }
 
 function getExtraLargeDesktopIndents() {
-  //return [1, 2, 4, 5, 10, 13, 14, 15, 17, 18, 20, 21]
-  return []
+  return [1, 2, 4, 5, 10, 13, 14, 15, 17, 18, 20, 21, 26, 29, 30, 31]
 }
 
 function getSmallDesktopIndents() {
