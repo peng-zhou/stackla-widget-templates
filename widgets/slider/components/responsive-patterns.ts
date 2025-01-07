@@ -3,6 +3,22 @@ const PATTERN_VERTICAL = "pattern-vertical"
 const PATTERN_VERTICAL_REVERSED = "pattern-vertical-reversed"
 const PATTERN_HORIZONTAL_REVERSED = "pattern-horizontal-reversed"
 
+const DEFAULT_PATTERN = [
+  PATTERN_HORIZONTAL,
+  PATTERN_VERTICAL,
+  PATTERN_VERTICAL_REVERSED,
+  PATTERN_HORIZONTAL,
+  PATTERN_VERTICAL,
+  PATTERN_VERTICAL_REVERSED,
+  PATTERN_HORIZONTAL_REVERSED,
+  PATTERN_HORIZONTAL_REVERSED,
+  PATTERN_VERTICAL,
+  PATTERN_VERTICAL_REVERSED,
+  PATTERN_HORIZONTAL,
+  PATTERN_VERTICAL,
+  PATTERN_VERTICAL_REVERSED
+]
+
 function getDeviceType() {
   const innerWidth = window.innerWidth
   if (innerWidth < 544) {
@@ -33,12 +49,8 @@ function getDesktopIndents() {
 }
 
 function getExtraLargeDesktopIndents() {
-  return [
-    // 2nd col
-    1, 2, 10, 13, 14, 22,
-    // 4th col
-    4, 5, 12, 16, 20, 23
-  ]
+  //return [1, 2, 4, 5, 10, 13, 14, 15, 17, 18, 20, 21]
+  return []
 }
 
 function getSmallDesktopIndents() {
@@ -55,6 +67,10 @@ function getTabletIndents() {
 
 function getExtraLargeDesktopPattern() {
   return [
+    ...DEFAULT_PATTERN,
+    PATTERN_HORIZONTAL,
+    PATTERN_HORIZONTAL_REVERSED,
+    PATTERN_HORIZONTAL_REVERSED,
     PATTERN_HORIZONTAL,
     PATTERN_VERTICAL,
     PATTERN_VERTICAL_REVERSED,
@@ -66,19 +82,11 @@ function getExtraLargeDesktopPattern() {
     PATTERN_VERTICAL,
     PATTERN_VERTICAL_REVERSED,
     PATTERN_HORIZONTAL,
-    PATTERN_HORIZONTAL_REVERSED,
-    PATTERN_HORIZONTAL,
     PATTERN_VERTICAL,
     PATTERN_VERTICAL_REVERSED,
     PATTERN_HORIZONTAL,
     PATTERN_HORIZONTAL_REVERSED,
-    PATTERN_HORIZONTAL,
-    PATTERN_VERTICAL,
-    PATTERN_VERTICAL_REVERSED,
-    PATTERN_HORIZONTAL,
-    PATTERN_HORIZONTAL_REVERSED,
-    PATTERN_HORIZONTAL,
-    PATTERN_HORIZONTAL
+    PATTERN_HORIZONTAL_REVERSED
   ]
 }
 
