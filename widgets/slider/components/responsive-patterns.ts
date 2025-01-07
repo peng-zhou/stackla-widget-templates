@@ -13,13 +13,15 @@ function getDeviceType() {
     return "tablet"
   } else if (innerWidth >= 1024 && innerWidth < 1080) {
     return "x-small-desktop"
-  } else if (innerWidth >= 1080 && innerWidth < 1160) {
+  } else if (innerWidth >= 1080 && innerWidth < 1400) {
     return "small-desktop"
-  } else if (innerWidth >= 1160 && innerWidth < 1400) {
-    return "medium-desktop"
-  } else {
+  } else if (innerWidth >= 1400 && innerWidth <= 1870) {
     return "desktop"
+  } else if (innerWidth > 1870) {
+    return "x-large-desktop"
   }
+
+  return "unknown"
 }
 
 function getMediumDesktopIndents() {
@@ -30,12 +32,54 @@ function getDesktopIndents() {
   return [1, 2, 8, 11]
 }
 
+function getExtraLargeDesktopIndents() {
+  return [
+    // 2nd col
+    1, 2, 10, 13, 14, 22,
+    // 4th col
+    4, 5, 12, 16, 20, 23
+  ]
+}
+
 function getSmallDesktopIndents() {
   return [1, 2, 5, 8, 9]
 }
 
+function getExtraSmallDesktopIndents() {
+  return [1, 3, 5]
+}
+
 function getTabletIndents() {
   return [1]
+}
+
+function getExtraLargeDesktopPattern() {
+  return [
+    PATTERN_HORIZONTAL,
+    PATTERN_VERTICAL,
+    PATTERN_VERTICAL_REVERSED,
+    PATTERN_HORIZONTAL,
+    PATTERN_VERTICAL,
+    PATTERN_VERTICAL_REVERSED,
+    PATTERN_HORIZONTAL_REVERSED,
+    PATTERN_HORIZONTAL_REVERSED,
+    PATTERN_VERTICAL,
+    PATTERN_VERTICAL_REVERSED,
+    PATTERN_HORIZONTAL,
+    PATTERN_HORIZONTAL_REVERSED,
+    PATTERN_HORIZONTAL,
+    PATTERN_VERTICAL,
+    PATTERN_VERTICAL_REVERSED,
+    PATTERN_HORIZONTAL,
+    PATTERN_HORIZONTAL_REVERSED,
+    PATTERN_HORIZONTAL,
+    PATTERN_VERTICAL,
+    PATTERN_VERTICAL_REVERSED,
+    PATTERN_HORIZONTAL,
+    PATTERN_HORIZONTAL_REVERSED,
+    PATTERN_HORIZONTAL,
+    PATTERN_HORIZONTAL
+  ]
 }
 
 function getDesktopPattern() {
@@ -128,8 +172,8 @@ function getPatternByDeviceType() {
     return getSmallTabletPattern()
   }
 
-  if (getDeviceType() === "medium-desktop") {
-    return getMediumDesktopPattern()
+  if (getDeviceType() === "x-large-desktop") {
+    return getExtraLargeDesktopPattern()
   }
 
   if (getDeviceType() === "small-desktop") {
@@ -147,8 +191,10 @@ export {
   getDeviceType,
   getMediumDesktopIndents,
   getDesktopIndents,
+  getExtraLargeDesktopIndents,
   getTabletIndents,
   getSmallDesktopIndents,
+  getExtraSmallDesktopIndents,
   getDesktopPattern,
   getSmallDesktopPattern,
   getMediumDesktopPattern,
@@ -156,5 +202,6 @@ export {
   getMobilePattern,
   getTabletPattern,
   getSmallTabletPattern,
-  getPatternByDeviceType
+  getPatternByDeviceType,
+  getExtraLargeDesktopPattern
 }
