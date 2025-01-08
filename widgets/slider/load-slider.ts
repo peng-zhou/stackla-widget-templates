@@ -6,7 +6,8 @@ import { initObservers } from "./observers"
 import {
   getDesktopIndents,
   getDeviceType,
-  getMediumDesktopIndents,
+  getExtraLargeDesktopIndents,
+  getExtraSmallDesktopIndents,
   getPatternByDeviceType,
   getSmallDesktopIndents,
   getTabletIndents
@@ -60,6 +61,13 @@ export function loadSlider(settings: Features["tileSizeSettings"], observers: Re
         }
       }
 
+      if (getDeviceType() === "x-large-desktop") {
+        const indents = getExtraLargeDesktopIndents()
+        if (indents.includes(sequenceIndex)) {
+          tile.classList.add("grid-column-indent")
+        }
+      }
+
       if (getDeviceType() === "tablet") {
         const indents = getTabletIndents()
         if (indents.includes(sequenceIndex)) {
@@ -67,15 +75,15 @@ export function loadSlider(settings: Features["tileSizeSettings"], observers: Re
         }
       }
 
-      if (getDeviceType() === "medium-desktop") {
-        const indents = getMediumDesktopIndents()
+      if (getDeviceType() == "small-desktop") {
+        const indents = getSmallDesktopIndents()
         if (indents.includes(sequenceIndex)) {
           tile.classList.add("grid-column-indent")
         }
       }
 
-      if (getDeviceType() == "small-desktop") {
-        const indents = getSmallDesktopIndents()
+      if (getDeviceType() == "x-small-desktop") {
+        const indents = getExtraSmallDesktopIndents()
         if (indents.includes(sequenceIndex)) {
           tile.classList.add("grid-column-indent")
         }

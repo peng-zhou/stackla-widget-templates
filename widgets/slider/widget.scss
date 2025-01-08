@@ -93,10 +93,10 @@
       flex-direction: column;
 
       .container {
+        max-width: 2000px;
         display: flex;
         width: 100vw;
         flex-direction: column;
-        min-height: 1000px;
         max-height: 100vh;
 
         .ugc-tiles {

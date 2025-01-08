@@ -16,7 +16,7 @@
 
       .container {
         width: 100vw;
-        
+
         .ugc-tiles {
           grid-template-columns: 1fr;
           height: 100%;
@@ -82,6 +82,18 @@
 
     @media (min-width: 544px) and (max-width: 700px) {
       --render-mode: small-tablet;
+    }
+
+    @media (min-width: 1080px) and (max-width: 1400px) {
+     .container {
+        max-width: 1080px !important;
+     }
+    }
+
+    @media (min-width: 1630px) and (max-width: 1870px) {
+      .container {
+        max-width: 1630px;
+      }
     }
 
     @include media-queries.breakpoint(tablet) {
