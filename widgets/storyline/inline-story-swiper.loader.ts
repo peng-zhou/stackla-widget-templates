@@ -4,11 +4,11 @@ import {
   refreshSwiper,
   setSwiperLoadingStatus,
   isSwiperLoading,
-  updateSwiperInstance
+  updateSwiperInstance,
+  Swiper
 } from "@stackla/widget-utils/extensions/swiper"
 import { enableTileImages, loadAllUnloadedTiles } from "@stackla/widget-utils/libs"
 import { EVENT_LOAD_MORE } from "@stackla/widget-utils/events"
-import Swiper from "swiper"
 import { getSlidesPerView } from "./slides-per-view"
 
 declare const sdk: Sdk
