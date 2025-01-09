@@ -4,9 +4,9 @@ import {
   refreshSwiper,
   setSwiperLoadingStatus,
   isSwiperLoading,
-  updateSwiperInstance,
-  Swiper
+  updateSwiperInstance
 } from "@stackla/widget-utils/extensions/swiper"
+import type { Swiper } from "swiper"
 import { enableTileImages, loadAllUnloadedTiles } from "@stackla/widget-utils/libs"
 
 declare const sdk: Sdk
