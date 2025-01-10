@@ -224,7 +224,7 @@ async function buildAllWithErrorHandling(retries = 0) {
   }
 
   try {
-    if (args && args.includes('watch') || args.includes('widget-utils')) {
+    if (args && (args.includes('widget-utils') || args.includes('--watch'))) {
       await buildUtils()
     }
     console.log(`Building... for ${process.env.APP_ENV}`)
