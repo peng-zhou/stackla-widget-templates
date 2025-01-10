@@ -8,6 +8,7 @@ import {
 } from "@stackla/widget-utils/extensions/swiper"
 import type { Swiper } from "swiper"
 import { enableTileImages, loadAllUnloadedTiles } from "@stackla/widget-utils/libs"
+import { EVENT_LOAD_MORE } from "@stackla/widget-utils"
 
 declare const sdk: Sdk
 
@@ -46,6 +47,7 @@ function initializeSwiperForInlineTiles() {
     prevButton: "swiper-inline-carousel-button-prev",
     nextButton: "swiper-inline-carousel-button-next",
     paramsOverrides: {
+      loop: false,
       slidesPerView: "auto",
       grabCursor: false,
       allowTouchMove: false,
@@ -66,6 +68,9 @@ function initializeSwiperForInlineTiles() {
         onlyInViewport: false
       },
       on: {
+        reachEnd: () => {
+          sdk.triggerEvent(EVENT_LOAD_MORE)
+        },
         beforeInit: (swiper: Swiper) => {
           enableLoadedTiles()
           swiper.slideToLoop(0, 0, false)

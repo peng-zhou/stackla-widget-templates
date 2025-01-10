@@ -1,19 +1,96 @@
-@use "@styles/partials/icon-sections" as is;
-
-expanded-tiles {
-  @include is.icon-sections-styles {
-    $social-icon-bg: #000;
-
-    .icon-section {
-      display: flex;
-      position: absolute;
-      height: 100%;
-      width: 100%;
-
-      .top-section .network-icon {
-        margin-left: auto;
-        background-color: $social-icon-bg;
+.pattern-horizontal-reversed {
+  .icon-section {
+        grid-template-areas:
+      "media type"
+      ". shop";
+      .network-icon {
+        grid-area: unset;
+        justify-self: flex-start;
+        margin: 10px 0px;
       }
-    }
+
+      .content-icon {
+        place-self: flex-end;
+        margin: 10px 0 0 10px;
+      }
+
+      .shopping-icon {
+        justify-self: flex-end;
+        align-self: flex-end;
+        margin: 0 10px 10px 0px;
+      }
+  }
+
+}
+
+.pattern-horizontal {
+  .icon-section {
+    grid-template-areas:
+      "type media"
+      "shop .";
+
+      .network-icon {
+        align-self: flex-start;
+        justify-self: flex-end;
+        margin: 10px 0px 0px 0px;
+      }
+      .content-icon {
+        place-self: flex-start;
+        margin: 10px 0 0 10px;
+      }
+      
+      .shopping-icon {
+        justify-self: flex-start;
+        align-self: flex-end;
+        margin: 0px 10px 10px 10px;
+      }
+  }
+}
+
+.pattern-vertical {
+  .icon-section {
+    grid-template-areas:
+      "type"
+      "media"
+      "shop";
+      .network-icon {
+        align-self: flex-end;
+        justify-self: flex-start;
+        margin: 0px 0px 10px 0px;
+      }
+      .content-icon {
+        place-self: flex-end;
+        margin: 0px 0 0 10px;
+      }
+      
+      .shopping-icon {
+        justify-self: flex-end;
+        align-self: flex-start;
+        margin: 10px 10px 0px 0px;
+      }
+  }
+}
+
+.pattern-vertical-reversed {
+  .icon-section {
+    grid-template-areas:
+      "shop"
+      "media"
+      "type";
+      .network-icon {
+        align-self: flex-start;
+        justify-self: flex-end;
+        margin: 10px 0px 0px 0px;
+      }
+      .content-icon {
+        place-self: flex-start;
+        margin: 0px 0 0 10px;
+      }
+      
+      .shopping-icon {
+        justify-self: flex-start;
+        align-self: flex-end;
+        margin: 0px 10px 10px 10px;
+      }
   }
 }
