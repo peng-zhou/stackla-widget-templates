@@ -3,10 +3,11 @@
         grid-template-areas:
       "media type"
       ". shop";
+
       .network-icon {
         grid-area: unset;
         justify-self: flex-start;
-        margin: 10px 0px;
+        margin: 10px 0;
       }
 
       .content-icon {
@@ -15,9 +16,8 @@
       }
 
       .shopping-icon {
-        justify-self: flex-end;
-        align-self: flex-end;
-        margin: 0 10px 10px 0px;
+        place-self: flex-end flex-end;
+        margin: 0 10px 10px 0;
       }
   }
 
@@ -30,19 +30,18 @@
       "shop .";
 
       .network-icon {
-        align-self: flex-start;
-        justify-self: flex-end;
-        margin: 10px 0px 0px 0px;
+        place-self: flex-start flex-end;
+        margin: 10px 0 0;
       }
+
       .content-icon {
         place-self: flex-start;
         margin: 10px 0 0 10px;
       }
       
       .shopping-icon {
-        justify-self: flex-start;
-        align-self: flex-end;
-        margin: 0px 10px 10px 10px;
+        place-self: flex-end flex-start;
+        margin: 0 10px 10px;
       }
   }
 }
@@ -53,20 +52,20 @@
       "type"
       "media"
       "shop";
+
       .network-icon {
-        align-self: flex-end;
-        justify-self: flex-start;
-        margin: 0px 0px 10px 0px;
+        place-self: flex-end flex-start;
+        margin: 0 0 10px;
       }
+
       .content-icon {
         place-self: flex-end;
-        margin: 0px 0 0 10px;
+        margin: 0 0 0 10px;
       }
       
       .shopping-icon {
-        justify-self: flex-end;
-        align-self: flex-start;
-        margin: 10px 10px 0px 0px;
+        place-self: flex-start flex-end;
+        margin: 10px 10px 0 0;
       }
   }
 }
@@ -77,20 +76,20 @@
       "shop"
       "media"
       "type";
+
       .network-icon {
-        align-self: flex-start;
-        justify-self: flex-end;
-        margin: 10px 0px 0px 0px;
+        place-self: flex-start flex-end;
+        margin: 10px 0 0;
       }
+
       .content-icon {
         place-self: flex-start;
-        margin: 0px 0 0 10px;
+        margin: 0 0 0 10px;
       }
       
       .shopping-icon {
-        justify-self: flex-start;
-        align-self: flex-end;
-        margin: 0px 10px 10px 10px;
+        place-self: flex-end flex-start;
+        margin: 0 10px 10px;
       }
   }
 }
