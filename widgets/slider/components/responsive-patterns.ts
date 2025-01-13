@@ -53,7 +53,7 @@ function getExtraLargeDesktopIndents() {
 }
 
 function getSmallDesktopIndents() {
-  return [1, 2, 5, 8, 9]
+  return [1, 2, 6, 7]
 }
 
 function getExtraSmallDesktopIndents() {
@@ -111,9 +111,7 @@ function getSmallDesktopPattern() {
     PATTERN_HORIZONTAL,
     PATTERN_VERTICAL,
     PATTERN_VERTICAL_REVERSED,
-    PATTERN_HORIZONTAL,
     PATTERN_HORIZONTAL_REVERSED,
-    PATTERN_HORIZONTAL,
     PATTERN_VERTICAL,
     PATTERN_VERTICAL_REVERSED,
     PATTERN_HORIZONTAL,
