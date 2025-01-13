@@ -78,6 +78,11 @@ export function IconSection({ tile, productsEnabled }: { tile: Tile; productsEna
   }
 
   bottomSectionIconContent.push(<div class={`network-icon icon-${tile.source}`}></div>)
+  bottomSectionIconContent.push(
+    <div class="story-expanded-bottom-section">
+      <tile-tags tile-id={tile.id} variant="dark" mode="swiper" context="carousel-inline"></tile-tags>
+    </div>
+  )
 
   return (
     <div class="icon-section">
