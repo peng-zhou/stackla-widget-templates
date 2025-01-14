@@ -230,6 +230,30 @@ expanded-tiles:not(:empty) {
                 }
               }
             }
+
+            .story-expanded-bottom-section {
+              height: 20px;
+              display: flex;
+              position: absolute;
+              justify-content: space-between;
+              z-index: 1;
+              width: 100%;
+              align-items: flex-end;
+              flex-direction: row;
+
+              tile-tags {
+                position: absolute;
+                left: 0;
+                top: 4px;
+                bottom: 0;
+                height: 18px;
+                margin-left: 5px;
+
+                .tile-tag {
+                  height: 13px !important;
+                }
+              }
+            }
           }
 
           &.swiper-slide-active {
