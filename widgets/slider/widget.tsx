@@ -23,7 +23,7 @@ observers.configTileIntersectionTargets()
 loadWidget({
   features: {
     handleLoadMore: false,
-    addNewTilesAutomatically: true,
+    addNewTilesAutomatically: false,
     tileSizeSettings
   },
   callbacks: {

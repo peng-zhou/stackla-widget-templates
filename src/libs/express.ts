@@ -232,7 +232,10 @@ expressApp.get("/development/widgets/668ca52ada8fb", async (req, res) => {
 expressApp.get("/development/widgets/668ca52ada8fb/tiles", async (req, res) => {
   if (req.query.after_id) {
     res.send({
-      tiles: []
+      tiles: getTilesToRender(req).slice(0, 1).map(tile => ({
+        ...tile,
+        id: "1"
+      }))
     })
 
     return
@@ -250,6 +253,14 @@ expressApp.get("/development/widgets/668ca52ada8fb/tiles/:tid", async (req, res)
 expressApp.get("/development/widgets/668ca52ada8fb/rendered/tiles", async (req, res) => {
   const widgetType = req.cookies.widgetType as string
   const tileHtml = await getHTML(await getContent(widgetType), req)
+
+  if (req.query.after_id) {
+    res.json(tileHtml.slice(0, 1).map(tile => {
+      tile = tile.replace(`data-id=\"65e16a0b5d7e676caec68f03\"`, `data-id=\"1\"`);
+      return tile;
+    }));
+    return;
+  }
 
   res.json(tileHtml)
 })

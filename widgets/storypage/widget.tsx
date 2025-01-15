@@ -13,6 +13,7 @@ loadWidget({
   },
   callbacks: {
     onLoad: [() => registerResizeObserver()],
+    onTilesUpdate: [() => createSubmitMoreContentBtn()],
     onTileBgImageError: [calculateTilesToShow]
   }
 })
