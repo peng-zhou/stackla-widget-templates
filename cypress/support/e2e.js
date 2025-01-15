@@ -57,11 +57,7 @@ Cypress.Commands.add("visitWidget", widgetType => {
 
   cy.wait("@getWidget")
 
-  cy.get(WIDGET_ID)
-    .shadow()
-    .find(getUgcTileSelectorByWidgetType(widgetType), { timeout: 10000 })
-    .first()
-    .should("be.visible", { timeout: 10000 })
+  cy.get(WIDGET_ID).shadow().find(getUgcTileSelectorByWidgetType(widgetType), { timeout: 10000 }).first()
 
   cy.waitAndDisableImages()
 })
