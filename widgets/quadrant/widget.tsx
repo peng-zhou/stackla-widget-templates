@@ -5,6 +5,7 @@ loadWidget({
   features: {
     preloadImages: false,
     hideBrokenImages: true,
+    addNewTilesAutomatically: false,
     tileSizeSettings: {
       small: "1fr 1fr 1fr",
       medium: "1fr 1fr",
