@@ -51,7 +51,7 @@
     "chokidar": "^4.0.1",
     "concurrently": "^9.0.1",
     "copy-webpack-plugin": "^12.0.2",
-    "cypress": "^13.13.2",
+    "cypress": "^13.17.0",
     "cypress-split": "^1.24.5",
     "cypress-visual-regression": "^5.2.2",
     "dotenv": "^16.4.5",
@@ -92,10 +92,10 @@
     "@stackla/widget-utils": "workspace:*",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
+    "express": "^4.21.2",
     "happy-dom": "^14.12.3",
     "hbs": "^4.2.0",
     "serverless-hooks-plugin": "^1.1.0",
-    "serverless-http": "^3.2.0",
-    "express": "^4.21.2"
+    "serverless-http": "^3.2.0"
   }
 }
