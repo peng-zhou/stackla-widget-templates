@@ -14,5 +14,6 @@ cypress/snapshots/diff
 dist/*
 !dist/assets/
 !dist/fonts/
+!dist/samples/
 dist/assets/spritemaps/*
 meta.json
