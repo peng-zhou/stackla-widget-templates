@@ -296,45 +296,4 @@ expressApp.get("/staging", async (req : Request, res : Response) => {
   })
 })
 
-
-expressApp.get("/autoload", (req : Request, res : Response) => {
-  const { selector, widget, resource } = req.query as { selector: string; widget: string; resource: string }
-
-  if (!selector) {
-    res.status(400).send("selector is required")
-    return;
-  }
-
-  if (!widget) {
-    res.status(400).send("widget is required")
-    return;
-  }
-
-  if (!resource) {
-    res.status(400).send("resource is required")
-    return;
-  }
-
-  const resourceWithoutSymbols = stripSymbols(resource)
-  const widgetTypeWithoutSymbols = stripSymbols(widget)
-  const widgetSrc = `dist/${widgetTypeWithoutSymbols}/widget.${resourceWithoutSymbols}`
-  const code = readFileSync(widgetSrc, "utf8")
-
-  if (resourceWithoutSymbols === "css") {
-    res.set("Content-Type", "text/css")
-  }
-
-  if (resourceWithoutSymbols === "js") {
-    res.set("Content-Type", "text/javascript")
-  }
-
-  res.set("Cache-Control", "public, max-age=300")
-
-  res.render("autoload", {
-    selector: stripSymbolsThatAreNotDash(selector),
-    code,
-    isJsCode: resourceWithoutSymbols === "js"
-  })
-})
-
 export default expressApp
