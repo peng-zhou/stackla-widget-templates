@@ -50,20 +50,21 @@ type PreviewContent = {
 }
 
 const expressApp = express()
-expressApp.use((_req, res, next) => {
-  res.set("Cache-Control", "public, max-age=300")
-  next()
-})
 expressApp.use(express.static("dist", { redirect: false }))
+
+if (process.env.APP_ENV == "staging" || process.env.APP_ENV == "production") {
+  expressApp.use((_req, res, next) => {
+    res.set("Cache-Control", "public, max-age=3600")
+    next()
+  })
+}
+
 expressApp.engine("hbs", Handlebars.__express)
 expressApp.set("view engine", "hbs")
 expressApp.use(cors())
 expressApp.use(cookieParser())
 
 createMockRoutes(expressApp)
-
-const stripSymbols = (str: string) => str.replace(/[^a-zA-Z0-9]/g, "")
-const stripSymbolsThatAreNotDash = (str: string) => str.replace(/[^a-zA-Z0-9-]/g, "")
 
 expressApp.use((req, res, next) => {
   const host = req.headers.host || "http://localhost:4003"

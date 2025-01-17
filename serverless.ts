@@ -71,7 +71,8 @@ const config = {
             }
           }
         ]
-      })
+      }),
+      provisionedConcurrency: 10
     }
   }
 };

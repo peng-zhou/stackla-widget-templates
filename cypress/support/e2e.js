@@ -5,6 +5,9 @@
 /* eslint-disable promise/always-return */
 /* eslint-disable promise/catch-or-return */
 
+import "./expanded-tile"
+import "./share-menu"
+
 import { addCompareSnapshotCommand } from "cypress-visual-regression/dist/command"
 
 export const WIDGET_ID = "ugc-widget-668ca52ada8fb"
@@ -76,69 +79,4 @@ Cypress.Commands.add("snapshot", name => {
 
 Cypress.Commands.add("getProductComponent", expandedTile => {
   return expandedTile.shadow().find("ugc-products")
-})
-
-Cypress.Commands.add("shouldExpandedTile", widgetType => {
-  cy.getExpandedTile().should("exist")
-
-  // eslint-disable-next-line cypress/no-unnecessary-waiting
-  cy.wait(4000)
-
-  cy.getFirstTile(widgetType).click()
-
-  // eslint-disable-next-line cypress/no-unnecessary-waiting
-  cy.wait(4000)
-
-  cy.getExpandedTile().should("exist")
-
-  // Set visibility to hidden for all images
-  cy.getExpandedTile().find(".image-element").should("exist").invoke("css", "visibility", "hidden")
-
-  cy.wait(1000)
-
-  cy.get(WIDGET_ID).shadow().find(".expanded-tile-overlay").should("exist").invoke("css", "background-color", "#000")
-
-  // eslint-disable-next-line cypress/no-unnecessary-waiting
-})
-
-Cypress.Commands.add("expandedTileSnapshot", widgetType => {
-  cy.wait(4000)
-
-  cy.getExpandedTile()
-    .find(".ugc-tile[data-id='65e16a0b5d7e676caec68f03']")
-    .first()
-    .should("exist")
-    // Broken - To be fixed
-    //.compareSnapshot(`${widgetType}-tile`)
-})
-
-Cypress.Commands.add("getExpandedTile", () => {
-  return cy.get(WIDGET_ID).shadow().find("expanded-tiles")
-})
-
-Cypress.Commands.add("shouldLoadShareMenu", widgetType => {
-  cy.getFirstTile(widgetType).should("exist").click({ force: true })
-
-  cy.wait(1000)
-
-  cy.getExpandedTile().find(".share-button").first().should("exist").click({ force: true })
-
-  cy.getExpandedTile()
-    .find(".share-socials-popup-wrapper")
-    .find(".url-copy")
-    .should("exist")
-    .find(".copy-button")
-    .first()
-    .should("exist")
-    .click({ force: true })
-
-  cy.getExpandedTile()
-    .find(".share-socials-popup-wrapper")
-    .first()
-    .should("exist")
-    .find(".share-modal-exit")
-    .should("exist")
-    .click({ force: true })
-
-  cy.getExpandedTile().find(".share-socials-popup-wrapper").first().should("not.be.visible")
 })
