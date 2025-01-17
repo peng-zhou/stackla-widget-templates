@@ -84,6 +84,7 @@ const config = {
           }
         ]
       }),
+      memorySize: 128,
       provisionedConcurrency: 10
     }
   }
