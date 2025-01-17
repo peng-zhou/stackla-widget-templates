@@ -49,6 +49,27 @@ const config = {
         versioning: true,
     },
   },
+  resources: {
+    Resources: {
+      IamRoleLambdaExecution: {
+        Type: 'AWS::IAM::Role',
+        Properties: {
+          AssumeRolePolicyDocument: {
+            Version: '2012-10-17',
+            Statement: [
+              {
+                Effect: 'Allow',
+                Principal: {
+                  Service: ['lambda.amazonaws.com', 'edgelambda.amazonaws.com'],
+                },
+                Action: 'sts:AssumeRole',
+              },
+            ],
+          },
+        },
+      },
+    },
+  },
   plugins,
   custom: {
     defaultStage: 'development',
@@ -85,5 +106,9 @@ const config = {
     }
   }
 };
+
+if (env === "staging") {
+  config.functions.main['provisionedConcurrency'] = 1;
+}
 
 module.exports = config;
