@@ -38,9 +38,6 @@ const config = {
   service: "widget-templates",
   provider: {
     name: "aws",
-    environment: {
-      APP_ENV: env
-    },
     stage: '${opt:stage, self:custom.defaultStage}',
     iam: '${file(./config/${self:provider.stage}.json):iam}',
     region: getEnv(),
@@ -70,7 +67,7 @@ const config = {
   functions: {
     main: {
       handler: "./src/functions/main/handler.main",
-      timeout: 30,
+      timeout: 5,
       url: {
         authorizer: "aws_iam"
       },
