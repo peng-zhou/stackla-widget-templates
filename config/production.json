@@ -6,12 +6,38 @@
 
   "iam": {
     "role": {
-      "statements": [
-        {
-          "Effect": "Allow",
-          "Action": ["s3:PutBucketTagging"],
-          "Resource": ["*"]
-        }]
+        "statements": [
+          {
+            "Effect": "Allow",
+            "Action": ["s3:PutBucketTagging"],
+            "Resource": ["*"]
+          },
+          {
+            "Effect": "Allow",
+            "Action": ["lambda:GetFunction"],
+            "Resource": ["*"]
+          },
+          {
+            "Effect": "Allow",
+            "Action": ["lambda:EnableReplication*"],
+            "Resource": ["*"]
+          },
+          {
+            "Effect": "Allow",
+            "Action": ["lambda:DisableReplication*"],
+            "Resource": ["*"]
+          },
+          {
+            "Effect": "Allow",
+            "Action": ["iam:CreateServiceLinkedRole"],
+            "Resource": ["*"]
+          },
+          {
+            "Effect": "Allow",
+            "Action": ["cloudfront:UpdateDistribution"],
+            "Resource": ["*"]
+          }
+        ]
       }
     }
 }
