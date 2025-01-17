@@ -107,8 +107,4 @@ const config = {
   }
 };
 
-if (env === "staging") {
-  config.functions.main['provisionedConcurrency'] = 1;
-}
-
 module.exports = config;
