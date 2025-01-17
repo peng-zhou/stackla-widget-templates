@@ -1,4 +1,6 @@
 const env = process.env.APP_ENV || "development";
+const LAMBDA_AT_EDGE = "us-east-1";
+const STAGING = "us-west-1";
 
 const defaultHooks = {
   "before:package:initialize": [`npm run build:${env}`],
@@ -22,6 +24,10 @@ const getPort = () => {
   }
 };
 
+const getEnv = () => {
+  return env === "production" ? LAMBDA_AT_EDGE : STAGING;
+}
+
 const config = {
   service: "widget-templates",
   provider: {
@@ -31,7 +37,7 @@ const config = {
     },
     stage: '${opt:stage, self:custom.defaultStage}',
     iam: '${file(./config/${self:provider.stage}.json):iam}',
-    region: '${opt:region}',
+    region: getEnv(),
     deploymentBucket: {
         name: 'stackla-serverless-${self:provider.stage}-deploys',
         maxPreviousDeploymentArtifacts: 10,
@@ -71,7 +77,8 @@ const config = {
             }
           }
         ]
-      })
+      }),
+      provisionedConcurrency: 10
     }
   }
 };
