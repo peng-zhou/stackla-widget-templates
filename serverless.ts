@@ -28,6 +28,12 @@ const getEnv = () => {
   return env === "production" ? LAMBDA_AT_EDGE : STAGING;
 }
 
+const getDeploymentBucketName = () => {
+  return env === "production" ? 
+   `edge-lambdas-staging-serverlessdeploymentbucket-kw4rvbxarbxt` :
+   `stackla-serverless-${env}-deploys`;
+}
+
 const config = {
   service: "widget-templates",
   provider: {
@@ -39,7 +45,7 @@ const config = {
     iam: '${file(./config/${self:provider.stage}.json):iam}',
     region: getEnv(),
     deploymentBucket: {
-        name: 'stackla-serverless-${self:provider.stage}-deploys',
+        name: `${getDeploymentBucketName()}`,
         maxPreviousDeploymentArtifacts: 10,
         blockPublicAccess: true,
         skipPolicySetup: true,
