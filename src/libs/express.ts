@@ -54,14 +54,19 @@ expressApp.use(express.static("dist", { redirect: false }))
 
 if (process.env.APP_ENV == "staging" || process.env.APP_ENV == "production") {
   expressApp.use((_req, res, next) => {
-    res.set("Cache-Control", "public, max-age=3600")
+    res.set("Cache-Control", ["public, max-age=3600"])
+    res.set("Allow-Origin", ["*"])
     next()
   })
 }
 
+expressApp.use(express.static("dist", { redirect: false }))
+
 expressApp.engine("hbs", Handlebars.__express)
 expressApp.set("view engine", "hbs")
-expressApp.use(cors())
+expressApp.use(cors({
+  origin: "*"
+}))
 expressApp.use(cookieParser())
 
 createMockRoutes(expressApp)
@@ -296,5 +301,11 @@ expressApp.get("/staging", async (req : Request, res : Response) => {
     ...(await getContent(widgetType))
   })
 })
+
+expressApp.disable('x-powered-by');
+expressApp.use(function (req, res, next) {
+  res.removeHeader("x-powered-by");
+  next();
+});
 
 export default expressApp

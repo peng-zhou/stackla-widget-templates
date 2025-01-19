@@ -89,9 +89,10 @@ const config = {
     main: {
       handler: "./src/functions/main/handler.main",
       timeout: 5,
-      url: {
-        authorizer: "aws_iam"
-      },
+      // Readd after completing tests
+      // url: {
+      //   authorizer: "aws_iam"
+      // },
       ...(process.env.NODE_ENV === "development" && {
         events: [
           {
