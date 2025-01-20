@@ -52,7 +52,10 @@ type PreviewContent = {
 const expressApp = express()
 expressApp.use(express.static("dist", { redirect: false }))
 
-expressApp.use(express.static("dist", { redirect: false }))
+expressApp.use((req, res, next) => {
+  res.removeHeader("Content-Security-Policy");
+  next();
+});
 
 expressApp.engine("hbs", Handlebars.__express)
 expressApp.set("view engine", "hbs")
