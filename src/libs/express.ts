@@ -12,6 +12,8 @@ import { createMockRoutes, STAGING_UI_URL } from "../../tests/libs/developer"
 import fs from "fs"
 import { Request, Response } from 'express';
 
+declare const APP_ENV: string
+
 export function getDomain(isDev: boolean) {
   if (isDev) {
     return "http://localhost:4002/development"
@@ -59,7 +61,10 @@ expressApp.use((req, res, next) => {
 
 expressApp.engine("hbs", Handlebars.__express)
 expressApp.set("view engine", "hbs")
-expressApp.use(cookieParser())
+
+if (APP_ENV === "development") {
+  expressApp.use(cookieParser())
+}
 
 createMockRoutes(expressApp)
 
