@@ -1,6 +1,4 @@
 const env = process.env.APP_ENV || "development";
-const LAMBDA_AT_EDGE = "us-east-1";
-const STAGING = "us-west-1";
 
 const defaultHooks = {
   "before:package:initialize": [`npm run build:${env}`],
@@ -24,50 +22,22 @@ const getPort = () => {
   }
 };
 
-const getEnv = () => {
-  return env === "production" ? LAMBDA_AT_EDGE : STAGING;
-}
-
-const getDeploymentBucketName = () => {
-  return env === "production" ? 
-   `edge-lambdas-staging-serverlessdeploymentbucket-kw4rvbxarbxt` :
-   `stackla-serverless-${env}-deploys`;
-}
-
 const config = {
   service: "widget-templates",
   provider: {
     name: "aws",
+    environment: {
+      APP_ENV: env
+    },
     stage: '${opt:stage, self:custom.defaultStage}',
     iam: '${file(./config/${self:provider.stage}.json):iam}',
-    region: getEnv(),
+    region: '${opt:region}',
     deploymentBucket: {
-        name: `${getDeploymentBucketName()}`,
+        name: 'stackla-serverless-${self:provider.stage}-deploys',
         maxPreviousDeploymentArtifacts: 10,
         blockPublicAccess: true,
         skipPolicySetup: true,
         versioning: true,
-    },
-  },
-  resources: {
-    Resources: {
-      IamRoleLambdaExecution: {
-        Type: 'AWS::IAM::Role',
-        Properties: {
-          AssumeRolePolicyDocument: {
-            Version: '2012-10-17',
-            Statement: [
-              {
-                Effect: 'Allow',
-                Principal: {
-                  Service: ['lambda.amazonaws.com', 'edgelambda.amazonaws.com'],
-                },
-                Action: 'sts:AssumeRole',
-              },
-            ],
-          },
-        },
-      },
     },
   },
   plugins,
@@ -88,11 +58,10 @@ const config = {
   functions: {
     main: {
       handler: "./src/functions/main/handler.main",
-      timeout: 5,
-      // Readd after completing tests
-      // url: {
-      //   authorizer: "aws_iam"
-      // },
+      timeout: 30,
+      url: {
+        authorizer: "aws_iam"
+      },
       ...(process.env.NODE_ENV === "development" && {
         events: [
           {
@@ -103,7 +72,7 @@ const config = {
           }
         ]
       }),
-      memorySize: 128
+      provisionedConcurrency: 10
     }
   }
 };

@@ -12,8 +12,6 @@ import { createMockRoutes, STAGING_UI_URL } from "../../tests/libs/developer"
 import fs from "fs"
 import { Request, Response } from 'express';
 
-declare const APP_ENV: string
-
 export function getDomain(isDev: boolean) {
   if (isDev) {
     return "http://localhost:4002/development"
@@ -54,17 +52,17 @@ type PreviewContent = {
 const expressApp = express()
 expressApp.use(express.static("dist", { redirect: false }))
 
-expressApp.use((req, res, next) => {
-  res.removeHeader("Content-Security-Policy");
-  next();
-});
+if (process.env.APP_ENV == "staging" || process.env.APP_ENV == "production") {
+  expressApp.use((_req, res, next) => {
+    res.set("Cache-Control", ["public, max-age=3600"])
+    next()
+  })
+}
 
 expressApp.engine("hbs", Handlebars.__express)
 expressApp.set("view engine", "hbs")
-
-if (APP_ENV === "development") {
-  expressApp.use(cookieParser())
-}
+expressApp.use(cors())
+expressApp.use(cookieParser())
 
 createMockRoutes(expressApp)
 
@@ -298,11 +296,5 @@ expressApp.get("/staging", async (req : Request, res : Response) => {
     ...(await getContent(widgetType))
   })
 })
-
-expressApp.disable('x-powered-by');
-expressApp.use(function (req, res, next) {
-  res.removeHeader("x-powered-by");
-  next();
-});
 
 export default expressApp
