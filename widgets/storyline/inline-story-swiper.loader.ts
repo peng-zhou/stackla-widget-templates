@@ -42,6 +42,7 @@ export function initializeSwiperForInlineStoryTiles() {
       allowTouchMove: true,
       shortSwipes: false,
       longSwipes: false,
+      mousewheel: true,
       breakpoints: {
         300: {
           allowTouchMove: true,
