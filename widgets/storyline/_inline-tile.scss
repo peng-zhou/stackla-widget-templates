@@ -58,6 +58,7 @@
           opacity: 1;
           max-width: var(--tile-size);
           max-height: var(--tile-size);
+          user-select: none;
         }
       }
     }
