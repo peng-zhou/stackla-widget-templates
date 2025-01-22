@@ -1,6 +1,8 @@
-import { loadWidget } from "@stackla/widget-utils"
+import { loadWidget, Sdk } from "@stackla/widget-utils"
 import { loadWaterfallLayout } from "./waterfall.lib"
 import ProductsTemplate from "./products.template"
+
+declare const sdk: Sdk
 
 loadWidget({
   callbacks: {
@@ -14,7 +16,12 @@ loadWidget({
       template: ProductsTemplate
     }
   },
-  features: {},
+  features: {
+    cssVariables: {
+      "--tile-share-content-display-inline":
+        sdk.getInlineTileConfig().show_sharing || sdk.getInlineTileConfig().show_timestamp ? "flex" : "none"
+    }
+  },
   extensions: {}
 })
 
