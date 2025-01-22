@@ -39,7 +39,7 @@ export function loadWaterfallLayout(reset = false) {
       const imageElement = tileTop.querySelector<HTMLImageElement>("img")
 
       const calculateHeight = () => {
-        const rowSpan = Math.floor(Math.random() * 20) + 20
+        const rowSpan = Math.floor(Math.random() * 20) + 15
         tile.style.gridRowEnd = `span ${rowSpan}`
       }
 
