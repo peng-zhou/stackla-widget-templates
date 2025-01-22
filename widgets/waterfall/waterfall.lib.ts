@@ -11,10 +11,6 @@ export function loadWaterfallLayout(reset = false) {
     return
   }
 
-  const rowHeight = 10
-  const { margin } = sdk.getStyleConfig()
-  const gap = parseInt(margin)
-
   ugcTiles.forEach((tile: HTMLElement) => {
     const hasUserHandle = tile.querySelector(".user-handle") !== null
     const hasTimePhrase = tile.querySelector(".tile-timephrase") !== null
@@ -43,11 +39,7 @@ export function loadWaterfallLayout(reset = false) {
       const imageElement = tileTop.querySelector<HTMLImageElement>("img")
 
       const calculateHeight = () => {
-        const topHeight = tileTop.scrollHeight
-        const bottomHeight = tileBottom.scrollHeight
-        const totalHeight = topHeight + bottomHeight
-
-        const rowSpan = Math.ceil(totalHeight / (rowHeight + gap))
+        const rowSpan = Math.floor(Math.random() * 20) + 15
         tile.style.gridRowEnd = `span ${rowSpan}`
       }
 
