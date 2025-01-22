@@ -47,7 +47,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     overflow: hidden;
-    height: auto;
+    height: 100%;
   }
 
   .user-info {
@@ -330,8 +330,12 @@
   }
 
   .tile-image-wrapper {
+    height: 100%;
     img {
+      height: 100%;
+      aspect-ratio: 1 / 1;
       width: 100%;
+      object-fit: cover;
       border-radius: var(--inline-tile-border-radius) var(--inline-tile-border-radius) 0 0;
     }
   }

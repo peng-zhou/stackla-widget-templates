@@ -37,7 +37,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     overflow: hidden;
-    height: auto;
+    height: 100%;
   }
 
   .icon-play {
@@ -255,7 +255,7 @@
   .user-handle {
     color: var(--text-tile-user-handle-font-color);
     font-size: var(--text-tile-user-handle-font-size);
-    margin-bottom: 10px;
+    margin-bottom: 4px;
   }
 
   #load-more-loader {
@@ -283,7 +283,7 @@
   }
 
   .tile-share-content {
-    min-height: 30px;
+    min-height: 27px;
     display: flex;
     justify-content: space-between;
     position: relative;
@@ -311,8 +311,12 @@
   }
 
   .tile-image-wrapper {
+    height: 100%;
     img {
+      height: 100%;
+      aspect-ratio: 1 / 1;
       width: 100%;
+      object-fit: cover;
     }
   }
 
