@@ -11,10 +11,6 @@ export function loadWaterfallLayout(reset = false) {
     return
   }
 
-  const rowHeight = 10
-  const { margin } = sdk.getStyleConfig()
-  const gap = parseInt(margin)
-
   ugcTiles.forEach((tile: HTMLElement) => {
     const hasUserHandle = tile.querySelector(".user-handle") !== null
     const hasTimePhrase = tile.querySelector(".tile-timephrase") !== null
