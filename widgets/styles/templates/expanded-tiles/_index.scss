@@ -5,6 +5,9 @@
 @use "../add-to-cart";
 @use "../products";
 
+$max-height: 880px;
+$min-height: 70vh;
+
 html {
   background: var(--widget-background);
 }
@@ -18,6 +21,7 @@ expanded-tiles:not(:empty) {
     transition: ease all 0.5s;
   }
 
+  min-height: $min-height;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -104,7 +108,8 @@ expanded-tiles:not(:empty) {
       height: 100%;
       position: relative;
       max-width: 879px;
-      min-height: 57vh;
+      min-height: $min-height;
+      max-height: $max-height;
       background: var(--expanded-tiles-background);
       border-radius: var(--expanded-tile-border-radius);
       grid-template-columns: minmax(0, dimens.$panel-left-width-lg) minmax(0, dimens.$panel-right-width-lg);
