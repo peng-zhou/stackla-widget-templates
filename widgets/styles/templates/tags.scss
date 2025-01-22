@@ -87,7 +87,7 @@
     width: 100%;
 
     .tile-tags {
-      display: flex;
+      display: var(--tags-display-inline);
       align-items: center;
       z-index: 2;
       flex-direction: row;

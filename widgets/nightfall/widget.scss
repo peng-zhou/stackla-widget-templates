@@ -280,9 +280,9 @@
 
   .tile-share-content {
     min-height: 30px;
-    display: flex;
     justify-content: space-between;
     position: relative;
+    display: var(--tile-share-content-display-inline);
 
     .icon-share {
       display: var(--share-icon-display-inline);

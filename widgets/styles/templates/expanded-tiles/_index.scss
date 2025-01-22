@@ -232,7 +232,7 @@ expanded-tiles:not(:empty) {
             width: 100%;
 
             .tile-tags {
-              display: flex;
+              display: var(--tags-display-expanded);
               margin: 0 16.4px 8.4px 0;
               width: 100%;
             }
