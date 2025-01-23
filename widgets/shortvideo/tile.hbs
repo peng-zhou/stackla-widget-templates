@@ -11,9 +11,9 @@
               <div class="content-icon icon-youtube-short"></div>
             {{/ifequals}}
           {{/each}}
-          {{#if tags_extended.length}}
+          {{#ifHasProductTags this}}
             <div class="shopping-icon icon-products"></div>
-          {{/if}}
+          {{/ifHasProductTags}}
         </div>
       </div>
       <div class="tile-image-wrapper">

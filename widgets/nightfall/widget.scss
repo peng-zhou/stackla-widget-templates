@@ -1,9 +1,18 @@
 @use "styles";
-@use "components";
 
 #nosto-ugc-container {
   background-color: var(--widget-background);
   padding: var(--margin);
+
+  #widget-container {
+    transition: opacity 3s;
+    opacity: 1;
+    visibility: visible;
+    &.hidden-container {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
 
   .grid {
     display: grid;
@@ -35,6 +44,10 @@
     display: flex;
     justify-content: space-between;
     flex-grow: 0.05;
+    position: absolute;
+    right: -5px;
+    top: 5px;
+    width: 48px;
   }
 
   .tile-video {
@@ -60,6 +73,7 @@
   .flex-full {
     display: flex;
     width: 100%;
+    align-items: center;
   }
 
   .icon-play {
@@ -95,9 +109,10 @@
     width: 100%;
 
     .tile-bottom-container {
-      padding: 0 10px 10px;
+      padding: 0 10px 0px;
 
       .description {
+        position: relative;
         margin: 10px 10px 10px 0;
       }
 
@@ -279,14 +294,10 @@
   }
 
   .tile-share-content {
-    min-height: 30px;
+    min-height: 24px;
     justify-content: space-between;
     position: relative;
     display: var(--tile-share-content-display-inline);
-
-    .icon-share {
-      display: var(--share-icon-display-inline);
-    }
 
     .icon-share.small {
       height: 16px;

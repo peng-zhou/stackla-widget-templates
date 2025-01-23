@@ -1,6 +1,16 @@
 @use "styles";
 
 #nosto-ugc-container {
+  #widget-container {
+    transition: opacity 3s;
+    opacity: 1;
+    visibility: visible;
+    &.hidden-container {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
   background-color: var(--widget-background);
   padding: var(--margin);
 
@@ -73,7 +83,7 @@
     width: 100%;
 
     .tile-bottom-container {
-      padding: 0 10px 10px;
+      padding: 0 10px 0px;
 
       .description {
         margin: 10px 10px 10px 0;
@@ -195,7 +205,6 @@
     font-weight: 400;
     line-height: 16px;
     display: inline-block;
-    margin-bottom: 8px;
   }
 
   time-phrase {
@@ -214,6 +223,8 @@
     .panel-overlay-active {
       inset: 0;
     }
+
+    display: var(--share-icon-display-inline);
   }
 
   .caption {
@@ -276,19 +287,11 @@
     }
   }
 
-  .hidden {
-    display: none;
-  }
-
   .tile-share-content {
-    min-height: 27px;
+    min-height: 24px;
     justify-content: space-between;
     position: relative;
     display: var(--tile-share-content-display-inline);
-
-    .icon-share {
-      display: var(--share-icon-display-inline);
-    }
 
     .icon-share.small {
       height: 16px;

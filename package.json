@@ -41,7 +41,7 @@
   "devDependencies": {
     "@happy-dom/jest-environment": "^15.0.0",
     "@stackla/eslint-config": "^1.0.0",
-    "@stackla/handlebars": "^0.1.6",
+    "@stackla/handlebars": "^0.1.7",
     "@stackla/jest-config": "^1.0.6",
     "@types/cookie-parser": "^1.4.7",
     "@types/express": "^5.0.0",
@@ -88,7 +88,6 @@
     "typescript": "^5.5.0"
   },
   "dependencies": {
-    "@stackla/handlebars": "^0.1.6",
     "@stackla/widget-utils": "workspace:*",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
