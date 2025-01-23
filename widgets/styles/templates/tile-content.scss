@@ -40,6 +40,10 @@
           font-size: var(--text-tile-font-size);
           -webkit-box-pack: end;
           height: fit-content;
+          max-height: 150px;
+          padding-bottom: 10px;
+          text-overflow: ellipsis;
+          overflow: hidden;
         }
       }
     }

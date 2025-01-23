@@ -46,8 +46,8 @@
     justify-content: space-between;
     flex-grow: 0.05;
     position: absolute;
-    right: -5px;
-    top: 5px;
+    right: 5px;
+    top: 12%;
     width: 48px;
   }
 
@@ -65,10 +65,18 @@
   }
 
   .user-info {
-    display: flex;
+    display: none;
+    justify-content: center;
+    &.has-name {
+      display: flex;
+    }
+    &.has-user {
+      display: flex;
+    }
     align-items: flex-start;
     flex-grow: 1;
     flex-direction: column;
+    min-height: 30px;
   }
 
   .flex-full {
@@ -114,7 +122,7 @@
 
       .description {
         position: relative;
-        margin: 10px 10px 10px 0;
+        padding: 10px 10px 10px 0;
       }
 
       tile-tags {
@@ -130,7 +138,6 @@
         .swiper-button-next {
           top: 0;
           height: 100%;
-          padding-top:5px;
         }
 
         .swiper-button-next {
@@ -242,11 +249,9 @@
     -ms-overflow-style: none;
     -webkit-box-orient: vertical;
     overflow: hidden;
-  }
-
-  .caption.lines-4 {
     -webkit-line-clamp: 4;
     max-height: 70px;
+    text-overflow: ellipsis;
   }
 
   .caption.lines-5 {
@@ -295,7 +300,7 @@
   }
 
   .tile-share-content {
-    min-height: 24px;
+    min-height: 29px;
     justify-content: space-between;
     position: relative;
     display: var(--tile-share-content-display-inline);
