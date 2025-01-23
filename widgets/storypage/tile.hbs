@@ -20,9 +20,9 @@
               <div class="content-icon icon-reel"></div>
             {{/ifequals}}
           {{/each}}
-          {{#if tags_extended.length}}
+          {{#ifHasProductTags this}}
             <div class="shopping-icon icon-products"></div>
-          {{/if}}
+          {{/ifHasProductTags}}
         </div>
         <div class="center-section">
           {{#ifequals media "video"}}

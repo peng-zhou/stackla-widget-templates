@@ -1,15 +1,12 @@
 import { loadWidget, Sdk } from "@stackla/widget-utils"
-import { loadWaterfallLayout } from "./waterfall.lib"
+import { loadWaterfallLayout } from "../waterfall/waterfall.lib"
 import ProductsTemplate from "./products.template"
 
 declare const sdk: Sdk
 
 loadWidget({
   callbacks: {
-    onLoadMore: [() => loadWaterfallLayout()],
-    onTilesUpdated: [() => loadWaterfallLayout()],
-    onResize: [() => loadWaterfallLayout()],
-    onLoad: [() => loadWaterfallLayout()]
+    onLoadMore: [() => loadWaterfallLayout(false)]
   },
   templates: {
     "ugc-products": {
@@ -25,4 +22,4 @@ loadWidget({
   extensions: {}
 })
 
-loadWaterfallLayout()
+void loadWaterfallLayout(false)

@@ -23,7 +23,6 @@ export function ShareMenuTemplate(_sdk: ISdk, component: IShareMenuComponent) {
           <div class="popup-text">Share Now</div>
           <div class="ugc-inline-share-buttons">
             <MenuLink icon="facebook" tile={tile} />
-            <MenuLink icon="instagram" tile={tile} />
             <MenuLink icon="x" tile={tile} />
             <MenuLink icon="pinterest" tile={tile} />
             <MenuLink icon="linkedin" tile={tile} />

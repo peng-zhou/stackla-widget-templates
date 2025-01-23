@@ -1,9 +1,11 @@
-<div class="ugc-tiles grid nightfall-inline">
-    {{#tiles}}
-    {{>tpl-tile options=../options.widgetOptions.config}}
-    {{/tiles}}
-</div>
-<load-more />
-<div id="load-more-loader" class="hidden">
-    <div class="loading"></div>
+<div id="widget-container" class="hidden-container">
+    <div class="ugc-tiles grid nightfall-inline">
+        {{#tiles}}
+        {{>tpl-tile options=../options.config}}
+        {{/tiles}}
+    </div>
+    <load-more />
+    <div id="load-more-loader" class="hidden">
+        <div class="loading"></div>
+    </div>
 </div>

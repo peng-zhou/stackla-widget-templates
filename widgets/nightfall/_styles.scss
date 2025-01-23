@@ -13,6 +13,7 @@
 @use "@styles/templates/share-menu" as smenu;
 @use "@styles/partials/icon-sections" as is;
 @use "@styles/partials/expanded-swiper" as es;
+@use "components";
 
 .nightfall-inline,
 expanded-tiles {

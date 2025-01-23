@@ -40,8 +40,8 @@
     {{/ifequals}}
     {{/each}}
     <div class="network-icon icon-{{source}}"></div>
-    {{#if tags_extended.length}}
+    {{#ifHasProductTags this}}
     <div class="shopping-icon icon-products"></div>
-    {{/if}}
+    {{/ifHasProductTags}}
 </div>
 {{/tile}}

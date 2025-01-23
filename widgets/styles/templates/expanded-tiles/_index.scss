@@ -6,7 +6,8 @@
 @use "../products";
 
 $max-height: 880px;
-$min-height: 70vh;
+$min-height: 88vh;
+$panel-left-width: 35vw;
 
 html {
   background: var(--widget-background);
@@ -116,6 +117,7 @@ expanded-tiles:not(:empty) {
       grid-template-rows: 1fr;
 
       .panel-left {
+        min-width: $panel-left-width;
         display: flex;
         place-items: center center;
         background-position: center;
