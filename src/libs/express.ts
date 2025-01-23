@@ -39,7 +39,7 @@ export interface IDraftRequest {
   }
   customCSS: string
   customJS: string
-  widgetOptions: typeof widgetOptions.config
+  widgetOptions: typeof widgetOptions
 }
 
 type PreviewContent = {
@@ -138,7 +138,7 @@ async function getHTML(content: PreviewContent, request: Request) {
       },
       customCSS: content.cssCode || "",
       customJS: content.jsCode || "",
-      widgetOptions: widgetOptions.widgetConfig
+      widgetOptions: widgetOptions
     },
     request
   )
