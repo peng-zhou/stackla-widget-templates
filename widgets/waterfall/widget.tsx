@@ -16,4 +16,4 @@ loadWidget({
   extensions: {}
 })
 
-loadWaterfallLayout(false)
+void loadWaterfallLayout(false)
