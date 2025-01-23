@@ -5,6 +5,7 @@
     transition: opacity 3s;
     opacity: 1;
     visibility: visible;
+
     &.hidden-container {
       opacity: 0;
       visibility: hidden;
@@ -83,7 +84,7 @@
     width: 100%;
 
     .tile-bottom-container {
-      padding: 0 10px 0px;
+      padding: 0 10px;
 
       .description {
         margin: 10px 10px 10px 0;

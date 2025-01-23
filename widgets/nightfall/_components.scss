@@ -57,7 +57,7 @@ expanded-tiles {
             }
 
            .ugc-add-to-cart-colorpicker-ring span {
-                &:after {
+                &::after {
                     background-color: white !important;
                 }
             }
@@ -66,11 +66,12 @@ expanded-tiles {
                 margin-top: 10px;
 
             }
+
             .ugc-add-to-cart-sizepicker-btn {
                 background-color: black !important;
             }
 
-            .ugc-add-to-cart-sizepicker-btn[selected=true] {
+            .ugc-add-to-cart-sizepicker-btn[selected="true"] {
                 border: 1px solid white !important;
                 background-color: white !important;
 
