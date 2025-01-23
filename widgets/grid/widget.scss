@@ -36,7 +36,8 @@
 
   tile-tags {
     padding-left: 5px;
-    .mask-right, .mask-right {
+
+    .mask-right {
       mask-image: linear-gradient(to left, transparent 0%, black 14%);
     }
   }

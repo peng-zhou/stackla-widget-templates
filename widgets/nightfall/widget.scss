@@ -67,12 +67,15 @@
   .user-info {
     display: none;
     justify-content: center;
+
     &.has-name {
       display: flex;
     }
+
     &.has-user {
       display: flex;
     }
+
     align-items: flex-start;
     flex-grow: 1;
     flex-direction: column;
