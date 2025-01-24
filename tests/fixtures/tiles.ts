@@ -111,9 +111,10 @@ export default [
         vote_enabled: 0,
         price: "$90.00",
         ext_product_id: "",
-        description: "You should look for shoes that have thick soles for good shock absorption, You should look for shoes that have thick soles for good shock absorption",
+        description:
+          "You should look for shoes that have thick soles for good shock absorption, You should look for shoes that have thick soles for good shock absorption",
         image_small_url:
-          "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/f233a3a5-ff5d-44cd-a06c-12141596279e/pegasus-trail-4-trail-running-shoes-79tLPl.png",
+          "https://cdn.shopify.com/s/files/1/0646/7115/4416/products/2014_11_3_Addis_Look14_01.jpg?v=1653378843",
         image_small_width: 0,
         image_small_height: 0,
         image_medium_url:
@@ -161,11 +162,11 @@ export default [
         priority: 0,
         custom_slug: 0,
         vote_enabled: 0,
-        price: "9.99",
+        price: "$100.00",
         ext_product_id: "",
         description: "another pair",
         image_small_url:
-          "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/56667095-7323-429a-a16a-e0197236ed51/pegasus-trail-4-trail-running-shoes-79tLPl.png",
+          "https://cdn.shopify.com/s/files/1/0646/7115/4416/products/2015-03-12_Ashley_Look_15_23307_12509_large.jpg?v=1653381870",
         image_small_width: 0,
         image_small_height: 0,
         image_medium_url:
@@ -213,11 +214,11 @@ export default [
         priority: 0,
         custom_slug: 0,
         vote_enabled: 0,
-        price: "9.99",
+        price: "$110.00",
         ext_product_id: "",
         description: "another pair",
         image_small_url:
-          "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/56667095-7323-429a-a16a-e0197236ed51/pegasus-trail-4-trail-running-shoes-79tLPl.png",
+          "https://www.pacsun.com/on/demandware.static/-/Sites-pacsun_storefront_catalog/default/dw5e70e8ac/product_images/0103201220017NEW_00_001.jpg",
         image_small_width: 0,
         image_small_height: 0,
         image_medium_url:
