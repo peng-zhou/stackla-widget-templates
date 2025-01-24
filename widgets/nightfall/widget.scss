@@ -43,14 +43,13 @@
 
   .tile-share-right {
     display: flex;
-    justify-content: space-between;
     flex-grow: .05;
     position: absolute;
     right: 5px;
-    top: 0;
+    top: 12px;
     width: 48px;
     bottom: 0;
-    align-items: center;
+    justify-content: space-between;
   }
 
   .tile-video {
@@ -124,10 +123,14 @@
 
     .tile-bottom-container {
       padding: 0 10px;
+      min-height: 50px;
 
       .description {
         position: relative;
         padding: 10px 10px 10px 0;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
       }
 
       tile-tags {
