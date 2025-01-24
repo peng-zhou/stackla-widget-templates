@@ -312,6 +312,8 @@ expanded-tiles:not(:empty) {
 
                   .stacklapopup-products-item-button-wrap {
                     text-decoration: none;
+                    display: block;
+                    width: 100px;
                     &.disabled {
                       pointer-events: none;
                       cursor: default;
@@ -321,7 +323,7 @@ expanded-tiles:not(:empty) {
                       margin-top: 8px;
                       background-color: #000000;
                       display: flex;
-                      width: 100px;
+                      width: 67px;
                       height: 9px;
                       padding: 7px 16px 8px 17px;
                       justify-content: center;
