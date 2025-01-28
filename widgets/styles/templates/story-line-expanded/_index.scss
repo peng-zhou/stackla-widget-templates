@@ -275,6 +275,10 @@ expanded-tiles:not(:empty) {
                 opacity: 0.7;
                 background-color: #FFFFFF;
 
+                &.collapse {
+                  visibility: hidden;
+                }
+
                 .expand-control-label {
                   color: #201C1F;
                   font-size: 12px;
