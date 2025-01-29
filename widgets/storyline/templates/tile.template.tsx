@@ -98,7 +98,7 @@ export function IconSection({ tile, productsEnabled }: { tile: Tile; productsEna
 export function ShopSpotTemplate({ shopspotEnabled, parent, tileId }: ShopspotProps) {
   return shopspotEnabled ? (
     <>
-      <shopspot-icon parent={parent} mode="expanded" tile-id={tileId} />
+      <shopspot-icon parent={parent} mode="expanded" tile-id={tileId} show-tooltip="false" />
     </>
   ) : (
     <></>
