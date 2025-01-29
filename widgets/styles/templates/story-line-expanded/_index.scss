@@ -231,6 +231,12 @@ expanded-tiles:not(:empty) {
               }
             }
 
+            .ugc-products-wrap {
+              height: 100%;
+              width: 100%;
+              background-color: white;
+            }
+
             .story-expanded-bottom-section {
               height: 20px;
               display: flex;
@@ -341,7 +347,7 @@ expanded-tiles:not(:empty) {
                     }
 
 
-                    .stacklapopup-products-item-button-wrap {
+                    .stacklapopup-inline-products-item-button-wrap {
                       text-decoration: none;
                       display: block;
                       width: 100px;
@@ -350,7 +356,7 @@ expanded-tiles:not(:empty) {
                         cursor: default;
                       }
 
-                      .stacklapopup-products-item-button {
+                      .stacklapopup-inline-products-item-button {
                         margin-top: 8px;
                         background-color: #000000;
                         display: flex;
