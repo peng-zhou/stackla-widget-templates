@@ -279,7 +279,7 @@ expanded-tiles:not(:empty) {
                 gap: 4px;
                 border-radius: 25px;
                 opacity: 0.7;
-                background-color: #FFFFFF;
+                background-color: #FFF;
                 cursor: pointer;
 
                 &.collapsed {
@@ -297,14 +297,13 @@ expanded-tiles:not(:empty) {
 
               .swiper-pagination {
                 --swiper-pagination-top: 165px;
-                --swiper-pagination-color: #FFFFFF;
+                --swiper-pagination-color: #FFF;
               }
 
               .swiper-inline-products {
                 height: fit-content;
 
                 .tile-product {
-
                   width: 329px;
                   height: 100%;
                   border-radius: 10px;
@@ -324,8 +323,6 @@ expanded-tiles:not(:empty) {
                     .stacklapopup-inline-products-item-title {
                       margin-top: 15px;
                       color: #201C1F;
-                      leading-trim: both;
-                      text-edge: cap;
                       font-size: 14px;
                       font-style: normal;
                       font-weight: 600;
@@ -348,7 +345,7 @@ expanded-tiles:not(:empty) {
                       font-size: 16px;
                       font-style: normal;
                       font-weight: 500;
-                      line-height: 16psx;
+                      line-height: 16px;
                     }
 
 
@@ -356,6 +353,7 @@ expanded-tiles:not(:empty) {
                       text-decoration: none;
                       display: block;
                       width: 100px;
+
                       &.disabled {
                         pointer-events: none;
                         cursor: default;
@@ -363,7 +361,7 @@ expanded-tiles:not(:empty) {
 
                       .stacklapopup-inline-products-item-button {
                         margin-top: 8px;
-                        background-color: #000000;
+                        background-color: #000;
                         display: flex;
                         width: 67px;
                         height: 9px;

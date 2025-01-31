@@ -208,7 +208,8 @@ export default [
         auto_apply: 0,
         publicly_visible: 1,
         processed: 0,
-        custom_url: "http://localhost:4003/development/products/asus-tuf-f15-15-6-fhd-144hz-gaming-laptop-1tbgeforce-rtx-3050.js",
+        custom_url:
+          "http://localhost:4003/development/products/asus-tuf-f15-15-6-fhd-144hz-gaming-laptop-1tbgeforce-rtx-3050.js",
         target: "_blank",
         system_tag: 0,
         priority: 0,
