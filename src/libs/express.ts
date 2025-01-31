@@ -39,7 +39,7 @@ export interface IDraftRequest {
   }
   customCSS: string
   customJS: string
-  widgetOptions: typeof widgetOptions.config
+  widgetOptions: typeof widgetOptions
 }
 
 type PreviewContent = {
@@ -138,7 +138,7 @@ async function getHTML(content: PreviewContent, request: Request) {
       },
       customCSS: content.cssCode || "",
       customJS: content.jsCode || "",
-      widgetOptions: widgetOptions.widgetConfig
+      widgetOptions: widgetOptions
     },
     request
   )
@@ -180,8 +180,9 @@ function mutateStylesForCustomWidgets(widgetType: string) {
       widgetOptionsMutated.style.text_tile_background = "000000"
       widgetOptionsMutated.style.text_tile_font_color = "fff"
       widgetOptionsMutated.style.text_tile_user_name_font_color = "fff"
-      widgetOptionsMutated.style.shopspot_btn_background = "fff"
-      widgetOptionsMutated.style.shopspot_btn_font_color = "000000"
+      widgetOptionsMutated.style.cta_btn_background = "fff"
+      widgetOptionsMutated.style.cta_btn_font_color = "000000"
+      widgetOptionsMutated.style.text_tile_user_name_font_color = "fff"
       // @TODO: Peng to add cta_background_color and cta_font_color
       break
     case "slider":

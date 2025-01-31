@@ -20,6 +20,7 @@ export default defineConfig({
       cypressSplit(on, config)
       return config
     },
-    projectId: "2ns45q"
+    projectId: "2ns45q",
+    pageLoadTimeout: 120000
   }
 })

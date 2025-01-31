@@ -45,6 +45,7 @@ export function ProductCTA({ sdk, product }: { sdk: Sdk; product: TagExtended })
           <span className={`stacklapopup-products-item-button${availability ? "" : " disabled"}`}>{cta_text}</span>
         </a>
         <add-to-cart
+          theme="dark"
           productId={id}
           id={`stacklapopup-add-to-cart-${id}`}
           url={custom_url}

@@ -12,9 +12,9 @@
         <div class="content-icon icon-youtube-short"></div>
         {{/ifequals}}
         {{/each}}
-        {{#if tags_extended.length}}
+        {{#ifHasProductTags this}}
         <div class="shopping-icon icon-products"></div>
-        {{/if}}
+        {{/ifHasProductTags}}
       </div>
       <div class="center-section">
         {{#ifequals media "video"}}
@@ -41,14 +41,14 @@
       {{/if}}
       <div class="description">
           <div class="flex-full">
-            <div class="user-info">
-            {{#if name}}
-            <div class="user-name">{{name}}</div>
-            {{/if}}
-            {{#if user}}
-            <div class="user-handle">@{{user}}</div>
-            {{/if}}
-            </div>
+              <div class="user-info {{#if name}}has-name{{/if}} {{#if user}}has-user{{/if}}">
+              {{#if name}}
+              <div class="user-name">{{name}}</div>
+              {{/if}}
+              {{#if user}}
+              <div class="user-handle">@{{user}}</div>
+              {{/if}}
+              </div>
             <div class="tile-share-right">
                 <share-menu tile-id="{{id}}" theme="light"></share-menu>
                 <div class="network-icon-circle">

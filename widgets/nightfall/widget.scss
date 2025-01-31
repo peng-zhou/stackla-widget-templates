@@ -1,9 +1,19 @@
 @use "styles";
-@use "components";
 
 #nosto-ugc-container {
   background-color: var(--widget-background);
   padding: var(--margin);
+
+  #widget-container {
+    transition: opacity 3s;
+    opacity: 1;
+    visibility: visible;
+
+    &.hidden-container {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
 
   .grid {
     display: grid;
@@ -33,8 +43,13 @@
 
   .tile-share-right {
     display: flex;
+    flex-grow: .05;
+    position: absolute;
+    right: 5px;
+    top: 12px;
+    width: 48px;
+    bottom: 0;
     justify-content: space-between;
-    flex-grow: 0.05;
   }
 
   .tile-video {
@@ -51,15 +66,27 @@
   }
 
   .user-info {
-    display: flex;
+    display: none;
+    justify-content: center;
+
+    &.has-name {
+      display: flex;
+    }
+
+    &.has-user {
+      display: flex;
+    }
+
     align-items: flex-start;
     flex-grow: 1;
     flex-direction: column;
+    min-height: 30px;
   }
 
   .flex-full {
     display: flex;
     width: 100%;
+    align-items: center;
   }
 
   .icon-play {
@@ -95,10 +122,15 @@
     width: 100%;
 
     .tile-bottom-container {
-      padding: 0 10px 10px;
+      padding: 0 10px;
+      min-height: 50px;
 
       .description {
-        margin: 10px 10px 10px 0;
+        position: relative;
+        padding: 10px 10px 10px 0;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
       }
 
       tile-tags {
@@ -114,7 +146,6 @@
         .swiper-button-next {
           top: 0;
           height: 100%;
-          padding-top:5px;
         }
 
         .swiper-button-next {
@@ -226,11 +257,9 @@
     -ms-overflow-style: none;
     -webkit-box-orient: vertical;
     overflow: hidden;
-  }
-
-  .caption.lines-4 {
     -webkit-line-clamp: 4;
     max-height: 70px;
+    text-overflow: ellipsis;
   }
 
   .caption.lines-5 {
@@ -279,14 +308,10 @@
   }
 
   .tile-share-content {
-    min-height: 30px;
+    min-height: 29px;
     justify-content: space-between;
     position: relative;
     display: var(--tile-share-content-display-inline);
-
-    .icon-share {
-      display: var(--share-icon-display-inline);
-    }
 
     .icon-share.small {
       height: 16px;
