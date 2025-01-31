@@ -295,6 +295,11 @@ expanded-tiles:not(:empty) {
                 }
               }
 
+              .swiper-pagination {
+                --swiper-pagination-top: 165px;
+                --swiper-pagination-color: #FFFFFF;
+              }
+
               .swiper-inline-products {
                 height: fit-content;
 
