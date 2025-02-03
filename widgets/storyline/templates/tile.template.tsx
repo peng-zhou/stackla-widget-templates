@@ -60,6 +60,9 @@ export function StoryExpandedTile({ sdk, tile }: ExpandedTileProps) {
           </div>
         </div>
       </div>
+      <div class="ugc-products-wrap" data-tile-id={tile.id}>
+        <ugc-products parent={parent} tile-id={tile.id} down-icon={true}></ugc-products>
+      </div>
     </>
   )
 }

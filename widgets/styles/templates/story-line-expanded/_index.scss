@@ -231,12 +231,6 @@ expanded-tiles:not(:empty) {
               }
             }
 
-            .ugc-products-wrap {
-              height: 100%;
-              width: 100%;
-              background-color: white;
-            }
-
             .story-expanded-bottom-section {
               height: 20px;
               display: flex;
@@ -395,6 +389,14 @@ expanded-tiles:not(:empty) {
                 }
               }
             }
+          }
+
+          .ugc-products-wrap {
+            height: 100%;
+            width: 100%;
+            padding: 16px;
+            background-color: white;
+            display: none;
           }
 
           &.swiper-slide-active {
