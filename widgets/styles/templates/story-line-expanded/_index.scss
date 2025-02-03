@@ -248,6 +248,7 @@ expanded-tiles:not(:empty) {
               flex-direction: row;
 
               tile-tags {
+                display: var(--tags-display-expanded);
                 position: absolute;
                 left: 0;
                 top: 4px;
