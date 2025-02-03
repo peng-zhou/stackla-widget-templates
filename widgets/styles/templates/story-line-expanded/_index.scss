@@ -231,6 +231,12 @@ expanded-tiles:not(:empty) {
               }
             }
 
+            .ugc-products-wrap {
+              height: 100%;
+              width: 100%;
+              background-color: white;
+            }
+
             .story-expanded-bottom-section {
               height: 20px;
               display: flex;
@@ -251,6 +257,140 @@ expanded-tiles:not(:empty) {
 
                 .tile-tag {
                   height: 13px !important;
+                }
+              }
+            }
+
+            inline-products {
+              position: absolute;
+              width: 100%;
+              height: 171px;
+              bottom: 40px;
+
+              .expand-control {
+                width: 60px;
+                height: 9px;
+                margin-left: 21px;
+                margin-bottom: 8px;
+                display: inline-flex;
+                padding: 4px;
+                justify-content: center;
+                align-items: center;
+                gap: 4px;
+                border-radius: 25px;
+                opacity: 0.7;
+                background-color: #FFF;
+                cursor: pointer;
+
+                &.collapsed {
+                  visibility: hidden;
+                }
+
+                .expand-control-label {
+                  color: #201C1F;
+                  font-size: 12px;
+                  font-style: normal;
+                  font-weight: 500;
+                  line-height: 12px;
+                }
+              }
+
+              .swiper-pagination {
+                --swiper-pagination-top: 165px;
+                --swiper-pagination-color: #FFF;
+              }
+
+              .swiper-inline-products {
+                height: fit-content;
+
+                .tile-product {
+                  width: 329px;
+                  height: 100%;
+                  border-radius: 10px;
+                  background-color: #FFF;
+
+                  .tile-product-left-panel {
+                    width: 30%;
+                    height: 128px;
+                  }
+
+                  .tile-product-right-panel {
+                    width: 70%;
+                    height: 128px;
+                    padding-left: 12px;
+                    padding-right: 12px;
+
+                    .stacklapopup-inline-products-item-title {
+                      margin-top: 15px;
+                      color: #201C1F;
+                      font-size: 14px;
+                      font-style: normal;
+                      font-weight: 600;
+                      line-height: 22.4px;
+                    }
+
+                    .stacklapopup-inline-products-item-description {
+                      height: 24px;
+                      overflow: hidden;
+                      color: #4D4A4C;
+                      font-size: 10px;
+                      font-style: normal;
+                      font-weight: 400;
+                      line-height: 12px;
+                    }
+
+                    .stacklapopup-inline-products-item-price {
+                      margin-top: 4px;
+                      color: #201C1F;
+                      font-size: 16px;
+                      font-style: normal;
+                      font-weight: 500;
+                      line-height: 16px;
+                    }
+
+
+                    .stacklapopup-inline-products-item-button-wrap {
+                      text-decoration: none;
+                      display: block;
+                      width: 100px;
+
+                      &.disabled {
+                        pointer-events: none;
+                        cursor: default;
+                      }
+
+                      .stacklapopup-inline-products-item-button {
+                        margin-top: 8px;
+                        background-color: #000;
+                        display: flex;
+                        width: 67px;
+                        height: 9px;
+                        padding: 7px 16px 8px 17px;
+                        justify-content: center;
+                        align-items: center;
+                        flex-shrink: 0;
+                        color: #FFF;
+                        text-align: center;
+                        font-size: 12px;
+                        font-style: normal;
+                        font-weight: 600;
+                        line-height: 19.2px;
+
+                        &.disabled {
+                          background:  #c4c4c4;
+                          font-weight: bold;
+                          cursor: default;
+                          color: #9d9d9d;
+                          pointer-events: none;
+                        }
+                      }
+                    }
+                  }
+
+                  .inline-product-img {
+                    width: 100%;
+                    height: 100%;
+                  }
                 }
               }
             }
