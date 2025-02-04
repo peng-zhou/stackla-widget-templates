@@ -348,6 +348,7 @@ expanded-tiles:not(:empty) {
                       text-decoration: none;
                       display: block;
                       width: 100px;
+                      cursor: pointer;
 
                       &.disabled {
                         pointer-events: none;
