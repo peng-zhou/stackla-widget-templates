@@ -410,6 +410,12 @@ expanded-tiles:not(:empty) {
             }
           }
 
+          &:not(.swiper-slide-active) {
+            .ugc-products-wrap {
+              display: none !important;
+            }
+          }
+
           div.image-filler {
             background-position: center;
             background-repeat: no-repeat;

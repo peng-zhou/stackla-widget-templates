@@ -31,7 +31,7 @@ export function StoryExpandedTile({ sdk, tile }: ExpandedTileProps) {
           render-user-handle="false"></tile-content>
         <div class={`network-icon icon-${tile.source}`}></div>
       </div>
-      <div class="panel-active" data-tile-id={tile.id}>
+      <div class="panel-active">
         <AutoplayProgress />
         <tile-content
           tileId={tile.id}
