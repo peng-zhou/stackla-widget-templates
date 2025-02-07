@@ -7,7 +7,7 @@
 
 $max-height: 880px;
 $min-height: 88vh;
-$panel-left-width: 35vw;
+$panel-left-width: unset;
 
 html {
   background: var(--widget-background);
