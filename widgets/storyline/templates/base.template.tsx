@@ -37,14 +37,6 @@ export function StoryExpandedTiles(sdk: ISdk) {
   )
 }
 
-function BackArrowIcon() {
-  return (
-    <a class="back" href="#">
-      <span class="widget-icon back-arrow"></span>
-    </a>
-  )
-}
-
 function StoryControls() {
   return (
     <div class="story-controls">
