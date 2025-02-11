@@ -118,6 +118,10 @@ expanded-tiles:not(:empty) {
         width: 16px;
         height: 16px;
       }
+
+      .exit {
+        position: unset;
+      }
     }
 
     .swiper {
