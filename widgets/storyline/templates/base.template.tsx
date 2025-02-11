@@ -9,7 +9,6 @@ export function StoryExpandedTiles(sdk: ISdk) {
 
   return (
     <div class="expanded-tile-wrapper" variation="story">
-      <BackArrowIcon />
       <StoryControls />
       <div class="swiper swiper-expanded">
         <div class="swiper-wrapper ugc-tiles">
