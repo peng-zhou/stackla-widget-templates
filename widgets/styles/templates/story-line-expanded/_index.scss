@@ -167,6 +167,10 @@ expanded-tiles:not(:empty) {
             tile-content {
               margin: 10px;
               flex: 1;
+
+              share-menu {
+                z-index: 1;
+              }
             }
 
             .image-wrapper {
