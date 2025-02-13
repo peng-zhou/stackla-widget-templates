@@ -173,6 +173,10 @@ expanded-tiles:not(:empty) {
               }
             }
 
+            .bottom-section {
+              bottom: 34px;
+            }
+
             .image-wrapper {
               display: flex;
               position: relative;
