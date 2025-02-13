@@ -38,6 +38,7 @@ export function StoryExpandedTile({ sdk, tile }: ExpandedTileProps) {
           render-share-menu={sharingToolsEnabled}
           render-description="false"
           render-caption="false"
+          mode="dark"
           render-timephrase={show_timestamp}
         />
         <IconSection tile={tile} productsEnabled={productsEnabled} />
@@ -86,7 +87,12 @@ export function IconSection({ tile, productsEnabled }: { tile: Tile; productsEna
   )
   bottomSectionIconContent.push(
     <div class="story-expanded-bottom-section">
-      <tile-tags tile-id={tile.id} variant="dark" mode="swiper" context="storyline-expanded-inline"></tile-tags>
+      <tile-tags
+        tile-id={tile.id}
+        variant="dark"
+        mode="swiper"
+        clickable="false"
+        context="storyline-expanded-inline"></tile-tags>
     </div>
   )
 
