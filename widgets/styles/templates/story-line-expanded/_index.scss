@@ -174,7 +174,7 @@ expanded-tiles:not(:empty) {
             }
 
             .bottom-section {
-              bottom: 34px;
+              bottom: var(--story-expanded-display-bottom-section);
             }
 
             .image-wrapper {
