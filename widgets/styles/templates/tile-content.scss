@@ -94,6 +94,42 @@
         margin-right: 10px;
         align-items: center;
       }
+
+      time-phrase {
+        display: flex;
+        margin-left: auto;
+        align-items: center;
+      }
+
+      .share-menu-timephrase-wrapper {
+        display: flex;
+        flex-direction: column;
+        margin-left: auto;
+        padding-top: 4px;
+        padding-bottom: 2px;
+        align-items: end;
+
+        .share-menu-products-icon {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+
+          .icon-products {
+            margin-right: 6px;
+          }
+
+          share-menu {
+            display: flex;
+            margin-left: auto;
+            margin-right: 0;
+            align-items: center;
+          }
+        }
+
+        time-phrase {
+          margin-top: auto;
+        }
+      }
     }
 
     &.light {
@@ -119,6 +155,20 @@
 
           .user-handle {
             color: #fff;
+          }
+        }
+      }
+    }
+
+    &.dark-weight {
+      .user-info {
+        .user-link {
+          color: #fff;
+          font-weight: 600;
+
+          .user-handle {
+            color: #fff;
+            font-weight: 400;
           }
         }
       }

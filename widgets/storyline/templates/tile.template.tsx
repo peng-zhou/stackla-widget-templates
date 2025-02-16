@@ -38,10 +38,12 @@ export function StoryExpandedTile({ sdk, tile }: ExpandedTileProps) {
           render-share-menu={sharingToolsEnabled}
           render-description="false"
           render-caption="false"
-          mode="dark"
+          mode="dark-weight"
           render-timephrase={show_timestamp}
+          render-header-timephrase="true"
+          render-products-icon={productsEnabled}
         />
-        <IconSection tile={tile} productsEnabled={productsEnabled} />
+        <IconSection tile={tile} />
         <div class="image-wrapper">
           <div class="image-wrapper-inner">
             {tile.media === "video" ? (
@@ -68,7 +70,7 @@ export function StoryExpandedTile({ sdk, tile }: ExpandedTileProps) {
   )
 }
 
-export function IconSection({ tile, productsEnabled }: { tile: Tile; productsEnabled: boolean }) {
+export function IconSection({ tile }: { tile: Tile }) {
   const topSectionIconContent = []
   const bottomSectionIconContent = []
 
@@ -76,9 +78,6 @@ export function IconSection({ tile, productsEnabled }: { tile: Tile; productsEna
     topSectionIconContent.push(<div class="content-icon icon-reel"></div>)
   } else if (tile.attrs.includes("youtube.short")) {
     topSectionIconContent.push(<div class="content-icon icon-youtube-short"></div>)
-  }
-  if (productsEnabled) {
-    topSectionIconContent.push(<div class="shopping-icon icon-products"></div>)
   }
 
   bottomSectionIconContent.push(<div class={`network-icon icon-${tile.source}`}></div>)
