@@ -11,7 +11,13 @@ export function StoryExpandedTile({ sdk, tile }: ExpandedTileProps) {
   const { show_shopspots, show_products, show_sharing, show_timestamp } = sdk.getExpandedTileConfig()
 
   const shopspotEnabled = sdk.isComponentLoaded("shopspots") && show_shopspots && !!tile.hotspots?.length
-  const productsEnabled = sdk.isComponentLoaded("products") && show_products && !!tile.tags_extended?.length
+  let productsEnabled = false
+
+  if (sdk.isComponentLoaded("products") && show_products && !!tile.tags_extended?.length) {
+    const products = tile.tags_extended.filter(({ type }) => type === "product")
+    productsEnabled = products.length > 0
+  }
+
   // const tagsEnabled = show_tags
   const sharingToolsEnabled = show_sharing
 
