@@ -40,5 +40,5 @@ export async function renderTemplates(widgetContainer: IDraftRequest, request) {
     customJS: widgetContainer.customJS,
     widgetOptions: JSON.parse(widgetContainer.widgetOptions)
   }
-  return renderHTMLWithTemplates(tileTemplate, layoutTemplate, getTilesToRender(request), widgetSettings)
+  return renderHTMLWithTemplates(tileTemplate, layoutTemplate, getTilesToRender(request), widgetSettings.widgetOptions)
 }
