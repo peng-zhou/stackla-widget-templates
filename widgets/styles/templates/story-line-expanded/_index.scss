@@ -374,7 +374,7 @@ expanded-tiles:not(:empty) {
 
                       .stacklapopup-inline-products-item-button {
                         margin-top: 8px;
-                        background-color: #000;
+                        background-color: var(--shopspot-btn-background);
                         display: flex;
                         width: 67px;
                         height: 9px;
@@ -382,9 +382,9 @@ expanded-tiles:not(:empty) {
                         justify-content: center;
                         align-items: center;
                         flex-shrink: 0;
-                        color: #FFF;
+                        color: var(--cta-button-font-color);
                         text-align: center;
-                        font-size: 12px;
+                        font-size: var(--cta-button-font-size);
                         font-style: normal;
                         font-weight: 600;
                         line-height: 19.2px;
