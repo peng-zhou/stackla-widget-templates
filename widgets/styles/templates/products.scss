@@ -39,7 +39,7 @@
 
   .stacklapopup-products-header {
     display: flex;
-    height: 51px;
+    margin-bottom: 10px;
 
     .stacklapopup-products-item-header {
       display: none;
@@ -47,7 +47,6 @@
       &.stacklapopup-products-item-active {
         display: flex;
         flex-direction: column;
-        height: 51px;
         justify-content: flex-start;
         gap: 5.9px;
       }
@@ -72,7 +71,7 @@
 
   .stacklapopup-product-images-wrapper {
     display: flex;
-    margin-top: 23px;
+    margin-top: 18px;
     position: relative;
 
     &::-webkit-scrollbar {
