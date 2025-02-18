@@ -13,9 +13,7 @@ export function ProductHeader({ product }: { product: TagExtended }) {
   )
 
   const priceContent = price && (
-    <div class="stacklapopup-products-item-price">
-      {currency === "EUR" ? `${price} EUR` : `${currency ?? ""}${price}`}
-    </div>
+    <div class="stacklapopup-products-item-price">{currency === "EUR" ? `${price}` : `${currency ?? ""}${price}`}</div>
   )
 
   return (
