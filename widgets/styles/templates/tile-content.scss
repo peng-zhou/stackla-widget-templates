@@ -173,6 +173,22 @@
         }
       }
     }
+
+    &.custom {
+      .user-info {
+        .user-link {
+          .user-name {
+            color: var(--text-tile-user-name-font-color);
+            font-weight: 600;
+          }
+
+          .user-handle {
+            color: var(--text-tile-user-handle-font-color);
+            font-weight: 400;
+          }
+        }
+      }
+    }
   }
 
   &[orientation="vertical"] {

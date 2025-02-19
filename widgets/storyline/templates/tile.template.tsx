@@ -44,7 +44,7 @@ export function StoryExpandedTile({ sdk, tile }: ExpandedTileProps) {
           render-share-menu={sharingToolsEnabled}
           render-description="false"
           render-caption="false"
-          mode="dark-weight"
+          mode="custom"
           render-timephrase={show_timestamp}
           render-header-timephrase="true"
           render-products-icon={productsEnabled}
