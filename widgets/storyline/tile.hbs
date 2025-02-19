@@ -3,9 +3,11 @@
   <div class="tile-loading"></div>
   <div class="icon-section hidden">
     <div class="top-section">
-      {{#ifHasProductTags this}}
-      <div class="shopping-icon icon-products-bg {{options.style.inline_tile_size}}"></div>
-      {{/ifHasProductTags}}
+      {{#if options.config.tile_options.show_products}}
+        {{#ifHasProductTags this}}
+        <div class="shopping-icon icon-products-bg {{options.style.inline_tile_size}}"></div>
+        {{/ifHasProductTags}}
+      {{/if}}
     </div>
     <div class="center-section">
       <div class="network-icon icon-{{source}}"></div>
