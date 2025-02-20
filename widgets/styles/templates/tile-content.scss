@@ -60,10 +60,12 @@
 
         .user-name {
           font-size: var(--text-tile-user-name-font-size);
+          color: var(--text-tile-user-name-font-color);
         }
 
         .user-handle {
           font-size: var(--text-tile-user-handle-font-size);
+          color: var(--text-tile-user-handle-font-color);
         }
       }
 
@@ -136,10 +138,6 @@
       .user-info {
         .user-link {
           color: #000;
-
-          .user-handle {
-            color: #000;
-          }
         }
       }
     }
