@@ -32,6 +32,9 @@ const config = {
     stage: '${opt:stage, self:custom.defaultStage}',
     iam: '${file(./config/${self:provider.stage}.json):iam}',
     region: '${opt:region}',
+    runtime: 'nodejs20.x',
+    architecture: 'arm64',
+    logRetentionInDays: 14,
     deploymentBucket: {
         name: 'stackla-serverless-${self:provider.stage}-deploys',
         maxPreviousDeploymentArtifacts: 10,
