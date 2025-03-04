@@ -43,6 +43,10 @@
     display: flex;
     margin-bottom: 10px;
 
+    .stacklapopup-products-header {
+      margin-bottom: 0;
+    }
+
     .stacklapopup-products-item-header {
       display: none;
 
@@ -253,7 +257,7 @@
 
   .recommendations-text {
     color: $dark-grey;
-    font-size: 8px;
+    font-size: 10px;
     font-weight: 400;
     text-decoration: underline;
     text-underline-offset: 2px;
