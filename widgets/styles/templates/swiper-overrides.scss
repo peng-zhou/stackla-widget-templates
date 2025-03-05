@@ -51,7 +51,7 @@
 @include media-queries.media-query-target(tablet) {
   .swiper-button-next.btn-lg,
   .swiper-button-prev.btn-lg {
-    display: none;
+    display: none !important;
   }
 }
 
