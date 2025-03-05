@@ -52847,7 +52847,7 @@ export default [
     tile.image_thumbnail_url = "blah"
     return tile
   }
-  tile.image = `http://localhost:4003/assets/sample-images/${index}.jpg`
-  tile.image_thumbnail_url = `http://localhost:4003/assets/sample-images/${index}.jpg`
+  tile.image = `https://templates.teaser.stackla.com/assets/sample-images/${index}.jpg`
+  tile.image_thumbnail_url = `https://templates.teaser.stackla.com/assets/sample-images/${index}.jpg`
   return tile
 }) as unknown as Tile[]
