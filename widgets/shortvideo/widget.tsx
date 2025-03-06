@@ -10,7 +10,17 @@ loadWidget({
     swiper: true
   },
   features: {
-    handleLoadMore: false
+    handleLoadMore: false,
+    tileSizeSettings: {
+      small: "203px",
+      medium: "281px",
+      large: "409px"
+    },
+    tileWidthSettings: {
+      small: "116.5px",
+      medium: "158px",
+      large: "229px"
+    }
   }
 })
 

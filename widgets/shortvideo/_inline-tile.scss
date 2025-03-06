@@ -5,7 +5,7 @@
 .shortvideo-inline {
   .ugc-tile {
     position: relative;
-    width: 100%;
+    width: var(--tile-width) !important;
     display: flex;
 
     .tile {
