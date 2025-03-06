@@ -1,4 +1,4 @@
-import { ExpandedTileOptions, InlineTileOptions, Style } from "packages/widget-utils/dist/esm"
+import { ExpandedTileOptions, InlineTileOptions, Style } from "@stackla/widget-utils"
 
 export const config: {
   style: Style
@@ -69,7 +69,9 @@ export const config: {
     // Whether to show the cross sellers of the tile
     show_cross_sellers: true,
     // Whether to show the add to cart
-    show_add_to_cart: true
+    show_add_to_cart: true,
+    // Whether to show the carousel grouping
+    show_carousel_grouping: true
   },
   inlineTile: {
     // Whether to show the navigation options of the tile

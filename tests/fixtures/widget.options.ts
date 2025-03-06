@@ -24,7 +24,8 @@ const widgetOptions: SharedWidgetOptions["widgetOptions"] = {
       show_tags: true,
       show_votes: true,
       show_cross_sellers: true,
-      show_add_to_cart: true
+      show_add_to_cart: true,
+      show_carousel_grouping: true
     },
     tile_options: {
       show_comments: true,
@@ -51,8 +52,8 @@ const widgetOptions: SharedWidgetOptions["widgetOptions"] = {
   style: {
     auto_refresh: "1",
     click_through_url: "[EXPAND]",
-    enable_custom_tiles_per_page: false,
-    load_more_type: "button",
+    enable_custom_tiles_per_page: true,
+    load_more_type: "scroll",
     margin: "10",
     name: "NextGen Widget Sample 3.0",
     polling_frequency: "30",
