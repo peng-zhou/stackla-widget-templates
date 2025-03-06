@@ -74,7 +74,10 @@ export function addQuadrantTiles(tiles: HTMLElement[], tileSize: number, startIn
 }
 
 export async function preloadTileImagesAndRemoveBrokenTiles(tiles: NodeListOf<HTMLElement>): Promise<HTMLElement[]> {
-  sdk.querySelector("#load-more").style.opacity = "0"
+  const loadMore = sdk.querySelector("#load-more")
+  if (loadMore) {
+    sdk.querySelector("#load-more").style.opacity = "0"
+  }
   sdk.querySelector("#load-more-loader").classList.remove("hidden")
 
   const promises = Array.from(tiles).map(async tile => {
@@ -108,7 +111,9 @@ export async function preloadTileImagesAndRemoveBrokenTiles(tiles: NodeListOf<HT
 
   const loadedTiles = await Promise.all(promises)
 
-  sdk.querySelector("#load-more").style.opacity = "1"
+  if (loadMore) {
+    sdk.querySelector("#load-more").style.opacity = "1"
+  }
   sdk.querySelector("#load-more-loader").classList.add("hidden")
 
   return loadedTiles.filter(tile => tile !== null) as HTMLElement[]
