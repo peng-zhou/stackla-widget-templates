@@ -1,4 +1,4 @@
-import { ExpandedTileOptions, InlineTileOptions, Style } from "packages/widget-utils/dist/esm"
+import { ExpandedTileOptions, InlineTileOptions, Style } from "@stackla/widget-utils"
 
 export const config: {
   style: Style
