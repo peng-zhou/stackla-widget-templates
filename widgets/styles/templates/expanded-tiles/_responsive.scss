@@ -19,11 +19,15 @@
         display: flex;
       }
 
-      .swiper .swiper-wrapper {
-        max-height: calc(100vh - 50px);
+      .swiper {
+        overflow-y: scroll;
 
-        .swiper-slide ugc-products {
-          max-width: calc(100vw - (dimens.$panel-padding * 2));
+        .swiper-wrapper {
+          max-height: calc(100vh - 50px);
+  
+          .swiper-slide ugc-products {
+            max-width: calc(100vw - (dimens.$panel-padding * 2));
+          }
         }
       }
 
@@ -45,7 +49,7 @@
 
         .panel-right {
           max-width: 100vw;
-          overflow: hidden auto;
+          overflow: visible;
           margin-bottom: 10px;
         }
       }
@@ -88,6 +92,7 @@
 
       .swiper {
         max-width: unset;
+        overflow-y: scroll;
 
         .swiper-wrapper {
           max-width: 100vw;
@@ -95,6 +100,10 @@
           .panel {
             grid-template-columns: minmax(100%, 1fr) !important;
             grid-template-rows: 50% fit-content(50%) !important;
+
+            .panel-right {
+              overflow: visible;
+            }
           }
         }
       }
