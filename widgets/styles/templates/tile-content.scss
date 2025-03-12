@@ -12,7 +12,7 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    gap: 10px;
+    gap: 24px;
     width: 100%;
 
     .description {
@@ -42,7 +42,7 @@
           -webkit-box-pack: end;
           height: fit-content;
           max-height: 80px;
-          margin-bottom: 8px;
+          margin-bottom: 16px;
           text-overflow: ellipsis;
           overflow: hidden;
           overflow-y: scroll;
@@ -59,7 +59,7 @@
         flex-direction: column;
         margin-right: auto;
         text-decoration: none;
-        gap: 5px;
+        gap: 8px;
 
         .user-name {
           font-size: var(--text-tile-user-name-font-size);
