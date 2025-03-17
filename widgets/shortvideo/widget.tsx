@@ -4,6 +4,7 @@ declare const sdk: Sdk
 
 import { loadWidget } from "@stackla/widget-utils"
 import { initializeInlineSwiperListeners } from "./inline-shortvideo-swiper.loader"
+import { StoryExpandedTiles } from "@widgets/storyline/templates/base.template"
 
 loadWidget({
   extensions: {
@@ -20,6 +21,11 @@ loadWidget({
       small: "116.5px",
       medium: "158px",
       large: "229px"
+    }
+  },
+  templates: {
+    "expanded-tiles": {
+      template: StoryExpandedTiles
     }
   }
 })
