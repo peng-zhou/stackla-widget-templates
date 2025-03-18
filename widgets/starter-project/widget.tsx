@@ -2,8 +2,12 @@ import { loadWidget } from "@stackla/widget-utils"
 import { createToast, getMyMoodBorder } from "./starter-project.lib"
 import { ExpandedTiles } from "./expanded-tile.template"
 import ProductsTemplate from "./products.template"
+import { config } from "./config"
 
 loadWidget({
+  config: {
+    ...config
+  },
   features: {
     tileSizeSettings: {
       small: "173px",

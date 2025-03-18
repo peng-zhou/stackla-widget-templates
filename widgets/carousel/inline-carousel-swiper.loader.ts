@@ -23,22 +23,11 @@ export function initializeInlineSwiperListeners() {
 }
 
 function initializeSwiperForInlineTiles() {
-  const { enable_custom_tiles_per_page, tiles_per_page } = sdk.getStyleConfig()
   const widgetSelector = sdk.placement.querySelector<HTMLElement>(".carousel-inline.swiper-inline")
 
   if (!widgetSelector) {
     throw new Error("Failed to find widget UI element. Failed to initialise Swiper")
   }
-
-  // TODO: remove this section after introducing css variable for Nosto container
-  const tileWidth = 210
-  const screenSize = window.innerWidth
-  const perView = !enable_custom_tiles_per_page
-    ? Math.floor(screenSize / (tileWidth + 10))
-    : // FIXME: All numbers should be numbers across the board
-      parseInt(tiles_per_page ?? "40")
-
-  sdk.tiles.setVisibleTilesCount(perView * 2)
 
   initializeSwiper({
     id: "inline-carousel",
