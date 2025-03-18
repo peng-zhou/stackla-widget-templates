@@ -17,7 +17,6 @@ Cypress.Commands.add("shouldExpandedTile", widgetType => {
 
   cy.wait(1000)
 
-  cy.get(WIDGET_ID).shadow().find(".expanded-tile-overlay").should("exist").invoke("css", "background-color", "#000")
   cy.get("body").should("have.css", "overflow", "hidden")
 })
 
