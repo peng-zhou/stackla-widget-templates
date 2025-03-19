@@ -63,7 +63,8 @@ export function ProductCTA({ sdk, product }: { sdk: Sdk; product: TagExtended })
 }
 
 export function ProductDetails({ sdk, product }: { sdk: Sdk; product: TagExtended }) {
-  const selectedProductId = sdk.tiles.getSelectedProduct() ? sdk.tiles.getSelectedProduct().id : null
+  const selectedProduct = sdk.tiles.getSelectedProduct()
+  const selectedProductId = selectedProduct ? selectedProduct.id : null
   const { custom_url, description = "Buy Now", id } = product
 
   const descriptionContent = description ? <p class="stacklapopup-products-item-description">{description}</p> : <></>
