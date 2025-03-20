@@ -8,8 +8,7 @@ declare const sdk: ISdk
 loadWidget({
   features: {
     handleLoadMore: false,
-    tileSizeSettings: tileSettings,
-    limitTilesPerPage: false
+    tileSizeSettings: tileSettings
   },
   callbacks: {
     onLoad: [() => registerResizeObserver()],
