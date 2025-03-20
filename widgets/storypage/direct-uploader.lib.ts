@@ -18,7 +18,7 @@ export function getRowsPerPage(tileSize: number, gap: number) {
 }
 
 export function registerResizeObserver() {
-  const element = sdk.placement.getElement()
+  const element = sdk.getElement()
   const observer = new ResizeObserver(() => {
     calculateTilesToShow()
   })
@@ -27,7 +27,7 @@ export function registerResizeObserver() {
 }
 
 export function calculateTilesToShow() {
-  const screenWidth = sdk.placement.getElement().offsetWidth
+  const screenWidth = sdk.getElement().offsetWidth
 
   const tileSize = parseInt(getTileSize(tileSettings).replace("px", ""))
   const tilesByScreenWidth = Math.floor(screenWidth / (tileSize + marginAsInt))
@@ -39,8 +39,8 @@ export function calculateTilesToShow() {
     tilesPerPage = parseInt(tiles_per_page)
   }
 
-  sdk.tiles.setVisibleTilesCount(tilesPerPage)
-  void sdk.tiles.loadTilesUntilVisibleTilesCount()
+  sdk.setVisibleTilesCount(tilesPerPage)
+  void sdk.loadTilesUntilVisibleTilesCount()
 
   // Hide tiles after the calculated tiles per page
   const tiles = sdk.querySelectorAll(".ugc-tile")

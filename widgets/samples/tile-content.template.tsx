@@ -20,7 +20,7 @@ type UserInfoTemplateProps = {
 
 export function TileContentTemplate(sdk: Sdk, component: ITileContentComponent) {
   const tileId = component.getTileId()
-  const tile = sdk.tiles.getTile(tileId)
+  const tile = sdk.getTileById(tileId)
   const renderConfig = component.renderConfig
   const sourceId = component.sourceId
   const mode = component.mode

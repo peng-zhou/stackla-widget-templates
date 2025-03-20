@@ -114,7 +114,7 @@ export default function (_settings: Features["tileSizeSettings"], observers: Ret
     function incrementPage() {
       setPage(page + 1)
 
-      const hasMoreTiles = sdk.tiles.hasMoreTiles()
+      const hasMoreTiles = sdk.hasMoreTiles()
 
       if (
         tilesContainerElement.scrollTop + tilesContainerElement.clientHeight + 200 >=

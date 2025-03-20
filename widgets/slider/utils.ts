@@ -57,7 +57,7 @@ export function getTileElements() {
 }
 
 export function getWidgetDimension() {
-  const ugcComponentElement = sdk.placement.getElement()
+  const ugcComponentElement = sdk.getElement()
   return { containerWidth: ugcComponentElement.clientWidth, containerHeight: ugcComponentElement.clientHeight }
 }
 

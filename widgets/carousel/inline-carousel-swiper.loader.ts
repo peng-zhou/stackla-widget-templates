@@ -23,7 +23,7 @@ export function initializeInlineSwiperListeners() {
 }
 
 function initializeSwiperForInlineTiles() {
-  const widgetSelector = sdk.placement.querySelector<HTMLElement>(".carousel-inline.swiper-inline")
+  const widgetSelector = sdk.querySelector<HTMLElement>(".carousel-inline.swiper-inline")
 
   if (!widgetSelector) {
     throw new Error("Failed to find widget UI element. Failed to initialise Swiper")
@@ -83,7 +83,7 @@ function initializeSwiperForInlineTiles() {
 }
 
 export function enableLoadedTiles() {
-  sdk.placement
+  sdk
     .querySelectorAll<HTMLElement>(".ugc-tiles > .ugc-tile[style*='display: none']")
     ?.forEach((tileElement: HTMLElement) => (tileElement.style.display = ""))
 }
