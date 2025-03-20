@@ -13,6 +13,6 @@ sdk.querySelector("#search-input")?.addEventListener("input", async e => {
   const eventTarget = e.target
   if (eventTarget instanceof HTMLInputElement) {
     const searchValue = eventTarget.value
-    await sdk.tiles.searchTiles(searchValue, true)
+    await sdk.searchTiles(searchValue, true)
   }
 })

@@ -15,7 +15,7 @@ declare const sdk: Sdk
 
 export function initializeSwiperForInlineStoryTiles() {
   const { inline_tile_size } = sdk.getStyleConfig()
-  const widgetSelector = sdk.placement.querySelector<HTMLElement>(".story-inline.swiper-inline")
+  const widgetSelector = sdk.querySelector<HTMLElement>(".story-inline.swiper-inline")
 
   const prev = widgetSelector!.parentNode!.querySelector<HTMLElement>(".swiper-inline-story-button-prev")
   const next = widgetSelector!.parentNode!.querySelector<HTMLElement>(".swiper-inline-story-button-next")
@@ -124,7 +124,7 @@ export function initializeSwiperForInlineStoryTiles() {
 }
 
 function getRenderMode(hostElement?: HTMLElement) {
-  const widgetSelector = hostElement || sdk.placement.querySelector<HTMLElement>(".story-inline.swiper-inline")
+  const widgetSelector = hostElement || sdk.querySelector<HTMLElement>(".story-inline.swiper-inline")
   if (widgetSelector) {
     return getComputedStyle(widgetSelector).getPropertyValue("--render-mode")
   }
@@ -137,7 +137,7 @@ export function onTilesUpdated() {
 }
 
 export function enableLoadedTiles() {
-  sdk.placement
+  sdk
     .querySelectorAll<HTMLElement>(".ugc-tiles > .ugc-tile[style*='display: none']")
     ?.forEach((tileElement: HTMLElement) => (tileElement.style.display = ""))
 }

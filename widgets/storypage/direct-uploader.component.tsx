@@ -25,7 +25,7 @@ class DirectUploaderWidget extends HTMLElement {
   async connectedCallback() {
     this.appendChild(defaultTemplate)
 
-    const widgetId = sdk.placement.getWidgetId()
+    const widgetId = sdk.getWidgetId()
     const settings = sdk.getStyleConfig()
     const { plugin_instance_id } = settings
 

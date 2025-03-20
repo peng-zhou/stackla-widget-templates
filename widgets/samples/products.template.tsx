@@ -63,7 +63,7 @@ export function ProductCTA({ sdk, product }: { sdk: Sdk; product: TagExtended })
 }
 
 export function ProductDetails({ sdk, product }: { sdk: Sdk; product: TagExtended }) {
-  const selectedProduct = sdk.tiles.getSelectedProduct()
+  const selectedProduct = sdk.getSelectedProduct()
   const selectedProductId = selectedProduct ? selectedProduct.id : null
   const { custom_url, description = "Buy Now", id } = product
 
@@ -144,8 +144,8 @@ export function ProductImages({
 
 export default function ProductsTemplate(sdk: Sdk, component: IProductsComponent) {
   const tileId = component.getTileId()
-  const tile = sdk.tiles.getTile(tileId)
-  const selectedProductState = sdk.tiles.getSelectedProduct()
+  const tile = sdk.getTileById(tileId)
+  const selectedProductState = sdk.getSelectedProduct()
 
   if (!tile) {
     throw new Error("No tile found")
