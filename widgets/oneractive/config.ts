@@ -35,7 +35,7 @@ export const config: {
     tiles_per_page: "",
     enable_custom_tiles_per_page: true,
     // Whether the widget should load more tiles on scroll, button or static
-    load_more_type: "button",
+    load_more_type: "static",
     // The name of the widget
     name: "Blank Canvas",
     // The link color of the tile, uses var(--text-tile-link-color) in css-variables.ts
