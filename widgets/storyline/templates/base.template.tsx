@@ -3,7 +3,7 @@ import { StoryExpandedTile } from "./tile.template"
 import { createElement } from "@stackla/widget-utils"
 
 export function StoryExpandedTiles(sdk: ISdk) {
-  const tiles = sdk.tiles.tiles
+  const tiles = sdk.getTiles()
   const { show_nav } = sdk.getExpandedTileConfig()
   const navigationArrowsEnabled = show_nav
 
@@ -12,7 +12,7 @@ export function StoryExpandedTiles(sdk: ISdk) {
       <StoryControls />
       <div class="swiper swiper-expanded">
         <div class="swiper-wrapper ugc-tiles">
-          {Object.values(tiles).map(tile => (
+          {tiles.map(tile => (
             <div
               class="ugc-tile swiper-slide"
               data-id={tile.id}

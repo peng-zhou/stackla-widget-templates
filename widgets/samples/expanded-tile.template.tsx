@@ -3,7 +3,7 @@ import type { ISdk } from "@stackla/widget-utils"
 import { createElement } from "@stackla/widget-utils/jsx"
 
 export function ExpandedTiles(sdk: ISdk) {
-  const tiles = sdk.tiles.tiles
+  const tiles = sdk.getTiles()
   const { show_nav } = sdk.getExpandedTileConfig()
   const navigationArrowsEnabled = show_nav
 
@@ -15,7 +15,7 @@ export function ExpandedTiles(sdk: ISdk) {
       <BackArrowIcon />
       <div class="swiper swiper-expanded">
         <div class="swiper-wrapper ugc-tiles">
-          {Object.values(tiles).map(tile => (
+          {tiles.map(tile => (
             <div
               class="ugc-tile swiper-slide"
               data-id={tile.id}
