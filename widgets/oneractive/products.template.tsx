@@ -142,8 +142,6 @@ export function ProductImages({
 }
 
 export default function ProductsTemplate(sdk: Sdk, component?: IProductsComponent) {
-
-  console.log("ProductsTemplate", sdk, component)
   const tileId = component && component.getTileId()
   const tile = sdk.tiles.getTile(tileId)
   const selectedProductState = sdk.tiles.getSelectedProduct()

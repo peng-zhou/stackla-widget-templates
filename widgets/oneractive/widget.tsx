@@ -39,4 +39,18 @@ oneractiveHeader.innerHTML = oneractiveHeaderTemplate
 
 oneractiveHeaderContainer?.parentNode?.insertBefore(oneractiveHeader, oneractiveHeaderContainer)
 
+sdk.addEventListener("click", event => {
+  const dialogEl = sdk.querySelector("#overlay-expanded-tiles")
+  const dialog = sdk.querySelector(".expanded-tile-overlay")
+
+  console.log("dialog", dialog)
+  console.log("dialogEl", dialogEl)
+  console.log("click event", event)
+  console.log("click target", event.target)
+
+  if (dialog.classList.contains(".expanded-tile-overlay") && !dialog.contains(event.target as Node)) {
+    dialog.style.display = "none"
+  }
+})
+
 initializeInlineSwiperListeners()
