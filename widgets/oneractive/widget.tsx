@@ -6,7 +6,6 @@ declare const sdk: Sdk
 
 import { loadWidget } from "@stackla/widget-utils"
 import { initializeInlineSwiperListeners } from "./inline-carousel-swiper.loader"
-import { EVENT_EXPANDED_TILE_CLOSE } from "@stackla/widget-utils"
 
 loadWidget({
   config: {
@@ -43,7 +42,7 @@ oneractiveHeaderContainer?.parentNode?.insertBefore(oneractiveHeader, oneractive
 const dialog = sdk.querySelector("#overlay-expanded-tiles")
 dialog.addEventListener("click", event => {
   if (dialog === event.target) {
-    sdk.triggerEvent(EVENT_EXPANDED_TILE_CLOSE)
+    sdk.closeExpandedTiles()
   }
 })
 
