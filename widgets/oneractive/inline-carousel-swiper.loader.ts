@@ -24,7 +24,7 @@ export function initializeInlineSwiperListeners() {
 
 function initializeSwiperForInlineTiles() {
   const { enable_custom_tiles_per_page, tiles_per_page } = sdk.getStyleConfig()
-  const widgetSelector = sdk.placement.querySelector<HTMLElement>(".carousel-inline.swiper-inline")
+  const widgetSelector = sdk.querySelector<HTMLElement>(".carousel-inline.swiper-inline")
 
   if (!widgetSelector) {
     throw new Error("Failed to find widget UI element. Failed to initialise Swiper")
@@ -38,7 +38,7 @@ function initializeSwiperForInlineTiles() {
     : // FIXME: All numbers should be numbers across the board
       parseInt(tiles_per_page ?? "40")
 
-  sdk.tiles.setVisibleTilesCount(perView * 2)
+  sdk.setVisibleTilesCount(perView * 2)
 
   initializeSwiper({
     id: "inline-carousel",
@@ -94,8 +94,7 @@ function initializeSwiperForInlineTiles() {
 }
 
 export function enableLoadedTiles() {
-  sdk.placement
-    .querySelectorAll<HTMLElement>(".ugc-tiles > .ugc-tile[style*='display: none']")
+  sdk.querySelectorAll<HTMLElement>(".ugc-tiles > .ugc-tile[style*='display: none']")
     ?.forEach((tileElement: HTMLElement) => (tileElement.style.display = ""))
 }
 

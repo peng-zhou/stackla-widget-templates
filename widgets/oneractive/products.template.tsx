@@ -63,7 +63,8 @@ export function ProductCTA({ sdk, product }: { sdk: ISdk; product: TagExtended }
 }
 
 export function ProductDetails({ sdk, product }: { sdk: Sdk; product: TagExtended }) {
-  const selectedProductId = sdk.tiles.getSelectedProduct() ? sdk.tiles.getSelectedProduct().id : null
+  const selectedProduct = sdk.getSelectedProduct()
+  const selectedProductId = selectedProduct ? selectedProduct.id.toString() : ""
   const { custom_url, description = "Buy Now", id } = product
 
   const descriptionContent = description ? <p class="stacklapopup-products-item-description">{description}</p> : <></>
@@ -143,8 +144,13 @@ export function ProductImages({
 
 export default function ProductsTemplate(sdk: Sdk, component?: IProductsComponent) {
   const tileId = component && component.getTileId()
-  const tile = sdk.tiles.getTile(tileId)
-  const selectedProductState = sdk.tiles.getSelectedProduct()
+
+  if (!tileId) {
+    throw new Error("No tile id found")
+  }
+
+  const tile = sdk.getTileById(tileId)
+  const selectedProductState = sdk.getSelectedProduct()
 
   if (!tile) {
     throw new Error("No tile found")
