@@ -130,19 +130,33 @@
     }
 
     expanded-tiles:not(:empty) {
-        .expanded-tile-wrapper .panel {
-            grid-template-columns: 1fr;
-            grid-template-rows: auto auto;
-            max-height: fit-content;
-            border-radius: 0;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            min-height: auto;
+        .expanded-tile-wrapper {
+            .panel {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto;
+                max-height: fit-content;
+                border-radius: 0;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+                min-height: auto;
+    
+                .panel-left {
+                    max-width: 100%;
+    
+                    .image-wrapper .image-wrapper-inner {
+                        display: block;
+                    }
+                }
+            }
 
-            .panel-left {
-                max-width: 100%;
-
-                .image-wrapper .image-wrapper-inner {
-                    display: block;
+            @media only screen and (max-width: 992px) {
+                .ugc-tile {
+                    width: 100vw;
+                }
+                .panel,
+                .panel-left,
+                .panel-right {
+                    width: 100vw;
+                    box-sizing: border-box;
                 }
             }
         }
