@@ -10,7 +10,10 @@ loadWidget({
     swiper: true
   },
   features: {
-    handleLoadMore: false
+    handleLoadMore: false,
+    cssVariables: {
+      "--navigation-arrow-display": sdk.getStyleConfig().load_more_type === "button" ? "flex" : "none"
+    }
   }
 })
 

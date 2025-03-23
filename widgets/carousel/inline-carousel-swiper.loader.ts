@@ -38,8 +38,9 @@ function initializeSwiperForInlineTiles() {
     paramsOverrides: {
       loop: false,
       slidesPerView: "auto",
-      grabCursor: false,
+      grabCursor: true,
       allowTouchMove: false,
+      mousewheel: true,
       breakpointsBase: "container",
       breakpoints: {
         0: {

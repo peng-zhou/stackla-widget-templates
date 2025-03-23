@@ -53,7 +53,7 @@ const widgetOptions: SharedWidgetOptions["widgetOptions"] = {
     auto_refresh: "1",
     click_through_url: "[EXPAND]",
     enable_custom_tiles_per_page: true,
-    load_more_type: "button",
+    load_more_type: "scroll",
     margin: "10",
     name: "NextGen Widget Sample 3.0",
     polling_frequency: "30",

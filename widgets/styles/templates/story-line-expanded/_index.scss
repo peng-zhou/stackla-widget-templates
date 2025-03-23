@@ -376,8 +376,8 @@ expanded-tiles:not(:empty) {
                         margin-top: 8px;
                         background-color: var(--cta-button-background-color);
                         display: flex;
-                        width: 67px;
-                        height: 9px;
+                        width: 100%;
+                        border-radius: 4px;
                         padding: 7px 16px 8px 17px;
                         justify-content: center;
                         align-items: center;
