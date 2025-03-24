@@ -2,7 +2,7 @@
 @use "@styles/partials/media-queries";
 @use "dimens";
 
-.shortvideo-inline {
+#nosto-ugc-container {
   .ugc-tile {
     position: relative;
     width: var(--tile-width) !important;
@@ -36,8 +36,10 @@
     }
   }
 
-  & ~ .swiper-button-next,
-  & ~ .swiper-button-prev {
+  .swiper-button-next,
+  .swiper-button-prev {
+    display: var(--navigation-arrow-display) !important;
+
     --swiper-navigation-sides-offset: 0px;
 
     top: calc(var(--swiper-navigation-top-offset, 50%) - dimens.$nosto-container-margin + 10);
