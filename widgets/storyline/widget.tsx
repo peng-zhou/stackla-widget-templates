@@ -21,7 +21,7 @@ loadWidget({
     handleLoadMore: false,
     tileSizeSettings,
     cssVariables: {
-      "--navigation-arrow-display": sdk.getStyleConfig().load_more_type === "button" ? "flex" : "none"
+      "--navigation-arrow-display": sdk.isPaginationEnabled() ? "flex" : "none"
     }
   },
   callbacks: {
