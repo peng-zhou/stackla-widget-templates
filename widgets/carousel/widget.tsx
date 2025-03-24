@@ -12,7 +12,7 @@ loadWidget({
   features: {
     handleLoadMore: false,
     cssVariables: {
-      "--navigation-arrow-display": sdk.isPaginationEnabled() ? "flex" : "none"
+      "--navigation-arrow-display": sdk.isPaginationEnabled() && !sdk.isScrollWidget() ? "flex" : "none"
     }
   }
 })
