@@ -23,11 +23,23 @@ export function registerResizeObserver() {
     calculateTilesToShow()
   })
 
+  if (!element) {
+    console.warn("Element not found in registerResizeObserver")
+    return
+  }
+
   observer.observe(element)
 }
 
 export function calculateTilesToShow() {
-  const screenWidth = sdk.getElement().offsetWidth
+  const element = sdk.getElement()
+
+  if (!element) {
+    console.warn("Element not found in calculateTilesToShow")
+    return
+  }
+
+  const screenWidth = element.offsetWidth
 
   const tileSize = parseInt(getTileSize(tileSettings).replace("px", ""))
   const tilesByScreenWidth = Math.floor(screenWidth / (tileSize + marginAsInt))

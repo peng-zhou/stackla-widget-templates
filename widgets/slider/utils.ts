@@ -58,6 +58,12 @@ export function getTileElements() {
 
 export function getWidgetDimension() {
   const ugcComponentElement = sdk.getElement()
+
+  if (!ugcComponentElement) {
+    console.warn("Element not found in getWidgetDimension")
+    return { containerWidth: 0, containerHeight: 0 }
+  }
+
   return { containerWidth: ugcComponentElement.clientWidth, containerHeight: ugcComponentElement.clientHeight }
 }
 
