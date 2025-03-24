@@ -39,6 +39,7 @@
   .swiper-button-next,
   .swiper-button-prev {
     display: var(--navigation-arrow-display) !important;
+
     --swiper-navigation-sides-offset: 0px;
 
     top: calc(var(--swiper-navigation-top-offset, 50%) - dimens.$nosto-container-margin + 10);

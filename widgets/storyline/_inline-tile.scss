@@ -6,8 +6,10 @@
   .swiper-button-next,
   .swiper-button-prev {
     display: var(--navigation-arrow-display) !important;
+
     --swiper-navigation-sides-offset: 0px;
   }
+
   .ugc-tile {
     position: relative;
     width: 100%;
