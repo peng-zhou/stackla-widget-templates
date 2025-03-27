@@ -5,6 +5,7 @@
 @forward "@styles/partials/tile-overlay";
 @forward "@styles/templates/expanded-tiles";
 @forward "@styles/templates/swiper-overrides";
+@use "@styles/partials/inline";
 @use "@styles/templates/tags";
 @use "@styles/templates/load-more";
 @use "@styles/templates/load-more" as lm;

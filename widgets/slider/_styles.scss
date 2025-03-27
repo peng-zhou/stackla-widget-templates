@@ -13,6 +13,7 @@
 @use "@styles/partials/grid";
 @use "@styles/templates/tags";
 @use "@styles/partials/expanded-swiper" as es;
+@use "@styles/partials/inline";
 
 .slider-inline,
 expanded-tiles:not(:empty) {
