@@ -280,6 +280,7 @@ expressApp.get("/preview", async (req : Request, res: Response) => {
   if (dev) {
     if (!req.query.wid) {
       res.status(400).send("wid query parameter is required. Please search through widget list to find the id you wish to use")
+      return;
     }
   }
 
