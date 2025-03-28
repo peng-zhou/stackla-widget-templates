@@ -29,7 +29,7 @@ export function getDomain(isDev: boolean) {
 }
 
 export interface IDraftRequest {
-  customTemplates: {
+  custom_templates: {
     layout: {
       template: string
     }
@@ -37,8 +37,8 @@ export interface IDraftRequest {
       template: string
     }
   }
-  customCSS: string
-  customJS: string
+  custom_css: string
+  custom_js: string
   widgetOptions: typeof widgetOptions
 }
 
@@ -128,7 +128,7 @@ export async function getContent(widgetType: string, retry = 0): Promise<Preview
 async function getHTML(content: PreviewContent, request: Request) {
   return await getAndRenderTiles(
     {
-      customTemplates: {
+      custom_templates: {
         layout: {
           template: content.layoutCode || ""
         },
@@ -136,8 +136,8 @@ async function getHTML(content: PreviewContent, request: Request) {
           template: content.tileCode || ""
         }
       },
-      customCSS: content.cssCode || "",
-      customJS: content.jsCode || "",
+      custom_css: content.cssCode || "",
+      custom_js: content.jsCode || "",
       widgetOptions: widgetOptions
     },
     request
@@ -275,12 +275,20 @@ expressApp.get("/development/stackla/cs/image/disable", async (req, res) => {
 expressApp.get("/preview", async (req : Request, res: Response) => {
   const widgetRequest = req.query
   const widgetType = req.query.widgetType as string
+  const dev = req.query.dev
+
+  if (dev) {
+    if (!req.query.wid) {
+      res.status(400).send("wid query parameter is required. Please search through widget list to find the id you wish to use")
+    }
+  }
 
   res.render("preview", {
     widgetRequest: JSON.stringify(widgetRequest),
     widgetType,
     widgetOptions: JSON.stringify(widgetOptions),
     domain: getDomain(req.query.dev === "true"),
+    wid: req.query.wid ?? "668ca52ada8fb",
     ...(await getContent(widgetType))
   })
 })
