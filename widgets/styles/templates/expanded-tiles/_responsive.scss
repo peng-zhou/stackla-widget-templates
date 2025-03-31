@@ -99,7 +99,7 @@
 
           .panel {
             grid-template-columns: minmax(100%, 1fr) !important;
-            grid-template-rows: 50% fit-content(50%) !important;
+            grid-template-rows: auto !important;
 
             .panel-right {
               overflow: visible;

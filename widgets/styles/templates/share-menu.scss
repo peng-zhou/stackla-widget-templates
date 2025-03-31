@@ -126,20 +126,7 @@
 
   @include media-queries.breakpoint(tablet) {
     .share-socials-popup-wrapper {
-      right: 30%;
       top: 30%;
-    }
-  }
-
-  @media only screen and (width <= 700px) {
-    .share-socials-popup-wrapper {
-      right: 20%;
-    }
-  }
-
-  @include media-queries.breakpoint(mobile) {
-    .share-socials-popup-wrapper {
-      right: 15%;
     }
   }
 }

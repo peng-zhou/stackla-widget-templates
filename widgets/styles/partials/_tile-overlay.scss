@@ -27,5 +27,6 @@
 @include media-queries.breakpoint(tablet) {
   .expanded-tile-overlay {
     align-items: flex-start;
+    overflow: hidden;
   }
 }
