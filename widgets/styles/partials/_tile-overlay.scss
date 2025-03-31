@@ -30,3 +30,9 @@
     overflow: hidden;
   }
 }
+
+@include media-queries.breakpoint(mobile) {
+  .expanded-tile-overlay {
+    overflow: hidden;
+  }
+}
