@@ -97,7 +97,12 @@
         .swiper-wrapper {
           max-width: 100vw;
 
+          .swiper-slide {
+            height: 100vh;
+          }
+
           .panel {
+            height: 100vh;
             grid-template-columns: minmax(100%, 1fr) !important;
             grid-template-rows: auto !important;
 
