@@ -85,8 +85,11 @@
     }
 
     .swiper-expanded-product-recs {
-      &.swiper-navigation-disabled {
+      &.arrows-hidden {
         width: 100% !important;
+        .swiper-nav-icon {
+          display: none;
+        }
       }
 
       width: calc(90% - 20px);
@@ -225,6 +228,7 @@
         line-height: 160%;
         text-overflow: ellipsis;
         overflow-y: scroll;
+        scrollbar-width: none;
         display: -webkit-box;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;

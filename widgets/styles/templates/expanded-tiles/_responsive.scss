@@ -21,6 +21,7 @@
 
       .swiper {
         overflow-y: scroll;
+        scrollbar-width: none;
 
         .swiper-wrapper {
           max-height: calc(100vh - 50px);
@@ -93,6 +94,7 @@
       .swiper {
         max-width: unset;
         overflow-y: scroll;
+        scrollbar-width: none;
 
         .swiper-wrapper {
           max-width: 100vw;
