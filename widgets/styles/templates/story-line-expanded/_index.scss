@@ -444,6 +444,7 @@ expanded-tiles:not(:empty) {
             background-size: cover;
             position: absolute;
             inset: 0;
+
             &.blurred {
               filter: blur(20px);
             }
