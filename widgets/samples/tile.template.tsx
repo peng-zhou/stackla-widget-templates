@@ -115,13 +115,14 @@ export function ImageTemplate({
 }) {
   return image ? (
     <>
-      <div class="image-filler" style={{ "background-image": `url('${image}')` }}></div>
+      <div class="image-filler blurred" style={{ "background-image": `url('${image}')` }}></div>
       <div class="image">
         {shopspotEnabled ? (
           <ShopSpotTemplate shopspotEnabled={shopspotEnabled} parent={parent} tileId={tile.id} />
         ) : (
           <></>
         )}
+        <img class="image-element" src={image} loading="lazy" alt={tile.description || "Image"} />
       </div>
     </>
   ) : (
