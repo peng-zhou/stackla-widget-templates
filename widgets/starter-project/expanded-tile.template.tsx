@@ -2,7 +2,9 @@ import { ISdk } from "@stackla/widget-utils"
 import { createElement } from "@stackla/widget-utils/jsx"
 import { ExpandedTile } from "./tile.template"
 
-export function ExpandedTiles(sdk: ISdk) {
+declare const sdk: ISdk
+
+export function ExpandedTiles() {
   const tiles = sdk.getTiles()
   const { show_nav } = sdk.getExpandedTileConfig()
   const navigationArrowsEnabled = show_nav
@@ -21,7 +23,7 @@ export function ExpandedTiles(sdk: ISdk) {
               data-id={tile.id}
               data-yt-id={tile.youtube_id || ""}
               data-tiktok-id={tile.tiktok_id || ""}>
-              <ExpandedTile sdk={sdk} tile={tile} />
+              <ExpandedTile tile={tile} />
             </div>
           ))}
         </div>
