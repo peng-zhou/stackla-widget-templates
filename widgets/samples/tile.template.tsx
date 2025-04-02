@@ -122,7 +122,6 @@ export function ImageTemplate({
         ) : (
           <></>
         )}
-        <img class="image-element" src={image} loading="lazy" alt={tile.description || "Image"} />
       </div>
     </>
   ) : (

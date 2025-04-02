@@ -115,14 +115,13 @@ export function ImageTemplate({
 }) {
   return image ? (
     <>
-      <div class="image-filler" style={{ "background-image": `url('${image}')` }}></div>
+      <div class="image-filler" style={{ "background-image": `url('https://placedog.net/500')` }}></div>
       <div class="image">
         {shopspotEnabled ? (
           <ShopSpotTemplate shopspotEnabled={shopspotEnabled} parent={parent} tileId={tile.id} />
         ) : (
           <></>
         )}
-        <img class="image-element" src={"https://placedog.net/500"} loading="lazy" alt={tile.description || "Image"} />
       </div>
     </>
   ) : (
