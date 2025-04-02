@@ -85,7 +85,10 @@
     }
 
     .swiper-expanded-product-recs {
-      width: 100%;
+      &.swiper-navigation-disabled {
+        width: 100% !important;
+      }
+      width: calc(90% - 20px);
 
       .swiper-wrapper {
         width: calc(100% - 20px);
@@ -218,14 +221,12 @@
         color: var(--product-description-font-color);
         font-size: 12px;
         font-weight: 300;
-        max-height: 41px;
         line-height: 160%;
         text-overflow: ellipsis;
+        overflow-y: scroll;
         display: -webkit-box;
-        line-clamp: 2;
-        -webkit-line-clamp: 2;
+        -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
-        overflow: hidden;
         margin: 10px 0 16px;
       }
     }
