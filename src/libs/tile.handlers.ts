@@ -2,7 +2,7 @@ import type { Request } from "express"
 import tiles from "../../tests/fixtures/tiles"
 import type { IDraftRequest } from "./express"
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { renderHTMLWithTemplates, renderTilesWithTemplate } from "@stackla/handlebars"
+import { renderHTMLWithTemplates, renderTilesWithTemplate } from "@stackla/widget-utils"
 
 export function getTilesToRender(req: Request) {
   const page = (req.query.page ?? 0) as number
