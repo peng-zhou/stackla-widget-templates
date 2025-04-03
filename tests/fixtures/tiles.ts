@@ -46307,7 +46307,7 @@ export default [
     process_statuses: [],
     recovered_by_cs_at: 1681790792,
     video: {
-      standard_resolution: { url: "https://content-cdn.stackla.dev/1451/6412c54f95b36f768e61ffb4/video" }
+      standard_resolution: { url: "https://media-library.stackla.com/25/fixtures/2023-06/648db5366caef753b2f133fe_3779f520-0d23-11ee-aa98-298f6ed9c4db.mp4#t=0.1" }
     },
     video_expire_at: 1679041868,
     claim_status: "approved",
