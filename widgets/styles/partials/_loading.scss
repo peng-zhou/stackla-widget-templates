@@ -1,11 +1,5 @@
 @use "../partials/inline-dimens" as dimens;
 
-#load-more-loader {
-  &.hidden {
-    display: none;
-  }
-}
-
 %loading {
   &{
     border-radius: 50% !important;
