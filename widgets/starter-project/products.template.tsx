@@ -124,7 +124,8 @@ export function ProductImages({
     <>
       {products.length > 3 ? <div class="recommendations-text">see recommendations</div> : <></>}
       <div class={`stacklapopup-product-images-wrapper ${products.length <= 3 ? "arrows-hidden" : ""}`}>
-        <div className={`swiper swiper-expanded-product-recs stacklapopup-products ${products.length <= 3 ? "arrows-hidden" : ""}`}>
+        <div
+          className={`swiper swiper-expanded-product-recs stacklapopup-products ${products.length <= 3 ? "arrows-hidden" : ""}`}>
           <div class="swiper-wrapper">
             {selectedProduct && (
               <ProductWrapper products={products} selectedProductId={selectedProduct.id}></ProductWrapper>
