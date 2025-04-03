@@ -19,7 +19,10 @@ loadWidget({
   },
   features: {
     handleLoadMore: false,
-    tileSizeSettings
+    tileSizeSettings,
+    cssVariables: {
+      "--navigation-arrow-display": sdk.isPaginationEnabled() && !sdk.isScrollWidget() ? "flex" : "none"
+    }
   },
   callbacks: {
     onLoad: [initializeSwiperForInlineStoryTiles],

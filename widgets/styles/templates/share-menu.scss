@@ -14,9 +14,12 @@
     position: absolute;
     place-items: center;
     z-index: 20;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+
+    &::backdrop {
+      background: rgb(0 0 0 / 80%); 
+      backdrop-filter: blur(5px);
+    }
+
 
     .panel-overlay {
       display: none;
@@ -30,7 +33,7 @@
         position: absolute;
         width: 100vw;
         z-index: 6;
-        top: 50%;
+        top: 0;
         left: 50%;
         transform: translate(-50%, -50%);
       }
@@ -126,20 +129,7 @@
 
   @include media-queries.breakpoint(tablet) {
     .share-socials-popup-wrapper {
-      right: 30%;
       top: 30%;
-    }
-  }
-
-  @media only screen and (width <= 700px) {
-    .share-socials-popup-wrapper {
-      right: 20%;
-    }
-  }
-
-  @include media-queries.breakpoint(mobile) {
-    .share-socials-popup-wrapper {
-      right: 15%;
     }
   }
 }

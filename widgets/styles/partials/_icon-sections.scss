@@ -23,6 +23,7 @@
   }
 
   .top-section {
+    z-index: 2;
     top: $icon-placement-top;
 
     .content-icon {
@@ -38,6 +39,7 @@
   }
 
   .bottom-section {
+    z-index: 2;
     bottom: $icon-placement-bottom;
 
     .network-icon {

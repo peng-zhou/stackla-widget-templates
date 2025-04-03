@@ -38,7 +38,8 @@ function initializeSwiperForInlineTiles() {
     nextButton: "swiper-inline-shortvideo-button-next",
     paramsOverrides: {
       slidesPerView: "auto",
-      grabCursor: false,
+      grabCursor: true,
+      mousewheel: true,
       allowTouchMove: false,
       breakpointsBase: "container",
       breakpoints: {

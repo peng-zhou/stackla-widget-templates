@@ -11,7 +11,7 @@
 
 <body style="margin: 0;">
   <div id="container" style="width: 80%; margin: 0 auto;">
-    <div id="ugc-widget" data-wid='668ca52ada8fb'></div>
+    <div id="ugc-widget" data-wid="{{{wid}}}"></div>
   </div>
   <script> 
     const cssTemplate = `{{{cssCode}}}`;
@@ -24,12 +24,12 @@
     const widgetParams = {
       "draft": {
         "enabled": 1,
-        "guid": "668ca52ada8fb",
+        "guid": "{{{wid}}}",
         "filter_id": 10695,
         "enabled": 1,
-        "customCSS": cssTemplate,
-        "customJS": jsTemplate,
-        "customTemplates": {
+        "custom_css": cssTemplate,
+        "custom_js": jsTemplate,
+        "custom_templates": {
           "layout": {
             "template": layoutTemplate,
           },
@@ -39,7 +39,7 @@
         },
         "widgetOptions": widgetOptions,
       },
-      "wid": "668ca52ada8fb",
+      "wid": "{{{wid}}}",
       "limit": 25,
       "page": 1
     };

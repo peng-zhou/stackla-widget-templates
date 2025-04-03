@@ -6,6 +6,7 @@
 @forward "@styles/partials/tile-overlay";
 @forward "@styles/templates/expanded-tiles";
 @forward "@styles/templates/swiper-overrides";
+@use "@styles/partials/inline";
 @use "@styles/templates/tile-content" as tc;
 @use "@styles/templates/shopspot-icon" as sicon;
 @use "@styles/templates/time-phrase" as tphrase;

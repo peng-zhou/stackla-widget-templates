@@ -21,6 +21,7 @@
 
       .swiper {
         overflow-y: scroll;
+        scrollbar-width: none;
 
         .swiper-wrapper {
           max-height: calc(100vh - 50px);
@@ -93,13 +94,19 @@
       .swiper {
         max-width: unset;
         overflow-y: scroll;
+        scrollbar-width: none;
 
         .swiper-wrapper {
           max-width: 100vw;
 
+          .swiper-slide {
+            height: 100vh;
+          }
+
           .panel {
+            height: 100vh;
             grid-template-columns: minmax(100%, 1fr) !important;
-            grid-template-rows: 50% fit-content(50%) !important;
+            grid-template-rows: auto !important;
 
             .panel-right {
               overflow: visible;

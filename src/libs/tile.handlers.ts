@@ -1,8 +1,7 @@
 import type { Request } from "express"
 import tiles from "../../tests/fixtures/tiles"
 import type { IDraftRequest } from "./express"
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { renderHTMLWithTemplates, renderTilesWithTemplate } from "@stackla/handlebars"
+import { renderHTMLWithTemplates, renderTilesWithTemplate } from "@stackla/widget-utils/handlebars"
 
 export function getTilesToRender(req: Request) {
   const page = (req.query.page ?? 0) as number
@@ -28,16 +27,16 @@ export function getTilesToRender(req: Request) {
 }
 
 export async function getAndRenderTiles(widgetContainer: IDraftRequest, request) {
-  const tileTemplate = widgetContainer.customTemplates.tile.template
+  const tileTemplate = widgetContainer.custom_templates.tile.template
   return renderTilesWithTemplate(tileTemplate, getTilesToRender(request), widgetContainer.widgetOptions)
 }
 
 export async function renderTemplates(widgetContainer: IDraftRequest, request) {
-  const tileTemplate = widgetContainer.customTemplates.tile.template
-  const layoutTemplate = widgetContainer.customTemplates.layout.template
+  const tileTemplate = widgetContainer.custom_templates.tile.template
+  const layoutTemplate = widgetContainer.custom_templates.layout.template
   const widgetSettings = {
-    customCSS: widgetContainer.customCSS,
-    customJS: widgetContainer.customJS,
+    customCSS: widgetContainer.custom_css,
+    customJS: widgetContainer.custom_js,
     widgetOptions: JSON.parse(widgetContainer.widgetOptions)
   }
   return renderHTMLWithTemplates(tileTemplate, layoutTemplate, getTilesToRender(request), widgetSettings.widgetOptions)

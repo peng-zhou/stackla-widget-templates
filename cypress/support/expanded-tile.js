@@ -13,7 +13,7 @@ Cypress.Commands.add("shouldExpandedTile", widgetType => {
   cy.getExpandedTile().should("exist")
 
   // Set visibility to hidden for all images
-  cy.getExpandedTile().find(".image-element").should("exist").invoke("css", "visibility", "hidden")
+  cy.getExpandedTile().find(".image-filler").should("exist").invoke("css", "visibility", "hidden")
 
   cy.wait(1000)
 

@@ -64,21 +64,6 @@
   }
 }
 
-#load-more-loader {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100px;
-  margin-top: 25px;
-  opacity: 1;
-  transition: opacity 0.5s ease;
-
-  .loading {
-    height: dimens.$loading-height !important;
-    width: dimens.$loading-width !important;
-  }
-}
-
 load-more {
   #buttons {
     margin-top: 30px;

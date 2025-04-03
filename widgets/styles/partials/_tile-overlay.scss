@@ -27,5 +27,12 @@
 @include media-queries.breakpoint(tablet) {
   .expanded-tile-overlay {
     align-items: flex-start;
+    overflow: hidden;
+  }
+}
+
+@include media-queries.breakpoint(mobile) {
+  .expanded-tile-overlay {
+    overflow: hidden;
   }
 }

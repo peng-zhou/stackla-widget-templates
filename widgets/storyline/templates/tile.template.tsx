@@ -1,4 +1,4 @@
-import { Tile } from "@stackla/widget-utils/types"
+import { ISdk, Tile } from "@stackla/widget-utils/types"
 import { createElement, createFragment } from "@stackla/widget-utils"
 import {
   VideoContainer,
@@ -7,7 +7,9 @@ import {
   ShopspotProps
 } from "@stackla/widget-utils/components"
 
-export function StoryExpandedTile({ sdk, tile }: ExpandedTileProps) {
+declare const sdk: ISdk
+
+export function StoryExpandedTile({ tile }: ExpandedTileProps) {
   const { show_shopspots, show_products, show_sharing, show_timestamp } = sdk.getExpandedTileConfig()
 
   const shopspotEnabled = sdk.isComponentLoaded("shopspots") && show_shopspots && !!tile.hotspots?.length
@@ -80,9 +82,9 @@ export function IconSection({ tile }: { tile: Tile }) {
   const topSectionIconContent = []
   const bottomSectionIconContent = []
 
-  if (tile.attrs.includes("instagram.reel")) {
+  if (tile.attrs?.includes("instagram.reel")) {
     topSectionIconContent.push(<div class="content-icon icon-reel"></div>)
-  } else if (tile.attrs.includes("youtube.short")) {
+  } else if (tile.attrs?.includes("youtube.short")) {
     topSectionIconContent.push(<div class="content-icon icon-youtube-short"></div>)
   }
 
@@ -132,7 +134,7 @@ export function ImageTemplate({
 }) {
   return image ? (
     <>
-      <div class="image-filler" style={{ "background-image": `url('${image}')` }}></div>
+      <div class="image-filler blurred" style={{ "background-image": `url('${image}')` }}></div>
       <div class="image">
         {shopspotEnabled ? (
           <ShopSpotTemplate shopspotEnabled={shopspotEnabled} parent={parent} tileId={tile.id} />

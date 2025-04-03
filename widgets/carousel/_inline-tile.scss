@@ -2,7 +2,7 @@
 @use "@styles/partials/media-queries";
 @use "dimens";
 
-.carousel-inline {
+#nosto-ugc-container {
   .ugc-tile {
     position: relative;
     width: 100%;
@@ -43,10 +43,11 @@
     background-size: contain;
   }
 
-  & ~ .swiper-button-next,
-  & ~ .swiper-button-prev {
+  .swiper-button-next,
+  .swiper-button-prev {
     --swiper-navigation-sides-offset: 0px;
 
+    display: var(--navigation-arrow-display) !important;
     top: calc(var(--swiper-navigation-top-offset, 50%) - dimens.$nosto-container-margin + 10) !important;
   }
 }
