@@ -84,15 +84,17 @@
       display: none;
     }
 
-    .swiper-expanded-product-recs {
-      &.arrows-hidden {
+    &.arrows-hidden {
+      .swiper-expanded-product-recs {
         width: 100% !important;
 
         .swiper-nav-icon {
-          display: none;
+          display: none !important;
         }
       }
+    }
 
+    .swiper-expanded-product-recs {
       width: calc(90% - 20px);
 
       .swiper-wrapper {
