@@ -1,4 +1,4 @@
-import { Tile } from "@stackla/widget-utils/types"
+import { ISdk, Tile } from "@stackla/widget-utils/types"
 import { createElement, createFragment } from "@stackla/widget-utils"
 import {
   VideoContainer,
@@ -7,7 +7,9 @@ import {
   ShopspotProps
 } from "@stackla/widget-utils/components"
 
-export function StoryExpandedTile({ sdk, tile }: ExpandedTileProps) {
+declare const sdk: ISdk
+
+export function StoryExpandedTile({ tile }: ExpandedTileProps) {
   const { show_shopspots, show_products, show_sharing, show_timestamp } = sdk.getExpandedTileConfig()
 
   const shopspotEnabled = sdk.isComponentLoaded("shopspots") && show_shopspots && !!tile.hotspots?.length

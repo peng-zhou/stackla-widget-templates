@@ -1,8 +1,8 @@
 import type { Request } from "express"
 import tiles from "../../tests/fixtures/tiles"
 import type { IDraftRequest } from "./express"
+<<<<<<< HEAD
 import { renderHTMLWithTemplates, renderTilesWithTemplate } from "@stackla/widget-utils/handlebars"
-
 export function getTilesToRender(req: Request) {
   const page = (req.query.page ?? 0) as number
   const limit = (req.query.limit ?? 25) as number
