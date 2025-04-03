@@ -85,12 +85,12 @@
     }
 
     &.arrows-hidden {
+      .swiper-nav-icon {
+        display: none !important;
+      }
+
       .swiper-expanded-product-recs {
         width: 100% !important;
-
-        .swiper-nav-icon {
-          display: none !important;
-        }
       }
     }
 
