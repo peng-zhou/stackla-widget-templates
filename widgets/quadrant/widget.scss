@@ -144,20 +144,6 @@
   }
 }
 
-#load-more-loader {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100px;
-  margin-top: 25px;
-
-  &.hidden {
-    display: none;
-    opacity: 0 !important;
-  }
-}
-
 .hidden {
   display: none;
 }

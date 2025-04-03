@@ -78,7 +78,6 @@ export async function preloadTileImagesAndRemoveBrokenTiles(tiles: NodeListOf<HT
   if (loadMore) {
     sdk.querySelector("#load-more").style.opacity = "0"
   }
-  sdk.querySelector("#load-more-loader").classList.remove("hidden")
 
   const promises = Array.from(tiles).map(async tile => {
     const tileElement = tile.querySelector<HTMLElement>(".tile")
@@ -114,7 +113,6 @@ export async function preloadTileImagesAndRemoveBrokenTiles(tiles: NodeListOf<HT
   if (loadMore) {
     sdk.querySelector("#load-more").style.opacity = "1"
   }
-  sdk.querySelector("#load-more-loader").classList.add("hidden")
 
   return loadedTiles.filter(tile => tile !== null) as HTMLElement[]
 }
