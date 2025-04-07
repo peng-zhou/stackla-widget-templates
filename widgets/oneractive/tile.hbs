@@ -7,9 +7,9 @@
     {{/ifequals}}
     <div class="icon-section hidden">
       <div class="top-section">
-        {{#ifequals media "image"}}
+        {{#if carousel_children.length}}
             <div class="content-icon icon-carousel-grouping"></div>
-        {{/ifequals}}
+        {{/if}}
         {{#ifequals media "video"}}
             <div class="content-icon icon-video"></div>
         {{/ifequals}}
