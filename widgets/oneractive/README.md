@@ -23,6 +23,7 @@ http://localhost:4003/preview?widgetType=carousel
 
 # File Structure Overview
 
+```
 /custom-widget
 ├── _dimens.scss
 ├── _inline-tile.scss
@@ -38,6 +39,7 @@ http://localhost:4003/preview?widgetType=carousel
 ├── config.ts
 ├── layout.hbs
 └── tile.hbs
+```
 
 1) Load the Widget (widget.tsx)
 
